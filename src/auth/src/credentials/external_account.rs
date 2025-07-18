@@ -1230,12 +1230,13 @@ mod tests {
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     };
     use crate::credentials::tests::{
-        get_mock_auth_retry_policy, get_mock_backoff_policy, get_mock_retry_throttler,
+        find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
+        get_mock_retry_throttler,
     };
     use crate::errors::{CredentialsError, SubjectTokenProviderError};
     use gax::error::Error as GaxError;
     use httptest::{
-        Expectation, Server, cycle,
+        cycle, Expectation, Server,
         matchers::{all_of, contains, request, url_decoded},
         responders::{json_encoded, status_code},
     };
@@ -1587,12 +1588,7 @@ mod tests {
 
         let creds = Builder::new(contents).build().unwrap();
         let err = creds.headers(Extensions::new()).await.unwrap_err();
-        let original_err = err
-            .source()
-            .and_then(|e| e.downcast_ref::<GaxError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .unwrap();
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(
             original_err
                 .to_string()
@@ -1649,12 +1645,7 @@ mod tests {
 
         let creds = Builder::new(contents).build().unwrap();
         let err = creds.headers(Extensions::new()).await.unwrap_err();
-        let original_err = err
-            .source()
-            .and_then(|e| e.downcast_ref::<GaxError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .unwrap();
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(original_err.to_string().contains("failed to fetch token"));
         assert!(!original_err.is_transient());
     }
