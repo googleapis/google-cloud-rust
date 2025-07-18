@@ -23,6 +23,7 @@ mod tests {
     };
     use google_cloud_auth::errors::SubjectTokenProviderError;
 
+    use gax::error::Error as GaxError;
     use google_cloud_auth::credentials::EntityTag;
     use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
     use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
@@ -384,11 +385,14 @@ mod tests {
         let error = creds.headers(Extensions::new()).await.unwrap_err();
         let original_error = error
             .source()
-            .expect("should have a source")
-            .downcast_ref::<CredentialsError>()
+            .and_then(|e| e.downcast_ref::<GaxError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
             .expect("source should be a CredentialsError");
         assert!(original_error.to_string().contains("invalid_token"));
-        assert!(!error.is_transient());
+        assert!(!original_error.is_transient());
 
         Ok(())
     }
@@ -667,8 +671,11 @@ mod tests {
         assert!(!error.is_transient(), "Error should not be transient");
         let original_error = error
             .source()
-            .expect("should have a source")
-            .downcast_ref::<TestProviderError>()
+            .and_then(|e| e.downcast_ref::<GaxError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<TestProviderError>())
             .expect("source should be a TestProviderError");
         assert!(original_error.to_string().contains("TestProviderError"));
         Ok(())
