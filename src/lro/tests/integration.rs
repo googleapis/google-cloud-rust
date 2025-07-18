@@ -42,8 +42,7 @@ mod tests {
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
-        })
-        .await?;
+        })?;
 
         async fn task(client: client::Client) -> Result<()> {
             let response = client
@@ -74,8 +73,7 @@ mod tests {
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
-        })
-        .await?;
+        })?;
 
         async fn task(client: client::Client) -> gax::Result<()> {
             let mut poller = client.create_resource("test-p", "r-001").poller();
@@ -113,8 +111,7 @@ mod tests {
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
-        })
-        .await?;
+        })?;
 
         let client = new_client(endpoint).await?;
         let response = client
@@ -139,8 +136,7 @@ mod tests {
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
-        })
-        .await?;
+        })?;
 
         let client = new_client(endpoint).await?;
         let result = client
@@ -164,8 +160,7 @@ mod tests {
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
-        })
-        .await?;
+        })?;
 
         let client = new_client(endpoint).await?;
         let response = client
@@ -193,8 +188,7 @@ mod tests {
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
-        })
-        .await?;
+        })?;
 
         let client = new_client(endpoint).await?;
         let result = client
@@ -215,8 +209,7 @@ mod tests {
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
-        })
-        .await?;
+        })?;
 
         let client = new_client(endpoint).await?;
         let mut poller = client.create_resource("test-p", "r-001").poller();
@@ -248,8 +241,7 @@ mod tests {
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
-        })
-        .await?;
+        })?;
 
         let client = new_client(endpoint).await?;
         let mut poller = client.create_resource("test-p", "r-001").poller();
@@ -281,8 +273,7 @@ mod tests {
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
-        })
-        .await?;
+        })?;
 
         let client = new_client(endpoint).await?;
         let mut poller = client.create_resource("test-p", "r-001").poller();
@@ -336,8 +327,7 @@ mod tests {
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
-        })
-        .await?;
+        })?;
 
         let client = new_client(endpoint).await?;
         let mut poller = client.create_resource("test-p", "r-001").poller();
@@ -380,8 +370,7 @@ mod tests {
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
-        })
-        .await?;
+        })?;
 
         let client = new_client(endpoint).await?;
         let op = client.create_resource("test-p", "r-001").send().await?;
@@ -425,8 +414,7 @@ mod tests {
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
-        })
-        .await?;
+        })?;
 
         let client = new_client(endpoint).await?;
         let op = client.create_resource("test-p", "r-001").send().await?;
