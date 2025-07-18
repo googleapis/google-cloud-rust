@@ -2984,7 +2984,6 @@ name = "google-cloud-lro"
 version = "0.3.2"
 dependencies = [
  "anyhow",
- "axum",
  "futures",
  "google-cloud-auth",
  "google-cloud-gax",
@@ -2993,6 +2992,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-rpc",
  "google-cloud-wkt",
+ "httptest",
  "pin-project",
  "reqwest",
  "serde",
