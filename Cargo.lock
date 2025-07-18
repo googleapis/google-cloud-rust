@@ -5199,7 +5199,6 @@ name = "integration-tests"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "axum",
  "bytes",
  "crc32c",
  "futures",
@@ -5220,6 +5219,7 @@ dependencies = [
  "google-cloud-wkt",
  "google-cloud-workflows-executions-v1",
  "google-cloud-workflows-v1",
+ "httptest",
  "mockall",
  "rand 0.9.1",
  "reqwest",
