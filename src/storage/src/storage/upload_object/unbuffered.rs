@@ -123,7 +123,7 @@ where
 mod tests {
     use super::super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
-    use crate::upload_source::tests::VecStream;
+    use crate::upload_source::IterSource;
     use gax::retry_policy::RetryPolicyExt;
     use http_body_util::BodyExt;
     use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -279,12 +279,11 @@ mod tests {
 
     #[tokio::test]
     async fn upload_object_stream() -> Result {
-        let stream = VecStream::new(
+        let stream = IterSource::new(
             [
                 "the ", "quick ", "brown ", "fox ", "jumps ", "over ", "the ", "lazy ", "dog",
             ]
-            .map(|x| bytes::Bytes::from_static(x.as_bytes()))
-            .to_vec(),
+            .map(|x| bytes::Bytes::from_static(x.as_bytes())),
         );
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream)

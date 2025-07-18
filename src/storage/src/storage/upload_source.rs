@@ -14,6 +14,8 @@
 
 //! Defines upload data sources.
 
+use std::collections::VecDeque;
+
 /// The payload for object uploads via the [Storage][crate::client::Storage]
 /// client.
 ///
@@ -83,6 +85,13 @@ impl From<&'static [u8]> for InsertPayload<BytesSource> {
     fn from(value: &'static [u8]) -> Self {
         let b = bytes::Bytes::from_static(value);
         InsertPayload::from(b)
+    }
+}
+
+impl From<Vec<bytes::Bytes>> for InsertPayload<IterSource> {
+    fn from(value: Vec<bytes::Bytes>) -> Self {
+        let payload = IterSource::new(value);
+        Self { payload }
     }
 }
 
@@ -205,10 +214,62 @@ impl Seek for BytesSource {
     }
 }
 
+pub struct IterSource {
+    contents: Vec<bytes::Bytes>,
+    current: VecDeque<bytes::Bytes>,
+}
+
+impl IterSource {
+    pub(crate) fn new<I>(iterator: I) -> Self
+    where
+        I: IntoIterator<Item = bytes::Bytes>,
+    {
+        let contents: Vec<bytes::Bytes> = iterator.into_iter().collect();
+        let current: VecDeque<bytes::Bytes> = contents.iter().cloned().collect();
+        Self { contents, current }
+    }
+}
+
+impl StreamingSource for IterSource {
+    type Error = std::io::Error;
+
+    async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
+        self.current.pop_front().map(Ok)
+    }
+
+    fn size_hint(&self) -> (u64, Option<u64>) {
+        let s = self.contents.iter().fold(0_u64, |a, i| a + i.len() as u64);
+        (s, Some(s))
+    }
+}
+
+impl Seek for IterSource {
+    type Error = std::io::Error;
+    async fn seek(&mut self, offset: u64) -> std::result::Result<(), Self::Error> {
+        let mut current = VecDeque::new();
+        let mut offset = offset as usize;
+        for b in self.contents.iter() {
+            offset = match (offset, b.len()) {
+                (0, _) => {
+                    current.push_back(b.clone());
+                    0
+                }
+                (o, n) if o >= n => o - n,
+                (o, n) => {
+                    current.push_back(b.clone().split_off(n - o));
+                    0
+                }
+            }
+        }
+        self.current = current;
+        Ok(())
+    }
+}
+
 #[cfg(test)]
-pub(crate) mod tests {
+pub mod tests {
     use super::*;
-    use std::{collections::VecDeque, io::Write};
+    use std::io::Write;
     use tempfile::NamedTempFile;
 
     type Result = anyhow::Result<()>;
@@ -216,12 +277,19 @@ pub(crate) mod tests {
     const CONTENTS: &[u8] = b"how vexingly quick daft zebras jump";
 
     /// A helper function to simplify the tests.
-    async fn collect<S>(source: S) -> anyhow::Result<Vec<u8>>
+    async fn collect<S>(mut source: S) -> anyhow::Result<Vec<u8>>
+    where
+        S: StreamingSource,
+    {
+        collect_mut(&mut source).await
+    }
+
+    /// A helper function to simplify the tests.
+    async fn collect_mut<S>(source: &mut S) -> anyhow::Result<Vec<u8>>
     where
         S: StreamingSource,
     {
         let mut vec = Vec::new();
-        let mut source = source;
         while let Some(bytes) = source.next().await.transpose()? {
             vec.extend_from_slice(&bytes);
         }
@@ -281,7 +349,7 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn empty_stream() -> Result {
-        let source = VecStream::new(vec![]);
+        let source = IterSource::new(vec![]);
         let payload = InsertPayload::from(source);
         let range = payload.size_hint();
         assert_eq!(range, (0, Some(0)));
@@ -293,10 +361,9 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn simple_stream() -> Result {
-        let source = VecStream::new(
+        let source = IterSource::new(
             ["how ", "vexingly ", "quick ", "daft ", "zebras ", "jump"]
-                .map(|v| bytes::Bytes::from_static(v.as_bytes()))
-                .to_vec(),
+                .map(|v| bytes::Bytes::from_static(v.as_bytes())),
         );
         let payload = InsertPayload::from(source);
         let got = collect(payload).await?;
@@ -357,60 +424,27 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    pub struct VecStream {
-        contents: Vec<bytes::Bytes>,
-        current: VecDeque<std::io::Result<bytes::Bytes>>,
-    }
+    #[tokio::test]
+    async fn iter_source_full() -> Result {
+        const N: usize = 32;
+        let mut buf = Vec::new();
+        buf.extend_from_slice(&[1_u8; N]);
+        buf.extend_from_slice(&[2_u8; N]);
+        buf.extend_from_slice(&[3_u8; N]);
+        let b = bytes::Bytes::from_owner(buf);
 
-    impl VecStream {
-        pub fn new(contents: Vec<bytes::Bytes>) -> Self {
-            let current: VecDeque<std::io::Result<_>> =
-                contents.iter().map(|x| Ok(x.clone())).collect();
-            Self { contents, current }
+        let mut stream =
+            IterSource::new(vec![b.slice(0..N), b.slice(N..(2 * N)), b.slice((2 * N)..)]);
+        assert_eq!(stream.size_hint(), (3 * N as u64, Some(3 * N as u64)));
+
+        // test_case() is not appropriate here: we want to verify seek() works
+        // multiple times over the *same* stream.
+        for offset in [0, N / 2, 0, N, 0, 2 * N + N / 2] {
+            stream.seek(offset as u64).await?;
+            let got = collect_mut(&mut stream).await?;
+            assert_eq!(got[..], b[offset..(3 * N)]);
         }
-    }
 
-    impl StreamingSource for VecStream {
-        type Error = std::io::Error;
-
-        async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
-            self.current.pop_front()
-        }
-
-        fn size_hint(&self) -> (u64, Option<u64>) {
-            let s = self.contents.iter().fold(0_u64, |a, i| a + i.len() as u64);
-            (s, Some(s))
-        }
-    }
-
-    impl Seek for VecStream {
-        type Error = std::io::Error;
-
-        async fn seek(&mut self, offset: u64) -> std::result::Result<(), Self::Error> {
-            let mut current: VecDeque<std::io::Result<_>> =
-                self.contents.iter().map(|x| Ok(x.clone())).collect();
-            let mut offset = offset as usize;
-            while offset > 0 {
-                match current.pop_front() {
-                    None => break,
-                    Some(Err(e)) => {
-                        current.push_front(Err(e));
-                        break;
-                    }
-                    Some(Ok(mut b)) if b.len() > offset => {
-                        current.push_front(Ok(b.split_off(offset)));
-                        break;
-                    }
-                    Some(Ok(b)) if b.len() == offset => {
-                        break;
-                    }
-                    Some(Ok(b)) => {
-                        offset -= b.len();
-                    }
-                };
-            }
-            self.current = current;
-            Ok(())
-        }
+        Ok(())
     }
 }
