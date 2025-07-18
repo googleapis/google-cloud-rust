@@ -449,8 +449,9 @@ struct Oauth2RefreshResponse {
 mod tests {
     use super::*;
     use crate::credentials::tests::{
-        get_headers_from_cache, get_mock_auth_retry_policy, get_mock_backoff_policy,
-        get_mock_retry_throttler, get_token_from_headers, get_token_type_from_headers,
+        find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
+        get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
+        get_token_type_from_headers,
     };
     use crate::credentials::{DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
     use crate::errors::CredentialsError;
@@ -1096,17 +1097,10 @@ mod tests {
 
         let uc = Builder::new(authorized_user).build()?;
         let err = uc.headers(Extensions::new()).await.unwrap_err();
-        let original_err = err
-            .source()
-            .and_then(|e| e.downcast_ref::<GaxError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .unwrap();
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(original_err.is_transient());
 
-        let source = original_err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        let source = find_source_error::<reqwest::Error>(&err);
         assert!(
             matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
             "{err:?}"
@@ -1131,17 +1125,10 @@ mod tests {
 
         let uc = Builder::new(authorized_user).build()?;
         let err = uc.headers(Extensions::new()).await.unwrap_err();
-        let original_err = err
-            .source()
-            .and_then(|e| e.downcast_ref::<GaxError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .unwrap();
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(!original_err.is_transient());
 
-        let source = original_err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        let source = find_source_error::<reqwest::Error>(&err);
         assert!(
             matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
             "{err:?}"

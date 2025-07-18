@@ -139,9 +139,23 @@ mod tests {
     use gax::retry_result::RetryResult;
     use gax::retry_throttler::RetryThrottler;
     use mockall::{Sequence, mock};
+    use std::error::Error;
     use std::sync::Arc;
     use std::sync::atomic::{AtomicBool, Ordering};
     use test_case::test_case;
+
+    fn find_source_error<'a, T: Error + 'static>(
+        error: &'a (dyn Error + 'static),
+    ) -> Option<&'a T> {
+        let mut source = error.source();
+        while let Some(err) = source {
+            if let Some(target_err) = err.downcast_ref::<T>() {
+                return Some(target_err);
+            }
+            source = err.source();
+        }
+        None
+    }
 
     mock! {
         #[derive(Debug)]
@@ -280,13 +294,8 @@ mod tests {
 
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
-        assert_eq!(
-            error.to_string(),
-            format!(
-                "{} and future attempts will not succeed",
-                constants::RETRY_EXHAUSTED_ERROR
-            )
-        );
+        let original_error = find_source_error::<CredentialsError>(&error).unwrap();
+        assert!(original_error.is_transient());
     }
 
     #[tokio::test]
@@ -303,13 +312,8 @@ mod tests {
 
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
-        assert_eq!(
-            error.to_string(),
-            format!(
-                "{} and future attempts will not succeed",
-                constants::TOKEN_FETCH_FAILED_ERROR
-            )
-        );
+        let original_error = find_source_error::<CredentialsError>(&error).unwrap();
+        assert!(!original_error.is_transient());
     }
 
     #[tokio::test]
@@ -348,11 +352,8 @@ mod tests {
 
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
-        let expected_message = format!(
-            "{} and future attempts will not succeed",
-            constants::RETRY_EXHAUSTED_ERROR
-        );
-        assert_eq!(error.to_string(), expected_message);
+        let original_error = find_source_error::<CredentialsError>(&error).unwrap();
+        assert!(original_error.is_transient());
     }
 
     #[tokio::test]
@@ -369,11 +370,8 @@ mod tests {
 
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
-        let expected_message = format!(
-            "{} and future attempts will not succeed",
-            constants::TOKEN_FETCH_FAILED_ERROR
-        );
-        assert_eq!(error.to_string(), expected_message);
+        let original_error = find_source_error::<CredentialsError>(&error).unwrap();
+        assert!(!original_error.is_transient());
     }
 
     #[test_case(

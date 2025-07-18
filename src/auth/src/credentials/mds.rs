@@ -411,8 +411,9 @@ mod tests {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
-        get_headers_from_cache, get_mock_auth_retry_policy, get_mock_backoff_policy,
-        get_mock_retry_throttler, get_token_from_headers, get_token_type_from_headers,
+        find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
+        get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
+        get_token_type_from_headers,
     };
     use crate::errors;
     use crate::errors::CredentialsError;
@@ -616,20 +617,13 @@ mod tests {
             .await
             .unwrap_err();
 
-        let original_err = err
-            .source()
-            .and_then(|e| e.downcast_ref::<GaxError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .unwrap();
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(original_err.is_transient());
         assert!(
             original_err.to_string().contains("application-default"),
             "display={err}, debug={err:?}"
         );
-        let source = original_err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        let source = find_source_error::<reqwest::Error>(&err);
         assert!(matches!(source, Some(e) if e.status().is_none()), "{err:?}");
 
         Ok(())
@@ -648,20 +642,13 @@ mod tests {
 
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
 
-        let original_err = err
-            .source()
-            .and_then(|e| e.downcast_ref::<GaxError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .unwrap();
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(original_err.is_transient());
         assert!(
             !original_err.to_string().contains("application-default"),
             "display={err}, debug={err:?}"
         );
-        let source = original_err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        let source = find_source_error::<reqwest::Error>(&err);
         assert!(matches!(source, Some(e) if e.status().is_none()), "{err:?}");
 
         Ok(())
@@ -677,12 +664,7 @@ mod tests {
             .err()
             .unwrap();
 
-        let original_err = e
-            .source()
-            .and_then(|e| e.downcast_ref::<GaxError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .unwrap();
+        let original_err = find_source_error::<CredentialsError>(&e).unwrap();
         assert!(original_err.is_transient());
         assert!(
             !format!("{:?}", original_err.source()).contains("application-default"),
@@ -928,16 +910,9 @@ mod tests {
             .with_scopes(scopes)
             .build()?;
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
-        let original_err = err
-            .source()
-            .and_then(|e| e.downcast_ref::<GaxError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .unwrap();
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(original_err.is_transient());
-        let source = original_err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        let source = find_source_error::<reqwest::Error>(&err);
         assert!(
             matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
             "{err:?}"
@@ -965,16 +940,9 @@ mod tests {
             .build()?;
 
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
-        let original_err = err
-            .source()
-            .and_then(|e| e.downcast_ref::<GaxError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .unwrap();
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(!original_err.is_transient());
-        let source = original_err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        let source = find_source_error::<reqwest::Error>(&err);
         assert!(
             matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
             "{err:?}"
