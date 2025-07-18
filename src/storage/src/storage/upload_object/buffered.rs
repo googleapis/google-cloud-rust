@@ -263,7 +263,7 @@ const RESUMABLE_UPLOAD_QUANTUM: usize = 256 * 1024;
 #[cfg(test)]
 mod tests {
     use super::super::client::tests::{test_builder, test_inner_client};
-    use super::upload_source::IterSource;
+    use super::upload_source::{BytesSource, IterSource, Seek};
     use super::*;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use serde_json::json;
@@ -365,6 +365,86 @@ mod tests {
             .await?;
         let response = client
             .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send()
+            .await?;
+        assert_eq!(response.name, "test-object");
+        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
+        assert_eq!(
+            response.metadata.get("is-test-object").map(String::as_str),
+            Some("true")
+        );
+
+        Ok(())
+    }
+
+    struct UnknownSize {
+        inner: BytesSource,
+    }
+    impl Seek for UnknownSize {
+        type Error = <BytesSource as Seek>::Error;
+        async fn seek(&mut self, offset: u64) -> std::result::Result<(), Self::Error> {
+            self.inner.seek(offset).await
+        }
+    }
+    impl StreamingSource for UnknownSize {
+        type Error = <BytesSource as StreamingSource>::Error;
+        async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
+            self.inner.next().await
+        }
+        fn size_hint(&self) -> (u64, Option<u64>) {
+            (self.inner.size_hint().0, None)
+        }
+    }
+
+    #[tokio::test]
+    async fn upload_object_buffered_resumable_unknown_size() -> Result {
+        let payload = serde_json::json!({
+            "name": "test-object",
+            "bucket": "test-bucket",
+            "metadata": {
+                "is-test-object": "true",
+            }
+        })
+        .to_string();
+        let server = Server::run();
+        let session = server.url("/upload/session/test-only-001");
+        let path = session.path().to_string();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("location", session.to_string())
+                    .body(""),
+            ),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path),
+                request::headers(contains(("content-range", "bytes */0")))
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("content-type", "application/json")
+                    .body(payload),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_resumable_upload_threshold(4 * RESUMABLE_UPLOAD_QUANTUM)
+            .build()
+            .await?;
+        let source = UnknownSize {
+            inner: BytesSource::new(bytes::Bytes::from_static(b"")),
+        };
+        let response = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
             .send()
             .await?;
         assert_eq!(response.name, "test-object");
