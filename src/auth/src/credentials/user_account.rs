@@ -462,7 +462,6 @@ mod tests {
     use httptest::matchers::{all_of, json_decoded, request};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
-    use serde_json::json;
 
     type TestResult = anyhow::Result<()>;
 
