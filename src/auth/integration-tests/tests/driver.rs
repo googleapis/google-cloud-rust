@@ -46,17 +46,17 @@ mod driver {
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
-    async fn run_workload_identity_provider_executable_sourced_with_impersonation() -> anyhow::Result<()> {
-        auth_integration_tests::workload_identity_provider_executable_sourced(true)
-            .await
+    async fn run_workload_identity_provider_executable_sourced_with_impersonation()
+    -> anyhow::Result<()> {
+        auth_integration_tests::workload_identity_provider_executable_sourced(true).await
     }
 
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
-    async fn run_workload_identity_provider_executable_sourced_without_impersonation() -> anyhow::Result<()> {
-        auth_integration_tests::workload_identity_provider_executable_sourced(false)
-            .await
+    async fn run_workload_identity_provider_executable_sourced_without_impersonation()
+    -> anyhow::Result<()> {
+        auth_integration_tests::workload_identity_provider_executable_sourced(false).await
     }
 
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
