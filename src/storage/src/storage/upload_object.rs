@@ -848,7 +848,7 @@ async fn handle_start_resumable_upload_response(response: reqwest::Response) -> 
     location.to_str().map_err(Error::deser).map(str::to_string)
 }
 
-pub(self) fn parse_range_end(headers: &reqwest::header::HeaderMap) -> Option<u64> {
+fn parse_range_end(headers: &reqwest::header::HeaderMap) -> Option<u64> {
     let Some(range) = headers.get("range") else {
         // A missing `Range:` header indicates that no bytes are persisted.
         return Some(0_u64);
@@ -864,7 +864,7 @@ pub(self) fn parse_range_end(headers: &reqwest::header::HeaderMap) -> Option<u64
     end.parse::<u64>().ok()
 }
 
-pub(self) const RESUME_INCOMPLETE: reqwest::StatusCode = reqwest::StatusCode::PERMANENT_REDIRECT;
+const RESUME_INCOMPLETE: reqwest::StatusCode = reqwest::StatusCode::PERMANENT_REDIRECT;
 
 #[cfg(test)]
 mod tests {
