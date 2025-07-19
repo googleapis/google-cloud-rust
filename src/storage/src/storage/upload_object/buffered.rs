@@ -221,7 +221,7 @@ async fn parse_range(response: reqwest::Response, expected_offset: usize) -> Res
         return gaxi::http::to_http_error(response).await;
     };
     // The `Range` header returns an inclusive range, i.e. bytes=0-999 means "1000 bytes".
-    let (persisted_size, chunk_remainder) = match (expected_offset, end) {
+    let (persisted_size, chunk_remainder) = match (expected_offset, end as usize) {
         (o, 0) => (0, o),
         (o, e) if o < e + 1 => panic!("more data persistent than sent {response:?}"),
         (o, e) => (e + 1, o - e - 1),
@@ -230,22 +230,6 @@ async fn parse_range(response: reqwest::Response, expected_offset: usize) -> Res
         persisted_size,
         chunk_remainder,
     })
-}
-
-fn parse_range_end(headers: &reqwest::header::HeaderMap) -> Option<usize> {
-    let Some(range) = headers.get("range") else {
-        // A missing `Range:` header indicates that no bytes are persisted.
-        return Some(0_usize);
-    };
-    // Uploads must be sequential, so the persisted range (if present) always
-    // starts at zero. This is poorly documented, but can be inferred from
-    //   https://cloud.google.com/storage/docs/performing-resumable-uploads#resume-upload
-    // which requires uploads to continue from the last byte persisted. It is
-    // better documented in the gRPC version, where holes are explicitly
-    // forbidden:
-    //   https://github.com/googleapis/googleapis/blob/302273adb3293bb504ecd83be8e1467511d5c779/google/storage/v2/storage.proto#L1253-L1255
-    let end = std::str::from_utf8(range.as_bytes().strip_prefix(b"bytes=0-")?).ok()?;
-    end.parse::<usize>().ok()
 }
 
 #[derive(Debug, PartialEq)]
@@ -268,7 +252,6 @@ struct NextChunk {
     remainder: Option<bytes::Bytes>,
 }
 
-const RESUME_INCOMPLETE: reqwest::StatusCode = reqwest::StatusCode::PERMANENT_REDIRECT;
 // Resumable uploads chunks (except for the last chunk) *must* be sized to a
 // multiple of 256 KiB.
 const RESUMABLE_UPLOAD_QUANTUM: usize = 256 * 1024;
@@ -1195,27 +1178,5 @@ mod tests {
             .expect_err("invalid range should create an error");
         assert!(err.http_status_code().is_some(), "{err:?}");
         Ok(())
-    }
-
-    #[test_case(None, Some(0))]
-    #[test_case(Some("bytes=0-12345"), Some(12345))]
-    #[test_case(Some("bytes=0-1"), Some(1))]
-    #[test_case(Some("bytes=0-0"), Some(0))]
-    #[test_case(Some("bytes=1-12345"), None)]
-    #[test_case(Some(""), None)]
-    fn range_end(input: Option<&str>, want: Option<usize>) {
-        use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
-        let headers = HeaderMap::from_iter(input.into_iter().map(|s| {
-            (
-                HeaderName::from_static("range"),
-                HeaderValue::from_str(s).unwrap(),
-            )
-        }));
-        assert_eq!(super::parse_range_end(&headers), want, "{headers:?}");
-    }
-
-    #[test]
-    fn validate_status_code() {
-        assert_eq!(RESUME_INCOMPLETE, 308);
     }
 }
