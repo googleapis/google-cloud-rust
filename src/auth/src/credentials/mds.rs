@@ -423,10 +423,12 @@ mod tests {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
-        get_headers_from_cache, get_mock_auth_retry_policy, get_mock_backoff_policy,
-        get_mock_retry_throttler, get_token_from_headers, get_token_type_from_headers,
+        find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
+        get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
+        get_token_type_from_headers,
     };
     use crate::errors;
+    use crate::errors::CredentialsError;
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
@@ -461,7 +463,7 @@ mod tests {
             .build_token_provider();
 
         let err = provider.token().await.unwrap_err();
-        assert!(err.is_transient());
+        assert!(!err.is_transient());
         server.verify_and_clear();
         Ok(())
     }
@@ -626,14 +628,13 @@ mod tests {
             .await
             .unwrap_err();
 
-        assert!(err.is_transient(), "{err:?}");
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
+        assert!(original_err.is_transient());
         assert!(
-            err.to_string().contains("application-default"),
+            original_err.to_string().contains("application-default"),
             "display={err}, debug={err:?}"
         );
-        let source = err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        let source = find_source_error::<reqwest::Error>(&err);
         assert!(matches!(source, Some(e) if e.status().is_none()), "{err:?}");
 
         Ok(())
@@ -652,14 +653,13 @@ mod tests {
 
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
 
-        assert!(err.is_transient(), "{err:?}");
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
+        assert!(original_err.is_transient());
         assert!(
-            !err.to_string().contains("application-default"),
+            !original_err.to_string().contains("application-default"),
             "display={err}, debug={err:?}"
         );
-        let source = err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        let source = find_source_error::<reqwest::Error>(&err);
         assert!(matches!(source, Some(e) if e.status().is_none()), "{err:?}");
 
         Ok(())
@@ -675,9 +675,10 @@ mod tests {
             .err()
             .unwrap();
 
-        assert!(e.is_transient(), "{e:?}");
+        let original_err = find_source_error::<CredentialsError>(&e).unwrap();
+        assert!(original_err.is_transient());
         assert!(
-            !format!("{:?}", e.source()).contains("application-default"),
+            !format!("{:?}", original_err.source()).contains("application-default"),
             "{e:?}"
         );
 
@@ -920,10 +921,9 @@ mod tests {
             .with_scopes(scopes)
             .build()?;
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.is_transient());
-        let source = err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
+        assert!(original_err.is_transient());
+        let source = find_source_error::<reqwest::Error>(&err);
         assert!(
             matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
             "{err:?}"
@@ -951,10 +951,9 @@ mod tests {
             .build()?;
 
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
-        assert!(!err.is_transient());
-        let source = err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
+        assert!(!original_err.is_transient());
+        let source = find_source_error::<reqwest::Error>(&err);
         assert!(
             matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
             "{err:?}"

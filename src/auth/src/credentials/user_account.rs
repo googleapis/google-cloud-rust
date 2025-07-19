@@ -477,17 +477,19 @@ struct Oauth2RefreshResponse {
 mod tests {
     use super::*;
     use crate::credentials::tests::{
-        get_headers_from_cache, get_mock_auth_retry_policy, get_mock_backoff_policy,
-        get_mock_retry_throttler, get_token_from_headers, get_token_type_from_headers,
+        find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
+        get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
+        get_token_type_from_headers,
     };
     use crate::credentials::{DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
+    use crate::errors::CredentialsError;
     use crate::token::tests::MockTokenProvider;
     use http::StatusCode;
     use http::header::AUTHORIZATION;
+    use httptest::cycle;
     use httptest::matchers::{all_of, json_decoded, request};
     use httptest::responders::{json_encoded, status_code};
-    use httptest::{Expectation, Server, cycle};
-    use std::error::Error;
+    use httptest::{Expectation, Server};
 
     type TestResult = anyhow::Result<()>;
 
@@ -517,7 +519,7 @@ mod tests {
             .build()?;
 
         let err = credentials.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.is_transient());
+        assert!(!err.is_transient());
         server.verify_and_clear();
         Ok(())
     }
@@ -1122,10 +1124,10 @@ mod tests {
 
         let uc = Builder::new(authorized_user).build()?;
         let err = uc.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.is_transient(), "{err}");
-        let source = err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
+        assert!(original_err.is_transient());
+
+        let source = find_source_error::<reqwest::Error>(&err);
         assert!(
             matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
             "{err:?}"
@@ -1150,10 +1152,10 @@ mod tests {
 
         let uc = Builder::new(authorized_user).build()?;
         let err = uc.headers(Extensions::new()).await.unwrap_err();
-        assert!(!err.is_transient(), "{err:?}");
-        let source = err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
+        assert!(!original_err.is_transient());
+
+        let source = find_source_error::<reqwest::Error>(&err);
         assert!(
             matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
             "{err:?}"

@@ -1269,9 +1269,10 @@ mod tests {
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     };
     use crate::credentials::tests::{
-        get_mock_auth_retry_policy, get_mock_backoff_policy, get_mock_retry_throttler,
+        find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
+        get_mock_retry_throttler,
     };
-    use crate::errors::SubjectTokenProviderError;
+    use crate::errors::{CredentialsError, SubjectTokenProviderError};
     use httptest::{
         Expectation, Server, cycle,
         matchers::{all_of, contains, request, url_decoded},
@@ -1625,8 +1626,13 @@ mod tests {
 
         let creds = Builder::new(contents).build().unwrap();
         let err = creds.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.to_string().contains("failed to exchange token"));
-        assert!(err.is_transient());
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
+        assert!(
+            original_err
+                .to_string()
+                .contains("failed to exchange token")
+        );
+        assert!(original_err.is_transient());
     }
 
     #[tokio::test]
@@ -1677,8 +1683,9 @@ mod tests {
 
         let creds = Builder::new(contents).build().unwrap();
         let err = creds.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.to_string().contains("failed to fetch token"));
-        assert!(!err.is_transient());
+        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
+        assert!(original_err.to_string().contains("failed to fetch token"));
+        assert!(!original_err.is_transient());
     }
 
     #[test_case(Some(vec!["scope1", "scope2"]), Some("http://custom.com/token") ; "with custom scopes and token_url")]
@@ -1854,7 +1861,7 @@ mod tests {
             .unwrap();
 
         let err = creds.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.is_transient());
+        assert!(!err.is_transient());
         sts_server.verify_and_clear();
         subject_token_server.verify_and_clear();
     }
@@ -1979,7 +1986,7 @@ mod tests {
             .unwrap();
 
         let err = creds.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.is_transient());
+        assert!(!err.is_transient());
         sts_server.verify_and_clear();
     }
 
