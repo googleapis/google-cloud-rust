@@ -848,6 +848,24 @@ async fn handle_start_resumable_upload_response(response: reqwest::Response) -> 
     location.to_str().map_err(Error::deser).map(str::to_string)
 }
 
+pub(self) fn parse_range_end(headers: &reqwest::header::HeaderMap) -> Option<u64> {
+    let Some(range) = headers.get("range") else {
+        // A missing `Range:` header indicates that no bytes are persisted.
+        return Some(0_u64);
+    };
+    // Uploads must be sequential, so the persisted range (if present) always
+    // starts at zero. This is poorly documented, but can be inferred from
+    //   https://cloud.google.com/storage/docs/performing-resumable-uploads#resume-upload
+    // which requires uploads to continue from the last byte persisted. It is
+    // better documented in the gRPC version, where holes are explicitly
+    // forbidden:
+    //   https://github.com/googleapis/googleapis/blob/302273adb3293bb504ecd83be8e1467511d5c779/google/storage/v2/storage.proto#L1253-L1255
+    let end = std::str::from_utf8(range.as_bytes().strip_prefix(b"bytes=0-")?).ok()?;
+    end.parse::<u64>().ok()
+}
+
+pub(self) const RESUME_INCOMPLETE: reqwest::StatusCode = reqwest::StatusCode::PERMANENT_REDIRECT;
+
 #[cfg(test)]
 mod tests {
     use super::client::tests::{create_key_helper, test_builder, test_inner_client};
@@ -859,6 +877,7 @@ mod tests {
     use serde_json::{Value, json};
     use std::collections::BTreeMap;
     use std::time::Duration;
+    use test_case::test_case;
 
     type Result = anyhow::Result<()>;
 
@@ -1378,5 +1397,27 @@ mod tests {
         impl gax::backoff_policy::BackoffPolicy for BackoffPolicy {
             fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> std::time::Duration;
         }
+    }
+
+    #[test_case(None, Some(0))]
+    #[test_case(Some("bytes=0-12345"), Some(12345))]
+    #[test_case(Some("bytes=0-1"), Some(1))]
+    #[test_case(Some("bytes=0-0"), Some(0))]
+    #[test_case(Some("bytes=1-12345"), None)]
+    #[test_case(Some(""), None)]
+    fn range_end(input: Option<&str>, want: Option<u64>) {
+        use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
+        let headers = HeaderMap::from_iter(input.into_iter().map(|s| {
+            (
+                HeaderName::from_static("range"),
+                HeaderValue::from_str(s).unwrap(),
+            )
+        }));
+        assert_eq!(super::parse_range_end(&headers), want, "{headers:?}");
+    }
+
+    #[test]
+    fn validate_status_code() {
+        assert_eq!(RESUME_INCOMPLETE, 308);
     }
 }
