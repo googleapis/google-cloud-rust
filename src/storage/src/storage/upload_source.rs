@@ -295,6 +295,31 @@ pub mod tests {
 
     const CONTENTS: &[u8] = b"how vexingly quick daft zebras jump";
 
+    pub(crate) struct UnknownSize {
+        inner: BytesSource,
+    }
+    impl UnknownSize {
+        pub fn new(inner: BytesSource) -> Self {
+            Self { inner }
+        }
+    }
+    impl Seek for UnknownSize {
+        type Error = <BytesSource as Seek>::Error;
+        async fn seek(&mut self, offset: u64) -> std::result::Result<(), Self::Error> {
+            self.inner.seek(offset).await
+        }
+    }
+    impl StreamingSource for UnknownSize {
+        type Error = <BytesSource as StreamingSource>::Error;
+        async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
+            self.inner.next().await
+        }
+        async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), Self::Error> {
+            let hint = self.inner.size_hint().await?;
+            Ok((hint.0, None))
+        }
+    }
+
     /// A helper function to simplify the tests.
     async fn collect<S>(mut source: S) -> anyhow::Result<Vec<u8>>
     where
