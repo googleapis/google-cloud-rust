@@ -26,7 +26,8 @@ pub mod storage {
             let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
             let bucket_id = random_bucket_id();
             let response = super::quickstart::quickstart(&project_id, &bucket_id).await;
-            super::cleanup_bucket(&bucket_id).await?;
+            // Ignore cleanup errors.
+            let _ = super::cleanup_bucket(&bucket_id).await;
             response
         }
     }
