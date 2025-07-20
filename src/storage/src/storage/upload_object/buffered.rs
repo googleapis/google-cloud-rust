@@ -259,7 +259,7 @@ const RESUMABLE_UPLOAD_QUANTUM: usize = 256 * 1024;
 #[cfg(test)]
 mod tests {
     use super::super::client::tests::{test_builder, test_inner_client};
-    use super::upload_source::{BytesSource, IterSource, Seek};
+    use super::upload_source::{BytesSource, IterSource, tests::UnknownSize};
     use super::*;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use serde_json::json;
@@ -373,26 +373,6 @@ mod tests {
         Ok(())
     }
 
-    struct UnknownSize {
-        inner: BytesSource,
-    }
-    impl Seek for UnknownSize {
-        type Error = <BytesSource as Seek>::Error;
-        async fn seek(&mut self, offset: u64) -> std::result::Result<(), Self::Error> {
-            self.inner.seek(offset).await
-        }
-    }
-    impl StreamingSource for UnknownSize {
-        type Error = <BytesSource as StreamingSource>::Error;
-        async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
-            self.inner.next().await
-        }
-        async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), Self::Error> {
-            let hint = self.inner.size_hint().await?;
-            Ok((hint.0, None))
-        }
-    }
-
     #[tokio::test]
     async fn upload_object_buffered_resumable_unknown_size() -> Result {
         let payload = serde_json::json!({
@@ -437,9 +417,7 @@ mod tests {
             .with_resumable_upload_threshold(4 * RESUMABLE_UPLOAD_QUANTUM)
             .build()
             .await?;
-        let source = UnknownSize {
-            inner: BytesSource::new(bytes::Bytes::from_static(b"")),
-        };
+        let source = UnknownSize::new(BytesSource::new(bytes::Bytes::from_static(b"")));
         let response = client
             .upload_object("projects/_/buckets/test-bucket", "test-object", source)
             .send()
