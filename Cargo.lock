@@ -1853,6 +1853,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-configdelivery-v1"
+version = "0.4.2"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-connectors-v1"
 version = "0.4.2"
 dependencies = [
