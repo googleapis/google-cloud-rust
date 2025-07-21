@@ -14,6 +14,7 @@
 
 use super::upload_source::Seek;
 use super::*;
+use crate::retry_policy::ContinueOn308;
 
 impl<T> UploadObject<T>
 where
@@ -35,6 +36,114 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_unbuffered(self) -> Result<Object> {
+        let hint = self
+            .payload
+            .lock()
+            .await
+            .size_hint()
+            .await
+            .map_err(Error::deser)?;
+        let threshold = self.options.resumable_upload_threshold as u64;
+        if hint.1.is_none_or(|max| max >= threshold) {
+            self.send_unbuffered_resumable(hint).await
+        } else {
+            self.send_unbuffered_single_shot().await
+        }
+    }
+
+    async fn send_unbuffered_resumable(self, hint: (u64, Option<u64>)) -> Result<Object> {
+        let mut upload_url = None;
+        gax::retry_loop_internal::retry_loop(
+            async |_| self.resumable_attempt(&mut upload_url, hint).await,
+            async |duration| tokio::time::sleep(duration).await,
+            true,
+            self.options.retry_throttler.clone(),
+            Arc::new(ContinueOn308::new(self.options.retry_policy.clone())),
+            self.options.backoff_policy.clone(),
+        )
+        .await
+    }
+
+    async fn resumable_attempt(
+        &self,
+        url: &mut Option<String>,
+        hint: (u64, Option<u64>),
+    ) -> Result<Object> {
+        let offset = if let Some(upload_url) = url {
+            match self.query_resumable_upload(upload_url).await? {
+                ResumableUploadStatus::Finalized(object) => {
+                    return Ok(*object);
+                }
+                ResumableUploadStatus::Partial(offset) => offset,
+            }
+        } else {
+            let upload_url = self.start_resumable_upload_attempt().await?;
+            *url = Some(upload_url);
+            0_u64
+        };
+        assert!(url.is_some()); // anything else is a bug, better to crash.
+
+        use crate::upload_source::Seek;
+        let payload = self.payload.clone();
+        payload
+            .lock()
+            .await
+            .seek(offset)
+            .await
+            .map_err(Error::ser)?;
+
+        let range = match (offset, hint.0, hint.1) {
+            (o, _, None) => format!("bytes {o}-*/*"),
+            (_, 0, Some(0)) => "bytes */0".to_string(),
+            (o, s, Some(u)) if s == u => format!("bytes {o}-{}/{s}", s - 1),
+            (o, _, Some(_)) => format!("bytes {o}-*/*"),
+        };
+        let builder = self
+            .inner
+            .client
+            .request(reqwest::Method::PUT, url.as_ref().unwrap())
+            .header("content-type", "application/octet-stream")
+            .header("Content-Range", range)
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+            );
+
+        let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
+        let builder = self.inner.apply_auth_headers(builder).await?;
+        let stream = Box::pin(unfold(Some(payload), move |state| async move {
+            if let Some(payload) = state {
+                let mut guard = payload.lock().await;
+                if let Some(next) = guard.next().await {
+                    drop(guard);
+                    return Some((next, Some(payload)));
+                }
+            }
+            None
+        }));
+
+        let builder = builder.body(reqwest::Body::wrap_stream(stream));
+        let response = builder.send().await.map_err(Error::io)?;
+        self::resumable_upload_handle_response(response).await
+    }
+
+    async fn query_resumable_upload(&self, upload_url: &str) -> Result<ResumableUploadStatus> {
+        let builder = self
+            .inner
+            .client
+            .request(reqwest::Method::PUT, upload_url)
+            .header("content-type", "application/octet-stream")
+            .header("Content-Range", "bytes */*")
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = self.inner.apply_auth_headers(builder).await?;
+        let response = builder.send().await.map_err(Error::io)?;
+        self::query_resumable_upload_handle_response(response).await
+    }
+
+    pub(super) async fn send_unbuffered_single_shot(self) -> Result<Object> {
         // TODO(#1655) - make idempotency configurable.
         // Single shot uploads are idempotent only if they have pre-conditions.
         let idempotent =
@@ -52,7 +161,6 @@ where
     }
 
     async fn single_shot_attempt(&self) -> Result<Object> {
-        // TODO(#2634) - use resumable uploads for large payloads.
         let builder = self.single_shot_builder().await?;
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
@@ -119,6 +227,50 @@ where
     }
 }
 
+async fn resumable_upload_handle_response(response: reqwest::Response) -> Result<Object> {
+    if !response.status().is_success() {
+        return gaxi::http::to_http_error(response).await;
+    }
+    let response = response.json::<v1::Object>().await.map_err(Error::deser)?;
+    Ok(Object::from(response))
+}
+
+async fn query_resumable_upload_handle_response(
+    response: reqwest::Response,
+) -> Result<ResumableUploadStatus> {
+    if response.status() == RESUME_INCOMPLETE {
+        return self::parse_range(response).await;
+    }
+    if !response.status().is_success() {
+        return gaxi::http::to_http_error(response).await;
+    }
+    let response = response.json::<v1::Object>().await.map_err(Error::deser)?;
+    Ok(ResumableUploadStatus::Finalized(Box::new(Object::from(
+        response,
+    ))))
+}
+
+async fn parse_range(response: reqwest::Response) -> Result<ResumableUploadStatus> {
+    let Some(end) = self::parse_range_end(response.headers()) else {
+        return gaxi::http::to_http_error(response).await;
+    };
+    // The `Range` header returns an inclusive range, i.e. bytes=0-999 means "1000 bytes".
+    let persisted_size = match end {
+        0 => 0,
+        e => e + 1,
+    };
+    Ok(ResumableUploadStatus::Partial(persisted_size))
+}
+
+#[derive(Debug, PartialEq)]
+enum ResumableUploadStatus {
+    Finalized(Box<Object>),
+    Partial(u64),
+}
+
+#[cfg(test)]
+mod resumable_tests;
+
 #[cfg(test)]
 mod tests {
     use super::super::client::tests::{create_key_helper, test_builder, test_inner_client};
@@ -132,7 +284,7 @@ mod tests {
     type Result = anyhow::Result<()>;
 
     #[tokio::test]
-    async fn send_unbuffered_normal() -> Result {
+    async fn send_unbuffered_single_shot() -> Result {
         let payload = response_body().to_string();
         let server = Server::run();
         server.expect(

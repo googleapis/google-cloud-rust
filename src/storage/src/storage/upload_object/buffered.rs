@@ -143,7 +143,7 @@ where
             params: self.params,
             options: self.options,
         };
-        upload.send_unbuffered().await
+        upload.send_unbuffered_single_shot().await
     }
 }
 
