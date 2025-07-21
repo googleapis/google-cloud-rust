@@ -26,6 +26,7 @@ extern crate iam_v1;
 extern crate lazy_static;
 extern crate longrunning;
 extern crate lro;
+extern crate orgpolicy_v2;
 extern crate reqwest;
 extern crate rpc;
 extern crate serde;
@@ -248,7 +249,7 @@ pub struct ExplainedPolicy {
     /// permission for the resource. There might be another policy that overrides
     /// this policy. To determine whether the principal actually has the
     /// permission, use the `access` field in the
-    /// [TroubleshootIamPolicyResponse][IamChecker.TroubleshootIamPolicyResponse].
+    /// [TroubleshootIamPolicyResponse][google.cloud.policytroubleshooter.v3.TroubleshootIamPolicyResponse].
     pub access: crate::model::AccessState,
 
     /// The full resource name that identifies the resource. For example,
@@ -284,7 +285,7 @@ pub struct ExplainedPolicy {
     pub binding_explanations: std::vec::Vec<crate::model::BindingExplanation>,
 
     /// The relevance of this policy to the overall determination in the
-    /// [TroubleshootIamPolicyResponse][IamChecker.TroubleshootIamPolicyResponse].
+    /// [TroubleshootIamPolicyResponse][google.cloud.policytroubleshooter.v3.TroubleshootIamPolicyResponse].
     ///
     /// If the user who created the
     /// [Replay][google.cloud.policysimulator.v1.Replay] does not have
@@ -536,7 +537,7 @@ pub struct BindingExplanation {
     /// permission for the resource. There might be another binding that overrides
     /// this binding. To determine whether the principal actually has the
     /// permission, use the `access` field in the
-    /// [TroubleshootIamPolicyResponse][IamChecker.TroubleshootIamPolicyResponse].
+    /// [TroubleshootIamPolicyResponse][google.cloud.policytroubleshooter.v3.TroubleshootIamPolicyResponse].
     pub access: crate::model::AccessState,
 
     /// The role that this binding grants. For example,
@@ -1353,6 +1354,3183 @@ pub mod binding_explanation {
                 ".google.cloud.policysimulator.v1.BindingExplanation.Membership",
             ))
         }
+    }
+}
+
+/// OrgPolicyViolationsPreview is a resource providing a preview of the
+/// violations that will exist if an OrgPolicy change is made.
+///
+/// The list of violations are modeled as child resources and retrieved via a
+/// [ListOrgPolicyViolations][] API call. There are potentially more
+/// [OrgPolicyViolations][] than could fit in an embedded field. Thus, the use of
+/// a child resource instead of a field.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OrgPolicyViolationsPreview {
+    /// Output only. The resource name of the `OrgPolicyViolationsPreview`. It has
+    /// the following format:
+    ///
+    /// `organizations/{organization}/locations/{location}/orgPolicyViolationsPreviews/{orgPolicyViolationsPreview}`
+    ///
+    /// Example:
+    /// `organizations/my-example-org/locations/global/orgPolicyViolationsPreviews/506a5f7f`
+    pub name: std::string::String,
+
+    /// Output only. The state of the `OrgPolicyViolationsPreview`.
+    pub state: crate::model::PreviewState,
+
+    /// Required. The proposed changes we are previewing violations for.
+    pub overlay: std::option::Option<crate::model::OrgPolicyOverlay>,
+
+    /// Output only. The number of [OrgPolicyViolations][] in this
+    /// `OrgPolicyViolationsPreview`. This count may differ from
+    /// `resource_summary.noncompliant_count` because each
+    /// [OrgPolicyViolation][google.cloud.policysimulator.v1.OrgPolicyViolation] is
+    /// specific to a resource **and** constraint. If there are multiple
+    /// constraints being evaluated (i.e. multiple policies in the overlay), a
+    /// single resource may violate multiple constraints.
+    ///
+    /// [google.cloud.policysimulator.v1.OrgPolicyViolation]: crate::model::OrgPolicyViolation
+    pub violations_count: i32,
+
+    /// Output only. A summary of the state of all resources scanned for compliance
+    /// with the changed OrgPolicy.
+    pub resource_counts:
+        std::option::Option<crate::model::org_policy_violations_preview::ResourceCounts>,
+
+    /// Output only. The names of the constraints against which all
+    /// `OrgPolicyViolations` were evaluated.
+    ///
+    /// If `OrgPolicyOverlay` only contains `PolicyOverlay` then it contains
+    /// the name of the configured custom constraint, applicable to the specified
+    /// policies. Otherwise it contains the name of the constraint specified in
+    /// `CustomConstraintOverlay`.
+    ///
+    /// Format:
+    /// `organizations/{organization_id}/customConstraints/{custom_constraint_id}`
+    ///
+    /// Example: `organizations/123/customConstraints/custom.createOnlyE2TypeVms`
+    pub custom_constraints: std::vec::Vec<std::string::String>,
+
+    /// Output only. Time when this `OrgPolicyViolationsPreview` was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl OrgPolicyViolationsPreview {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::OrgPolicyViolationsPreview::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::OrgPolicyViolationsPreview::state].
+    pub fn set_state<T: std::convert::Into<crate::model::PreviewState>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [overlay][crate::model::OrgPolicyViolationsPreview::overlay].
+    pub fn set_overlay<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OrgPolicyOverlay>,
+    {
+        self.overlay = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [overlay][crate::model::OrgPolicyViolationsPreview::overlay].
+    pub fn set_or_clear_overlay<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OrgPolicyOverlay>,
+    {
+        self.overlay = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [violations_count][crate::model::OrgPolicyViolationsPreview::violations_count].
+    pub fn set_violations_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.violations_count = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_counts][crate::model::OrgPolicyViolationsPreview::resource_counts].
+    pub fn set_resource_counts<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::org_policy_violations_preview::ResourceCounts>,
+    {
+        self.resource_counts = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource_counts][crate::model::OrgPolicyViolationsPreview::resource_counts].
+    pub fn set_or_clear_resource_counts<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::org_policy_violations_preview::ResourceCounts>,
+    {
+        self.resource_counts = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [custom_constraints][crate::model::OrgPolicyViolationsPreview::custom_constraints].
+    pub fn set_custom_constraints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.custom_constraints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::OrgPolicyViolationsPreview::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::OrgPolicyViolationsPreview::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for OrgPolicyViolationsPreview {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.policysimulator.v1.OrgPolicyViolationsPreview"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for OrgPolicyViolationsPreview {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __state,
+            __overlay,
+            __violations_count,
+            __resource_counts,
+            __custom_constraints,
+            __create_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for OrgPolicyViolationsPreview")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "state" => Ok(__FieldTag::__state),
+                            "overlay" => Ok(__FieldTag::__overlay),
+                            "violationsCount" => Ok(__FieldTag::__violations_count),
+                            "violations_count" => Ok(__FieldTag::__violations_count),
+                            "resourceCounts" => Ok(__FieldTag::__resource_counts),
+                            "resource_counts" => Ok(__FieldTag::__resource_counts),
+                            "customConstraints" => Ok(__FieldTag::__custom_constraints),
+                            "custom_constraints" => Ok(__FieldTag::__custom_constraints),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = OrgPolicyViolationsPreview;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct OrgPolicyViolationsPreview")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map
+                                .next_value::<std::option::Option<crate::model::PreviewState>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__overlay => {
+                            if !fields.insert(__FieldTag::__overlay) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for overlay",
+                                ));
+                            }
+                            result.overlay = map
+                                .next_value::<std::option::Option<crate::model::OrgPolicyOverlay>>(
+                                )?;
+                        }
+                        __FieldTag::__violations_count => {
+                            if !fields.insert(__FieldTag::__violations_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for violations_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.violations_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__resource_counts => {
+                            if !fields.insert(__FieldTag::__resource_counts) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_counts",
+                                ));
+                            }
+                            result.resource_counts = map.next_value::<std::option::Option<
+                                crate::model::org_policy_violations_preview::ResourceCounts,
+                            >>()?;
+                        }
+                        __FieldTag::__custom_constraints => {
+                            if !fields.insert(__FieldTag::__custom_constraints) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom_constraints",
+                                ));
+                            }
+                            result.custom_constraints = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for OrgPolicyViolationsPreview {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if self.overlay.is_some() {
+            state.serialize_entry("overlay", &self.overlay)?;
+        }
+        if !wkt::internal::is_default(&self.violations_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("violationsCount", &__With(&self.violations_count))?;
+        }
+        if self.resource_counts.is_some() {
+            state.serialize_entry("resourceCounts", &self.resource_counts)?;
+        }
+        if !self.custom_constraints.is_empty() {
+            state.serialize_entry("customConstraints", &self.custom_constraints)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Defines additional types related to [OrgPolicyViolationsPreview].
+pub mod org_policy_violations_preview {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A summary of the state of all resources scanned for compliance with the
+    /// changed OrgPolicy.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ResourceCounts {
+        /// Output only. Number of resources checked for compliance.
+        ///
+        /// Must equal:  unenforced + noncompliant + compliant + error
+        pub scanned: i32,
+
+        /// Output only. Number of scanned resources with at least one violation.
+        pub noncompliant: i32,
+
+        /// Output only. Number of scanned resources with zero violations.
+        pub compliant: i32,
+
+        /// Output only. Number of resources where the constraint was not enforced,
+        /// i.e. the Policy set `enforced: false` for that resource.
+        pub unenforced: i32,
+
+        /// Output only. Number of resources that returned an error when scanned.
+        pub errors: i32,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ResourceCounts {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [scanned][crate::model::org_policy_violations_preview::ResourceCounts::scanned].
+        pub fn set_scanned<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.scanned = v.into();
+            self
+        }
+
+        /// Sets the value of [noncompliant][crate::model::org_policy_violations_preview::ResourceCounts::noncompliant].
+        pub fn set_noncompliant<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.noncompliant = v.into();
+            self
+        }
+
+        /// Sets the value of [compliant][crate::model::org_policy_violations_preview::ResourceCounts::compliant].
+        pub fn set_compliant<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.compliant = v.into();
+            self
+        }
+
+        /// Sets the value of [unenforced][crate::model::org_policy_violations_preview::ResourceCounts::unenforced].
+        pub fn set_unenforced<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.unenforced = v.into();
+            self
+        }
+
+        /// Sets the value of [errors][crate::model::org_policy_violations_preview::ResourceCounts::errors].
+        pub fn set_errors<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.errors = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ResourceCounts {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.policysimulator.v1.OrgPolicyViolationsPreview.ResourceCounts"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for ResourceCounts {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __scanned,
+                __noncompliant,
+                __compliant,
+                __unenforced,
+                __errors,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for ResourceCounts")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "scanned" => Ok(__FieldTag::__scanned),
+                                "noncompliant" => Ok(__FieldTag::__noncompliant),
+                                "compliant" => Ok(__FieldTag::__compliant),
+                                "unenforced" => Ok(__FieldTag::__unenforced),
+                                "errors" => Ok(__FieldTag::__errors),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = ResourceCounts;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct ResourceCounts")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__scanned => {
+                                if !fields.insert(__FieldTag::__scanned) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for scanned",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.scanned = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__noncompliant => {
+                                if !fields.insert(__FieldTag::__noncompliant) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for noncompliant",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.noncompliant =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__compliant => {
+                                if !fields.insert(__FieldTag::__compliant) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for compliant",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.compliant =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__unenforced => {
+                                if !fields.insert(__FieldTag::__unenforced) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for unenforced",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.unenforced =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__errors => {
+                                if !fields.insert(__FieldTag::__errors) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for errors",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.errors = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for ResourceCounts {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.scanned) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("scanned", &__With(&self.scanned))?;
+            }
+            if !wkt::internal::is_default(&self.noncompliant) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("noncompliant", &__With(&self.noncompliant))?;
+            }
+            if !wkt::internal::is_default(&self.compliant) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("compliant", &__With(&self.compliant))?;
+            }
+            if !wkt::internal::is_default(&self.unenforced) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("unenforced", &__With(&self.unenforced))?;
+            }
+            if !wkt::internal::is_default(&self.errors) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("errors", &__With(&self.errors))?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+}
+
+/// OrgPolicyViolation is a resource representing a single resource violating a
+/// single OrgPolicy constraint.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OrgPolicyViolation {
+    /// The name of the `OrgPolicyViolation`. Example:
+    /// organizations/my-example-org/locations/global/orgPolicyViolationsPreviews/506a5f7f/orgPolicyViolations/38ce`
+    pub name: std::string::String,
+
+    /// The resource violating the constraint.
+    pub resource: std::option::Option<crate::model::ResourceContext>,
+
+    /// The custom constraint being violated.
+    pub custom_constraint: std::option::Option<orgpolicy_v2::model::CustomConstraint>,
+
+    /// Any error encountered during the evaluation.
+    pub error: std::option::Option<rpc::model::Status>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl OrgPolicyViolation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::OrgPolicyViolation::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [resource][crate::model::OrgPolicyViolation::resource].
+    pub fn set_resource<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceContext>,
+    {
+        self.resource = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resource][crate::model::OrgPolicyViolation::resource].
+    pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ResourceContext>,
+    {
+        self.resource = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [custom_constraint][crate::model::OrgPolicyViolation::custom_constraint].
+    pub fn set_custom_constraint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<orgpolicy_v2::model::CustomConstraint>,
+    {
+        self.custom_constraint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [custom_constraint][crate::model::OrgPolicyViolation::custom_constraint].
+    pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<orgpolicy_v2::model::CustomConstraint>,
+    {
+        self.custom_constraint = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [error][crate::model::OrgPolicyViolation::error].
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::OrgPolicyViolation::error].
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for OrgPolicyViolation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.policysimulator.v1.OrgPolicyViolation"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for OrgPolicyViolation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __resource,
+            __custom_constraint,
+            __error,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for OrgPolicyViolation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "resource" => Ok(__FieldTag::__resource),
+                            "customConstraint" => Ok(__FieldTag::__custom_constraint),
+                            "custom_constraint" => Ok(__FieldTag::__custom_constraint),
+                            "error" => Ok(__FieldTag::__error),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = OrgPolicyViolation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct OrgPolicyViolation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__resource => {
+                            if !fields.insert(__FieldTag::__resource) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource",
+                                ));
+                            }
+                            result.resource = map
+                                .next_value::<std::option::Option<crate::model::ResourceContext>>(
+                                )?;
+                        }
+                        __FieldTag::__custom_constraint => {
+                            if !fields.insert(__FieldTag::__custom_constraint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom_constraint",
+                                ));
+                            }
+                            result.custom_constraint = map.next_value::<std::option::Option<orgpolicy_v2::model::CustomConstraint>>()?
+                                ;
+                        }
+                        __FieldTag::__error => {
+                            if !fields.insert(__FieldTag::__error) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for error",
+                                ));
+                            }
+                            result.error =
+                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for OrgPolicyViolation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.resource.is_some() {
+            state.serialize_entry("resource", &self.resource)?;
+        }
+        if self.custom_constraint.is_some() {
+            state.serialize_entry("customConstraint", &self.custom_constraint)?;
+        }
+        if self.error.is_some() {
+            state.serialize_entry("error", &self.error)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// ResourceContext provides the context we know about a resource.
+/// It is similar in concept to google.cloud.asset.v1.Resource, but focuses
+/// on the information specifically used by Simulator.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ResourceContext {
+    /// The full name of the resource. Example:
+    /// `//compute.googleapis.com/projects/my_project_123/zones/zone1/instances/instance1`
+    ///
+    /// See [Resource
+    /// names](https://cloud.google.com/apis/design/resource_names#full_resource_name)
+    /// for more information.
+    pub resource: std::string::String,
+
+    /// The asset type of the resource as defined by CAIS.
+    ///
+    /// Example: `compute.googleapis.com/Firewall`
+    ///
+    /// See [Supported asset
+    /// types](https://cloud.google.com/asset-inventory/docs/supported-asset-types)
+    /// for more information.
+    pub asset_type: std::string::String,
+
+    /// The ancestry path of the resource in Google Cloud [resource
+    /// hierarchy](https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy),
+    /// represented as a list of relative resource names. An ancestry path starts
+    /// with the closest ancestor in the hierarchy and ends at root. If the
+    /// resource is a project, folder, or organization, the ancestry path starts
+    /// from the resource itself.
+    ///
+    /// Example: `["projects/123456789", "folders/5432", "organizations/1234"]`
+    pub ancestors: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ResourceContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [resource][crate::model::ResourceContext::resource].
+    pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource = v.into();
+        self
+    }
+
+    /// Sets the value of [asset_type][crate::model::ResourceContext::asset_type].
+    pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.asset_type = v.into();
+        self
+    }
+
+    /// Sets the value of [ancestors][crate::model::ResourceContext::ancestors].
+    pub fn set_ancestors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ancestors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ResourceContext {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.policysimulator.v1.ResourceContext"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ResourceContext {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __resource,
+            __asset_type,
+            __ancestors,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ResourceContext")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "resource" => Ok(__FieldTag::__resource),
+                            "assetType" => Ok(__FieldTag::__asset_type),
+                            "asset_type" => Ok(__FieldTag::__asset_type),
+                            "ancestors" => Ok(__FieldTag::__ancestors),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ResourceContext;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ResourceContext")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__resource => {
+                            if !fields.insert(__FieldTag::__resource) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource",
+                                ));
+                            }
+                            result.resource = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__asset_type => {
+                            if !fields.insert(__FieldTag::__asset_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for asset_type",
+                                ));
+                            }
+                            result.asset_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ancestors => {
+                            if !fields.insert(__FieldTag::__ancestors) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ancestors",
+                                ));
+                            }
+                            result.ancestors = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ResourceContext {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource.is_empty() {
+            state.serialize_entry("resource", &self.resource)?;
+        }
+        if !self.asset_type.is_empty() {
+            state.serialize_entry("assetType", &self.asset_type)?;
+        }
+        if !self.ancestors.is_empty() {
+            state.serialize_entry("ancestors", &self.ancestors)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// The proposed changes to OrgPolicy.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OrgPolicyOverlay {
+    /// Optional. The OrgPolicy changes to preview violations for.
+    ///
+    /// Any existing OrgPolicies with the same name will be overridden
+    /// in the simulation. That is, violations will be determined as if all
+    /// policies in the overlay were created or updated.
+    pub policies: std::vec::Vec<crate::model::org_policy_overlay::PolicyOverlay>,
+
+    /// Optional. The OrgPolicy CustomConstraint changes to preview violations for.
+    ///
+    /// Any existing CustomConstraints with the same name will be overridden
+    /// in the simulation. That is, violations will be determined as if all
+    /// custom constraints in the overlay were instantiated.
+    ///
+    /// Only a single custom_constraint is supported in the overlay at a time.
+    /// For evaluating multiple constraints, multiple
+    /// `GenerateOrgPolicyViolationsPreview` requests are made, where each request
+    /// evaluates a single constraint.
+    pub custom_constraints:
+        std::vec::Vec<crate::model::org_policy_overlay::CustomConstraintOverlay>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl OrgPolicyOverlay {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [policies][crate::model::OrgPolicyOverlay::policies].
+    pub fn set_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::org_policy_overlay::PolicyOverlay>,
+    {
+        use std::iter::Iterator;
+        self.policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [custom_constraints][crate::model::OrgPolicyOverlay::custom_constraints].
+    pub fn set_custom_constraints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::org_policy_overlay::CustomConstraintOverlay>,
+    {
+        use std::iter::Iterator;
+        self.custom_constraints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for OrgPolicyOverlay {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.policysimulator.v1.OrgPolicyOverlay"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for OrgPolicyOverlay {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __policies,
+            __custom_constraints,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for OrgPolicyOverlay")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "policies" => Ok(__FieldTag::__policies),
+                            "customConstraints" => Ok(__FieldTag::__custom_constraints),
+                            "custom_constraints" => Ok(__FieldTag::__custom_constraints),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = OrgPolicyOverlay;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct OrgPolicyOverlay")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__policies => {
+                            if !fields.insert(__FieldTag::__policies) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for policies",
+                                ));
+                            }
+                            result.policies = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::org_policy_overlay::PolicyOverlay>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__custom_constraints => {
+                            if !fields.insert(__FieldTag::__custom_constraints) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom_constraints",
+                                ));
+                            }
+                            result.custom_constraints = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::org_policy_overlay::CustomConstraintOverlay,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for OrgPolicyOverlay {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.policies.is_empty() {
+            state.serialize_entry("policies", &self.policies)?;
+        }
+        if !self.custom_constraints.is_empty() {
+            state.serialize_entry("customConstraints", &self.custom_constraints)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Defines additional types related to [OrgPolicyOverlay].
+pub mod org_policy_overlay {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A change to an OrgPolicy.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PolicyOverlay {
+        /// Optional. The parent of the policy we are attaching to.
+        /// Example: "projects/123456"
+        pub policy_parent: std::string::String,
+
+        /// Optional. The new or updated OrgPolicy.
+        pub policy: std::option::Option<orgpolicy_v2::model::Policy>,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PolicyOverlay {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [policy_parent][crate::model::org_policy_overlay::PolicyOverlay::policy_parent].
+        pub fn set_policy_parent<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.policy_parent = v.into();
+            self
+        }
+
+        /// Sets the value of [policy][crate::model::org_policy_overlay::PolicyOverlay::policy].
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<orgpolicy_v2::model::Policy>,
+        {
+            self.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::org_policy_overlay::PolicyOverlay::policy].
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<orgpolicy_v2::model::Policy>,
+        {
+            self.policy = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for PolicyOverlay {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.policysimulator.v1.OrgPolicyOverlay.PolicyOverlay"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for PolicyOverlay {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __policy_parent,
+                __policy,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for PolicyOverlay")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "policyParent" => Ok(__FieldTag::__policy_parent),
+                                "policy_parent" => Ok(__FieldTag::__policy_parent),
+                                "policy" => Ok(__FieldTag::__policy),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = PolicyOverlay;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct PolicyOverlay")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__policy_parent => {
+                                if !fields.insert(__FieldTag::__policy_parent) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for policy_parent",
+                                    ));
+                                }
+                                result.policy_parent = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__policy => {
+                                if !fields.insert(__FieldTag::__policy) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for policy",
+                                    ));
+                                }
+                                result.policy = map
+                                    .next_value::<std::option::Option<orgpolicy_v2::model::Policy>>(
+                                    )?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for PolicyOverlay {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.policy_parent.is_empty() {
+                state.serialize_entry("policyParent", &self.policy_parent)?;
+            }
+            if self.policy.is_some() {
+                state.serialize_entry("policy", &self.policy)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    /// A change to an OrgPolicy custom constraint.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CustomConstraintOverlay {
+        /// Optional. Resource the constraint is attached to.
+        /// Example: "organization/987654"
+        pub custom_constraint_parent: std::string::String,
+
+        /// Optional. The new or updated custom constraint.
+        pub custom_constraint: std::option::Option<orgpolicy_v2::model::CustomConstraint>,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CustomConstraintOverlay {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [custom_constraint_parent][crate::model::org_policy_overlay::CustomConstraintOverlay::custom_constraint_parent].
+        pub fn set_custom_constraint_parent<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.custom_constraint_parent = v.into();
+            self
+        }
+
+        /// Sets the value of [custom_constraint][crate::model::org_policy_overlay::CustomConstraintOverlay::custom_constraint].
+        pub fn set_custom_constraint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<orgpolicy_v2::model::CustomConstraint>,
+        {
+            self.custom_constraint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_constraint][crate::model::org_policy_overlay::CustomConstraintOverlay::custom_constraint].
+        pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<orgpolicy_v2::model::CustomConstraint>,
+        {
+            self.custom_constraint = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for CustomConstraintOverlay {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.policysimulator.v1.OrgPolicyOverlay.CustomConstraintOverlay"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for CustomConstraintOverlay {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __custom_constraint_parent,
+                __custom_constraint,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for CustomConstraintOverlay")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "customConstraintParent" => {
+                                    Ok(__FieldTag::__custom_constraint_parent)
+                                }
+                                "custom_constraint_parent" => {
+                                    Ok(__FieldTag::__custom_constraint_parent)
+                                }
+                                "customConstraint" => Ok(__FieldTag::__custom_constraint),
+                                "custom_constraint" => Ok(__FieldTag::__custom_constraint),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = CustomConstraintOverlay;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct CustomConstraintOverlay")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__custom_constraint_parent => {
+                                if !fields.insert(__FieldTag::__custom_constraint_parent) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for custom_constraint_parent",
+                                    ));
+                                }
+                                result.custom_constraint_parent = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__custom_constraint => {
+                                if !fields.insert(__FieldTag::__custom_constraint) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for custom_constraint",
+                                    ));
+                                }
+                                result.custom_constraint = map.next_value::<std::option::Option<orgpolicy_v2::model::CustomConstraint>>()?
+                                    ;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for CustomConstraintOverlay {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.custom_constraint_parent.is_empty() {
+                state.serialize_entry("customConstraintParent", &self.custom_constraint_parent)?;
+            }
+            if self.custom_constraint.is_some() {
+                state.serialize_entry("customConstraint", &self.custom_constraint)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+}
+
+/// CreateOrgPolicyViolationsPreviewOperationMetadata is metadata about an
+/// OrgPolicyViolationsPreview generations operation.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateOrgPolicyViolationsPreviewOperationMetadata {
+    /// Time when the request was received.
+    pub request_time: std::option::Option<wkt::Timestamp>,
+
+    /// Time when the request started processing, i.e., when the state was set to
+    /// RUNNING.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The current state of the operation.
+    pub state: crate::model::PreviewState,
+
+    /// Total number of resources that need scanning.
+    /// Should equal resource_scanned + resources_pending
+    pub resources_found: i32,
+
+    /// Number of resources already scanned.
+    pub resources_scanned: i32,
+
+    /// Number of resources still to scan.
+    pub resources_pending: i32,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateOrgPolicyViolationsPreviewOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [request_time][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::request_time].
+    pub fn set_request_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.request_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_time][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::request_time].
+    pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.request_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::start_time].
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::state].
+    pub fn set_state<T: std::convert::Into<crate::model::PreviewState>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [resources_found][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::resources_found].
+    pub fn set_resources_found<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.resources_found = v.into();
+        self
+    }
+
+    /// Sets the value of [resources_scanned][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::resources_scanned].
+    pub fn set_resources_scanned<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.resources_scanned = v.into();
+        self
+    }
+
+    /// Sets the value of [resources_pending][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::resources_pending].
+    pub fn set_resources_pending<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.resources_pending = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateOrgPolicyViolationsPreviewOperationMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.policysimulator.v1.CreateOrgPolicyViolationsPreviewOperationMetadata"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateOrgPolicyViolationsPreviewOperationMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __request_time,
+            __start_time,
+            __state,
+            __resources_found,
+            __resources_scanned,
+            __resources_pending,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for CreateOrgPolicyViolationsPreviewOperationMetadata",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "requestTime" => Ok(__FieldTag::__request_time),
+                            "request_time" => Ok(__FieldTag::__request_time),
+                            "startTime" => Ok(__FieldTag::__start_time),
+                            "start_time" => Ok(__FieldTag::__start_time),
+                            "state" => Ok(__FieldTag::__state),
+                            "resourcesFound" => Ok(__FieldTag::__resources_found),
+                            "resources_found" => Ok(__FieldTag::__resources_found),
+                            "resourcesScanned" => Ok(__FieldTag::__resources_scanned),
+                            "resources_scanned" => Ok(__FieldTag::__resources_scanned),
+                            "resourcesPending" => Ok(__FieldTag::__resources_pending),
+                            "resources_pending" => Ok(__FieldTag::__resources_pending),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateOrgPolicyViolationsPreviewOperationMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateOrgPolicyViolationsPreviewOperationMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__request_time => {
+                            if !fields.insert(__FieldTag::__request_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_time",
+                                ));
+                            }
+                            result.request_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__start_time => {
+                            if !fields.insert(__FieldTag::__start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_time",
+                                ));
+                            }
+                            result.start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map
+                                .next_value::<std::option::Option<crate::model::PreviewState>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__resources_found => {
+                            if !fields.insert(__FieldTag::__resources_found) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resources_found",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.resources_found =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__resources_scanned => {
+                            if !fields.insert(__FieldTag::__resources_scanned) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resources_scanned",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.resources_scanned =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__resources_pending => {
+                            if !fields.insert(__FieldTag::__resources_pending) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resources_pending",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.resources_pending =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateOrgPolicyViolationsPreviewOperationMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.request_time.is_some() {
+            state.serialize_entry("requestTime", &self.request_time)?;
+        }
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !wkt::internal::is_default(&self.resources_found) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("resourcesFound", &__With(&self.resources_found))?;
+        }
+        if !wkt::internal::is_default(&self.resources_scanned) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("resourcesScanned", &__With(&self.resources_scanned))?;
+        }
+        if !wkt::internal::is_default(&self.resources_pending) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("resourcesPending", &__With(&self.resources_pending))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// ListOrgPolicyViolationsPreviewsRequest is the request message for
+/// [OrgPolicyViolationsPreviewService.ListOrgPolicyViolationsPreviews][google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolationsPreviews].
+///
+/// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolationsPreviews]: crate::client::OrgPolicyViolationsPreviewService::list_org_policy_violations_previews
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListOrgPolicyViolationsPreviewsRequest {
+    /// Required. The parent the violations are scoped to.
+    /// Format:
+    /// `organizations/{organization}/locations/{location}`
+    ///
+    /// Example: `organizations/my-example-org/locations/global`
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return. The service may return
+    /// fewer than this value. If unspecified, at most 5 items will be returned.
+    /// The maximum value is 10; values above 10 will be coerced to 10.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous call. Provide this to
+    /// retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters must match the call that provided the
+    /// page token.
+    pub page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListOrgPolicyViolationsPreviewsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListOrgPolicyViolationsPreviewsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListOrgPolicyViolationsPreviewsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListOrgPolicyViolationsPreviewsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListOrgPolicyViolationsPreviewsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.policysimulator.v1.ListOrgPolicyViolationsPreviewsRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListOrgPolicyViolationsPreviewsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for ListOrgPolicyViolationsPreviewsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListOrgPolicyViolationsPreviewsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListOrgPolicyViolationsPreviewsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListOrgPolicyViolationsPreviewsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// ListOrgPolicyViolationsPreviewsResponse is the response message for
+/// [OrgPolicyViolationsPreviewService.ListOrgPolicyViolationsPreviews][google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolationsPreviews].
+///
+/// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolationsPreviews]: crate::client::OrgPolicyViolationsPreviewService::list_org_policy_violations_previews
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListOrgPolicyViolationsPreviewsResponse {
+    /// The list of OrgPolicyViolationsPreview
+    pub org_policy_violations_previews: std::vec::Vec<crate::model::OrgPolicyViolationsPreview>,
+
+    /// A token that you can use to retrieve the next page of results.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListOrgPolicyViolationsPreviewsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [org_policy_violations_previews][crate::model::ListOrgPolicyViolationsPreviewsResponse::org_policy_violations_previews].
+    pub fn set_org_policy_violations_previews<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::OrgPolicyViolationsPreview>,
+    {
+        use std::iter::Iterator;
+        self.org_policy_violations_previews = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOrgPolicyViolationsPreviewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListOrgPolicyViolationsPreviewsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.policysimulator.v1.ListOrgPolicyViolationsPreviewsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListOrgPolicyViolationsPreviewsResponse {
+    type PageItem = crate::model::OrgPolicyViolationsPreview;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.org_policy_violations_previews
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListOrgPolicyViolationsPreviewsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __org_policy_violations_previews,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for ListOrgPolicyViolationsPreviewsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "orgPolicyViolationsPreviews" => {
+                                Ok(__FieldTag::__org_policy_violations_previews)
+                            }
+                            "org_policy_violations_previews" => {
+                                Ok(__FieldTag::__org_policy_violations_previews)
+                            }
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListOrgPolicyViolationsPreviewsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListOrgPolicyViolationsPreviewsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__org_policy_violations_previews => {
+                            if !fields.insert(__FieldTag::__org_policy_violations_previews) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for org_policy_violations_previews",
+                                ));
+                            }
+                            result.org_policy_violations_previews = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::OrgPolicyViolationsPreview>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListOrgPolicyViolationsPreviewsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.org_policy_violations_previews.is_empty() {
+            state.serialize_entry(
+                "orgPolicyViolationsPreviews",
+                &self.org_policy_violations_previews,
+            )?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// GetOrgPolicyViolationsPreviewRequest is the request message for
+/// [OrgPolicyViolationsPreviewService.GetOrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.GetOrgPolicyViolationsPreview].
+///
+/// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.GetOrgPolicyViolationsPreview]: crate::client::OrgPolicyViolationsPreviewService::get_org_policy_violations_preview
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetOrgPolicyViolationsPreviewRequest {
+    /// Required. The name of the OrgPolicyViolationsPreview to get.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetOrgPolicyViolationsPreviewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetOrgPolicyViolationsPreviewRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetOrgPolicyViolationsPreviewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.policysimulator.v1.GetOrgPolicyViolationsPreviewRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetOrgPolicyViolationsPreviewRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetOrgPolicyViolationsPreviewRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetOrgPolicyViolationsPreviewRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetOrgPolicyViolationsPreviewRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetOrgPolicyViolationsPreviewRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// CreateOrgPolicyViolationsPreviewRequest is the request message for
+/// [OrgPolicyViolationsPreviewService.CreateOrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.CreateOrgPolicyViolationsPreview].
+///
+/// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.CreateOrgPolicyViolationsPreview]: crate::client::OrgPolicyViolationsPreviewService::create_org_policy_violations_preview
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateOrgPolicyViolationsPreviewRequest {
+    /// Required. The organization under which this
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]
+    /// will be created.
+    ///
+    /// Example: `organizations/my-example-org/locations/global`
+    ///
+    /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    pub parent: std::string::String,
+
+    /// Required. The
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]
+    /// to generate.
+    ///
+    /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    pub org_policy_violations_preview:
+        std::option::Option<crate::model::OrgPolicyViolationsPreview>,
+
+    /// Optional. An optional user-specified ID for the
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview].
+    /// If not provided, a random ID will be generated.
+    ///
+    /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    pub org_policy_violations_preview_id: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateOrgPolicyViolationsPreviewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateOrgPolicyViolationsPreviewRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [org_policy_violations_preview][crate::model::CreateOrgPolicyViolationsPreviewRequest::org_policy_violations_preview].
+    pub fn set_org_policy_violations_preview<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OrgPolicyViolationsPreview>,
+    {
+        self.org_policy_violations_preview = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [org_policy_violations_preview][crate::model::CreateOrgPolicyViolationsPreviewRequest::org_policy_violations_preview].
+    pub fn set_or_clear_org_policy_violations_preview<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::OrgPolicyViolationsPreview>,
+    {
+        self.org_policy_violations_preview = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [org_policy_violations_preview_id][crate::model::CreateOrgPolicyViolationsPreviewRequest::org_policy_violations_preview_id].
+    pub fn set_org_policy_violations_preview_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.org_policy_violations_preview_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateOrgPolicyViolationsPreviewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.policysimulator.v1.CreateOrgPolicyViolationsPreviewRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateOrgPolicyViolationsPreviewRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __org_policy_violations_preview,
+            __org_policy_violations_preview_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for CreateOrgPolicyViolationsPreviewRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "orgPolicyViolationsPreview" => {
+                                Ok(__FieldTag::__org_policy_violations_preview)
+                            }
+                            "org_policy_violations_preview" => {
+                                Ok(__FieldTag::__org_policy_violations_preview)
+                            }
+                            "orgPolicyViolationsPreviewId" => {
+                                Ok(__FieldTag::__org_policy_violations_preview_id)
+                            }
+                            "org_policy_violations_preview_id" => {
+                                Ok(__FieldTag::__org_policy_violations_preview_id)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateOrgPolicyViolationsPreviewRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateOrgPolicyViolationsPreviewRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__org_policy_violations_preview => {
+                            if !fields.insert(__FieldTag::__org_policy_violations_preview) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for org_policy_violations_preview",
+                                ));
+                            }
+                            result.org_policy_violations_preview = map.next_value::<std::option::Option<crate::model::OrgPolicyViolationsPreview>>()?
+                                ;
+                        }
+                        __FieldTag::__org_policy_violations_preview_id => {
+                            if !fields.insert(__FieldTag::__org_policy_violations_preview_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for org_policy_violations_preview_id",
+                                ));
+                            }
+                            result.org_policy_violations_preview_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateOrgPolicyViolationsPreviewRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.org_policy_violations_preview.is_some() {
+            state.serialize_entry(
+                "orgPolicyViolationsPreview",
+                &self.org_policy_violations_preview,
+            )?;
+        }
+        if !self.org_policy_violations_preview_id.is_empty() {
+            state.serialize_entry(
+                "orgPolicyViolationsPreviewId",
+                &self.org_policy_violations_preview_id,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// ListOrgPolicyViolationsRequest is the request message for
+/// [OrgPolicyViolationsPreviewService.ListOrgPolicyViolations][google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolations].
+///
+/// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolations]: crate::client::OrgPolicyViolationsPreviewService::list_org_policy_violations
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListOrgPolicyViolationsRequest {
+    /// Required. The OrgPolicyViolationsPreview to get OrgPolicyViolations from.
+    /// Format:
+    /// organizations/{organization}/locations/{location}/orgPolicyViolationsPreviews/{orgPolicyViolationsPreview}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return. The service may return
+    /// fewer than this value. If unspecified, at most 1000 items will be returned.
+    /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous call. Provide this to
+    /// retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters must match the call that provided the
+    /// page token.
+    pub page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListOrgPolicyViolationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListOrgPolicyViolationsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListOrgPolicyViolationsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListOrgPolicyViolationsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListOrgPolicyViolationsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.policysimulator.v1.ListOrgPolicyViolationsRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListOrgPolicyViolationsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListOrgPolicyViolationsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListOrgPolicyViolationsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListOrgPolicyViolationsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListOrgPolicyViolationsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// ListOrgPolicyViolationsResponse is the response message for
+/// [OrgPolicyViolationsPreviewService.ListOrgPolicyViolations][google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolations]
+///
+/// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolations]: crate::client::OrgPolicyViolationsPreviewService::list_org_policy_violations
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListOrgPolicyViolationsResponse {
+    /// The list of OrgPolicyViolations
+    pub org_policy_violations: std::vec::Vec<crate::model::OrgPolicyViolation>,
+
+    /// A token that you can use to retrieve the next page of results.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListOrgPolicyViolationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [org_policy_violations][crate::model::ListOrgPolicyViolationsResponse::org_policy_violations].
+    pub fn set_org_policy_violations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::OrgPolicyViolation>,
+    {
+        use std::iter::Iterator;
+        self.org_policy_violations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOrgPolicyViolationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListOrgPolicyViolationsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.policysimulator.v1.ListOrgPolicyViolationsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListOrgPolicyViolationsResponse {
+    type PageItem = crate::model::OrgPolicyViolation;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.org_policy_violations
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListOrgPolicyViolationsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __org_policy_violations,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListOrgPolicyViolationsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "orgPolicyViolations" => Ok(__FieldTag::__org_policy_violations),
+                            "org_policy_violations" => Ok(__FieldTag::__org_policy_violations),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListOrgPolicyViolationsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListOrgPolicyViolationsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__org_policy_violations => {
+                            if !fields.insert(__FieldTag::__org_policy_violations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for org_policy_violations",
+                                ));
+                            }
+                            result.org_policy_violations = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::OrgPolicyViolation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListOrgPolicyViolationsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.org_policy_violations.is_empty() {
+            state.serialize_entry("orgPolicyViolations", &self.org_policy_violations)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -4740,6 +7918,171 @@ impl<'de> serde::de::Deserialize<'de> for HeuristicRelevance {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<HeuristicRelevance>::new(
             ".google.cloud.policysimulator.v1.HeuristicRelevance",
+        ))
+    }
+}
+
+/// The current state of an
+/// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview].
+///
+/// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum PreviewState {
+    /// The state is unspecified.
+    Unspecified,
+    /// The
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]
+    /// has not been created yet.
+    ///
+    /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    PreviewPending,
+    /// The
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]
+    /// is currently being created.
+    ///
+    /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    PreviewRunning,
+    /// The
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]
+    /// creation finished successfully.
+    ///
+    /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    PreviewSucceeded,
+    /// The
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]
+    /// creation failed with an error.
+    ///
+    /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    PreviewFailed,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [PreviewState::value] or
+    /// [PreviewState::name].
+    UnknownValue(preview_state::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod preview_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl PreviewState {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::PreviewPending => std::option::Option::Some(1),
+            Self::PreviewRunning => std::option::Option::Some(2),
+            Self::PreviewSucceeded => std::option::Option::Some(3),
+            Self::PreviewFailed => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("PREVIEW_STATE_UNSPECIFIED"),
+            Self::PreviewPending => std::option::Option::Some("PREVIEW_PENDING"),
+            Self::PreviewRunning => std::option::Option::Some("PREVIEW_RUNNING"),
+            Self::PreviewSucceeded => std::option::Option::Some("PREVIEW_SUCCEEDED"),
+            Self::PreviewFailed => std::option::Option::Some("PREVIEW_FAILED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for PreviewState {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for PreviewState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for PreviewState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::PreviewPending,
+            2 => Self::PreviewRunning,
+            3 => Self::PreviewSucceeded,
+            4 => Self::PreviewFailed,
+            _ => Self::UnknownValue(preview_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for PreviewState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "PREVIEW_STATE_UNSPECIFIED" => Self::Unspecified,
+            "PREVIEW_PENDING" => Self::PreviewPending,
+            "PREVIEW_RUNNING" => Self::PreviewRunning,
+            "PREVIEW_SUCCEEDED" => Self::PreviewSucceeded,
+            "PREVIEW_FAILED" => Self::PreviewFailed,
+            _ => Self::UnknownValue(preview_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for PreviewState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::PreviewPending => serializer.serialize_i32(1),
+            Self::PreviewRunning => serializer.serialize_i32(2),
+            Self::PreviewSucceeded => serializer.serialize_i32(3),
+            Self::PreviewFailed => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for PreviewState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<PreviewState>::new(
+            ".google.cloud.policysimulator.v1.PreviewState",
         ))
     }
 }

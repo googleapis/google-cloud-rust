@@ -21,6 +21,216 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
+/// let client = OrgPolicyViolationsPreviewService::builder().build().await?;
+/// // use `client` to make requests to the Policy Simulator API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Violations Preview API service for OrgPolicy.
+///
+/// An
+/// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]
+/// is a preview of the violations that will exist as soon as a proposed
+/// OrgPolicy change is submitted. To create an
+/// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview],
+/// the API user specifies the changes they wish to make and requests the
+/// generation of a preview via [GenerateViolationsPreview][]. the OrgPolicy
+/// Simulator service then scans the API user's currently existing resources to
+/// determine these resources violate the newly set OrgPolicy.
+///
+/// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+///
+/// # Configuration
+///
+/// To configure `OrgPolicyViolationsPreviewService` use the `with_*` methods in the type returned
+/// by [builder()][OrgPolicyViolationsPreviewService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://policysimulator.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::org_policy_violations_preview_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::org_policy_violations_preview_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `OrgPolicyViolationsPreviewService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `OrgPolicyViolationsPreviewService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct OrgPolicyViolationsPreviewService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::OrgPolicyViolationsPreviewService>,
+}
+
+impl OrgPolicyViolationsPreviewService {
+    /// Returns a builder for [OrgPolicyViolationsPreviewService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
+    /// let client = OrgPolicyViolationsPreviewService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::org_policy_violations_preview_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::org_policy_violations_preview_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::OrgPolicyViolationsPreviewService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::OrgPolicyViolationsPreviewService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::OrgPolicyViolationsPreviewService> {
+        super::transport::OrgPolicyViolationsPreviewService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::OrgPolicyViolationsPreviewService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::OrgPolicyViolationsPreviewService::new)
+    }
+
+    /// ListOrgPolicyViolationsPreviews lists each
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]
+    /// in an organization. Each
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]
+    /// is available for at least 7 days.
+    ///
+    /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    pub fn list_org_policy_violations_previews(
+        &self,
+    ) -> super::builder::org_policy_violations_preview_service::ListOrgPolicyViolationsPreviews
+    {
+        super::builder::org_policy_violations_preview_service::ListOrgPolicyViolationsPreviews::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// GetOrgPolicyViolationsPreview gets the specified
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview].
+    /// Each
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]
+    /// is available for at least 7 days.
+    ///
+    /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    pub fn get_org_policy_violations_preview(
+        &self,
+    ) -> super::builder::org_policy_violations_preview_service::GetOrgPolicyViolationsPreview {
+        super::builder::org_policy_violations_preview_service::GetOrgPolicyViolationsPreview::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// CreateOrgPolicyViolationsPreview creates an
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]
+    /// for the proposed changes in the provided
+    /// [OrgPolicyViolationsPreview.OrgPolicyOverlay][]. The changes to OrgPolicy
+    /// are specified by this `OrgPolicyOverlay`. The resources to scan are
+    /// inferred from these specified changes.
+    ///
+    /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_org_policy_violations_preview(
+        &self,
+    ) -> super::builder::org_policy_violations_preview_service::CreateOrgPolicyViolationsPreview
+    {
+        super::builder::org_policy_violations_preview_service::CreateOrgPolicyViolationsPreview::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// ListOrgPolicyViolations lists the [OrgPolicyViolations][] that are present
+    /// in an
+    /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview].
+    ///
+    /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    pub fn list_org_policy_violations(
+        &self,
+    ) -> super::builder::org_policy_violations_preview_service::ListOrgPolicyViolations {
+        super::builder::org_policy_violations_preview_service::ListOrgPolicyViolations::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(
+        &self,
+    ) -> super::builder::org_policy_violations_preview_service::ListOperations {
+        super::builder::org_policy_violations_preview_service::ListOperations::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(
+        &self,
+    ) -> super::builder::org_policy_violations_preview_service::GetOperation {
+        super::builder::org_policy_violations_preview_service::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Policy Simulator API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_policysimulator_v1::client::Simulator;
 /// let client = Simulator::builder().build().await?;
 /// // use `client` to make requests to the Policy Simulator API.

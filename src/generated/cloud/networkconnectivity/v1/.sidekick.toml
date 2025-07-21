@@ -18,3 +18,4 @@ service-config = 'google/cloud/networkconnectivity/v1/networkconnectivity_v1.yam
 
 [codec]
 copyright-year = '2025'
+version        = "0.4.3"
