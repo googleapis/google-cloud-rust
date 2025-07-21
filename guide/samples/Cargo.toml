@@ -43,6 +43,12 @@ version = "0.4.2"
 # ANCHOR_END: speech
 path = "../../src/generated/cloud/speech/v2"
 
+# ANCHOR: storage
+[dependencies.google-cloud-storage]
+version = "0.25.0-preview4"
+# ANCHOR_END: storage
+path = "../../src/storage"
+
 # ANCHOR: serde_json
 [dependencies.serde_json]
 workspace = true
@@ -94,8 +100,10 @@ path = "../../src/gax"
 [dev-dependencies]
 mockall = "0.13"
 # ANCHOR_END: mockall
-rand                = "0.9"
-test-case.workspace = true
+anyhow.workspace            = true
+rand                        = "0.9"
+test-case.workspace         = true
+integration-tests.workspace = true
 
 # ANCHOR: tokio
 [dependencies.tokio]

@@ -537,7 +537,7 @@ async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) -> Res
     Ok(())
 }
 
-async fn cleanup_bucket(client: StorageControl, name: String) -> Result<()> {
+pub async fn cleanup_bucket(client: StorageControl, name: String) -> Result<()> {
     let mut objects = client
         .list_objects()
         .set_parent(&name)

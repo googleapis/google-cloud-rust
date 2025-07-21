@@ -75,7 +75,7 @@ pub(crate) fn random_workflow_id() -> String {
     format!("{PREFIX}{workflow_id}")
 }
 
-pub(crate) fn random_bucket_id() -> String {
+pub fn random_bucket_id() -> String {
     const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
 
     let distr = RandomChars { chars: CHARSET };

@@ -6920,6 +6920,7 @@ dependencies = [
 name = "user-guide-samples"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "crc32c",
  "futures",
  "google-cloud-aiplatform-v1",
@@ -6930,7 +6931,9 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-secretmanager-v1",
  "google-cloud-speech-v2",
+ "google-cloud-storage",
  "google-cloud-wkt",
+ "integration-tests",
  "mockall",
  "rand 0.9.2",
  "serde_json",
