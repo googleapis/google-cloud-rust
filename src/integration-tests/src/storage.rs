@@ -44,7 +44,7 @@ impl TestDataSource {
     fn without_size_hint(size: u64) -> Self {
         Self {
             size,
-            hint: (size, None),
+            hint: (0, None),
             offset: 0,
         }
     }

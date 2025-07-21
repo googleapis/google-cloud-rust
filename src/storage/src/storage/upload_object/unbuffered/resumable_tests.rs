@@ -38,7 +38,7 @@
 //!    - If that succeeds, go to 4.
 //!    - If that fails with a non-retryable error, return immediately.
 //!    - If that fails with a retryable error, try step 3 again until the
-//!      retry policy.
+//!      retry policy is exhausted.
 //! 4. Rewind the data source to the new offset.
 //! 5. Go to step 2.
 //!

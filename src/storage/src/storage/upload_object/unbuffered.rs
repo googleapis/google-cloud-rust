@@ -71,17 +71,17 @@ where
     ) -> Result<Object> {
         let offset = if let Some(upload_url) = url {
             match self.query_resumable_upload(upload_url).await? {
-                ResumableUploadStatus::Finalized(o) => {
-                    return Ok(*o);
+                ResumableUploadStatus::Finalized(object) => {
+                    return Ok(*object);
                 }
-                ResumableUploadStatus::Partial(o) => o,
+                ResumableUploadStatus::Partial(offset) => offset,
             }
         } else {
             let upload_url = self.start_resumable_upload_attempt().await?;
             *url = Some(upload_url);
             0_u64
         };
-        assert!(url.is_some());
+        assert!(url.is_some()); // anything else is a bug, better to crash.
 
         use crate::upload_source::Seek;
         let payload = self.payload.clone();
