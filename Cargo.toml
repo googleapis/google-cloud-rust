@@ -366,3 +366,6 @@ oslogin_common                = { version = "0.4.2", path = "src/generated/oslog
 iam_v2                        = { version = "0.4.2", path = "src/generated/iam/v2", package = "google-cloud-iam-v2" }
 recommender                   = { version = "0.4.2", path = "src/generated/cloud/recommender/v1", package = "google-cloud-recommender-v1" }
 accesscontextmanager_type     = { version = "0.4.2", path = "src/generated/identity/accesscontextmanager/type", package = "google-cloud-identity-accesscontextmanager-type" }
+
+# Local test package
+integration-tests = { path = "src/integration-tests" }

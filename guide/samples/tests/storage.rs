@@ -13,9 +13,7 @@
 // limitations under the License.
 
 pub mod storage {
-    use rand::{Rng, distr::Distribution};
-
-    const BUCKET_ID_LENGTH: usize = 63;
+    pub use integration_tests::random_bucket_id;
 
     #[cfg(all(test, feature = "run-integration-tests"))]
     mod driver {
@@ -33,55 +31,11 @@ pub mod storage {
     }
 
     pub mod quickstart;
+
     pub async fn cleanup_bucket(bucket_id: &str) -> anyhow::Result<()> {
-        use google_cloud_gax::paginator::ItemPaginator;
-        let name = format!("projects/_/buckets/{bucket_id}");
-        let client = google_cloud_storage::client::StorageControl::builder()
+        let control = google_cloud_storage::client::StorageControl::builder()
             .build()
             .await?;
-        let mut objects = client
-            .list_objects()
-            .set_parent(&name)
-            .set_versions(true)
-            .by_item();
-        let mut pending = Vec::new();
-        while let Some(object) = objects.next().await {
-            let object = object?;
-            pending.push(
-                client
-                    .delete_object()
-                    .set_bucket(object.bucket)
-                    .set_object(object.name)
-                    .set_generation(object.generation)
-                    .send(),
-            );
-        }
-        let _ = futures::future::join_all(pending).await;
-        client.delete_bucket().set_name(&name).send().await?;
-        Ok(())
-    }
-
-    pub fn random_bucket_id() -> String {
-        const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
-
-        let distr = RandomChars { chars: CHARSET };
-        const PREFIX: &str = "rust-sdk-testing-";
-        let bucket_id: String = rand::rng()
-            .sample_iter(distr)
-            .take(BUCKET_ID_LENGTH - PREFIX.len())
-            .map(char::from)
-            .collect();
-        format!("{PREFIX}{bucket_id}")
-    }
-
-    pub(crate) struct RandomChars {
-        chars: &'static [u8],
-    }
-
-    impl Distribution<u8> for RandomChars {
-        fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> u8 {
-            let index = rng.random_range(0..self.chars.len());
-            self.chars[index]
-        }
+        integration_tests::storage::cleanup_bucket(control, format!("projects/_/{bucket_id}")).await
     }
 }

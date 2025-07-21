@@ -103,6 +103,7 @@ mockall = "0.13"
 anyhow.workspace    = true
 rand                = "0.9"
 test-case.workspace = true
+integration-tests.workspace = true
 
 # ANCHOR: tokio
 [dependencies.tokio]

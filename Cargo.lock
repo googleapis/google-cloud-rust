@@ -6898,6 +6898,7 @@ dependencies = [
  "google-cloud-speech-v2",
  "google-cloud-storage",
  "google-cloud-wkt",
+ "integration-tests",
  "mockall",
  "rand 0.9.1",
  "serde_json",

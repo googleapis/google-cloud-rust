@@ -25,9 +25,9 @@ pub async fn quickstart(project_id: &str, bucket_id: &str) -> anyhow::Result<()>
         .set_parent("projects/_")
         .set_bucket_id(bucket_id)
         .set_bucket(
+            // ANCHOR: control-bucket-ubla
             gcs::model::Bucket::new()
                 .set_project(format!("projects/{project_id}"))
-                // ANCHOR: control-bucket-ubla
                 // ANCHOR_END: control-bucket-required
                 .set_iam_config(
                     gcs::model::bucket::IamConfig::new().set_uniform_bucket_level_access(
@@ -35,8 +35,10 @@ pub async fn quickstart(project_id: &str, bucket_id: &str) -> anyhow::Result<()>
                             .set_enabled(true),
                     ),
                 ),
+            // ANCHOR_END: control-bucket-ubla
+            // ANCHOR: control-bucket-required
         )
-        // ANCHOR_END: control-bucket-ubla
+        // ANCHOR_END: control-bucket-required
         // ANCHOR: control-bucket-send
         .send()
         .await?;

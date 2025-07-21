@@ -16,16 +16,17 @@ limitations under the License.
 
 # Using Google Cloud Storage
 
-Google [Cloud Storage] is a managed service for storing unstructured data. The
-Rust client library offer an idiomatic API to access to this service. The client
-library also resumes interrupted downloads and uploads, and automatically
+Google [Cloud Storage] is a managed service for storing unstructured data.
+
+The Rust client library provides an idiomatic API to access this service. The
+client library resumes interrupted downloads and uploads, and automatically
 performs integrity checks on the data. For metadata operations, the client
 library can retry failed requests, and automatically poll long-running
 operations.
 
 ## Quickstart
 
-This guide will help show you how to create Cloud Storage bucket, upload an
+This guide will help show you how to create a Cloud Storage bucket, upload an
 object to this bucket, and then read the object back.
 
 ### Prerequisites
@@ -45,13 +46,13 @@ The client to perform operations on buckets and object metadata is called
 `StorageControl`:
 
 ```rust,ignore,noplayground
-{{#include ../samples/tests/storage/quickstart.rs:control-client}}
+{{#rustdoc_include ../samples/tests/storage/quickstart.rs:control-client}}
 ```
 
 To create a bucket you must provide the project name and the desired bucket id:
 
 ```rust,ignore,noplayground
-{{#include ../samples/tests/storage/quickstart.rs:control-bucket-required}}
+{{#rustdoc_include ../samples/tests/storage/quickstart.rs:control-bucket-required}}
 ```
 
 You can also provide other attributes for the bucket. For example, if you want
@@ -59,13 +60,13 @@ all objects in the bucket to use the same permissions, you can enable
 [Uniform bucket-level access]:
 
 ```rust,ignore,noplayground
-{{#include ../samples/tests/storage/quickstart.rs:control-bucket-ubla}}
+{{#rustdoc_include ../samples/tests/storage/quickstart.rs:control-bucket-ubla}}
 ```
 
 Then send this request and wait for the response:
 
 ```rust,ignore,noplayground
-{{#include ../samples/tests/storage/quickstart.rs:control-bucket-send}}
+{{#rustdoc_include ../samples/tests/storage/quickstart.rs:control-bucket-send}}
 ```
 
 ### Upload an object
@@ -73,14 +74,14 @@ Then send this request and wait for the response:
 The client to perform operations on object data is called `Storage`:
 
 ```rust,ignore,noplayground
-{{#include ../samples/tests/storage/quickstart.rs:client}}
+{{#rustdoc_include ../samples/tests/storage/quickstart.rs:client}}
 ```
 
 In this case we will create an object called `hello.txt`, with the traditional
 greeting for a programming tutorial:
 
 ```rust,ignore,noplayground
-{{#include ../samples/tests/storage/quickstart.rs:upload}}
+{{#rustdoc_include ../samples/tests/storage/quickstart.rs:upload}}
 ```
 
 ### Download an object
@@ -88,7 +89,7 @@ greeting for a programming tutorial:
 To download the contents of an object use `read_object()`:
 
 ```rust,ignore,noplayground
-{{#include ../samples/tests/storage/quickstart.rs:download}}
+{{#rustdoc_include ../samples/tests/storage/quickstart.rs:download}}
 ```
 
 ### Cleanup
@@ -97,13 +98,13 @@ Finally we remove the object and bucket to cleanup all the resources used in
 this guide:
 
 ```rust,ignore,noplayground
-{{#include ../samples/tests/storage/quickstart.rs:cleanup}}
+{{#rustdoc_include ../samples/tests/storage/quickstart.rs:cleanup}}
 ```
 
 ## Full program
 
 ```rust,ignore,noplayground
-{{#include ../samples/tests/storage/quickstart.rs:quickstart}}
+{{#rustdoc_include ../samples/tests/storage/quickstart.rs:quickstart}}
 ```
 
 [billing enabled]: https://cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project
