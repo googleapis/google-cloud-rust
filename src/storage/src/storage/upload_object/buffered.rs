@@ -33,22 +33,28 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send(self) -> crate::Result<Object> {
-        let upload_url = self.start_resumable_upload().await?;
-        // TODO(#2043) - make the threshold to use resumable uploads and the
-        //    target size for each chunk configurable.
-        if self.payload.lock().await.size_hint().0 > RESUMABLE_UPLOAD_QUANTUM as u64 {
-            return self
-                .upload_by_chunks(&upload_url, RESUMABLE_UPLOAD_QUANTUM)
-                .await;
+        let hint = self
+            .payload
+            .lock()
+            .await
+            .size_hint()
+            .await
+            .map_err(Error::io)?
+            .1;
+        if hint.is_none_or(|max| max >= self.options.resumable_upload_threshold as u64) {
+            let upload_url = self.start_resumable_upload().await?;
+            // The buffer size must be a multiple of the upload quantum. The
+            // upload is finalized on the first PUT request with a size that is
+            // not such.
+            let target_size = self
+                .options
+                .resumable_upload_buffer_size
+                .div_ceil(RESUMABLE_UPLOAD_QUANTUM)
+                * RESUMABLE_UPLOAD_QUANTUM;
+            let target_size = target_size.max(RESUMABLE_UPLOAD_QUANTUM);
+            return self.upload_by_chunks(&upload_url, target_size).await;
         }
-        let builder = self.upload_request(upload_url).await?;
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return gaxi::http::to_http_error(response).await;
-        }
-        let response = response.json::<v1::Object>().await.map_err(Error::io)?;
-
-        Ok(Object::from(response))
+        self.send_buffered_single_shot().await
     }
 
     async fn upload_by_chunks(&self, upload_url: &str, target_size: usize) -> Result<Object> {
@@ -78,7 +84,7 @@ where
                     chunk_remainder,
                 } => {
                     offset = persisted_size;
-                    // TODO(#2043) - handle partial uploads
+                    // TODO(#2057) - handle partial uploads
                     assert_eq!(chunk_remainder, 0);
                     remainder = r;
                 }
@@ -124,21 +130,20 @@ where
         Ok((builder.body(reqwest::Body::wrap_stream(stream)), chunk_size))
     }
 
-    async fn upload_request(self, upload_url: String) -> Result<reqwest::RequestBuilder> {
-        let mut payload = self.payload.lock().await;
-        let (chunk, chunk_size, full_size) = {
-            let mut chunk = VecDeque::new();
-            let mut size = 0_usize;
-            while let Some(b) = payload.next().await.transpose().map_err(Error::io)? {
-                size += b.len();
-                chunk.push_back(b);
-            }
-            (chunk, size, Some(size))
+    async fn send_buffered_single_shot(self) -> Result<Object> {
+        let mut stream = self.payload.lock().await;
+        let mut collected = Vec::new();
+        while let Some(b) = stream.next().await.transpose().map_err(Error::io)? {
+            collected.push(b);
+        }
+        let upload = UploadObject {
+            payload: Arc::new(Mutex::new(InsertPayload::from(collected))),
+            inner: self.inner,
+            spec: self.spec,
+            params: self.params,
+            options: self.options,
         };
-        let (builder, _size) = self
-            .partial_upload_request(upload_url.as_str(), 0, chunk, chunk_size, full_size)
-            .await?;
-        Ok(builder)
+        upload.send_unbuffered().await
     }
 }
 
@@ -148,7 +153,7 @@ async fn next_chunk<T>(
     target_size: usize,
 ) -> Result<NextChunk>
 where
-    T: StreamingSource,
+    T: StreamingSource + Send + Sync,
 {
     let mut partial = VecDeque::new();
     let mut size = 0;
@@ -216,7 +221,7 @@ async fn parse_range(response: reqwest::Response, expected_offset: usize) -> Res
         return gaxi::http::to_http_error(response).await;
     };
     // The `Range` header returns an inclusive range, i.e. bytes=0-999 means "1000 bytes".
-    let (persisted_size, chunk_remainder) = match (expected_offset, end) {
+    let (persisted_size, chunk_remainder) = match (expected_offset, end as usize) {
         (o, 0) => (0, o),
         (o, e) if o < e + 1 => panic!("more data persistent than sent {response:?}"),
         (o, e) => (e + 1, o - e - 1),
@@ -225,22 +230,6 @@ async fn parse_range(response: reqwest::Response, expected_offset: usize) -> Res
         persisted_size,
         chunk_remainder,
     })
-}
-
-fn parse_range_end(headers: &reqwest::header::HeaderMap) -> Option<usize> {
-    let Some(range) = headers.get("range") else {
-        // A missing `Range:` header indicates that no bytes are persisted.
-        return Some(0_usize);
-    };
-    // Uploads must be sequential, so the persisted range (if present) always
-    // starts at zero. This is poorly documented, but can be inferred from
-    //   https://cloud.google.com/storage/docs/performing-resumable-uploads#resume-upload
-    // which requires uploads to continue from the last byte persisted. It is
-    // better documented in the gRPC version, where holes are explicitly
-    // forbidden:
-    //   https://github.com/googleapis/googleapis/blob/302273adb3293bb504ecd83be8e1467511d5c779/google/storage/v2/storage.proto#L1253-L1255
-    let end = std::str::from_utf8(range.as_bytes().strip_prefix(b"bytes=0-")?).ok()?;
-    end.parse::<usize>().ok()
 }
 
 #[derive(Debug, PartialEq)]
@@ -263,26 +252,71 @@ struct NextChunk {
     remainder: Option<bytes::Bytes>,
 }
 
-const RESUME_INCOMPLETE: reqwest::StatusCode = reqwest::StatusCode::PERMANENT_REDIRECT;
 // Resumable uploads chunks (except for the last chunk) *must* be sized to a
 // multiple of 256 KiB.
 const RESUMABLE_UPLOAD_QUANTUM: usize = 256 * 1024;
 
 #[cfg(test)]
 mod tests {
-    use super::super::client::tests::{create_key_helper, test_builder, test_inner_client};
+    use super::super::client::tests::{test_builder, test_inner_client};
+    use super::upload_source::{BytesSource, IterSource, tests::UnknownSize};
     use super::*;
-    use crate::upload_source::tests::VecStream;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use serde_json::json;
     use test_case::test_case;
 
     type Result = anyhow::Result<()>;
 
-    const SESSION: &str = "https://private.googleapis.com/test-only-session-123";
+    // We rely on the tests from `unbuffered.rs` for coverage of other
+    // single-shot upload features. Here we just want to verify the right upload
+    // type is selected depending on the with_resumable_upload_threshold()
+    // option.
+    #[tokio::test]
+    async fn upload_object_buffered_single_shot() -> Result {
+        let payload = serde_json::json!({
+            "name": "test-object",
+            "bucket": "test-bucket",
+            "metadata": {
+                "is-test-object": "true",
+            }
+        })
+        .to_string();
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("content-type", "application/json")
+                    .body(payload),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_resumable_upload_threshold(4 * RESUMABLE_UPLOAD_QUANTUM)
+            .build()
+            .await?;
+        let response = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send()
+            .await?;
+        assert_eq!(response.name, "test-object");
+        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
+        assert_eq!(
+            response.metadata.get("is-test-object").map(String::as_str),
+            Some("true")
+        );
+
+        Ok(())
+    }
 
     #[tokio::test]
-    async fn upload_object_buffered_normal() -> Result {
+    async fn upload_object_buffered_resumable() -> Result {
         let payload = serde_json::json!({
             "name": "test-object",
             "bucket": "test-bucket",
@@ -296,7 +330,7 @@ mod tests {
         let path = session.path().to_string();
         server.expect(
             Expectation::matching(all_of![
-                request::method_path("POST", "//upload/storage/v1/b/test-bucket/o"),
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
                 request::query(url_decoded(contains(("name", "test-object")))),
                 request::query(url_decoded(contains(("uploadType", "resumable")))),
             ])
@@ -319,10 +353,10 @@ mod tests {
             ),
         );
 
-        let endpoint = server.url("");
         let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_credentials(auth::credentials::testing::test_credentials())
+            .with_resumable_upload_threshold(0_usize)
             .build()
             .await?;
         let response = client
@@ -340,29 +374,192 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn upload_object_buffered_resumable_unknown_size() -> Result {
+        let payload = serde_json::json!({
+            "name": "test-object",
+            "bucket": "test-bucket",
+            "metadata": {
+                "is-test-object": "true",
+            }
+        })
+        .to_string();
+        let server = Server::run();
+        let session = server.url("/upload/session/test-only-001");
+        let path = session.path().to_string();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("location", session.to_string())
+                    .body(""),
+            ),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path),
+                request::headers(contains(("content-range", "bytes */0")))
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("content-type", "application/json")
+                    .body(payload),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_resumable_upload_threshold(4 * RESUMABLE_UPLOAD_QUANTUM)
+            .build()
+            .await?;
+        let source = UnknownSize::new(BytesSource::new(bytes::Bytes::from_static(b"")));
+        let response = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+            .send()
+            .await?;
+        assert_eq!(response.name, "test-object");
+        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
+        assert_eq!(
+            response.metadata.get("is-test-object").map(String::as_str),
+            Some("true")
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn upload_object_buffered_not_found() -> Result {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
-                request::method_path("POST", "//upload/storage/v1/b/test-bucket/o"),
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
                 request::query(url_decoded(contains(("name", "test-object")))),
                 request::query(url_decoded(contains(("uploadType", "resumable")))),
             ])
             .respond_with(status_code(404).body("NOT FOUND")),
         );
 
-        let endpoint = server.url("");
         let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
         let err = client
             .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .with_resumable_upload_threshold(0_usize)
             .send()
             .await
             .expect_err("expected a not found error");
         assert_eq!(err.http_status_code(), Some(404), "{err:?}");
+
+        Ok(())
+    }
+
+    #[test_case(0, RESUMABLE_UPLOAD_QUANTUM)]
+    #[test_case(RESUMABLE_UPLOAD_QUANTUM / 2, RESUMABLE_UPLOAD_QUANTUM)]
+    #[test_case(RESUMABLE_UPLOAD_QUANTUM, RESUMABLE_UPLOAD_QUANTUM)]
+    #[test_case(3 * RESUMABLE_UPLOAD_QUANTUM + 1, 4 * RESUMABLE_UPLOAD_QUANTUM)]
+    #[tokio::test]
+    async fn upload_object_buffered_resumable_multiple_chunks(
+        configured_buffer_size: usize,
+        actual_buffer_size: usize,
+    ) -> Result {
+        assert!(
+            actual_buffer_size % RESUMABLE_UPLOAD_QUANTUM == 0,
+            "{actual_buffer_size}"
+        );
+        assert!(
+            configured_buffer_size <= actual_buffer_size,
+            "{configured_buffer_size} should be <= {actual_buffer_size}"
+        );
+        let payload = serde_json::json!({
+            "name": "test-object",
+            "bucket": "test-bucket",
+            "metadata": {
+                "is-test-object": "true",
+            }
+        })
+        .to_string();
+        let server = Server::run();
+        let session = server.url("/upload/session/test-only-001");
+        let path = session.path().to_string();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("location", session.to_string())
+                    .body(""),
+            ),
+        );
+
+        let start0 = 0;
+        let end0 = actual_buffer_size - 1;
+        let start1 = actual_buffer_size;
+        let end1 = 2 * actual_buffer_size - 1;
+        let end2 = 2 * actual_buffer_size;
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path.clone()),
+                request::headers(contains((
+                    "content-range",
+                    format!("bytes {start0}-{end0}/*")
+                )))
+            ])
+            .respond_with(status_code(308).append_header("range", format!("bytes=0-{end0}"))),
+        );
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path.clone()),
+                request::headers(contains((
+                    "content-range",
+                    format!("bytes {start1}-{end1}/*")
+                )))
+            ])
+            .respond_with(status_code(308).append_header("range", format!("bytes=0-{end1}"))),
+        );
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path.clone()),
+                request::headers(contains(("content-range", format!("bytes */{end2}"))))
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("content-type", "application/json")
+                    .body(payload),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_resumable_upload_threshold(0_usize)
+            .with_resumable_upload_buffer_size(configured_buffer_size)
+            .build()
+            .await?;
+        let contents = (0..4)
+            .map(|i| vec![i as u8; actual_buffer_size / 2])
+            .map(bytes::Bytes::from_owner)
+            .collect::<Vec<_>>();
+        let response = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", contents)
+            .send()
+            .await;
+        let response = response?;
+        assert_eq!(response.name, "test-object");
+        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
+        assert_eq!(
+            response.metadata.get("is-test-object").map(String::as_str),
+            Some("true")
+        );
 
         Ok(())
     }
@@ -410,81 +607,6 @@ mod tests {
         let response = reqwest::Response::from(response);
         let url = super::handle_start_resumable_upload_response(response).await?;
         assert_eq!(url, "http://private.googleapis.com/test-only/session-123");
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn upload_request() -> Result {
-        use reqwest::header::HeaderValue;
-
-        let inner = test_inner_client(test_builder());
-        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .upload_request(SESSION.to_string())
-            .await?
-            .build()?;
-
-        assert_eq!(request.method(), reqwest::Method::PUT);
-        assert_eq!(request.url().as_str(), SESSION);
-        assert_eq!(
-            request.headers().get("content-range"),
-            Some(&HeaderValue::from_static("bytes 0-4/5"))
-        );
-        let body = request.body_mut().take().unwrap();
-        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
-        assert_eq!(contents, "hello");
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn upload_object_buffered_stream() -> Result {
-        let stream = VecStream::new(
-            [
-                "the ", "quick ", "brown ", "fox ", "jumps ", "over ", "the ", "lazy ", "dog",
-            ]
-            .map(|x| bytes::Bytes::from_static(x.as_bytes()))
-            .to_vec(),
-        );
-        let inner = test_inner_client(test_builder());
-        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream)
-            .upload_request(SESSION.to_string())
-            .await?
-            .build()?;
-
-        assert_eq!(request.method(), reqwest::Method::PUT);
-        assert_eq!(request.url().as_str(), SESSION);
-        let body = request.body_mut().take().unwrap();
-        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
-        assert_eq!(contents, "the quick brown fox jumps over the lazy dog");
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn upload_request_headers() -> Result {
-        // Make a 32-byte key.
-        let (key, key_base64, _, key_sha256_base64) = create_key_helper();
-
-        let inner = test_inner_client(test_builder());
-        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .with_key(KeyAes256::new(&key)?)
-            .upload_request(SESSION.to_string())
-            .await?
-            .build()?;
-
-        assert_eq!(request.method(), reqwest::Method::PUT);
-        assert_eq!(request.url().as_str(), SESSION);
-
-        let want = vec![
-            ("x-goog-encryption-algorithm", "AES256".to_string()),
-            ("x-goog-encryption-key", key_base64),
-            ("x-goog-encryption-key-sha256", key_sha256_base64),
-        ];
-
-        for (name, value) in want {
-            assert_eq!(
-                request.headers().get(name).unwrap().as_bytes(),
-                bytes::Bytes::from(value)
-            );
-        }
         Ok(())
     }
 
@@ -543,8 +665,7 @@ mod tests {
             .respond_with(status_code(200).body(payload.clone())),
         );
 
-        let stream = VecStream::new((0..5).map(|i| new_line(i, LEN)).collect::<Vec<_>>());
-
+        let stream = IterSource::new((0..5).map(|i| new_line(i, LEN)));
         let inner = test_inner_client(test_builder());
         let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream);
         let response = upload
@@ -708,7 +829,7 @@ mod tests {
     #[tokio::test]
     async fn next_chunk_success() -> Result {
         const LEN: usize = 32;
-        let stream = VecStream::new((0..5).map(|i| new_line(i, LEN)).collect::<Vec<_>>());
+        let stream = IterSource::new((0..5).map(|i| new_line(i, LEN)));
         let mut payload = InsertPayload::from(stream);
 
         let NextChunk {
@@ -744,7 +865,7 @@ mod tests {
     #[tokio::test]
     async fn next_chunk_split() -> Result {
         const LEN: usize = 32;
-        let stream = VecStream::new((0..5).map(|i| new_line(i, LEN)).collect::<Vec<_>>());
+        let stream = IterSource::new((0..5).map(|i| new_line(i, LEN)));
         let mut payload = InsertPayload::from(stream);
 
         let NextChunk {
@@ -789,7 +910,7 @@ mod tests {
             .map(|i| new_line_string(i, LEN))
             .collect::<Vec<_>>()
             .join("");
-        let stream = VecStream::new(vec![bytes::Bytes::from_owner(buffer), new_line(3, LEN)]);
+        let stream = IterSource::new(vec![bytes::Bytes::from_owner(buffer), new_line(3, LEN)]);
         let mut payload = InsertPayload::from(stream);
 
         let remainder = None;
@@ -838,7 +959,7 @@ mod tests {
             .map(|i| new_line_string(i, LEN))
             .collect::<Vec<_>>()
             .join("");
-        let stream = VecStream::new(vec![
+        let stream = IterSource::new(vec![
             bytes::Bytes::from_owner(buffer.clone()),
             new_line(3, LEN),
         ]);
@@ -878,7 +999,7 @@ mod tests {
     #[tokio::test]
     async fn next_chunk_done() -> Result {
         const LEN: usize = 32;
-        let stream = VecStream::new((0..2).map(|i| new_line(i, LEN)).collect::<Vec<_>>());
+        let stream = IterSource::new((0..2).map(|i| new_line(i, LEN)));
         let mut payload = InsertPayload::from(stream);
 
         let NextChunk {
@@ -1035,27 +1156,5 @@ mod tests {
             .expect_err("invalid range should create an error");
         assert!(err.http_status_code().is_some(), "{err:?}");
         Ok(())
-    }
-
-    #[test_case(None, Some(0))]
-    #[test_case(Some("bytes=0-12345"), Some(12345))]
-    #[test_case(Some("bytes=0-1"), Some(1))]
-    #[test_case(Some("bytes=0-0"), Some(0))]
-    #[test_case(Some("bytes=1-12345"), None)]
-    #[test_case(Some(""), None)]
-    fn range_end(input: Option<&str>, want: Option<usize>) {
-        use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
-        let headers = HeaderMap::from_iter(input.into_iter().map(|s| {
-            (
-                HeaderName::from_static("range"),
-                HeaderValue::from_str(s).unwrap(),
-            )
-        }));
-        assert_eq!(super::parse_range_end(&headers), want, "{headers:?}");
-    }
-
-    #[test]
-    fn validate_status_code() {
-        assert_eq!(RESUME_INCOMPLETE, 308);
     }
 }

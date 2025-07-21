@@ -22,7 +22,8 @@
 //! The principal that is trying to impersonate a target service account should have
 //! [Service Account Token Creator Role] on the target service account.
 //!
-//! # Example
+//! ## Example: Creating credentials from a JSON object
+//!
 //! ```
 //! # use google_cloud_auth::credentials::impersonated;
 //! # use serde_json::json;
@@ -45,6 +46,39 @@
 //!
 //! let credentials = impersonated::Builder::new(impersonated_credential)
 //!     .with_lifetime(Duration::from_secs(500))
+//!     .build()?;
+//! let headers = credentials.headers(Extensions::new()).await?;
+//! println!("Headers: {headers:?}");
+//! # Ok::<(), anyhow::Error>(())
+//! # });
+//! ```
+//!
+//! ## Example: Creating credentials with custom retry behavior
+//!
+//! ```
+//! # use google_cloud_auth::credentials::impersonated;
+//! # use serde_json::json;
+//! # use std::time::Duration;
+//! # use http::Extensions;
+//! # tokio_test::block_on(async {
+//! use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+//! use gax::exponential_backoff::ExponentialBackoff;
+//! # let source_credentials = json!({
+//! #     "type": "authorized_user",
+//! #     "client_id": "test-client-id",
+//! #     "client_secret": "test-client-secret",
+//! #     "refresh_token": "test-refresh-token"
+//! # });
+//! #
+//! # let impersonated_credential = json!({
+//! #     "type": "impersonated_service_account",
+//! #     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+//! #     "source_credentials": source_credentials,
+//! # });
+//! let backoff = ExponentialBackoff::default();
+//! let credentials = impersonated::Builder::new(impersonated_credential)
+//!     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+//!     .with_backoff_policy(backoff)
 //!     .build()?;
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");

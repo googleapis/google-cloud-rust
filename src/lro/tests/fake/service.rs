@@ -13,10 +13,9 @@
 // limitations under the License.
 
 use anyhow::Result;
-use axum::extract::State;
-use axum::http::StatusCode;
+use httptest::http::{Response, StatusCode};
+use httptest::{Expectation, Server, matchers::*};
 use std::sync::{Arc, Mutex};
-use tokio::task::JoinHandle;
 
 pub struct ServerState {
     pub create: std::collections::VecDeque<(StatusCode, String)>,
@@ -25,35 +24,47 @@ pub struct ServerState {
 
 type SharedServerState = Arc<Mutex<ServerState>>;
 
-pub async fn start(initial_state: ServerState) -> Result<(String, JoinHandle<()>)> {
-    let state = Arc::new(Mutex::new(initial_state));
-    let app = axum::Router::new()
-        .route("/create", axum::routing::post(create_handler))
-        .route("/poll", axum::routing::get(poll_handler))
-        .with_state(state);
-    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
-    let addr = listener.local_addr()?;
-    let server = tokio::spawn(async {
-        axum::serve(listener, app).await.unwrap();
-    });
+pub fn start(initial_state: ServerState) -> Result<(String, Server)> {
+    let num_create = initial_state.create.len() + 1;
+    let num_poll = initial_state.poll.len() + 1;
+    let state: SharedServerState = Arc::new(Mutex::new(initial_state));
+    let server = Server::run();
 
-    Ok((format!("http://{}:{}", addr.ip(), addr.port()), server))
-}
+    let create_state = Arc::clone(&state);
+    server.expect(
+        Expectation::matching(all_of![request::method("POST"), request::path("/create")])
+            .times(0..num_create)
+            .respond_with(move || {
+                let mut state = create_state.lock().expect("shared state is poisoned");
+                let (status, body) = state.create.pop_front().unwrap_or_else(|| {
+                    (
+                        StatusCode::BAD_REQUEST,
+                        "exhausted create responses".to_string(),
+                    )
+                });
+                Response::builder()
+                    .status(status)
+                    .body(body.into_bytes())
+                    .unwrap()
+            }),
+    );
 
-async fn create_handler(State(state): State<SharedServerState>) -> (StatusCode, String) {
-    let mut state = state.lock().expect("shared state is poisoned");
-    state.create.pop_front().unwrap_or_else(|| {
-        (
-            StatusCode::BAD_REQUEST,
-            "exhausted create responses".to_string(),
-        )
-    })
-}
+    let poll_state = Arc::clone(&state);
+    server.expect(
+        Expectation::matching(all_of![request::method("GET"), request::path("/poll")])
+            .times(0..num_poll)
+            .respond_with(move || {
+                let mut state = poll_state.lock().expect("shared state is poisoned");
+                let (status, body) = state.poll.pop_front().unwrap_or_else(|| {
+                    (StatusCode::BAD_REQUEST, "exhausted poll data".to_string())
+                });
+                Response::builder()
+                    .status(status)
+                    .body(body.into_bytes())
+                    .unwrap()
+            }),
+    );
 
-async fn poll_handler(State(state): State<SharedServerState>) -> (StatusCode, String) {
-    let mut state = state.lock().expect("shared state is poisoned");
-    state
-        .poll
-        .pop_front()
-        .unwrap_or_else(|| (StatusCode::BAD_REQUEST, "exhausted poll data".to_string()))
+    let endpoint = format!("http://{}", server.addr());
+    Ok((endpoint, server))
 }

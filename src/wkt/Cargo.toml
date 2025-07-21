@@ -15,7 +15,7 @@
 [package]
 description = "Google Cloud Client Libraries for Rust - Well Known Types"
 name        = "google-cloud-wkt"
-version     = "0.5.1-rc2"
+version     = "0.5.2"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
 categories.workspace   = true

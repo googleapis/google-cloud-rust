@@ -30,11 +30,8 @@
 //! module allow you to retrieve these access tokens, and can be used with
 //! the Google Cloud client libraries for Rust.
 //!
-//! While the Google Cloud client libraries for Rust default to
-//! using the types defined in this module. You may want to use said types directly
-//! to customize some of the properties of these credentials.
+//! ## Example: Creating credentials with a custom quota project
 //!
-//! # Example
 //! ```
 //! # use google_cloud_auth::credentials::mds::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
@@ -49,6 +46,28 @@
 //! # });
 //! ```
 //!
+//! ## Example: Creating credentials with custom retry behavior
+//!
+//! ```
+//! # use google_cloud_auth::credentials::mds::Builder;
+//! # use google_cloud_auth::credentials::Credentials;
+//! # use http::Extensions;
+//! # use std::time::Duration;
+//! # tokio_test::block_on(async {
+//! use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+//! use gax::exponential_backoff::ExponentialBackoff;
+//! let backoff = ExponentialBackoff::default();
+//! let credentials: Credentials = Builder::default()
+//!     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+//!     .with_backoff_policy(backoff)
+//!     .build()?;
+//! let headers = credentials.headers(Extensions::new()).await?;
+//! println!("Headers: {headers:?}");
+//! # Ok::<(), anyhow::Error>(())
+//! # });
+//! ```
+//!
+//! [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
 //! [Cloud Run]: https://cloud.google.com/run
 //! [default service account]: https://cloud.google.com/iam/docs/service-account-types#default
 //! [gce-link]: https://cloud.google.com/products/compute
@@ -310,13 +329,6 @@ where
         }
         return Some(DEFAULT_UNIVERSE_DOMAIN.to_string());
     }
-}
-
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-struct ServiceAccountInfo {
-    email: String,
-    scopes: Option<Vec<String>>,
-    aliases: Option<Vec<String>>,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]

@@ -29,17 +29,17 @@ name = "getting_started"
 
 [dependencies]
 # ANCHOR: longrunning
-google-cloud-longrunning = { version = "0.25.1-rc2", path = "../../src/generated/longrunning" }
+google-cloud-longrunning = { version = "0.25.2", path = "../../src/generated/longrunning" }
 # ANCHOR_END: longrunning
 # ANCHOR: language
-google-cloud-language-v2 = { version = "0.4.1-rc2", path = "../../src/generated/cloud/language/v2" }
+google-cloud-language-v2 = { version = "0.4.2", path = "../../src/generated/cloud/language/v2" }
 # ANCHOR_END: language
-google-cloud-rpc = { version = "0.4.1-rc2", path = "../../src/generated/rpc/types" }
-google-cloud-wkt = { version = "0.5.1-rc2", path = "../../src/wkt" }
+google-cloud-rpc = { version = "0.4.2", path = "../../src/generated/rpc/types" }
+google-cloud-wkt = { version = "0.5.2", path = "../../src/wkt" }
 
 # ANCHOR: speech
 [dependencies.google-cloud-speech-v2]
-version = "0.4.1-rc2"
+version = "0.4.2"
 # ANCHOR_END: speech
 path = "../../src/generated/cloud/speech/v2"
 
@@ -50,13 +50,13 @@ workspace = true
 
 # ANCHOR: secretmanager
 [dependencies.google-cloud-secretmanager-v1]
-version = "0.4.1-rc2"
+version = "0.4.2"
 # ANCHOR_END: secretmanager
 path = "../../src/generated/cloud/secretmanager/v1"
 
 # ANCHOR: aiplatform
 [dependencies.google-cloud-aiplatform-v1]
-version          = "0.4.1-rc2"
+version          = "0.4.2"
 default-features = false
 features         = ["prediction-service"]
 # ANCHOR_END: aiplatform
@@ -75,7 +75,7 @@ version = "0.3"
 # ANCHOR: lro-with-streams
 # ANCHOR: lro
 [dependencies.google-cloud-lro]
-version = "0.3.1-rc2"
+version = "0.3.2"
 # ANCHOR_END: lro
 features = ["unstable-stream"]
 # ANCHOR_END: lro-with-streams
@@ -84,7 +84,7 @@ path = "../../src/lro"
 # ANCHOR: gax-with-streams
 # ANCHOR: gax
 [dependencies.google-cloud-gax]
-version = "0.23.1-rc2"
+version = "0.23.2"
 # ANCHOR_END: gax
 features = ["unstable-stream"]
 # ANCHOR_END: gax-with-streams

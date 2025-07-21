@@ -636,6 +636,78 @@ impl<T> UploadObject<T> {
         self
     }
 
+    /// Sets the payload size threshold to switch from single-shot to resumable uploads.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_resumable_upload_threshold(0_usize) // Forces a resumable upload.
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// The client library can perform uploads using [single-shot] or
+    /// [resumable] uploads. For small objects, single-shot uploads offer better
+    /// performance, as they require a single HTTP transfer. For larger objects,
+    /// the additional request latency is not significant, and resumable uploads
+    /// offer better recovery on errors.
+    ///
+    /// The library automatically selects resumable uploads when the payload is
+    /// equal to or larger than this option. For smaller uploads the client
+    /// library uses single-shot uploads.
+    ///
+    /// The exact threshold depends on where the application is deployed and
+    /// destination bucket location with respect to where the application is
+    /// running. The library defaults should work well in most cases, but some
+    /// applications may benefit from fine-tuning.
+    ///
+    /// [single-shot]: https://cloud.google.com/storage/docs/uploading-objects
+    /// [resumable]: https://cloud.google.com/storage/docs/resumable-uploads
+    pub fn with_resumable_upload_threshold<V: Into<usize>>(mut self, v: V) -> Self {
+        self.options.resumable_upload_threshold = v.into();
+        self
+    }
+
+    /// Changes the buffer size for some resumable uploads.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_resumable_upload_buffer_size(32 * 1024 * 1024_usize)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// When performing [resumable uploads] from sources without [Seek] the
+    /// client library needs to buffer data in memory until it is persisted by
+    /// the service. Otherwise the data would be lost if the upload fails.
+    /// Applications may want to tune this buffer size:
+    ///
+    /// - Use smaller buffer sizes to support more concurrent uploads in the
+    ///   same application.
+    /// - Use larger buffer sizes for better throughput. Sending many small
+    ///   buffers stalls the upload until the client receives a successful
+    ///   response from the service.
+    ///
+    /// Keep in mind that there are diminishing returns on using larger buffers.
+    ///
+    /// [resumable uploads]: https://cloud.google.com/storage/docs/resumable-uploads
+    /// [Seek]: crate::upload_source::Seek
+    pub fn with_resumable_upload_buffer_size<V: Into<usize>>(mut self, v: V) -> Self {
+        self.options.resumable_upload_buffer_size = v.into();
+        self
+    }
+
     fn mut_resource(&mut self) -> &mut crate::model::Object {
         self.spec
             .resource
@@ -776,6 +848,24 @@ async fn handle_start_resumable_upload_response(response: reqwest::Response) -> 
     location.to_str().map_err(Error::deser).map(str::to_string)
 }
 
+fn parse_range_end(headers: &reqwest::header::HeaderMap) -> Option<u64> {
+    let Some(range) = headers.get("range") else {
+        // A missing `Range:` header indicates that no bytes are persisted.
+        return Some(0_u64);
+    };
+    // Uploads must be sequential, so the persisted range (if present) always
+    // starts at zero. This is poorly documented, but can be inferred from
+    //   https://cloud.google.com/storage/docs/performing-resumable-uploads#resume-upload
+    // which requires uploads to continue from the last byte persisted. It is
+    // better documented in the gRPC version, where holes are explicitly
+    // forbidden:
+    //   https://github.com/googleapis/googleapis/blob/302273adb3293bb504ecd83be8e1467511d5c779/google/storage/v2/storage.proto#L1253-L1255
+    let end = std::str::from_utf8(range.as_bytes().strip_prefix(b"bytes=0-")?).ok()?;
+    end.parse::<u64>().ok()
+}
+
+const RESUME_INCOMPLETE: reqwest::StatusCode = reqwest::StatusCode::PERMANENT_REDIRECT;
+
 #[cfg(test)]
 mod tests {
     use super::client::tests::{create_key_helper, test_builder, test_inner_client};
@@ -787,8 +877,53 @@ mod tests {
     use serde_json::{Value, json};
     use std::collections::BTreeMap;
     use std::time::Duration;
+    use test_case::test_case;
 
     type Result = anyhow::Result<()>;
+
+    // Verify `upload_object()` can be used with a source that implements `StreamingSource` **and** `Seek`
+    #[tokio::test]
+    async fn test_upload_streaming_source_and_seek() -> Result {
+        struct Source;
+        impl crate::upload_source::StreamingSource for Source {
+            type Error = std::io::Error;
+            async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
+                None
+            }
+        }
+        impl crate::upload_source::Seek for Source {
+            type Error = std::io::Error;
+            async fn seek(&mut self, _offset: u64) -> std::result::Result<(), Self::Error> {
+                Ok(())
+            }
+        }
+
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let _ = client.upload_object("projects/_/buckets/test-bucket", "test-object", Source);
+        Ok(())
+    }
+
+    // Verify `upload_object()` can be used with a source that **only** implements `StreamingSource`.
+    #[tokio::test]
+    async fn test_upload_only_streaming_source() -> Result {
+        struct Source;
+        impl crate::upload_source::StreamingSource for Source {
+            type Error = std::io::Error;
+            async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
+                None
+            }
+        }
+
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let _ = client.upload_object("projects/_/buckets/test-bucket", "test-object", Source);
+        Ok(())
+    }
 
     #[test]
     fn upload_object_unbuffered_metadata() -> Result {
@@ -866,6 +1001,24 @@ mod tests {
         );
 
         Ok(())
+    }
+
+    #[test]
+    fn upload_object_options() {
+        let inner = test_inner_client(
+            test_builder()
+                .with_resumable_upload_threshold(123_usize)
+                .with_resumable_upload_buffer_size(234_usize),
+        );
+        let request = UploadObject::new(inner.clone(), "projects/_/buckets/bucket", "object", "");
+        assert_eq!(request.options.resumable_upload_threshold, 123);
+        assert_eq!(request.options.resumable_upload_buffer_size, 234);
+
+        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
+            .with_resumable_upload_threshold(345_usize)
+            .with_resumable_upload_buffer_size(456_usize);
+        assert_eq!(request.options.resumable_upload_threshold, 345);
+        assert_eq!(request.options.resumable_upload_buffer_size, 456);
     }
 
     #[tokio::test]
@@ -1244,5 +1397,27 @@ mod tests {
         impl gax::backoff_policy::BackoffPolicy for BackoffPolicy {
             fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> std::time::Duration;
         }
+    }
+
+    #[test_case(None, Some(0))]
+    #[test_case(Some("bytes=0-12345"), Some(12345))]
+    #[test_case(Some("bytes=0-1"), Some(1))]
+    #[test_case(Some("bytes=0-0"), Some(0))]
+    #[test_case(Some("bytes=1-12345"), None)]
+    #[test_case(Some(""), None)]
+    fn range_end(input: Option<&str>, want: Option<u64>) {
+        use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
+        let headers = HeaderMap::from_iter(input.into_iter().map(|s| {
+            (
+                HeaderName::from_static("range"),
+                HeaderValue::from_str(s).unwrap(),
+            )
+        }));
+        assert_eq!(super::parse_range_end(&headers), want, "{headers:?}");
+    }
+
+    #[test]
+    fn validate_status_code() {
+        assert_eq!(RESUME_INCOMPLETE, 308);
     }
 }

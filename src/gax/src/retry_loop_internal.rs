@@ -48,7 +48,7 @@ impl RetryLoopAttempt {
 /// In between calls the function waits the amount of time prescribed by the
 /// backoff policy, using `sleep` to implement any sleep.
 pub async fn retry_loop<F, S, Response>(
-    inner: F,
+    mut inner: F,
     sleep: S,
     idempotent: bool,
     retry_throttler: Arc<Mutex<dyn RetryThrottler>>,
@@ -56,7 +56,7 @@ pub async fn retry_loop<F, S, Response>(
     backoff_policy: Arc<dyn BackoffPolicy>,
 ) -> Result<Response>
 where
-    F: AsyncFn(Option<Duration>) -> Result<Response> + Send,
+    F: AsyncFnMut(Option<Duration>) -> Result<Response> + Send,
     S: AsyncFn(Duration) -> () + Send,
 {
     let loop_start = tokio::time::Instant::now().into_std();

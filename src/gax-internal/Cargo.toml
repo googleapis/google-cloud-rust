@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-gax-internal"
-version     = "0.4.0-rc2"
+version     = "0.4.1"
 description = "Google Cloud Client Libraries for Rust - Implementation Details"
 build       = "build.rs"
 # Inherit other attributes from the workspace.
@@ -82,7 +82,7 @@ wkt  = { workspace = true, optional = true }
 
 [dev-dependencies]
 anyhow.workspace      = true
-axum                  = { workspace = true, features = ["http2", "json", "query", "tokio"] }
+httptest.workspace    = true
 bytes.workspace       = true
 mockall.workspace     = true
 scoped-env.workspace  = true

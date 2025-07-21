@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-bigquery-datapolicies-v1"
-version                = "0.4.1-rc2"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - BigQuery Data Policy API"
 edition.workspace      = true
 authors.workspace      = true
