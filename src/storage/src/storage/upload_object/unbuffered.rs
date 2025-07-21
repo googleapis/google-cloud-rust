@@ -35,7 +35,7 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_unbuffered(self) -> Result<Object> {
-        // TODO(#2056) - make idempotency configurable.
+        // TODO(#1655) - make idempotency configurable.
         // Single shot uploads are idempotent only if they have pre-conditions.
         let idempotent =
             self.spec.if_generation_match.is_some() || self.spec.if_metageneration_match.is_some();
