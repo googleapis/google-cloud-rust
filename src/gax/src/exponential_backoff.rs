@@ -244,6 +244,7 @@ impl crate::backoff_policy::BackoffPolicy for ExponentialBackoff {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::mock_rng::MockRng;
 
     #[test]
     fn exponential_build_errors() {
@@ -349,16 +350,16 @@ mod tests {
             .expect("should succeed with the hard-coded test values");
 
         let now = std::time::Instant::now();
-        let mut rng = rand::rngs::mock::StepRng::new(1, 0);
+        let mut rng = MockRng::new(1);
         assert_eq!(b.delay_with_jitter(now, 1, &mut rng), Duration::ZERO);
 
-        let mut rng = rand::rngs::mock::StepRng::new(u64::MAX / 2, 0);
+        let mut rng = MockRng::new(u64::MAX / 2);
         assert_eq!(
             b.delay_with_jitter(now, 2, &mut rng),
             Duration::from_secs(5)
         );
 
-        let mut rng = rand::rngs::mock::StepRng::new(u64::MAX, 0);
+        let mut rng = MockRng::new(u64::MAX);
         assert_eq!(
             b.delay_with_jitter(now, 3, &mut rng),
             Duration::from_secs(10)
@@ -408,25 +409,25 @@ mod tests {
             .expect("should succeed with the hard-coded test values");
 
         let now = std::time::Instant::now();
-        let mut rng = rand::rngs::mock::StepRng::new(u64::MAX, 0);
+        let mut rng = MockRng::new(u64::MAX);
         assert_eq!(
             b.delay_with_jitter(now, 1, &mut rng),
             Duration::from_secs(1)
         );
 
-        let mut rng = rand::rngs::mock::StepRng::new(u64::MAX, 0);
+        let mut rng = MockRng::new(u64::MAX);
         assert_eq!(
             b.delay_with_jitter(now, 2, &mut rng),
             Duration::from_secs(2)
         );
 
-        let mut rng = rand::rngs::mock::StepRng::new(u64::MAX, 0);
+        let mut rng = MockRng::new(u64::MAX);
         assert_eq!(
             b.delay_with_jitter(now, 3, &mut rng),
             Duration::from_secs(4)
         );
 
-        let mut rng = rand::rngs::mock::StepRng::new(u64::MAX, 0);
+        let mut rng = MockRng::new(u64::MAX);
         assert_eq!(
             b.delay_with_jitter(now, 4, &mut rng),
             Duration::from_secs(4)
@@ -461,14 +462,14 @@ mod tests {
         let b = ExponentialBackoff::default();
 
         let now = std::time::Instant::now();
-        let mut rng = rand::rngs::mock::StepRng::new(u64::MAX, 0);
+        let mut rng = MockRng::new(u64::MAX);
         let next = 2 * b.delay_with_jitter(now, 1, &mut rng);
 
-        let mut rng = rand::rngs::mock::StepRng::new(u64::MAX, 0);
+        let mut rng = MockRng::new(u64::MAX);
         assert_eq!(b.delay_with_jitter(now, 2, &mut rng), next);
         let next = 2 * next;
 
-        let mut rng = rand::rngs::mock::StepRng::new(u64::MAX, 0);
+        let mut rng = MockRng::new(u64::MAX);
         assert_eq!(b.delay_with_jitter(now, 3, &mut rng), next);
     }
 }
