@@ -92,6 +92,7 @@ members = [
   "src/generated/cloud/bigquery/analyticshub/v1",
   "src/generated/cloud/bigquery/connection/v1",
   "src/generated/cloud/bigquery/datapolicies/v1",
+  "src/generated/cloud/bigquery/datapolicies/v2",
   "src/generated/cloud/bigquery/datatransfer/v1",
   "src/generated/cloud/bigquery/migration/v2",
   "src/generated/cloud/bigquery/reservation/v1",
