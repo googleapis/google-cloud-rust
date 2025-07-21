@@ -107,6 +107,7 @@ members = [
   "src/generated/cloud/common",
   "src/generated/cloud/confidentialcomputing/v1",
   "src/generated/cloud/config/v1",
+  "src/generated/cloud/configdelivery/v1",
   "src/generated/cloud/connectors/v1",
   "src/generated/cloud/contactcenterinsights/v1",
   "src/generated/cloud/datacatalog/lineage/v1",

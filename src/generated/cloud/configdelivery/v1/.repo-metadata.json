@@ -1,0 +1,11 @@
+{
+    "api_id": "configdelivery.googleapis.com",
+    "api_shortname": "configdelivery",
+    "client_documentation": "https://docs.rs/google-cloud-configdelivery-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Config Delivery API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
