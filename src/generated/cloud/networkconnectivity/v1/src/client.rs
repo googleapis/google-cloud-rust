@@ -867,6 +867,242 @@ impl HubService {
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+/// let client = InternalRangeService::builder().build().await?;
+/// // use `client` to make requests to the Network Connectivity API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// The CLH-based service for internal range resources used to perform IPAM
+/// operations within a VPC network.
+///
+/// # Configuration
+///
+/// To configure `InternalRangeService` use the `with_*` methods in the type returned
+/// by [builder()][InternalRangeService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networkconnectivity.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::internal_range_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::internal_range_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `InternalRangeService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `InternalRangeService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct InternalRangeService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::InternalRangeService>,
+}
+
+impl InternalRangeService {
+    /// Returns a builder for [InternalRangeService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// let client = InternalRangeService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::internal_range_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::internal_range_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::InternalRangeService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InternalRangeService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::InternalRangeService> {
+        super::transport::InternalRangeService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::InternalRangeService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::InternalRangeService::new)
+    }
+
+    /// Lists internal ranges in a given project and location.
+    pub fn list_internal_ranges(
+        &self,
+    ) -> super::builder::internal_range_service::ListInternalRanges {
+        super::builder::internal_range_service::ListInternalRanges::new(self.inner.clone())
+    }
+
+    /// Gets details of a single internal range.
+    pub fn get_internal_range(&self) -> super::builder::internal_range_service::GetInternalRange {
+        super::builder::internal_range_service::GetInternalRange::new(self.inner.clone())
+    }
+
+    /// Creates a new internal range in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_internal_range(
+        &self,
+    ) -> super::builder::internal_range_service::CreateInternalRange {
+        super::builder::internal_range_service::CreateInternalRange::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single internal range.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_internal_range(
+        &self,
+    ) -> super::builder::internal_range_service::UpdateInternalRange {
+        super::builder::internal_range_service::UpdateInternalRange::new(self.inner.clone())
+    }
+
+    /// Deletes a single internal range.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_internal_range(
+        &self,
+    ) -> super::builder::internal_range_service::DeleteInternalRange {
+        super::builder::internal_range_service::DeleteInternalRange::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::internal_range_service::ListLocations {
+        super::builder::internal_range_service::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::internal_range_service::GetLocation {
+        super::builder::internal_range_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    pub fn set_iam_policy(&self) -> super::builder::internal_range_service::SetIamPolicy {
+        super::builder::internal_range_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    pub fn get_iam_policy(&self) -> super::builder::internal_range_service::GetIamPolicy {
+        super::builder::internal_range_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::internal_range_service::TestIamPermissions {
+        super::builder::internal_range_service::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::internal_range_service::ListOperations {
+        super::builder::internal_range_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::internal_range_service::GetOperation {
+        super::builder::internal_range_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(&self) -> super::builder::internal_range_service::DeleteOperation {
+        super::builder::internal_range_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::internal_range_service::CancelOperation {
+        super::builder::internal_range_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Network Connectivity API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
 /// let client = PolicyBasedRoutingService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.

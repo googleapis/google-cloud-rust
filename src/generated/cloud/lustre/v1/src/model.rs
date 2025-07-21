@@ -79,7 +79,9 @@ pub struct Instance {
     pub per_unit_storage_throughput: i64,
 
     /// Optional. Indicates whether you want to enable support for GKE clients. By
-    /// default, GKE clients are not supported.
+    /// default, GKE clients are not supported. Deprecated. No longer required for
+    /// GKE instance creation.
+    #[deprecated]
     pub gke_support_enabled: bool,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -187,6 +189,7 @@ impl Instance {
     }
 
     /// Sets the value of [gke_support_enabled][crate::model::Instance::gke_support_enabled].
+    #[deprecated]
     pub fn set_gke_support_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.gke_support_enabled = v.into();
         self
@@ -556,6 +559,8 @@ pub mod instance {
         Repairing,
         /// The instance is stopped.
         Stopped,
+        /// The instance is being updated.
+        Updating,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -585,6 +590,7 @@ pub mod instance {
                 Self::Upgrading => std::option::Option::Some(4),
                 Self::Repairing => std::option::Option::Some(5),
                 Self::Stopped => std::option::Option::Some(6),
+                Self::Updating => std::option::Option::Some(7),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -602,6 +608,7 @@ pub mod instance {
                 Self::Upgrading => std::option::Option::Some("UPGRADING"),
                 Self::Repairing => std::option::Option::Some("REPAIRING"),
                 Self::Stopped => std::option::Option::Some("STOPPED"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -630,6 +637,7 @@ pub mod instance {
                 4 => Self::Upgrading,
                 5 => Self::Repairing,
                 6 => Self::Stopped,
+                7 => Self::Updating,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -648,6 +656,7 @@ pub mod instance {
                 "UPGRADING" => Self::Upgrading,
                 "REPAIRING" => Self::Repairing,
                 "STOPPED" => Self::Stopped,
+                "UPDATING" => Self::Updating,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -668,6 +677,7 @@ pub mod instance {
                 Self::Upgrading => serializer.serialize_i32(4),
                 Self::Repairing => serializer.serialize_i32(5),
                 Self::Stopped => serializer.serialize_i32(6),
+                Self::Updating => serializer.serialize_i32(7),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

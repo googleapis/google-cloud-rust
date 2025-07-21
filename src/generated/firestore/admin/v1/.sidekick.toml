@@ -18,3 +18,4 @@ service-config = 'google/firestore/admin/v1/firestore_v1.yaml'
 
 [codec]
 copyright-year = '2025'
+version        = "0.4.3"

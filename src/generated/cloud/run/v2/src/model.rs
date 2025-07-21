@@ -18863,6 +18863,10 @@ pub struct Task {
     /// Output only. The node selector for the task.
     pub node_selector: std::option::Option<crate::model::NodeSelector>,
 
+    /// Optional. Output only. True if GPU zonal redundancy is disabled on this
+    /// task.
+    pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
+
     /// Output only. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
     pub etag: std::string::String,
@@ -19223,6 +19227,27 @@ impl Task {
         self
     }
 
+    /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::Task::gpu_zonal_redundancy_disabled].
+    pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.gpu_zonal_redundancy_disabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::Task::gpu_zonal_redundancy_disabled].
+    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.gpu_zonal_redundancy_disabled = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [etag][crate::model::Task::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -19277,6 +19302,7 @@ impl<'de> serde::de::Deserialize<'de> for Task {
             __log_uri,
             __satisfies_pzs,
             __node_selector,
+            __gpu_zonal_redundancy_disabled,
             __etag,
             Unknown(std::string::String),
         }
@@ -19346,6 +19372,12 @@ impl<'de> serde::de::Deserialize<'de> for Task {
                             "satisfies_pzs" => Ok(__FieldTag::__satisfies_pzs),
                             "nodeSelector" => Ok(__FieldTag::__node_selector),
                             "node_selector" => Ok(__FieldTag::__node_selector),
+                            "gpuZonalRedundancyDisabled" => {
+                                Ok(__FieldTag::__gpu_zonal_redundancy_disabled)
+                            }
+                            "gpu_zonal_redundancy_disabled" => {
+                                Ok(__FieldTag::__gpu_zonal_redundancy_disabled)
+                            }
                             "etag" => Ok(__FieldTag::__etag),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -19720,6 +19752,15 @@ impl<'de> serde::de::Deserialize<'de> for Task {
                             result.node_selector = map
                                 .next_value::<std::option::Option<crate::model::NodeSelector>>()?;
                         }
+                        __FieldTag::__gpu_zonal_redundancy_disabled => {
+                            if !fields.insert(__FieldTag::__gpu_zonal_redundancy_disabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gpu_zonal_redundancy_disabled",
+                                ));
+                            }
+                            result.gpu_zonal_redundancy_disabled =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
                         __FieldTag::__etag => {
                             if !fields.insert(__FieldTag::__etag) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -19891,6 +19932,12 @@ impl serde::ser::Serialize for Task {
         if self.node_selector.is_some() {
             state.serialize_entry("nodeSelector", &self.node_selector)?;
         }
+        if self.gpu_zonal_redundancy_disabled.is_some() {
+            state.serialize_entry(
+                "gpuZonalRedundancyDisabled",
+                &self.gpu_zonal_redundancy_disabled,
+            )?;
+        }
         if !self.etag.is_empty() {
             state.serialize_entry("etag", &self.etag)?;
         }
@@ -19915,7 +19962,15 @@ pub struct TaskAttemptResult {
     /// This may be unset if the container was unable to exit cleanly with a code
     /// due to some other failure.
     /// See status field for possible failure details.
+    ///
+    /// At most one of exit_code or term_signal will be set.
     pub exit_code: i32,
+
+    /// Output only. Termination signal of the container. This is set to non-zero
+    /// if the container is terminated by the system.
+    ///
+    /// At most one of exit_code or term_signal will be set.
+    pub term_signal: i32,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -19948,6 +20003,12 @@ impl TaskAttemptResult {
         self.exit_code = v.into();
         self
     }
+
+    /// Sets the value of [term_signal][crate::model::TaskAttemptResult::term_signal].
+    pub fn set_term_signal<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.term_signal = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for TaskAttemptResult {
@@ -19968,6 +20029,7 @@ impl<'de> serde::de::Deserialize<'de> for TaskAttemptResult {
         enum __FieldTag {
             __status,
             __exit_code,
+            __term_signal,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -19991,6 +20053,8 @@ impl<'de> serde::de::Deserialize<'de> for TaskAttemptResult {
                             "status" => Ok(__FieldTag::__status),
                             "exitCode" => Ok(__FieldTag::__exit_code),
                             "exit_code" => Ok(__FieldTag::__exit_code),
+                            "termSignal" => Ok(__FieldTag::__term_signal),
+                            "term_signal" => Ok(__FieldTag::__term_signal),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -20044,6 +20108,25 @@ impl<'de> serde::de::Deserialize<'de> for TaskAttemptResult {
                             }
                             result.exit_code = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
+                        __FieldTag::__term_signal => {
+                            if !fields.insert(__FieldTag::__term_signal) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for term_signal",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.term_signal = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -20081,6 +20164,18 @@ impl serde::ser::Serialize for TaskAttemptResult {
                 }
             }
             state.serialize_entry("exitCode", &__With(&self.exit_code))?;
+        }
+        if !wkt::internal::is_default(&self.term_signal) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("termSignal", &__With(&self.term_signal))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -20130,6 +20225,9 @@ pub struct TaskTemplate {
 
     /// Optional. The node selector for the task template.
     pub node_selector: std::option::Option<crate::model::NodeSelector>,
+
+    /// Optional. True if GPU zonal redundancy is disabled on this task template.
+    pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
 
     pub retries: std::option::Option<crate::model::task_template::Retries>,
 
@@ -20238,6 +20336,27 @@ impl TaskTemplate {
         self
     }
 
+    /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::TaskTemplate::gpu_zonal_redundancy_disabled].
+    pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.gpu_zonal_redundancy_disabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::TaskTemplate::gpu_zonal_redundancy_disabled].
+    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.gpu_zonal_redundancy_disabled = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [retries][crate::model::TaskTemplate::retries].
     ///
     /// Note that all the setters affecting `retries` are mutually
@@ -20300,6 +20419,7 @@ impl<'de> serde::de::Deserialize<'de> for TaskTemplate {
             __encryption_key,
             __vpc_access,
             __node_selector,
+            __gpu_zonal_redundancy_disabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -20335,6 +20455,12 @@ impl<'de> serde::de::Deserialize<'de> for TaskTemplate {
                             "vpc_access" => Ok(__FieldTag::__vpc_access),
                             "nodeSelector" => Ok(__FieldTag::__node_selector),
                             "node_selector" => Ok(__FieldTag::__node_selector),
+                            "gpuZonalRedundancyDisabled" => {
+                                Ok(__FieldTag::__gpu_zonal_redundancy_disabled)
+                            }
+                            "gpu_zonal_redundancy_disabled" => {
+                                Ok(__FieldTag::__gpu_zonal_redundancy_disabled)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -20459,6 +20585,15 @@ impl<'de> serde::de::Deserialize<'de> for TaskTemplate {
                             result.node_selector = map
                                 .next_value::<std::option::Option<crate::model::NodeSelector>>()?;
                         }
+                        __FieldTag::__gpu_zonal_redundancy_disabled => {
+                            if !fields.insert(__FieldTag::__gpu_zonal_redundancy_disabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gpu_zonal_redundancy_disabled",
+                                ));
+                            }
+                            result.gpu_zonal_redundancy_disabled =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -20517,6 +20652,12 @@ impl serde::ser::Serialize for TaskTemplate {
         }
         if self.node_selector.is_some() {
             state.serialize_entry("nodeSelector", &self.node_selector)?;
+        }
+        if self.gpu_zonal_redundancy_disabled.is_some() {
+            state.serialize_entry(
+                "gpuZonalRedundancyDisabled",
+                &self.gpu_zonal_redundancy_disabled,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

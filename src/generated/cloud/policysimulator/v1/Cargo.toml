@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-policysimulator-v1"
-version                = "0.4.2"
+version                = "0.4.3"
 description            = "Google Cloud Client Libraries for Rust - Policy Simulator API"
 edition.workspace      = true
 authors.workspace      = true
@@ -36,6 +36,7 @@ iam_v1.workspace     = true
 lazy_static.workspace = true
 longrunning.workspace = true
 lro.workspace        = true
+orgpolicy_v2.workspace = true
 reqwest.workspace    = true
 rpc.workspace        = true
 serde.workspace      = true

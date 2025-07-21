@@ -18,3 +18,4 @@ service-config = 'google/cloud/run/v2/run_v2.yaml'
 
 [codec]
 copyright-year = '2025'
+version        = "0.4.3"
