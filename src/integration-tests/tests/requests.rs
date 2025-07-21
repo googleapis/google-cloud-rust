@@ -16,16 +16,14 @@
 
 #[cfg(test)]
 mod requests {
-    use axum::extract::Path;
-    use axum::http::{HeaderMap, StatusCode};
-    use axum::response::Json;
-    use serde_json::{Value, json};
-    use std::time::Duration;
-    use tokio::task::JoinHandle;
+    use httptest::{Expectation, Server, matchers::*, responders::*};
+    use serde_json::json;
 
     #[tokio::test(flavor = "multi_thread")]
     async fn post_with_empty_body() -> anyhow::Result<()> {
-        let (endpoint, _server) = start().await?;
+        let server = start();
+        let endpoint = server.url_str("/ui");
+
         let client = aiplatform::client::PredictionService::builder()
             .with_endpoint(&endpoint)
             .with_credentials(auth::credentials::testing::test_credentials())
@@ -40,49 +38,27 @@ mod requests {
         Ok(())
     }
 
-    pub async fn start() -> anyhow::Result<(String, JoinHandle<()>)> {
-        let app = axum::Router::new()
-            .route("/", axum::routing::get(root))
-            .route("/ui/{*path}", axum::routing::post(cancel_operation));
-        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
-        let addr = listener.local_addr()?;
-        let server = tokio::spawn(async {
-            axum::serve(listener, app).await.unwrap();
-        });
+    fn start() -> Server {
+        let server = Server::run();
 
-        let url = format!("http://{}:{}", addr.ip(), addr.port());
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("POST"),
+                request::path(matches("^/ui/")),
+            ])
+            .times(0) // should not be called
+            .respond_with(json_encoded(json! {"missing content-length"})),
+        );
 
-        const ATTEMPTS: i32 = 5;
-        for _ in 0..ATTEMPTS {
-            match reqwest::get(&url).await {
-                Ok(_) => {
-                    return Ok((url, server));
-                }
-                Err(e) => {
-                    eprintln!("error starting server {e}");
-                    tokio::time::sleep(Duration::from_millis(100)).await;
-                }
-            };
-        }
-        Err(anyhow::Error::msg(format!(
-            "cannot connect to server after {ATTEMPTS} attempts"
-        )))
-    }
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("POST"),
+                request::path(matches("^/ui/")),
+                request::headers(contains(key("content-length"))),
+            ])
+            .respond_with(json_encoded(json!({}))),
+        );
 
-    async fn root() -> Json<Value> {
-        Json(json!({"status": "ready"}))
-    }
-
-    async fn cancel_operation(
-        Path(_operation): Path<String>,
-        headers: HeaderMap,
-    ) -> (StatusCode, Json<Value>) {
-        if headers.get("content-length").is_none() {
-            return (
-                StatusCode::BAD_REQUEST,
-                Json(json! {"missing content-length"}),
-            );
-        }
-        (StatusCode::OK, Json(json!({})))
+        server
     }
 }

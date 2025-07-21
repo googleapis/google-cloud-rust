@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use common::{
         MessageWithBoolValue, MessageWithBytesValue, MessageWithDoubleValue, MessageWithInt32Value,
         MessageWithInt64Value, MessageWithStringValue,

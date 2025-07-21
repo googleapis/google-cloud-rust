@@ -92,7 +92,7 @@ enum ErrorKind {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use std::error::Error as _;
 

@@ -26,13 +26,13 @@ pub mod binding;
 
 /// Errors and error details returned by Service RPCs.
 ///
-/// The Google Cloud Client Libraries for Rust distinguishes between errors detected while
-/// trying to send a RPC (e.g. cannot open a connection), errors trying to
-/// receive a response (e.g. the connection is dropped before the full response),
-/// and errors returned by the service itself.
+/// The Google Cloud Client Libraries for Rust distinguishes between errors
+/// detected while trying to send a RPC (e.g. cannot open a connection), errors
+/// trying to receive a response (e.g. the connection is dropped before the full
+/// response), and errors returned by the service itself.
 ///
 /// The types in this module represent detailed information returned by the
-/// Gooogle Cloud services.
+/// Google Cloud services.
 ///
 /// # Examples
 ///

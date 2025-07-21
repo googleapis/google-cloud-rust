@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use common::MessageWithValue;
     use google_cloud_wkt::Value;
     use serde_json::json;

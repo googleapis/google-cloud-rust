@@ -121,7 +121,6 @@ macro_rules! impl_message {
                 concat!("type.googleapis.com/google.protobuf.", stringify!($t))
             }
 
-            #[allow(private_interfaces)]
             fn serializer() -> impl crate::message::MessageSerializer<Self> {
                 crate::message::ValueSerializer::<Self>::new()
             }
@@ -163,13 +162,15 @@ impl crate::message::Message for UInt64Value {
         "type.googleapis.com/google.protobuf.UInt64Value"
     }
 
-    #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self> {
         UInt64ValueSerializer
     }
 }
 
 struct UInt64ValueSerializer;
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl crate::message::sealed::MessageSerializer for UInt64ValueSerializer {}
 
 impl crate::message::MessageSerializer<UInt64Value> for UInt64ValueSerializer {
     fn serialize_to_map(
@@ -197,7 +198,6 @@ impl crate::message::Message for Int64Value {
         "type.googleapis.com/google.protobuf.Int64Value"
     }
 
-    #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self>
     where
         Self: Sized + serde::ser::Serialize,
@@ -207,6 +207,9 @@ impl crate::message::Message for Int64Value {
 }
 
 struct Int64ValueSerializer;
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl crate::message::sealed::MessageSerializer for Int64ValueSerializer {}
 
 impl crate::message::MessageSerializer<Int64Value> for Int64ValueSerializer {
     fn serialize_to_map(
@@ -234,7 +237,6 @@ impl crate::message::Message for FloatValue {
         "type.googleapis.com/google.protobuf.FloatValue"
     }
 
-    #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self>
     where
         Self: Sized + serde::ser::Serialize,
@@ -244,6 +246,9 @@ impl crate::message::Message for FloatValue {
 }
 
 struct FloatValueSerializer;
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl crate::message::sealed::MessageSerializer for FloatValueSerializer {}
 
 impl crate::message::MessageSerializer<FloatValue> for FloatValueSerializer {
     fn serialize_to_map(
@@ -271,7 +276,6 @@ impl crate::message::Message for DoubleValue {
         "type.googleapis.com/google.protobuf.DoubleValue"
     }
 
-    #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self>
     where
         Self: Sized + serde::ser::Serialize,
@@ -281,6 +285,9 @@ impl crate::message::Message for DoubleValue {
 }
 
 struct DoubleValueSerializer;
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl crate::message::sealed::MessageSerializer for DoubleValueSerializer {}
 
 impl crate::message::MessageSerializer<DoubleValue> for DoubleValueSerializer {
     fn serialize_to_map(
@@ -308,13 +315,15 @@ impl crate::message::Message for BytesValue {
         "type.googleapis.com/google.protobuf.BytesValue"
     }
 
-    #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self> {
         BytesValueSerializer
     }
 }
 
 struct BytesValueSerializer;
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl crate::message::sealed::MessageSerializer for BytesValueSerializer {}
 
 impl crate::message::MessageSerializer<BytesValue> for BytesValueSerializer {
     fn serialize_to_map(
@@ -345,7 +354,7 @@ fn expected_string_value() -> crate::AnyError {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::Any;
     use crate::message::{Message, MessageSerializer};

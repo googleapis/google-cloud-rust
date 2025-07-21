@@ -57,3 +57,6 @@ pub mod throttle_result;
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod retry_loop_internal;
+
+#[cfg(test)]
+pub(crate) mod mock_rng;

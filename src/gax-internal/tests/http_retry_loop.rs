@@ -22,25 +22,24 @@
 //! needed for that test.
 
 #[cfg(all(test, feature = "_internal-http-client"))]
-mod test {
-    use axum::extract::State;
-    use axum::http::StatusCode;
+mod tests {
     use gax::backoff_policy::BackoffPolicy;
     use gax::exponential_backoff::ExponentialBackoffBuilder;
     use gax::options::*;
     use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
+    use http::StatusCode;
+    use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
-    use std::sync::{Arc, Mutex};
     use std::time::Duration;
-    use tokio::task::JoinHandle;
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn retry_loop_no_retry_immediate_success() -> Result<()> {
-        let (endpoint, _server) = start(vec![success()]).await?;
+        let server = start(vec![success()]);
+        let endpoint = format!("http://{}", server.addr());
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -60,7 +59,8 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn retry_loop_no_retry_immediate_failure() -> Result<()> {
-        let (endpoint, _server) = start(vec![permanent()]).await?;
+        let server = start(vec![permanent()]);
+        let endpoint = format!("http://{}", server.addr());
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -81,7 +81,8 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn retry_loop_retry_success() -> Result<()> {
         // We create a server that will return two transient errors and then succeed.
-        let (endpoint, _server) = start(vec![transient(), transient(), success()]).await?;
+        let server = start(vec![transient(), transient(), success()]);
+        let endpoint = format!("http://{}", server.addr());
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -104,7 +105,8 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn retry_loop_too_many_transients() -> Result<()> {
         // We create a server that will return two transient errors and then succeed.
-        let (endpoint, _server) = start(vec![transient(), transient(), transient()]).await?;
+        let server = start(vec![transient(), transient(), transient()]);
+        let endpoint = format!("http://{}", server.addr());
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -162,33 +164,26 @@ mod test {
             .clamp()
     }
 
-    struct RetrySharedState {
-        responses: std::collections::VecDeque<(StatusCode, String)>,
+    fn start(responses: Vec<(StatusCode, String)>) -> Server {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("GET", "/retry"))
+                .times(responses.len())
+                .respond_with(cycle(
+                    responses
+                        .into_iter()
+                        .map(|(status, body)| to_responder(status, body))
+                        .collect(),
+                )),
+        );
+        server
     }
 
-    type RetryState = Arc<Mutex<RetrySharedState>>;
-
-    pub async fn start(responses: Vec<(StatusCode, String)>) -> Result<(String, JoinHandle<()>)> {
-        let state = Arc::new(Mutex::new(RetrySharedState {
-            responses: responses.into(),
-        }));
-        let app = axum::Router::new()
-            .route("/retry", axum::routing::get(retry))
-            .with_state(state);
-        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
-        let addr = listener.local_addr()?;
-        let server = tokio::spawn(async {
-            axum::serve(listener, app).await.unwrap();
-        });
-
-        Ok((format!("http://{}:{}", addr.ip(), addr.port()), server))
-    }
-
-    async fn retry(State(state): State<RetryState>) -> (StatusCode, String) {
-        let mut state = state.lock().expect("retry state is poisoned");
-        state
-            .responses
-            .pop_front()
-            .unwrap_or_else(|| (StatusCode::BAD_REQUEST, "exhausted retry data".to_string()))
+    fn to_responder(status: StatusCode, response: String) -> Box<dyn Responder> {
+        Box::new(
+            status_code(status.as_u16())
+                .insert_header("Content-Type", "application/json")
+                .body(response.to_string()),
+        )
     }
 }

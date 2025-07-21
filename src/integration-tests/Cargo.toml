@@ -81,10 +81,6 @@ package  = "google-cloud-storage"
 path     = "../../src/storage"
 features = ["unstable-stream"]
 
-[dependencies.storage-control]
-package = "google-cloud-storage-control"
-path    = "../../src/storage-control"
-
 [dependencies.ta]
 package = "google-cloud-telcoautomation-v1"
 path    = "../../src/generated/cloud/telcoautomation/v1"
@@ -99,7 +95,7 @@ path    = "../../src/generated/cloud/workflows/executions/v1"
 
 [dev-dependencies]
 anyhow.workspace     = true
-axum                 = { workspace = true, features = ["http2", "json", "query", "tokio"] }
+httptest.workspace   = true
 mockall.workspace    = true
 reqwest.workspace    = true
 serde.workspace      = true

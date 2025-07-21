@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use anyhow::Result;
     use gax::error::Error;
     use gax::paginator::Paginator;
@@ -22,9 +22,9 @@ mod test {
     mockall::mock! {
         #[derive(Debug)]
         StorageControl {}
-        impl storage_control::stub::StorageControl for StorageControl {
-            async fn create_folder(&self, req: storage_control::model::CreateFolderRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<storage_control::model::Folder>>;
-            async fn list_anywhere_caches(&self, req: storage_control::model::ListAnywhereCachesRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<storage_control::model::ListAnywhereCachesResponse>>;
+        impl storage::stub::StorageControl for StorageControl {
+            async fn create_folder(&self, req: storage::model::CreateFolderRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<storage::model::Folder>>;
+            async fn list_anywhere_caches(&self, req: storage::model::ListAnywhereCachesRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<storage::model::ListAnywhereCachesResponse>>;
         }
     }
 
@@ -38,7 +38,7 @@ mod test {
             .withf(|r, _| !r.request_id.is_empty())
             .return_once(|_, _| Err(unavailable()));
 
-        let client = storage_control::client::StorageControl::from_stub(mock);
+        let client = storage::client::StorageControl::from_stub(mock);
         let _ = client.create_folder().send().await;
 
         Ok(())
@@ -68,13 +68,13 @@ mod test {
                         "Request ID repeated for a request with different contents."
                     );
                     Ok(gax::response::Response::from(
-                        storage_control::model::ListAnywhereCachesResponse::default()
+                        storage::model::ListAnywhereCachesResponse::default()
                             .set_next_page_token(next),
                     ))
                 });
         }
 
-        let client = storage_control::client::StorageControl::from_stub(mock);
+        let client = storage::client::StorageControl::from_stub(mock);
         let mut paginator = client.list_anywhere_caches().by_page();
         while paginator.next().await.transpose()?.is_some() {}
 

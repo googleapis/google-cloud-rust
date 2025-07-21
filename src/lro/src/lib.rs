@@ -149,7 +149,9 @@ pub trait Poller<ResponseType, MetadataType>: Send + sealed::Poller {
     /// Convert a poller to a [Stream][futures::Stream].
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    fn into_stream(self) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>>;
+    fn into_stream(
+        self,
+    ) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>> + Unpin;
 }
 
 mod details;

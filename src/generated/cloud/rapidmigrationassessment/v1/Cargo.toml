@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-rapidmigrationassessment-v1"
-version                = "0.4.0"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - Rapid Migration Assessment API"
 edition.workspace      = true
 authors.workspace      = true

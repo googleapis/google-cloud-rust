@@ -126,9 +126,7 @@ impl Builder {
 
     /// Returns a [Credentials] instance with the configured settings.
     pub fn build(self) -> Credentials {
-        let quota_project_id = std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT")
-            .ok()
-            .or(self.quota_project_id.clone());
+        let quota_project_id = self.quota_project_id.clone();
 
         Credentials {
             inner: Arc::new(ApiKeyCredentials {
@@ -151,10 +149,10 @@ where
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::get_headers_from_cache;
+    use crate::credentials::tests::get_headers_from_cache;
     use http::HeaderValue;
     use scoped_env::ScopedEnv;
 
@@ -214,26 +212,6 @@ mod test {
         assert_eq!(api_key, HeaderValue::from_static("test-api-key"));
         assert!(api_key.is_sensitive());
         assert_eq!(quota_project, HeaderValue::from_static("qp-option"));
-        assert!(!quota_project.is_sensitive());
-        Ok(())
-    }
-
-    #[tokio::test]
-    #[serial_test::serial]
-    async fn create_api_key_credentials_with_env() -> TestResult {
-        let _e = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "qp-env");
-
-        let creds = Builder::new("test-api-key")
-            .with_quota_project_id("qp-option")
-            .build();
-        let headers = get_headers_from_cache(creds.headers(Extensions::new()).await.unwrap())?;
-        let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
-        let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
-
-        assert_eq!(headers.len(), 2, "{headers:?}");
-        assert_eq!(api_key, HeaderValue::from_static("test-api-key"));
-        assert!(api_key.is_sensitive());
-        assert_eq!(quota_project, HeaderValue::from_static("qp-env"));
         assert!(!quota_project.is_sensitive());
         Ok(())
     }

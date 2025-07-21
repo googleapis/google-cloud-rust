@@ -623,7 +623,8 @@ impl Error {
     }
 
     /// The error was generated before the RPC started and is transient.
-    pub(crate) fn is_transient_and_before_rpc(&self) -> bool {
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_transient_and_before_rpc(&self) -> bool {
         if !matches!(&self.kind, ErrorKind::Authentication) {
             return false;
         }
@@ -671,7 +672,7 @@ impl std::error::Error for Error {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         self.source
             .as_ref()
-            .map(|e| e.as_ref() as &(dyn std::error::Error))
+            .map(|e| e.as_ref() as &dyn std::error::Error)
     }
 }
 
@@ -732,7 +733,7 @@ struct ServiceDetails {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::error::CredentialsError;
     use crate::error::rpc::Code;

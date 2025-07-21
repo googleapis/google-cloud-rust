@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(all(test, feature = "_internal-http-client"))]
-mod test {
+mod tests {
     use gax::options::*;
     use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     use gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};

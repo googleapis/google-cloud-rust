@@ -21,11 +21,10 @@ image request to the Vertex AI Gemini API and view the responses.
 
 ## Prerequisites
 
-Completing this guide requires you to set up a Google Cloud project and enable
-the Vertex AI API. We recommend you use the [Vertex AI Quickstart] to complete
-these steps.
+To complete this guide, you must have a Google Cloud project with the Vertex AI
+API enabled. You can use the [Vertex AI setup guide] to complete these steps.
 
-## Adding the Vertex AI client library as a dependency
+## Add the Vertex AI client library as a dependency
 
 The Vertex AI client library includes many features. Compiling all of them is
 relatively slow. To speed up compilation, you can just enable the features you
@@ -43,32 +42,32 @@ First, initialize the client using the default settings:
 {{#include ../samples/src/gemini.rs:text-prompt-client}}
 ```
 
-We need to build the model name. For simplicity, this example receives the
-project ID as an argument and uses a fixed location (`global`) and model id
+Then build the model name. For simplicity, this example receives the project ID
+as an argument and uses a fixed location (`global`) and model id
 (`gemini-2.0-flash-001`).
-
-If you want to run this function in your own code, use the project id (without
-any `projects/` prefix) of the project you selected while going through the
-prerequisites:
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:text-prompt-model}}
 ```
 
-With the client initialized we can send the request:
+If you want to run this function in your own code, use the project id (without
+any `projects/` prefix) of the project you selected while going through the
+prerequisites.
+
+With the client initialized you can send the request:
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:text-prompt-request}}
 ```
 
-And then print the response. We use the `:#?` format specifier to prettify the
-nested response objects:
+And then print the response. You can use the `:#?` format specifier to prettify
+the nested response objects:
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:text-prompt-response}}
 ```
 
-See [below](#text-prompt-complete-code) for the complete code:
+See [below](#text-prompt-complete-code) for the complete code.
 
 ## Send a prompt and an image to the Vertex AI Gemini API
 
@@ -96,13 +95,13 @@ And the prompt part:
 {{#include ../samples/src/gemini.rs:prompt-and-image-prompt-part}}
 ```
 
-We send the full request:
+Send the full request:
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:prompt-and-image-request}}
 ```
 
-As in the previous example, we print the full response:
+As in the previous example, print the full response:
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:prompt-and-image-response}}
@@ -112,16 +111,16 @@ See [below](#prompt-and-image-complete-code) for the complete code.
 
 ______________________________________________________________________
 
-## Text Prompt: complete code
+## Text prompt: complete code
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:text-prompt}}
 ```
 
-## Prompt and Image: complete code
+## Prompt and image: complete code
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:prompt-and-image}}
 ```
 
-[vertex ai quickstart]: https://cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-multimodal
+[vertex ai setup guide]: https://cloud.google.com/vertex-ai/docs/start/cloud-environment

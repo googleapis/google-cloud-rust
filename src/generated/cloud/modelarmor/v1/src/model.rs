@@ -375,6 +375,10 @@ pub mod template {
         /// Optional. If true, log sanitize operations.
         pub log_sanitize_operations: bool,
 
+        /// Optional. Metadata for multi language detection.
+        pub multi_language_detection:
+            std::option::Option<crate::model::template::template_metadata::MultiLanguageDetection>,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -443,6 +447,28 @@ pub mod template {
             self.log_sanitize_operations = v.into();
             self
         }
+
+        /// Sets the value of [multi_language_detection][crate::model::template::TemplateMetadata::multi_language_detection].
+        pub fn set_multi_language_detection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::template::template_metadata::MultiLanguageDetection,
+                >,
+        {
+            self.multi_language_detection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [multi_language_detection][crate::model::template::TemplateMetadata::multi_language_detection].
+        pub fn set_or_clear_multi_language_detection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::template::template_metadata::MultiLanguageDetection,
+                >,
+        {
+            self.multi_language_detection = v.map(|x| x.into());
+            self
+        }
     }
 
     impl wkt::message::Message for TemplateMetadata {
@@ -468,6 +494,7 @@ pub mod template {
                 __custom_llm_response_safety_error_message,
                 __log_template_operations,
                 __log_sanitize_operations,
+                __multi_language_detection,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -532,6 +559,12 @@ pub mod template {
                                 }
                                 "log_sanitize_operations" => {
                                     Ok(__FieldTag::__log_sanitize_operations)
+                                }
+                                "multiLanguageDetection" => {
+                                    Ok(__FieldTag::__multi_language_detection)
+                                }
+                                "multi_language_detection" => {
+                                    Ok(__FieldTag::__multi_language_detection)
                                 }
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
@@ -654,6 +687,15 @@ pub mod template {
                                     .next_value::<std::option::Option<bool>>()?
                                     .unwrap_or_default();
                             }
+                            __FieldTag::__multi_language_detection => {
+                                if !fields.insert(__FieldTag::__multi_language_detection) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for multi_language_detection",
+                                    ));
+                                }
+                                result.multi_language_detection = map.next_value::<std::option::Option<crate::model::template::template_metadata::MultiLanguageDetection>>()?
+                                    ;
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -731,12 +773,171 @@ pub mod template {
             if !wkt::internal::is_default(&self.log_sanitize_operations) {
                 state.serialize_entry("logSanitizeOperations", &self.log_sanitize_operations)?;
             }
+            if self.multi_language_detection.is_some() {
+                state.serialize_entry("multiLanguageDetection", &self.multi_language_detection)?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
                 }
             }
             state.end()
+        }
+    }
+
+    /// Defines additional types related to [TemplateMetadata].
+    pub mod template_metadata {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Metadata to enable multi language detection via template.
+        #[derive(Clone, Debug, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct MultiLanguageDetection {
+            /// Required. If true, multi language detection will be enabled.
+            pub enable_multi_language_detection: bool,
+
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl MultiLanguageDetection {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [enable_multi_language_detection][crate::model::template::template_metadata::MultiLanguageDetection::enable_multi_language_detection].
+            pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.enable_multi_language_detection = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for MultiLanguageDetection {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.modelarmor.v1.Template.TemplateMetadata.MultiLanguageDetection"
+            }
+        }
+
+        #[doc(hidden)]
+        impl<'de> serde::de::Deserialize<'de> for MultiLanguageDetection {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                #[allow(non_camel_case_types)]
+                #[doc(hidden)]
+                #[derive(PartialEq, Eq, Hash)]
+                enum __FieldTag {
+                    __enable_multi_language_detection,
+                    Unknown(std::string::String),
+                }
+                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        struct Visitor;
+                        impl<'de> serde::de::Visitor<'de> for Visitor {
+                            type Value = __FieldTag;
+                            fn expecting(
+                                &self,
+                                formatter: &mut std::fmt::Formatter,
+                            ) -> std::fmt::Result {
+                                formatter.write_str("a field name for MultiLanguageDetection")
+                            }
+                            fn visit_str<E>(
+                                self,
+                                value: &str,
+                            ) -> std::result::Result<Self::Value, E>
+                            where
+                                E: serde::de::Error,
+                            {
+                                use std::result::Result::Ok;
+                                use std::string::ToString;
+                                match value {
+                                    "enableMultiLanguageDetection" => {
+                                        Ok(__FieldTag::__enable_multi_language_detection)
+                                    }
+                                    "enable_multi_language_detection" => {
+                                        Ok(__FieldTag::__enable_multi_language_detection)
+                                    }
+                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
+                                }
+                            }
+                        }
+                        deserializer.deserialize_identifier(Visitor)
+                    }
+                }
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = MultiLanguageDetection;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("struct MultiLanguageDetection")
+                    }
+                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                    where
+                        A: serde::de::MapAccess<'de>,
+                    {
+                        #[allow(unused_imports)]
+                        use serde::de::Error;
+                        use std::option::Option::Some;
+                        let mut fields = std::collections::HashSet::new();
+                        let mut result = Self::Value::new();
+                        while let Some(tag) = map.next_key::<__FieldTag>()? {
+                            #[allow(clippy::match_single_binding)]
+                            match tag {
+                                __FieldTag::__enable_multi_language_detection => {
+                                    if !fields.insert(__FieldTag::__enable_multi_language_detection)
+                                    {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for enable_multi_language_detection",
+                                            ),
+                                        );
+                                    }
+                                    result.enable_multi_language_detection = map
+                                        .next_value::<std::option::Option<bool>>()?
+                                        .unwrap_or_default();
+                                }
+                                __FieldTag::Unknown(key) => {
+                                    let value = map.next_value::<serde_json::Value>()?;
+                                    result._unknown_fields.insert(key, value);
+                                }
+                            }
+                        }
+                        std::result::Result::Ok(result)
+                    }
+                }
+                deserializer.deserialize_any(Visitor)
+            }
+        }
+
+        #[doc(hidden)]
+        impl serde::ser::Serialize for MultiLanguageDetection {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                use serde::ser::SerializeMap;
+                #[allow(unused_imports)]
+                use std::option::Option::Some;
+                let mut state = serializer.serialize_map(std::option::Option::None)?;
+                if !wkt::internal::is_default(&self.enable_multi_language_detection) {
+                    state.serialize_entry(
+                        "enableMultiLanguageDetection",
+                        &self.enable_multi_language_detection,
+                    )?;
+                }
+                if !self._unknown_fields.is_empty() {
+                    for (key, value) in self._unknown_fields.iter() {
+                        state.serialize_entry(key, &value)?;
+                    }
+                }
+                state.end()
+            }
         }
     }
 }
@@ -4437,6 +4638,10 @@ pub struct SanitizeUserPromptRequest {
     /// Required. User prompt data to sanitize.
     pub user_prompt_data: std::option::Option<crate::model::DataItem>,
 
+    /// Optional. Metadata related to Multi Language Detection.
+    pub multi_language_detection_metadata:
+        std::option::Option<crate::model::MultiLanguageDetectionMetadata>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4468,6 +4673,27 @@ impl SanitizeUserPromptRequest {
         self.user_prompt_data = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [multi_language_detection_metadata][crate::model::SanitizeUserPromptRequest::multi_language_detection_metadata].
+    pub fn set_multi_language_detection_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+    {
+        self.multi_language_detection_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [multi_language_detection_metadata][crate::model::SanitizeUserPromptRequest::multi_language_detection_metadata].
+    pub fn set_or_clear_multi_language_detection_metadata<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+    {
+        self.multi_language_detection_metadata = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for SanitizeUserPromptRequest {
@@ -4488,6 +4714,7 @@ impl<'de> serde::de::Deserialize<'de> for SanitizeUserPromptRequest {
         enum __FieldTag {
             __name,
             __user_prompt_data,
+            __multi_language_detection_metadata,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4511,6 +4738,12 @@ impl<'de> serde::de::Deserialize<'de> for SanitizeUserPromptRequest {
                             "name" => Ok(__FieldTag::__name),
                             "userPromptData" => Ok(__FieldTag::__user_prompt_data),
                             "user_prompt_data" => Ok(__FieldTag::__user_prompt_data),
+                            "multiLanguageDetectionMetadata" => {
+                                Ok(__FieldTag::__multi_language_detection_metadata)
+                            }
+                            "multi_language_detection_metadata" => {
+                                Ok(__FieldTag::__multi_language_detection_metadata)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4555,6 +4788,17 @@ impl<'de> serde::de::Deserialize<'de> for SanitizeUserPromptRequest {
                             result.user_prompt_data =
                                 map.next_value::<std::option::Option<crate::model::DataItem>>()?;
                         }
+                        __FieldTag::__multi_language_detection_metadata => {
+                            if !fields.insert(__FieldTag::__multi_language_detection_metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for multi_language_detection_metadata",
+                                ));
+                            }
+                            result.multi_language_detection_metadata =
+                                map.next_value::<std::option::Option<
+                                    crate::model::MultiLanguageDetectionMetadata,
+                                >>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4584,6 +4828,12 @@ impl serde::ser::Serialize for SanitizeUserPromptRequest {
         if self.user_prompt_data.is_some() {
             state.serialize_entry("userPromptData", &self.user_prompt_data)?;
         }
+        if self.multi_language_detection_metadata.is_some() {
+            state.serialize_entry(
+                "multiLanguageDetectionMetadata",
+                &self.multi_language_detection_metadata,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4606,6 +4856,10 @@ pub struct SanitizeModelResponseRequest {
 
     /// Optional. User Prompt associated with Model response.
     pub user_prompt: std::string::String,
+
+    /// Optional. Metadata related for multi language detection.
+    pub multi_language_detection_metadata:
+        std::option::Option<crate::model::MultiLanguageDetectionMetadata>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4644,6 +4898,27 @@ impl SanitizeModelResponseRequest {
         self.user_prompt = v.into();
         self
     }
+
+    /// Sets the value of [multi_language_detection_metadata][crate::model::SanitizeModelResponseRequest::multi_language_detection_metadata].
+    pub fn set_multi_language_detection_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+    {
+        self.multi_language_detection_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [multi_language_detection_metadata][crate::model::SanitizeModelResponseRequest::multi_language_detection_metadata].
+    pub fn set_or_clear_multi_language_detection_metadata<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+    {
+        self.multi_language_detection_metadata = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for SanitizeModelResponseRequest {
@@ -4665,6 +4940,7 @@ impl<'de> serde::de::Deserialize<'de> for SanitizeModelResponseRequest {
             __name,
             __model_response_data,
             __user_prompt,
+            __multi_language_detection_metadata,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4690,6 +4966,12 @@ impl<'de> serde::de::Deserialize<'de> for SanitizeModelResponseRequest {
                             "model_response_data" => Ok(__FieldTag::__model_response_data),
                             "userPrompt" => Ok(__FieldTag::__user_prompt),
                             "user_prompt" => Ok(__FieldTag::__user_prompt),
+                            "multiLanguageDetectionMetadata" => {
+                                Ok(__FieldTag::__multi_language_detection_metadata)
+                            }
+                            "multi_language_detection_metadata" => {
+                                Ok(__FieldTag::__multi_language_detection_metadata)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4744,6 +5026,17 @@ impl<'de> serde::de::Deserialize<'de> for SanitizeModelResponseRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__multi_language_detection_metadata => {
+                            if !fields.insert(__FieldTag::__multi_language_detection_metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for multi_language_detection_metadata",
+                                ));
+                            }
+                            result.multi_language_detection_metadata =
+                                map.next_value::<std::option::Option<
+                                    crate::model::MultiLanguageDetectionMetadata,
+                                >>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4775,6 +5068,12 @@ impl serde::ser::Serialize for SanitizeModelResponseRequest {
         }
         if !self.user_prompt.is_empty() {
             state.serialize_entry("userPrompt", &self.user_prompt)?;
+        }
+        if self.multi_language_detection_metadata.is_some() {
+            state.serialize_entry(
+                "multiLanguageDetectionMetadata",
+                &self.multi_language_detection_metadata,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -5540,6 +5839,175 @@ pub mod sanitization_result {
             }
             state.end()
         }
+    }
+}
+
+/// Message for Enabling Multi Language Detection.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MultiLanguageDetectionMetadata {
+    /// Optional. Optional Source language of the user prompt.
+    ///
+    /// If multi-language detection is enabled but language is not set in that case
+    /// we would automatically detect the source language.
+    pub source_language: std::string::String,
+
+    /// Optional. Enable detection of multi-language prompts and responses.
+    pub enable_multi_language_detection: bool,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MultiLanguageDetectionMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [source_language][crate::model::MultiLanguageDetectionMetadata::source_language].
+    pub fn set_source_language<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_language = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_multi_language_detection][crate::model::MultiLanguageDetectionMetadata::enable_multi_language_detection].
+    pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enable_multi_language_detection = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MultiLanguageDetectionMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.modelarmor.v1.MultiLanguageDetectionMetadata"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MultiLanguageDetectionMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __source_language,
+            __enable_multi_language_detection,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MultiLanguageDetectionMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "sourceLanguage" => Ok(__FieldTag::__source_language),
+                            "source_language" => Ok(__FieldTag::__source_language),
+                            "enableMultiLanguageDetection" => {
+                                Ok(__FieldTag::__enable_multi_language_detection)
+                            }
+                            "enable_multi_language_detection" => {
+                                Ok(__FieldTag::__enable_multi_language_detection)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MultiLanguageDetectionMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MultiLanguageDetectionMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__source_language => {
+                            if !fields.insert(__FieldTag::__source_language) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for source_language",
+                                ));
+                            }
+                            result.source_language = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__enable_multi_language_detection => {
+                            if !fields.insert(__FieldTag::__enable_multi_language_detection) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_multi_language_detection",
+                                ));
+                            }
+                            result.enable_multi_language_detection = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MultiLanguageDetectionMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.source_language.is_empty() {
+            state.serialize_entry("sourceLanguage", &self.source_language)?;
+        }
+        if !wkt::internal::is_default(&self.enable_multi_language_detection) {
+            state.serialize_entry(
+                "enableMultiLanguageDetection",
+                &self.enable_multi_language_detection,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -7435,6 +7903,10 @@ pub mod byte_data_item {
         ExcelDocument,
         /// PPTX, PPTM, POTX, POTM, POT
         PowerpointDocument,
+        /// TXT
+        Txt,
+        /// CSV
+        Csv,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ByteItemType::value] or
@@ -7463,6 +7935,8 @@ pub mod byte_data_item {
                 Self::WordDocument => std::option::Option::Some(3),
                 Self::ExcelDocument => std::option::Option::Some(4),
                 Self::PowerpointDocument => std::option::Option::Some(5),
+                Self::Txt => std::option::Option::Some(6),
+                Self::Csv => std::option::Option::Some(7),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -7479,6 +7953,8 @@ pub mod byte_data_item {
                 Self::WordDocument => std::option::Option::Some("WORD_DOCUMENT"),
                 Self::ExcelDocument => std::option::Option::Some("EXCEL_DOCUMENT"),
                 Self::PowerpointDocument => std::option::Option::Some("POWERPOINT_DOCUMENT"),
+                Self::Txt => std::option::Option::Some("TXT"),
+                Self::Csv => std::option::Option::Some("CSV"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -7506,6 +7982,8 @@ pub mod byte_data_item {
                 3 => Self::WordDocument,
                 4 => Self::ExcelDocument,
                 5 => Self::PowerpointDocument,
+                6 => Self::Txt,
+                7 => Self::Csv,
                 _ => Self::UnknownValue(byte_item_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -7523,6 +8001,8 @@ pub mod byte_data_item {
                 "WORD_DOCUMENT" => Self::WordDocument,
                 "EXCEL_DOCUMENT" => Self::ExcelDocument,
                 "POWERPOINT_DOCUMENT" => Self::PowerpointDocument,
+                "TXT" => Self::Txt,
+                "CSV" => Self::Csv,
                 _ => Self::UnknownValue(byte_item_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -7542,6 +8022,8 @@ pub mod byte_data_item {
                 Self::WordDocument => serializer.serialize_i32(3),
                 Self::ExcelDocument => serializer.serialize_i32(4),
                 Self::PowerpointDocument => serializer.serialize_i32(5),
+                Self::Txt => serializer.serialize_i32(6),
+                Self::Csv => serializer.serialize_i32(7),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

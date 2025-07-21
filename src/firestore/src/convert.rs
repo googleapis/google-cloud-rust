@@ -37,7 +37,7 @@
 //! contain enums, or maps that contain enums.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use crate::google;
     use crate::model;
     use gaxi::prost::FromProto;

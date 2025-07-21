@@ -46,9 +46,6 @@ type modelAnnotations struct {
 	Services          []*api.Service
 	NameToLower       string
 	NotForPublication bool
-	// When bootstrapping the well-known types crate the templates add some
-	// ad-hoc code.
-	IsWktCrate bool
 	// If true, disable rustdoc warnings known to be triggered by our generated
 	// documentation.
 	DisabledRustdocWarnings []string
@@ -60,9 +57,21 @@ type modelAnnotations struct {
 	Incomplete bool
 }
 
+// When bootstrapping the well-known types crate the templates add some
+// ad-hoc code.
+func (m *modelAnnotations) IsWktCrate() bool {
+	return m.PackageName == "google-cloud-wkt"
+}
+
 // HasServices returns true if there are any services in the model
 func (m *modelAnnotations) HasServices() bool {
 	return len(m.Services) > 0
+}
+
+// We handle references to `gaxi` traits from within the `gaxi` crate, by
+// injecting some ad-hoc code.
+func (m *modelAnnotations) IsGaxiCrate() bool {
+	return m.PackageName == "google-cloud-gax-internal"
 }
 
 type serviceAnnotations struct {
@@ -160,6 +169,8 @@ type messageAnnotation struct {
 	// If set, this message is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
+	// If true, this message's visibility should only be `pub(crate)`
+	Internal bool
 }
 
 type methodAnnotation struct {
@@ -475,7 +486,6 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		Services:                servicesSubset,
 		NameToLower:             strings.ToLower(model.Name),
 		NotForPublication:       codec.doNotPublish,
-		IsWktCrate:              model.PackageName == "google.protobuf",
 		DisabledRustdocWarnings: codec.disabledRustdocWarnings,
 		PerServiceFeatures:      codec.perServiceFeatures && len(servicesSubset) > 0,
 		Incomplete: slices.ContainsFunc(model.Services, func(s *api.Service) bool {
@@ -643,6 +653,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
 		HasSyntheticFields: hasSyntheticFields,
+		Internal:           slices.Contains(c.internalTypes, m.ID),
 	}
 }
 

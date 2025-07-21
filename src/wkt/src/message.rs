@@ -27,16 +27,20 @@ pub trait Message: serde::ser::Serialize + serde::de::DeserializeOwned {
     fn typename() -> &'static str;
 
     /// Returns the serializer for this message type.
-    #[doc(hidden)]
-    #[allow(private_interfaces)]
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn serializer() -> impl MessageSerializer<Self> {
         DefaultSerializer::<Self>::new()
     }
 }
 
+pub(crate) mod sealed {
+    pub trait MessageSerializer {}
+}
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 /// Internal API for message serialization.
 /// This is not intended for direct use by consumers of this crate.
-pub(crate) trait MessageSerializer<T> {
+pub trait MessageSerializer<T>: sealed::MessageSerializer {
     /// Store the value into a JSON object.
     fn serialize_to_map(&self, message: &T) -> Result<Map, Error>;
 
@@ -56,6 +60,9 @@ impl<T> DefaultSerializer<T> {
         }
     }
 }
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl<T> sealed::MessageSerializer for DefaultSerializer<T> {}
 
 impl<T> MessageSerializer<T> for DefaultSerializer<T>
 where
@@ -82,6 +89,9 @@ impl<T> ValueSerializer<T> {
         }
     }
 }
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl<T> sealed::MessageSerializer for ValueSerializer<T> {}
 
 impl<T> MessageSerializer<T> for ValueSerializer<T>
 where
@@ -177,7 +187,7 @@ fn unexpected_json_type() -> Error {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use serde_json::json;
 

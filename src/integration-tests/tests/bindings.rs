@@ -282,7 +282,7 @@ mod bindings {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::bindings::*;
     use anyhow::Result;
     use gax::error::binding::{BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch};

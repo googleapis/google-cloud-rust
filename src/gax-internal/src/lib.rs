@@ -50,3 +50,11 @@ pub mod unimplemented;
 
 #[cfg(feature = "_internal-common")]
 pub mod routing_parameter;
+
+#[cfg(feature = "_internal-grpc-client")]
+pub(crate) mod google {
+    pub mod rpc {
+        include!("generated/protos/rpc/google.rpc.rs");
+        include!("generated/convert/rpc/convert.rs");
+    }
+}

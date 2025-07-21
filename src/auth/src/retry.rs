@@ -12,69 +12,61 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::errors::CredentialsError;
 use crate::token::{Token, TokenProvider};
 use crate::{Result, constants};
-use gax::backoff_policy::BackoffPolicy;
-use gax::error::CredentialsError;
+use gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::retry_loop_internal::retry_loop;
-use gax::retry_policy::RetryPolicy;
-use gax::retry_throttler::{AdaptiveThrottler, SharedRetryThrottler};
+use gax::retry_policy::{RetryPolicy, RetryPolicyArg};
+use gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler};
 use std::error::Error;
 use std::sync::{Arc, Mutex};
 
 #[derive(Debug)]
 pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
-    inner: Arc<T>,
+    pub(crate) inner: Arc<T>,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
 }
 
-#[derive(Debug)]
-pub(crate) struct Builder<T: TokenProvider> {
-    inner: Arc<T>,
-    retry_policy: Option<Arc<dyn RetryPolicy>>,
-    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
-    retry_throttler: Option<SharedRetryThrottler>,
+#[derive(Debug, Default)]
+pub(crate) struct Builder {
+    retry_policy: Option<RetryPolicyArg>,
+    backoff_policy: Option<BackoffPolicyArg>,
+    retry_throttler: Option<RetryThrottlerArg>,
 }
 
-#[allow(dead_code)]
-impl<T: TokenProvider> Builder<T> {
-    pub(crate) fn new(inner: T) -> Self {
-        Self {
-            inner: Arc::new(inner),
-            retry_policy: None,
-            backoff_policy: None,
-            retry_throttler: None,
-        }
-    }
-
-    pub(crate) fn with_retry_policy(mut self, retry_policy: Arc<dyn RetryPolicy>) -> Self {
+impl Builder {
+    pub(crate) fn with_retry_policy(mut self, retry_policy: RetryPolicyArg) -> Self {
         self.retry_policy = Some(retry_policy);
         self
     }
 
-    pub(crate) fn with_backoff_policy(mut self, backoff_policy: Arc<dyn BackoffPolicy>) -> Self {
+    pub(crate) fn with_backoff_policy(mut self, backoff_policy: BackoffPolicyArg) -> Self {
         self.backoff_policy = Some(backoff_policy);
         self
     }
 
-    pub(crate) fn with_retry_throttler(mut self, retry_throttler: SharedRetryThrottler) -> Self {
+    pub(crate) fn with_retry_throttler(mut self, retry_throttler: RetryThrottlerArg) -> Self {
         self.retry_throttler = Some(retry_throttler);
         self
     }
 
-    pub(crate) fn build(self) -> TokenProviderWithRetry<T> {
-        let backoff_policy = self
-            .backoff_policy
-            .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()));
-        let retry_throttler = self
-            .retry_throttler
-            .unwrap_or_else(|| Arc::new(Mutex::new(AdaptiveThrottler::default())));
+    pub(crate) fn build<T: TokenProvider>(self, token_provider: T) -> TokenProviderWithRetry<T> {
+        let backoff_policy: Arc<dyn BackoffPolicy> = match self.backoff_policy {
+            Some(p) => p.into(),
+            None => Arc::new(ExponentialBackoff::default()),
+        };
+        let retry_throttler: SharedRetryThrottler = match self.retry_throttler {
+            Some(p) => p.into(),
+            None => Arc::new(Mutex::new(AdaptiveThrottler::default())),
+        };
+
         TokenProviderWithRetry {
-            inner: self.inner,
-            retry_policy: self.retry_policy,
+            inner: Arc::new(token_provider),
+            retry_policy: self.retry_policy.map(|p| p.into()),
             backoff_policy,
             retry_throttler,
         }
@@ -142,8 +134,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::token::{Token, TokenProvider, test::MockTokenProvider};
-    use gax::error::CredentialsError;
+    use crate::token::{Token, TokenProvider, tests::MockTokenProvider};
     use gax::retry_policy::RetryPolicy;
     use gax::retry_result::RetryResult;
     use gax::retry_throttler::RetryThrottler;
@@ -236,9 +227,9 @@ mod tests {
             .times(1)
             .return_once(|| Ok(token));
 
-        let provider = Builder::new(mock_provider)
-            .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
-            .build();
+        let provider = Builder::default()
+            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
+            .build(mock_provider);
 
         let token = provider.token().await.unwrap();
         assert_eq!(token.token, "test_token");
@@ -267,9 +258,9 @@ mod tests {
                 })
             });
 
-        let provider = Builder::new(mock_provider)
-            .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
-            .build();
+        let provider = Builder::default()
+            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
+            .build(mock_provider);
 
         let token = provider.token().await.unwrap();
         assert_eq!(token.token, "test_token");
@@ -283,9 +274,9 @@ mod tests {
             .times(2)
             .returning(|| Err(CredentialsError::from_msg(true, "transient error")));
 
-        let provider = Builder::new(mock_provider)
-            .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
-            .build();
+        let provider = Builder::default()
+            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
+            .build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
         assert!(error.is_transient());
@@ -306,9 +297,9 @@ mod tests {
             .times(1)
             .returning(|| Err(CredentialsError::from_msg(false, "non transient error")));
 
-        let provider = Builder::new(mock_provider)
-            .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
-            .build();
+        let provider = Builder::default()
+            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
+            .build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
@@ -337,7 +328,7 @@ mod tests {
             .times(1)
             .return_once(|| Ok(token));
 
-        let provider = Builder::new(mock_provider).build();
+        let provider = Builder::default().build(mock_provider);
 
         let token = provider.token().await.unwrap();
         assert_eq!(token.token, "test_token");
@@ -354,7 +345,7 @@ mod tests {
             .times(1)
             .returning(move || Err(CredentialsError::from_msg(is_transient, ERROR_MESSAGE)));
 
-        let provider = Builder::new(mock_provider).build();
+        let provider = Builder::default().build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
         assert_eq!(error.is_transient(), is_transient);
@@ -374,19 +365,19 @@ mod tests {
     )]
     fn test_builder(use_custom_config: bool, expected_substrings: &[&str]) {
         let mock_provider = MockTokenProvider::new();
-        let mut builder = Builder::new(mock_provider);
+        let mut builder = Builder::default();
 
         if use_custom_config {
-            let retry_policy = Arc::new(AuthRetryPolicy { max_attempts: 5 });
-            let backoff_policy = Arc::new(TestBackoffPolicy::default());
-            let retry_throttler = Arc::new(Mutex::new(AdaptiveThrottler::new(4.0).unwrap()));
+            let retry_policy = AuthRetryPolicy { max_attempts: 5 };
+            let backoff_policy = TestBackoffPolicy::default();
+            let retry_throttler = AdaptiveThrottler::new(4.0).unwrap();
             builder = builder
-                .with_retry_policy(retry_policy)
-                .with_backoff_policy(backoff_policy)
-                .with_retry_throttler(retry_throttler);
+                .with_retry_policy(retry_policy.into())
+                .with_backoff_policy(backoff_policy.into())
+                .with_retry_throttler(retry_throttler.into());
         }
 
-        let provider = builder.build();
+        let provider = builder.build(mock_provider);
         let debug_str = format!("{provider:?}");
 
         for sub in expected_substrings {
@@ -441,19 +432,19 @@ mod tests {
         mock_throttler.expect_on_success().times(1).return_const(());
 
         // 3. Setup other policies
-        let retry_policy = Arc::new(AuthRetryPolicy { max_attempts: 2 });
+        let retry_policy = AuthRetryPolicy { max_attempts: 2 };
         let backoff_was_called = Arc::new(AtomicBool::new(false));
-        let backoff_policy = Arc::new(TestBackoffPolicy {
+        let backoff_policy = TestBackoffPolicy {
             was_called: backoff_was_called.clone(),
-        });
-        let retry_throttler = Arc::new(Mutex::new(mock_throttler));
+        };
+        let retry_throttler = mock_throttler;
 
         // 4. Build and run
-        let provider = Builder::new(mock_provider)
-            .with_retry_policy(retry_policy)
-            .with_backoff_policy(backoff_policy)
-            .with_retry_throttler(retry_throttler)
-            .build();
+        let provider = Builder::default()
+            .with_retry_policy(retry_policy.into())
+            .with_backoff_policy(backoff_policy.into())
+            .with_retry_throttler(retry_throttler.into())
+            .build(mock_provider);
 
         // 5. Assert
         let token = provider.token().await.unwrap();

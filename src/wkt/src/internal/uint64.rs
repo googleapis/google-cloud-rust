@@ -41,7 +41,7 @@ impl serde_with::SerializeAs<u64> for U64 {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use anyhow::Result;
     use serde_json::{Value, json};

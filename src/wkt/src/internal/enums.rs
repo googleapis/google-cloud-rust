@@ -118,7 +118,7 @@ pub fn display_enum(
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::field_descriptor_proto::Label;
     use serde_json::json;

@@ -40,7 +40,7 @@ impl serde_with::SerializeAs<Option<Value>> for OptionalValue {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use anyhow::Result;
     use serde_json::{Value, json};
