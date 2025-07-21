@@ -18,7 +18,7 @@ use crate::{Result, constants};
 use gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::retry_loop_internal::retry_loop;
-use gax::retry_policy::{RetryPolicy, RetryPolicyArg};
+use gax::retry_policy::{AlwaysRetry, RetryPolicy, RetryPolicyArg, RetryPolicyExt};
 use gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler};
 use std::error::Error;
 use std::sync::{Arc, Mutex};
@@ -26,7 +26,7 @@ use std::sync::{Arc, Mutex};
 #[derive(Debug)]
 pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
     pub(crate) inner: Arc<T>,
-    retry_policy: Option<Arc<dyn RetryPolicy>>,
+    retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
 }
@@ -64,9 +64,15 @@ impl Builder {
             None => Arc::new(Mutex::new(AdaptiveThrottler::default())),
         };
 
+        let retry_policy = match self.retry_policy {
+            Some(p) => p,
+            None => AlwaysRetry.with_attempt_limit(1).into(),
+        }
+        .into();
+
         TokenProviderWithRetry {
             inner: Arc::new(token_provider),
-            retry_policy: self.retry_policy.map(|p| p.into()),
+            retry_policy,
             backoff_policy,
             retry_throttler,
         }
@@ -76,10 +82,7 @@ impl Builder {
 #[async_trait::async_trait]
 impl<T: TokenProvider + 'static> TokenProvider for TokenProviderWithRetry<T> {
     async fn token(&self) -> Result<Token> {
-        match self.retry_policy.clone() {
-            None => self.inner.token().await,
-            Some(policy) => self.execute_retry_loop(policy).await,
-        }
+        self.execute_retry_loop(self.retry_policy.clone()).await
     }
 }
 
@@ -113,32 +116,31 @@ where
     }
 
     fn map_retry_error(e: gax::error::Error) -> CredentialsError {
-        match e {
-            auth_error if auth_error.is_authentication() => {
-                let (is_transient, msg) = if auth_error
-                    .source()
-                    .and_then(|s| s.downcast_ref::<CredentialsError>())
-                    .is_some_and(|ce| ce.is_transient())
-                {
-                    (true, constants::RETRY_EXHAUSTED_ERROR)
-                } else {
-                    (false, constants::TOKEN_FETCH_FAILED_ERROR)
-                };
-                CredentialsError::new(is_transient, msg, auth_error)
-            }
-            other_error => CredentialsError::from_source(false, other_error),
+        if !e.is_authentication() {
+            return CredentialsError::from_source(false, e);
         }
+
+        let msg = match e
+            .source()
+            .and_then(|s| s.downcast_ref::<CredentialsError>())
+        {
+            Some(cred_error) if cred_error.is_transient() => constants::RETRY_EXHAUSTED_ERROR,
+            _ => constants::TOKEN_FETCH_FAILED_ERROR,
+        };
+        CredentialsError::new(false, msg, e)
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::credentials::tests::find_source_error;
     use crate::token::{Token, TokenProvider, tests::MockTokenProvider};
     use gax::retry_policy::RetryPolicy;
     use gax::retry_result::RetryResult;
     use gax::retry_throttler::RetryThrottler;
     use mockall::{Sequence, mock};
+    use std::error::Error;
     use std::sync::Arc;
     use std::sync::atomic::{AtomicBool, Ordering};
     use test_case::test_case;
@@ -279,14 +281,10 @@ mod tests {
             .build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
-        assert!(error.is_transient());
-        assert_eq!(
-            error.to_string(),
-            format!(
-                "{} but future attempts may succeed",
-                constants::RETRY_EXHAUSTED_ERROR
-            )
-        );
+        assert!(!error.is_transient());
+        let original_error = find_source_error::<CredentialsError>(&error).unwrap();
+        assert!(original_error.is_transient());
+        assert!(error.to_string().contains(constants::RETRY_EXHAUSTED_ERROR));
     }
 
     #[tokio::test]
@@ -303,12 +301,12 @@ mod tests {
 
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
-        assert_eq!(
-            error.to_string(),
-            format!(
-                "{} and future attempts will not succeed",
-                constants::TOKEN_FETCH_FAILED_ERROR
-            )
+        let original_error = find_source_error::<CredentialsError>(&error).unwrap();
+        assert!(!original_error.is_transient());
+        assert!(
+            error
+                .to_string()
+                .contains(constants::TOKEN_FETCH_FAILED_ERROR)
         );
     }
 
@@ -334,23 +332,40 @@ mod tests {
         assert_eq!(token.token, "test_token");
     }
 
-    #[test_case(true, "but future attempts may succeed" ; "transient_error")]
-    #[test_case(false, "and future attempts will not succeed" ; "non_transient_error")]
     #[tokio::test]
-    async fn test_no_retry_policy_failure(is_transient: bool, expected_suffix: &str) {
+    async fn test_no_retry_policy_failure_transient_error() {
         let mut mock_provider = MockTokenProvider::new();
-        const ERROR_MESSAGE: &str = "underlying provider error";
-        mock_provider
-            .expect_token()
-            .times(1)
-            .returning(move || Err(CredentialsError::from_msg(is_transient, ERROR_MESSAGE)));
+        mock_provider.expect_token().times(1).returning(move || {
+            Err(CredentialsError::from_msg(
+                true,
+                "underlying provider error",
+            ))
+        });
 
         let provider = Builder::default().build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
-        assert_eq!(error.is_transient(), is_transient);
-        let expected_message = format!("{ERROR_MESSAGE} {expected_suffix}");
-        assert_eq!(error.to_string(), expected_message);
+        assert!(!error.is_transient());
+        let original_error = find_source_error::<CredentialsError>(&error).unwrap();
+        assert!(original_error.is_transient());
+    }
+
+    #[tokio::test]
+    async fn test_no_retry_policy_failure_non_transient_error() {
+        let mut mock_provider = MockTokenProvider::new();
+        mock_provider.expect_token().times(1).returning(move || {
+            Err(CredentialsError::from_msg(
+                false,
+                "underlying provider error",
+            ))
+        });
+
+        let provider = Builder::default().build(mock_provider);
+
+        let error = provider.token().await.unwrap_err();
+        assert!(!error.is_transient());
+        let original_error = find_source_error::<CredentialsError>(&error).unwrap();
+        assert!(!original_error.is_transient());
     }
 
     #[test_case(
@@ -360,7 +375,7 @@ mod tests {
     )]
     #[test_case(
         false,
-        &["retry_policy: None", "ExponentialBackoff", "AdaptiveThrottler", "factor: 2.0"];
+        &["LimitedAttemptCount", "ExponentialBackoff", "AdaptiveThrottler", "factor: 2.0"];
         "with_default_values"
     )]
     fn test_builder(use_custom_config: bool, expected_substrings: &[&str]) {

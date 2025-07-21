@@ -1253,7 +1253,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-auth"
-version = "0.22.1"
+version = "0.22.2"
 dependencies = [
  "anyhow",
  "async-trait",
