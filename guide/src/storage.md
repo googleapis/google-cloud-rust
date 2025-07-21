@@ -48,14 +48,14 @@ The client to perform operations on buckets and object metadata is called
 {{#include ../samples/tests/storage/quickstart.rs:control-client}}
 ```
 
-To create a bucket you must provide the project name and the desired project id:
+To create a bucket you must provide the project name and the desired bucket id:
 
 ```rust,ignore,noplayground
 {{#include ../samples/tests/storage/quickstart.rs:control-bucket-required}}
 ```
 
 You can also provide other attributes for the bucket. For example, if you want
-all objects in the bucket to use the same permissions, you configure
+all objects in the bucket to use the same permissions, you can enable
 [Uniform bucket-level access]:
 
 ```rust,ignore,noplayground

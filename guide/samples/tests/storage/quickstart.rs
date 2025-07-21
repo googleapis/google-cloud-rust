@@ -22,19 +22,25 @@ pub async fn quickstart(project_id: &str, bucket_id: &str) -> anyhow::Result<()>
     // ANCHOR: control-bucket-required
     let bucket = control
         .create_bucket()
-        .set_parent(format!("projects/{project_id}"))
+        .set_parent("projects/_")
         .set_bucket_id(bucket_id)
-        // ANCHOR_END: control-bucket-required
-        // ANCHOR: control-bucket-ubla
-        .set_bucket(gcs::model::Bucket::new().set_iam_config(
-            gcs::model::bucket::IamConfig::new().set_uniform_bucket_level_access(
-                gcs::model::bucket::iam_config::UniformBucketLevelAccess::new().set_enabled(true),
-            ),
-        ))
+        .set_bucket(
+            gcs::model::Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                // ANCHOR: control-bucket-ubla
+                // ANCHOR_END: control-bucket-required
+                .set_iam_config(
+                    gcs::model::bucket::IamConfig::new().set_uniform_bucket_level_access(
+                        gcs::model::bucket::iam_config::UniformBucketLevelAccess::new()
+                            .set_enabled(true),
+                    ),
+                ),
+        )
         // ANCHOR_END: control-bucket-ubla
         // ANCHOR: control-bucket-send
         .send()
         .await?;
+    println!("bucket successfully created {bucket:?}");
     // ANCHOR_END: control-bucket-send
 
     // ANCHOR: client
