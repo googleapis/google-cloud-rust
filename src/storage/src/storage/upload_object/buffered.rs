@@ -16,6 +16,8 @@
 mod progress;
 
 use super::*;
+use crate::retry_policy::ContinueOn308;
+use thiserror::Error;
 
 impl<T> UploadObject<T>
 where
@@ -42,73 +44,74 @@ where
             .await
             .size_hint()
             .await
-            .map_err(Error::io)?
-            .1;
-        if hint.is_none_or(|max| max >= self.options.resumable_upload_threshold as u64) {
-            let upload_url = self.start_resumable_upload().await?;
-            // The buffer size must be a multiple of the upload quantum. The
-            // upload is finalized on the first PUT request with a size that is
-            // not such.
-            let target_size = self
-                .options
-                .resumable_upload_buffer_size
-                .div_ceil(RESUMABLE_UPLOAD_QUANTUM)
-                * RESUMABLE_UPLOAD_QUANTUM;
-            let target_size = target_size.max(RESUMABLE_UPLOAD_QUANTUM);
-            return self.upload_by_chunks(&upload_url, target_size).await;
+            .map_err(Error::ser)?;
+        let threshold = self.options.resumable_upload_threshold as u64;
+        if hint.1.is_none_or(|max| max >= threshold) {
+            self.send_buffered_resumable(hint).await
+        } else {
+            self.send_buffered_single_shot().await
         }
-        self.send_buffered_single_shot().await
     }
 
-    async fn upload_by_chunks(&self, upload_url: &str, target_size: usize) -> Result<Object> {
-        let mut remainder = None;
-        let mut offset = 0_usize;
-        loop {
-            let NextChunk {
-                chunk,
-                size: chunk_size,
-                remainder: r,
-            } = self::next_chunk(&mut *self.payload.lock().await, remainder, target_size).await?;
-            let full_size = if chunk_size < target_size {
-                Some(offset + chunk_size)
-            } else {
-                None
+    async fn send_buffered_resumable(self, hint: (u64, Option<u64>)) -> Result<Object> {
+        let mut progress = InProgressUpload::new(&self.options, hint);
+        gax::retry_loop_internal::retry_loop(
+            async |_| self.buffered_resumable_attempt(&mut progress).await,
+            async |duration| tokio::time::sleep(duration).await,
+            true,
+            self.options.retry_throttler.clone(),
+            Arc::new(ContinueOn308::new(self.options.retry_policy.clone())),
+            self.options.backoff_policy.clone(),
+        )
+        .await
+    }
+
+    async fn buffered_resumable_attempt(&self, progress: &mut InProgressUpload) -> Result<Object> {
+        // Cannot borrow `progress.url` because we plan to borrow `progress` as
+        // mutable below.
+        let upload_url = if let Some(url) = progress.url.as_ref() {
+            url.clone()
+        } else {
+            let url = self.start_resumable_upload_attempt().await?;
+            progress.url = Some(url.clone());
+            progress.persisted_size = Some(0_u64);
+            url
+        };
+
+        if Some(progress.offset) != progress.persisted_size {
+            match self.query_resumable_upload_attempt(&upload_url).await? {
+                ResumableUploadStatus::Finalized(object) => return Ok(*object),
+                ResumableUploadStatus::Partial(persisted_size) => {
+                    progress.handle_partial(persisted_size)?;
+                }
             };
-            let (builder, chunk_size) = self
-                .partial_upload_request(upload_url, offset, chunk, chunk_size, full_size)
+        }
+
+        loop {
+            progress
+                .next_buffer(&mut *self.payload.lock().await)
                 .await?;
+            let builder = self.partial_upload_request(&upload_url, progress).await?;
             let response = builder.send().await.map_err(Error::io)?;
-            match self::partial_upload_handle_response(response, offset + chunk_size).await? {
-                PartialUpload::Finalized(o) => {
-                    return Ok(*o);
+            match super::query_resumable_upload_handle_response(response).await {
+                Err(e) => {
+                    progress.handle_error();
+                    return Err(e);
                 }
-                PartialUpload::Partial {
-                    persisted_size,
-                    chunk_remainder,
-                } => {
-                    offset = persisted_size;
-                    // TODO(#2057) - handle partial uploads
-                    assert_eq!(chunk_remainder, 0);
-                    remainder = r;
+                Ok(ResumableUploadStatus::Finalized(object)) => return Ok(*object),
+                Ok(ResumableUploadStatus::Partial(persisted_size)) => {
+                    progress.handle_partial(persisted_size)?;
                 }
-            }
+            };
         }
     }
 
     async fn partial_upload_request(
         &self,
         upload_url: &str,
-        offset: usize,
-        chunk: VecDeque<bytes::Bytes>,
-        chunk_size: usize,
-        full_size: Option<usize>,
-    ) -> Result<(reqwest::RequestBuilder, usize)> {
-        let range = match (chunk_size, full_size) {
-            (0, Some(s)) => format!("bytes */{s}"),
-            (0, None) => format!("bytes */{offset}"),
-            (n, Some(s)) => format!("bytes {offset}-{}/{s}", offset + n - 1),
-            (n, None) => format!("bytes {offset}-{}/*", offset + n - 1),
-        };
+        progress: &mut InProgressUpload,
+    ) -> Result<reqwest::RequestBuilder> {
+        let range = progress.range_header();
         let builder = self
             .inner
             .client
@@ -122,7 +125,7 @@ where
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
         let builder = self.inner.apply_auth_headers(builder).await?;
-        let stream = unfold(Some(chunk), move |state| async move {
+        let stream = unfold(Some(progress.buffer.clone()), move |state| async move {
             if let Some(mut payload) = state {
                 if let Some(next) = payload.pop_front() {
                     return Some((Ok::<bytes::Bytes, Error>(next), Some(payload)));
@@ -130,7 +133,7 @@ where
             }
             None
         });
-        Ok((builder.body(reqwest::Body::wrap_stream(stream)), chunk_size))
+        Ok(builder.body(reqwest::Body::wrap_stream(stream)))
     }
 
     async fn send_buffered_single_shot(self) -> Result<Object> {
@@ -150,122 +153,218 @@ where
     }
 }
 
-async fn next_chunk<T>(
-    payload: &mut InsertPayload<T>,
-    remainder: Option<bytes::Bytes>,
-    target_size: usize,
-) -> Result<NextChunk>
-where
-    T: StreamingSource + Send + Sync,
-{
-    let mut partial = VecDeque::new();
-    let mut size = 0;
-    let mut process_buffer = |mut b: bytes::Bytes| match b.len() {
-        n if size + n > target_size => {
-            let remainder = b.split_off(target_size - size);
-            size = target_size;
-            partial.push_back(b);
-            Some(Some(remainder))
-        }
-        n if size + n == target_size => {
-            size = target_size;
-            partial.push_back(b);
-            Some(None)
-        }
-        n => {
-            size += n;
-            partial.push_back(b);
-            None
-        }
-    };
-
-    if let Some(b) = remainder {
-        if let Some(p) = process_buffer(b) {
-            return Ok(NextChunk {
-                chunk: partial,
-                size,
-                remainder: p,
-            });
-        }
-    }
-
-    while let Some(b) = payload.next().await.transpose().map_err(Error::io)? {
-        if let Some(p) = process_buffer(b) {
-            return Ok(NextChunk {
-                chunk: partial,
-                size,
-                remainder: p,
-            });
-        }
-    }
-    Ok(NextChunk {
-        chunk: partial,
-        size,
-        remainder: None,
-    })
-}
-
-async fn partial_upload_handle_response(
-    response: reqwest::Response,
-    expected_offset: usize,
-) -> Result<PartialUpload> {
-    if response.status() == self::RESUME_INCOMPLETE {
-        return self::parse_range(response, expected_offset).await;
-    }
-    if !response.status().is_success() {
-        return gaxi::http::to_http_error(response).await;
-    }
-    let response = response.json::<v1::Object>().await.map_err(Error::io)?;
-    Ok(PartialUpload::Finalized(Box::new(Object::from(response))))
-}
-
-async fn parse_range(response: reqwest::Response, expected_offset: usize) -> Result<PartialUpload> {
-    let Some(end) = self::parse_range_end(response.headers()) else {
-        return gaxi::http::to_http_error(response).await;
-    };
-    // The `Range` header returns an inclusive range, i.e. bytes=0-999 means "1000 bytes".
-    let (persisted_size, chunk_remainder) = match (expected_offset, end as usize) {
-        (o, 0) => (0, o),
-        (o, e) if o < e + 1 => panic!("more data persistent than sent {response:?}"),
-        (o, e) => (e + 1, o - e - 1),
-    };
-    Ok(PartialUpload::Partial {
-        persisted_size,
-        chunk_remainder,
-    })
-}
-
-#[derive(Debug, PartialEq)]
-enum PartialUpload {
-    Finalized(Box<Object>),
-    Partial {
-        persisted_size: usize,
-        chunk_remainder: usize,
-    },
-}
-
-/// The result of breaking the source data into a fixed sized chunk.
-#[derive(Debug, PartialEq)]
-struct NextChunk {
-    /// The data for this chunk.
-    chunk: VecDeque<bytes::Bytes>,
-    /// The total number of bytes in `chunk`.
-    size: usize,
-    // Any data received from the source that did not fit in the chunk.
-    remainder: Option<bytes::Bytes>,
-}
-
 // Resumable uploads chunks (except for the last chunk) *must* be sized to a
 // multiple of 256 KiB.
 const RESUMABLE_UPLOAD_QUANTUM: usize = 256 * 1024;
 
+#[derive(Clone, Default)]
+struct InProgressUpload {
+    /// The target size for each PUT request.
+    ///
+    /// The last PUT request may be smaller. This must be a multiple of 256KiB
+    /// and greater than 0.
+    target_size: usize,
+    /// The expected size for the full object.
+    hint: (u64, Option<u64>),
+    /// The upload session URL.
+    ///
+    /// Starts as `None` and is initialized before the first `PUT` request.
+    url: Option<String>,
+    /// The offset for the current `PUT` request.
+    offset: u64,
+    /// The data for the current `PUT` request.
+    buffer: VecDeque<bytes::Bytes>,
+    /// The size of the current `PUT` request.
+    buffer_size: usize,
+    /// The persisted size, if known.
+    persisted_size: Option<u64>,
+    /// Keep the bytes retrieved from the payload stream, that did not fit in
+    /// current PUT request.
+    ///
+    /// When getting data from the source stream we may retrieve more data.
+    remainder: VecDeque<bytes::Bytes>,
+}
+
+struct Summary<'a>(&'a VecDeque<bytes::Bytes>);
+impl<'a> std::fmt::Debug for Summary<'a> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut fmt = f.debug_struct("Summary");
+        fmt.field("len", &self.0.len())
+            .field(
+                "total_size",
+                &self.0.iter().fold(0_usize, |s, b| s + b.len()),
+            )
+            .field(
+                "contents[0..32]",
+                &self
+                    .0
+                    .front()
+                    .map(|b| b.slice(..(std::cmp::min(32, b.len())))),
+            );
+        fmt.finish()
+    }
+}
+
+// We need a custom Debug because the buffers can be large and hard to grok.
+impl std::fmt::Debug for InProgressUpload {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut fmt = f.debug_struct("InProgressUpload");
+        fmt.field("target_size", &self.target_size)
+            .field("hint", &self.hint)
+            .field("url", &self.url)
+            .field("offset", &self.offset)
+            .field("buffer_size", &self.buffer_size)
+            // The buffer and remainder can be rather large, just print a summary.
+            .field("buffer", &Summary(&self.buffer))
+            .field("remainder", &Summary(&self.remainder));
+        fmt.finish()
+    }
+}
+
+impl InProgressUpload {
+    fn new(options: &super::request_options::RequestOptions, hint: (u64, Option<u64>)) -> Self {
+        // The buffer size must be a multiple of the upload quantum. The
+        // upload is finalized on the first PUT request with a size that is
+        // not such.
+        let target_size = options
+            .resumable_upload_buffer_size
+            .div_ceil(RESUMABLE_UPLOAD_QUANTUM)
+            * RESUMABLE_UPLOAD_QUANTUM;
+        let target_size = target_size.max(RESUMABLE_UPLOAD_QUANTUM);
+
+        Self {
+            target_size,
+            hint,
+            ..Default::default()
+        }
+    }
+
+    async fn next_buffer<S>(&mut self, payload: &mut S) -> Result<()>
+    where
+        S: StreamingSource,
+    {
+        let mut buffer = VecDeque::new();
+        let mut size = 0;
+        let mut process_buffer = |mut b: bytes::Bytes| match b.len() {
+            n if size + n > self.target_size => {
+                let remainder = b.split_off(self.target_size - size);
+                size = self.target_size;
+                buffer.push_back(b);
+                Some(Some(remainder))
+            }
+            n if size + n == self.target_size => {
+                size = self.target_size;
+                buffer.push_back(b);
+                Some(None)
+            }
+            n => {
+                size += n;
+                buffer.push_back(b);
+                None
+            }
+        };
+
+        while let Some(b) = self.remainder.pop_front() {
+            if let Some(r) = process_buffer(b) {
+                r.into_iter().for_each(|b| self.remainder.push_front(b));
+                self.buffer = buffer;
+                self.buffer_size = size;
+                return Ok(());
+            }
+        }
+
+        while let Some(b) = payload.next().await.transpose().map_err(Error::ser)? {
+            if let Some(r) = process_buffer(b) {
+                r.into_iter().for_each(|b| self.remainder.push_front(b));
+                self.buffer = buffer;
+                self.buffer_size = size;
+                return Ok(());
+            }
+        }
+        self.buffer = buffer;
+        self.buffer_size = size;
+        Ok(())
+    }
+
+    fn range_header(&self) -> String {
+        match (
+            self.buffer_size as u64,
+            self.offset,
+            self.hint.0,
+            self.hint.1,
+        ) {
+            (0, 0, min, Some(max)) if min == max => format!("bytes */{min}"),
+            (0, 0, _, _) => "bytes */0".to_string(),
+            (n, o, min, Some(max)) if min == max => format!("bytes {o}-{}/{min}", o + n - 1),
+            (n, o, _, _) if n < self.target_size as u64 => {
+                format!("bytes {o}-{}/{}", o + n - 1, o + n)
+            }
+            (n, o, _, _) => format!("bytes {o}-{}/*", o + n - 1),
+        }
+    }
+
+    fn handle_partial(&mut self, persisted_size: u64) -> Result<()> {
+        let consumed = match (self.offset, self.buffer_size as u64, persisted_size) {
+            (o, _, p) if p < o => Err(ProgressError::UnexpectedRewind {
+                offset: o,
+                persisted: p,
+            }),
+            (o, n, p) if p <= o + n => Ok((p - o) as usize),
+            (o, n, p) => Err(ProgressError::TooMuchProgress {
+                sent: o + n,
+                persisted: p,
+            }),
+        };
+        let mut skip = consumed.map_err(Error::ser)?;
+        self.persisted_size = Some(persisted_size);
+        self.offset = persisted_size;
+        self.remainder = self
+            .buffer
+            .drain(0..)
+            .filter_map(|mut b| match (skip, b.len()) {
+                (0, _) => Some(b),
+                (s, n) if s >= n => {
+                    skip -= n;
+                    None
+                }
+                (s, n) => {
+                    skip = 0;
+                    Some(b.split_off(n - s))
+                }
+            })
+            .chain(self.remainder.drain(0..))
+            .collect();
+        self.buffer_size = 0_usize;
+
+        Ok(())
+    }
+
+    fn handle_error(&mut self) {
+        self.persisted_size = None;
+    }
+}
+
+#[derive(Error, Debug)]
+enum ProgressError {
+    #[error(
+        "the service previously persisted {offset} bytes, but now reports only {persisted} as persisted"
+    )]
+    UnexpectedRewind { offset: u64, persisted: u64 },
+    #[error("the service reports {persisted} bytes as persisted, but we only sent {sent} bytes")]
+    TooMuchProgress { sent: u64, persisted: u64 },
+}
+
+#[cfg(test)]
+mod resumable_tests;
+
 #[cfg(test)]
 mod tests {
+    use std::error::Error;
+
     use super::super::client::tests::{test_builder, test_inner_client};
-    use super::upload_source::{BytesSource, IterSource, tests::UnknownSize};
+    use super::upload_source::IterSource;
     use super::*;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
-    use serde_json::json;
     use test_case::test_case;
 
     type Result = anyhow::Result<()>;
@@ -308,255 +407,6 @@ mod tests {
             .upload_object("projects/_/buckets/test-bucket", "test-object", "")
             .send()
             .await?;
-        assert_eq!(response.name, "test-object");
-        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
-        assert_eq!(
-            response.metadata.get("is-test-object").map(String::as_str),
-            Some("true")
-        );
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn upload_object_buffered_resumable() -> Result {
-        let payload = serde_json::json!({
-            "name": "test-object",
-            "bucket": "test-bucket",
-            "metadata": {
-                "is-test-object": "true",
-            }
-        })
-        .to_string();
-        let server = Server::run();
-        let session = server.url("/upload/session/test-only-001");
-        let path = session.path().to_string();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
-                request::query(url_decoded(contains(("name", "test-object")))),
-                request::query(url_decoded(contains(("uploadType", "resumable")))),
-            ])
-            .respond_with(
-                status_code(200)
-                    .append_header("location", session.to_string())
-                    .body(""),
-            ),
-        );
-
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("PUT", path),
-                request::headers(contains(("content-range", "bytes */0")))
-            ])
-            .respond_with(
-                status_code(200)
-                    .append_header("content-type", "application/json")
-                    .body(payload),
-            ),
-        );
-
-        let client = Storage::builder()
-            .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(auth::credentials::testing::test_credentials())
-            .with_resumable_upload_threshold(0_usize)
-            .build()
-            .await?;
-        let response = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
-            .send()
-            .await?;
-        assert_eq!(response.name, "test-object");
-        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
-        assert_eq!(
-            response.metadata.get("is-test-object").map(String::as_str),
-            Some("true")
-        );
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn upload_object_buffered_resumable_unknown_size() -> Result {
-        let payload = serde_json::json!({
-            "name": "test-object",
-            "bucket": "test-bucket",
-            "metadata": {
-                "is-test-object": "true",
-            }
-        })
-        .to_string();
-        let server = Server::run();
-        let session = server.url("/upload/session/test-only-001");
-        let path = session.path().to_string();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
-                request::query(url_decoded(contains(("name", "test-object")))),
-                request::query(url_decoded(contains(("uploadType", "resumable")))),
-            ])
-            .respond_with(
-                status_code(200)
-                    .append_header("location", session.to_string())
-                    .body(""),
-            ),
-        );
-
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("PUT", path),
-                request::headers(contains(("content-range", "bytes */0")))
-            ])
-            .respond_with(
-                status_code(200)
-                    .append_header("content-type", "application/json")
-                    .body(payload),
-            ),
-        );
-
-        let client = Storage::builder()
-            .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(auth::credentials::testing::test_credentials())
-            .with_resumable_upload_threshold(4 * RESUMABLE_UPLOAD_QUANTUM)
-            .build()
-            .await?;
-        let source = UnknownSize::new(BytesSource::new(bytes::Bytes::from_static(b"")));
-        let response = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
-            .send()
-            .await?;
-        assert_eq!(response.name, "test-object");
-        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
-        assert_eq!(
-            response.metadata.get("is-test-object").map(String::as_str),
-            Some("true")
-        );
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn upload_object_buffered_not_found() -> Result {
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
-                request::query(url_decoded(contains(("name", "test-object")))),
-                request::query(url_decoded(contains(("uploadType", "resumable")))),
-            ])
-            .respond_with(status_code(404).body("NOT FOUND")),
-        );
-
-        let client = Storage::builder()
-            .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(auth::credentials::testing::test_credentials())
-            .build()
-            .await?;
-        let err = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
-            .with_resumable_upload_threshold(0_usize)
-            .send()
-            .await
-            .expect_err("expected a not found error");
-        assert_eq!(err.http_status_code(), Some(404), "{err:?}");
-
-        Ok(())
-    }
-
-    #[test_case(0, RESUMABLE_UPLOAD_QUANTUM)]
-    #[test_case(RESUMABLE_UPLOAD_QUANTUM / 2, RESUMABLE_UPLOAD_QUANTUM)]
-    #[test_case(RESUMABLE_UPLOAD_QUANTUM, RESUMABLE_UPLOAD_QUANTUM)]
-    #[test_case(3 * RESUMABLE_UPLOAD_QUANTUM + 1, 4 * RESUMABLE_UPLOAD_QUANTUM)]
-    #[tokio::test]
-    async fn upload_object_buffered_resumable_multiple_chunks(
-        configured_buffer_size: usize,
-        actual_buffer_size: usize,
-    ) -> Result {
-        assert!(
-            actual_buffer_size % RESUMABLE_UPLOAD_QUANTUM == 0,
-            "{actual_buffer_size}"
-        );
-        assert!(
-            configured_buffer_size <= actual_buffer_size,
-            "{configured_buffer_size} should be <= {actual_buffer_size}"
-        );
-        let payload = serde_json::json!({
-            "name": "test-object",
-            "bucket": "test-bucket",
-            "metadata": {
-                "is-test-object": "true",
-            }
-        })
-        .to_string();
-        let server = Server::run();
-        let session = server.url("/upload/session/test-only-001");
-        let path = session.path().to_string();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
-                request::query(url_decoded(contains(("name", "test-object")))),
-                request::query(url_decoded(contains(("uploadType", "resumable")))),
-            ])
-            .respond_with(
-                status_code(200)
-                    .append_header("location", session.to_string())
-                    .body(""),
-            ),
-        );
-
-        let start0 = 0;
-        let end0 = actual_buffer_size - 1;
-        let start1 = actual_buffer_size;
-        let end1 = 2 * actual_buffer_size - 1;
-        let end2 = 2 * actual_buffer_size;
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("PUT", path.clone()),
-                request::headers(contains((
-                    "content-range",
-                    format!("bytes {start0}-{end0}/*")
-                )))
-            ])
-            .respond_with(status_code(308).append_header("range", format!("bytes=0-{end0}"))),
-        );
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("PUT", path.clone()),
-                request::headers(contains((
-                    "content-range",
-                    format!("bytes {start1}-{end1}/*")
-                )))
-            ])
-            .respond_with(status_code(308).append_header("range", format!("bytes=0-{end1}"))),
-        );
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("PUT", path.clone()),
-                request::headers(contains(("content-range", format!("bytes */{end2}"))))
-            ])
-            .respond_with(
-                status_code(200)
-                    .append_header("content-type", "application/json")
-                    .body(payload),
-            ),
-        );
-
-        let client = Storage::builder()
-            .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(auth::credentials::testing::test_credentials())
-            .with_resumable_upload_threshold(0_usize)
-            .with_resumable_upload_buffer_size(configured_buffer_size)
-            .build()
-            .await?;
-        let contents = (0..4)
-            .map(|i| vec![i as u8; actual_buffer_size / 2])
-            .map(bytes::Bytes::from_owner)
-            .collect::<Vec<_>>();
-        let response = client
-            .upload_object("projects/_/buckets/test-bucket", "test-object", contents)
-            .send()
-            .await;
-        let response = response?;
         assert_eq!(response.name, "test-object");
         assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
         assert_eq!(
@@ -614,300 +464,228 @@ mod tests {
     }
 
     fn new_line_string(i: i32, len: usize) -> String {
-        format!("{i:022} {:width$}\n", "", width = len - 22 - 2)
+        let data = String::from_iter(('a'..='z').cycle().take(len - 22 - 2));
+        format!("{i:022} {data}\n")
     }
 
     fn new_line(i: i32, len: usize) -> bytes::Bytes {
         bytes::Bytes::from_owner(new_line_string(i, len))
     }
 
+    fn fake_upload(target_size: usize) -> InProgressUpload {
+        let mut progress =
+            InProgressUpload::new(&super::request_options::RequestOptions::new(), (0, None));
+        progress.target_size = target_size;
+        progress
+    }
+
     #[tokio::test]
-    async fn upload_by_chunks() -> Result {
+    async fn upload_debug() -> Result {
+        const LEN: usize = 1000;
+        let stream = IterSource::new((0..8).map(|i| new_line(i, LEN)));
+        let mut payload = InsertPayload::from(stream);
+
+        let mut upload = fake_upload(LEN);
+        upload.next_buffer(&mut payload).await?;
+        let dbg = format!("{upload:?}");
+        assert!(dbg.contains("buffer"), "{dbg}");
+        assert!(dbg.contains("remainder"), "{dbg}");
+
+        let want = format!("contents[0..32]: Some({:?})", new_line(0, LEN).slice(..32));
+        assert!(dbg.contains(&want), "'{want}' not found in '{dbg}'");
+        assert!(dbg.len() < LEN, "dbg is too long: '{dbg}'");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn handle_partial_full() -> Result {
         const LEN: usize = 32;
+        let stream = IterSource::new((0..8).map(|i| new_line(i, LEN)));
+        let mut payload = InsertPayload::from(stream);
 
-        let payload = serde_json::json!({
-            "name": "test-object",
-            "bucket": "test-bucket",
-            "metadata": {
-                "is-test-object": "true",
-            }
-        })
-        .to_string();
-
-        let chunk0 = new_line_string(0, LEN) + &new_line_string(1, LEN);
-        let chunk1 = new_line_string(2, LEN) + &new_line_string(3, LEN);
-        let chunk2 = new_line_string(4, LEN);
-
-        let server = Server::run();
-        let session = server.url("/upload/session/test-only-001");
-        let path = session.path().to_string();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("PUT", path.clone()),
-                request::headers(contains(("content-range", "bytes 0-63/*"))),
-                request::body(chunk0.clone()),
-            ])
-            .respond_with(status_code(308).append_header("range", "bytes=0-63")),
-        );
-
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("PUT", path.clone()),
-                request::headers(contains(("content-range", "bytes 64-127/*"))),
-                request::body(chunk1.clone()),
-            ])
-            .respond_with(status_code(308).append_header("range", "bytes=0-127")),
-        );
-
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("PUT", path.clone()),
-                request::headers(contains(("content-range", "bytes 128-159/160"))),
-                request::body(chunk2.clone()),
-            ])
-            .respond_with(status_code(200).body(payload.clone())),
-        );
-
-        let stream = IterSource::new((0..5).map(|i| new_line(i, LEN)));
-        let inner = test_inner_client(test_builder());
-        let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream);
-        let response = upload
-            .upload_by_chunks(session.to_string().as_str(), 2 * LEN)
-            .await?;
-        assert_eq!(response.name, "test-object");
-        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
-        assert_eq!(
-            response.metadata.get("is-test-object").map(String::as_str),
-            Some("true")
-        );
-
+        let mut upload = fake_upload(2 * LEN);
+        upload.next_buffer(&mut payload).await?;
+        assert!(upload.remainder.is_empty(), "{upload:?}");
+        upload.handle_partial(2 * LEN as u64)?;
+        assert_eq!(upload.persisted_size, Some(2 * LEN as u64));
+        assert_eq!(upload.offset, 2 * LEN as u64);
+        assert!(upload.buffer.is_empty(), "{upload:?}");
+        assert_eq!(upload.buffer_size, 0, "{upload:?}");
+        assert!(upload.remainder.is_empty(), "{upload:?}");
         Ok(())
     }
 
     #[tokio::test]
-    async fn partial_upload_request_empty() -> Result {
-        use reqwest::header::HeaderValue;
-        let inner = test_inner_client(test_builder());
-        let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "");
-
-        let chunk = VecDeque::new();
-        let (builder, size) = upload
-            .partial_upload_request("http://localhost/chunk-0", 0_usize, chunk, 0_usize, None)
-            .await?;
-        assert_eq!(size, 0);
-        let mut request = builder.build()?;
-
-        assert_eq!(
-            request.headers().get("content-type"),
-            Some(&HeaderValue::from_static("application/octet-stream"))
-        );
-        assert_eq!(
-            request.headers().get("content-range"),
-            Some(&HeaderValue::from_static("bytes */0"))
-        );
-        assert!(
-            request.headers().get("x-goog-api-client").is_some(),
-            "{request:?}"
-        );
-        let body = request.body_mut().take().unwrap();
-        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
-        assert!(&contents.is_empty(), "{contents:?}");
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn partial_upload_request_chunk0() -> Result {
-        use reqwest::header::HeaderValue;
+    async fn handle_partial_partial() -> Result {
         const LEN: usize = 32;
-        let inner = test_inner_client(test_builder());
-        let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "");
+        let stream = IterSource::new((0..8).map(|i| new_line(i, LEN)));
+        let mut payload = InsertPayload::from(stream);
 
-        let chunk = VecDeque::from_iter([new_line(0, LEN), new_line(1, LEN)]);
-        let expected = chunk.iter().fold(Vec::new(), |mut a, b| {
-            a.extend_from_slice(b);
-            a
-        });
-        let (builder, size) = upload
-            .partial_upload_request("http://localhost/chunk-0", 0_usize, chunk, 2 * LEN, None)
-            .await?;
-        assert_eq!(size, 2 * LEN);
-        let mut request = builder.build()?;
-
-        assert_eq!(
-            request.headers().get("content-type"),
-            Some(&HeaderValue::from_static("application/octet-stream"))
-        );
-        assert_eq!(
-            request.headers().get("content-range"),
-            Some(&HeaderValue::from_static("bytes 0-63/*"))
-        );
-        assert!(
-            request.headers().get("x-goog-api-client").is_some(),
-            "{request:?}"
-        );
-        let body = request.body_mut().take().unwrap();
-        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
-        assert_eq!(&contents, &expected);
+        let mut upload = fake_upload(2 * LEN);
+        upload.next_buffer(&mut payload).await?;
+        assert!(upload.remainder.is_empty(), "{upload:?}");
+        upload.handle_partial(LEN as u64)?;
+        assert_eq!(upload.persisted_size, Some(LEN as u64));
+        assert_eq!(upload.offset, LEN as u64);
+        assert!(upload.buffer.is_empty(), "{upload:?}");
+        assert_eq!(upload.buffer_size, 0, "{upload:?}");
+        assert_eq!(upload.remainder, vec![new_line(1, LEN)]);
         Ok(())
     }
 
     #[tokio::test]
-    async fn partial_upload_request_chunk1() -> Result {
-        use reqwest::header::HeaderValue;
+    async fn handle_partial_partial_with_remainder() -> Result {
         const LEN: usize = 32;
-        let inner = test_inner_client(test_builder());
-        let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "");
+        let stream = IterSource::new((0..8).map(|i| new_line(i, 4 * LEN)));
+        let mut payload = InsertPayload::from(stream);
 
-        let chunk = VecDeque::from_iter([new_line(2, LEN), new_line(3, LEN)]);
-        let expected = chunk.iter().fold(Vec::new(), |mut a, b| {
-            a.extend_from_slice(b);
-            a
-        });
-        let (builder, size) = upload
-            .partial_upload_request("http://localhost/chunk-1", 2 * LEN, chunk, 2 * LEN, None)
-            .await?;
-        assert_eq!(size, 2 * LEN);
-        let mut request = builder.build()?;
+        let mut upload = fake_upload(2 * LEN);
+        upload.next_buffer(&mut payload).await?;
+        assert_eq!(
+            upload.remainder,
+            vec![new_line(0, 4 * LEN).split_off(2 * LEN)],
+            "{upload:?}"
+        );
+        upload.handle_partial(LEN as u64)?;
+        assert_eq!(upload.persisted_size, Some(LEN as u64));
+        assert_eq!(upload.offset, LEN as u64);
+        assert!(upload.buffer.is_empty(), "{upload:?}");
+        assert_eq!(upload.buffer_size, 0, "{upload:?}");
+        assert_eq!(
+            upload.remainder,
+            vec![
+                new_line(0, 4 * LEN).split_to(2 * LEN).split_off(LEN),
+                new_line(0, 4 * LEN).split_off(2 * LEN)
+            ]
+        );
+        upload.next_buffer(&mut payload).await?;
+        assert_eq!(
+            upload.buffer,
+            vec![
+                new_line(0, 4 * LEN).split_to(2 * LEN).split_off(LEN),
+                new_line(0, 4 * LEN).split_off(2 * LEN).split_to(LEN),
+            ]
+        );
+        assert_eq!(
+            upload.remainder,
+            vec![new_line(0, 4 * LEN).split_off(3 * LEN)],
+            "{upload:?}"
+        );
 
-        assert_eq!(
-            request.headers().get("content-type"),
-            Some(&HeaderValue::from_static("application/octet-stream"))
-        );
-        assert_eq!(
-            request.headers().get("content-range"),
-            Some(&HeaderValue::from_static("bytes 64-127/*"))
-        );
-        assert!(
-            request.headers().get("x-goog-api-client").is_some(),
-            "{request:?}"
-        );
-        let body = request.body_mut().take().unwrap();
-        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
-        assert_eq!(&contents, &expected);
         Ok(())
     }
 
     #[tokio::test]
-    async fn partial_upload_request_chunk_finalize() -> Result {
-        use reqwest::header::HeaderValue;
+    async fn handle_partial_too_much_progress() -> Result {
         const LEN: usize = 32;
-        let inner = test_inner_client(test_builder());
-        let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "");
+        let stream = IterSource::new((0..8).map(|i| new_line(i, LEN)));
+        let mut payload = InsertPayload::from(stream);
 
-        let chunk = VecDeque::from_iter([new_line(2, LEN)]);
-        let expected = chunk.iter().fold(Vec::new(), |mut a, b| {
-            a.extend_from_slice(b);
-            a
-        });
-        let (builder, size) = upload
-            .partial_upload_request(
-                "http://localhost/chunk-finalize",
-                4 * LEN,
-                chunk,
-                LEN,
-                Some(5 * LEN),
-            )
-            .await?;
-        assert_eq!(size, LEN);
-        let mut request = builder.build()?;
-
-        assert_eq!(
-            request.headers().get("content-type"),
-            Some(&HeaderValue::from_static("application/octet-stream"))
-        );
-        assert_eq!(
-            request.headers().get("content-range"),
-            Some(&HeaderValue::from_static("bytes 128-159/160"))
-        );
+        let mut upload = fake_upload(2 * LEN);
+        upload.next_buffer(&mut payload).await?;
+        let err = upload
+            .handle_partial(4 * LEN as u64)
+            .expect_err("too much progress should cause errors");
+        assert!(err.is_serialization(), "{err:?}");
+        let source = err
+            .source()
+            .and_then(|e| e.downcast_ref::<ProgressError>())
+            .expect("source should be a ProgressError");
         assert!(
-            request.headers().get("x-goog-api-client").is_some(),
-            "{request:?}"
+            matches!(source, ProgressError::TooMuchProgress { sent, persisted } if *sent == 2 * LEN as u64 && *persisted == 4 * LEN as u64 ),
+            "{source:?}"
         );
-        let body = request.body_mut().take().unwrap();
-        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
-        assert_eq!(&contents, &expected);
         Ok(())
     }
 
     #[tokio::test]
-    async fn next_chunk_success() -> Result {
+    async fn handle_partial_rewind() -> Result {
+        const LEN: usize = 32;
+        let stream = IterSource::new((0..8).map(|i| new_line(i, LEN)));
+        let mut payload = InsertPayload::from(stream);
+
+        let mut upload = fake_upload(2 * LEN);
+        upload.next_buffer(&mut payload).await?;
+        upload.handle_partial(2 * LEN as u64)?;
+
+        upload.next_buffer(&mut payload).await?;
+        let err = upload
+            .handle_partial(LEN as u64)
+            .expect_err("rewind should cause errors");
+        assert!(err.is_serialization(), "{err:?}");
+        let source = err
+            .source()
+            .and_then(|e| e.downcast_ref::<ProgressError>())
+            .expect("source should be a ProgressError");
+        assert!(
+            matches!(source, ProgressError::UnexpectedRewind { offset, persisted } if *offset == 2 * LEN as u64 && *persisted == LEN as u64 ),
+            "{source:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn next_buffer_success() -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..5).map(|i| new_line(i, LEN)));
         let mut payload = InsertPayload::from(stream);
 
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, None, LEN * 2).await?;
-        assert!(remainder.is_none(), "{remainder:?}");
-        assert_eq!(chunk, vec![new_line(0, LEN), new_line(1, LEN)]);
-        assert_eq!(size, 2 * LEN);
+        let mut upload = fake_upload(LEN * 2);
+        upload.next_buffer(&mut payload).await?;
+        assert!(upload.remainder.is_empty(), "{upload:?}");
+        assert_eq!(upload.buffer, vec![new_line(0, LEN), new_line(1, LEN)]);
+        assert_eq!(upload.buffer_size, 2 * LEN);
 
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, remainder, LEN * 2).await?;
-        assert!(remainder.is_none(), "{remainder:?}");
-        assert_eq!(chunk, vec![new_line(2, LEN), new_line(3, LEN)]);
-        assert_eq!(size, 2 * LEN);
+        upload.next_buffer(&mut payload).await?;
+        assert!(upload.remainder.is_empty(), "{upload:?}");
+        assert_eq!(upload.buffer, vec![new_line(2, LEN), new_line(3, LEN)]);
+        assert_eq!(upload.buffer_size, 2 * LEN);
 
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, remainder, LEN * 2).await?;
-        assert!(remainder.is_none(), "{remainder:?}");
-        assert_eq!(chunk, vec![new_line(4, LEN)]);
-        assert_eq!(size, LEN);
+        upload.next_buffer(&mut payload).await?;
+        assert!(upload.remainder.is_empty(), "{upload:?}");
+        assert_eq!(upload.buffer, vec![new_line(4, LEN)]);
+        assert_eq!(upload.buffer_size, LEN);
 
         Ok(())
     }
 
     #[tokio::test]
-    async fn next_chunk_split() -> Result {
+    async fn next_buffer_split() -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..5).map(|i| new_line(i, LEN)));
         let mut payload = InsertPayload::from(stream);
 
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, None, LEN * 2 + LEN / 2).await?;
-        assert_eq!(remainder, Some(new_line(2, LEN).split_off(LEN / 2)));
+        let mut upload = fake_upload(LEN * 2 + LEN / 2);
+        upload.next_buffer(&mut payload).await?;
+        assert_eq!(upload.remainder, vec![new_line(2, LEN).split_off(LEN / 2)]);
         assert_eq!(
-            chunk,
+            upload.buffer,
             vec![
                 new_line(0, LEN),
                 new_line(1, LEN),
                 new_line(2, LEN).split_to(LEN / 2)
             ]
         );
-        assert_eq!(size, 2 * LEN + LEN / 2);
+        assert_eq!(upload.buffer_size, 2 * LEN + LEN / 2);
 
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, remainder, LEN * 2 + LEN / 2).await?;
-        assert!(remainder.is_none());
+        upload.next_buffer(&mut payload).await?;
+        assert!(upload.remainder.is_empty(), "{upload:?}");
         assert_eq!(
-            chunk,
+            upload.buffer,
             vec![
                 new_line(2, LEN).split_off(LEN / 2),
                 new_line(3, LEN),
                 new_line(4, LEN)
             ]
         );
-        assert_eq!(size, 2 * LEN + LEN / 2);
+        assert_eq!(upload.buffer_size, 2 * LEN + LEN / 2);
 
         Ok(())
     }
 
     #[tokio::test]
-    async fn next_chunk_split_large_remainder() -> Result {
+    async fn next_buffer_split_large_remainder() -> Result {
         const LEN: usize = 32;
         let buffer = (0..3)
             .map(|i| new_line_string(i, LEN))
@@ -916,47 +694,31 @@ mod tests {
         let stream = IterSource::new(vec![bytes::Bytes::from_owner(buffer), new_line(3, LEN)]);
         let mut payload = InsertPayload::from(stream);
 
-        let remainder = None;
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, remainder, LEN).await?;
-        assert_eq!(chunk, vec![new_line(0, LEN)]);
-        assert_eq!(size, LEN);
+        let mut upload = fake_upload(LEN);
+        upload.next_buffer(&mut payload).await?;
+        assert_eq!(upload.buffer, vec![new_line(0, LEN)]);
+        assert_eq!(upload.buffer_size, LEN);
 
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, remainder, LEN).await?;
-        assert!(remainder.is_some());
-        assert_eq!(chunk, vec![new_line(1, LEN)]);
-        assert_eq!(size, LEN);
+        upload.next_buffer(&mut payload).await?;
+        assert!(!upload.remainder.is_empty(), "{upload:?}");
+        assert_eq!(upload.buffer, vec![new_line(1, LEN)]);
+        assert_eq!(upload.buffer_size, LEN);
 
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, remainder, LEN).await?;
-        assert!(remainder.is_none());
-        assert_eq!(chunk, vec![new_line(2, LEN)]);
-        assert_eq!(size, LEN);
+        upload.next_buffer(&mut payload).await?;
+        assert!(upload.remainder.is_empty(), "{upload:?}");
+        assert_eq!(upload.buffer, vec![new_line(2, LEN)]);
+        assert_eq!(upload.buffer_size, LEN);
 
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, remainder, LEN).await?;
-        assert!(remainder.is_none());
-        assert_eq!(chunk, vec![new_line(3, LEN)]);
-        assert_eq!(size, LEN);
+        upload.next_buffer(&mut payload).await?;
+        assert!(upload.remainder.is_empty(), "{upload:?}");
+        assert_eq!(upload.buffer, vec![new_line(3, LEN)]);
+        assert_eq!(upload.buffer_size, LEN);
 
         Ok(())
     }
 
     #[tokio::test]
-    async fn next_chunk_join_remainder() -> Result {
+    async fn next_buffer_join_remainder() -> Result {
         const LEN: usize = 32;
         let buffer = (0..3)
             .map(|i| new_line_string(i, LEN))
@@ -968,196 +730,46 @@ mod tests {
         ]);
         let mut payload = InsertPayload::from(stream);
 
-        let remainder = None;
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, remainder, 2 * LEN).await?;
-        assert!(remainder.is_some());
+        let mut upload = fake_upload(2 * LEN);
+        upload.next_buffer(&mut payload).await?;
+        assert!(!upload.remainder.is_empty(), "{upload:?}");
         assert_eq!(
-            chunk,
+            upload.buffer,
             vec![bytes::Bytes::from_owner(buffer.clone()).slice(0..(2 * LEN))]
         );
-        assert_eq!(size, 2 * LEN);
+        assert_eq!(upload.buffer_size, 2 * LEN);
 
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, remainder, 2 * LEN).await?;
-        assert!(remainder.is_none());
+        upload.next_buffer(&mut payload).await?;
+        assert!(upload.remainder.is_empty(), "{upload:?}");
         assert_eq!(
-            chunk,
+            upload.buffer,
             vec![
                 bytes::Bytes::from_owner(buffer.clone()).slice((2 * LEN)..),
                 new_line(3, LEN)
             ]
         );
-        assert_eq!(size, 2 * LEN);
+        assert_eq!(upload.buffer_size, 2 * LEN);
 
         Ok(())
     }
 
     #[tokio::test]
-    async fn next_chunk_done() -> Result {
+    async fn next_buffer_done() -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..2).map(|i| new_line(i, LEN)));
         let mut payload = InsertPayload::from(stream);
 
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, None, LEN * 4).await?;
-        assert!(remainder.is_none(), "{remainder:?}");
-        assert_eq!(chunk, vec![new_line(0, LEN), new_line(1, LEN)]);
-        assert_eq!(size, 2 * LEN);
+        let mut upload = fake_upload(4 * LEN);
+        upload.next_buffer(&mut payload).await?;
+        assert!(upload.remainder.is_empty(), "{upload:?}");
+        assert_eq!(upload.buffer, vec![new_line(0, LEN), new_line(1, LEN)]);
+        assert_eq!(upload.buffer_size, 2 * LEN);
 
-        let NextChunk {
-            chunk,
-            size,
-            remainder,
-        } = super::next_chunk(&mut payload, remainder, LEN * 4).await?;
-        assert!(remainder.is_none(), "{remainder:?}");
-        assert!(chunk.is_empty(), "{chunk:?}");
-        assert_eq!(size, 0);
+        upload.next_buffer(&mut payload).await?;
+        assert!(upload.remainder.is_empty(), "{upload:?}");
+        assert!(upload.buffer.is_empty(), "{upload:?}");
+        assert_eq!(upload.buffer_size, 0);
 
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn partial_handle_response_incomplete() -> Result {
-        let response = http::Response::builder()
-            .header("range", "bytes=0-999")
-            .status(RESUME_INCOMPLETE)
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let partial = super::partial_upload_handle_response(response, 1000).await?;
-        assert_eq!(
-            partial,
-            PartialUpload::Partial {
-                persisted_size: 1000,
-                chunk_remainder: 0
-            }
-        );
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn partial_handle_response_err() -> Result {
-        let response = http::Response::builder()
-            .status(reqwest::StatusCode::NOT_FOUND)
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let err = super::partial_upload_handle_response(response, 1000)
-            .await
-            .expect_err("NOT_FOUND should fail");
-        assert_eq!(err.http_status_code(), Some(404), "{err:?}");
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn partial_handle_response_finalized() -> Result {
-        let response = http::Response::builder()
-            .status(reqwest::StatusCode::OK)
-            .body(
-                json!({"bucket": "test-bucket", "name": "test-object", "size": "1000"}).to_string(),
-            )?;
-        let response = reqwest::Response::from(response);
-        let partial = super::partial_upload_handle_response(response, 1000).await?;
-        assert_eq!(
-            partial,
-            PartialUpload::Finalized(Box::new(
-                Object::new()
-                    .set_name("test-object")
-                    .set_bucket("projects/_/buckets/test-bucket")
-                    .set_finalize_time(wkt::Timestamp::default())
-                    .set_create_time(wkt::Timestamp::default())
-                    .set_update_time(wkt::Timestamp::default())
-                    .set_update_storage_class_time(wkt::Timestamp::default())
-                    .set_size(1000_i64)
-            ))
-        );
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn parse_range_success() -> Result {
-        let response = http::Response::builder()
-            .header("range", "bytes=0-999")
-            .status(RESUME_INCOMPLETE)
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let partial = super::parse_range(response, 1000).await?;
-        assert_eq!(
-            partial,
-            PartialUpload::Partial {
-                persisted_size: 1000,
-                chunk_remainder: 0
-            }
-        );
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn parse_range_partial() -> Result {
-        let response = http::Response::builder()
-            .header("range", "bytes=0-999")
-            .status(RESUME_INCOMPLETE)
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let partial = super::parse_range(response, 1234).await?;
-        assert_eq!(
-            partial,
-            PartialUpload::Partial {
-                persisted_size: 1000,
-                chunk_remainder: 234
-            }
-        );
-        Ok(())
-    }
-
-    #[tokio::test]
-    #[should_panic]
-    async fn parse_range_bad_end() {
-        let response = http::Response::builder()
-            .header("range", "bytes=0-999")
-            .status(RESUME_INCOMPLETE)
-            .body(Vec::new())
-            .unwrap();
-        let response = reqwest::Response::from(response);
-        let _ = super::parse_range(response, 500).await;
-    }
-
-    #[tokio::test]
-    async fn parse_range_missing_range() -> Result {
-        let response = http::Response::builder()
-            .status(RESUME_INCOMPLETE)
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let partial = super::parse_range(response, 1234).await?;
-        assert_eq!(
-            partial,
-            PartialUpload::Partial {
-                persisted_size: 0,
-                chunk_remainder: 1234
-            }
-        );
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn parse_range_invalid_range() -> Result {
-        let response = http::Response::builder()
-            .header("range", "bytes=100-999")
-            .status(RESUME_INCOMPLETE)
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let err = super::parse_range(response, 1234)
-            .await
-            .expect_err("invalid range should create an error");
-        assert!(err.http_status_code().is_some(), "{err:?}");
         Ok(())
     }
 }
