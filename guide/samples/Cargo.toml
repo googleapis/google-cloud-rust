@@ -100,9 +100,9 @@ path = "../../src/gax"
 [dev-dependencies]
 mockall = "0.13"
 # ANCHOR_END: mockall
-anyhow.workspace    = true
-rand                = "0.9"
-test-case.workspace = true
+anyhow.workspace            = true
+rand                        = "0.9"
+test-case.workspace         = true
 integration-tests.workspace = true
 
 # ANCHOR: tokio
