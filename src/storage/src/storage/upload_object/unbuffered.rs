@@ -69,19 +69,17 @@ where
         url: &mut Option<String>,
         hint: (u64, Option<u64>),
     ) -> Result<Object> {
-        let offset = if let Some(upload_url) = url {
+        let (offset, url_ref) = if let Some(upload_url) = url.as_deref() {
             match self.query_resumable_upload(upload_url).await? {
                 ResumableUploadStatus::Finalized(object) => {
                     return Ok(*object);
                 }
-                ResumableUploadStatus::Partial(offset) => offset,
+                ResumableUploadStatus::Partial(offset) => (offset, upload_url),
             }
         } else {
             let upload_url = self.start_resumable_upload_attempt().await?;
-            *url = Some(upload_url);
-            0_u64
+            (0_u64, url.insert(upload_url).as_str())
         };
-        assert!(url.is_some()); // anything else is a bug, better to crash.
 
         use crate::upload_source::Seek;
         let payload = self.payload.clone();
@@ -101,7 +99,7 @@ where
         let builder = self
             .inner
             .client
-            .request(reqwest::Method::PUT, url.as_ref().unwrap())
+            .request(reqwest::Method::PUT, url_ref)
             .header("content-type", "application/octet-stream")
             .header("Content-Range", range)
             .header(
