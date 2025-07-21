@@ -1591,7 +1591,7 @@ version = "0.0.0"
 
 [[package]]
 name = "google-cloud-bigtable-admin-v2"
-version = "0.4.2"
+version = "0.4.3"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1898,7 +1898,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-container-v1"
-version = "0.4.2"
+version = "0.4.3"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2440,7 +2440,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-firestore-admin-v1"
-version = "0.4.2"
+version = "0.4.3"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3038,7 +3038,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-lustre-v1"
-version = "0.4.2"
+version = "0.4.3"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3312,7 +3312,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-networkconnectivity-v1"
-version = "0.4.2"
+version = "0.4.3"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3613,7 +3613,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-policysimulator-v1"
-version = "0.4.2"
+version = "0.4.3"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3622,6 +3622,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
+ "google-cloud-orgpolicy-v2",
  "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
@@ -3927,7 +3928,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-run-v2"
-version = "0.4.2"
+version = "0.4.3"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4621,7 +4622,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-video-transcoder-v1"
-version = "0.4.2"
+version = "0.4.3"
 dependencies = [
  "async-trait",
  "bytes",

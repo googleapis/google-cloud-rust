@@ -352,6 +352,7 @@ rpc_context                   = { version = "0.4.2", path = "src/generated/rpc/c
 apps_script_type              = { version = "0.4.2", path = "src/generated/apps/script/gtype", package = "google-cloud-apps-script-type" }
 accesscontextmanager_v1       = { version = "0.4.2", path = "src/generated/identity/accesscontextmanager/v1", package = "google-cloud-identity-accesscontextmanager-v1" }
 orgpolicy_v1                  = { version = "0.4.2", path = "src/generated/cloud/orgpolicy/v1", package = "google-cloud-orgpolicy-v1" }
+orgpolicy_v2                  = { version = "0.4.2", path = "src/generated/cloud/orgpolicy/v2", package = "google-cloud-orgpolicy-v2" }
 osconfig_v1                   = { version = "0.4.2", path = "src/generated/cloud/osconfig/v1", package = "google-cloud-osconfig-v1" }
 gkehub_configmanagement_v1    = { version = "0.4.2", path = "src/generated/cloud/gkehub/configmanagement/v1", package = "google-cloud-gkehub-configmanagement-v1" }
 gkehub_multiclusteringress_v1 = { version = "0.4.2", path = "src/generated/cloud/gkehub/multiclusteringress/v1", package = "google-cloud-gkehub-multiclusteringress-v1" }
