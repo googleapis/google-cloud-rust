@@ -53,6 +53,7 @@ resource "google_service_account" "service_account" {
 }
 
 data "google_service_account" "build_runner_service_account" {
+  provider   = google
   project    = var.runner_project_id
   account_id = var.build_runner_account_id
 }
@@ -115,6 +116,6 @@ resource "google_service_account_iam_member" "impersonation_token_creator" {
 }
 
 output "audience" {
-  value = "//iam.googleapis.com/${google_iam_workload_identity_pool.pool.name}/providers/${google_iam_workload_identity_pool_provider.provider.workload_identity_pool_provider_id}"
+  value = "//iam.googleapis.com/${google_iam_workload_identity_pool.pool.name}"
 }
 
