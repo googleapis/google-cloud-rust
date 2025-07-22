@@ -479,6 +479,15 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn range_header_unknown_empty() -> Result {
+        let mut payload = InsertPayload::from("");
+        let mut upload = InProgressUpload::new(0, (0, None));
+        upload.next_buffer(&mut payload).await?;
+        assert_eq!(upload.range_header(), "bytes */0");
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn range_header_unknown_size() -> Result {
         const LINES: i32 = 257;
         let stream = IterSource::new((0..LINES).map(|i| new_line(i, 1024)));
@@ -651,6 +660,16 @@ mod tests {
             matches!(source, UploadError::UnexpectedRewind { offset, persisted } if *offset == 2 * LEN as u64 && *persisted == LEN as u64 ),
             "{source:?}"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn handle_error() -> Result {
+        let mut payload = InsertPayload::from("");
+        let mut upload = InProgressUpload::fake(0);
+        upload.next_buffer(&mut payload).await?;
+        upload.handle_error();
+        assert!(upload.needs_query(), "{upload:?}");
         Ok(())
     }
 }
