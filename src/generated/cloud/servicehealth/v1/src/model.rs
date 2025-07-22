@@ -34,7 +34,7 @@ extern crate wkt;
 /// Represents service health events that may affect Google Cloud products.
 /// Event resource is a read-only view and does not allow any modifications. All
 /// fields are output only.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Event {
     /// Output only. Identifier. Name of the event. Unique name of the event in
@@ -566,6 +566,32 @@ impl serde::ser::Serialize for Event {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Event {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Event");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("detailed_category", &self.detailed_category);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("detailed_state", &self.detailed_state);
+        debug_struct.field("event_impacts", &self.event_impacts);
+        debug_struct.field("relevance", &self.relevance);
+        debug_struct.field("updates", &self.updates);
+        debug_struct.field("parent_event", &self.parent_event);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("next_update_time", &self.next_update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -1305,7 +1331,7 @@ pub mod event {
 /// Represents service health events that may affect Google Cloud products used
 /// across the organization. It is a read-only view and does not allow any
 /// modifications.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrganizationEvent {
     /// Output only. Identifier. Name of the event. Unique name of the event in
@@ -1833,6 +1859,31 @@ impl serde::ser::Serialize for OrganizationEvent {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OrganizationEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OrganizationEvent");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("detailed_category", &self.detailed_category);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("detailed_state", &self.detailed_state);
+        debug_struct.field("event_impacts", &self.event_impacts);
+        debug_struct.field("updates", &self.updates);
+        debug_struct.field("parent_event", &self.parent_event);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("next_update_time", &self.next_update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -2413,7 +2464,7 @@ pub mod organization_event {
 }
 
 /// Records an update made to the event.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventUpdate {
     /// Output only. The time the update was posted.
@@ -2650,8 +2701,24 @@ impl serde::ser::Serialize for EventUpdate {
     }
 }
 
+impl std::fmt::Debug for EventUpdate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventUpdate");
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("symptom", &self.symptom);
+        debug_struct.field("workaround", &self.workaround);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the locations impacted by the event.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Location {
     /// Location impacted by the event. Example: `"us-central1"`
@@ -2781,8 +2848,20 @@ impl serde::ser::Serialize for Location {
     }
 }
 
+impl std::fmt::Debug for Location {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Location");
+        debug_struct.field("location_name", &self.location_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the Google Cloud product impacted by the event.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Product {
     /// Google Cloud product impacted by the event. Example: `"Google Cloud SQL"`
@@ -2936,8 +3015,21 @@ impl serde::ser::Serialize for Product {
     }
 }
 
+impl std::fmt::Debug for Product {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Product");
+        debug_struct.field("product_name", &self.product_name);
+        debug_struct.field("id", &self.id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the Google Cloud products and locations impacted by the event.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventImpact {
     /// Google Cloud product impacted by the event.
@@ -3112,9 +3204,22 @@ impl serde::ser::Serialize for EventImpact {
     }
 }
 
+impl std::fmt::Debug for EventImpact {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventImpact");
+        debug_struct.field("product", &self.product);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents impact to assets at organizational level. It is a read-only view
 /// and does not allow any modifications.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrganizationImpact {
     /// Output only. Identifier. Unique name of the organization impact in this
@@ -3350,8 +3455,23 @@ impl serde::ser::Serialize for OrganizationImpact {
     }
 }
 
+impl std::fmt::Debug for OrganizationImpact {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OrganizationImpact");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("events", &self.events);
+        debug_struct.field("asset", &self.asset);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the asset impacted by the events.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Asset {
     /// Output only. Full name of the resource as defined in
@@ -3509,8 +3629,21 @@ impl serde::ser::Serialize for Asset {
     }
 }
 
+impl std::fmt::Debug for Asset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Asset");
+        debug_struct.field("asset_name", &self.asset_name);
+        debug_struct.field("asset_type", &self.asset_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Requests list of events.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEventsRequest {
     /// Required. Parent value using the form
@@ -3785,8 +3918,24 @@ impl serde::ser::Serialize for ListEventsRequest {
     }
 }
 
+impl std::fmt::Debug for ListEventsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEventsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("view", &self.view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to request for listing events.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEventsResponse {
     /// Output only. List of events.
@@ -3988,8 +4137,22 @@ impl serde::ser::Serialize for ListEventsResponse {
     }
 }
 
+impl std::fmt::Debug for ListEventsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEventsResponse");
+        debug_struct.field("events", &self.events);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Gets information about a specific event.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEventRequest {
     /// Required. Unique name of the event in this scope including project
@@ -4124,8 +4287,20 @@ impl serde::ser::Serialize for GetEventRequest {
     }
 }
 
+impl std::fmt::Debug for GetEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEventRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Requests list of events that affect an organization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrganizationEventsRequest {
     /// Required. Parent value using the form
@@ -4405,8 +4580,24 @@ impl serde::ser::Serialize for ListOrganizationEventsRequest {
     }
 }
 
+impl std::fmt::Debug for ListOrganizationEventsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOrganizationEventsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("view", &self.view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to request for listing organization events.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrganizationEventsResponse {
     /// Output only. List of organization events affecting an organization.
@@ -4613,8 +4804,22 @@ impl serde::ser::Serialize for ListOrganizationEventsResponse {
     }
 }
 
+impl std::fmt::Debug for ListOrganizationEventsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOrganizationEventsResponse");
+        debug_struct.field("organization_events", &self.organization_events);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Gets information about a specific event affecting an organization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOrganizationEventRequest {
     /// Required. Unique name of the event in this scope including organization and
@@ -4751,8 +4956,20 @@ impl serde::ser::Serialize for GetOrganizationEventRequest {
     }
 }
 
+impl std::fmt::Debug for GetOrganizationEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetOrganizationEventRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Requests list of projects under an organization affected by an event.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrganizationImpactsRequest {
     /// Required. Parent value using the form
@@ -5007,9 +5224,24 @@ impl serde::ser::Serialize for ListOrganizationImpactsRequest {
     }
 }
 
+impl std::fmt::Debug for ListOrganizationImpactsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOrganizationImpactsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to request for listing projects under an organization affected by an
 /// event.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrganizationImpactsResponse {
     /// Output only. List of
@@ -5218,8 +5450,22 @@ impl serde::ser::Serialize for ListOrganizationImpactsResponse {
     }
 }
 
+impl std::fmt::Debug for ListOrganizationImpactsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOrganizationImpactsResponse");
+        debug_struct.field("organization_impacts", &self.organization_impacts);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Gets information about an event that affects a project under an organization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOrganizationImpactRequest {
     /// Required. Name of the resource using the form
@@ -5353,6 +5599,18 @@ impl serde::ser::Serialize for GetOrganizationImpactRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GetOrganizationImpactRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetOrganizationImpactRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

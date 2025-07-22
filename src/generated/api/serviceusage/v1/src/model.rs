@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A service that is available for use by the consumer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
     /// The resource name of the consumer and service.
@@ -257,8 +257,23 @@ impl serde::ser::Serialize for Service {
     }
 }
 
+impl std::fmt::Debug for Service {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Service");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration of the service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceConfig {
     /// The DNS address at which this service is available.
@@ -683,8 +698,29 @@ impl serde::ser::Serialize for ServiceConfig {
     }
 }
 
+impl std::fmt::Debug for ServiceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("apis", &self.apis);
+        debug_struct.field("documentation", &self.documentation);
+        debug_struct.field("quota", &self.quota);
+        debug_struct.field("authentication", &self.authentication);
+        debug_struct.field("usage", &self.usage);
+        debug_struct.field("endpoints", &self.endpoints);
+        debug_struct.field("monitored_resources", &self.monitored_resources);
+        debug_struct.field("monitoring", &self.monitoring);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The operation metadata returned for the batchend services operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The full name of the resources that this operation is directly
@@ -818,8 +854,20 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("resource_names", &self.resource_names);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `EnableService` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableServiceRequest {
     /// Name of the consumer and service to enable the service on.
@@ -958,10 +1006,22 @@ impl serde::ser::Serialize for EnableServiceRequest {
     }
 }
 
+impl std::fmt::Debug for EnableServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableServiceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the `EnableService` method.
 /// This response message is assigned to the `response` field of the returned
 /// Operation when that operation is done.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableServiceResponse {
     /// The new state of the service after enabling.
@@ -1101,8 +1161,20 @@ impl serde::ser::Serialize for EnableServiceResponse {
     }
 }
 
+impl std::fmt::Debug for EnableServiceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableServiceResponse");
+        debug_struct.field("service", &self.service);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `DisableService` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableServiceRequest {
     /// Name of the consumer and service to disable the service on.
@@ -1306,6 +1378,26 @@ impl serde::ser::Serialize for DisableServiceRequest {
     }
 }
 
+impl std::fmt::Debug for DisableServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableServiceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "disable_dependent_services",
+            &self.disable_dependent_services,
+        );
+        debug_struct.field(
+            "check_if_service_has_usage",
+            &self.check_if_service_has_usage,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DisableServiceRequest].
 pub mod disable_service_request {
     #[allow(unused_imports)]
@@ -1452,7 +1544,7 @@ pub mod disable_service_request {
 /// Response message for the `DisableService` method.
 /// This response message is assigned to the `response` field of the returned
 /// Operation when that operation is done.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableServiceResponse {
     /// The new state of the service after disabling.
@@ -1592,8 +1684,20 @@ impl serde::ser::Serialize for DisableServiceResponse {
     }
 }
 
+impl std::fmt::Debug for DisableServiceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableServiceResponse");
+        debug_struct.field("service", &self.service);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `GetService` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRequest {
     /// Name of the consumer and service to get the `ConsumerState` for.
@@ -1726,8 +1830,20 @@ impl serde::ser::Serialize for GetServiceRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `ListServices` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
     /// Parent to search for services on.
@@ -1955,8 +2071,23 @@ impl serde::ser::Serialize for ListServicesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the `ListServices` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
     /// The available services for the requested project.
@@ -2128,8 +2259,21 @@ impl serde::ser::Serialize for ListServicesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesResponse");
+        debug_struct.field("services", &self.services);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `BatchEnableServices` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchEnableServicesRequest {
     /// Parent to enable services on.
@@ -2301,10 +2445,23 @@ impl serde::ser::Serialize for BatchEnableServicesRequest {
     }
 }
 
+impl std::fmt::Debug for BatchEnableServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchEnableServicesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("service_ids", &self.service_ids);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the `BatchEnableServices` method.
 /// This response message is assigned to the `response` field of the returned
 /// Operation when that operation is done.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchEnableServicesResponse {
     /// The new state of the services after enabling.
@@ -2470,13 +2627,26 @@ impl serde::ser::Serialize for BatchEnableServicesResponse {
     }
 }
 
+impl std::fmt::Debug for BatchEnableServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchEnableServicesResponse");
+        debug_struct.field("services", &self.services);
+        debug_struct.field("failures", &self.failures);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchEnableServicesResponse].
 pub mod batch_enable_services_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Provides error messages for the failing services.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EnableFailure {
         /// The service id of a service that could not be enabled.
@@ -2636,10 +2806,23 @@ pub mod batch_enable_services_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for EnableFailure {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EnableFailure");
+            debug_struct.field("service_id", &self.service_id);
+            debug_struct.field("error_message", &self.error_message);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request message for the `BatchGetServices` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchGetServicesRequest {
     /// Parent to retrieve services from.
@@ -2804,8 +2987,21 @@ impl serde::ser::Serialize for BatchGetServicesRequest {
     }
 }
 
+impl std::fmt::Debug for BatchGetServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchGetServicesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("names", &self.names);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the `BatchGetServices` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchGetServicesResponse {
     /// The requested Service states.
@@ -2934,6 +3130,18 @@ impl serde::ser::Serialize for BatchGetServicesResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for BatchGetServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchGetServicesResponse");
+        debug_struct.field("services", &self.services);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

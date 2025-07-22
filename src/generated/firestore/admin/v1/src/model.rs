@@ -37,7 +37,7 @@ extern crate wkt;
 ///
 /// The backup contains all documents and index configurations for the given
 /// database at a specific point in time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Backup {
     /// Output only. The unique resource name of the Backup.
@@ -355,13 +355,31 @@ impl serde::ser::Serialize for Backup {
     }
 }
 
+impl std::fmt::Debug for Backup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Backup");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("database_uid", &self.database_uid);
+        debug_struct.field("snapshot_time", &self.snapshot_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("stats", &self.stats);
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
 
     /// Backup specific statistics.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Stats {
         /// Output only. Summation of the size of all documents and index entries in
@@ -602,6 +620,20 @@ pub mod backup {
         }
     }
 
+    impl std::fmt::Debug for Stats {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Stats");
+            debug_struct.field("size_bytes", &self.size_bytes);
+            debug_struct.field("document_count", &self.document_count);
+            debug_struct.field("index_count", &self.index_count);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Indicate the current state of the backup.
     ///
     /// # Working with unknown values
@@ -744,7 +776,7 @@ pub mod backup {
 }
 
 /// A Cloud Firestore Database.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Database {
     /// The resource name of the Database.
@@ -1553,6 +1585,44 @@ impl serde::ser::Serialize for Database {
     }
 }
 
+impl std::fmt::Debug for Database {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Database");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("location_id", &self.location_id);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("concurrency_mode", &self.concurrency_mode);
+        debug_struct.field("version_retention_period", &self.version_retention_period);
+        debug_struct.field("earliest_version_time", &self.earliest_version_time);
+        debug_struct.field(
+            "point_in_time_recovery_enablement",
+            &self.point_in_time_recovery_enablement,
+        );
+        debug_struct.field(
+            "app_engine_integration_mode",
+            &self.app_engine_integration_mode,
+        );
+        debug_struct.field("key_prefix", &self.key_prefix);
+        debug_struct.field("delete_protection_state", &self.delete_protection_state);
+        debug_struct.field("cmek_config", &self.cmek_config);
+        debug_struct.field("previous_id", &self.previous_id);
+        debug_struct.field("source_info", &self.source_info);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("free_tier", &self.free_tier);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("database_edition", &self.database_edition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Database].
 pub mod database {
     #[allow(unused_imports)]
@@ -1561,7 +1631,7 @@ pub mod database {
     /// The CMEK (Customer Managed Encryption Key) configuration for a Firestore
     /// database. If not present, the database is secured by the default Google
     /// encryption key.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CmekConfig {
         /// Required. Only keys in the same location as this database are allowed to
@@ -1740,8 +1810,21 @@ pub mod database {
         }
     }
 
+    impl std::fmt::Debug for CmekConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CmekConfig");
+            debug_struct.field("kms_key_name", &self.kms_key_name);
+            debug_struct.field("active_key_version", &self.active_key_version);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Information about the provenance of this database.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SourceInfo {
         /// The associated long-running operation. This field may not be set after
@@ -1952,13 +2035,26 @@ pub mod database {
         }
     }
 
+    impl std::fmt::Debug for SourceInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SourceInfo");
+            debug_struct.field("operation", &self.operation);
+            debug_struct.field("source", &self.source);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [SourceInfo].
     pub mod source_info {
         #[allow(unused_imports)]
         use super::*;
 
         /// Information about a backup that was used to restore a database.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BackupSource {
             /// The resource name of the backup that was used to restore this
@@ -2095,6 +2191,18 @@ pub mod database {
             }
         }
 
+        impl std::fmt::Debug for BackupSource {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("BackupSource");
+                debug_struct.field("backup", &self.backup);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The source from which this database is derived.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -2111,7 +2219,7 @@ pub mod database {
     /// The source could be a [Backup][google.firestore.admin.v1.Backup] .
     ///
     /// [google.firestore.admin.v1.Backup]: crate::model::Backup
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EncryptionConfig {
         /// The method for encrypting the database.
@@ -2436,13 +2544,25 @@ pub mod database {
         }
     }
 
+    impl std::fmt::Debug for EncryptionConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EncryptionConfig");
+            debug_struct.field("encryption_type", &self.encryption_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [EncryptionConfig].
     pub mod encryption_config {
         #[allow(unused_imports)]
         use super::*;
 
         /// The configuration options for using Google default encryption.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GoogleDefaultEncryptionOptions {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2551,9 +2671,20 @@ pub mod database {
             }
         }
 
+        impl std::fmt::Debug for GoogleDefaultEncryptionOptions {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("GoogleDefaultEncryptionOptions");
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The configuration options for using the same encryption method as the
         /// source.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SourceEncryptionOptions {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2661,9 +2792,20 @@ pub mod database {
             }
         }
 
+        impl std::fmt::Debug for SourceEncryptionOptions {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("SourceEncryptionOptions");
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The configuration options for using CMEK (Customer Managed Encryption
         /// Key) encryption.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomerManagedEncryptionOptions {
             /// Required. Only keys in the same location as the database are allowed to
@@ -2811,6 +2953,18 @@ pub mod database {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for CustomerManagedEncryptionOptions {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("CustomerManagedEncryptionOptions");
+                debug_struct.field("kms_key_name", &self.kms_key_name);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -3690,7 +3844,7 @@ pub mod database {
 ///
 /// Fields are grouped by their "Collection Group", which represent all
 /// collections in the database with the same ID.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Field {
     /// Required. A field name of the form:
@@ -3920,13 +4074,27 @@ impl serde::ser::Serialize for Field {
     }
 }
 
+impl std::fmt::Debug for Field {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Field");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("index_config", &self.index_config);
+        debug_struct.field("ttl_config", &self.ttl_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Field].
 pub mod field {
     #[allow(unused_imports)]
     use super::*;
 
     /// The index configuration for this field.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IndexConfig {
         /// The indexes supported for this field.
@@ -4147,6 +4315,21 @@ pub mod field {
         }
     }
 
+    impl std::fmt::Debug for IndexConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IndexConfig");
+            debug_struct.field("indexes", &self.indexes);
+            debug_struct.field("uses_ancestor_config", &self.uses_ancestor_config);
+            debug_struct.field("ancestor_field", &self.ancestor_field);
+            debug_struct.field("reverting", &self.reverting);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The TTL (time-to-live) configuration for documents that have this `Field`
     /// set.
     ///
@@ -4155,7 +4338,7 @@ pub mod field {
     /// indicate that the document is eligible for immediate expiration. Using any
     /// other data type or leaving the field absent will disable expiration for the
     /// individual document.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TtlConfig {
         /// Output only. The state of the TTL configuration.
@@ -4285,6 +4468,18 @@ pub mod field {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for TtlConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TtlConfig");
+            debug_struct.field("state", &self.state);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -4445,7 +4640,7 @@ pub mod field {
 }
 
 /// A request to list the Firestore Databases in all locations for a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabasesRequest {
     /// Required. A parent name of the form
@@ -4600,11 +4795,24 @@ impl serde::ser::Serialize for ListDatabasesRequest {
     }
 }
 
+impl std::fmt::Debug for ListDatabasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatabasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("show_deleted", &self.show_deleted);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.CreateDatabase][google.firestore.admin.v1.FirestoreAdmin.CreateDatabase].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.CreateDatabase]: crate::client::FirestoreAdmin::create_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatabaseRequest {
     /// Required. A parent name of the form
@@ -4801,8 +5009,22 @@ impl serde::ser::Serialize for CreateDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDatabaseRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("database_id", &self.database_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the create database operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatabaseMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4904,8 +5126,19 @@ impl serde::ser::Serialize for CreateDatabaseMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateDatabaseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDatabaseMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The list of databases for a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabasesResponse {
     /// The databases in the project.
@@ -5072,11 +5305,24 @@ impl serde::ser::Serialize for ListDatabasesResponse {
     }
 }
 
+impl std::fmt::Debug for ListDatabasesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatabasesResponse");
+        debug_struct.field("databases", &self.databases);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.GetDatabase][google.firestore.admin.v1.FirestoreAdmin.GetDatabase].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.GetDatabase]: crate::client::FirestoreAdmin::get_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDatabaseRequest {
     /// Required. A name of the form
@@ -5206,11 +5452,23 @@ impl serde::ser::Serialize for GetDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for GetDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDatabaseRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.UpdateDatabase][google.firestore.admin.v1.FirestoreAdmin.UpdateDatabase].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.UpdateDatabase]: crate::client::FirestoreAdmin::update_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatabaseRequest {
     /// Required. The database to update.
@@ -5386,8 +5644,21 @@ impl serde::ser::Serialize for UpdateDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDatabaseRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the update database operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatabaseMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5489,11 +5760,22 @@ impl serde::ser::Serialize for UpdateDatabaseMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateDatabaseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDatabaseMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.DeleteDatabase][google.firestore.admin.v1.FirestoreAdmin.DeleteDatabase].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.DeleteDatabase]: crate::client::FirestoreAdmin::delete_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDatabaseRequest {
     /// Required. A name of the form
@@ -5649,8 +5931,21 @@ impl serde::ser::Serialize for DeleteDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDatabaseRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the delete database operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDatabaseMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5752,11 +6047,22 @@ impl serde::ser::Serialize for DeleteDatabaseMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteDatabaseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDatabaseMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.CreateUserCreds][google.firestore.admin.v1.FirestoreAdmin.CreateUserCreds].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.CreateUserCreds]: crate::client::FirestoreAdmin::create_user_creds
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateUserCredsRequest {
     /// Required. A parent name of the form
@@ -5952,11 +6258,25 @@ impl serde::ser::Serialize for CreateUserCredsRequest {
     }
 }
 
+impl std::fmt::Debug for CreateUserCredsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateUserCredsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("user_creds", &self.user_creds);
+        debug_struct.field("user_creds_id", &self.user_creds_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.GetUserCreds][google.firestore.admin.v1.FirestoreAdmin.GetUserCreds].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.GetUserCreds]: crate::client::FirestoreAdmin::get_user_creds
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetUserCredsRequest {
     /// Required. A name of the form
@@ -6086,11 +6406,23 @@ impl serde::ser::Serialize for GetUserCredsRequest {
     }
 }
 
+impl std::fmt::Debug for GetUserCredsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetUserCredsRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.ListUserCreds][google.firestore.admin.v1.FirestoreAdmin.ListUserCreds].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ListUserCreds]: crate::client::FirestoreAdmin::list_user_creds
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUserCredsRequest {
     /// Required. A parent database name of the form
@@ -6220,11 +6552,23 @@ impl serde::ser::Serialize for ListUserCredsRequest {
     }
 }
 
+impl std::fmt::Debug for ListUserCredsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUserCredsRequest");
+        debug_struct.field("parent", &self.parent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [FirestoreAdmin.ListUserCreds][google.firestore.admin.v1.FirestoreAdmin.ListUserCreds].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ListUserCreds]: crate::client::FirestoreAdmin::list_user_creds
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUserCredsResponse {
     /// The user creds for the database.
@@ -6357,11 +6701,23 @@ impl serde::ser::Serialize for ListUserCredsResponse {
     }
 }
 
+impl std::fmt::Debug for ListUserCredsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUserCredsResponse");
+        debug_struct.field("user_creds", &self.user_creds);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.EnableUserCreds][google.firestore.admin.v1.FirestoreAdmin.EnableUserCreds].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.EnableUserCreds]: crate::client::FirestoreAdmin::enable_user_creds
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableUserCredsRequest {
     /// Required. A name of the form
@@ -6491,11 +6847,23 @@ impl serde::ser::Serialize for EnableUserCredsRequest {
     }
 }
 
+impl std::fmt::Debug for EnableUserCredsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableUserCredsRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.DisableUserCreds][google.firestore.admin.v1.FirestoreAdmin.DisableUserCreds].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.DisableUserCreds]: crate::client::FirestoreAdmin::disable_user_creds
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableUserCredsRequest {
     /// Required. A name of the form
@@ -6625,11 +6993,23 @@ impl serde::ser::Serialize for DisableUserCredsRequest {
     }
 }
 
+impl std::fmt::Debug for DisableUserCredsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableUserCredsRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.ResetUserPassword][google.firestore.admin.v1.FirestoreAdmin.ResetUserPassword].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ResetUserPassword]: crate::client::FirestoreAdmin::reset_user_password
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetUserPasswordRequest {
     /// Required. A name of the form
@@ -6759,11 +7139,23 @@ impl serde::ser::Serialize for ResetUserPasswordRequest {
     }
 }
 
+impl std::fmt::Debug for ResetUserPasswordRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetUserPasswordRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.DeleteUserCreds][google.firestore.admin.v1.FirestoreAdmin.DeleteUserCreds].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.DeleteUserCreds]: crate::client::FirestoreAdmin::delete_user_creds
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteUserCredsRequest {
     /// Required. A name of the form
@@ -6893,11 +7285,23 @@ impl serde::ser::Serialize for DeleteUserCredsRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteUserCredsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteUserCredsRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.CreateBackupSchedule][google.firestore.admin.v1.FirestoreAdmin.CreateBackupSchedule].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.CreateBackupSchedule]: crate::client::FirestoreAdmin::create_backup_schedule
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupScheduleRequest {
     /// Required. The parent database.
@@ -7065,11 +7469,24 @@ impl serde::ser::Serialize for CreateBackupScheduleRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBackupScheduleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBackupScheduleRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("backup_schedule", &self.backup_schedule);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.GetBackupSchedule][google.firestore.admin.v1.FirestoreAdmin.GetBackupSchedule].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.GetBackupSchedule]: crate::client::FirestoreAdmin::get_backup_schedule
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupScheduleRequest {
     /// Required. The name of the backup schedule.
@@ -7201,11 +7618,23 @@ impl serde::ser::Serialize for GetBackupScheduleRequest {
     }
 }
 
+impl std::fmt::Debug for GetBackupScheduleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupScheduleRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.UpdateBackupSchedule][google.firestore.admin.v1.FirestoreAdmin.UpdateBackupSchedule].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.UpdateBackupSchedule]: crate::client::FirestoreAdmin::update_backup_schedule
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupScheduleRequest {
     /// Required. The backup schedule to update.
@@ -7383,11 +7812,24 @@ impl serde::ser::Serialize for UpdateBackupScheduleRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateBackupScheduleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBackupScheduleRequest");
+        debug_struct.field("backup_schedule", &self.backup_schedule);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.ListBackupSchedules][google.firestore.admin.v1.FirestoreAdmin.ListBackupSchedules].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ListBackupSchedules]: crate::client::FirestoreAdmin::list_backup_schedules
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupSchedulesRequest {
     /// Required. The parent database.
@@ -7518,11 +7960,23 @@ impl serde::ser::Serialize for ListBackupSchedulesRequest {
     }
 }
 
+impl std::fmt::Debug for ListBackupSchedulesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupSchedulesRequest");
+        debug_struct.field("parent", &self.parent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [FirestoreAdmin.ListBackupSchedules][google.firestore.admin.v1.FirestoreAdmin.ListBackupSchedules].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ListBackupSchedules]: crate::client::FirestoreAdmin::list_backup_schedules
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupSchedulesResponse {
     /// List of all backup schedules.
@@ -7659,8 +8113,20 @@ impl serde::ser::Serialize for ListBackupSchedulesResponse {
     }
 }
 
+impl std::fmt::Debug for ListBackupSchedulesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupSchedulesResponse");
+        debug_struct.field("backup_schedules", &self.backup_schedules);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for [FirestoreAdmin.DeleteBackupSchedules][].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupScheduleRequest {
     /// Required. The name of the backup schedule.
@@ -7792,11 +8258,23 @@ impl serde::ser::Serialize for DeleteBackupScheduleRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBackupScheduleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBackupScheduleRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.CreateIndex][google.firestore.admin.v1.FirestoreAdmin.CreateIndex].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.CreateIndex]: crate::client::FirestoreAdmin::create_index
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateIndexRequest {
     /// Required. A parent name of the form
@@ -7961,11 +8439,24 @@ impl serde::ser::Serialize for CreateIndexRequest {
     }
 }
 
+impl std::fmt::Debug for CreateIndexRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateIndexRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("index", &self.index);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.ListIndexes][google.firestore.admin.v1.FirestoreAdmin.ListIndexes].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ListIndexes]: crate::client::FirestoreAdmin::list_indexes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIndexesRequest {
     /// Required. A parent name of the form
@@ -8191,11 +8682,26 @@ impl serde::ser::Serialize for ListIndexesRequest {
     }
 }
 
+impl std::fmt::Debug for ListIndexesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIndexesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [FirestoreAdmin.ListIndexes][google.firestore.admin.v1.FirestoreAdmin.ListIndexes].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ListIndexes]: crate::client::FirestoreAdmin::list_indexes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIndexesResponse {
     /// The requested indexes.
@@ -8367,11 +8873,24 @@ impl serde::ser::Serialize for ListIndexesResponse {
     }
 }
 
+impl std::fmt::Debug for ListIndexesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIndexesResponse");
+        debug_struct.field("indexes", &self.indexes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.GetIndex][google.firestore.admin.v1.FirestoreAdmin.GetIndex].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.GetIndex]: crate::client::FirestoreAdmin::get_index
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIndexRequest {
     /// Required. A name of the form
@@ -8501,11 +9020,23 @@ impl serde::ser::Serialize for GetIndexRequest {
     }
 }
 
+impl std::fmt::Debug for GetIndexRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIndexRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.DeleteIndex][google.firestore.admin.v1.FirestoreAdmin.DeleteIndex].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.DeleteIndex]: crate::client::FirestoreAdmin::delete_index
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteIndexRequest {
     /// Required. A name of the form
@@ -8635,11 +9166,23 @@ impl serde::ser::Serialize for DeleteIndexRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteIndexRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteIndexRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.UpdateField][google.firestore.admin.v1.FirestoreAdmin.UpdateField].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.UpdateField]: crate::client::FirestoreAdmin::update_field
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFieldRequest {
     /// Required. The field to be updated.
@@ -8816,11 +9359,24 @@ impl serde::ser::Serialize for UpdateFieldRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateFieldRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFieldRequest");
+        debug_struct.field("field", &self.field);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.GetField][google.firestore.admin.v1.FirestoreAdmin.GetField].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.GetField]: crate::client::FirestoreAdmin::get_field
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFieldRequest {
     /// Required. A name of the form
@@ -8950,11 +9506,23 @@ impl serde::ser::Serialize for GetFieldRequest {
     }
 }
 
+impl std::fmt::Debug for GetFieldRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFieldRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.ListFields][google.firestore.admin.v1.FirestoreAdmin.ListFields].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ListFields]: crate::client::FirestoreAdmin::list_fields
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFieldsRequest {
     /// Required. A parent name of the form
@@ -9188,11 +9756,26 @@ impl serde::ser::Serialize for ListFieldsRequest {
     }
 }
 
+impl std::fmt::Debug for ListFieldsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFieldsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [FirestoreAdmin.ListFields][google.firestore.admin.v1.FirestoreAdmin.ListFields].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ListFields]: crate::client::FirestoreAdmin::list_fields
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFieldsResponse {
     /// The requested fields.
@@ -9364,11 +9947,24 @@ impl serde::ser::Serialize for ListFieldsResponse {
     }
 }
 
+impl std::fmt::Debug for ListFieldsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFieldsResponse");
+        debug_struct.field("fields", &self.fields);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.ExportDocuments][google.firestore.admin.v1.FirestoreAdmin.ExportDocuments].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ExportDocuments]: crate::client::FirestoreAdmin::export_documents
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDocumentsRequest {
     /// Required. Database to export. Should be of the form:
@@ -9639,11 +10235,27 @@ impl serde::ser::Serialize for ExportDocumentsRequest {
     }
 }
 
+impl std::fmt::Debug for ExportDocumentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportDocumentsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("collection_ids", &self.collection_ids);
+        debug_struct.field("output_uri_prefix", &self.output_uri_prefix);
+        debug_struct.field("namespace_ids", &self.namespace_ids);
+        debug_struct.field("snapshot_time", &self.snapshot_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.ImportDocuments][google.firestore.admin.v1.FirestoreAdmin.ImportDocuments].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ImportDocuments]: crate::client::FirestoreAdmin::import_documents
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDocumentsRequest {
     /// Required. Database to import into. Should be of the form:
@@ -9869,6 +10481,21 @@ impl serde::ser::Serialize for ImportDocumentsRequest {
     }
 }
 
+impl std::fmt::Debug for ImportDocumentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportDocumentsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("collection_ids", &self.collection_ids);
+        debug_struct.field("input_uri_prefix", &self.input_uri_prefix);
+        debug_struct.field("namespace_ids", &self.namespace_ids);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.BulkDeleteDocuments][google.firestore.admin.v1.FirestoreAdmin.BulkDeleteDocuments].
 ///
@@ -9882,7 +10509,7 @@ impl serde::ser::Serialize for ImportDocumentsRequest {
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.BulkDeleteDocuments]: crate::client::FirestoreAdmin::bulk_delete_documents
 /// [google.firestore.admin.v1.FirestoreAdmin.DeleteDatabase]: crate::client::FirestoreAdmin::delete_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BulkDeleteDocumentsRequest {
     /// Required. Database to operate. Should be of the form:
@@ -10080,11 +10707,25 @@ impl serde::ser::Serialize for BulkDeleteDocumentsRequest {
     }
 }
 
+impl std::fmt::Debug for BulkDeleteDocumentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BulkDeleteDocumentsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("collection_ids", &self.collection_ids);
+        debug_struct.field("namespace_ids", &self.namespace_ids);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [FirestoreAdmin.BulkDeleteDocuments][google.firestore.admin.v1.FirestoreAdmin.BulkDeleteDocuments].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.BulkDeleteDocuments]: crate::client::FirestoreAdmin::bulk_delete_documents
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BulkDeleteDocumentsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10186,11 +10827,22 @@ impl serde::ser::Serialize for BulkDeleteDocumentsResponse {
     }
 }
 
+impl std::fmt::Debug for BulkDeleteDocumentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BulkDeleteDocumentsResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.GetBackup][google.firestore.admin.v1.FirestoreAdmin.GetBackup].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.GetBackup]: crate::client::FirestoreAdmin::get_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupRequest {
     /// Required. Name of the backup to fetch.
@@ -10321,11 +10973,23 @@ impl serde::ser::Serialize for GetBackupRequest {
     }
 }
 
+impl std::fmt::Debug for GetBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.ListBackups][google.firestore.admin.v1.FirestoreAdmin.ListBackups].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ListBackups]: crate::client::FirestoreAdmin::list_backups
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsRequest {
     /// Required. The location to list backups from.
@@ -10496,11 +11160,24 @@ impl serde::ser::Serialize for ListBackupsRequest {
     }
 }
 
+impl std::fmt::Debug for ListBackupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [FirestoreAdmin.ListBackups][google.firestore.admin.v1.FirestoreAdmin.ListBackups].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ListBackups]: crate::client::FirestoreAdmin::list_backups
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsResponse {
     /// List of all backups for the project.
@@ -10664,11 +11341,24 @@ impl serde::ser::Serialize for ListBackupsResponse {
     }
 }
 
+impl std::fmt::Debug for ListBackupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupsResponse");
+        debug_struct.field("backups", &self.backups);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [FirestoreAdmin.DeleteBackup][google.firestore.admin.v1.FirestoreAdmin.DeleteBackup].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.DeleteBackup]: crate::client::FirestoreAdmin::delete_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupRequest {
     /// Required. Name of the backup to delete.
@@ -10799,11 +11489,23 @@ impl serde::ser::Serialize for DeleteBackupRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBackupRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [FirestoreAdmin.RestoreDatabase][google.firestore.admin.v1.FirestoreAdmin.RestoreDatabase].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.RestoreDatabase]: crate::client::FirestoreAdmin::restore_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreDatabaseRequest {
     /// Required. The project to restore the database in. Format is
@@ -11076,9 +11778,25 @@ impl serde::ser::Serialize for RestoreDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for RestoreDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreDatabaseRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("database_id", &self.database_id);
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        debug_struct.field("tags", &self.tags);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Cloud Firestore indexes enable simple and complex queries against
 /// documents in a database.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Index {
     /// Output only. A server defined name for this index.
@@ -11439,6 +12157,25 @@ impl serde::ser::Serialize for Index {
     }
 }
 
+impl std::fmt::Debug for Index {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Index");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("query_scope", &self.query_scope);
+        debug_struct.field("api_scope", &self.api_scope);
+        debug_struct.field("fields", &self.fields);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("density", &self.density);
+        debug_struct.field("multikey", &self.multikey);
+        debug_struct.field("shard_count", &self.shard_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Index].
 pub mod index {
     #[allow(unused_imports)]
@@ -11447,7 +12184,7 @@ pub mod index {
     /// A field in an index.
     /// The field_path describes which field is indexed, the value_mode describes
     /// how the field value is indexed.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IndexField {
         /// Can be __name__.
@@ -11771,13 +12508,26 @@ pub mod index {
         }
     }
 
+    impl std::fmt::Debug for IndexField {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IndexField");
+            debug_struct.field("field_path", &self.field_path);
+            debug_struct.field("value_mode", &self.value_mode);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [IndexField].
     pub mod index_field {
         #[allow(unused_imports)]
         use super::*;
 
         /// The index configuration to support vector search operations
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct VectorConfig {
             /// Required. The vector dimension this configuration applies to.
@@ -12018,6 +12768,19 @@ pub mod index {
             }
         }
 
+        impl std::fmt::Debug for VectorConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("VectorConfig");
+                debug_struct.field("dimension", &self.dimension);
+                debug_struct.field("r#type", &self.r#type);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [VectorConfig].
         pub mod vector_config {
             #[allow(unused_imports)]
@@ -12025,7 +12788,7 @@ pub mod index {
 
             /// An index that stores vectors in a flat data structure, and supports
             /// exhaustive search.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct FlatIndex {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12136,6 +12899,17 @@ pub mod index {
                         }
                     }
                     state.end()
+                }
+            }
+
+            impl std::fmt::Debug for FlatIndex {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("FlatIndex");
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
                 }
             }
 
@@ -13014,7 +13788,7 @@ pub mod index {
 /// [google.cloud.location.Location.metadata][google.cloud.location.Location.metadata].
 ///
 /// [google.cloud.location.Location.metadata]: location::model::Location::metadata
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13116,13 +13890,24 @@ impl serde::ser::Serialize for LocationMetadata {
     }
 }
 
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
 /// results from
 /// [FirestoreAdmin.CreateIndex][google.firestore.admin.v1.FirestoreAdmin.CreateIndex].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.CreateIndex]: crate::client::FirestoreAdmin::create_index
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IndexOperationMetadata {
     /// The time this operation started.
@@ -13421,13 +14206,30 @@ impl serde::ser::Serialize for IndexOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for IndexOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IndexOperationMetadata");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("index", &self.index);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("progress_documents", &self.progress_documents);
+        debug_struct.field("progress_bytes", &self.progress_bytes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
 /// results from
 /// [FirestoreAdmin.UpdateField][google.firestore.admin.v1.FirestoreAdmin.UpdateField].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.UpdateField]: crate::client::FirestoreAdmin::update_field
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldOperationMetadata {
     /// The time this operation started.
@@ -13803,13 +14605,32 @@ impl serde::ser::Serialize for FieldOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for FieldOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FieldOperationMetadata");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("field", &self.field);
+        debug_struct.field("index_config_deltas", &self.index_config_deltas);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("progress_documents", &self.progress_documents);
+        debug_struct.field("progress_bytes", &self.progress_bytes);
+        debug_struct.field("ttl_config_delta", &self.ttl_config_delta);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FieldOperationMetadata].
 pub mod field_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
 
     /// Information about an index configuration change.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IndexConfigDelta {
         /// Specifies how the index is changing.
@@ -13982,6 +14803,19 @@ pub mod field_operation_metadata {
         }
     }
 
+    impl std::fmt::Debug for IndexConfigDelta {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IndexConfigDelta");
+            debug_struct.field("change_type", &self.change_type);
+            debug_struct.field("index", &self.index);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [IndexConfigDelta].
     pub mod index_config_delta {
         #[allow(unused_imports)]
@@ -14124,7 +14958,7 @@ pub mod field_operation_metadata {
     }
 
     /// Information about a TTL configuration change.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TtlConfigDelta {
         /// Specifies how the TTL configuration is changing.
@@ -14259,6 +15093,18 @@ pub mod field_operation_metadata {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for TtlConfigDelta {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TtlConfigDelta");
+            debug_struct.field("change_type", &self.change_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -14410,7 +15256,7 @@ pub mod field_operation_metadata {
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ExportDocuments]: crate::client::FirestoreAdmin::export_documents
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDocumentsMetadata {
     /// The time this operation started.
@@ -14810,13 +15656,33 @@ impl serde::ser::Serialize for ExportDocumentsMetadata {
     }
 }
 
+impl std::fmt::Debug for ExportDocumentsMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportDocumentsMetadata");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("operation_state", &self.operation_state);
+        debug_struct.field("progress_documents", &self.progress_documents);
+        debug_struct.field("progress_bytes", &self.progress_bytes);
+        debug_struct.field("collection_ids", &self.collection_ids);
+        debug_struct.field("output_uri_prefix", &self.output_uri_prefix);
+        debug_struct.field("namespace_ids", &self.namespace_ids);
+        debug_struct.field("snapshot_time", &self.snapshot_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
 /// results from
 /// [FirestoreAdmin.ImportDocuments][google.firestore.admin.v1.FirestoreAdmin.ImportDocuments].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.ImportDocuments]: crate::client::FirestoreAdmin::import_documents
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDocumentsMetadata {
     /// The time this operation started.
@@ -15178,13 +16044,32 @@ impl serde::ser::Serialize for ImportDocumentsMetadata {
     }
 }
 
+impl std::fmt::Debug for ImportDocumentsMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportDocumentsMetadata");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("operation_state", &self.operation_state);
+        debug_struct.field("progress_documents", &self.progress_documents);
+        debug_struct.field("progress_bytes", &self.progress_bytes);
+        debug_struct.field("collection_ids", &self.collection_ids);
+        debug_struct.field("input_uri_prefix", &self.input_uri_prefix);
+        debug_struct.field("namespace_ids", &self.namespace_ids);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for [google.longrunning.Operation][google.longrunning.Operation]
 /// results from
 /// [FirestoreAdmin.BulkDeleteDocuments][google.firestore.admin.v1.FirestoreAdmin.BulkDeleteDocuments].
 ///
 /// [google.firestore.admin.v1.FirestoreAdmin.BulkDeleteDocuments]: crate::client::FirestoreAdmin::bulk_delete_documents
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BulkDeleteDocumentsMetadata {
     /// The time this operation started.
@@ -15557,11 +16442,30 @@ impl serde::ser::Serialize for BulkDeleteDocumentsMetadata {
     }
 }
 
+impl std::fmt::Debug for BulkDeleteDocumentsMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BulkDeleteDocumentsMetadata");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("operation_state", &self.operation_state);
+        debug_struct.field("progress_documents", &self.progress_documents);
+        debug_struct.field("progress_bytes", &self.progress_bytes);
+        debug_struct.field("collection_ids", &self.collection_ids);
+        debug_struct.field("namespace_ids", &self.namespace_ids);
+        debug_struct.field("snapshot_time", &self.snapshot_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Returned in the [google.longrunning.Operation][google.longrunning.Operation]
 /// response field.
 ///
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDocumentsResponse {
     /// Location of the output files. This can be used to begin an import
@@ -15696,11 +16600,23 @@ impl serde::ser::Serialize for ExportDocumentsResponse {
     }
 }
 
+impl std::fmt::Debug for ExportDocumentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportDocumentsResponse");
+        debug_struct.field("output_uri_prefix", &self.output_uri_prefix);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for the [long-running operation][google.longrunning.Operation] from
 /// the [RestoreDatabase][google.firestore.admin.v1.RestoreDatabase] request.
 ///
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreDatabaseMetadata {
     /// The time the restore was started.
@@ -15989,12 +16905,29 @@ impl serde::ser::Serialize for RestoreDatabaseMetadata {
     }
 }
 
+impl std::fmt::Debug for RestoreDatabaseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreDatabaseMetadata");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("operation_state", &self.operation_state);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("progress_percentage", &self.progress_percentage);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes the progress of the operation.
 /// Unit of work is generic and must be interpreted based on where
 /// [Progress][google.firestore.admin.v1.Progress] is used.
 ///
 /// [google.firestore.admin.v1.Progress]: crate::model::Progress
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Progress {
     /// The amount of work estimated.
@@ -16187,11 +17120,24 @@ impl serde::ser::Serialize for Progress {
     }
 }
 
+impl std::fmt::Debug for Progress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Progress");
+        debug_struct.field("estimated_work", &self.estimated_work);
+        debug_struct.field("completed_work", &self.completed_work);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A backup schedule for a Cloud Firestore Database.
 ///
 /// This resource is owned by the database it is backing up, and is deleted along
 /// with the database. The actual backups are not though.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupSchedule {
     /// Output only. The unique backup schedule identifier across all locations and
@@ -16574,6 +17520,22 @@ impl serde::ser::Serialize for BackupSchedule {
     }
 }
 
+impl std::fmt::Debug for BackupSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupSchedule");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("retention", &self.retention);
+        debug_struct.field("recurrence", &self.recurrence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BackupSchedule].
 pub mod backup_schedule {
     #[allow(unused_imports)]
@@ -16593,7 +17555,7 @@ pub mod backup_schedule {
 /// Represents a recurring schedule that runs every day.
 ///
 /// The time zone is UTC.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DailyRecurrence {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16695,10 +17657,21 @@ impl serde::ser::Serialize for DailyRecurrence {
     }
 }
 
+impl std::fmt::Debug for DailyRecurrence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DailyRecurrence");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a recurring schedule that runs on a specified day of the week.
 ///
 /// The time zone is UTC.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WeeklyRecurrence {
     /// The day of week to run.
@@ -16829,8 +17802,20 @@ impl serde::ser::Serialize for WeeklyRecurrence {
     }
 }
 
+impl std::fmt::Debug for WeeklyRecurrence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WeeklyRecurrence");
+        debug_struct.field("day", &self.day);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Cloud Firestore User Creds.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserCreds {
     /// Identifier. The resource name of the UserCreds.
@@ -17163,13 +18148,30 @@ impl serde::ser::Serialize for UserCreds {
     }
 }
 
+impl std::fmt::Debug for UserCreds {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserCreds");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("secure_password", &self.secure_password);
+        debug_struct.field("user_creds_identity", &self.user_creds_identity);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [UserCreds].
 pub mod user_creds {
     #[allow(unused_imports)]
     use super::*;
 
     /// Describes a Resource Identity principal.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceIdentity {
         /// Output only. Principal identifier string.
@@ -17299,6 +18301,18 @@ pub mod user_creds {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ResourceIdentity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResourceIdentity");
+            debug_struct.field("principal", &self.principal);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 

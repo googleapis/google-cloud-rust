@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OpMetadata {
     /// Output only. The time the operation was created.
@@ -313,9 +313,26 @@ impl serde::ser::Serialize for OpMetadata {
     }
 }
 
+impl std::fmt::Debug for OpMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OpMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateMicrosoftAdDomain][google.cloud.managedidentities.v1.CreateMicrosoftAdDomain]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMicrosoftAdDomainRequest {
     /// Required. The resource project name and location using the form:
@@ -516,9 +533,23 @@ impl serde::ser::Serialize for CreateMicrosoftAdDomainRequest {
     }
 }
 
+impl std::fmt::Debug for CreateMicrosoftAdDomainRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMicrosoftAdDomainRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("domain_name", &self.domain_name);
+        debug_struct.field("domain", &self.domain);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ResetAdminPassword][google.cloud.managedidentities.v1.ResetAdminPassword]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetAdminPasswordRequest {
     /// Required. The domain resource name using the form:
@@ -648,9 +679,21 @@ impl serde::ser::Serialize for ResetAdminPasswordRequest {
     }
 }
 
+impl std::fmt::Debug for ResetAdminPasswordRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetAdminPasswordRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ResetAdminPassword][google.cloud.managedidentities.v1.ResetAdminPassword]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetAdminPasswordResponse {
     /// A random password. See [admin][google.cloud.managedidentities.v1.Domain.admin] for more information.
@@ -781,9 +824,21 @@ impl serde::ser::Serialize for ResetAdminPasswordResponse {
     }
 }
 
+impl std::fmt::Debug for ResetAdminPasswordResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetAdminPasswordResponse");
+        debug_struct.field("password", &self.password);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ListDomains][google.cloud.managedidentities.v1.ListDomains]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDomainsRequest {
     /// Required. The resource name of the domain location using the form:
@@ -1042,9 +1097,25 @@ impl serde::ser::Serialize for ListDomainsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDomainsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDomainsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ListDomains][google.cloud.managedidentities.v1.ListDomains]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDomainsResponse {
     /// A list of Managed Identities Service domains in the project.
@@ -1243,8 +1314,22 @@ impl serde::ser::Serialize for ListDomainsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDomainsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDomainsResponse");
+        debug_struct.field("domains", &self.domains);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for [GetDomain][google.cloud.managedidentities.v1.GetDomain]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDomainRequest {
     /// Required. The domain resource name using the form:
@@ -1374,9 +1459,21 @@ impl serde::ser::Serialize for GetDomainRequest {
     }
 }
 
+impl std::fmt::Debug for GetDomainRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDomainRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdateDomain][google.cloud.managedidentities.v1.UpdateDomain]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDomainRequest {
     /// Required. Mask of fields to update. At least one path must be supplied in this
@@ -1561,9 +1658,22 @@ impl serde::ser::Serialize for UpdateDomainRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDomainRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDomainRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("domain", &self.domain);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DeleteDomain][google.cloud.managedidentities.v1.DeleteDomain]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDomainRequest {
     /// Required. The domain resource name using the form:
@@ -1693,9 +1803,21 @@ impl serde::ser::Serialize for DeleteDomainRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDomainRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDomainRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [AttachTrust][google.cloud.managedidentities.v1.AttachTrust]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachTrustRequest {
     /// Required. The resource domain name, project name and location using the form:
@@ -1860,9 +1982,22 @@ impl serde::ser::Serialize for AttachTrustRequest {
     }
 }
 
+impl std::fmt::Debug for AttachTrustRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachTrustRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("trust", &self.trust);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ReconfigureTrust][google.cloud.managedidentities.v1.ReconfigureTrust]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReconfigureTrustRequest {
     /// Required. The resource domain name, project name and location using the form:
@@ -2050,9 +2185,23 @@ impl serde::ser::Serialize for ReconfigureTrustRequest {
     }
 }
 
+impl std::fmt::Debug for ReconfigureTrustRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReconfigureTrustRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("target_domain_name", &self.target_domain_name);
+        debug_struct.field("target_dns_ip_addresses", &self.target_dns_ip_addresses);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DetachTrust][google.cloud.managedidentities.v1.DetachTrust]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetachTrustRequest {
     /// Required. The resource domain name, project name, and location using the form:
@@ -2217,9 +2366,22 @@ impl serde::ser::Serialize for DetachTrustRequest {
     }
 }
 
+impl std::fmt::Debug for DetachTrustRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetachTrustRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("trust", &self.trust);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ValidateTrust][google.cloud.managedidentities.v1.ValidateTrust]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateTrustRequest {
     /// Required. The resource domain name, project name, and location using the form:
@@ -2384,8 +2546,21 @@ impl serde::ser::Serialize for ValidateTrustRequest {
     }
 }
 
+impl std::fmt::Debug for ValidateTrustRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValidateTrustRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("trust", &self.trust);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a managed Microsoft Active Directory domain.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Domain {
     /// Required. The unique name of the domain using the form:
@@ -2844,6 +3019,29 @@ impl serde::ser::Serialize for Domain {
     }
 }
 
+impl std::fmt::Debug for Domain {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Domain");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("authorized_networks", &self.authorized_networks);
+        debug_struct.field("reserved_ip_range", &self.reserved_ip_range);
+        debug_struct.field("locations", &self.locations);
+        debug_struct.field("admin", &self.admin);
+        debug_struct.field("fqdn", &self.fqdn);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("trusts", &self.trusts);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Domain].
 pub mod domain {
     #[allow(unused_imports)]
@@ -3020,7 +3218,7 @@ pub mod domain {
 
 /// Represents a relationship between two domains. This allows a controller in
 /// one domain to authenticate a user in another domain.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Trust {
     /// Required. The fully qualified target domain name which will be in trust with the
@@ -3456,6 +3654,28 @@ impl serde::ser::Serialize for Trust {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Trust {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Trust");
+        debug_struct.field("target_domain_name", &self.target_domain_name);
+        debug_struct.field("trust_type", &self.trust_type);
+        debug_struct.field("trust_direction", &self.trust_direction);
+        debug_struct.field("selective_authentication", &self.selective_authentication);
+        debug_struct.field("target_dns_ip_addresses", &self.target_dns_ip_addresses);
+        debug_struct.field("trust_handshake_secret", &self.trust_handshake_secret);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_description", &self.state_description);
+        debug_struct.field("last_trust_heartbeat_time", &self.last_trust_heartbeat_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

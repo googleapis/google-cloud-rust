@@ -35,7 +35,7 @@ extern crate wkt;
 /// [ConnectionService.CreateConnection][google.cloud.bigquery.connection.v1.ConnectionService.CreateConnection].
 ///
 /// [google.cloud.bigquery.connection.v1.ConnectionService.CreateConnection]: crate::client::ConnectionService::create_connection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectionRequest {
     /// Required. Parent resource name.
@@ -225,11 +225,25 @@ impl serde::ser::Serialize for CreateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateConnectionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("connection_id", &self.connection_id);
+        debug_struct.field("connection", &self.connection);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ConnectionService.GetConnection][google.cloud.bigquery.connection.v1.ConnectionService.GetConnection].
 ///
 /// [google.cloud.bigquery.connection.v1.ConnectionService.GetConnection]: crate::client::ConnectionService::get_connection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectionRequest {
     /// Required. Name of the requested connection, for example:
@@ -359,11 +373,23 @@ impl serde::ser::Serialize for GetConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for GetConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConnectionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ConnectionService.ListConnections][google.cloud.bigquery.connection.v1.ConnectionService.ListConnections].
 ///
 /// [google.cloud.bigquery.connection.v1.ConnectionService.ListConnections]: crate::client::ConnectionService::list_connections
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionsRequest {
     /// Required. Parent resource name.
@@ -561,11 +587,25 @@ impl serde::ser::Serialize for ListConnectionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ConnectionService.ListConnections][google.cloud.bigquery.connection.v1.ConnectionService.ListConnections].
 ///
 /// [google.cloud.bigquery.connection.v1.ConnectionService.ListConnections]: crate::client::ConnectionService::list_connections
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionsResponse {
     /// Next page token.
@@ -736,11 +776,24 @@ impl serde::ser::Serialize for ListConnectionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectionsResponse");
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("connections", &self.connections);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ConnectionService.UpdateConnection][google.cloud.bigquery.connection.v1.ConnectionService.UpdateConnection].
 ///
 /// [google.cloud.bigquery.connection.v1.ConnectionService.UpdateConnection]: crate::client::ConnectionService::update_connection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConnectionRequest {
     /// Required. Name of the connection to update, for example:
@@ -941,8 +994,22 @@ impl serde::ser::Serialize for UpdateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateConnectionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("connection", &self.connection);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for [ConnectionService.DeleteConnectionRequest][].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectionRequest {
     /// Required. Name of the deleted connection, for example:
@@ -1072,9 +1139,21 @@ impl serde::ser::Serialize for DeleteConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteConnectionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration parameters to establish connection with an external data
 /// source, except the credential attributes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connection {
     /// The resource name of the connection in the form of:
@@ -1759,6 +1838,24 @@ impl serde::ser::Serialize for Connection {
     }
 }
 
+impl std::fmt::Debug for Connection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Connection");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("friendly_name", &self.friendly_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("creation_time", &self.creation_time);
+        debug_struct.field("last_modified_time", &self.last_modified_time);
+        debug_struct.field("has_credential", &self.has_credential);
+        debug_struct.field("properties", &self.properties);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Connection].
 pub mod connection {
     #[allow(unused_imports)]
@@ -1788,7 +1885,7 @@ pub mod connection {
 }
 
 /// Connection properties specific to the Cloud SQL.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlProperties {
     /// Cloud SQL instance ID in the form `project:location:instance`.
@@ -2039,6 +2136,22 @@ impl serde::ser::Serialize for CloudSqlProperties {
     }
 }
 
+impl std::fmt::Debug for CloudSqlProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlProperties");
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("credential", &self.credential);
+        debug_struct.field("service_account_id", &self.service_account_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CloudSqlProperties].
 pub mod cloud_sql_properties {
     #[allow(unused_imports)]
@@ -2178,7 +2291,7 @@ pub mod cloud_sql_properties {
 }
 
 /// Credential info for the Cloud SQL.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlCredential {
     /// The username for the credential.
@@ -2331,8 +2444,21 @@ impl serde::ser::Serialize for CloudSqlCredential {
     }
 }
 
+impl std::fmt::Debug for CloudSqlCredential {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlCredential");
+        debug_struct.field("username", &self.username);
+        debug_struct.field("password", &self.password);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Connection properties specific to Cloud Spanner.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSpannerProperties {
     /// Cloud Spanner database in the form `project/instance/database'
@@ -2630,8 +2756,25 @@ impl serde::ser::Serialize for CloudSpannerProperties {
     }
 }
 
+impl std::fmt::Debug for CloudSpannerProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSpannerProperties");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("use_parallelism", &self.use_parallelism);
+        debug_struct.field("max_parallelism", &self.max_parallelism);
+        debug_struct.field("use_serverless_analytics", &self.use_serverless_analytics);
+        debug_struct.field("use_data_boost", &self.use_data_boost);
+        debug_struct.field("database_role", &self.database_role);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Connection properties specific to Amazon Web Services (AWS).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsProperties {
     /// Authentication method chosen at connection creation.
@@ -2867,6 +3010,18 @@ impl serde::ser::Serialize for AwsProperties {
     }
 }
 
+impl std::fmt::Debug for AwsProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsProperties");
+        debug_struct.field("authentication_method", &self.authentication_method);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AwsProperties].
 pub mod aws_properties {
     #[allow(unused_imports)]
@@ -2889,7 +3044,7 @@ pub mod aws_properties {
 
 /// Authentication method for Amazon Web Services (AWS) that uses Google owned
 /// AWS IAM user's access key to assume into customer's AWS IAM Role.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsCrossAccountRole {
     /// The user’s AWS IAM Role that trusts the Google-owned AWS IAM user
@@ -3073,9 +3228,23 @@ impl serde::ser::Serialize for AwsCrossAccountRole {
     }
 }
 
+impl std::fmt::Debug for AwsCrossAccountRole {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsCrossAccountRole");
+        debug_struct.field("iam_role_id", &self.iam_role_id);
+        debug_struct.field("iam_user_id", &self.iam_user_id);
+        debug_struct.field("external_id", &self.external_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Authentication method for Amazon Web Services (AWS) that uses Google owned
 /// Google service account to assume into customer's AWS IAM Role.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsAccessRole {
     /// The user’s AWS IAM Role that trusts the Google-owned AWS IAM user
@@ -3231,8 +3400,21 @@ impl serde::ser::Serialize for AwsAccessRole {
     }
 }
 
+impl std::fmt::Debug for AwsAccessRole {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsAccessRole");
+        debug_struct.field("iam_role_id", &self.iam_role_id);
+        debug_struct.field("identity", &self.identity);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Container for connection properties specific to Azure.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureProperties {
     /// Output only. The name of the Azure Active Directory Application.
@@ -3527,9 +3709,30 @@ impl serde::ser::Serialize for AzureProperties {
     }
 }
 
+impl std::fmt::Debug for AzureProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureProperties");
+        debug_struct.field("application", &self.application);
+        debug_struct.field("client_id", &self.client_id);
+        debug_struct.field("object_id", &self.object_id);
+        debug_struct.field("customer_tenant_id", &self.customer_tenant_id);
+        debug_struct.field("redirect_uri", &self.redirect_uri);
+        debug_struct.field(
+            "federated_application_client_id",
+            &self.federated_application_client_id,
+        );
+        debug_struct.field("identity", &self.identity);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Container for connection properties for delegation of access to GCP
 /// resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudResourceProperties {
     /// Output only. The account ID of the service created for the purpose of this
@@ -3672,8 +3875,20 @@ impl serde::ser::Serialize for CloudResourceProperties {
     }
 }
 
+impl std::fmt::Debug for CloudResourceProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudResourceProperties");
+        debug_struct.field("service_account_id", &self.service_account_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration of the Dataproc Metastore Service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetastoreServiceConfig {
     /// Optional. Resource name of an existing Dataproc Metastore service.
@@ -3810,8 +4025,20 @@ impl serde::ser::Serialize for MetastoreServiceConfig {
     }
 }
 
+impl std::fmt::Debug for MetastoreServiceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetastoreServiceConfig");
+        debug_struct.field("metastore_service", &self.metastore_service);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration of the Spark History Server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkHistoryServerConfig {
     /// Optional. Resource name of an existing Dataproc Cluster to act as a Spark
@@ -3949,9 +4176,21 @@ impl serde::ser::Serialize for SparkHistoryServerConfig {
     }
 }
 
+impl std::fmt::Debug for SparkHistoryServerConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SparkHistoryServerConfig");
+        debug_struct.field("dataproc_cluster", &self.dataproc_cluster);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Container for connection properties to execute stored procedures for Apache
 /// Spark.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkProperties {
     /// Output only. The account ID of the service created for the purpose of this
@@ -4175,9 +4414,26 @@ impl serde::ser::Serialize for SparkProperties {
     }
 }
 
+impl std::fmt::Debug for SparkProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SparkProperties");
+        debug_struct.field("service_account_id", &self.service_account_id);
+        debug_struct.field("metastore_service_config", &self.metastore_service_config);
+        debug_struct.field(
+            "spark_history_server_config",
+            &self.spark_history_server_config,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Connection properties specific to Salesforce DataCloud. This is intended for
 /// use only by Salesforce partner projects.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SalesforceDataCloudProperties {
     /// The URL to the user's Salesforce DataCloud instance.
@@ -4354,5 +4610,19 @@ impl serde::ser::Serialize for SalesforceDataCloudProperties {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for SalesforceDataCloudProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SalesforceDataCloudProperties");
+        debug_struct.field("instance_uri", &self.instance_uri);
+        debug_struct.field("identity", &self.identity);
+        debug_struct.field("tenant_id", &self.tenant_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

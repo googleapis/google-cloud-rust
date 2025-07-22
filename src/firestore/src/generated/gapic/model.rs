@@ -22,7 +22,7 @@
 /// The keys of `aggregate_fields` are the same for all results in an aggregation
 /// query, unlike document queries which can have different fields present for
 /// each result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AggregationResult {
     /// The result of the aggregation functions, ex: `COUNT(*) AS total_docs`.
@@ -170,6 +170,18 @@ impl serde::ser::Serialize for AggregationResult {
     }
 }
 
+impl std::fmt::Debug for AggregationResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AggregationResult");
+        debug_struct.field("aggregate_fields", &self.aggregate_fields);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A sequence of bits, encoded in a byte array.
 ///
 /// Each byte in the `bitmap` byte array stores 8 bits of the sequence. The only
@@ -185,7 +197,7 @@ impl serde::ser::Serialize for AggregationResult {
 ///
 /// The "size" of a `BitSequence` (the number of bits it contains) is calculated
 /// by this formula: `(bitmap.length * 8) - padding`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BitSequence {
     /// The bytes that encode the bit sequence.
@@ -377,6 +389,19 @@ impl serde::ser::Serialize for BitSequence {
     }
 }
 
+impl std::fmt::Debug for BitSequence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BitSequence");
+        debug_struct.field("bitmap", &self.bitmap);
+        debug_struct.field("padding", &self.padding);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A bloom filter (<https://en.wikipedia.org/wiki/Bloom_filter>).
 ///
 /// The bloom filter hashes the entries with MD5 and treats the resulting 128-bit
@@ -392,7 +417,7 @@ impl serde::ser::Serialize for BitSequence {
 ///
 /// These resulting values are then taken modulo the number of bits in the bloom
 /// filter to get the bits of the bloom filter to test for the given entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BloomFilter {
     /// The bloom filter data.
@@ -575,6 +600,19 @@ impl serde::ser::Serialize for BloomFilter {
     }
 }
 
+impl std::fmt::Debug for BloomFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BloomFilter");
+        debug_struct.field("bits", &self.bits);
+        debug_struct.field("hash_count", &self.hash_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A set of field paths on a document.
 /// Used to restrict a get or update operation on a document to a subset of its
 /// fields.
@@ -584,7 +622,7 @@ impl serde::ser::Serialize for BloomFilter {
 ///
 /// [google.firestore.v1.Document]: crate::model::Document
 /// [google.firestore.v1.Value]: crate::model::Value
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentMask {
     /// The list of field paths in the mask. See
@@ -721,8 +759,20 @@ impl serde::ser::Serialize for DocumentMask {
     }
 }
 
+impl std::fmt::Debug for DocumentMask {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DocumentMask");
+        debug_struct.field("field_paths", &self.field_paths);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A precondition on a document, used for conditional operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Precondition {
     /// The type of precondition.
@@ -940,6 +990,18 @@ impl serde::ser::Serialize for Precondition {
     }
 }
 
+impl std::fmt::Debug for Precondition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Precondition");
+        debug_struct.field("condition_type", &self.condition_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Precondition].
 pub mod precondition {
     #[allow(unused_imports)]
@@ -972,7 +1034,7 @@ pub mod precondition {
 }
 
 /// Options for creating a new transaction.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransactionOptions {
     /// The mode of the transaction.
@@ -1208,6 +1270,18 @@ impl serde::ser::Serialize for TransactionOptions {
     }
 }
 
+impl std::fmt::Debug for TransactionOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransactionOptions");
+        debug_struct.field("mode", &self.mode);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransactionOptions].
 pub mod transaction_options {
     #[allow(unused_imports)]
@@ -1217,7 +1291,7 @@ pub mod transaction_options {
     ///
     /// Firestore does not allow 3rd party auth requests to create read-write.
     /// transactions.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReadWrite {
         /// An optional transaction to retry.
@@ -1377,8 +1451,20 @@ pub mod transaction_options {
         }
     }
 
+    impl std::fmt::Debug for ReadWrite {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ReadWrite");
+            debug_struct.field("retry_transaction", &self.retry_transaction);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Options for a transaction that can only be used to read documents.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReadOnly {
         /// The consistency mode for this transaction. If not set, defaults to strong
@@ -1562,6 +1648,18 @@ pub mod transaction_options {
         }
     }
 
+    impl std::fmt::Debug for ReadOnly {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ReadOnly");
+            debug_struct.field("consistency_selector", &self.consistency_selector);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ReadOnly].
     pub mod read_only {
         #[allow(unused_imports)]
@@ -1621,7 +1719,7 @@ pub mod transaction_options {
 /// A Firestore document.
 ///
 /// Must not exceed 1 MiB - 4 bytes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Document {
     /// The resource name of the document, for example
@@ -1889,8 +1987,23 @@ impl serde::ser::Serialize for Document {
     }
 }
 
+impl std::fmt::Debug for Document {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Document");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("fields", &self.fields);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A message that can hold any of the supported value types.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Value {
     /// Must have a value set.
@@ -2593,6 +2706,18 @@ impl serde::ser::Serialize for Value {
     }
 }
 
+impl std::fmt::Debug for Value {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Value");
+        debug_struct.field("value_type", &self.value_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Value].
 pub mod value {
     #[allow(unused_imports)]
@@ -2697,7 +2822,7 @@ pub mod value {
 }
 
 /// An array value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ArrayValue {
     /// Values in the array.
@@ -2829,8 +2954,20 @@ impl serde::ser::Serialize for ArrayValue {
     }
 }
 
+impl std::fmt::Debug for ArrayValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ArrayValue");
+        debug_struct.field("values", &self.values);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A map value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MapValue {
     /// The map's fields.
@@ -2975,11 +3112,23 @@ impl serde::ser::Serialize for MapValue {
     }
 }
 
+impl std::fmt::Debug for MapValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MapValue");
+        debug_struct.field("fields", &self.fields);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [Firestore.GetDocument][google.firestore.v1.Firestore.GetDocument].
 ///
 /// [google.firestore.v1.Firestore.GetDocument]: crate::client::Firestore::get_document
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDocumentRequest {
     /// Required. The resource name of the Document to get. In the format:
@@ -3286,6 +3435,20 @@ impl serde::ser::Serialize for GetDocumentRequest {
     }
 }
 
+impl std::fmt::Debug for GetDocumentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDocumentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("mask", &self.mask);
+        debug_struct.field("consistency_selector", &self.consistency_selector);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GetDocumentRequest].
 pub mod get_document_request {
     #[allow(unused_imports)]
@@ -3324,7 +3487,7 @@ pub mod get_document_request {
 /// [Firestore.ListDocuments][google.firestore.v1.Firestore.ListDocuments].
 ///
 /// [google.firestore.v1.Firestore.ListDocuments]: crate::client::Firestore::list_documents
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDocumentsRequest {
     /// Required. The parent resource name. In the format:
@@ -3809,6 +3972,25 @@ impl serde::ser::Serialize for ListDocumentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDocumentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDocumentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("collection_id", &self.collection_id);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("mask", &self.mask);
+        debug_struct.field("show_missing", &self.show_missing);
+        debug_struct.field("consistency_selector", &self.consistency_selector);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListDocumentsRequest].
 pub mod list_documents_request {
     #[allow(unused_imports)]
@@ -3847,7 +4029,7 @@ pub mod list_documents_request {
 /// [Firestore.ListDocuments][google.firestore.v1.Firestore.ListDocuments].
 ///
 /// [google.firestore.v1.Firestore.ListDocuments]: crate::client::Firestore::list_documents
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDocumentsResponse {
     /// The Documents found.
@@ -4020,11 +4202,24 @@ impl serde::ser::Serialize for ListDocumentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDocumentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDocumentsResponse");
+        debug_struct.field("documents", &self.documents);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [Firestore.CreateDocument][google.firestore.v1.Firestore.CreateDocument].
 ///
 /// [google.firestore.v1.Firestore.CreateDocument]: crate::client::Firestore::create_document
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDocumentRequest {
     /// Required. The parent resource. For example:
@@ -4281,11 +4476,27 @@ impl serde::ser::Serialize for CreateDocumentRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDocumentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDocumentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("collection_id", &self.collection_id);
+        debug_struct.field("document_id", &self.document_id);
+        debug_struct.field("document", &self.document);
+        debug_struct.field("mask", &self.mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [Firestore.UpdateDocument][google.firestore.v1.Firestore.UpdateDocument].
 ///
 /// [google.firestore.v1.Firestore.UpdateDocument]: crate::client::Firestore::update_document
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDocumentRequest {
     /// Required. The updated document.
@@ -4543,11 +4754,26 @@ impl serde::ser::Serialize for UpdateDocumentRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDocumentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDocumentRequest");
+        debug_struct.field("document", &self.document);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("mask", &self.mask);
+        debug_struct.field("current_document", &self.current_document);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [Firestore.DeleteDocument][google.firestore.v1.Firestore.DeleteDocument].
 ///
 /// [google.firestore.v1.Firestore.DeleteDocument]: crate::client::Firestore::delete_document
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDocumentRequest {
     /// Required. The resource name of the Document to delete. In the format:
@@ -4714,9 +4940,22 @@ impl serde::ser::Serialize for DeleteDocumentRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDocumentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDocumentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("current_document", &self.current_document);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [Firestore.BatchGetDocuments][google.firestore.v1.Firestore.BatchGetDocuments].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchGetDocumentsRequest {
     /// Required. The database name. In the format:
@@ -5110,6 +5349,21 @@ impl serde::ser::Serialize for BatchGetDocumentsRequest {
     }
 }
 
+impl std::fmt::Debug for BatchGetDocumentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchGetDocumentsRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("documents", &self.documents);
+        debug_struct.field("mask", &self.mask);
+        debug_struct.field("consistency_selector", &self.consistency_selector);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchGetDocumentsRequest].
 pub mod batch_get_documents_request {
     #[allow(unused_imports)]
@@ -5157,7 +5411,7 @@ pub mod batch_get_documents_request {
 
 /// The streamed response for
 /// [Firestore.BatchGetDocuments][google.firestore.v1.Firestore.BatchGetDocuments].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchGetDocumentsResponse {
     /// The transaction that was started as part of this request.
@@ -5467,6 +5721,20 @@ impl serde::ser::Serialize for BatchGetDocumentsResponse {
     }
 }
 
+impl std::fmt::Debug for BatchGetDocumentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchGetDocumentsResponse");
+        debug_struct.field("transaction", &self.transaction);
+        debug_struct.field("read_time", &self.read_time);
+        debug_struct.field("result", &self.result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchGetDocumentsResponse].
 pub mod batch_get_documents_response {
     #[allow(unused_imports)]
@@ -5502,7 +5770,7 @@ pub mod batch_get_documents_response {
 /// [Firestore.BeginTransaction][google.firestore.v1.Firestore.BeginTransaction].
 ///
 /// [google.firestore.v1.Firestore.BeginTransaction]: crate::client::Firestore::begin_transaction
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BeginTransactionRequest {
     /// Required. The database name. In the format:
@@ -5668,11 +5936,24 @@ impl serde::ser::Serialize for BeginTransactionRequest {
     }
 }
 
+impl std::fmt::Debug for BeginTransactionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BeginTransactionRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("options", &self.options);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [Firestore.BeginTransaction][google.firestore.v1.Firestore.BeginTransaction].
 ///
 /// [google.firestore.v1.Firestore.BeginTransaction]: crate::client::Firestore::begin_transaction
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BeginTransactionResponse {
     /// The transaction that was started.
@@ -5819,10 +6100,22 @@ impl serde::ser::Serialize for BeginTransactionResponse {
     }
 }
 
+impl std::fmt::Debug for BeginTransactionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BeginTransactionResponse");
+        debug_struct.field("transaction", &self.transaction);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for [Firestore.Commit][google.firestore.v1.Firestore.Commit].
 ///
 /// [google.firestore.v1.Firestore.Commit]: crate::client::Firestore::commit
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitRequest {
     /// Required. The database name. In the format:
@@ -6023,10 +6316,24 @@ impl serde::ser::Serialize for CommitRequest {
     }
 }
 
+impl std::fmt::Debug for CommitRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommitRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("writes", &self.writes);
+        debug_struct.field("transaction", &self.transaction);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for [Firestore.Commit][google.firestore.v1.Firestore.Commit].
 ///
 /// [google.firestore.v1.Firestore.Commit]: crate::client::Firestore::commit
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitResponse {
     /// The result of applying the writes.
@@ -6199,10 +6506,23 @@ impl serde::ser::Serialize for CommitResponse {
     }
 }
 
+impl std::fmt::Debug for CommitResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommitResponse");
+        debug_struct.field("write_results", &self.write_results);
+        debug_struct.field("commit_time", &self.commit_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for [Firestore.Rollback][google.firestore.v1.Firestore.Rollback].
 ///
 /// [google.firestore.v1.Firestore.Rollback]: crate::client::Firestore::rollback
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollbackRequest {
     /// Required. The database name. In the format:
@@ -6374,8 +6694,21 @@ impl serde::ser::Serialize for RollbackRequest {
     }
 }
 
+impl std::fmt::Debug for RollbackRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RollbackRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("transaction", &self.transaction);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for [Firestore.RunQuery][google.firestore.v1.Firestore.RunQuery].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunQueryRequest {
     /// Required. The parent resource name. In the format:
@@ -6816,6 +7149,21 @@ impl serde::ser::Serialize for RunQueryRequest {
     }
 }
 
+impl std::fmt::Debug for RunQueryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunQueryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("explain_options", &self.explain_options);
+        debug_struct.field("query_type", &self.query_type);
+        debug_struct.field("consistency_selector", &self.consistency_selector);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RunQueryRequest].
 pub mod run_query_request {
     #[allow(unused_imports)]
@@ -6882,7 +7230,7 @@ pub mod run_query_request {
 
 /// The response for
 /// [Firestore.RunQuery][google.firestore.v1.Firestore.RunQuery].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunQueryResponse {
     /// The transaction that was started as part of this request.
@@ -7268,6 +7616,23 @@ impl serde::ser::Serialize for RunQueryResponse {
     }
 }
 
+impl std::fmt::Debug for RunQueryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunQueryResponse");
+        debug_struct.field("transaction", &self.transaction);
+        debug_struct.field("document", &self.document);
+        debug_struct.field("read_time", &self.read_time);
+        debug_struct.field("skipped_results", &self.skipped_results);
+        debug_struct.field("explain_metrics", &self.explain_metrics);
+        debug_struct.field("continuation_selector", &self.continuation_selector);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RunQueryResponse].
 pub mod run_query_response {
     #[allow(unused_imports)]
@@ -7294,7 +7659,7 @@ pub mod run_query_response {
 
 /// The request for
 /// [Firestore.RunAggregationQuery][google.firestore.v1.Firestore.RunAggregationQuery].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunAggregationQueryRequest {
     /// Required. The parent resource name. In the format:
@@ -7743,6 +8108,21 @@ impl serde::ser::Serialize for RunAggregationQueryRequest {
     }
 }
 
+impl std::fmt::Debug for RunAggregationQueryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunAggregationQueryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("explain_options", &self.explain_options);
+        debug_struct.field("query_type", &self.query_type);
+        debug_struct.field("consistency_selector", &self.consistency_selector);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RunAggregationQueryRequest].
 pub mod run_aggregation_query_request {
     #[allow(unused_imports)]
@@ -7808,7 +8188,7 @@ pub mod run_aggregation_query_request {
 
 /// The response for
 /// [Firestore.RunAggregationQuery][google.firestore.v1.Firestore.RunAggregationQuery].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunAggregationQueryResponse {
     /// A single aggregation result.
@@ -8080,11 +8460,26 @@ impl serde::ser::Serialize for RunAggregationQueryResponse {
     }
 }
 
+impl std::fmt::Debug for RunAggregationQueryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunAggregationQueryResponse");
+        debug_struct.field("result", &self.result);
+        debug_struct.field("transaction", &self.transaction);
+        debug_struct.field("read_time", &self.read_time);
+        debug_struct.field("explain_metrics", &self.explain_metrics);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [Firestore.PartitionQuery][google.firestore.v1.Firestore.PartitionQuery].
 ///
 /// [google.firestore.v1.Firestore.PartitionQuery]: crate::client::Firestore::partition_query
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PartitionQueryRequest {
     /// Required. The parent resource name. In the format:
@@ -8500,6 +8895,23 @@ impl serde::ser::Serialize for PartitionQueryRequest {
     }
 }
 
+impl std::fmt::Debug for PartitionQueryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartitionQueryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("partition_count", &self.partition_count);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("query_type", &self.query_type);
+        debug_struct.field("consistency_selector", &self.consistency_selector);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PartitionQueryRequest].
 pub mod partition_query_request {
     #[allow(unused_imports)]
@@ -8552,7 +8964,7 @@ pub mod partition_query_request {
 /// [Firestore.PartitionQuery][google.firestore.v1.Firestore.PartitionQuery].
 ///
 /// [google.firestore.v1.Firestore.PartitionQuery]: crate::client::Firestore::partition_query
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PartitionQueryResponse {
     /// Partition results.
@@ -8741,6 +9153,19 @@ impl serde::ser::Serialize for PartitionQueryResponse {
     }
 }
 
+impl std::fmt::Debug for PartitionQueryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartitionQueryResponse");
+        debug_struct.field("partitions", &self.partitions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for [Firestore.Write][google.firestore.v1.Firestore.Write].
 ///
 /// The first request creates a stream, or resumes an existing one from a token.
@@ -8751,7 +9176,7 @@ impl serde::ser::Serialize for PartitionQueryResponse {
 /// When resuming a stream, the server first streams any responses later than the
 /// given token, then a response containing only an up-to-date token, to use in
 /// the next request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteRequest {
     /// Required. The database name. In the format:
@@ -9034,8 +9459,24 @@ impl serde::ser::Serialize for WriteRequest {
     }
 }
 
+impl std::fmt::Debug for WriteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WriteRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("stream_id", &self.stream_id);
+        debug_struct.field("writes", &self.writes);
+        debug_struct.field("stream_token", &self.stream_token);
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for [Firestore.Write][google.firestore.v1.Firestore.Write].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteResponse {
     /// The ID of the stream.
@@ -9280,8 +9721,23 @@ impl serde::ser::Serialize for WriteResponse {
     }
 }
 
+impl std::fmt::Debug for WriteResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WriteResponse");
+        debug_struct.field("stream_id", &self.stream_id);
+        debug_struct.field("stream_token", &self.stream_token);
+        debug_struct.field("write_results", &self.write_results);
+        debug_struct.field("commit_time", &self.commit_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request for [Firestore.Listen][google.firestore.v1.Firestore.Listen]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListenRequest {
     /// Required. The database name. In the format:
@@ -9586,6 +10042,20 @@ impl serde::ser::Serialize for ListenRequest {
     }
 }
 
+impl std::fmt::Debug for ListenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListenRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("target_change", &self.target_change);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListenRequest].
 pub mod listen_request {
     #[allow(unused_imports)]
@@ -9616,7 +10086,7 @@ pub mod listen_request {
 }
 
 /// The response for [Firestore.Listen][google.firestore.v1.Firestore.Listen].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListenResponse {
     /// The supported responses.
@@ -10019,6 +10489,18 @@ impl serde::ser::Serialize for ListenResponse {
     }
 }
 
+impl std::fmt::Debug for ListenResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListenResponse");
+        debug_struct.field("response_type", &self.response_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListenResponse].
 pub mod listen_response {
     #[allow(unused_imports)]
@@ -10086,7 +10568,7 @@ pub mod listen_response {
 }
 
 /// A specification of a set of documents to listen to.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Target {
     /// The target ID that identifies the target on the stream. Must be a positive
@@ -10592,13 +11074,29 @@ impl serde::ser::Serialize for Target {
     }
 }
 
+impl std::fmt::Debug for Target {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Target");
+        debug_struct.field("target_id", &self.target_id);
+        debug_struct.field("once", &self.once);
+        debug_struct.field("expected_count", &self.expected_count);
+        debug_struct.field("target_type", &self.target_type);
+        debug_struct.field("resume_type", &self.resume_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Target].
 pub mod target {
     #[allow(unused_imports)]
     use super::*;
 
     /// A target specified by a set of documents names.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DocumentsTarget {
         /// The names of the documents to retrieve. In the format:
@@ -10736,8 +11234,20 @@ pub mod target {
         }
     }
 
+    impl std::fmt::Debug for DocumentsTarget {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DocumentsTarget");
+            debug_struct.field("documents", &self.documents);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A target specified by a query.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QueryTarget {
         /// The parent resource name. In the format:
@@ -10949,6 +11459,19 @@ pub mod target {
         }
     }
 
+    impl std::fmt::Debug for QueryTarget {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QueryTarget");
+            debug_struct.field("parent", &self.parent);
+            debug_struct.field("query_type", &self.query_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [QueryTarget].
     pub mod query_target {
         #[allow(unused_imports)]
@@ -11033,7 +11556,7 @@ pub mod target {
 }
 
 /// Targets being watched have changed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetChange {
     /// The type of change that occurred.
@@ -11353,6 +11876,22 @@ impl serde::ser::Serialize for TargetChange {
     }
 }
 
+impl std::fmt::Debug for TargetChange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TargetChange");
+        debug_struct.field("target_change_type", &self.target_change_type);
+        debug_struct.field("target_ids", &self.target_ids);
+        debug_struct.field("cause", &self.cause);
+        debug_struct.field("resume_token", &self.resume_token);
+        debug_struct.field("read_time", &self.read_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TargetChange].
 pub mod target_change {
     #[allow(unused_imports)]
@@ -11520,7 +12059,7 @@ pub mod target_change {
 /// [Firestore.ListCollectionIds][google.firestore.v1.Firestore.ListCollectionIds].
 ///
 /// [google.firestore.v1.Firestore.ListCollectionIds]: crate::client::Firestore::list_collection_ids
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCollectionIdsRequest {
     /// Required. The parent document. In the format:
@@ -11795,6 +12334,21 @@ impl serde::ser::Serialize for ListCollectionIdsRequest {
     }
 }
 
+impl std::fmt::Debug for ListCollectionIdsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCollectionIdsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("consistency_selector", &self.consistency_selector);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListCollectionIdsRequest].
 pub mod list_collection_ids_request {
     #[allow(unused_imports)]
@@ -11827,7 +12381,7 @@ pub mod list_collection_ids_request {
 /// [Firestore.ListCollectionIds][google.firestore.v1.Firestore.ListCollectionIds].
 ///
 /// [google.firestore.v1.Firestore.ListCollectionIds]: crate::client::Firestore::list_collection_ids
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCollectionIdsResponse {
     /// The collection ids.
@@ -11985,11 +12539,24 @@ impl serde::ser::Serialize for ListCollectionIdsResponse {
     }
 }
 
+impl std::fmt::Debug for ListCollectionIdsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCollectionIdsResponse");
+        debug_struct.field("collection_ids", &self.collection_ids);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [Firestore.BatchWrite][google.firestore.v1.Firestore.BatchWrite].
 ///
 /// [google.firestore.v1.Firestore.BatchWrite]: crate::client::Firestore::batch_write
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchWriteRequest {
     /// Required. The database name. In the format:
@@ -12185,11 +12752,25 @@ impl serde::ser::Serialize for BatchWriteRequest {
     }
 }
 
+impl std::fmt::Debug for BatchWriteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchWriteRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("writes", &self.writes);
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response from
 /// [Firestore.BatchWrite][google.firestore.v1.Firestore.BatchWrite].
 ///
 /// [google.firestore.v1.Firestore.BatchWrite]: crate::client::Firestore::batch_write
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchWriteResponse {
     /// The result of applying the writes.
@@ -12355,6 +12936,19 @@ impl serde::ser::Serialize for BatchWriteResponse {
     }
 }
 
+impl std::fmt::Debug for BatchWriteResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchWriteResponse");
+        debug_struct.field("write_results", &self.write_results);
+        debug_struct.field("status", &self.status);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Firestore query.
 ///
 /// The query stages are executed in the following order:
@@ -12366,7 +12960,7 @@ impl serde::ser::Serialize for BatchWriteResponse {
 /// 1. offset
 /// 1. limit
 /// 1. find_nearest
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StructuredQuery {
     /// Optional sub-set of the fields to return.
@@ -12894,13 +13488,33 @@ impl serde::ser::Serialize for StructuredQuery {
     }
 }
 
+impl std::fmt::Debug for StructuredQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StructuredQuery");
+        debug_struct.field("select", &self.select);
+        debug_struct.field("from", &self.from);
+        debug_struct.field("r#where", &self.r#where);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("start_at", &self.start_at);
+        debug_struct.field("end_at", &self.end_at);
+        debug_struct.field("offset", &self.offset);
+        debug_struct.field("limit", &self.limit);
+        debug_struct.field("find_nearest", &self.find_nearest);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StructuredQuery].
 pub mod structured_query {
     #[allow(unused_imports)]
     use super::*;
 
     /// A selection of a collection, such as `messages as m1`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CollectionSelector {
         /// The collection ID.
@@ -13064,8 +13678,21 @@ pub mod structured_query {
         }
     }
 
+    impl std::fmt::Debug for CollectionSelector {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CollectionSelector");
+            debug_struct.field("collection_id", &self.collection_id);
+            debug_struct.field("all_descendants", &self.all_descendants);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A filter.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Filter {
         /// The type of filter.
@@ -13370,6 +13997,18 @@ pub mod structured_query {
         }
     }
 
+    impl std::fmt::Debug for Filter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Filter");
+            debug_struct.field("filter_type", &self.filter_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Filter].
     pub mod filter {
         #[allow(unused_imports)]
@@ -13416,7 +14055,7 @@ pub mod structured_query {
     }
 
     /// A filter that merges multiple other filters using the given operator.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CompositeFilter {
         /// The operator for combining multiple filters.
@@ -13590,6 +14229,19 @@ pub mod structured_query {
         }
     }
 
+    impl std::fmt::Debug for CompositeFilter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CompositeFilter");
+            debug_struct.field("op", &self.op);
+            debug_struct.field("filters", &self.filters);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [CompositeFilter].
     pub mod composite_filter {
         #[allow(unused_imports)]
@@ -13732,7 +14384,7 @@ pub mod structured_query {
     }
 
     /// A filter on a specific field.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FieldFilter {
         /// The field to filter by.
@@ -13939,6 +14591,20 @@ pub mod structured_query {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for FieldFilter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FieldFilter");
+            debug_struct.field("field", &self.field);
+            debug_struct.field("op", &self.op);
+            debug_struct.field("value", &self.value);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -14182,7 +14848,7 @@ pub mod structured_query {
     }
 
     /// A filter with a single operand.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UnaryFilter {
         /// The unary operator to apply.
@@ -14396,6 +15062,19 @@ pub mod structured_query {
         }
     }
 
+    impl std::fmt::Debug for UnaryFilter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("UnaryFilter");
+            debug_struct.field("op", &self.op);
+            debug_struct.field("operand_type", &self.operand_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [UnaryFilter].
     pub mod unary_filter {
         #[allow(unused_imports)]
@@ -14581,7 +15260,7 @@ pub mod structured_query {
     }
 
     /// An order on a field.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Order {
         /// The field to order by.
@@ -14754,8 +15433,21 @@ pub mod structured_query {
         }
     }
 
+    impl std::fmt::Debug for Order {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Order");
+            debug_struct.field("field", &self.field);
+            debug_struct.field("direction", &self.direction);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A reference to a field in a document, ex: `stats.operations`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FieldReference {
         /// A reference to a field in a document.
@@ -14896,8 +15588,20 @@ pub mod structured_query {
         }
     }
 
+    impl std::fmt::Debug for FieldReference {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FieldReference");
+            debug_struct.field("field_path", &self.field_path);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The projection of document's fields to return.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Projection {
         /// The fields to return.
@@ -15041,11 +15745,23 @@ pub mod structured_query {
         }
     }
 
+    impl std::fmt::Debug for Projection {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Projection");
+            debug_struct.field("fields", &self.fields);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Nearest Neighbors search config. The ordering provided by FindNearest
     /// supersedes the order_by stage. If multiple documents have the same vector
     /// distance, the returned document order is not guaranteed to be stable
     /// between queries.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FindNearest {
         /// Required. An indexed vector field to search upon. Only documents which
@@ -15410,6 +16126,23 @@ pub mod structured_query {
         }
     }
 
+    impl std::fmt::Debug for FindNearest {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FindNearest");
+            debug_struct.field("vector_field", &self.vector_field);
+            debug_struct.field("query_vector", &self.query_vector);
+            debug_struct.field("distance_measure", &self.distance_measure);
+            debug_struct.field("limit", &self.limit);
+            debug_struct.field("distance_result_field", &self.distance_result_field);
+            debug_struct.field("distance_threshold", &self.distance_threshold);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [FindNearest].
     pub mod find_nearest {
         #[allow(unused_imports)]
@@ -15707,7 +16440,7 @@ pub mod structured_query {
 /// [StructuredQuery][google.firestore.v1.StructuredQuery].
 ///
 /// [google.firestore.v1.StructuredQuery]: crate::model::StructuredQuery
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StructuredAggregationQuery {
     /// Optional. Series of aggregations to apply over the results of the
@@ -15924,13 +16657,26 @@ impl serde::ser::Serialize for StructuredAggregationQuery {
     }
 }
 
+impl std::fmt::Debug for StructuredAggregationQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StructuredAggregationQuery");
+        debug_struct.field("aggregations", &self.aggregations);
+        debug_struct.field("query_type", &self.query_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StructuredAggregationQuery].
 pub mod structured_aggregation_query {
     #[allow(unused_imports)]
     use super::*;
 
     /// Defines an aggregation that produces a single result.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Aggregation {
         /// Optional. Optional name of the field to store the result of the
@@ -16294,6 +17040,19 @@ pub mod structured_aggregation_query {
         }
     }
 
+    impl std::fmt::Debug for Aggregation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Aggregation");
+            debug_struct.field("alias", &self.alias);
+            debug_struct.field("operator", &self.operator);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Aggregation].
     pub mod aggregation {
         #[allow(unused_imports)]
@@ -16303,7 +17062,7 @@ pub mod structured_aggregation_query {
         ///
         /// The `COUNT(*)` aggregation function operates on the entire document
         /// so it does not require a field reference.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Count {
             /// Optional. Optional constraint on the maximum number of documents to
@@ -16490,6 +17249,18 @@ pub mod structured_aggregation_query {
             }
         }
 
+        impl std::fmt::Debug for Count {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Count");
+                debug_struct.field("up_to", &self.up_to);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Sum of the values of the requested field.
         ///
         /// * Only numeric values will be aggregated. All non-numeric values
@@ -16512,7 +17283,7 @@ pub mod structured_aggregation_query {
         ///   time. In those cases, values should be stored as integers over
         ///   floating-point numbers.
         ///
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Sum {
             /// The field to aggregate on.
@@ -16659,6 +17430,18 @@ pub mod structured_aggregation_query {
             }
         }
 
+        impl std::fmt::Debug for Sum {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Sum");
+                debug_struct.field("field", &self.field);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Average of the values of the requested field.
         ///
         /// * Only numeric values will be aggregated. All non-numeric values
@@ -16671,7 +17454,7 @@ pub mod structured_aggregation_query {
         ///
         /// * Always returns the result as a double.
         ///
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Avg {
             /// The field to aggregate on.
@@ -16818,6 +17601,18 @@ pub mod structured_aggregation_query {
             }
         }
 
+        impl std::fmt::Debug for Avg {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Avg");
+                debug_struct.field("field", &self.field);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The type of aggregation to perform, required.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -16877,7 +17672,7 @@ pub mod structured_aggregation_query {
 }
 
 /// A position in a query result set.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cursor {
     /// The values that represent a position, in the order they appear in
@@ -17037,8 +17832,21 @@ impl serde::ser::Serialize for Cursor {
     }
 }
 
+impl std::fmt::Debug for Cursor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Cursor");
+        debug_struct.field("values", &self.values);
+        debug_struct.field("before", &self.before);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Explain options for the query.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainOptions {
     /// Optional. Whether to execute this query.
@@ -17173,8 +17981,20 @@ impl serde::ser::Serialize for ExplainOptions {
     }
 }
 
+impl std::fmt::Debug for ExplainOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExplainOptions");
+        debug_struct.field("analyze", &self.analyze);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Explain metrics for the query.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainMetrics {
     /// Planning phase information for the query.
@@ -17356,8 +18176,21 @@ impl serde::ser::Serialize for ExplainMetrics {
     }
 }
 
+impl std::fmt::Debug for ExplainMetrics {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExplainMetrics");
+        debug_struct.field("plan_summary", &self.plan_summary);
+        debug_struct.field("execution_stats", &self.execution_stats);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Planning phase information for the query.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PlanSummary {
     /// The indexes selected for the query. For example:
@@ -17496,8 +18329,20 @@ impl serde::ser::Serialize for PlanSummary {
     }
 }
 
+impl std::fmt::Debug for PlanSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PlanSummary");
+        debug_struct.field("indexes_used", &self.indexes_used);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Execution statistics for the query.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecutionStats {
     /// Total number of results returned, including documents, projections,
@@ -17774,8 +18619,23 @@ impl serde::ser::Serialize for ExecutionStats {
     }
 }
 
+impl std::fmt::Debug for ExecutionStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecutionStats");
+        debug_struct.field("results_returned", &self.results_returned);
+        debug_struct.field("execution_duration", &self.execution_duration);
+        debug_struct.field("read_operations", &self.read_operations);
+        debug_struct.field("debug_stats", &self.debug_stats);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A write on a document.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Write {
     /// The fields to update in this write.
@@ -18163,6 +19023,21 @@ impl serde::ser::Serialize for Write {
     }
 }
 
+impl std::fmt::Debug for Write {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Write");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("update_transforms", &self.update_transforms);
+        debug_struct.field("current_document", &self.current_document);
+        debug_struct.field("operation", &self.operation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Write].
 pub mod write {
     #[allow(unused_imports)]
@@ -18202,7 +19077,7 @@ pub mod write {
 }
 
 /// A transformation of a document.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentTransform {
     /// The name of the document to transform.
@@ -18365,13 +19240,26 @@ impl serde::ser::Serialize for DocumentTransform {
     }
 }
 
+impl std::fmt::Debug for DocumentTransform {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DocumentTransform");
+        debug_struct.field("document", &self.document);
+        debug_struct.field("field_transforms", &self.field_transforms);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DocumentTransform].
 pub mod document_transform {
     #[allow(unused_imports)]
     use super::*;
 
     /// A transformation of a field of the document.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FieldTransform {
         /// The path of the field. See
@@ -18852,6 +19740,19 @@ pub mod document_transform {
         }
     }
 
+    impl std::fmt::Debug for FieldTransform {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FieldTransform");
+            debug_struct.field("field_path", &self.field_path);
+            debug_struct.field("transform_type", &self.transform_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [FieldTransform].
     pub mod field_transform {
         #[allow(unused_imports)]
@@ -19100,7 +20001,7 @@ pub mod document_transform {
 }
 
 /// The result of applying a write.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteResult {
     /// The last update time of the document after applying the write. Not set
@@ -19277,6 +20178,19 @@ impl serde::ser::Serialize for WriteResult {
     }
 }
 
+impl std::fmt::Debug for WriteResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WriteResult");
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("transform_results", &self.transform_results);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A [Document][google.firestore.v1.Document] has changed.
 ///
 /// May be the result of multiple [writes][google.firestore.v1.Write], including
@@ -19289,7 +20203,7 @@ impl serde::ser::Serialize for WriteResult {
 /// [google.firestore.v1.Document]: crate::model::Document
 /// [google.firestore.v1.DocumentChange]: crate::model::DocumentChange
 /// [google.firestore.v1.Write]: crate::model::Write
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentChange {
     /// The new state of the [Document][google.firestore.v1.Document].
@@ -19540,6 +20454,20 @@ impl serde::ser::Serialize for DocumentChange {
     }
 }
 
+impl std::fmt::Debug for DocumentChange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DocumentChange");
+        debug_struct.field("document", &self.document);
+        debug_struct.field("target_ids", &self.target_ids);
+        debug_struct.field("removed_target_ids", &self.removed_target_ids);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A [Document][google.firestore.v1.Document] has been deleted.
 ///
 /// May be the result of multiple [writes][google.firestore.v1.Write], including
@@ -19552,7 +20480,7 @@ impl serde::ser::Serialize for DocumentChange {
 /// [google.firestore.v1.Document]: crate::model::Document
 /// [google.firestore.v1.DocumentDelete]: crate::model::DocumentDelete
 /// [google.firestore.v1.Write]: crate::model::Write
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentDelete {
     /// The resource name of the [Document][google.firestore.v1.Document] that was
@@ -19776,6 +20704,20 @@ impl serde::ser::Serialize for DocumentDelete {
     }
 }
 
+impl std::fmt::Debug for DocumentDelete {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DocumentDelete");
+        debug_struct.field("document", &self.document);
+        debug_struct.field("removed_target_ids", &self.removed_target_ids);
+        debug_struct.field("read_time", &self.read_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A [Document][google.firestore.v1.Document] has been removed from the view of
 /// the targets.
 ///
@@ -19789,7 +20731,7 @@ impl serde::ser::Serialize for DocumentDelete {
 ///
 /// [google.firestore.v1.Document]: crate::model::Document
 /// [google.firestore.v1.DocumentRemove]: crate::model::DocumentRemove
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentRemove {
     /// The resource name of the [Document][google.firestore.v1.Document] that has
@@ -20013,8 +20955,22 @@ impl serde::ser::Serialize for DocumentRemove {
     }
 }
 
+impl std::fmt::Debug for DocumentRemove {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DocumentRemove");
+        debug_struct.field("document", &self.document);
+        debug_struct.field("removed_target_ids", &self.removed_target_ids);
+        debug_struct.field("read_time", &self.read_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A digest of all the documents that match a given target.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExistenceFilter {
     /// The target ID to which this filter applies.
@@ -20260,5 +21216,19 @@ impl serde::ser::Serialize for ExistenceFilter {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ExistenceFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExistenceFilter");
+        debug_struct.field("target_id", &self.target_id);
+        debug_struct.field("count", &self.count);
+        debug_struct.field("unchanged_names", &self.unchanged_names);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

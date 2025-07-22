@@ -35,7 +35,7 @@ extern crate wkt;
 /// Audit log information specific to Cloud IAM admin APIs. This message is
 /// serialized as an `Any` type in the `ServiceData` message of an
 /// `AuditLog` message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditData {
     /// The permission_delta when when creating or updating a Role.
@@ -176,6 +176,18 @@ impl serde::ser::Serialize for AuditData {
     }
 }
 
+impl std::fmt::Debug for AuditData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuditData");
+        debug_struct.field("permission_delta", &self.permission_delta);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AuditData].
 pub mod audit_data {
     #[allow(unused_imports)]
@@ -183,7 +195,7 @@ pub mod audit_data {
 
     /// A PermissionDelta message to record the added_permissions and
     /// removed_permissions inside a role.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PermissionDelta {
         /// Added permissions.
@@ -346,6 +358,19 @@ pub mod audit_data {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for PermissionDelta {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PermissionDelta");
+            debug_struct.field("added_permissions", &self.added_permissions);
+            debug_struct.field("removed_permissions", &self.removed_permissions);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// An IAM service account.
@@ -359,7 +384,7 @@ pub mod audit_data {
 /// service account, as well as a name that must be unique within the project.
 /// IAM uses these values to create an email address that identifies the service
 /// account.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceAccount {
     /// The resource name of the service account.
@@ -732,8 +757,28 @@ impl serde::ser::Serialize for ServiceAccount {
     }
 }
 
+impl std::fmt::Debug for ServiceAccount {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceAccount");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("unique_id", &self.unique_id);
+        debug_struct.field("email", &self.email);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("oauth2_client_id", &self.oauth2_client_id);
+        debug_struct.field("disabled", &self.disabled);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account create request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceAccountRequest {
     /// Required. The resource name of the project associated with the service
@@ -932,8 +977,22 @@ impl serde::ser::Serialize for CreateServiceAccountRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceAccountRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("account_id", &self.account_id);
+        debug_struct.field("service_account", &self.service_account);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account list request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceAccountsRequest {
     /// Required. The resource name of the project associated with the service
@@ -1141,8 +1200,22 @@ impl serde::ser::Serialize for ListServiceAccountsRequest {
     }
 }
 
+impl std::fmt::Debug for ListServiceAccountsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceAccountsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account list response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceAccountsResponse {
     /// The list of matching service accounts.
@@ -1321,8 +1394,21 @@ impl serde::ser::Serialize for ListServiceAccountsResponse {
     }
 }
 
+impl std::fmt::Debug for ListServiceAccountsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceAccountsResponse");
+        debug_struct.field("accounts", &self.accounts);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account get request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceAccountRequest {
     /// Required. The resource name of the service account in the following format:
@@ -1455,8 +1541,20 @@ impl serde::ser::Serialize for GetServiceAccountRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceAccountRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account delete request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceAccountRequest {
     /// Required. The resource name of the service account in the following format:
@@ -1589,6 +1687,18 @@ impl serde::ser::Serialize for DeleteServiceAccountRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceAccountRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account patch request.
 ///
 /// You can patch only the `display_name` and `description` fields. You must use
@@ -1596,7 +1706,7 @@ impl serde::ser::Serialize for DeleteServiceAccountRequest {
 ///
 /// Only the fields specified in the request are guaranteed to be returned in
 /// the response. Other fields may be empty in the response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PatchServiceAccountRequest {
     pub service_account: std::option::Option<crate::model::ServiceAccount>,
@@ -1772,8 +1882,21 @@ impl serde::ser::Serialize for PatchServiceAccountRequest {
     }
 }
 
+impl std::fmt::Debug for PatchServiceAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchServiceAccountRequest");
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account undelete request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteServiceAccountRequest {
     /// The resource name of the service account in the following format:
@@ -1905,7 +2028,19 @@ impl serde::ser::Serialize for UndeleteServiceAccountRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for UndeleteServiceAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteServiceAccountRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteServiceAccountResponse {
     /// Metadata for the restored service account.
@@ -2047,8 +2182,20 @@ impl serde::ser::Serialize for UndeleteServiceAccountResponse {
     }
 }
 
+impl std::fmt::Debug for UndeleteServiceAccountResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteServiceAccountResponse");
+        debug_struct.field("restored_account", &self.restored_account);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account enable request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableServiceAccountRequest {
     /// The resource name of the service account in the following format:
@@ -2181,8 +2328,20 @@ impl serde::ser::Serialize for EnableServiceAccountRequest {
     }
 }
 
+impl std::fmt::Debug for EnableServiceAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableServiceAccountRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account disable request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableServiceAccountRequest {
     /// The resource name of the service account in the following format:
@@ -2315,8 +2474,20 @@ impl serde::ser::Serialize for DisableServiceAccountRequest {
     }
 }
 
+impl std::fmt::Debug for DisableServiceAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableServiceAccountRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account keys list request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceAccountKeysRequest {
     /// Required. The resource name of the service account in the following format:
@@ -2486,6 +2657,19 @@ impl serde::ser::Serialize for ListServiceAccountKeysRequest {
     }
 }
 
+impl std::fmt::Debug for ListServiceAccountKeysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceAccountKeysRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("key_types", &self.key_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListServiceAccountKeysRequest].
 pub mod list_service_account_keys_request {
     #[allow(unused_imports)]
@@ -2627,7 +2811,7 @@ pub mod list_service_account_keys_request {
 }
 
 /// The service account keys list response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceAccountKeysResponse {
     /// The public keys for the service account.
@@ -2763,8 +2947,20 @@ impl serde::ser::Serialize for ListServiceAccountKeysResponse {
     }
 }
 
+impl std::fmt::Debug for ListServiceAccountKeysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceAccountKeysResponse");
+        debug_struct.field("keys", &self.keys);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account key get by id request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceAccountKeyRequest {
     /// Required. The resource name of the service account key in the following format:
@@ -2925,6 +3121,19 @@ impl serde::ser::Serialize for GetServiceAccountKeyRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceAccountKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceAccountKeyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("public_key_type", &self.public_key_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a service account key.
 ///
 /// A service account has two sets of key-pairs: user-managed, and
@@ -2949,7 +3158,7 @@ impl serde::ser::Serialize for GetServiceAccountKeyRequest {
 ///
 /// Public keys for all service accounts are also published at the OAuth2
 /// Service Account API.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceAccountKey {
     /// The resource name of the service account key in the following format
@@ -3389,8 +3598,29 @@ impl serde::ser::Serialize for ServiceAccountKey {
     }
 }
 
+impl std::fmt::Debug for ServiceAccountKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceAccountKey");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("private_key_type", &self.private_key_type);
+        debug_struct.field("key_algorithm", &self.key_algorithm);
+        debug_struct.field("private_key_data", &self.private_key_data);
+        debug_struct.field("public_key_data", &self.public_key_data);
+        debug_struct.field("valid_after_time", &self.valid_after_time);
+        debug_struct.field("valid_before_time", &self.valid_before_time);
+        debug_struct.field("key_origin", &self.key_origin);
+        debug_struct.field("key_type", &self.key_type);
+        debug_struct.field("disabled", &self.disabled);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account key create request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceAccountKeyRequest {
     /// Required. The resource name of the service account in the following format:
@@ -3581,8 +3811,22 @@ impl serde::ser::Serialize for CreateServiceAccountKeyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceAccountKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceAccountKeyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("private_key_type", &self.private_key_type);
+        debug_struct.field("key_algorithm", &self.key_algorithm);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account key upload request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UploadServiceAccountKeyRequest {
     /// The resource name of the service account in the following format:
@@ -3762,8 +4006,21 @@ impl serde::ser::Serialize for UploadServiceAccountKeyRequest {
     }
 }
 
+impl std::fmt::Debug for UploadServiceAccountKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UploadServiceAccountKeyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("public_key_data", &self.public_key_data);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account key delete request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceAccountKeyRequest {
     /// Required. The resource name of the service account key in the following format:
@@ -3896,8 +4153,20 @@ impl serde::ser::Serialize for DeleteServiceAccountKeyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceAccountKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceAccountKeyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account key disable request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableServiceAccountKeyRequest {
     /// Required. The resource name of the service account key in the following format:
@@ -4031,8 +4300,20 @@ impl serde::ser::Serialize for DisableServiceAccountKeyRequest {
     }
 }
 
+impl std::fmt::Debug for DisableServiceAccountKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableServiceAccountKeyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The service account key enable request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableServiceAccountKeyRequest {
     /// Required. The resource name of the service account key in the following format:
@@ -4166,11 +4447,23 @@ impl serde::ser::Serialize for EnableServiceAccountKeyRequest {
     }
 }
 
+impl std::fmt::Debug for EnableServiceAccountKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableServiceAccountKeyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Deprecated. [Migrate to Service Account Credentials
 /// API](https://cloud.google.com/iam/help/credentials/migrate-api).
 ///
 /// The service account sign blob request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignBlobRequest {
     /// Required. Deprecated. [Migrate to Service Account Credentials
@@ -4357,11 +4650,24 @@ impl serde::ser::Serialize for SignBlobRequest {
     }
 }
 
+impl std::fmt::Debug for SignBlobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SignBlobRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("bytes_to_sign", &self.bytes_to_sign);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Deprecated. [Migrate to Service Account Credentials
 /// API](https://cloud.google.com/iam/help/credentials/migrate-api).
 ///
 /// The service account sign blob response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignBlobResponse {
     /// Deprecated. [Migrate to Service Account Credentials
@@ -4543,11 +4849,24 @@ impl serde::ser::Serialize for SignBlobResponse {
     }
 }
 
+impl std::fmt::Debug for SignBlobResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SignBlobResponse");
+        debug_struct.field("key_id", &self.key_id);
+        debug_struct.field("signature", &self.signature);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Deprecated. [Migrate to Service Account Credentials
 /// API](https://cloud.google.com/iam/help/credentials/migrate-api).
 ///
 /// The service account sign JWT request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignJwtRequest {
     /// Required. Deprecated. [Migrate to Service Account Credentials
@@ -4723,11 +5042,24 @@ impl serde::ser::Serialize for SignJwtRequest {
     }
 }
 
+impl std::fmt::Debug for SignJwtRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SignJwtRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("payload", &self.payload);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Deprecated. [Migrate to Service Account Credentials
 /// API](https://cloud.google.com/iam/help/credentials/migrate-api).
 ///
 /// The service account sign JWT response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignJwtResponse {
     /// Deprecated. [Migrate to Service Account Credentials
@@ -4892,8 +5224,21 @@ impl serde::ser::Serialize for SignJwtResponse {
     }
 }
 
+impl std::fmt::Debug for SignJwtResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SignJwtResponse");
+        debug_struct.field("key_id", &self.key_id);
+        debug_struct.field("signed_jwt", &self.signed_jwt);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A role in the Identity and Access Management API.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Role {
     /// The name of the role.
@@ -5199,6 +5544,24 @@ impl serde::ser::Serialize for Role {
     }
 }
 
+impl std::fmt::Debug for Role {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Role");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("included_permissions", &self.included_permissions);
+        debug_struct.field("stage", &self.stage);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("deleted", &self.deleted);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Role].
 pub mod role {
     #[allow(unused_imports)]
@@ -5362,7 +5725,7 @@ pub mod role {
 }
 
 /// The grantable role query request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryGrantableRolesRequest {
     /// Required. The full resource name to query from the list of grantable roles.
@@ -5593,8 +5956,23 @@ impl serde::ser::Serialize for QueryGrantableRolesRequest {
     }
 }
 
+impl std::fmt::Debug for QueryGrantableRolesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryGrantableRolesRequest");
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+        debug_struct.field("view", &self.view);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The grantable role query response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryGrantableRolesResponse {
     /// The list of matching roles.
@@ -5766,8 +6144,21 @@ impl serde::ser::Serialize for QueryGrantableRolesResponse {
     }
 }
 
+impl std::fmt::Debug for QueryGrantableRolesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryGrantableRolesResponse");
+        debug_struct.field("roles", &self.roles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request to get all roles defined under a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRolesRequest {
     /// The `parent` parameter's value depends on the target resource for the
@@ -6048,8 +6439,24 @@ impl serde::ser::Serialize for ListRolesRequest {
     }
 }
 
+impl std::fmt::Debug for ListRolesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRolesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("view", &self.view);
+        debug_struct.field("show_deleted", &self.show_deleted);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response containing the roles defined under a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRolesResponse {
     /// The Roles defined on this resource.
@@ -6221,8 +6628,21 @@ impl serde::ser::Serialize for ListRolesResponse {
     }
 }
 
+impl std::fmt::Debug for ListRolesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRolesResponse");
+        debug_struct.field("roles", &self.roles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request to get the definition of an existing role.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRoleRequest {
     /// The `name` parameter's value depends on the target resource for the
@@ -6382,8 +6802,20 @@ impl serde::ser::Serialize for GetRoleRequest {
     }
 }
 
+impl std::fmt::Debug for GetRoleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRoleRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request to create a new role.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRoleRequest {
     /// The `parent` parameter's value depends on the target resource for the
@@ -6599,8 +7031,22 @@ impl serde::ser::Serialize for CreateRoleRequest {
     }
 }
 
+impl std::fmt::Debug for CreateRoleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateRoleRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("role_id", &self.role_id);
+        debug_struct.field("role", &self.role);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request to update a role.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRoleRequest {
     /// The `name` parameter's value depends on the target resource for the
@@ -6823,8 +7269,22 @@ impl serde::ser::Serialize for UpdateRoleRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateRoleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRoleRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("role", &self.role);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request to delete an existing role.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRoleRequest {
     /// The `name` parameter's value depends on the target resource for the
@@ -7018,8 +7478,21 @@ impl serde::ser::Serialize for DeleteRoleRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteRoleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRoleRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request to undelete an existing role.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteRoleRequest {
     /// The `name` parameter's value depends on the target resource for the
@@ -7213,8 +7686,21 @@ impl serde::ser::Serialize for UndeleteRoleRequest {
     }
 }
 
+impl std::fmt::Debug for UndeleteRoleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteRoleRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A permission which can be included by a role.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Permission {
     /// The name of this Permission.
@@ -7539,6 +8025,28 @@ impl serde::ser::Serialize for Permission {
     }
 }
 
+impl std::fmt::Debug for Permission {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Permission");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("only_in_predefined_roles", &self.only_in_predefined_roles);
+        debug_struct.field("stage", &self.stage);
+        debug_struct.field(
+            "custom_roles_support_level",
+            &self.custom_roles_support_level,
+        );
+        debug_struct.field("api_disabled", &self.api_disabled);
+        debug_struct.field("primary_permission", &self.primary_permission);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Permission].
 pub mod permission {
     #[allow(unused_imports)]
@@ -7819,7 +8327,7 @@ pub mod permission {
 }
 
 /// A request to get permissions which can be tested on a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryTestablePermissionsRequest {
     /// Required. The full resource name to query from the list of testable
@@ -8028,8 +8536,22 @@ impl serde::ser::Serialize for QueryTestablePermissionsRequest {
     }
 }
 
+impl std::fmt::Debug for QueryTestablePermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryTestablePermissionsRequest");
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response containing permissions which can be tested on a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryTestablePermissionsResponse {
     /// The Permissions testable on the requested resource.
@@ -8201,8 +8723,21 @@ impl serde::ser::Serialize for QueryTestablePermissionsResponse {
     }
 }
 
+impl std::fmt::Debug for QueryTestablePermissionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryTestablePermissionsResponse");
+        debug_struct.field("permissions", &self.permissions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get the list of auditable services for a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryAuditableServicesRequest {
     /// Required. The full resource name to query from the list of auditable
@@ -8340,8 +8875,20 @@ impl serde::ser::Serialize for QueryAuditableServicesRequest {
     }
 }
 
+impl std::fmt::Debug for QueryAuditableServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryAuditableServicesRequest");
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response containing a list of auditable services for a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryAuditableServicesResponse {
     /// The auditable services for a resource.
@@ -8473,13 +9020,25 @@ impl serde::ser::Serialize for QueryAuditableServicesResponse {
     }
 }
 
+impl std::fmt::Debug for QueryAuditableServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryAuditableServicesResponse");
+        debug_struct.field("services", &self.services);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QueryAuditableServicesResponse].
 pub mod query_auditable_services_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Contains information about an auditable service.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AuditableService {
         /// Public name of the service.
@@ -8611,10 +9170,22 @@ pub mod query_auditable_services_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AuditableService {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AuditableService");
+            debug_struct.field("name", &self.name);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The request to lint a Cloud IAM policy object.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LintPolicyRequest {
     /// The full resource name of the policy this lint request is about.
@@ -8826,6 +9397,19 @@ impl serde::ser::Serialize for LintPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for LintPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LintPolicyRequest");
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+        debug_struct.field("lint_object", &self.lint_object);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LintPolicyRequest].
 pub mod lint_policy_request {
     #[allow(unused_imports)]
@@ -8841,7 +9425,7 @@ pub mod lint_policy_request {
 }
 
 /// Structured response of a single validation unit.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LintResult {
     /// The validation unit level.
@@ -9124,6 +9708,23 @@ impl serde::ser::Serialize for LintResult {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LintResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LintResult");
+        debug_struct.field("level", &self.level);
+        debug_struct.field("validation_unit_name", &self.validation_unit_name);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("field_name", &self.field_name);
+        debug_struct.field("location_offset", &self.location_offset);
+        debug_struct.field("debug_message", &self.debug_message);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -9430,7 +10031,7 @@ pub mod lint_result {
 
 /// The response of a lint operation. An empty response indicates
 /// the operation was able to fully execute and no lint issue was found.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LintPolicyResponse {
     /// List of lint results sorted by `severity` in descending order.
@@ -9560,6 +10161,18 @@ impl serde::ser::Serialize for LintPolicyResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LintPolicyResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LintPolicyResponse");
+        debug_struct.field("lint_results", &self.lint_results);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

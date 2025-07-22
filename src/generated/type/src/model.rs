@@ -154,7 +154,7 @@ extern crate wkt;
 ///
 /// // ...
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Color {
     /// The amount of red in the color as a value in the interval [0, 1].
@@ -451,6 +451,21 @@ impl serde::ser::Serialize for Color {
     }
 }
 
+impl std::fmt::Debug for Color {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Color");
+        debug_struct.field("red", &self.red);
+        debug_struct.field("green", &self.green);
+        debug_struct.field("blue", &self.blue);
+        debug_struct.field("alpha", &self.alpha);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a whole or partial calendar date, such as a birthday. The time of
 /// day and time zone are either specified elsewhere or are insignificant. The
 /// date is relative to the Gregorian Calendar. This can represent one of the
@@ -466,7 +481,7 @@ impl serde::ser::Serialize for Color {
 /// `google.protobuf.Timestamp`.
 ///
 /// [google.type.TimeOfDay]: crate::model::TimeOfDay
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Date {
     /// Year of the date. Must be from 1 to 9999, or 0 to specify a date without
@@ -701,6 +716,20 @@ impl serde::ser::Serialize for Date {
     }
 }
 
+impl std::fmt::Debug for Date {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Date");
+        debug_struct.field("year", &self.year);
+        debug_struct.field("month", &self.month);
+        debug_struct.field("day", &self.day);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents civil time (or occasionally physical time).
 ///
 /// This type can represent a civil time in one of a few possible ways:
@@ -725,7 +754,7 @@ impl serde::ser::Serialize for Date {
 ///
 /// This type is more flexible than some applications may want. Make sure to
 /// document and validate your application's limitations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DateTime {
     /// Optional. Year of date. Must be from 1 to 9999, or 0 if specifying a
@@ -1250,6 +1279,25 @@ impl serde::ser::Serialize for DateTime {
     }
 }
 
+impl std::fmt::Debug for DateTime {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DateTime");
+        debug_struct.field("year", &self.year);
+        debug_struct.field("month", &self.month);
+        debug_struct.field("day", &self.day);
+        debug_struct.field("hours", &self.hours);
+        debug_struct.field("minutes", &self.minutes);
+        debug_struct.field("seconds", &self.seconds);
+        debug_struct.field("nanos", &self.nanos);
+        debug_struct.field("time_offset", &self.time_offset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DateTime].
 pub mod date_time {
     #[allow(unused_imports)]
@@ -1274,7 +1322,7 @@ pub mod date_time {
 
 /// Represents a time zone from the
 /// [IANA Time Zone Database](https://www.iana.org/time-zones).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeZone {
     /// IANA Time Zone Database time zone, e.g. "America/New_York".
@@ -1427,6 +1475,19 @@ impl serde::ser::Serialize for TimeZone {
     }
 }
 
+impl std::fmt::Debug for TimeZone {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeZone");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A representation of a decimal value, such as 2.5. Clients may convert values
 /// into language-native decimal formats, such as Java's [BigDecimal][] or
 /// Python's [decimal.Decimal][].
@@ -1435,7 +1496,7 @@ impl serde::ser::Serialize for TimeZone {
 ///  https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html
 /// [decimal.Decimal]:
 ///  https://docs.python.org/3/library/decimal.html
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Decimal {
     /// The decimal value, as a string.
@@ -1625,6 +1686,18 @@ impl serde::ser::Serialize for Decimal {
     }
 }
 
+impl std::fmt::Debug for Decimal {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Decimal");
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a textual expression in the Common Expression Language (CEL)
 /// syntax. CEL is a C-like expression language. The syntax and semantics of CEL
 /// are documented at <https://github.com/google/cel-spec>.
@@ -1664,7 +1737,7 @@ impl serde::ser::Serialize for Decimal {
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
 /// documentation for additional information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Expr {
     /// Textual representation of an expression in Common Expression Language
@@ -1870,8 +1943,23 @@ impl serde::ser::Serialize for Expr {
     }
 }
 
+impl std::fmt::Debug for Expr {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Expr");
+        debug_struct.field("expression", &self.expression);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a fraction in terms of a numerator divided by a denominator.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Fraction {
     /// The numerator in the fraction, e.g. 2 in 2/3.
@@ -2061,13 +2149,26 @@ impl serde::ser::Serialize for Fraction {
     }
 }
 
+impl std::fmt::Debug for Fraction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Fraction");
+        debug_struct.field("numerator", &self.numerator);
+        debug_struct.field("denominator", &self.denominator);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a time interval, encoded as a Timestamp start (inclusive) and a
 /// Timestamp end (exclusive).
 ///
 /// The start must be less than or equal to the end.
 /// When the start equals the end, the interval is empty (matches no time).
 /// When both start and end are unspecified, the interval matches any time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Interval {
     /// Optional. Inclusive start of the interval.
@@ -2250,12 +2351,25 @@ impl serde::ser::Serialize for Interval {
     }
 }
 
+impl std::fmt::Debug for Interval {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Interval");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An object that represents a latitude/longitude pair. This is expressed as a
 /// pair of doubles to represent degrees latitude and degrees longitude. Unless
 /// specified otherwise, this must conform to the
 /// <a href="http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf">WGS84
 /// standard</a>. Values must be within normalized ranges.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LatLng {
     /// The latitude in degrees. It must be in the range [-90.0, +90.0].
@@ -2444,8 +2558,21 @@ impl serde::ser::Serialize for LatLng {
     }
 }
 
+impl std::fmt::Debug for LatLng {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LatLng");
+        debug_struct.field("latitude", &self.latitude);
+        debug_struct.field("longitude", &self.longitude);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Localized variant of a text in a particular language.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocalizedText {
     /// Localized string in the language corresponding to `language_code' below.
@@ -2602,8 +2729,21 @@ impl serde::ser::Serialize for LocalizedText {
     }
 }
 
+impl std::fmt::Debug for LocalizedText {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocalizedText");
+        debug_struct.field("text", &self.text);
+        debug_struct.field("language_code", &self.language_code);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents an amount of money with its currency type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Money {
     /// The three-letter currency code defined in ISO 4217.
@@ -2823,6 +2963,20 @@ impl serde::ser::Serialize for Money {
     }
 }
 
+impl std::fmt::Debug for Money {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Money");
+        debug_struct.field("currency_code", &self.currency_code);
+        debug_struct.field("units", &self.units);
+        debug_struct.field("nanos", &self.nanos);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An object representing a phone number, suitable as an API wire format.
 ///
 /// This representation:
@@ -2852,7 +3006,7 @@ impl serde::ser::Serialize for Money {
 /// Reference(s):
 ///
 /// - <https://github.com/google/libphonenumber>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PhoneNumber {
     /// The phone number's extension. The extension is not standardized in ITU
@@ -3109,6 +3263,19 @@ impl serde::ser::Serialize for PhoneNumber {
     }
 }
 
+impl std::fmt::Debug for PhoneNumber {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PhoneNumber");
+        debug_struct.field("extension", &self.extension);
+        debug_struct.field("kind", &self.kind);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PhoneNumber].
 pub mod phone_number {
     #[allow(unused_imports)]
@@ -3123,7 +3290,7 @@ pub mod phone_number {
     /// dialable, which means the same short code can exist in different regions,
     /// with different usage and pricing, even if those regions share the same
     /// country calling code (e.g. US and CA).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ShortCode {
         /// Required. The BCP-47 region code of the location where calls to this
@@ -3286,6 +3453,19 @@ pub mod phone_number {
         }
     }
 
+    impl std::fmt::Debug for ShortCode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ShortCode");
+            debug_struct.field("region_code", &self.region_code);
+            debug_struct.field("number", &self.number);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Required.  Either a regular number, or a short code.  New fields may be
     /// added to the oneof below in the future, so clients should ignore phone
     /// numbers for which none of the fields they coded against are set.
@@ -3337,7 +3517,7 @@ pub mod phone_number {
 ///
 /// For more guidance on how to use this schema, please see:
 /// <https://support.google.com/business/answer/6397478>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostalAddress {
     /// The schema revision of the `PostalAddress`. This must be set to 0, which is
@@ -3797,6 +3977,28 @@ impl serde::ser::Serialize for PostalAddress {
     }
 }
 
+impl std::fmt::Debug for PostalAddress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PostalAddress");
+        debug_struct.field("revision", &self.revision);
+        debug_struct.field("region_code", &self.region_code);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("postal_code", &self.postal_code);
+        debug_struct.field("sorting_code", &self.sorting_code);
+        debug_struct.field("administrative_area", &self.administrative_area);
+        debug_struct.field("locality", &self.locality);
+        debug_struct.field("sublocality", &self.sublocality);
+        debug_struct.field("address_lines", &self.address_lines);
+        debug_struct.field("recipients", &self.recipients);
+        debug_struct.field("organization", &self.organization);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A quaternion is defined as the quotient of two directed lines in a
 /// three-dimensional space or equivalently as the quotient of two Euclidean
 /// vectors (<https://en.wikipedia.org/wiki/Quaternion>).
@@ -3856,7 +4058,7 @@ impl serde::ser::Serialize for PostalAddress {
 /// it would produce a unique representation. It is thus recommended that `w` be
 /// kept positive, which can be achieved by changing all the signs when `w` is
 /// negative.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Quaternion {
     /// The x component.
@@ -4129,13 +4331,28 @@ impl serde::ser::Serialize for Quaternion {
     }
 }
 
+impl std::fmt::Debug for Quaternion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Quaternion");
+        debug_struct.field("x", &self.x);
+        debug_struct.field("y", &self.y);
+        debug_struct.field("z", &self.z);
+        debug_struct.field("w", &self.w);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a time of day. The date and time zone are either not significant
 /// or are specified elsewhere. An API may choose to allow leap seconds. Related
 /// types are [google.type.Date][google.type.Date] and
 /// `google.protobuf.Timestamp`.
 ///
 /// [google.type.Date]: crate::model::Date
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeOfDay {
     /// Hours of day in 24 hour format. Should be from 0 to 23. An API may choose
@@ -4407,6 +4624,21 @@ impl serde::ser::Serialize for TimeOfDay {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for TimeOfDay {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeOfDay");
+        debug_struct.field("hours", &self.hours);
+        debug_struct.field("minutes", &self.minutes);
+        debug_struct.field("seconds", &self.seconds);
+        debug_struct.field("nanos", &self.nanos);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

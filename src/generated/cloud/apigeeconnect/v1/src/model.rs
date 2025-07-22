@@ -32,7 +32,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// The request for [ListConnections][Management.ListConnections].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionsRequest {
     /// Required. Parent name of the form:
@@ -236,9 +236,23 @@ impl serde::ser::Serialize for ListConnectionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListConnections][Management.ListConnections].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionsResponse {
     /// A list of clients.
@@ -410,7 +424,20 @@ impl serde::ser::Serialize for ListConnectionsResponse {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for ListConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectionsResponse");
+        debug_struct.field("connections", &self.connections);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connection {
     /// The endpoint that the connection is made against.
@@ -618,7 +645,21 @@ impl serde::ser::Serialize for Connection {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for Connection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Connection");
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("stream_count", &self.stream_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cluster {
     /// The name of the cluster.
@@ -771,8 +812,21 @@ impl serde::ser::Serialize for Cluster {
     }
 }
 
+impl std::fmt::Debug for Cluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Cluster");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("region", &self.region);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// gRPC request payload for tether.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EgressRequest {
     /// Unique identifier for the request.
@@ -1048,8 +1102,25 @@ impl serde::ser::Serialize for EgressRequest {
     }
 }
 
+impl std::fmt::Debug for EgressRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EgressRequest");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("payload", &self.payload);
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("trace_id", &self.trace_id);
+        debug_struct.field("timeout", &self.timeout);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Payload for EgressRequest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Payload {
     /// The kind of payload.
@@ -1311,6 +1382,18 @@ impl serde::ser::Serialize for Payload {
     }
 }
 
+impl std::fmt::Debug for Payload {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Payload");
+        debug_struct.field("kind", &self.kind);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Payload].
 pub mod payload {
     #[allow(unused_imports)]
@@ -1330,7 +1413,7 @@ pub mod payload {
 }
 
 /// The Information of bi-directional stream.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamInfo {
     /// Unique identifier for the stream.
@@ -1459,8 +1542,20 @@ impl serde::ser::Serialize for StreamInfo {
     }
 }
 
+impl std::fmt::Debug for StreamInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamInfo");
+        debug_struct.field("id", &self.id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// gRPC response payload for tether.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EgressResponse {
     /// Unique identifier for the response. Matches the EgressRequest's id.
@@ -1763,8 +1858,26 @@ impl serde::ser::Serialize for EgressResponse {
     }
 }
 
+impl std::fmt::Debug for EgressResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EgressResponse");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("http_response", &self.http_response);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("trace_id", &self.trace_id);
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The proto definition of http request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRequest {
     /// A unique identifier for the request.
@@ -2022,13 +2135,29 @@ impl serde::ser::Serialize for HttpRequest {
     }
 }
 
+impl std::fmt::Debug for HttpRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpRequest");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("method", &self.method);
+        debug_struct.field("url", &self.url);
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field("body", &self.body);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The proto definition of url.
 /// A url represents a URL and the general form represented is:
 ///
 /// `[scheme://][google.cloud.apigeeconnect.v1.Url.host][path]`
 ///
 /// [google.cloud.apigeeconnect.v1.Url.host]: crate::model::Url::host
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Url {
     /// Scheme.
@@ -2205,8 +2334,22 @@ impl serde::ser::Serialize for Url {
     }
 }
 
+impl std::fmt::Debug for Url {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Url");
+        debug_struct.field("scheme", &self.scheme);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("path", &self.path);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The http headers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Header {
     pub key: std::string::String,
@@ -2360,8 +2503,21 @@ impl serde::ser::Serialize for Header {
     }
 }
 
+impl std::fmt::Debug for Header {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Header");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("values", &self.values);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The proto definition of http response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpResponse {
     /// A unique identifier that matches the request ID.
@@ -2670,6 +2826,23 @@ impl serde::ser::Serialize for HttpResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for HttpResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpResponse");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("status_code", &self.status_code);
+        debug_struct.field("body", &self.body);
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field("content_length", &self.content_length);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

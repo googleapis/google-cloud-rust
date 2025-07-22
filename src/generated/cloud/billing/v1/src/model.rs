@@ -35,7 +35,7 @@ extern crate wkt;
 /// A billing account in the
 /// [Google Cloud Console](https://console.cloud.google.com/). You can assign a
 /// billing account to one or more projects.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BillingAccount {
     /// Output only. The resource name of the billing account. The resource name
@@ -317,10 +317,27 @@ impl serde::ser::Serialize for BillingAccount {
     }
 }
 
+impl std::fmt::Debug for BillingAccount {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BillingAccount");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("open", &self.open);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("master_billing_account", &self.master_billing_account);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("currency_code", &self.currency_code);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encapsulation of billing information for a Google Cloud Console project. A
 /// project has at most one associated billing account at a time (but a billing
 /// account can be assigned to multiple projects).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProjectBillingInfo {
     /// Output only. The resource name for the `ProjectBillingInfo`; has the form
@@ -536,8 +553,23 @@ impl serde::ser::Serialize for ProjectBillingInfo {
     }
 }
 
+impl std::fmt::Debug for ProjectBillingInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProjectBillingInfo");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("billing_account_name", &self.billing_account_name);
+        debug_struct.field("billing_enabled", &self.billing_enabled);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GetBillingAccount`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBillingAccountRequest {
     /// Required. The resource name of the billing account to retrieve. For
@@ -667,8 +699,20 @@ impl serde::ser::Serialize for GetBillingAccountRequest {
     }
 }
 
+impl std::fmt::Debug for GetBillingAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBillingAccountRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `ListBillingAccounts`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBillingAccountsRequest {
     /// Requested page size. The maximum page size is 100; this is also the
@@ -904,8 +948,23 @@ impl serde::ser::Serialize for ListBillingAccountsRequest {
     }
 }
 
+impl std::fmt::Debug for ListBillingAccountsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBillingAccountsRequest");
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("parent", &self.parent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `ListBillingAccounts`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBillingAccountsResponse {
     /// A list of billing accounts.
@@ -1083,8 +1142,21 @@ impl serde::ser::Serialize for ListBillingAccountsResponse {
     }
 }
 
+impl std::fmt::Debug for ListBillingAccountsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBillingAccountsResponse");
+        debug_struct.field("billing_accounts", &self.billing_accounts);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `CreateBillingAccount`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBillingAccountRequest {
     /// Required. The billing account resource to create.
@@ -1257,8 +1329,21 @@ impl serde::ser::Serialize for CreateBillingAccountRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBillingAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBillingAccountRequest");
+        debug_struct.field("billing_account", &self.billing_account);
+        debug_struct.field("parent", &self.parent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `UpdateBillingAccount`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBillingAccountRequest {
     /// Required. The name of the billing account resource to be updated.
@@ -1461,8 +1546,22 @@ impl serde::ser::Serialize for UpdateBillingAccountRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateBillingAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBillingAccountRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("account", &self.account);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `ListProjectBillingInfo`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProjectBillingInfoRequest {
     /// Required. The resource name of the billing account associated with the
@@ -1664,8 +1763,22 @@ impl serde::ser::Serialize for ListProjectBillingInfoRequest {
     }
 }
 
+impl std::fmt::Debug for ListProjectBillingInfoRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProjectBillingInfoRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `ListProjectBillingInfoResponse`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProjectBillingInfoResponse {
     /// A list of `ProjectBillingInfo` resources representing the projects
@@ -1844,8 +1957,21 @@ impl serde::ser::Serialize for ListProjectBillingInfoResponse {
     }
 }
 
+impl std::fmt::Debug for ListProjectBillingInfoResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProjectBillingInfoResponse");
+        debug_struct.field("project_billing_info", &self.project_billing_info);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GetProjectBillingInfo`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProjectBillingInfoRequest {
     /// Required. The resource name of the project for which billing information is
@@ -1975,8 +2101,20 @@ impl serde::ser::Serialize for GetProjectBillingInfoRequest {
     }
 }
 
+impl std::fmt::Debug for GetProjectBillingInfoRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProjectBillingInfoRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `UpdateProjectBillingInfo`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProjectBillingInfoRequest {
     /// Required. The resource name of the project associated with the billing
@@ -2145,8 +2283,21 @@ impl serde::ser::Serialize for UpdateProjectBillingInfoRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateProjectBillingInfoRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateProjectBillingInfoRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("project_billing_info", &self.project_billing_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `MoveBillingAccount` RPC.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveBillingAccountRequest {
     /// Required. The resource name of the billing account to move.
@@ -2308,8 +2459,21 @@ impl serde::ser::Serialize for MoveBillingAccountRequest {
     }
 }
 
+impl std::fmt::Debug for MoveBillingAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveBillingAccountRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("destination_parent", &self.destination_parent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encapsulates a single service in Google Cloud Platform.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
     /// The resource name for the service.
@@ -2519,8 +2683,23 @@ impl serde::ser::Serialize for Service {
     }
 }
 
+impl std::fmt::Debug for Service {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Service");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("service_id", &self.service_id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("business_entity_name", &self.business_entity_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encapsulates a single SKU in Google Cloud
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Sku {
     /// The resource name for the SKU.
@@ -2859,8 +3038,27 @@ impl serde::ser::Serialize for Sku {
     }
 }
 
+impl std::fmt::Debug for Sku {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Sku");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("sku_id", &self.sku_id);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("service_regions", &self.service_regions);
+        debug_struct.field("pricing_info", &self.pricing_info);
+        debug_struct.field("service_provider_name", &self.service_provider_name);
+        debug_struct.field("geo_taxonomy", &self.geo_taxonomy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the category hierarchy of a SKU.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Category {
     /// The display name of the service this SKU belongs to.
@@ -3071,8 +3269,23 @@ impl serde::ser::Serialize for Category {
     }
 }
 
+impl std::fmt::Debug for Category {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Category");
+        debug_struct.field("service_display_name", &self.service_display_name);
+        debug_struct.field("resource_family", &self.resource_family);
+        debug_struct.field("resource_group", &self.resource_group);
+        debug_struct.field("usage_type", &self.usage_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the pricing information for a SKU at a single point of time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PricingInfo {
     /// The timestamp from which this pricing was effective within the requested
@@ -3371,6 +3584,22 @@ impl serde::ser::Serialize for PricingInfo {
     }
 }
 
+impl std::fmt::Debug for PricingInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PricingInfo");
+        debug_struct.field("effective_time", &self.effective_time);
+        debug_struct.field("summary", &self.summary);
+        debug_struct.field("pricing_expression", &self.pricing_expression);
+        debug_struct.field("aggregation_info", &self.aggregation_info);
+        debug_struct.field("currency_conversion_rate", &self.currency_conversion_rate);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Expresses a mathematical pricing formula. For Example:-
 ///
 /// `usage_unit: GBy`
@@ -3381,7 +3610,7 @@ impl serde::ser::Serialize for PricingInfo {
 /// The above expresses a pricing formula where the first 20GB is free, the
 /// next 80GB is priced at $10 per GB followed by $5 per GB for additional
 /// usage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PricingExpression {
     /// The short hand for unit of usage this pricing is specified in.
@@ -3736,13 +3965,34 @@ impl serde::ser::Serialize for PricingExpression {
     }
 }
 
+impl std::fmt::Debug for PricingExpression {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PricingExpression");
+        debug_struct.field("usage_unit", &self.usage_unit);
+        debug_struct.field("display_quantity", &self.display_quantity);
+        debug_struct.field("tiered_rates", &self.tiered_rates);
+        debug_struct.field("usage_unit_description", &self.usage_unit_description);
+        debug_struct.field("base_unit", &self.base_unit);
+        debug_struct.field("base_unit_description", &self.base_unit_description);
+        debug_struct.field(
+            "base_unit_conversion_factor",
+            &self.base_unit_conversion_factor,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PricingExpression].
 pub mod pricing_expression {
     #[allow(unused_imports)]
     use super::*;
 
     /// The price rate indicating starting usage and its corresponding price.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TierRate {
         /// Usage is priced at this rate only after this amount.
@@ -3932,10 +4182,23 @@ pub mod pricing_expression {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for TierRate {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TierRate");
+            debug_struct.field("start_usage_amount", &self.start_usage_amount);
+            debug_struct.field("unit_price", &self.unit_price);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Represents the aggregation level and interval for pricing of a single SKU.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AggregationInfo {
     pub aggregation_level: crate::model::aggregation_info::AggregationLevel,
@@ -4145,6 +4408,20 @@ impl serde::ser::Serialize for AggregationInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AggregationInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AggregationInfo");
+        debug_struct.field("aggregation_level", &self.aggregation_level);
+        debug_struct.field("aggregation_interval", &self.aggregation_interval);
+        debug_struct.field("aggregation_count", &self.aggregation_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -4417,7 +4694,7 @@ pub mod aggregation_info {
 }
 
 /// Encapsulates the geographic taxonomy data for a sku.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GeoTaxonomy {
     /// The type of Geo Taxonomy: GLOBAL, REGIONAL, or MULTI_REGIONAL.
@@ -4575,6 +4852,19 @@ impl serde::ser::Serialize for GeoTaxonomy {
     }
 }
 
+impl std::fmt::Debug for GeoTaxonomy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GeoTaxonomy");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("regions", &self.regions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GeoTaxonomy].
 pub mod geo_taxonomy {
     #[allow(unused_imports)]
@@ -4723,7 +5013,7 @@ pub mod geo_taxonomy {
 }
 
 /// Request message for `ListServices`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
     /// Requested page size. Defaults to 5000.
@@ -4898,8 +5188,21 @@ impl serde::ser::Serialize for ListServicesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesRequest");
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `ListServices`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
     /// A list of services.
@@ -5072,8 +5375,21 @@ impl serde::ser::Serialize for ListServicesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesResponse");
+        debug_struct.field("services", &self.services);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `ListSkus`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSkusRequest {
     /// Required. The name of the service.
@@ -5382,8 +5698,25 @@ impl serde::ser::Serialize for ListSkusRequest {
     }
 }
 
+impl std::fmt::Debug for ListSkusRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSkusRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("currency_code", &self.currency_code);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `ListSkus`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSkusResponse {
     /// The list of public SKUs of the given service.
@@ -5553,5 +5886,18 @@ impl serde::ser::Serialize for ListSkusResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ListSkusResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSkusResponse");
+        debug_struct.field("skus", &self.skus);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

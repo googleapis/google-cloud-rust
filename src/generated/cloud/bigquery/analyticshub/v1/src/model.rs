@@ -36,7 +36,7 @@ extern crate wkt;
 /// A data exchange is a container that lets you share data. Along with the
 /// descriptive information about the data exchange, it contains listings that
 /// reference shared datasets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataExchange {
     /// Output only. The resource name of the data exchange.
@@ -487,9 +487,36 @@ impl serde::ser::Serialize for DataExchange {
     }
 }
 
+impl std::fmt::Debug for DataExchange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataExchange");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("primary_contact", &self.primary_contact);
+        debug_struct.field("documentation", &self.documentation);
+        debug_struct.field("listing_count", &self.listing_count);
+        debug_struct.field("icon", &self.icon);
+        debug_struct.field(
+            "sharing_environment_config",
+            &self.sharing_environment_config,
+        );
+        debug_struct.field("discovery_type", &self.discovery_type);
+        debug_struct.field(
+            "log_linked_dataset_query_user_email",
+            &self.log_linked_dataset_query_user_email,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Sharing environment is a behavior model for sharing data within a
 /// data exchange. This option is configurable for a data exchange.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SharingEnvironmentConfig {
     pub environment: std::option::Option<crate::model::sharing_environment_config::Environment>,
@@ -730,13 +757,25 @@ impl serde::ser::Serialize for SharingEnvironmentConfig {
     }
 }
 
+impl std::fmt::Debug for SharingEnvironmentConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SharingEnvironmentConfig");
+        debug_struct.field("environment", &self.environment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SharingEnvironmentConfig].
 pub mod sharing_environment_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Default Analytics Hub data exchange, used for secured data sharing.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DefaultExchangeConfig {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -841,8 +880,19 @@ pub mod sharing_environment_config {
         }
     }
 
+    impl std::fmt::Debug for DefaultExchangeConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DefaultExchangeConfig");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Data Clean Room (DCR), used for privacy-safe and secured data sharing.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DcrExchangeConfig {
         /// Output only. If True, this DCR restricts the contributors to sharing
@@ -1054,6 +1104,25 @@ pub mod sharing_environment_config {
         }
     }
 
+    impl std::fmt::Debug for DcrExchangeConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DcrExchangeConfig");
+            debug_struct.field(
+                "single_selected_resource_sharing_restriction",
+                &self.single_selected_resource_sharing_restriction,
+            );
+            debug_struct.field(
+                "single_linked_dataset_per_cleanroom",
+                &self.single_linked_dataset_per_cleanroom,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Environment {
@@ -1069,7 +1138,7 @@ pub mod sharing_environment_config {
 }
 
 /// Contains details of the data provider.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProvider {
     /// Optional. Name of the data provider.
@@ -1224,8 +1293,21 @@ impl serde::ser::Serialize for DataProvider {
     }
 }
 
+impl std::fmt::Debug for DataProvider {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProvider");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("primary_contact", &self.primary_contact);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains details of the listing publisher.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Publisher {
     /// Optional. Name of the listing publisher.
@@ -1380,7 +1462,20 @@ impl serde::ser::Serialize for Publisher {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for Publisher {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Publisher");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("primary_contact", &self.primary_contact);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationDatasetReference {
     /// Required. A unique ID for this dataset, without the project name. The ID
@@ -1537,8 +1632,21 @@ impl serde::ser::Serialize for DestinationDatasetReference {
     }
 }
 
+impl std::fmt::Debug for DestinationDatasetReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DestinationDatasetReference");
+        debug_struct.field("dataset_id", &self.dataset_id);
+        debug_struct.field("project_id", &self.project_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines the destination bigquery dataset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationDataset {
     /// Required. A reference that identifies the destination dataset.
@@ -1815,8 +1923,24 @@ impl serde::ser::Serialize for DestinationDataset {
     }
 }
 
+impl std::fmt::Debug for DestinationDataset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DestinationDataset");
+        debug_struct.field("dataset_reference", &self.dataset_reference);
+        debug_struct.field("friendly_name", &self.friendly_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines the destination Pub/Sub subscription.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationPubSubSubscription {
     /// Required. Destination Pub/Sub subscription resource.
@@ -1957,11 +2081,23 @@ impl serde::ser::Serialize for DestinationPubSubSubscription {
     }
 }
 
+impl std::fmt::Debug for DestinationPubSubSubscription {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DestinationPubSubSubscription");
+        debug_struct.field("pubsub_subscription", &self.pubsub_subscription);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A listing is what gets published into a data exchange that a subscriber can
 /// subscribe to. It contains a reference to the data source along with
 /// descriptive information that will help subscribers find and subscribe the
 /// data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Listing {
     /// Output only. The resource name of the listing.
@@ -2755,6 +2891,41 @@ impl serde::ser::Serialize for Listing {
     }
 }
 
+impl std::fmt::Debug for Listing {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Listing");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("primary_contact", &self.primary_contact);
+        debug_struct.field("documentation", &self.documentation);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("icon", &self.icon);
+        debug_struct.field("data_provider", &self.data_provider);
+        debug_struct.field("categories", &self.categories);
+        debug_struct.field("publisher", &self.publisher);
+        debug_struct.field("request_access", &self.request_access);
+        debug_struct.field("restricted_export_config", &self.restricted_export_config);
+        debug_struct.field("discovery_type", &self.discovery_type);
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("commercial_info", &self.commercial_info);
+        debug_struct.field(
+            "log_linked_dataset_query_user_email",
+            &self.log_linked_dataset_query_user_email,
+        );
+        debug_struct.field(
+            "allow_only_metadata_sharing",
+            &self.allow_only_metadata_sharing,
+        );
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Listing].
 pub mod listing {
     #[allow(unused_imports)]
@@ -2767,7 +2938,7 @@ pub mod listing {
     /// dataset in
     /// the subscriber's project. A Linked dataset is an opaque, read-only BigQuery
     /// dataset that serves as a _symbolic link_ to a shared dataset.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BigQueryDatasetSource {
         /// Optional. Resource name of the dataset source for this listing.
@@ -2979,13 +3150,27 @@ pub mod listing {
         }
     }
 
+    impl std::fmt::Debug for BigQueryDatasetSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BigQueryDatasetSource");
+            debug_struct.field("dataset", &self.dataset);
+            debug_struct.field("selected_resources", &self.selected_resources);
+            debug_struct.field("restricted_export_policy", &self.restricted_export_policy);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [BigQueryDatasetSource].
     pub mod big_query_dataset_source {
         #[allow(unused_imports)]
         use super::*;
 
         /// Resource in this dataset that is selectively shared.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SelectedResource {
             pub resource: std::option::Option<
@@ -3210,6 +3395,18 @@ pub mod listing {
             }
         }
 
+        impl std::fmt::Debug for SelectedResource {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("SelectedResource");
+                debug_struct.field("resource", &self.resource);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [SelectedResource].
         pub mod selected_resource {
             #[allow(unused_imports)]
@@ -3233,7 +3430,7 @@ pub mod listing {
 
         /// Restricted export policy used to configure restricted export on linked
         /// dataset.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct RestrictedExportPolicy {
             /// Optional. If true, enable restricted export.
@@ -3475,10 +3672,27 @@ pub mod listing {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for RestrictedExportPolicy {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("RestrictedExportPolicy");
+                debug_struct.field("enabled", &self.enabled);
+                debug_struct.field(
+                    "restrict_direct_table_access",
+                    &self.restrict_direct_table_access,
+                );
+                debug_struct.field("restrict_query_result", &self.restrict_query_result);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Pub/Sub topic source.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PubSubTopicSource {
         /// Required. Resource name of the Pub/Sub topic source for this listing.
@@ -3641,9 +3855,22 @@ pub mod listing {
         }
     }
 
+    impl std::fmt::Debug for PubSubTopicSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PubSubTopicSource");
+            debug_struct.field("topic", &self.topic);
+            debug_struct.field("data_affinity_regions", &self.data_affinity_regions);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Restricted export config, used to configure restricted export on linked
     /// dataset.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RestrictedExportConfig {
         /// Optional. If true, enable restricted export.
@@ -3837,9 +4064,26 @@ pub mod listing {
         }
     }
 
+    impl std::fmt::Debug for RestrictedExportConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RestrictedExportConfig");
+            debug_struct.field("enabled", &self.enabled);
+            debug_struct.field(
+                "restrict_direct_table_access",
+                &self.restrict_direct_table_access,
+            );
+            debug_struct.field("restrict_query_result", &self.restrict_query_result);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Commercial info contains the information about the commercial data products
     /// associated with the listing.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CommercialInfo {
         /// Output only. Details of the Marketplace Data Product associated with the
@@ -3989,6 +4233,18 @@ pub mod listing {
         }
     }
 
+    impl std::fmt::Debug for CommercialInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CommercialInfo");
+            debug_struct.field("cloud_marketplace", &self.cloud_marketplace);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [CommercialInfo].
     pub mod commercial_info {
         #[allow(unused_imports)]
@@ -3996,7 +4252,7 @@ pub mod listing {
 
         /// Specifies the details of the Marketplace Data Product associated with the
         /// Listing.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GoogleCloudMarketplaceInfo {
 
@@ -4179,6 +4435,19 @@ pub mod listing {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for GoogleCloudMarketplaceInfo {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("GoogleCloudMarketplaceInfo");
+                debug_struct.field("service", &self.service);
+                debug_struct.field("commercial_state", &self.commercial_state);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -4706,7 +4975,7 @@ pub mod listing {
 /// A subscription represents a subscribers' access to a particular set of
 /// published data. It contains references to associated listings,
 /// data exchanges, and linked datasets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subscription {
     /// Output only. The resource name of the subscription.
@@ -5351,13 +5620,41 @@ impl serde::ser::Serialize for Subscription {
     }
 }
 
+impl std::fmt::Debug for Subscription {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Subscription");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("creation_time", &self.creation_time);
+        debug_struct.field("last_modify_time", &self.last_modify_time);
+        debug_struct.field("organization_id", &self.organization_id);
+        debug_struct.field("organization_display_name", &self.organization_display_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("linked_dataset_map", &self.linked_dataset_map);
+        debug_struct.field("subscriber_contact", &self.subscriber_contact);
+        debug_struct.field("linked_resources", &self.linked_resources);
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("commercial_info", &self.commercial_info);
+        debug_struct.field(
+            "log_linked_dataset_query_user_email",
+            &self.log_linked_dataset_query_user_email,
+        );
+        debug_struct.field("destination_dataset", &self.destination_dataset);
+        debug_struct.field("resource_name", &self.resource_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Subscription].
 pub mod subscription {
     #[allow(unused_imports)]
     use super::*;
 
     /// Reference to a linked resource tracked by this Subscription.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LinkedResource {
         /// Output only. Listing for which linked resource is created.
@@ -5613,6 +5910,19 @@ pub mod subscription {
         }
     }
 
+    impl std::fmt::Debug for LinkedResource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LinkedResource");
+            debug_struct.field("listing", &self.listing);
+            debug_struct.field("reference", &self.reference);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [LinkedResource].
     pub mod linked_resource {
         #[allow(unused_imports)]
@@ -5631,7 +5941,7 @@ pub mod subscription {
     }
 
     /// Commercial info metadata for this subscription.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CommercialInfo {
         /// Output only. This is set when the subscription is commercialised via
@@ -5782,13 +6092,25 @@ pub mod subscription {
         }
     }
 
+    impl std::fmt::Debug for CommercialInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CommercialInfo");
+            debug_struct.field("cloud_marketplace", &self.cloud_marketplace);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [CommercialInfo].
     pub mod commercial_info {
         #[allow(unused_imports)]
         use super::*;
 
         /// Cloud Marketplace commercial metadata for this subscription.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GoogleCloudMarketplaceInfo {
             /// Resource name of the Marketplace Order.
@@ -5920,6 +6242,18 @@ pub mod subscription {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for GoogleCloudMarketplaceInfo {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("GoogleCloudMarketplaceInfo");
+                debug_struct.field("order", &self.order);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
     }
@@ -6078,7 +6412,7 @@ pub mod subscription {
 }
 
 /// Message for requesting the list of data exchanges.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataExchangesRequest {
     /// Required. The parent resource path of the data exchanges.
@@ -6278,8 +6612,22 @@ impl serde::ser::Serialize for ListDataExchangesRequest {
     }
 }
 
+impl std::fmt::Debug for ListDataExchangesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataExchangesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to the list of data exchanges.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataExchangesResponse {
     /// The list of data exchanges.
@@ -6451,9 +6799,22 @@ impl serde::ser::Serialize for ListDataExchangesResponse {
     }
 }
 
+impl std::fmt::Debug for ListDataExchangesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataExchangesResponse");
+        debug_struct.field("data_exchanges", &self.data_exchanges);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting the list of data exchanges from projects in an
 /// organization and location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrgDataExchangesRequest {
     /// Required. The organization resource path of the projects containing
@@ -6653,9 +7014,23 @@ impl serde::ser::Serialize for ListOrgDataExchangesRequest {
     }
 }
 
+impl std::fmt::Debug for ListOrgDataExchangesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOrgDataExchangesRequest");
+        debug_struct.field("organization", &self.organization);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing data exchanges in an organization and
 /// location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrgDataExchangesResponse {
     /// The list of data exchanges.
@@ -6827,8 +7202,21 @@ impl serde::ser::Serialize for ListOrgDataExchangesResponse {
     }
 }
 
+impl std::fmt::Debug for ListOrgDataExchangesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOrgDataExchangesResponse");
+        debug_struct.field("data_exchanges", &self.data_exchanges);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a data exchange.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDataExchangeRequest {
     /// Required. The resource name of the data exchange.
@@ -6958,8 +7346,20 @@ impl serde::ser::Serialize for GetDataExchangeRequest {
     }
 }
 
+impl std::fmt::Debug for GetDataExchangeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDataExchangeRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a data exchange.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDataExchangeRequest {
     /// Required. The parent resource path of the data exchange.
@@ -7155,8 +7555,22 @@ impl serde::ser::Serialize for CreateDataExchangeRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDataExchangeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDataExchangeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("data_exchange_id", &self.data_exchange_id);
+        debug_struct.field("data_exchange", &self.data_exchange);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a data exchange.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDataExchangeRequest {
     /// Required. Field mask specifies the fields to update in the data exchange
@@ -7335,8 +7749,21 @@ impl serde::ser::Serialize for UpdateDataExchangeRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDataExchangeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDataExchangeRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("data_exchange", &self.data_exchange);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a data exchange.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDataExchangeRequest {
     /// Required. The full name of the data exchange resource that you want to
@@ -7466,8 +7893,20 @@ impl serde::ser::Serialize for DeleteDataExchangeRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDataExchangeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDataExchangeRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting the list of listings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListListingsRequest {
     /// Required. The parent resource path of the listing.
@@ -7667,8 +8106,22 @@ impl serde::ser::Serialize for ListListingsRequest {
     }
 }
 
+impl std::fmt::Debug for ListListingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListListingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to the list of Listings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListListingsResponse {
     /// The list of Listing.
@@ -7839,8 +8292,21 @@ impl serde::ser::Serialize for ListListingsResponse {
     }
 }
 
+impl std::fmt::Debug for ListListingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListListingsResponse");
+        debug_struct.field("listings", &self.listings);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a listing.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetListingRequest {
     /// Required. The resource name of the listing.
@@ -7970,8 +8436,20 @@ impl serde::ser::Serialize for GetListingRequest {
     }
 }
 
+impl std::fmt::Debug for GetListingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetListingRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a listing.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateListingRequest {
     /// Required. The parent resource path of the listing.
@@ -8163,8 +8641,22 @@ impl serde::ser::Serialize for CreateListingRequest {
     }
 }
 
+impl std::fmt::Debug for CreateListingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateListingRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("listing_id", &self.listing_id);
+        debug_struct.field("listing", &self.listing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a Listing.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateListingRequest {
     /// Required. Field mask specifies the fields to update in the listing
@@ -8342,8 +8834,21 @@ impl serde::ser::Serialize for UpdateListingRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateListingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateListingRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("listing", &self.listing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a listing.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteListingRequest {
     /// Required. Resource name of the listing to delete.
@@ -8500,8 +9005,21 @@ impl serde::ser::Serialize for DeleteListingRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteListingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteListingRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("delete_commercial", &self.delete_commercial);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for subscribing to a listing.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubscribeListingRequest {
     /// Required. Resource name of the listing that you want to subscribe to.
@@ -8766,6 +9284,19 @@ impl serde::ser::Serialize for SubscribeListingRequest {
     }
 }
 
+impl std::fmt::Debug for SubscribeListingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubscribeListingRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("destination", &self.destination);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SubscribeListingRequest].
 pub mod subscribe_listing_request {
     #[allow(unused_imports)]
@@ -8784,7 +9315,7 @@ pub mod subscribe_listing_request {
 }
 
 /// Message for response when you subscribe to a listing.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubscribeListingResponse {
     /// Subscription object created from this subscribe action.
@@ -8924,8 +9455,20 @@ impl serde::ser::Serialize for SubscribeListingResponse {
     }
 }
 
+impl std::fmt::Debug for SubscribeListingResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubscribeListingResponse");
+        debug_struct.field("subscription", &self.subscription);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for subscribing to a Data Exchange.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubscribeDataExchangeRequest {
     /// Required. Resource name of the Data Exchange.
@@ -9169,8 +9712,24 @@ impl serde::ser::Serialize for SubscribeDataExchangeRequest {
     }
 }
 
+impl std::fmt::Debug for SubscribeDataExchangeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubscribeDataExchangeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("destination", &self.destination);
+        debug_struct.field("destination_dataset", &self.destination_dataset);
+        debug_struct.field("subscription", &self.subscription);
+        debug_struct.field("subscriber_contact", &self.subscriber_contact);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response when you subscribe to a Data Exchange.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubscribeDataExchangeResponse {
     /// Subscription object created from this subscribe action.
@@ -9310,8 +9869,20 @@ impl serde::ser::Serialize for SubscribeDataExchangeResponse {
     }
 }
 
+impl std::fmt::Debug for SubscribeDataExchangeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubscribeDataExchangeResponse");
+        debug_struct.field("subscription", &self.subscription);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for refreshing a subscription.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RefreshSubscriptionRequest {
     /// Required. Resource name of the Subscription to refresh.
@@ -9441,8 +10012,20 @@ impl serde::ser::Serialize for RefreshSubscriptionRequest {
     }
 }
 
+impl std::fmt::Debug for RefreshSubscriptionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RefreshSubscriptionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response when you refresh a subscription.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RefreshSubscriptionResponse {
     /// The refreshed subscription resource.
@@ -9582,8 +10165,20 @@ impl serde::ser::Serialize for RefreshSubscriptionResponse {
     }
 }
 
+impl std::fmt::Debug for RefreshSubscriptionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RefreshSubscriptionResponse");
+        debug_struct.field("subscription", &self.subscription);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a subscription.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSubscriptionRequest {
     /// Required. Resource name of the subscription.
@@ -9713,8 +10308,20 @@ impl serde::ser::Serialize for GetSubscriptionRequest {
     }
 }
 
+impl std::fmt::Debug for GetSubscriptionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSubscriptionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for listing subscriptions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubscriptionsRequest {
     /// Required. The parent resource path of the subscription.
@@ -9950,8 +10557,23 @@ impl serde::ser::Serialize for ListSubscriptionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListSubscriptionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSubscriptionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to the listing of subscriptions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubscriptionsResponse {
     /// The list of subscriptions.
@@ -10122,8 +10744,21 @@ impl serde::ser::Serialize for ListSubscriptionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListSubscriptionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSubscriptionsResponse");
+        debug_struct.field("subscriptions", &self.subscriptions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for listing subscriptions of a shared resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSharedResourceSubscriptionsRequest {
     /// Required. Resource name of the requested target. This resource may be
@@ -10357,8 +10992,26 @@ impl serde::ser::Serialize for ListSharedResourceSubscriptionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListSharedResourceSubscriptionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSharedResourceSubscriptionsRequest");
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field(
+            "include_deleted_subscriptions",
+            &self.include_deleted_subscriptions,
+        );
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to the listing of shared resource subscriptions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSharedResourceSubscriptionsResponse {
     /// The list of subscriptions.
@@ -10538,8 +11191,24 @@ impl serde::ser::Serialize for ListSharedResourceSubscriptionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListSharedResourceSubscriptionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSharedResourceSubscriptionsResponse");
+        debug_struct.field(
+            "shared_resource_subscriptions",
+            &self.shared_resource_subscriptions,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for revoking a subscription.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RevokeSubscriptionRequest {
     /// Required. Resource name of the subscription to revoke.
@@ -10696,9 +11365,22 @@ impl serde::ser::Serialize for RevokeSubscriptionRequest {
     }
 }
 
+impl std::fmt::Debug for RevokeSubscriptionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RevokeSubscriptionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("revoke_commercial", &self.revoke_commercial);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response when you revoke a subscription.
 /// Empty for now.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RevokeSubscriptionResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10800,8 +11482,19 @@ impl serde::ser::Serialize for RevokeSubscriptionResponse {
     }
 }
 
+impl std::fmt::Debug for RevokeSubscriptionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RevokeSubscriptionResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a subscription.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSubscriptionRequest {
     /// Required. Resource name of the subscription to delete.
@@ -10931,8 +11624,20 @@ impl serde::ser::Serialize for DeleteSubscriptionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSubscriptionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSubscriptionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of a long-running operation in Analytics Hub.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -11238,12 +11943,30 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines the destination Pub/Sub subscription.
 /// If none of `push_config`, `bigquery_config`, `cloud_storage_config`,
 /// `pubsub_export_config`, or `pubsublite_export_config`
 /// is set, then the subscriber will pull and ack messages using API methods. At
 /// most one of these fields may be set.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PubSubSubscription {
     /// Required. Name of the subscription.
@@ -11947,6 +12670,39 @@ impl serde::ser::Serialize for PubSubSubscription {
     }
 }
 
+impl std::fmt::Debug for PubSubSubscription {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PubSubSubscription");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("push_config", &self.push_config);
+        debug_struct.field("bigquery_config", &self.bigquery_config);
+        debug_struct.field("cloud_storage_config", &self.cloud_storage_config);
+        debug_struct.field("ack_deadline_seconds", &self.ack_deadline_seconds);
+        debug_struct.field("retain_acked_messages", &self.retain_acked_messages);
+        debug_struct.field(
+            "message_retention_duration",
+            &self.message_retention_duration,
+        );
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("enable_message_ordering", &self.enable_message_ordering);
+        debug_struct.field("expiration_policy", &self.expiration_policy);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("dead_letter_policy", &self.dead_letter_policy);
+        debug_struct.field("retry_policy", &self.retry_policy);
+        debug_struct.field("detached", &self.detached);
+        debug_struct.field(
+            "enable_exactly_once_delivery",
+            &self.enable_exactly_once_delivery,
+        );
+        debug_struct.field("message_transforms", &self.message_transforms);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A policy that specifies how Pub/Sub retries message delivery.
 ///
 /// Retry delay will be exponential based on provided minimum and maximum
@@ -11958,7 +12714,7 @@ impl serde::ser::Serialize for PubSubSubscription {
 /// Retry Policy is implemented on a best effort basis. At times, the delay
 /// between consecutive deliveries may not match the configuration. That is,
 /// delay can be more or less than configured backoff.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryPolicy {
     /// Optional. The minimum delay between consecutive deliveries of a given
@@ -12138,12 +12894,25 @@ impl serde::ser::Serialize for RetryPolicy {
     }
 }
 
+impl std::fmt::Debug for RetryPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetryPolicy");
+        debug_struct.field("minimum_backoff", &self.minimum_backoff);
+        debug_struct.field("maximum_backoff", &self.maximum_backoff);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Dead lettering is done on a best effort basis. The same message might be
 /// dead lettered multiple times.
 ///
 /// If validation on any of the fields fails at subscription creation/updation,
 /// the create/update subscription request will fail.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeadLetterPolicy {
     /// Optional. The name of the topic to which dead letter messages should be
@@ -12340,9 +13109,22 @@ impl serde::ser::Serialize for DeadLetterPolicy {
     }
 }
 
+impl std::fmt::Debug for DeadLetterPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeadLetterPolicy");
+        debug_struct.field("dead_letter_topic", &self.dead_letter_topic);
+        debug_struct.field("max_delivery_attempts", &self.max_delivery_attempts);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A policy that specifies the conditions for resource expiration (i.e.,
 /// automatic resource deletion).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExpirationPolicy {
     /// Optional. Specifies the "time-to-live" duration for an associated resource.
@@ -12486,8 +13268,20 @@ impl serde::ser::Serialize for ExpirationPolicy {
     }
 }
 
+impl std::fmt::Debug for ExpirationPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExpirationPolicy");
+        debug_struct.field("ttl", &self.ttl);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for a push delivery endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PushConfig {
     /// Optional. A URL locating the endpoint to which messages should be pushed.
@@ -12880,6 +13674,21 @@ impl serde::ser::Serialize for PushConfig {
     }
 }
 
+impl std::fmt::Debug for PushConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PushConfig");
+        debug_struct.field("push_endpoint", &self.push_endpoint);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("authentication_method", &self.authentication_method);
+        debug_struct.field("wrapper", &self.wrapper);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PushConfig].
 pub mod push_config {
     #[allow(unused_imports)]
@@ -12888,7 +13697,7 @@ pub mod push_config {
     /// Contains information needed for generating an
     /// [OpenID Connect
     /// token](https://developers.google.com/identity/protocols/OpenIDConnect).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OidcToken {
         /// Optional. [Service account
@@ -13058,10 +13867,23 @@ pub mod push_config {
         }
     }
 
+    impl std::fmt::Debug for OidcToken {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("OidcToken");
+            debug_struct.field("service_account_email", &self.service_account_email);
+            debug_struct.field("audience", &self.audience);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The payload to the push endpoint is in the form of the JSON representation
     /// of a PubsubMessage
     /// (<https://cloud.google.com/pubsub/docs/reference/rpc/google.pubsub.v1#pubsubmessage>).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PubsubWrapper {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13166,8 +13988,19 @@ pub mod push_config {
         }
     }
 
+    impl std::fmt::Debug for PubsubWrapper {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PubsubWrapper");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Sets the `data` field as the HTTP body for delivery.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NoWrapper {
         /// Optional. When true, writes the Pub/Sub message metadata to
@@ -13302,6 +14135,18 @@ pub mod push_config {
         }
     }
 
+    impl std::fmt::Debug for NoWrapper {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NoWrapper");
+            debug_struct.field("write_metadata", &self.write_metadata);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// An authentication method used by push endpoints to verify the source of
     /// push requests. This can be used with push endpoints that are private by
     /// default to allow requests only from the Pub/Sub system, for example.
@@ -13331,7 +14176,7 @@ pub mod push_config {
 }
 
 /// Configuration for a BigQuery subscription.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryConfig {
     /// Optional. The name of the table to which to write data, of the form
@@ -13606,8 +14451,25 @@ impl serde::ser::Serialize for BigQueryConfig {
     }
 }
 
+impl std::fmt::Debug for BigQueryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryConfig");
+        debug_struct.field("table", &self.table);
+        debug_struct.field("use_topic_schema", &self.use_topic_schema);
+        debug_struct.field("write_metadata", &self.write_metadata);
+        debug_struct.field("drop_unknown_fields", &self.drop_unknown_fields);
+        debug_struct.field("use_table_schema", &self.use_table_schema);
+        debug_struct.field("service_account_email", &self.service_account_email);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for a Cloud Storage subscription.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageConfig {
     /// Required. User-provided name for the Cloud Storage bucket.
@@ -14126,6 +14988,26 @@ impl serde::ser::Serialize for CloudStorageConfig {
     }
 }
 
+impl std::fmt::Debug for CloudStorageConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudStorageConfig");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("filename_prefix", &self.filename_prefix);
+        debug_struct.field("filename_suffix", &self.filename_suffix);
+        debug_struct.field("filename_datetime_format", &self.filename_datetime_format);
+        debug_struct.field("max_duration", &self.max_duration);
+        debug_struct.field("max_bytes", &self.max_bytes);
+        debug_struct.field("max_messages", &self.max_messages);
+        debug_struct.field("service_account_email", &self.service_account_email);
+        debug_struct.field("output_format", &self.output_format);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CloudStorageConfig].
 pub mod cloud_storage_config {
     #[allow(unused_imports)]
@@ -14134,7 +15016,7 @@ pub mod cloud_storage_config {
     /// Configuration for writing message data in text format.
     /// Message payloads will be written to files as raw text, separated by a
     /// newline.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextConfig {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -14239,9 +15121,20 @@ pub mod cloud_storage_config {
         }
     }
 
+    impl std::fmt::Debug for TextConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TextConfig");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for writing message data in Avro format.
     /// Message payloads and metadata will be written to files as an Avro binary.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AvroConfig {
         /// Optional. When true, write the subscription name, message_id,
@@ -14405,6 +15298,19 @@ pub mod cloud_storage_config {
         }
     }
 
+    impl std::fmt::Debug for AvroConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AvroConfig");
+            debug_struct.field("write_metadata", &self.write_metadata);
+            debug_struct.field("use_topic_schema", &self.use_topic_schema);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defaults to text format.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -14419,7 +15325,7 @@ pub mod cloud_storage_config {
 }
 
 /// All supported message transforms types.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageTransform {
     /// Optional. This field is deprecated, use the `disabled` field to disable
@@ -14651,6 +15557,20 @@ impl serde::ser::Serialize for MessageTransform {
     }
 }
 
+impl std::fmt::Debug for MessageTransform {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MessageTransform");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("transform", &self.transform);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MessageTransform].
 pub mod message_transform {
     #[allow(unused_imports)]
@@ -14668,7 +15588,7 @@ pub mod message_transform {
 
 /// User-defined JavaScript function that can transform or filter a Pub/Sub
 /// message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JavaScriptUDF {
     /// Required. Name of the JavasScript function that should applied to Pub/Sub
@@ -14849,6 +15769,19 @@ impl serde::ser::Serialize for JavaScriptUDF {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for JavaScriptUDF {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JavaScriptUDF");
+        debug_struct.field("function_name", &self.function_name);
+        debug_struct.field("code", &self.code);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

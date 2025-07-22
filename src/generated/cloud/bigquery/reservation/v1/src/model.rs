@@ -32,7 +32,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A reservation is a mechanism used to guarantee slots to users.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Reservation {
     /// The resource name of the reservation, e.g.,
@@ -604,13 +604,37 @@ impl serde::ser::Serialize for Reservation {
     }
 }
 
+impl std::fmt::Debug for Reservation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Reservation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("slot_capacity", &self.slot_capacity);
+        debug_struct.field("ignore_idle_slots", &self.ignore_idle_slots);
+        debug_struct.field("autoscale", &self.autoscale);
+        debug_struct.field("concurrency", &self.concurrency);
+        debug_struct.field("creation_time", &self.creation_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("multi_region_auxiliary", &self.multi_region_auxiliary);
+        debug_struct.field("edition", &self.edition);
+        debug_struct.field("primary_location", &self.primary_location);
+        debug_struct.field("secondary_location", &self.secondary_location);
+        debug_struct.field("original_primary_location", &self.original_primary_location);
+        debug_struct.field("replication_status", &self.replication_status);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Reservation].
 pub mod reservation {
     #[allow(unused_imports)]
     use super::*;
 
     /// Auto scaling settings.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Autoscale {
         /// Output only. The slot capacity added to this reservation when autoscale
@@ -810,8 +834,21 @@ pub mod reservation {
         }
     }
 
+    impl std::fmt::Debug for Autoscale {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Autoscale");
+            debug_struct.field("current_slots", &self.current_slots);
+            debug_struct.field("max_slots", &self.max_slots);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Disaster Recovery(DR) replication status of the reservation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReplicationStatus {
         /// Output only. The last error encountered while trying to replicate changes
@@ -1030,6 +1067,20 @@ pub mod reservation {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ReplicationStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ReplicationStatus");
+            debug_struct.field("error", &self.error);
+            debug_struct.field("last_error_time", &self.last_error_time);
+            debug_struct.field("last_replication_time", &self.last_replication_time);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Capacity commitment is a way to purchase compute capacity for BigQuery jobs
@@ -1042,7 +1093,7 @@ pub mod reservation {
 ///
 /// A capacity commitment resource exists as a child resource of the admin
 /// project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CapacityCommitment {
     /// Output only. The resource name of the capacity commitment, e.g.,
@@ -1504,6 +1555,28 @@ impl serde::ser::Serialize for CapacityCommitment {
     }
 }
 
+impl std::fmt::Debug for CapacityCommitment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityCommitment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("slot_count", &self.slot_count);
+        debug_struct.field("plan", &self.plan);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("commitment_start_time", &self.commitment_start_time);
+        debug_struct.field("commitment_end_time", &self.commitment_end_time);
+        debug_struct.field("failure_status", &self.failure_status);
+        debug_struct.field("renewal_plan", &self.renewal_plan);
+        debug_struct.field("multi_region_auxiliary", &self.multi_region_auxiliary);
+        debug_struct.field("edition", &self.edition);
+        debug_struct.field("is_flat_rate", &self.is_flat_rate);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CapacityCommitment].
 pub mod capacity_commitment {
     #[allow(unused_imports)]
@@ -1862,7 +1935,7 @@ pub mod capacity_commitment {
 /// [ReservationService.CreateReservation][google.cloud.bigquery.reservation.v1.ReservationService.CreateReservation].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.CreateReservation]: crate::client::ReservationService::create_reservation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReservationRequest {
     /// Required. Project, location. E.g.,
@@ -2054,11 +2127,25 @@ impl serde::ser::Serialize for CreateReservationRequest {
     }
 }
 
+impl std::fmt::Debug for CreateReservationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateReservationRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("reservation_id", &self.reservation_id);
+        debug_struct.field("reservation", &self.reservation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.ListReservations][google.cloud.bigquery.reservation.v1.ReservationService.ListReservations].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.ListReservations]: crate::client::ReservationService::list_reservations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReservationsRequest {
     /// Required. The parent resource name containing project and location, e.g.:
@@ -2256,11 +2343,25 @@ impl serde::ser::Serialize for ListReservationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListReservationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReservationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ReservationService.ListReservations][google.cloud.bigquery.reservation.v1.ReservationService.ListReservations].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.ListReservations]: crate::client::ReservationService::list_reservations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReservationsResponse {
     /// List of reservations visible to the user.
@@ -2432,11 +2533,24 @@ impl serde::ser::Serialize for ListReservationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListReservationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReservationsResponse");
+        debug_struct.field("reservations", &self.reservations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.GetReservation][google.cloud.bigquery.reservation.v1.ReservationService.GetReservation].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.GetReservation]: crate::client::ReservationService::get_reservation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReservationRequest {
     /// Required. Resource name of the reservation to retrieve. E.g.,
@@ -2566,11 +2680,23 @@ impl serde::ser::Serialize for GetReservationRequest {
     }
 }
 
+impl std::fmt::Debug for GetReservationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetReservationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.DeleteReservation][google.cloud.bigquery.reservation.v1.ReservationService.DeleteReservation].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.DeleteReservation]: crate::client::ReservationService::delete_reservation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteReservationRequest {
     /// Required. Resource name of the reservation to retrieve. E.g.,
@@ -2700,11 +2826,23 @@ impl serde::ser::Serialize for DeleteReservationRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteReservationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteReservationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.UpdateReservation][google.cloud.bigquery.reservation.v1.ReservationService.UpdateReservation].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.UpdateReservation]: crate::client::ReservationService::update_reservation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateReservationRequest {
     /// Content of the reservation to update.
@@ -2880,8 +3018,21 @@ impl serde::ser::Serialize for UpdateReservationRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateReservationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateReservationRequest");
+        debug_struct.field("reservation", &self.reservation);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for ReservationService.FailoverReservation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FailoverReservationRequest {
     /// Required. Resource name of the reservation to failover. E.g.,
@@ -3011,11 +3162,23 @@ impl serde::ser::Serialize for FailoverReservationRequest {
     }
 }
 
+impl std::fmt::Debug for FailoverReservationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FailoverReservationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.CreateCapacityCommitment][google.cloud.bigquery.reservation.v1.ReservationService.CreateCapacityCommitment].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.CreateCapacityCommitment]: crate::client::ReservationService::create_capacity_commitment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCapacityCommitmentRequest {
     /// Required. Resource name of the parent reservation. E.g.,
@@ -3249,11 +3412,29 @@ impl serde::ser::Serialize for CreateCapacityCommitmentRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCapacityCommitmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCapacityCommitmentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("capacity_commitment", &self.capacity_commitment);
+        debug_struct.field(
+            "enforce_single_admin_project_per_org",
+            &self.enforce_single_admin_project_per_org,
+        );
+        debug_struct.field("capacity_commitment_id", &self.capacity_commitment_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.ListCapacityCommitments][google.cloud.bigquery.reservation.v1.ReservationService.ListCapacityCommitments].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.ListCapacityCommitments]: crate::client::ReservationService::list_capacity_commitments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCapacityCommitmentsRequest {
     /// Required. Resource name of the parent reservation. E.g.,
@@ -3451,11 +3632,25 @@ impl serde::ser::Serialize for ListCapacityCommitmentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListCapacityCommitmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCapacityCommitmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ReservationService.ListCapacityCommitments][google.cloud.bigquery.reservation.v1.ReservationService.ListCapacityCommitments].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.ListCapacityCommitments]: crate::client::ReservationService::list_capacity_commitments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCapacityCommitmentsResponse {
     /// List of capacity commitments visible to the user.
@@ -3632,11 +3827,24 @@ impl serde::ser::Serialize for ListCapacityCommitmentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListCapacityCommitmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCapacityCommitmentsResponse");
+        debug_struct.field("capacity_commitments", &self.capacity_commitments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.GetCapacityCommitment][google.cloud.bigquery.reservation.v1.ReservationService.GetCapacityCommitment].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.GetCapacityCommitment]: crate::client::ReservationService::get_capacity_commitment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCapacityCommitmentRequest {
     /// Required. Resource name of the capacity commitment to retrieve. E.g.,
@@ -3766,11 +3974,23 @@ impl serde::ser::Serialize for GetCapacityCommitmentRequest {
     }
 }
 
+impl std::fmt::Debug for GetCapacityCommitmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCapacityCommitmentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.DeleteCapacityCommitment][google.cloud.bigquery.reservation.v1.ReservationService.DeleteCapacityCommitment].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.DeleteCapacityCommitment]: crate::client::ReservationService::delete_capacity_commitment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCapacityCommitmentRequest {
     /// Required. Resource name of the capacity commitment to delete. E.g.,
@@ -3926,11 +4146,24 @@ impl serde::ser::Serialize for DeleteCapacityCommitmentRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCapacityCommitmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCapacityCommitmentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.UpdateCapacityCommitment][google.cloud.bigquery.reservation.v1.ReservationService.UpdateCapacityCommitment].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.UpdateCapacityCommitment]: crate::client::ReservationService::update_capacity_commitment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCapacityCommitmentRequest {
     /// Content of the capacity commitment to update.
@@ -4107,11 +4340,24 @@ impl serde::ser::Serialize for UpdateCapacityCommitmentRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCapacityCommitmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCapacityCommitmentRequest");
+        debug_struct.field("capacity_commitment", &self.capacity_commitment);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.SplitCapacityCommitment][google.cloud.bigquery.reservation.v1.ReservationService.SplitCapacityCommitment].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.SplitCapacityCommitment]: crate::client::ReservationService::split_capacity_commitment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SplitCapacityCommitmentRequest {
     /// Required. The resource name e.g.,:
@@ -4284,11 +4530,24 @@ impl serde::ser::Serialize for SplitCapacityCommitmentRequest {
     }
 }
 
+impl std::fmt::Debug for SplitCapacityCommitmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SplitCapacityCommitmentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("slot_count", &self.slot_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ReservationService.SplitCapacityCommitment][google.cloud.bigquery.reservation.v1.ReservationService.SplitCapacityCommitment].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.SplitCapacityCommitment]: crate::client::ReservationService::split_capacity_commitment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SplitCapacityCommitmentResponse {
     /// First capacity commitment, result of a split.
@@ -4463,11 +4722,24 @@ impl serde::ser::Serialize for SplitCapacityCommitmentResponse {
     }
 }
 
+impl std::fmt::Debug for SplitCapacityCommitmentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SplitCapacityCommitmentResponse");
+        debug_struct.field("first", &self.first);
+        debug_struct.field("second", &self.second);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.MergeCapacityCommitments][google.cloud.bigquery.reservation.v1.ReservationService.MergeCapacityCommitments].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.MergeCapacityCommitments]: crate::client::ReservationService::merge_capacity_commitments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MergeCapacityCommitmentsRequest {
     /// Parent resource that identifies admin project and location e.g.,
@@ -4629,9 +4901,22 @@ impl serde::ser::Serialize for MergeCapacityCommitmentsRequest {
     }
 }
 
+impl std::fmt::Debug for MergeCapacityCommitmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MergeCapacityCommitmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("capacity_commitment_ids", &self.capacity_commitment_ids);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An assignment allows a project to submit jobs
 /// of a certain type using slots from the specified reservation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Assignment {
     /// Output only. Name of the resource. E.g.:
@@ -4873,6 +5158,22 @@ impl serde::ser::Serialize for Assignment {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Assignment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Assignment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("assignee", &self.assignee);
+        debug_struct.field("job_type", &self.job_type);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("enable_gemini_in_bigquery", &self.enable_gemini_in_bigquery);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -5179,7 +5480,7 @@ pub mod assignment {
 /// related assignee.
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.CreateAssignment]: crate::client::ReservationService::create_assignment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAssignmentRequest {
     /// Required. The parent resource name of the assignment
@@ -5372,11 +5673,25 @@ impl serde::ser::Serialize for CreateAssignmentRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAssignmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAssignmentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("assignment", &self.assignment);
+        debug_struct.field("assignment_id", &self.assignment_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.ListAssignments][google.cloud.bigquery.reservation.v1.ReservationService.ListAssignments].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.ListAssignments]: crate::client::ReservationService::list_assignments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAssignmentsRequest {
     /// Required. The parent resource name e.g.:
@@ -5579,11 +5894,25 @@ impl serde::ser::Serialize for ListAssignmentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAssignmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAssignmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ReservationService.ListAssignments][google.cloud.bigquery.reservation.v1.ReservationService.ListAssignments].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.ListAssignments]: crate::client::ReservationService::list_assignments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAssignmentsResponse {
     /// List of assignments visible to the user.
@@ -5755,13 +6084,26 @@ impl serde::ser::Serialize for ListAssignmentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAssignmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAssignmentsResponse");
+        debug_struct.field("assignments", &self.assignments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.DeleteAssignment][google.cloud.bigquery.reservation.v1.ReservationService.DeleteAssignment].
 /// Note: "bigquery.reservationAssignments.delete" permission is required on the
 /// related assignee.
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.DeleteAssignment]: crate::client::ReservationService::delete_assignment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAssignmentRequest {
     /// Required. Name of the resource, e.g.
@@ -5891,13 +6233,25 @@ impl serde::ser::Serialize for DeleteAssignmentRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAssignmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAssignmentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.SearchAssignments][google.cloud.bigquery.reservation.v1.ReservationService.SearchAssignments].
 /// Note: "bigquery.reservationAssignments.search" permission is required on the
 /// related assignee.
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.SearchAssignments]: crate::client::ReservationService::search_assignments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchAssignmentsRequest {
     /// Required. The resource name of the admin project(containing project and
@@ -6126,13 +6480,28 @@ impl serde::ser::Serialize for SearchAssignmentsRequest {
     }
 }
 
+impl std::fmt::Debug for SearchAssignmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchAssignmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.SearchAllAssignments][google.cloud.bigquery.reservation.v1.ReservationService.SearchAllAssignments].
 /// Note: "bigquery.reservationAssignments.search" permission is required on the
 /// related assignee.
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.SearchAllAssignments]: crate::client::ReservationService::search_all_assignments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchAllAssignmentsRequest {
     /// Required. The resource name with location (project name could be the
@@ -6361,11 +6730,26 @@ impl serde::ser::Serialize for SearchAllAssignmentsRequest {
     }
 }
 
+impl std::fmt::Debug for SearchAllAssignmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchAllAssignmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ReservationService.SearchAssignments][google.cloud.bigquery.reservation.v1.ReservationService.SearchAssignments].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.SearchAssignments]: crate::client::ReservationService::search_assignments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchAssignmentsResponse {
     /// List of assignments visible to the user.
@@ -6537,11 +6921,24 @@ impl serde::ser::Serialize for SearchAssignmentsResponse {
     }
 }
 
+impl std::fmt::Debug for SearchAssignmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchAssignmentsResponse");
+        debug_struct.field("assignments", &self.assignments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ReservationService.SearchAllAssignments][google.cloud.bigquery.reservation.v1.ReservationService.SearchAllAssignments].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.SearchAllAssignments]: crate::client::ReservationService::search_all_assignments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchAllAssignmentsResponse {
     /// List of assignments visible to the user.
@@ -6713,6 +7110,19 @@ impl serde::ser::Serialize for SearchAllAssignmentsResponse {
     }
 }
 
+impl std::fmt::Debug for SearchAllAssignmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchAllAssignmentsResponse");
+        debug_struct.field("assignments", &self.assignments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.MoveAssignment][google.cloud.bigquery.reservation.v1.ReservationService.MoveAssignment].
 ///
@@ -6724,7 +7134,7 @@ impl serde::ser::Serialize for SearchAllAssignmentsResponse {
 /// related assignee.
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.MoveAssignment]: crate::client::ReservationService::move_assignment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveAssignmentRequest {
     /// Required. The resource name of the assignment,
@@ -6910,11 +7320,25 @@ impl serde::ser::Serialize for MoveAssignmentRequest {
     }
 }
 
+impl std::fmt::Debug for MoveAssignmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveAssignmentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("destination_id", &self.destination_id);
+        debug_struct.field("assignment_id", &self.assignment_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ReservationService.UpdateAssignment][google.cloud.bigquery.reservation.v1.ReservationService.UpdateAssignment].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.UpdateAssignment]: crate::client::ReservationService::update_assignment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAssignmentRequest {
     /// Content of the assignment to update.
@@ -7090,9 +7514,22 @@ impl serde::ser::Serialize for UpdateAssignmentRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAssignmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAssignmentRequest");
+        debug_struct.field("assignment", &self.assignment);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Fully qualified reference to BigQuery table.
 /// Internally stored as google.cloud.bi.v1.BqTableReference.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableReference {
     /// The assigned project ID of the project.
@@ -7272,8 +7709,22 @@ impl serde::ser::Serialize for TableReference {
     }
 }
 
+impl std::fmt::Debug for TableReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableReference");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("dataset_id", &self.dataset_id);
+        debug_struct.field("table_id", &self.table_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a BI Reservation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BiReservation {
     /// The resource name of the singleton BI reservation.
@@ -7514,8 +7965,23 @@ impl serde::ser::Serialize for BiReservation {
     }
 }
 
+impl std::fmt::Debug for BiReservation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BiReservation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("size", &self.size);
+        debug_struct.field("preferred_tables", &self.preferred_tables);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get a singleton BI reservation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBiReservationRequest {
     /// Required. Name of the requested reservation, for example:
@@ -7645,8 +8111,20 @@ impl serde::ser::Serialize for GetBiReservationRequest {
     }
 }
 
+impl std::fmt::Debug for GetBiReservationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBiReservationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to update a BI reservation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBiReservationRequest {
     /// A reservation to update.
@@ -7820,6 +8298,19 @@ impl serde::ser::Serialize for UpdateBiReservationRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdateBiReservationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBiReservationRequest");
+        debug_struct.field("bi_reservation", &self.bi_reservation);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

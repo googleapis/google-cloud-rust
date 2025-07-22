@@ -31,7 +31,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Message for requesting list of QuotaInfos
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQuotaInfosRequest {
     /// Required. Parent value of QuotaInfo resources.
@@ -236,8 +236,22 @@ impl serde::ser::Serialize for ListQuotaInfosRequest {
     }
 }
 
+impl std::fmt::Debug for ListQuotaInfosRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListQuotaInfosRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing QuotaInfos
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQuotaInfosResponse {
     /// The list of QuotaInfo
@@ -410,8 +424,21 @@ impl serde::ser::Serialize for ListQuotaInfosResponse {
     }
 }
 
+impl std::fmt::Debug for ListQuotaInfosResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListQuotaInfosResponse");
+        debug_struct.field("quota_infos", &self.quota_infos);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a QuotaInfo
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetQuotaInfoRequest {
     /// Required. The resource name of the quota info.
@@ -543,8 +570,20 @@ impl serde::ser::Serialize for GetQuotaInfoRequest {
     }
 }
 
+impl std::fmt::Debug for GetQuotaInfoRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetQuotaInfoRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of QuotaPreferences
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQuotaPreferencesRequest {
     /// Required. Parent value of QuotaPreference resources.
@@ -810,8 +849,24 @@ impl serde::ser::Serialize for ListQuotaPreferencesRequest {
     }
 }
 
+impl std::fmt::Debug for ListQuotaPreferencesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListQuotaPreferencesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing QuotaPreferences
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQuotaPreferencesResponse {
     /// The list of QuotaPreference
@@ -1015,8 +1070,22 @@ impl serde::ser::Serialize for ListQuotaPreferencesResponse {
     }
 }
 
+impl std::fmt::Debug for ListQuotaPreferencesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListQuotaPreferencesResponse");
+        debug_struct.field("quota_preferences", &self.quota_preferences);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a QuotaPreference
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetQuotaPreferenceRequest {
     /// Required. Name of the resource
@@ -1148,8 +1217,20 @@ impl serde::ser::Serialize for GetQuotaPreferenceRequest {
     }
 }
 
+impl std::fmt::Debug for GetQuotaPreferenceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetQuotaPreferenceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a QuotaPreference
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateQuotaPreferenceRequest {
     /// Required. Value for parent.
@@ -1379,8 +1460,23 @@ impl serde::ser::Serialize for CreateQuotaPreferenceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateQuotaPreferenceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateQuotaPreferenceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("quota_preference_id", &self.quota_preference_id);
+        debug_struct.field("quota_preference", &self.quota_preference);
+        debug_struct.field("ignore_safety_checks", &self.ignore_safety_checks);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a QuotaPreference
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateQuotaPreferenceRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -1647,9 +1743,25 @@ impl serde::ser::Serialize for UpdateQuotaPreferenceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateQuotaPreferenceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateQuotaPreferenceRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("quota_preference", &self.quota_preference);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("ignore_safety_checks", &self.ignore_safety_checks);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// QuotaInfo represents information about a particular quota for a given
 /// project, folder or organization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaInfo {
     /// Resource name of this QuotaInfo.
@@ -2205,6 +2317,36 @@ impl serde::ser::Serialize for QuotaInfo {
     }
 }
 
+impl std::fmt::Debug for QuotaInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuotaInfo");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("quota_id", &self.quota_id);
+        debug_struct.field("metric", &self.metric);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("is_precise", &self.is_precise);
+        debug_struct.field("refresh_interval", &self.refresh_interval);
+        debug_struct.field("container_type", &self.container_type);
+        debug_struct.field("dimensions", &self.dimensions);
+        debug_struct.field("metric_display_name", &self.metric_display_name);
+        debug_struct.field("quota_display_name", &self.quota_display_name);
+        debug_struct.field("metric_unit", &self.metric_unit);
+        debug_struct.field(
+            "quota_increase_eligibility",
+            &self.quota_increase_eligibility,
+        );
+        debug_struct.field("is_fixed", &self.is_fixed);
+        debug_struct.field("dimensions_infos", &self.dimensions_infos);
+        debug_struct.field("is_concurrent", &self.is_concurrent);
+        debug_struct.field("service_request_quota_uri", &self.service_request_quota_uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QuotaInfo].
 pub mod quota_info {
     #[allow(unused_imports)]
@@ -2351,7 +2493,7 @@ pub mod quota_info {
 }
 
 /// Eligibility information regarding requesting increase adjustment of a quota.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaIncreaseEligibility {
     /// Whether a higher quota value can be requested for the quota.
@@ -2515,6 +2657,19 @@ impl serde::ser::Serialize for QuotaIncreaseEligibility {
     }
 }
 
+impl std::fmt::Debug for QuotaIncreaseEligibility {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuotaIncreaseEligibility");
+        debug_struct.field("is_eligible", &self.is_eligible);
+        debug_struct.field("ineligibility_reason", &self.ineligibility_reason);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QuotaIncreaseEligibility].
 pub mod quota_increase_eligibility {
     #[allow(unused_imports)]
@@ -2675,7 +2830,7 @@ pub mod quota_increase_eligibility {
 /// QuotaPreference represents the preferred quota configuration specified for
 /// a project, folder or organization. There is only one QuotaPreference
 /// resource for a quota value targeting a unique set of dimensions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaPreference {
     /// Required except in the CREATE requests.
@@ -3123,8 +3278,30 @@ impl serde::ser::Serialize for QuotaPreference {
     }
 }
 
+impl std::fmt::Debug for QuotaPreference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuotaPreference");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("dimensions", &self.dimensions);
+        debug_struct.field("quota_config", &self.quota_config);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("quota_id", &self.quota_id);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("justification", &self.justification);
+        debug_struct.field("contact_email", &self.contact_email);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The preferred quota configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaConfig {
     /// Required. The preferred value. Must be greater than or equal to -1. If set
@@ -3448,6 +3625,23 @@ impl serde::ser::Serialize for QuotaConfig {
     }
 }
 
+impl std::fmt::Debug for QuotaConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuotaConfig");
+        debug_struct.field("preferred_value", &self.preferred_value);
+        debug_struct.field("state_detail", &self.state_detail);
+        debug_struct.field("granted_value", &self.granted_value);
+        debug_struct.field("trace_id", &self.trace_id);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("request_origin", &self.request_origin);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QuotaConfig].
 pub mod quota_config {
     #[allow(unused_imports)]
@@ -3588,7 +3782,7 @@ pub mod quota_config {
 
 /// The detailed quota information such as effective quota value for a
 /// combination of dimensions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DimensionsInfo {
     /// The map of dimensions for this dimensions info. The key of a map entry
@@ -3801,8 +3995,22 @@ impl serde::ser::Serialize for DimensionsInfo {
     }
 }
 
+impl std::fmt::Debug for DimensionsInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DimensionsInfo");
+        debug_struct.field("dimensions", &self.dimensions);
+        debug_struct.field("details", &self.details);
+        debug_struct.field("applicable_locations", &self.applicable_locations);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The quota details for a map of dimensions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaDetails {
     /// The value currently in effect and being enforced.
@@ -3987,8 +4195,21 @@ impl serde::ser::Serialize for QuotaDetails {
     }
 }
 
+impl std::fmt::Debug for QuotaDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuotaDetails");
+        debug_struct.field("value", &self.value);
+        debug_struct.field("rollout_info", &self.rollout_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// [Output only] Rollout information of a quota.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutInfo {
     /// Whether there is an ongoing rollout for a quota or not.
@@ -4115,6 +4336,18 @@ impl serde::ser::Serialize for RolloutInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for RolloutInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutInfo");
+        debug_struct.field("ongoing_rollout", &self.ongoing_rollout);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

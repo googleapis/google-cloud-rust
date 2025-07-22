@@ -36,7 +36,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -344,8 +344,26 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The ServiceConnectionMap resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceConnectionMap {
     /// Immutable. The name of a ServiceConnectionMap.
@@ -861,13 +879,37 @@ impl serde::ser::Serialize for ServiceConnectionMap {
     }
 }
 
+impl std::fmt::Debug for ServiceConnectionMap {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceConnectionMap");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("service_class", &self.service_class);
+        debug_struct.field("service_class_uri", &self.service_class_uri);
+        debug_struct.field("infrastructure", &self.infrastructure);
+        debug_struct.field("producer_psc_configs", &self.producer_psc_configs);
+        debug_struct.field("consumer_psc_configs", &self.consumer_psc_configs);
+        debug_struct.field("consumer_psc_connections", &self.consumer_psc_connections);
+        debug_struct.field("token", &self.token);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServiceConnectionMap].
 pub mod service_connection_map {
     #[allow(unused_imports)]
     use super::*;
 
     /// The PSC configurations on producer side.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProducerPscConfig {
         /// The resource path of a service attachment.
@@ -1007,8 +1049,20 @@ pub mod service_connection_map {
         }
     }
 
+    impl std::fmt::Debug for ProducerPscConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ProducerPscConfig");
+            debug_struct.field("service_attachment_uri", &self.service_attachment_uri);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Allow the producer to specify which consumers can connect to it.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConsumerPscConfig {
         /// The consumer project where PSC connections are allowed to be created in.
@@ -1419,6 +1473,32 @@ pub mod service_connection_map {
         }
     }
 
+    impl std::fmt::Debug for ConsumerPscConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConsumerPscConfig");
+            debug_struct.field("project", &self.project);
+            debug_struct.field("network", &self.network);
+            debug_struct.field("disable_global_access", &self.disable_global_access);
+            debug_struct.field("state", &self.state);
+            debug_struct.field("producer_instance_id", &self.producer_instance_id);
+            debug_struct.field(
+                "service_attachment_ip_address_map",
+                &self.service_attachment_ip_address_map,
+            );
+            debug_struct.field("consumer_instance_project", &self.consumer_instance_project);
+            debug_struct.field(
+                "producer_instance_metadata",
+                &self.producer_instance_metadata,
+            );
+            debug_struct.field("ip_version", &self.ip_version);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ConsumerPscConfig].
     pub mod consumer_psc_config {
         #[allow(unused_imports)]
@@ -1586,7 +1666,7 @@ pub mod service_connection_map {
     }
 
     /// PSC connection details on consumer side.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConsumerPscConnection {
         /// The URI of a service attachment which is the target of the PSC
@@ -2163,6 +2243,35 @@ pub mod service_connection_map {
         }
     }
 
+    impl std::fmt::Debug for ConsumerPscConnection {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConsumerPscConnection");
+            debug_struct.field("service_attachment_uri", &self.service_attachment_uri);
+            debug_struct.field("state", &self.state);
+            debug_struct.field("project", &self.project);
+            debug_struct.field("network", &self.network);
+            debug_struct.field("psc_connection_id", &self.psc_connection_id);
+            debug_struct.field("ip", &self.ip);
+            debug_struct.field("error_type", &self.error_type);
+            debug_struct.field("error", &self.error);
+            debug_struct.field("gce_operation", &self.gce_operation);
+            debug_struct.field("forwarding_rule", &self.forwarding_rule);
+            debug_struct.field("error_info", &self.error_info);
+            debug_struct.field("selected_subnetwork", &self.selected_subnetwork);
+            debug_struct.field("producer_instance_id", &self.producer_instance_id);
+            debug_struct.field(
+                "producer_instance_metadata",
+                &self.producer_instance_metadata,
+            );
+            debug_struct.field("ip_version", &self.ip_version);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ConsumerPscConnection].
     pub mod consumer_psc_connection {
         #[allow(unused_imports)]
@@ -2339,7 +2448,7 @@ pub mod service_connection_map {
 }
 
 /// Request for ListServiceConnectionMaps.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceConnectionMapsRequest {
     /// Required. The parent resource's name. ex. projects/123/locations/us-east1
@@ -2585,8 +2694,24 @@ impl serde::ser::Serialize for ListServiceConnectionMapsRequest {
     }
 }
 
+impl std::fmt::Debug for ListServiceConnectionMapsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceConnectionMapsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListServiceConnectionMaps.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceConnectionMapsResponse {
     /// ServiceConnectionMaps to be returned.
@@ -2790,8 +2915,22 @@ impl serde::ser::Serialize for ListServiceConnectionMapsResponse {
     }
 }
 
+impl std::fmt::Debug for ListServiceConnectionMapsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceConnectionMapsResponse");
+        debug_struct.field("service_connection_maps", &self.service_connection_maps);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetServiceConnectionMap.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceConnectionMapRequest {
     /// Required. Name of the ServiceConnectionMap to get.
@@ -2920,8 +3059,20 @@ impl serde::ser::Serialize for GetServiceConnectionMapRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceConnectionMapRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceConnectionMapRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateServiceConnectionMap.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceConnectionMapRequest {
     /// Required. The parent resource's name of the ServiceConnectionMap. ex.
@@ -3158,8 +3309,23 @@ impl serde::ser::Serialize for CreateServiceConnectionMapRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceConnectionMapRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceConnectionMapRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("service_connection_map_id", &self.service_connection_map_id);
+        debug_struct.field("service_connection_map", &self.service_connection_map);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateServiceConnectionMap.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceConnectionMapRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -3377,8 +3543,22 @@ impl serde::ser::Serialize for UpdateServiceConnectionMapRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServiceConnectionMapRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServiceConnectionMapRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("service_connection_map", &self.service_connection_map);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteServiceConnectionMap.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceConnectionMapRequest {
     /// Required. The name of the ServiceConnectionMap to delete.
@@ -3581,8 +3761,22 @@ impl serde::ser::Serialize for DeleteServiceConnectionMapRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceConnectionMapRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceConnectionMapRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The ServiceConnectionPolicy resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceConnectionPolicy {
     /// Immutable. The name of a ServiceConnectionPolicy.
@@ -4040,6 +4234,28 @@ impl serde::ser::Serialize for ServiceConnectionPolicy {
     }
 }
 
+impl std::fmt::Debug for ServiceConnectionPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceConnectionPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("service_class", &self.service_class);
+        debug_struct.field("infrastructure", &self.infrastructure);
+        debug_struct.field("psc_config", &self.psc_config);
+        debug_struct.field("psc_connections", &self.psc_connections);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServiceConnectionPolicy].
 pub mod service_connection_policy {
     #[allow(unused_imports)]
@@ -4047,7 +4263,7 @@ pub mod service_connection_policy {
 
     /// Configuration used for Private Service Connect connections. Used when
     /// Infrastructure is PSC.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PscConfig {
         /// The resource paths of subnetworks to use for IP address management.
@@ -4335,6 +4551,27 @@ pub mod service_connection_policy {
         }
     }
 
+    impl std::fmt::Debug for PscConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PscConfig");
+            debug_struct.field("subnetworks", &self.subnetworks);
+            debug_struct.field("limit", &self.limit);
+            debug_struct.field(
+                "producer_instance_location",
+                &self.producer_instance_location,
+            );
+            debug_struct.field(
+                "allowed_google_producers_resource_hierarchy_level",
+                &self.allowed_google_producers_resource_hierarchy_level,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [PscConfig].
     pub mod psc_config {
         #[allow(unused_imports)]
@@ -4480,7 +4717,7 @@ pub mod service_connection_policy {
     }
 
     /// Information about a specific Private Service Connect connection.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PscConnection {
         /// State of the PSC Connection
@@ -5042,6 +5279,34 @@ pub mod service_connection_policy {
         }
     }
 
+    impl std::fmt::Debug for PscConnection {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PscConnection");
+            debug_struct.field("state", &self.state);
+            debug_struct.field("consumer_forwarding_rule", &self.consumer_forwarding_rule);
+            debug_struct.field("consumer_address", &self.consumer_address);
+            debug_struct.field("error_type", &self.error_type);
+            debug_struct.field("error", &self.error);
+            debug_struct.field("gce_operation", &self.gce_operation);
+            debug_struct.field("consumer_target_project", &self.consumer_target_project);
+            debug_struct.field("psc_connection_id", &self.psc_connection_id);
+            debug_struct.field("error_info", &self.error_info);
+            debug_struct.field("selected_subnetwork", &self.selected_subnetwork);
+            debug_struct.field("producer_instance_id", &self.producer_instance_id);
+            debug_struct.field(
+                "producer_instance_metadata",
+                &self.producer_instance_metadata,
+            );
+            debug_struct.field("service_class", &self.service_class);
+            debug_struct.field("ip_version", &self.ip_version);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The state of the PSC connection.
     /// We reserve the right to add more states without notice in the future.
     /// Users should not use exhaustive switch statements on this enum.
@@ -5210,7 +5475,7 @@ pub mod service_connection_policy {
 }
 
 /// Request for ListServiceConnectionPolicies.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceConnectionPoliciesRequest {
     /// Required. The parent resource's name. ex. projects/123/locations/us-east1
@@ -5456,8 +5721,24 @@ impl serde::ser::Serialize for ListServiceConnectionPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServiceConnectionPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceConnectionPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListServiceConnectionPolicies.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceConnectionPoliciesResponse {
     /// ServiceConnectionPolicies to be returned.
@@ -5669,8 +5950,25 @@ impl serde::ser::Serialize for ListServiceConnectionPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServiceConnectionPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceConnectionPoliciesResponse");
+        debug_struct.field(
+            "service_connection_policies",
+            &self.service_connection_policies,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetServiceConnectionPolicy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceConnectionPolicyRequest {
     /// Required. Name of the ServiceConnectionPolicy to get.
@@ -5799,8 +6097,20 @@ impl serde::ser::Serialize for GetServiceConnectionPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceConnectionPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceConnectionPolicyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateServiceConnectionPolicy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceConnectionPolicyRequest {
     /// Required. The parent resource's name of the ServiceConnectionPolicy. ex.
@@ -6045,8 +6355,26 @@ impl serde::ser::Serialize for CreateServiceConnectionPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceConnectionPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceConnectionPolicyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "service_connection_policy_id",
+            &self.service_connection_policy_id,
+        );
+        debug_struct.field("service_connection_policy", &self.service_connection_policy);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateServiceConnectionPolicy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceConnectionPolicyRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -6268,8 +6596,22 @@ impl serde::ser::Serialize for UpdateServiceConnectionPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServiceConnectionPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServiceConnectionPolicyRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("service_connection_policy", &self.service_connection_policy);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteServiceConnectionPolicy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceConnectionPolicyRequest {
     /// Required. The name of the ServiceConnectionPolicy to delete.
@@ -6472,8 +6814,22 @@ impl serde::ser::Serialize for DeleteServiceConnectionPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceConnectionPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceConnectionPolicyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The ServiceClass resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceClass {
     /// Immutable. The name of a ServiceClass resource.
@@ -6800,8 +7156,26 @@ impl serde::ser::Serialize for ServiceClass {
     }
 }
 
+impl std::fmt::Debug for ServiceClass {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceClass");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("service_class", &self.service_class);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListServiceClasses.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceClassesRequest {
     /// Required. The parent resource's name. ex. projects/123/locations/us-east1
@@ -7047,8 +7421,24 @@ impl serde::ser::Serialize for ListServiceClassesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServiceClassesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceClassesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListServiceClasses.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceClassesResponse {
     /// ServiceClasses to be returned.
@@ -7248,8 +7638,22 @@ impl serde::ser::Serialize for ListServiceClassesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServiceClassesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceClassesResponse");
+        debug_struct.field("service_classes", &self.service_classes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetServiceClass.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceClassRequest {
     /// Required. Name of the ServiceClass to get.
@@ -7378,8 +7782,20 @@ impl serde::ser::Serialize for GetServiceClassRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceClassRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceClassRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateServiceClass.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceClassRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -7597,8 +8013,22 @@ impl serde::ser::Serialize for UpdateServiceClassRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServiceClassRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServiceClassRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("service_class", &self.service_class);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteServiceClass.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceClassRequest {
     /// Required. The name of the ServiceClass to delete.
@@ -7801,8 +8231,22 @@ impl serde::ser::Serialize for DeleteServiceClassRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceClassRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceClassRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The ServiceConnectionToken resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceConnectionToken {
     /// Immutable. The name of a ServiceConnectionToken.
@@ -8188,8 +8632,28 @@ impl serde::ser::Serialize for ServiceConnectionToken {
     }
 }
 
+impl std::fmt::Debug for ServiceConnectionToken {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceConnectionToken");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("token", &self.token);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListServiceConnectionTokens.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceConnectionTokensRequest {
     /// Required. The parent resource's name. ex. projects/123/locations/us-east1
@@ -8435,8 +8899,24 @@ impl serde::ser::Serialize for ListServiceConnectionTokensRequest {
     }
 }
 
+impl std::fmt::Debug for ListServiceConnectionTokensRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceConnectionTokensRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListServiceConnectionTokens.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceConnectionTokensResponse {
     /// ServiceConnectionTokens to be returned.
@@ -8644,8 +9124,22 @@ impl serde::ser::Serialize for ListServiceConnectionTokensResponse {
     }
 }
 
+impl std::fmt::Debug for ListServiceConnectionTokensResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceConnectionTokensResponse");
+        debug_struct.field("service_connection_tokens", &self.service_connection_tokens);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetServiceConnectionToken.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceConnectionTokenRequest {
     /// Required. Name of the ServiceConnectionToken to get.
@@ -8774,8 +9268,20 @@ impl serde::ser::Serialize for GetServiceConnectionTokenRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceConnectionTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceConnectionTokenRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateServiceConnectionToken.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceConnectionTokenRequest {
     /// Required. The parent resource's name of the ServiceConnectionToken. ex.
@@ -9019,8 +9525,26 @@ impl serde::ser::Serialize for CreateServiceConnectionTokenRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceConnectionTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceConnectionTokenRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "service_connection_token_id",
+            &self.service_connection_token_id,
+        );
+        debug_struct.field("service_connection_token", &self.service_connection_token);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteServiceConnectionToken.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceConnectionTokenRequest {
     /// Required. The name of the ServiceConnectionToken to delete.
@@ -9223,13 +9747,27 @@ impl serde::ser::Serialize for DeleteServiceConnectionTokenRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceConnectionTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceConnectionTokenRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Network Connectivity Center hub is a global management resource to which
 /// you attach spokes. A single hub can contain spokes from multiple regions.
 /// However, if any of a hub's spokes use the site-to-site data transfer feature,
 /// the resources associated with those spokes must all be in the same VPC
 /// network. Spokes that do not use site-to-site data transfer can be associated
 /// with any VPC network in your project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Hub {
     /// Immutable. The name of the hub. Hub names must be unique. They use the
@@ -9748,9 +10286,33 @@ impl serde::ser::Serialize for Hub {
     }
 }
 
+impl std::fmt::Debug for Hub {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Hub");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("unique_id", &self.unique_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("routing_vpcs", &self.routing_vpcs);
+        debug_struct.field("route_tables", &self.route_tables);
+        debug_struct.field("spoke_summary", &self.spoke_summary);
+        debug_struct.field("policy_mode", &self.policy_mode);
+        debug_struct.field("preset_topology", &self.preset_topology);
+        debug_struct.field("export_psc", &self.export_psc);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// RoutingVPC contains information about the VPC networks associated
 /// with the spokes of a Network Connectivity Center hub.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RoutingVPC {
     /// The URI of the VPC network.
@@ -9920,6 +10482,22 @@ impl serde::ser::Serialize for RoutingVPC {
     }
 }
 
+impl std::fmt::Debug for RoutingVPC {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RoutingVPC");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field(
+            "required_for_new_site_to_site_data_transfer_spokes",
+            &self.required_for_new_site_to_site_data_transfer_spokes,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Network Connectivity Center spoke represents one or more network
 /// connectivity resources.
 ///
@@ -9930,7 +10508,7 @@ impl serde::ser::Serialize for RoutingVPC {
 /// * linked_interconnect_attachments
 /// * linked_router_appliance_instances
 /// * linked_vpc_network
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Spoke {
     /// Immutable. The name of the spoke. Spoke names must be unique. They use the
@@ -10622,13 +11200,54 @@ impl serde::ser::Serialize for Spoke {
     }
 }
 
+impl std::fmt::Debug for Spoke {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Spoke");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("hub", &self.hub);
+        debug_struct.field("group", &self.group);
+        debug_struct.field("linked_vpn_tunnels", &self.linked_vpn_tunnels);
+        debug_struct.field(
+            "linked_interconnect_attachments",
+            &self.linked_interconnect_attachments,
+        );
+        debug_struct.field(
+            "linked_router_appliance_instances",
+            &self.linked_router_appliance_instances,
+        );
+        debug_struct.field("linked_vpc_network", &self.linked_vpc_network);
+        debug_struct.field(
+            "linked_producer_vpc_network",
+            &self.linked_producer_vpc_network,
+        );
+        debug_struct.field("unique_id", &self.unique_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("reasons", &self.reasons);
+        debug_struct.field("spoke_type", &self.spoke_type);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field(
+            "field_paths_pending_update",
+            &self.field_paths_pending_update,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Spoke].
 pub mod spoke {
     #[allow(unused_imports)]
     use super::*;
 
     /// The reason a spoke is inactive.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StateReason {
         /// The code associated with this reason.
@@ -10817,6 +11436,20 @@ pub mod spoke {
         }
     }
 
+    impl std::fmt::Debug for StateReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StateReason");
+            debug_struct.field("code", &self.code);
+            debug_struct.field("message", &self.message);
+            debug_struct.field("user_details", &self.user_details);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [StateReason].
     pub mod state_reason {
         #[allow(unused_imports)]
@@ -10996,7 +11629,7 @@ pub mod spoke {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RouteTable {
     /// Immutable. The name of the route table. Route table names must be unique.
@@ -11311,9 +11944,27 @@ impl serde::ser::Serialize for RouteTable {
     }
 }
 
+impl std::fmt::Debug for RouteTable {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RouteTable");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A route defines a path from VM instances within a spoke to a specific
 /// destination resource. Only VPC spokes have routes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Route {
     /// Immutable. The name of the route. Route names must be unique. Route names
@@ -11946,8 +12597,41 @@ impl serde::ser::Serialize for Route {
     }
 }
 
+impl std::fmt::Debug for Route {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Route");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("ip_cidr_range", &self.ip_cidr_range);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("next_hop_vpc_network", &self.next_hop_vpc_network);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("spoke", &self.spoke);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("next_hop_vpn_tunnel", &self.next_hop_vpn_tunnel);
+        debug_struct.field(
+            "next_hop_router_appliance_instance",
+            &self.next_hop_router_appliance_instance,
+        );
+        debug_struct.field(
+            "next_hop_interconnect_attachment",
+            &self.next_hop_interconnect_attachment,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A group represents a subset of spokes attached to a hub.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Group {
     /// Immutable. The name of the group. Group names must be unique. They
@@ -12325,6 +13009,26 @@ impl serde::ser::Serialize for Group {
     }
 }
 
+impl std::fmt::Debug for Group {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Group");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("auto_accept", &self.auto_accept);
+        debug_struct.field("route_table", &self.route_table);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The auto-accept setting for a group controls whether
 /// proposed spokes are automatically attached to the hub. If auto-accept is
 /// enabled, the spoke immediately is attached to the hub and becomes part of the
@@ -12332,7 +13036,7 @@ impl serde::ser::Serialize for Group {
 /// If auto-accept is disabled, the spoke goes to the INACTIVE
 /// state, and it must be reviewed and accepted by a hub
 /// administrator.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoAccept {
     /// Optional. A list of project ids or project numbers for which you want
@@ -12467,12 +13171,24 @@ impl serde::ser::Serialize for AutoAccept {
     }
 }
 
+impl std::fmt::Debug for AutoAccept {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutoAccept");
+        debug_struct.field("auto_accept_projects", &self.auto_accept_projects);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [HubService.ListHubs][google.cloud.networkconnectivity.v1.HubService.ListHubs]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.ListHubs]: crate::client::HubService::list_hubs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHubsRequest {
     /// Required. The parent resource's name.
@@ -12718,12 +13434,28 @@ impl serde::ser::Serialize for ListHubsRequest {
     }
 }
 
+impl std::fmt::Debug for ListHubsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHubsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [HubService.ListHubs][google.cloud.networkconnectivity.v1.HubService.ListHubs]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.ListHubs]: crate::client::HubService::list_hubs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHubsResponse {
     /// The requested hubs.
@@ -12923,12 +13655,26 @@ impl serde::ser::Serialize for ListHubsResponse {
     }
 }
 
+impl std::fmt::Debug for ListHubsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHubsResponse");
+        debug_struct.field("hubs", &self.hubs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [HubService.GetHub][google.cloud.networkconnectivity.v1.HubService.GetHub]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.GetHub]: crate::client::HubService::get_hub
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetHubRequest {
     /// Required. The name of the hub resource to get.
@@ -13057,12 +13803,24 @@ impl serde::ser::Serialize for GetHubRequest {
     }
 }
 
+impl std::fmt::Debug for GetHubRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetHubRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [HubService.CreateHub][google.cloud.networkconnectivity.v1.HubService.CreateHub]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.CreateHub]: crate::client::HubService::create_hub
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateHubRequest {
     /// Required. The parent resource.
@@ -13289,12 +14047,27 @@ impl serde::ser::Serialize for CreateHubRequest {
     }
 }
 
+impl std::fmt::Debug for CreateHubRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateHubRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("hub_id", &self.hub_id);
+        debug_struct.field("hub", &self.hub);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [HubService.UpdateHub][google.cloud.networkconnectivity.v1.HubService.UpdateHub]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.UpdateHub]: crate::client::HubService::update_hub
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateHubRequest {
     /// Optional. In the case of an update to an existing hub, field mask is used
@@ -13512,11 +14285,25 @@ impl serde::ser::Serialize for UpdateHubRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateHubRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateHubRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("hub", &self.hub);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [HubService.DeleteHub][google.cloud.networkconnectivity.v1.HubService.DeleteHub].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.DeleteHub]: crate::client::HubService::delete_hub
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteHubRequest {
     /// Required. The name of the hub to delete.
@@ -13683,11 +14470,24 @@ impl serde::ser::Serialize for DeleteHubRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteHubRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteHubRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [HubService.ListHubSpokes][google.cloud.networkconnectivity.v1.HubService.ListHubSpokes].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.ListHubSpokes]: crate::client::HubService::list_hub_spokes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHubSpokesRequest {
     /// Required. The name of the hub.
@@ -13999,6 +14799,24 @@ impl serde::ser::Serialize for ListHubSpokesRequest {
     }
 }
 
+impl std::fmt::Debug for ListHubSpokesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHubSpokesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("spoke_locations", &self.spoke_locations);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("view", &self.view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListHubSpokesRequest].
 pub mod list_hub_spokes_request {
     #[allow(unused_imports)]
@@ -14145,7 +14963,7 @@ pub mod list_hub_spokes_request {
 /// [HubService.ListHubSpokes][google.cloud.networkconnectivity.v1.HubService.ListHubSpokes].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.ListHubSpokes]: crate::client::HubService::list_hub_spokes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHubSpokesResponse {
     /// The requested spokes.
@@ -14347,11 +15165,25 @@ impl serde::ser::Serialize for ListHubSpokesResponse {
     }
 }
 
+impl std::fmt::Debug for ListHubSpokesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHubSpokesResponse");
+        debug_struct.field("spokes", &self.spokes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [HubService.QueryHubStatus][google.cloud.networkconnectivity.v1.HubService.QueryHubStatus].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.QueryHubStatus]: crate::client::HubService::query_hub_status
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryHubStatusRequest {
     /// Required. The name of the hub.
@@ -14649,11 +15481,28 @@ impl serde::ser::Serialize for QueryHubStatusRequest {
     }
 }
 
+impl std::fmt::Debug for QueryHubStatusRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryHubStatusRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("group_by", &self.group_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [HubService.QueryHubStatus][google.cloud.networkconnectivity.v1.HubService.QueryHubStatus].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.QueryHubStatus]: crate::client::HubService::query_hub_status
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryHubStatusResponse {
     /// The list of hub status.
@@ -14831,9 +15680,22 @@ impl serde::ser::Serialize for QueryHubStatusResponse {
     }
 }
 
+impl std::fmt::Debug for QueryHubStatusResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryHubStatusResponse");
+        debug_struct.field("hub_status_entries", &self.hub_status_entries);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A hub status entry represents the status of a set of propagated Private
 /// Service Connect connections grouped by certain fields.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HubStatusEntry {
     /// The number of propagated Private Service Connect connections with this
@@ -15044,9 +15906,23 @@ impl serde::ser::Serialize for HubStatusEntry {
     }
 }
 
+impl std::fmt::Debug for HubStatusEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HubStatusEntry");
+        debug_struct.field("count", &self.count);
+        debug_struct.field("group_by", &self.group_by);
+        debug_struct.field("psc_propagation_status", &self.psc_propagation_status);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The status of one or more propagated Private Service Connect connections in a
 /// hub.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PscPropagationStatus {
     /// The name of the spoke that the source forwarding rule belongs to.
@@ -15329,6 +16205,24 @@ impl serde::ser::Serialize for PscPropagationStatus {
     }
 }
 
+impl std::fmt::Debug for PscPropagationStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PscPropagationStatus");
+        debug_struct.field("source_spoke", &self.source_spoke);
+        debug_struct.field("source_group", &self.source_group);
+        debug_struct.field("source_forwarding_rule", &self.source_forwarding_rule);
+        debug_struct.field("target_spoke", &self.target_spoke);
+        debug_struct.field("target_group", &self.target_group);
+        debug_struct.field("code", &self.code);
+        debug_struct.field("message", &self.message);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PscPropagationStatus].
 pub mod psc_propagation_status {
     #[allow(unused_imports)]
@@ -15522,7 +16416,7 @@ pub mod psc_propagation_status {
 /// [HubService.ListSpokes][google.cloud.networkconnectivity.v1.HubService.ListSpokes].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.ListSpokes]: crate::client::HubService::list_spokes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSpokesRequest {
     /// Required. The parent resource.
@@ -15768,11 +16662,27 @@ impl serde::ser::Serialize for ListSpokesRequest {
     }
 }
 
+impl std::fmt::Debug for ListSpokesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSpokesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [HubService.ListSpokes][google.cloud.networkconnectivity.v1.HubService.ListSpokes].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.ListSpokes]: crate::client::HubService::list_spokes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSpokesResponse {
     /// The requested spokes.
@@ -15972,11 +16882,25 @@ impl serde::ser::Serialize for ListSpokesResponse {
     }
 }
 
+impl std::fmt::Debug for ListSpokesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSpokesResponse");
+        debug_struct.field("spokes", &self.spokes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [HubService.GetSpoke][google.cloud.networkconnectivity.v1.HubService.GetSpoke].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.GetSpoke]: crate::client::HubService::get_spoke
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSpokeRequest {
     /// Required. The name of the spoke resource.
@@ -16105,11 +17029,23 @@ impl serde::ser::Serialize for GetSpokeRequest {
     }
 }
 
+impl std::fmt::Debug for GetSpokeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSpokeRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [HubService.CreateSpoke][google.cloud.networkconnectivity.v1.HubService.CreateSpoke].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.CreateSpoke]: crate::client::HubService::create_spoke
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSpokeRequest {
     /// Required. The parent resource.
@@ -16336,12 +17272,27 @@ impl serde::ser::Serialize for CreateSpokeRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSpokeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSpokeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("spoke_id", &self.spoke_id);
+        debug_struct.field("spoke", &self.spoke);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [HubService.UpdateSpoke][google.cloud.networkconnectivity.v1.HubService.UpdateSpoke]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.UpdateSpoke]: crate::client::HubService::update_spoke
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSpokeRequest {
     /// Optional. In the case of an update to an existing spoke, field mask is used
@@ -16559,11 +17510,25 @@ impl serde::ser::Serialize for UpdateSpokeRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSpokeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSpokeRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("spoke", &self.spoke);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [HubService.DeleteSpoke][google.cloud.networkconnectivity.v1.HubService.DeleteSpoke].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.DeleteSpoke]: crate::client::HubService::delete_spoke
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSpokeRequest {
     /// Required. The name of the spoke to delete.
@@ -16730,11 +17695,24 @@ impl serde::ser::Serialize for DeleteSpokeRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSpokeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSpokeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [HubService.AcceptHubSpoke][google.cloud.networkconnectivity.v1.HubService.AcceptHubSpoke].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.AcceptHubSpoke]: crate::client::HubService::accept_hub_spoke
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcceptHubSpokeRequest {
     /// Required. The name of the hub into which to accept the spoke.
@@ -16926,11 +17904,25 @@ impl serde::ser::Serialize for AcceptHubSpokeRequest {
     }
 }
 
+impl std::fmt::Debug for AcceptHubSpokeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcceptHubSpokeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("spoke_uri", &self.spoke_uri);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [HubService.AcceptHubSpoke][google.cloud.networkconnectivity.v1.HubService.AcceptHubSpoke].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.AcceptHubSpoke]: crate::client::HubService::accept_hub_spoke
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcceptHubSpokeResponse {
     /// The spoke that was operated on.
@@ -17070,11 +18062,23 @@ impl serde::ser::Serialize for AcceptHubSpokeResponse {
     }
 }
 
+impl std::fmt::Debug for AcceptHubSpokeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcceptHubSpokeResponse");
+        debug_struct.field("spoke", &self.spoke);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [HubService.RejectHubSpoke][google.cloud.networkconnectivity.v1.HubService.RejectHubSpoke].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.RejectHubSpoke]: crate::client::HubService::reject_hub_spoke
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RejectHubSpokeRequest {
     /// Required. The name of the hub from which to reject the spoke.
@@ -17290,11 +18294,26 @@ impl serde::ser::Serialize for RejectHubSpokeRequest {
     }
 }
 
+impl std::fmt::Debug for RejectHubSpokeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RejectHubSpokeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("spoke_uri", &self.spoke_uri);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("details", &self.details);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [HubService.RejectHubSpoke][google.cloud.networkconnectivity.v1.HubService.RejectHubSpoke].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.RejectHubSpoke]: crate::client::HubService::reject_hub_spoke
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RejectHubSpokeResponse {
     /// The spoke that was operated on.
@@ -17434,11 +18453,23 @@ impl serde::ser::Serialize for RejectHubSpokeResponse {
     }
 }
 
+impl std::fmt::Debug for RejectHubSpokeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RejectHubSpokeResponse");
+        debug_struct.field("spoke", &self.spoke);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [HubService.AcceptSpokeUpdate][google.cloud.networkconnectivity.v1.HubService.AcceptSpokeUpdate].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.AcceptSpokeUpdate]: crate::client::HubService::accept_spoke_update
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcceptSpokeUpdateRequest {
     /// Required. The name of the hub to accept spoke update.
@@ -17655,11 +18686,26 @@ impl serde::ser::Serialize for AcceptSpokeUpdateRequest {
     }
 }
 
+impl std::fmt::Debug for AcceptSpokeUpdateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcceptSpokeUpdateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("spoke_uri", &self.spoke_uri);
+        debug_struct.field("spoke_etag", &self.spoke_etag);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [HubService.AcceptSpokeUpdate][google.cloud.networkconnectivity.v1.HubService.AcceptSpokeUpdate].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.AcceptSpokeUpdate]: crate::client::HubService::accept_spoke_update
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcceptSpokeUpdateResponse {
     /// The spoke that was operated on.
@@ -17799,11 +18845,23 @@ impl serde::ser::Serialize for AcceptSpokeUpdateResponse {
     }
 }
 
+impl std::fmt::Debug for AcceptSpokeUpdateResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcceptSpokeUpdateResponse");
+        debug_struct.field("spoke", &self.spoke);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [HubService.RejectSpokeUpdate][google.cloud.networkconnectivity.v1.HubService.RejectSpokeUpdate].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.RejectSpokeUpdate]: crate::client::HubService::reject_spoke_update
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RejectSpokeUpdateRequest {
     /// Required. The name of the hub to reject spoke update.
@@ -18044,11 +19102,27 @@ impl serde::ser::Serialize for RejectSpokeUpdateRequest {
     }
 }
 
+impl std::fmt::Debug for RejectSpokeUpdateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RejectSpokeUpdateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("spoke_uri", &self.spoke_uri);
+        debug_struct.field("spoke_etag", &self.spoke_etag);
+        debug_struct.field("details", &self.details);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [HubService.RejectSpokeUpdate][google.cloud.networkconnectivity.v1.HubService.RejectSpokeUpdate].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.RejectSpokeUpdate]: crate::client::HubService::reject_spoke_update
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RejectSpokeUpdateResponse {
     /// The spoke that was operated on.
@@ -18188,11 +19262,23 @@ impl serde::ser::Serialize for RejectSpokeUpdateResponse {
     }
 }
 
+impl std::fmt::Debug for RejectSpokeUpdateResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RejectSpokeUpdateResponse");
+        debug_struct.field("spoke", &self.spoke);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [HubService.GetRouteTable][google.cloud.networkconnectivity.v1.HubService.GetRouteTable].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.GetRouteTable]: crate::client::HubService::get_route_table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRouteTableRequest {
     /// Required. The name of the route table resource.
@@ -18321,11 +19407,23 @@ impl serde::ser::Serialize for GetRouteTableRequest {
     }
 }
 
+impl std::fmt::Debug for GetRouteTableRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRouteTableRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [HubService.GetRoute][google.cloud.networkconnectivity.v1.HubService.GetRoute].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.GetRoute]: crate::client::HubService::get_route
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRouteRequest {
     /// Required. The name of the route resource.
@@ -18454,12 +19552,24 @@ impl serde::ser::Serialize for GetRouteRequest {
     }
 }
 
+impl std::fmt::Debug for GetRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRouteRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [HubService.ListRoutes][google.cloud.networkconnectivity.v1.HubService.ListRoutes]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.ListRoutes]: crate::client::HubService::list_routes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRoutesRequest {
     /// Required. The parent resource's name.
@@ -18705,12 +19815,28 @@ impl serde::ser::Serialize for ListRoutesRequest {
     }
 }
 
+impl std::fmt::Debug for ListRoutesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRoutesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [HubService.ListRoutes][google.cloud.networkconnectivity.v1.HubService.ListRoutes]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.ListRoutes]: crate::client::HubService::list_routes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRoutesResponse {
     /// The requested routes.
@@ -18910,12 +20036,26 @@ impl serde::ser::Serialize for ListRoutesResponse {
     }
 }
 
+impl std::fmt::Debug for ListRoutesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRoutesResponse");
+        debug_struct.field("routes", &self.routes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [HubService.ListRouteTables][google.cloud.networkconnectivity.v1.HubService.ListRouteTables]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.ListRouteTables]: crate::client::HubService::list_route_tables
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRouteTablesRequest {
     /// Required. The parent resource's name.
@@ -19161,12 +20301,28 @@ impl serde::ser::Serialize for ListRouteTablesRequest {
     }
 }
 
+impl std::fmt::Debug for ListRouteTablesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRouteTablesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [HubService.ListRouteTables][google.cloud.networkconnectivity.v1.HubService.ListRouteTables]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.ListRouteTables]: crate::client::HubService::list_route_tables
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRouteTablesResponse {
     /// The requested route tables.
@@ -19367,12 +20523,26 @@ impl serde::ser::Serialize for ListRouteTablesResponse {
     }
 }
 
+impl std::fmt::Debug for ListRouteTablesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRouteTablesResponse");
+        debug_struct.field("route_tables", &self.route_tables);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [HubService.ListGroups][google.cloud.networkconnectivity.v1.HubService.ListGroups]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.ListGroups]: crate::client::HubService::list_groups
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGroupsRequest {
     /// Required. The parent resource's name.
@@ -19618,12 +20788,28 @@ impl serde::ser::Serialize for ListGroupsRequest {
     }
 }
 
+impl std::fmt::Debug for ListGroupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGroupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [HubService.ListGroups][google.cloud.networkconnectivity.v1.HubService.ListGroups]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.ListGroups]: crate::client::HubService::list_groups
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGroupsResponse {
     /// The requested groups.
@@ -19823,11 +21009,25 @@ impl serde::ser::Serialize for ListGroupsResponse {
     }
 }
 
+impl std::fmt::Debug for ListGroupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGroupsResponse");
+        debug_struct.field("groups", &self.groups);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A collection of Cloud VPN tunnel resources. These resources should be
 /// redundant HA VPN tunnels that all advertise the same prefixes to Google
 /// Cloud. Alternatively, in a passive/active configuration, all tunnels
 /// should be capable of advertising the same prefixes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkedVpnTunnels {
     /// The URIs of linked VPN tunnel resources.
@@ -20045,11 +21245,29 @@ impl serde::ser::Serialize for LinkedVpnTunnels {
     }
 }
 
+impl std::fmt::Debug for LinkedVpnTunnels {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LinkedVpnTunnels");
+        debug_struct.field("uris", &self.uris);
+        debug_struct.field(
+            "site_to_site_data_transfer",
+            &self.site_to_site_data_transfer,
+        );
+        debug_struct.field("vpc_network", &self.vpc_network);
+        debug_struct.field("include_import_ranges", &self.include_import_ranges);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A collection of VLAN attachment resources. These resources should
 /// be redundant attachments that all advertise the same prefixes to Google
 /// Cloud. Alternatively, in active/passive configurations, all attachments
 /// should be capable of advertising the same prefixes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkedInterconnectAttachments {
     /// The URIs of linked interconnect attachment resources
@@ -20267,11 +21485,29 @@ impl serde::ser::Serialize for LinkedInterconnectAttachments {
     }
 }
 
+impl std::fmt::Debug for LinkedInterconnectAttachments {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LinkedInterconnectAttachments");
+        debug_struct.field("uris", &self.uris);
+        debug_struct.field(
+            "site_to_site_data_transfer",
+            &self.site_to_site_data_transfer,
+        );
+        debug_struct.field("vpc_network", &self.vpc_network);
+        debug_struct.field("include_import_ranges", &self.include_import_ranges);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A collection of router appliance instances. If you configure multiple router
 /// appliance instances to receive data from the same set of sites outside of
 /// Google Cloud, we recommend that you associate those instances with the same
 /// spoke.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkedRouterApplianceInstances {
     /// The list of router appliance instances.
@@ -20494,8 +21730,26 @@ impl serde::ser::Serialize for LinkedRouterApplianceInstances {
     }
 }
 
+impl std::fmt::Debug for LinkedRouterApplianceInstances {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LinkedRouterApplianceInstances");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field(
+            "site_to_site_data_transfer",
+            &self.site_to_site_data_transfer,
+        );
+        debug_struct.field("vpc_network", &self.vpc_network);
+        debug_struct.field("include_import_ranges", &self.include_import_ranges);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An existing VPC network.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkedVpcNetwork {
     /// Required. The URI of the VPC network resource.
@@ -20786,7 +22040,30 @@ impl serde::ser::Serialize for LinkedVpcNetwork {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for LinkedVpcNetwork {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LinkedVpcNetwork");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("exclude_export_ranges", &self.exclude_export_ranges);
+        debug_struct.field("include_export_ranges", &self.include_export_ranges);
+        debug_struct.field(
+            "proposed_include_export_ranges",
+            &self.proposed_include_export_ranges,
+        );
+        debug_struct.field(
+            "proposed_exclude_export_ranges",
+            &self.proposed_exclude_export_ranges,
+        );
+        debug_struct.field("producer_vpc_spokes", &self.producer_vpc_spokes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkedProducerVpcNetwork {
     /// Immutable. The URI of the Service Consumer VPC that the Producer VPC is
@@ -21130,11 +22407,39 @@ impl serde::ser::Serialize for LinkedProducerVpcNetwork {
     }
 }
 
+impl std::fmt::Debug for LinkedProducerVpcNetwork {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LinkedProducerVpcNetwork");
+        debug_struct.field("network", &self.network);
+        debug_struct.field(
+            "service_consumer_vpc_spoke",
+            &self.service_consumer_vpc_spoke,
+        );
+        debug_struct.field("peering", &self.peering);
+        debug_struct.field("producer_network", &self.producer_network);
+        debug_struct.field("exclude_export_ranges", &self.exclude_export_ranges);
+        debug_struct.field("include_export_ranges", &self.include_export_ranges);
+        debug_struct.field(
+            "proposed_include_export_ranges",
+            &self.proposed_include_export_ranges,
+        );
+        debug_struct.field(
+            "proposed_exclude_export_ranges",
+            &self.proposed_exclude_export_ranges,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A router appliance instance is a Compute Engine virtual machine (VM) instance
 /// that acts as a BGP speaker. A router appliance instance is specified by the
 /// URI of the VM and the internal IP address of one of the VM's network
 /// interfaces.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RouterApplianceInstance {
     /// The URI of the VM.
@@ -21289,8 +22594,21 @@ impl serde::ser::Serialize for RouterApplianceInstance {
     }
 }
 
+impl std::fmt::Debug for RouterApplianceInstance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RouterApplianceInstance");
+        debug_struct.field("virtual_machine", &self.virtual_machine);
+        debug_struct.field("ip_address", &self.ip_address);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata about locations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     /// List of supported features
@@ -21427,7 +22745,19 @@ impl serde::ser::Serialize for LocationMetadata {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+        debug_struct.field("location_features", &self.location_features);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NextHopVpcNetwork {
     /// The URI of the VPC network resource
@@ -21556,8 +22886,20 @@ impl serde::ser::Serialize for NextHopVpcNetwork {
     }
 }
 
+impl std::fmt::Debug for NextHopVpcNetwork {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NextHopVpcNetwork");
+        debug_struct.field("uri", &self.uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A route next hop that leads to a VPN tunnel resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NextHopVPNTunnel {
     /// The URI of the VPN tunnel resource.
@@ -21742,8 +23084,25 @@ impl serde::ser::Serialize for NextHopVPNTunnel {
     }
 }
 
+impl std::fmt::Debug for NextHopVPNTunnel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NextHopVPNTunnel");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("vpc_network", &self.vpc_network);
+        debug_struct.field(
+            "site_to_site_data_transfer",
+            &self.site_to_site_data_transfer,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A route next hop that leads to a Router appliance instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NextHopRouterApplianceInstance {
     /// The URI of the Router appliance instance.
@@ -21928,8 +23287,25 @@ impl serde::ser::Serialize for NextHopRouterApplianceInstance {
     }
 }
 
+impl std::fmt::Debug for NextHopRouterApplianceInstance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NextHopRouterApplianceInstance");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("vpc_network", &self.vpc_network);
+        debug_struct.field(
+            "site_to_site_data_transfer",
+            &self.site_to_site_data_transfer,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A route next hop that leads to an interconnect attachment resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NextHopInterconnectAttachment {
     /// The URI of the interconnect attachment resource.
@@ -22115,12 +23491,29 @@ impl serde::ser::Serialize for NextHopInterconnectAttachment {
     }
 }
 
+impl std::fmt::Debug for NextHopInterconnectAttachment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NextHopInterconnectAttachment");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("vpc_network", &self.vpc_network);
+        debug_struct.field(
+            "site_to_site_data_transfer",
+            &self.site_to_site_data_transfer,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Summarizes information about the spokes associated with a hub.
 /// The summary includes a count of spokes according to type
 /// and according to state. If any spokes are inactive,
 /// the summary also lists the reasons they are inactive,
 /// including a count for each reason.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpokeSummary {
     /// Output only. Counts the number of spokes of each type that are
@@ -22329,6 +23722,20 @@ impl serde::ser::Serialize for SpokeSummary {
     }
 }
 
+impl std::fmt::Debug for SpokeSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpokeSummary");
+        debug_struct.field("spoke_type_counts", &self.spoke_type_counts);
+        debug_struct.field("spoke_state_counts", &self.spoke_state_counts);
+        debug_struct.field("spoke_state_reason_counts", &self.spoke_state_reason_counts);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SpokeSummary].
 pub mod spoke_summary {
     #[allow(unused_imports)]
@@ -22337,7 +23744,7 @@ pub mod spoke_summary {
     /// The number of spokes of a given type that are associated
     /// with a specific hub. The type indicates what kind of
     /// resource is associated with the spoke.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SpokeTypeCount {
         /// Output only. The type of the spokes.
@@ -22516,9 +23923,22 @@ pub mod spoke_summary {
         }
     }
 
+    impl std::fmt::Debug for SpokeTypeCount {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SpokeTypeCount");
+            debug_struct.field("spoke_type", &self.spoke_type);
+            debug_struct.field("count", &self.count);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The number of spokes that are in a particular state
     /// and associated with a given hub.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SpokeStateCount {
         /// Output only. The state of the spokes.
@@ -22693,8 +24113,21 @@ pub mod spoke_summary {
         }
     }
 
+    impl std::fmt::Debug for SpokeStateCount {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SpokeStateCount");
+            debug_struct.field("state", &self.state);
+            debug_struct.field("count", &self.count);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The number of spokes in the hub that are inactive for this reason.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SpokeStateReasonCount {
         /// Output only. The reason that a spoke is inactive.
@@ -22876,13 +24309,26 @@ pub mod spoke_summary {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for SpokeStateReasonCount {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SpokeStateReasonCount");
+            debug_struct.field("state_reason_code", &self.state_reason_code);
+            debug_struct.field("count", &self.count);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The request for
 /// [HubService.GetGroup][google.cloud.networkconnectivity.v1.HubService.GetGroup].
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.GetGroup]: crate::client::HubService::get_group
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGroupRequest {
     /// Required. The name of the route table resource.
@@ -23011,12 +24457,24 @@ impl serde::ser::Serialize for GetGroupRequest {
     }
 }
 
+impl std::fmt::Debug for GetGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGroupRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [HubService.UpdateGroup][google.cloud.networkconnectivity.v1.HubService.UpdateGroup]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.HubService.UpdateGroup]: crate::client::HubService::update_group
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGroupRequest {
     /// Optional. In the case of an update to an existing group, field mask is used
@@ -23234,12 +24692,26 @@ impl serde::ser::Serialize for UpdateGroupRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGroupRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("group", &self.group);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The internal range resource for IPAM operations within a VPC network.
 /// Used to represent a private address range along with behavioral
 /// characteristics of that range (its usage and peering behavior).
 /// Networking resources can link to this range if they are created
 /// as belonging to it.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InternalRange {
     /// Identifier. The name of an internal range.
@@ -23887,13 +25359,41 @@ impl serde::ser::Serialize for InternalRange {
     }
 }
 
+impl std::fmt::Debug for InternalRange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InternalRange");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("ip_cidr_range", &self.ip_cidr_range);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("usage", &self.usage);
+        debug_struct.field("peering", &self.peering);
+        debug_struct.field("prefix_length", &self.prefix_length);
+        debug_struct.field("target_cidr_range", &self.target_cidr_range);
+        debug_struct.field("users", &self.users);
+        debug_struct.field("overlaps", &self.overlaps);
+        debug_struct.field("migration", &self.migration);
+        debug_struct.field("immutable", &self.immutable);
+        debug_struct.field("allocation_options", &self.allocation_options);
+        debug_struct.field("exclude_cidr_ranges", &self.exclude_cidr_ranges);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InternalRange].
 pub mod internal_range {
     #[allow(unused_imports)]
     use super::*;
 
     /// Specification for migration with source and target resource names.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Migration {
         /// Immutable. Resource path as an URI of the source resource, for example a
@@ -24055,9 +25555,22 @@ pub mod internal_range {
         }
     }
 
+    impl std::fmt::Debug for Migration {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Migration");
+            debug_struct.field("source", &self.source);
+            debug_struct.field("target", &self.target);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Range auto-allocation options, to be optionally used when CIDR block is not
     /// explicitly set.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AllocationOptions {
         /// Optional. Allocation strategy Not setting this field when the allocation
@@ -24253,6 +25766,22 @@ pub mod internal_range {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for AllocationOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AllocationOptions");
+            debug_struct.field("allocation_strategy", &self.allocation_strategy);
+            debug_struct.field(
+                "first_available_ranges_lookup_size",
+                &self.first_available_ranges_lookup_size,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -24855,7 +26384,7 @@ pub mod internal_range {
 }
 
 /// Request for InternalRangeService.ListInternalRanges
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInternalRangesRequest {
     /// Required. The parent resource's name.
@@ -25101,8 +26630,24 @@ impl serde::ser::Serialize for ListInternalRangesRequest {
     }
 }
 
+impl std::fmt::Debug for ListInternalRangesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInternalRangesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for InternalRange.ListInternalRanges
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInternalRangesResponse {
     /// Internal ranges to be returned.
@@ -25302,8 +26847,22 @@ impl serde::ser::Serialize for ListInternalRangesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInternalRangesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInternalRangesResponse");
+        debug_struct.field("internal_ranges", &self.internal_ranges);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for InternalRangeService.GetInternalRange
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInternalRangeRequest {
     /// Required. Name of the InternalRange to get.
@@ -25432,8 +26991,20 @@ impl serde::ser::Serialize for GetInternalRangeRequest {
     }
 }
 
+impl std::fmt::Debug for GetInternalRangeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInternalRangeRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for InternalRangeService.CreateInternalRange
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInternalRangeRequest {
     /// Required. The parent resource's name of the internal range.
@@ -25666,8 +27237,23 @@ impl serde::ser::Serialize for CreateInternalRangeRequest {
     }
 }
 
+impl std::fmt::Debug for CreateInternalRangeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInternalRangeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("internal_range_id", &self.internal_range_id);
+        debug_struct.field("internal_range", &self.internal_range);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for InternalRangeService.UpdateInternalRange
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInternalRangeRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -25885,8 +27471,22 @@ impl serde::ser::Serialize for UpdateInternalRangeRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateInternalRangeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInternalRangeRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("internal_range", &self.internal_range);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for InternalRangeService.DeleteInternalRange
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInternalRangeRequest {
     /// Required. The name of the internal range to delete.
@@ -26052,11 +27652,24 @@ impl serde::ser::Serialize for DeleteInternalRangeRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInternalRangeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInternalRangeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Policy-based routes route L4 network traffic based on not just destination IP
 /// address, but also source IP address, protocol, and more. If a policy-based
 /// route conflicts with other types of routes, the policy-based route always
 /// takes precedence.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyBasedRoute {
     /// Immutable. A unique name of the resource in the form of
@@ -26768,13 +28381,37 @@ impl serde::ser::Serialize for PolicyBasedRoute {
     }
 }
 
+impl std::fmt::Debug for PolicyBasedRoute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PolicyBasedRoute");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("warnings", &self.warnings);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("next_hop", &self.next_hop);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PolicyBasedRoute].
 pub mod policy_based_route {
     #[allow(unused_imports)]
     use super::*;
 
     /// VM instances that this policy-based route applies to.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VirtualMachine {
         /// Optional. A list of VM instance tags that this policy-based route applies
@@ -26910,8 +28547,20 @@ pub mod policy_based_route {
         }
     }
 
+    impl std::fmt::Debug for VirtualMachine {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VirtualMachine");
+            debug_struct.field("tags", &self.tags);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// InterconnectAttachment that this route applies to.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InterconnectAttachment {
         /// Optional. Cloud region to install this policy-based route on interconnect
@@ -27044,8 +28693,20 @@ pub mod policy_based_route {
         }
     }
 
+    impl std::fmt::Debug for InterconnectAttachment {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InterconnectAttachment");
+            debug_struct.field("region", &self.region);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Filter matches L4 traffic.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Filter {
         /// Optional. The IP protocol that this policy-based route applies to. Valid
@@ -27265,6 +28926,21 @@ pub mod policy_based_route {
         }
     }
 
+    impl std::fmt::Debug for Filter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Filter");
+            debug_struct.field("ip_protocol", &self.ip_protocol);
+            debug_struct.field("src_range", &self.src_range);
+            debug_struct.field("dest_range", &self.dest_range);
+            debug_struct.field("protocol_version", &self.protocol_version);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Filter].
     pub mod filter {
         #[allow(unused_imports)]
@@ -27400,7 +29076,7 @@ pub mod policy_based_route {
     }
 
     /// Informational warning message.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Warnings {
         /// Output only. A warning code, if applicable.
@@ -27602,6 +29278,20 @@ pub mod policy_based_route {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Warnings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Warnings");
+            debug_struct.field("code", &self.code);
+            debug_struct.field("data", &self.data);
+            debug_struct.field("warning_message", &self.warning_message);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -27913,7 +29603,7 @@ pub mod policy_based_route {
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.ListPolicyBasedRoutes]: crate::client::PolicyBasedRoutingService::list_policy_based_routes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPolicyBasedRoutesRequest {
     /// Required. The parent resource's name.
@@ -28159,12 +29849,28 @@ impl serde::ser::Serialize for ListPolicyBasedRoutesRequest {
     }
 }
 
+impl std::fmt::Debug for ListPolicyBasedRoutesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPolicyBasedRoutesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [PolicyBasedRoutingService.ListPolicyBasedRoutes][google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.ListPolicyBasedRoutes]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.ListPolicyBasedRoutes]: crate::client::PolicyBasedRoutingService::list_policy_based_routes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPolicyBasedRoutesResponse {
     /// Policy-based routes to be returned.
@@ -28368,12 +30074,26 @@ impl serde::ser::Serialize for ListPolicyBasedRoutesResponse {
     }
 }
 
+impl std::fmt::Debug for ListPolicyBasedRoutesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPolicyBasedRoutesResponse");
+        debug_struct.field("policy_based_routes", &self.policy_based_routes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [PolicyBasedRoutingService.GetPolicyBasedRoute][google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.GetPolicyBasedRoute]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.GetPolicyBasedRoute]: crate::client::PolicyBasedRoutingService::get_policy_based_route
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPolicyBasedRouteRequest {
     /// Required. Name of the PolicyBasedRoute resource to get.
@@ -28502,12 +30222,24 @@ impl serde::ser::Serialize for GetPolicyBasedRouteRequest {
     }
 }
 
+impl std::fmt::Debug for GetPolicyBasedRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPolicyBasedRouteRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [PolicyBasedRoutingService.CreatePolicyBasedRoute][google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.CreatePolicyBasedRoute]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.CreatePolicyBasedRoute]: crate::client::PolicyBasedRoutingService::create_policy_based_route
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePolicyBasedRouteRequest {
     /// Required. The parent resource's name of the PolicyBasedRoute.
@@ -28745,12 +30477,27 @@ impl serde::ser::Serialize for CreatePolicyBasedRouteRequest {
     }
 }
 
+impl std::fmt::Debug for CreatePolicyBasedRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePolicyBasedRouteRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("policy_based_route_id", &self.policy_based_route_id);
+        debug_struct.field("policy_based_route", &self.policy_based_route);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [PolicyBasedRoutingService.DeletePolicyBasedRoute][google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.DeletePolicyBasedRoute]
 /// method.
 ///
 /// [google.cloud.networkconnectivity.v1.PolicyBasedRoutingService.DeletePolicyBasedRoute]: crate::client::PolicyBasedRoutingService::delete_policy_based_route
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePolicyBasedRouteRequest {
     /// Required. Name of the policy-based route resource to delete.
@@ -28913,6 +30660,19 @@ impl serde::ser::Serialize for DeletePolicyBasedRouteRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DeletePolicyBasedRouteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePolicyBasedRouteRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

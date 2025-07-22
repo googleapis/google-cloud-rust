@@ -36,7 +36,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// An individual entry in a log.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntry {
     /// Required. The resource name of the log to which this log entry belongs:
@@ -844,6 +844,32 @@ impl serde::ser::Serialize for LogEntry {
     }
 }
 
+impl std::fmt::Debug for LogEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogEntry");
+        debug_struct.field("log_name", &self.log_name);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("timestamp", &self.timestamp);
+        debug_struct.field("receive_timestamp", &self.receive_timestamp);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("insert_id", &self.insert_id);
+        debug_struct.field("http_request", &self.http_request);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("trace", &self.trace);
+        debug_struct.field("span_id", &self.span_id);
+        debug_struct.field("trace_sampled", &self.trace_sampled);
+        debug_struct.field("source_location", &self.source_location);
+        debug_struct.field("split", &self.split);
+        debug_struct.field("payload", &self.payload);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LogEntry].
 pub mod log_entry {
     #[allow(unused_imports)]
@@ -872,7 +898,7 @@ pub mod log_entry {
 
 /// Additional information about a potentially long-running operation with which
 /// a log entry is associated.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntryOperation {
     /// Optional. An arbitrary operation identifier. Log entries with the same
@@ -1076,9 +1102,24 @@ impl serde::ser::Serialize for LogEntryOperation {
     }
 }
 
+impl std::fmt::Debug for LogEntryOperation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogEntryOperation");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("producer", &self.producer);
+        debug_struct.field("first", &self.first);
+        debug_struct.field("last", &self.last);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Additional information about the source code location that produced the log
 /// entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntrySourceLocation {
     /// Optional. Source file name. Depending on the runtime environment, this
@@ -1280,10 +1321,24 @@ impl serde::ser::Serialize for LogEntrySourceLocation {
     }
 }
 
+impl std::fmt::Debug for LogEntrySourceLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogEntrySourceLocation");
+        debug_struct.field("file", &self.file);
+        debug_struct.field("line", &self.line);
+        debug_struct.field("function", &self.function);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Additional information used to correlate multiple log entries. Used when a
 /// single LogEntry would exceed the Google Cloud Logging size limit and is
 /// split across multiple log entries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogSplit {
     /// A globally unique identifier for all log entries in a sequence of split log
@@ -1501,8 +1556,22 @@ impl serde::ser::Serialize for LogSplit {
     }
 }
 
+impl std::fmt::Debug for LogSplit {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogSplit");
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("index", &self.index);
+        debug_struct.field("total_splits", &self.total_splits);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to DeleteLog.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLogRequest {
     /// Required. The resource name of the log to delete:
@@ -1646,8 +1715,20 @@ impl serde::ser::Serialize for DeleteLogRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteLogRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteLogRequest");
+        debug_struct.field("log_name", &self.log_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to WriteLogEntries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteLogEntriesRequest {
     /// Optional. A default log resource name that is assigned to all log entries
@@ -1992,8 +2073,25 @@ impl serde::ser::Serialize for WriteLogEntriesRequest {
     }
 }
 
+impl std::fmt::Debug for WriteLogEntriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WriteLogEntriesRequest");
+        debug_struct.field("log_name", &self.log_name);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("entries", &self.entries);
+        debug_struct.field("partial_success", &self.partial_success);
+        debug_struct.field("dry_run", &self.dry_run);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Result returned from WriteLogEntries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteLogEntriesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2095,8 +2193,19 @@ impl serde::ser::Serialize for WriteLogEntriesResponse {
     }
 }
 
+impl std::fmt::Debug for WriteLogEntriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WriteLogEntriesResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Error details for WriteLogEntries with partial success.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteLogEntriesPartialErrors {
     /// When `WriteLogEntriesRequest.partial_success` is true, records the error
@@ -2268,8 +2377,20 @@ impl serde::ser::Serialize for WriteLogEntriesPartialErrors {
     }
 }
 
+impl std::fmt::Debug for WriteLogEntriesPartialErrors {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WriteLogEntriesPartialErrors");
+        debug_struct.field("log_entry_errors", &self.log_entry_errors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `ListLogEntries`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogEntriesRequest {
     /// Required. Names of one or more parent resources from which to
@@ -2550,8 +2671,24 @@ impl serde::ser::Serialize for ListLogEntriesRequest {
     }
 }
 
+impl std::fmt::Debug for ListLogEntriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLogEntriesRequest");
+        debug_struct.field("resource_names", &self.resource_names);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Result returned from `ListLogEntries`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogEntriesResponse {
     /// A list of log entries.  If `entries` is empty, `nextPageToken` may still be
@@ -2733,8 +2870,21 @@ impl serde::ser::Serialize for ListLogEntriesResponse {
     }
 }
 
+impl std::fmt::Debug for ListLogEntriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLogEntriesResponse");
+        debug_struct.field("entries", &self.entries);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to ListMonitoredResourceDescriptors
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMonitoredResourceDescriptorsRequest {
     /// Optional. The maximum number of results to return from this request.
@@ -2913,8 +3063,21 @@ impl serde::ser::Serialize for ListMonitoredResourceDescriptorsRequest {
     }
 }
 
+impl std::fmt::Debug for ListMonitoredResourceDescriptorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMonitoredResourceDescriptorsRequest");
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Result returned from ListMonitoredResourceDescriptors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMonitoredResourceDescriptorsResponse {
     /// A list of resource descriptors.
@@ -3093,8 +3256,21 @@ impl serde::ser::Serialize for ListMonitoredResourceDescriptorsResponse {
     }
 }
 
+impl std::fmt::Debug for ListMonitoredResourceDescriptorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMonitoredResourceDescriptorsResponse");
+        debug_struct.field("resource_descriptors", &self.resource_descriptors);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to ListLogs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogsRequest {
     /// Required. The resource name to list logs for:
@@ -3343,8 +3519,23 @@ impl serde::ser::Serialize for ListLogsRequest {
     }
 }
 
+impl std::fmt::Debug for ListLogsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLogsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("resource_names", &self.resource_names);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Result returned from ListLogs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogsResponse {
     /// A list of log names. For example,
@@ -3506,8 +3697,21 @@ impl serde::ser::Serialize for ListLogsResponse {
     }
 }
 
+impl std::fmt::Debug for ListLogsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLogsResponse");
+        debug_struct.field("log_names", &self.log_names);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `TailLogEntries`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TailLogEntriesRequest {
     /// Required. Name of a parent resource from which to retrieve log entries:
@@ -3719,8 +3923,22 @@ impl serde::ser::Serialize for TailLogEntriesRequest {
     }
 }
 
+impl std::fmt::Debug for TailLogEntriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TailLogEntriesRequest");
+        debug_struct.field("resource_names", &self.resource_names);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("buffer_window", &self.buffer_window);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Result returned from `TailLogEntries`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TailLogEntriesResponse {
     /// A list of log entries. Each response in the stream will order entries with
@@ -3892,13 +4110,26 @@ impl serde::ser::Serialize for TailLogEntriesResponse {
     }
 }
 
+impl std::fmt::Debug for TailLogEntriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TailLogEntriesResponse");
+        debug_struct.field("entries", &self.entries);
+        debug_struct.field("suppression_info", &self.suppression_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TailLogEntriesResponse].
 pub mod tail_log_entries_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Information about entries that were omitted from the session.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SuppressionInfo {
         /// The reason that entries were omitted from the session.
@@ -4077,6 +4308,19 @@ pub mod tail_log_entries_response {
         }
     }
 
+    impl std::fmt::Debug for SuppressionInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SuppressionInfo");
+            debug_struct.field("reason", &self.reason);
+            debug_struct.field("suppressed_count", &self.suppressed_count);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [SuppressionInfo].
     pub mod suppression_info {
         #[allow(unused_imports)]
@@ -4224,7 +4468,7 @@ pub mod tail_log_entries_response {
 }
 
 /// Configuration for an indexed field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IndexConfig {
     /// Required. The LogEntry field path to index.
@@ -4424,8 +4668,22 @@ impl serde::ser::Serialize for IndexConfig {
     }
 }
 
+impl std::fmt::Debug for IndexConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IndexConfig");
+        debug_struct.field("field_path", &self.field_path);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("create_time", &self.create_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a repository in which log entries are stored.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogBucket {
     /// Output only. The resource name of the bucket.
@@ -4894,8 +5152,30 @@ impl serde::ser::Serialize for LogBucket {
     }
 }
 
+impl std::fmt::Debug for LogBucket {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogBucket");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("retention_days", &self.retention_days);
+        debug_struct.field("locked", &self.locked);
+        debug_struct.field("lifecycle_state", &self.lifecycle_state);
+        debug_struct.field("analytics_enabled", &self.analytics_enabled);
+        debug_struct.field("restricted_fields", &self.restricted_fields);
+        debug_struct.field("index_configs", &self.index_configs);
+        debug_struct.field("cmek_settings", &self.cmek_settings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a view over log entries in a bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogView {
     /// The resource name of the view.
@@ -5161,12 +5441,28 @@ impl serde::ser::Serialize for LogView {
     }
 }
 
+impl std::fmt::Debug for LogView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogView");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a sink used to export log entries to one of the following
 /// destinations in any project: a Cloud Storage bucket, a BigQuery dataset, a
 /// Pub/Sub topic or a Cloud Logging log bucket. A logs filter controls which log
 /// entries are exported. The sink must be created within a project,
 /// organization, billing account, or folder.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogSink {
     /// Required. The client-assigned sink identifier, unique within the project.
@@ -5713,6 +6009,29 @@ impl serde::ser::Serialize for LogSink {
     }
 }
 
+impl std::fmt::Debug for LogSink {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogSink");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("destination", &self.destination);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("exclusions", &self.exclusions);
+        debug_struct.field("output_version_format", &self.output_version_format);
+        debug_struct.field("writer_identity", &self.writer_identity);
+        debug_struct.field("include_children", &self.include_children);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("options", &self.options);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LogSink].
 pub mod log_sink {
     #[allow(unused_imports)]
@@ -5860,7 +6179,7 @@ pub mod log_sink {
 }
 
 /// Describes a BigQuery dataset that was created by a link.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryDataset {
     /// Output only. The full resource name of the BigQuery dataset. The DATASET_ID
@@ -5996,8 +6315,20 @@ impl serde::ser::Serialize for BigQueryDataset {
     }
 }
 
+impl std::fmt::Debug for BigQueryDataset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryDataset");
+        debug_struct.field("dataset_id", &self.dataset_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a link connected to an analytics enabled bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Link {
     /// The resource name of the link. The name can have up to 100 characters.
@@ -6269,8 +6600,24 @@ impl serde::ser::Serialize for Link {
     }
 }
 
+impl std::fmt::Debug for Link {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Link");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("lifecycle_state", &self.lifecycle_state);
+        debug_struct.field("bigquery_dataset", &self.bigquery_dataset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options that change functionality of a sink exporting data to BigQuery.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryOptions {
     /// Optional. Whether to use [BigQuery's partition
@@ -6448,8 +6795,24 @@ impl serde::ser::Serialize for BigQueryOptions {
     }
 }
 
+impl std::fmt::Debug for BigQueryOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryOptions");
+        debug_struct.field("use_partitioned_tables", &self.use_partitioned_tables);
+        debug_struct.field(
+            "uses_timestamp_column_partitioning",
+            &self.uses_timestamp_column_partitioning,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `ListBuckets`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBucketsRequest {
     /// Required. The parent resource whose buckets are to be listed:
@@ -6662,8 +7025,22 @@ impl serde::ser::Serialize for ListBucketsRequest {
     }
 }
 
+impl std::fmt::Debug for ListBucketsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBucketsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response from ListBuckets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBucketsResponse {
     /// A list of buckets.
@@ -6836,8 +7213,21 @@ impl serde::ser::Serialize for ListBucketsResponse {
     }
 }
 
+impl std::fmt::Debug for ListBucketsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBucketsResponse");
+        debug_struct.field("buckets", &self.buckets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `CreateBucket`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBucketRequest {
     /// Required. The resource in which to create the log bucket:
@@ -7038,8 +7428,22 @@ impl serde::ser::Serialize for CreateBucketRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBucketRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBucketRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("bucket_id", &self.bucket_id);
+        debug_struct.field("bucket", &self.bucket);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `UpdateBucket`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBucketRequest {
     /// Required. The full resource name of the bucket to update.
@@ -7257,8 +7661,22 @@ impl serde::ser::Serialize for UpdateBucketRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateBucketRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBucketRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `GetBucket`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBucketRequest {
     /// Required. The resource name of the bucket:
@@ -7398,8 +7816,20 @@ impl serde::ser::Serialize for GetBucketRequest {
     }
 }
 
+impl std::fmt::Debug for GetBucketRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBucketRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `DeleteBucket`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBucketRequest {
     /// Required. The full resource name of the bucket to delete.
@@ -7539,8 +7969,20 @@ impl serde::ser::Serialize for DeleteBucketRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBucketRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBucketRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `UndeleteBucket`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteBucketRequest {
     /// Required. The full resource name of the bucket to undelete.
@@ -7680,8 +8122,20 @@ impl serde::ser::Serialize for UndeleteBucketRequest {
     }
 }
 
+impl std::fmt::Debug for UndeleteBucketRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteBucketRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `ListViews`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListViewsRequest {
     /// Required. The bucket whose views are to be listed:
@@ -7888,8 +8342,22 @@ impl serde::ser::Serialize for ListViewsRequest {
     }
 }
 
+impl std::fmt::Debug for ListViewsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListViewsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response from ListViews.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListViewsResponse {
     /// A list of views.
@@ -8062,8 +8530,21 @@ impl serde::ser::Serialize for ListViewsResponse {
     }
 }
 
+impl std::fmt::Debug for ListViewsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListViewsResponse");
+        debug_struct.field("views", &self.views);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `CreateView`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateViewRequest {
     /// Required. The bucket in which to create the view
@@ -8262,8 +8743,22 @@ impl serde::ser::Serialize for CreateViewRequest {
     }
 }
 
+impl std::fmt::Debug for CreateViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateViewRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("view_id", &self.view_id);
+        debug_struct.field("view", &self.view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `UpdateView`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateViewRequest {
     /// Required. The full resource name of the view to update
@@ -8478,8 +8973,22 @@ impl serde::ser::Serialize for UpdateViewRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateViewRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `GetView`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetViewRequest {
     /// Required. The resource name of the policy:
@@ -8616,8 +9125,20 @@ impl serde::ser::Serialize for GetViewRequest {
     }
 }
 
+impl std::fmt::Debug for GetViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetViewRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `DeleteView`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteViewRequest {
     /// Required. The full resource name of the view to delete:
@@ -8754,8 +9275,20 @@ impl serde::ser::Serialize for DeleteViewRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteViewRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `ListSinks`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSinksRequest {
     /// Required. The parent resource whose sinks are to be listed:
@@ -8964,8 +9497,22 @@ impl serde::ser::Serialize for ListSinksRequest {
     }
 }
 
+impl std::fmt::Debug for ListSinksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSinksRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Result returned from `ListSinks`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSinksResponse {
     /// A list of sinks.
@@ -9138,8 +9685,21 @@ impl serde::ser::Serialize for ListSinksResponse {
     }
 }
 
+impl std::fmt::Debug for ListSinksResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSinksResponse");
+        debug_struct.field("sinks", &self.sinks);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `GetSink`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSinkRequest {
     /// Required. The resource name of the sink:
@@ -9280,8 +9840,20 @@ impl serde::ser::Serialize for GetSinkRequest {
     }
 }
 
+impl std::fmt::Debug for GetSinkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSinkRequest");
+        debug_struct.field("sink_name", &self.sink_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `CreateSink`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSinkRequest {
     /// Required. The resource in which to create the sink:
@@ -9496,8 +10068,22 @@ impl serde::ser::Serialize for CreateSinkRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSinkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSinkRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("sink", &self.sink);
+        debug_struct.field("unique_writer_identity", &self.unique_writer_identity);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `UpdateSink`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSinkRequest {
     /// Required. The full resource name of the sink to update, including the
@@ -9763,8 +10349,23 @@ impl serde::ser::Serialize for UpdateSinkRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSinkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSinkRequest");
+        debug_struct.field("sink_name", &self.sink_name);
+        debug_struct.field("sink", &self.sink);
+        debug_struct.field("unique_writer_identity", &self.unique_writer_identity);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `DeleteSink`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSinkRequest {
     /// Required. The full resource name of the sink to delete, including the
@@ -9906,8 +10507,20 @@ impl serde::ser::Serialize for DeleteSinkRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSinkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSinkRequest");
+        debug_struct.field("sink_name", &self.sink_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to CreateLink.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLinkRequest {
     /// Required. The full resource name of the bucket to create a link for.
@@ -10105,8 +10718,22 @@ impl serde::ser::Serialize for CreateLinkRequest {
     }
 }
 
+impl std::fmt::Debug for CreateLinkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateLinkRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("link", &self.link);
+        debug_struct.field("link_id", &self.link_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to DeleteLink.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLinkRequest {
     /// Required. The full resource name of the link to delete.
@@ -10240,8 +10867,20 @@ impl serde::ser::Serialize for DeleteLinkRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteLinkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteLinkRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to ListLinks.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLinksRequest {
     /// Required. The parent resource whose links are to be listed:
@@ -10445,8 +11084,22 @@ impl serde::ser::Serialize for ListLinksRequest {
     }
 }
 
+impl std::fmt::Debug for ListLinksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLinksRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response from ListLinks.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLinksResponse {
     /// A list of links.
@@ -10619,8 +11272,21 @@ impl serde::ser::Serialize for ListLinksResponse {
     }
 }
 
+impl std::fmt::Debug for ListLinksResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLinksResponse");
+        debug_struct.field("links", &self.links);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to GetLink.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLinkRequest {
     /// Required. The resource name of the link:
@@ -10754,12 +11420,24 @@ impl serde::ser::Serialize for GetLinkRequest {
     }
 }
 
+impl std::fmt::Debug for GetLinkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLinkRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies a set of log entries that are filtered out by a sink. If
 /// your Google Cloud resource receives a large volume of log entries, you can
 /// use exclusions to reduce your chargeable logs. Note that exclusions on
 /// organization-level and folder-level sinks don't apply to child resources.
 /// Note also that you cannot modify the _Required sink or exclude logs from it.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogExclusion {
     /// Required. A client-assigned identifier, such as
@@ -11053,8 +11731,25 @@ impl serde::ser::Serialize for LogExclusion {
     }
 }
 
+impl std::fmt::Debug for LogExclusion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogExclusion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `ListExclusions`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExclusionsRequest {
     /// Required. The parent resource whose exclusions are to be listed.
@@ -11263,8 +11958,22 @@ impl serde::ser::Serialize for ListExclusionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListExclusionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExclusionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Result returned from `ListExclusions`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExclusionsResponse {
     /// A list of exclusions.
@@ -11437,8 +12146,21 @@ impl serde::ser::Serialize for ListExclusionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListExclusionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExclusionsResponse");
+        debug_struct.field("exclusions", &self.exclusions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `GetExclusion`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetExclusionRequest {
     /// Required. The resource name of an existing exclusion:
@@ -11578,8 +12300,20 @@ impl serde::ser::Serialize for GetExclusionRequest {
     }
 }
 
+impl std::fmt::Debug for GetExclusionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetExclusionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `CreateExclusion`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateExclusionRequest {
     /// Required. The parent resource in which to create the exclusion:
@@ -11756,8 +12490,21 @@ impl serde::ser::Serialize for CreateExclusionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateExclusionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateExclusionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("exclusion", &self.exclusion);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `UpdateExclusion`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateExclusionRequest {
     /// Required. The resource name of the exclusion to update:
@@ -11978,8 +12725,22 @@ impl serde::ser::Serialize for UpdateExclusionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateExclusionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateExclusionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("exclusion", &self.exclusion);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to `DeleteExclusion`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteExclusionRequest {
     /// Required. The resource name of an existing exclusion to delete:
@@ -12119,6 +12880,18 @@ impl serde::ser::Serialize for DeleteExclusionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteExclusionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteExclusionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to
 /// [GetCmekSettings][google.logging.v2.ConfigServiceV2.GetCmekSettings].
 ///
@@ -12127,7 +12900,7 @@ impl serde::ser::Serialize for DeleteExclusionRequest {
 /// more information.
 ///
 /// [google.logging.v2.ConfigServiceV2.GetCmekSettings]: crate::client::ConfigServiceV2::get_cmek_settings
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCmekSettingsRequest {
     /// Required. The resource for which to retrieve CMEK settings.
@@ -12272,6 +13045,18 @@ impl serde::ser::Serialize for GetCmekSettingsRequest {
     }
 }
 
+impl std::fmt::Debug for GetCmekSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCmekSettingsRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to
 /// [UpdateCmekSettings][google.logging.v2.ConfigServiceV2.UpdateCmekSettings].
 ///
@@ -12280,7 +13065,7 @@ impl serde::ser::Serialize for GetCmekSettingsRequest {
 /// more information.
 ///
 /// [google.logging.v2.ConfigServiceV2.UpdateCmekSettings]: crate::client::ConfigServiceV2::update_cmek_settings
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCmekSettingsRequest {
     /// Required. The resource name for the CMEK settings to update.
@@ -12508,6 +13293,20 @@ impl serde::ser::Serialize for UpdateCmekSettingsRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCmekSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCmekSettingsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("cmek_settings", &self.cmek_settings);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes the customer-managed encryption key (CMEK) settings associated with
 /// a project, folder, organization, billing account, or flexible resource.
 ///
@@ -12518,7 +13317,7 @@ impl serde::ser::Serialize for UpdateCmekSettingsRequest {
 /// See [Enabling CMEK for Log
 /// Router](https://cloud.google.com/logging/docs/routing/managed-encryption) for
 /// more information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CmekSettings {
     /// Output only. The resource name of the CMEK settings.
@@ -12786,6 +13585,21 @@ impl serde::ser::Serialize for CmekSettings {
     }
 }
 
+impl std::fmt::Debug for CmekSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CmekSettings");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
+        debug_struct.field("service_account_id", &self.service_account_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to
 /// [GetSettings][google.logging.v2.ConfigServiceV2.GetSettings].
 ///
@@ -12794,7 +13608,7 @@ impl serde::ser::Serialize for CmekSettings {
 /// more information.
 ///
 /// [google.logging.v2.ConfigServiceV2.GetSettings]: crate::client::ConfigServiceV2::get_settings
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSettingsRequest {
     /// Required. The resource for which to retrieve settings.
@@ -12939,6 +13753,18 @@ impl serde::ser::Serialize for GetSettingsRequest {
     }
 }
 
+impl std::fmt::Debug for GetSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSettingsRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to
 /// [UpdateSettings][google.logging.v2.ConfigServiceV2.UpdateSettings].
 ///
@@ -12947,7 +13773,7 @@ impl serde::ser::Serialize for GetSettingsRequest {
 /// more information.
 ///
 /// [google.logging.v2.ConfigServiceV2.UpdateSettings]: crate::client::ConfigServiceV2::update_settings
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSettingsRequest {
     /// Required. The resource name for the settings to update.
@@ -13171,9 +13997,23 @@ impl serde::ser::Serialize for UpdateSettingsRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSettingsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("settings", &self.settings);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes the settings associated with a project, folder, organization,
 /// billing account, or flexible resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Settings {
     /// Output only. The resource name of the settings.
@@ -13452,8 +14292,24 @@ impl serde::ser::Serialize for Settings {
     }
 }
 
+impl std::fmt::Debug for Settings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Settings");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("kms_service_account_id", &self.kms_service_account_id);
+        debug_struct.field("storage_location", &self.storage_location);
+        debug_struct.field("disable_default_sink", &self.disable_default_sink);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to CopyLogEntries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyLogEntriesRequest {
     /// Required. Log bucket from which to copy log entries.
@@ -13635,8 +14491,22 @@ impl serde::ser::Serialize for CopyLogEntriesRequest {
     }
 }
 
+impl std::fmt::Debug for CopyLogEntriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CopyLogEntriesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("destination", &self.destination);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for CopyLogEntries long running operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyLogEntriesMetadata {
     /// The create time of an operation.
@@ -13970,8 +14840,26 @@ impl serde::ser::Serialize for CopyLogEntriesMetadata {
     }
 }
 
+impl std::fmt::Debug for CopyLogEntriesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CopyLogEntriesMetadata");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("cancellation_requested", &self.cancellation_requested);
+        debug_struct.field("request", &self.request);
+        debug_struct.field("progress", &self.progress);
+        debug_struct.field("writer_identity", &self.writer_identity);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response type for CopyLogEntries long running operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyLogEntriesResponse {
     /// Number of log entries copied.
@@ -14125,8 +15013,20 @@ impl serde::ser::Serialize for CopyLogEntriesResponse {
     }
 }
 
+impl std::fmt::Debug for CopyLogEntriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CopyLogEntriesResponse");
+        debug_struct.field("log_entries_copied_count", &self.log_entries_copied_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for LongRunningUpdateBucket Operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BucketMetadata {
     /// The create time of an operation.
@@ -14459,6 +15359,21 @@ impl serde::ser::Serialize for BucketMetadata {
     }
 }
 
+impl std::fmt::Debug for BucketMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BucketMetadata");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("request", &self.request);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BucketMetadata].
 pub mod bucket_metadata {
     #[allow(unused_imports)]
@@ -14475,7 +15390,7 @@ pub mod bucket_metadata {
 }
 
 /// Metadata for long running Link operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkMetadata {
     /// The start time of an operation.
@@ -14808,6 +15723,21 @@ impl serde::ser::Serialize for LinkMetadata {
     }
 }
 
+impl std::fmt::Debug for LinkMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LinkMetadata");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("request", &self.request);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LinkMetadata].
 pub mod link_metadata {
     #[allow(unused_imports)]
@@ -14824,7 +15754,7 @@ pub mod link_metadata {
 }
 
 /// Cloud Logging specific location metadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     /// Indicates whether or not Log Analytics features are supported in the given
@@ -14955,6 +15885,18 @@ impl serde::ser::Serialize for LocationMetadata {
     }
 }
 
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+        debug_struct.field("log_analytics_enabled", &self.log_analytics_enabled);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a logs-based metric. The value of the metric is the number of log
 /// entries that match a logs filter in a given time interval.
 ///
@@ -14962,7 +15904,7 @@ impl serde::ser::Serialize for LocationMetadata {
 /// distribution of the values. The distribution records the statistics of the
 /// extracted values along with an optional histogram of the values as specified
 /// by the bucket options.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogMetric {
     /// Required. The client-assigned metric identifier.
@@ -15510,6 +16452,29 @@ impl serde::ser::Serialize for LogMetric {
     }
 }
 
+impl std::fmt::Debug for LogMetric {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogMetric");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("bucket_name", &self.bucket_name);
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("metric_descriptor", &self.metric_descriptor);
+        debug_struct.field("value_extractor", &self.value_extractor);
+        debug_struct.field("label_extractors", &self.label_extractors);
+        debug_struct.field("bucket_options", &self.bucket_options);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LogMetric].
 pub mod log_metric {
     #[allow(unused_imports)]
@@ -15642,7 +16607,7 @@ pub mod log_metric {
 }
 
 /// The parameters to ListLogMetrics.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogMetricsRequest {
     /// Required. The name of the project containing the metrics:
@@ -15848,8 +16813,22 @@ impl serde::ser::Serialize for ListLogMetricsRequest {
     }
 }
 
+impl std::fmt::Debug for ListLogMetricsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLogMetricsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Result returned from ListLogMetrics.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogMetricsResponse {
     /// A list of logs-based metrics.
@@ -16022,8 +17001,21 @@ impl serde::ser::Serialize for ListLogMetricsResponse {
     }
 }
 
+impl std::fmt::Debug for ListLogMetricsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLogMetricsResponse");
+        debug_struct.field("metrics", &self.metrics);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to GetLogMetric.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLogMetricRequest {
     /// Required. The resource name of the desired metric:
@@ -16157,8 +17149,20 @@ impl serde::ser::Serialize for GetLogMetricRequest {
     }
 }
 
+impl std::fmt::Debug for GetLogMetricRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLogMetricRequest");
+        debug_struct.field("metric_name", &self.metric_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to CreateLogMetric.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLogMetricRequest {
     /// Required. The resource name of the project in which to create the metric:
@@ -16329,8 +17333,21 @@ impl serde::ser::Serialize for CreateLogMetricRequest {
     }
 }
 
+impl std::fmt::Debug for CreateLogMetricRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateLogMetricRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("metric", &self.metric);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to UpdateLogMetric.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateLogMetricRequest {
     /// Required. The resource name of the metric to update:
@@ -16503,8 +17520,21 @@ impl serde::ser::Serialize for UpdateLogMetricRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateLogMetricRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateLogMetricRequest");
+        debug_struct.field("metric_name", &self.metric_name);
+        debug_struct.field("metric", &self.metric);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The parameters to DeleteLogMetric.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLogMetricRequest {
     /// Required. The resource name of the metric to delete:
@@ -16635,6 +17665,18 @@ impl serde::ser::Serialize for DeleteLogMetricRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DeleteLogMetricRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteLogMetricRequest");
+        debug_struct.field("metric_name", &self.metric_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

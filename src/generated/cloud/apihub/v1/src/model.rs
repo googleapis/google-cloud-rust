@@ -36,7 +36,7 @@ extern crate wkt;
 /// The [CreateApi][google.cloud.apihub.v1.ApiHub.CreateApi] method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.CreateApi]: crate::client::ApiHub::create_api
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateApiRequest {
     /// Required. The parent resource for the API resource.
@@ -234,10 +234,24 @@ impl serde::ser::Serialize for CreateApiRequest {
     }
 }
 
+impl std::fmt::Debug for CreateApiRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateApiRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("api_id", &self.api_id);
+        debug_struct.field("api", &self.api);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [GetApi][google.cloud.apihub.v1.ApiHub.GetApi] method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.GetApi]: crate::client::ApiHub::get_api
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetApiRequest {
     /// Required. The name of the API resource to retrieve.
@@ -367,10 +381,22 @@ impl serde::ser::Serialize for GetApiRequest {
     }
 }
 
+impl std::fmt::Debug for GetApiRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetApiRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [UpdateApi][google.cloud.apihub.v1.ApiHub.UpdateApi] method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.UpdateApi]: crate::client::ApiHub::update_api
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateApiRequest {
     /// Required. The API resource to update.
@@ -550,10 +576,23 @@ impl serde::ser::Serialize for UpdateApiRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateApiRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateApiRequest");
+        debug_struct.field("api", &self.api);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [DeleteApi][google.cloud.apihub.v1.ApiHub.DeleteApi] method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.DeleteApi]: crate::client::ApiHub::delete_api
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteApiRequest {
     /// Required. The name of the API resource to delete.
@@ -708,10 +747,23 @@ impl serde::ser::Serialize for DeleteApiRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteApiRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteApiRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListApis][google.cloud.apihub.v1.ApiHub.ListApis] method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListApis]: crate::client::ApiHub::list_apis
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApisRequest {
     /// Required. The parent, which owns this collection of API resources.
@@ -1010,10 +1062,25 @@ impl serde::ser::Serialize for ListApisRequest {
     }
 }
 
+impl std::fmt::Debug for ListApisRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListApisRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListApis][google.cloud.apihub.v1.ApiHub.ListApis] method's response.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListApis]: crate::client::ApiHub::list_apis
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApisResponse {
     /// The API resources present in the API hub.
@@ -1185,11 +1252,24 @@ impl serde::ser::Serialize for ListApisResponse {
     }
 }
 
+impl std::fmt::Debug for ListApisResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListApisResponse");
+        debug_struct.field("apis", &self.apis);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [CreateVersion][google.cloud.apihub.v1.ApiHub.CreateVersion] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.CreateVersion]: crate::client::ApiHub::create_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVersionRequest {
     /// Required. The parent resource for API version.
@@ -1387,10 +1467,24 @@ impl serde::ser::Serialize for CreateVersionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("version_id", &self.version_id);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [GetVersion][google.cloud.apihub.v1.ApiHub.GetVersion] method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.GetVersion]: crate::client::ApiHub::get_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVersionRequest {
     /// Required. The name of the API version to retrieve.
@@ -1521,11 +1615,23 @@ impl serde::ser::Serialize for GetVersionRequest {
     }
 }
 
+impl std::fmt::Debug for GetVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVersionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [UpdateVersion][google.cloud.apihub.v1.ApiHub.UpdateVersion] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.UpdateVersion]: crate::client::ApiHub::update_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVersionRequest {
     /// Required. The API version to update.
@@ -1705,11 +1811,24 @@ impl serde::ser::Serialize for UpdateVersionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateVersionRequest");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [DeleteVersion][google.cloud.apihub.v1.ApiHub.DeleteVersion] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.DeleteVersion]: crate::client::ApiHub::delete_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVersionRequest {
     /// Required. The name of the version to delete.
@@ -1865,11 +1984,24 @@ impl serde::ser::Serialize for DeleteVersionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListVersions][google.cloud.apihub.v1.ApiHub.ListVersions] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListVersions]: crate::client::ApiHub::list_versions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVersionsRequest {
     /// Required. The parent which owns this collection of API versions i.e., the
@@ -2157,11 +2289,26 @@ impl serde::ser::Serialize for ListVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListVersions][google.cloud.apihub.v1.ApiHub.ListVersions] method's
 /// response.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListVersions]: crate::client::ApiHub::list_versions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVersionsResponse {
     /// The versions corresponding to an API.
@@ -2333,10 +2480,23 @@ impl serde::ser::Serialize for ListVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVersionsResponse");
+        debug_struct.field("versions", &self.versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [CreateSpec][google.cloud.apihub.v1.ApiHub.CreateSpec] method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.CreateSpec]: crate::client::ApiHub::create_spec
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSpecRequest {
     /// Required. The parent resource for Spec.
@@ -2536,10 +2696,24 @@ impl serde::ser::Serialize for CreateSpecRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSpecRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSpecRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("spec_id", &self.spec_id);
+        debug_struct.field("spec", &self.spec);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [GetSpec][google.cloud.apihub.v1.ApiHub.GetSpec] method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.GetSpec]: crate::client::ApiHub::get_spec
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSpecRequest {
     /// Required. The name of the spec to retrieve.
@@ -2670,10 +2844,22 @@ impl serde::ser::Serialize for GetSpecRequest {
     }
 }
 
+impl std::fmt::Debug for GetSpecRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSpecRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [UpdateSpec][google.cloud.apihub.v1.ApiHub.UpdateSpec] method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.UpdateSpec]: crate::client::ApiHub::update_spec
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSpecRequest {
     /// Required. The spec to update.
@@ -2853,10 +3039,23 @@ impl serde::ser::Serialize for UpdateSpecRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSpecRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSpecRequest");
+        debug_struct.field("spec", &self.spec);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [DeleteSpec][google.cloud.apihub.v1.ApiHub.DeleteSpec] method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.DeleteSpec]: crate::client::ApiHub::delete_spec
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSpecRequest {
     /// Required. The name of the spec  to delete.
@@ -2987,8 +3186,20 @@ impl serde::ser::Serialize for DeleteSpecRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSpecRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSpecRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListSpecs][ListSpecs] method's request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSpecsRequest {
     /// Required. The parent, which owns this collection of specs.
@@ -3269,10 +3480,25 @@ impl serde::ser::Serialize for ListSpecsRequest {
     }
 }
 
+impl std::fmt::Debug for ListSpecsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSpecsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListSpecs][google.cloud.apihub.v1.ApiHub.ListSpecs] method's response.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListSpecs]: crate::client::ApiHub::list_specs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSpecsResponse {
     /// The specs corresponding to an API.
@@ -3444,11 +3670,24 @@ impl serde::ser::Serialize for ListSpecsResponse {
     }
 }
 
+impl std::fmt::Debug for ListSpecsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSpecsResponse");
+        debug_struct.field("specs", &self.specs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [GetSpecContents][google.cloud.apihub.v1.ApiHub.GetSpecContents] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.GetSpecContents]: crate::client::ApiHub::get_spec_contents
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSpecContentsRequest {
     /// Required. The name of the spec whose contents need to be retrieved.
@@ -3579,11 +3818,23 @@ impl serde::ser::Serialize for GetSpecContentsRequest {
     }
 }
 
+impl std::fmt::Debug for GetSpecContentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSpecContentsRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [GetApiOperation][google.cloud.apihub.v1.ApiHub.GetApiOperation] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.GetApiOperation]: crate::client::ApiHub::get_api_operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetApiOperationRequest {
     /// Required. The name of the operation to retrieve.
@@ -3714,11 +3965,23 @@ impl serde::ser::Serialize for GetApiOperationRequest {
     }
 }
 
+impl std::fmt::Debug for GetApiOperationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetApiOperationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListApiOperations][google.cloud.apihub.v1.ApiHub.ListApiOperations]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListApiOperations]: crate::client::ApiHub::list_api_operations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApiOperationsRequest {
     /// Required. The parent which owns this collection of operations i.e., the API
@@ -3988,11 +4251,26 @@ impl serde::ser::Serialize for ListApiOperationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListApiOperationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListApiOperationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListApiOperations][google.cloud.apihub.v1.ApiHub.ListApiOperations]
 /// method's response.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListApiOperations]: crate::client::ApiHub::list_api_operations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApiOperationsResponse {
     /// The operations corresponding to an API version.
@@ -4168,11 +4446,24 @@ impl serde::ser::Serialize for ListApiOperationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListApiOperationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListApiOperationsResponse");
+        debug_struct.field("api_operations", &self.api_operations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [GetDefinition][google.cloud.apihub.v1.ApiHub.GetDefinition] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.GetDefinition]: crate::client::ApiHub::get_definition
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDefinitionRequest {
     /// Required. The name of the definition to retrieve.
@@ -4303,11 +4594,23 @@ impl serde::ser::Serialize for GetDefinitionRequest {
     }
 }
 
+impl std::fmt::Debug for GetDefinitionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDefinitionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [CreateDeployment][google.cloud.apihub.v1.ApiHub.CreateDeployment]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.CreateDeployment]: crate::client::ApiHub::create_deployment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDeploymentRequest {
     /// Required. The parent resource for the deployment resource.
@@ -4506,11 +4809,25 @@ impl serde::ser::Serialize for CreateDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDeploymentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("deployment_id", &self.deployment_id);
+        debug_struct.field("deployment", &self.deployment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [GetDeployment][google.cloud.apihub.v1.ApiHub.GetDeployment] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.GetDeployment]: crate::client::ApiHub::get_deployment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDeploymentRequest {
     /// Required. The name of the deployment resource to retrieve.
@@ -4640,11 +4957,23 @@ impl serde::ser::Serialize for GetDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for GetDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDeploymentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [UpdateDeployment][google.cloud.apihub.v1.ApiHub.UpdateDeployment]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.UpdateDeployment]: crate::client::ApiHub::update_deployment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDeploymentRequest {
     /// Required. The deployment resource to update.
@@ -4824,11 +5153,24 @@ impl serde::ser::Serialize for UpdateDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDeploymentRequest");
+        debug_struct.field("deployment", &self.deployment);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [DeleteDeployment][google.cloud.apihub.v1.ApiHub.DeleteDeployment]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.DeleteDeployment]: crate::client::ApiHub::delete_deployment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDeploymentRequest {
     /// Required. The name of the deployment resource to delete.
@@ -4958,11 +5300,23 @@ impl serde::ser::Serialize for DeleteDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDeploymentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListDeployments][google.cloud.apihub.v1.ApiHub.ListDeployments] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListDeployments]: crate::client::ApiHub::list_deployments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeploymentsRequest {
     /// Required. The parent, which owns this collection of deployment resources.
@@ -5249,11 +5603,26 @@ impl serde::ser::Serialize for ListDeploymentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDeploymentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeploymentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListDeployments][google.cloud.apihub.v1.ApiHub.ListDeployments] method's
 /// response.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListDeployments]: crate::client::ApiHub::list_deployments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeploymentsResponse {
     /// The deployment resources present in the API hub.
@@ -5425,11 +5794,24 @@ impl serde::ser::Serialize for ListDeploymentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDeploymentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeploymentsResponse");
+        debug_struct.field("deployments", &self.deployments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [CreateAttribute][google.cloud.apihub.v1.ApiHub.CreateAttribute] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.CreateAttribute]: crate::client::ApiHub::create_attribute
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAttributeRequest {
     /// Required. The parent resource for Attribute.
@@ -5628,11 +6010,25 @@ impl serde::ser::Serialize for CreateAttributeRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAttributeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAttributeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("attribute_id", &self.attribute_id);
+        debug_struct.field("attribute", &self.attribute);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [GetAttribute][google.cloud.apihub.v1.ApiHub.GetAttribute] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.GetAttribute]: crate::client::ApiHub::get_attribute
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAttributeRequest {
     /// Required. The name of the attribute to retrieve.
@@ -5763,11 +6159,23 @@ impl serde::ser::Serialize for GetAttributeRequest {
     }
 }
 
+impl std::fmt::Debug for GetAttributeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAttributeRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [UpdateAttribute][google.cloud.apihub.v1.ApiHub.UpdateAttribute] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.UpdateAttribute]: crate::client::ApiHub::update_attribute
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAttributeRequest {
     /// Required. The attribute to update.
@@ -5947,11 +6355,24 @@ impl serde::ser::Serialize for UpdateAttributeRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAttributeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAttributeRequest");
+        debug_struct.field("attribute", &self.attribute);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [DeleteAttribute][google.cloud.apihub.v1.ApiHub.DeleteAttribute] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.DeleteAttribute]: crate::client::ApiHub::delete_attribute
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAttributeRequest {
     /// Required. The name of the attribute to delete.
@@ -6082,11 +6503,23 @@ impl serde::ser::Serialize for DeleteAttributeRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAttributeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAttributeRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListAttributes][google.cloud.apihub.v1.ApiHub.ListAttributes] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListAttributes]: crate::client::ApiHub::list_attributes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttributesRequest {
     /// Required. The parent resource for Attribute.
@@ -6357,11 +6790,26 @@ impl serde::ser::Serialize for ListAttributesRequest {
     }
 }
 
+impl std::fmt::Debug for ListAttributesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAttributesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListAttributes][google.cloud.apihub.v1.ApiHub.ListAttributes] method's
 /// response.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListAttributes]: crate::client::ApiHub::list_attributes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttributesResponse {
     /// The list of all attributes.
@@ -6533,11 +6981,24 @@ impl serde::ser::Serialize for ListAttributesResponse {
     }
 }
 
+impl std::fmt::Debug for ListAttributesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAttributesResponse");
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [SearchResources][google.cloud.apihub.v1.ApiHub.SearchResources] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.SearchResources]: crate::client::ApiHub::search_resources
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchResourcesRequest {
     /// Required. The resource name of the location which will be of the type
@@ -6818,9 +7279,25 @@ impl serde::ser::Serialize for SearchResourcesRequest {
     }
 }
 
+impl std::fmt::Debug for SearchResourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchResourcesRequest");
+        debug_struct.field("location", &self.location);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ApiHubResource is one of the resources such as Api, Operation, Deployment,
 /// Definition, Spec and Version resources stored in API-Hub.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApiHubResource {
     pub resource: std::option::Option<crate::model::api_hub_resource::Resource>,
@@ -7243,6 +7720,18 @@ impl serde::ser::Serialize for ApiHubResource {
     }
 }
 
+impl std::fmt::Debug for ApiHubResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApiHubResource");
+        debug_struct.field("resource", &self.resource);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ApiHubResource].
 pub mod api_hub_resource {
     #[allow(unused_imports)]
@@ -7273,7 +7762,7 @@ pub mod api_hub_resource {
 }
 
 /// Represents the search results.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchResult {
     /// This represents the ApiHubResource.
@@ -7415,11 +7904,23 @@ impl serde::ser::Serialize for SearchResult {
     }
 }
 
+impl std::fmt::Debug for SearchResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchResult");
+        debug_struct.field("resource", &self.resource);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the
 /// [SearchResources][google.cloud.apihub.v1.ApiHub.SearchResources] method.
 ///
 /// [google.cloud.apihub.v1.ApiHub.SearchResources]: crate::client::ApiHub::search_resources
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchResourcesResponse {
     /// List of search results according to the filter and search query specified.
@@ -7597,12 +8098,25 @@ impl serde::ser::Serialize for SearchResourcesResponse {
     }
 }
 
+impl std::fmt::Debug for SearchResourcesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchResourcesResponse");
+        debug_struct.field("search_results", &self.search_results);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [CreateDependency][google.cloud.apihub.v1.ApiHubDependencies.CreateDependency]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHubDependencies.CreateDependency]: crate::client::ApiHubDependencies::create_dependency
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDependencyRequest {
     /// Required. The parent resource for the dependency resource.
@@ -7800,9 +8314,23 @@ impl serde::ser::Serialize for CreateDependencyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDependencyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDependencyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("dependency_id", &self.dependency_id);
+        debug_struct.field("dependency", &self.dependency);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [GetDependency][.ApiHubDependencies.GetDependency]
 /// method's request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDependencyRequest {
     /// Required. The name of the dependency resource to retrieve.
@@ -7932,12 +8460,24 @@ impl serde::ser::Serialize for GetDependencyRequest {
     }
 }
 
+impl std::fmt::Debug for GetDependencyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDependencyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [UpdateDependency][google.cloud.apihub.v1.ApiHubDependencies.UpdateDependency]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHubDependencies.UpdateDependency]: crate::client::ApiHubDependencies::update_dependency
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDependencyRequest {
     /// Required. The dependency resource to update.
@@ -8116,12 +8656,25 @@ impl serde::ser::Serialize for UpdateDependencyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDependencyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDependencyRequest");
+        debug_struct.field("dependency", &self.dependency);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [DeleteDependency][google.cloud.apihub.v1.ApiHubDependencies.DeleteDependency]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHubDependencies.DeleteDependency]: crate::client::ApiHubDependencies::delete_dependency
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDependencyRequest {
     /// Required. The name of the dependency resource to delete.
@@ -8251,12 +8804,24 @@ impl serde::ser::Serialize for DeleteDependencyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDependencyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDependencyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [ListDependencies][google.cloud.apihub.v1.ApiHubDependencies.ListDependencies]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHubDependencies.ListDependencies]: crate::client::ApiHubDependencies::list_dependencies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDependenciesRequest {
     /// Required. The parent which owns this collection of dependency resources.
@@ -8518,12 +9083,27 @@ impl serde::ser::Serialize for ListDependenciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListDependenciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDependenciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [ListDependencies][google.cloud.apihub.v1.ApiHubDependencies.ListDependencies]
 /// method's response.
 ///
 /// [google.cloud.apihub.v1.ApiHubDependencies.ListDependencies]: crate::client::ApiHubDependencies::list_dependencies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDependenciesResponse {
     /// The dependency resources present in the API hub.
@@ -8696,11 +9276,24 @@ impl serde::ser::Serialize for ListDependenciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListDependenciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDependenciesResponse");
+        debug_struct.field("dependencies", &self.dependencies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [CreateExternalApi][google.cloud.apihub.v1.ApiHub.CreateExternalApi]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.CreateExternalApi]: crate::client::ApiHub::create_external_api
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateExternalApiRequest {
     /// Required. The parent resource for the External API resource.
@@ -8901,11 +9494,25 @@ impl serde::ser::Serialize for CreateExternalApiRequest {
     }
 }
 
+impl std::fmt::Debug for CreateExternalApiRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateExternalApiRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("external_api_id", &self.external_api_id);
+        debug_struct.field("external_api", &self.external_api);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [GetExternalApi][google.cloud.apihub.v1.ApiHub.GetExternalApi] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.GetExternalApi]: crate::client::ApiHub::get_external_api
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetExternalApiRequest {
     /// Required. The name of the External API resource to retrieve.
@@ -9036,11 +9643,23 @@ impl serde::ser::Serialize for GetExternalApiRequest {
     }
 }
 
+impl std::fmt::Debug for GetExternalApiRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetExternalApiRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [UpdateExternalApi][google.cloud.apihub.v1.ApiHub.UpdateExternalApi]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.UpdateExternalApi]: crate::client::ApiHub::update_external_api
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateExternalApiRequest {
     /// Required. The External API resource to update.
@@ -9221,11 +9840,24 @@ impl serde::ser::Serialize for UpdateExternalApiRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateExternalApiRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateExternalApiRequest");
+        debug_struct.field("external_api", &self.external_api);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [DeleteExternalApi][google.cloud.apihub.v1.ApiHub.DeleteExternalApi]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.DeleteExternalApi]: crate::client::ApiHub::delete_external_api
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteExternalApiRequest {
     /// Required. The name of the External API resource to delete.
@@ -9356,11 +9988,23 @@ impl serde::ser::Serialize for DeleteExternalApiRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteExternalApiRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteExternalApiRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListExternalApis][google.cloud.apihub.v1.ApiHub.ListExternalApis]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListExternalApis]: crate::client::ApiHub::list_external_apis
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExternalApisRequest {
     /// Required. The parent, which owns this collection of External API resources.
@@ -9565,11 +10209,25 @@ impl serde::ser::Serialize for ListExternalApisRequest {
     }
 }
 
+impl std::fmt::Debug for ListExternalApisRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExternalApisRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [ListExternalApis][google.cloud.apihub.v1.ApiHub.ListExternalApis]
 /// method's response.
 ///
 /// [google.cloud.apihub.v1.ApiHub.ListExternalApis]: crate::client::ApiHub::list_external_apis
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExternalApisResponse {
     /// The External API resources present in the API hub.
@@ -9744,8 +10402,21 @@ impl serde::ser::Serialize for ListExternalApisResponse {
     }
 }
 
+impl std::fmt::Debug for ListExternalApisResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExternalApisResponse");
+        debug_struct.field("external_apis", &self.external_apis);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An API resource in the API Hub.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Api {
     /// Identifier. The name of the API resource in the API Hub.
@@ -10386,9 +11057,35 @@ impl serde::ser::Serialize for Api {
     }
 }
 
+impl std::fmt::Debug for Api {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Api");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("documentation", &self.documentation);
+        debug_struct.field("owner", &self.owner);
+        debug_struct.field("versions", &self.versions);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("target_user", &self.target_user);
+        debug_struct.field("team", &self.team);
+        debug_struct.field("business_unit", &self.business_unit);
+        debug_struct.field("maturity_level", &self.maturity_level);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("api_style", &self.api_style);
+        debug_struct.field("selected_version", &self.selected_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a version of the API resource in API hub. This is also referred
 /// to as the API version.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Version {
     /// Identifier. The name of the version.
@@ -10997,10 +11694,36 @@ impl serde::ser::Serialize for Version {
     }
 }
 
+impl std::fmt::Debug for Version {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Version");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("documentation", &self.documentation);
+        debug_struct.field("specs", &self.specs);
+        debug_struct.field("api_operations", &self.api_operations);
+        debug_struct.field("definitions", &self.definitions);
+        debug_struct.field("deployments", &self.deployments);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("lifecycle", &self.lifecycle);
+        debug_struct.field("compliance", &self.compliance);
+        debug_struct.field("accreditation", &self.accreditation);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("selected_deployment", &self.selected_deployment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a spec associated with an API version in the API
 /// Hub. Note that specs of various types can be uploaded, however
 /// parsing of details is supported for OpenAPI spec currently.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Spec {
     /// Identifier. The name of the spec.
@@ -11512,6 +12235,29 @@ impl serde::ser::Serialize for Spec {
     }
 }
 
+impl std::fmt::Debug for Spec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Spec");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("spec_type", &self.spec_type);
+        debug_struct.field("contents", &self.contents);
+        debug_struct.field("details", &self.details);
+        debug_struct.field("source_uri", &self.source_uri);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("lint_response", &self.lint_response);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("documentation", &self.documentation);
+        debug_struct.field("parsing_mode", &self.parsing_mode);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Spec].
 pub mod spec {
     #[allow(unused_imports)]
@@ -11663,7 +12409,7 @@ pub mod spec {
 /// A deployment could represent an Apigee proxy, API gateway, other Google Cloud
 /// services or non-Google Cloud services as well. A deployment entity is a root
 /// level entity in the API hub and exists independent of any API.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Deployment {
     /// Identifier. The name of the deployment.
@@ -12205,12 +12951,36 @@ impl serde::ser::Serialize for Deployment {
     }
 }
 
+impl std::fmt::Debug for Deployment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Deployment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("documentation", &self.documentation);
+        debug_struct.field("deployment_type", &self.deployment_type);
+        debug_struct.field("resource_uri", &self.resource_uri);
+        debug_struct.field("endpoints", &self.endpoints);
+        debug_struct.field("api_versions", &self.api_versions);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("slo", &self.slo);
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("attributes", &self.attributes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents an operation contained in an API version in the API Hub.
 /// An operation is added/updated/deleted in an API version when a new spec is
 /// added or an existing spec is updated/deleted in a version.
 /// Currently, an operation will be created only corresponding to OpenAPI spec as
 /// parsing is supported for OpenAPI spec.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApiOperation {
     /// Identifier. The name of the operation.
@@ -12514,6 +13284,23 @@ impl serde::ser::Serialize for ApiOperation {
     }
 }
 
+impl std::fmt::Debug for ApiOperation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApiOperation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("spec", &self.spec);
+        debug_struct.field("details", &self.details);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("attributes", &self.attributes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a definition for example schema, request, response definitions
 /// contained in an API version.
 /// A definition is added/updated/deleted in an API version when a new spec is
@@ -12521,7 +13308,7 @@ impl serde::ser::Serialize for ApiOperation {
 /// definition will be created only corresponding to OpenAPI spec as parsing is
 /// supported for OpenAPI spec. Also, within OpenAPI spec, only `schema` object
 /// is supported.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Definition {
     /// Identifier. The name of the definition.
@@ -12880,6 +13667,24 @@ impl serde::ser::Serialize for Definition {
     }
 }
 
+impl std::fmt::Debug for Definition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Definition");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("spec", &self.spec);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Definition].
 pub mod definition {
     #[allow(unused_imports)]
@@ -13022,7 +13827,7 @@ pub mod definition {
 /// An attribute is a name value pair which can be attached to different
 /// resources in the API hub based on the scope of the attribute. Attributes can
 /// either be pre-defined by the API Hub or created by users.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Attribute {
     /// Identifier. The name of the attribute in the API Hub.
@@ -13462,6 +14267,28 @@ impl serde::ser::Serialize for Attribute {
     }
 }
 
+impl std::fmt::Debug for Attribute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Attribute");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("definition_type", &self.definition_type);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("data_type", &self.data_type);
+        debug_struct.field("allowed_values", &self.allowed_values);
+        debug_struct.field("cardinality", &self.cardinality);
+        debug_struct.field("mandatory", &self.mandatory);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Attribute].
 pub mod attribute {
     #[allow(unused_imports)]
@@ -13469,7 +14296,7 @@ pub mod attribute {
 
     /// The value that can be assigned to the attribute when the data type is
     /// enum.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AllowedValue {
         /// Required. The ID of the allowed value.
@@ -13685,6 +14512,21 @@ pub mod attribute {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for AllowedValue {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AllowedValue");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("immutable", &self.immutable);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -14144,7 +14986,7 @@ pub mod attribute {
 }
 
 /// The spec contents.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpecContents {
     /// Required. The contents of the spec.
@@ -14317,9 +15159,22 @@ impl serde::ser::Serialize for SpecContents {
     }
 }
 
+impl std::fmt::Debug for SpecContents {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpecContents");
+        debug_struct.field("contents", &self.contents);
+        debug_struct.field("mime_type", &self.mime_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SpecDetails contains the details parsed from supported
 /// spec types.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpecDetails {
     /// Output only. The description of the spec.
@@ -14522,6 +15377,19 @@ impl serde::ser::Serialize for SpecDetails {
     }
 }
 
+impl std::fmt::Debug for SpecDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpecDetails");
+        debug_struct.field("description", &self.description);
+        debug_struct.field("details", &self.details);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SpecDetails].
 pub mod spec_details {
     #[allow(unused_imports)]
@@ -14546,7 +15414,7 @@ pub mod spec_details {
 /// [SpecDetails][google.cloud.apihub.v1.SpecDetails].
 ///
 /// [google.cloud.apihub.v1.SpecDetails]: crate::model::SpecDetails
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OpenApiSpecDetails {
     /// Output only. The format of the spec.
@@ -14741,6 +15609,20 @@ impl serde::ser::Serialize for OpenApiSpecDetails {
     }
 }
 
+impl std::fmt::Debug for OpenApiSpecDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OpenApiSpecDetails");
+        debug_struct.field("format", &self.format);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("owner", &self.owner);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OpenApiSpecDetails].
 pub mod open_api_spec_details {
     #[allow(unused_imports)]
@@ -14887,7 +15769,7 @@ pub mod open_api_spec_details {
 }
 
 /// The operation details parsed from the spec.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationDetails {
     /// Output only. Description of the operation behavior.
@@ -15153,6 +16035,21 @@ impl serde::ser::Serialize for OperationDetails {
     }
 }
 
+impl std::fmt::Debug for OperationDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationDetails");
+        debug_struct.field("description", &self.description);
+        debug_struct.field("documentation", &self.documentation);
+        debug_struct.field("deprecated", &self.deprecated);
+        debug_struct.field("operation", &self.operation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OperationDetails].
 pub mod operation_details {
     #[allow(unused_imports)]
@@ -15167,7 +16064,7 @@ pub mod operation_details {
 }
 
 /// The HTTP Operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpOperation {
     /// Output only. The path details for the Operation.
@@ -15329,6 +16226,19 @@ impl serde::ser::Serialize for HttpOperation {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for HttpOperation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpOperation");
+        debug_struct.field("path", &self.path);
+        debug_struct.field("method", &self.method);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -15513,7 +16423,7 @@ pub mod http_operation {
 }
 
 /// The path details derived from the spec.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Path {
     /// Output only. Complete path relative to server endpoint.
@@ -15666,12 +16576,25 @@ impl serde::ser::Serialize for Path {
     }
 }
 
+impl std::fmt::Debug for Path {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Path");
+        debug_struct.field("path", &self.path);
+        debug_struct.field("description", &self.description);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The schema details derived from the spec. Currently, this entity is supported
 /// for OpenAPI spec only.
 /// For OpenAPI spec, this maps to the schema defined in
 /// the  `definitions` section for OpenAPI 2.0 version and in
 /// `components.schemas` section for OpenAPI 3.0 and 3.1 version.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Schema {
     /// Output only. The display name of the schema.
@@ -15846,8 +16769,21 @@ impl serde::ser::Serialize for Schema {
     }
 }
 
+impl std::fmt::Debug for Schema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Schema");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("raw_value", &self.raw_value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Owner details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Owner {
     /// Optional. The name of the owner.
@@ -16001,8 +16937,21 @@ impl serde::ser::Serialize for Owner {
     }
 }
 
+impl std::fmt::Debug for Owner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Owner");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("email", &self.email);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Documentation details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Documentation {
     /// Optional. The uri of the externally hosted documentation.
@@ -16132,8 +17081,20 @@ impl serde::ser::Serialize for Documentation {
     }
 }
 
+impl std::fmt::Debug for Documentation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Documentation");
+        debug_struct.field("external_uri", &self.external_uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The attribute values associated with resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttributeValues {
     /// Output only. The name of the attribute.
@@ -16455,13 +17416,26 @@ impl serde::ser::Serialize for AttributeValues {
     }
 }
 
+impl std::fmt::Debug for AttributeValues {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttributeValues");
+        debug_struct.field("attribute", &self.attribute);
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AttributeValues].
 pub mod attribute_values {
     #[allow(unused_imports)]
     use super::*;
 
     /// The attribute values of data type enum.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EnumAttributeValues {
         /// Required. The attribute values in case attribute data type is enum.
@@ -16600,8 +17574,20 @@ pub mod attribute_values {
         }
     }
 
+    impl std::fmt::Debug for EnumAttributeValues {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EnumAttributeValues");
+            debug_struct.field("values", &self.values);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The attribute values of data type string or JSON.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StringAttributeValues {
         /// Required. The attribute values in case attribute data type is string or
@@ -16737,6 +17723,18 @@ pub mod attribute_values {
         }
     }
 
+    impl std::fmt::Debug for StringAttributeValues {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StringAttributeValues");
+            debug_struct.field("values", &self.values);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The attribute values associated with the resource.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -16760,7 +17758,7 @@ pub mod attribute_values {
 /// API][google.cloud.apihub.v1.ExternalApi].
 ///
 /// [google.cloud.apihub.v1.ExternalApi]: crate::model::ExternalApi
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Dependency {
     /// Identifier. The name of the dependency in the API Hub.
@@ -17186,6 +18184,27 @@ impl serde::ser::Serialize for Dependency {
     }
 }
 
+impl std::fmt::Debug for Dependency {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Dependency");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("consumer", &self.consumer);
+        debug_struct.field("supplier", &self.supplier);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("discovery_mode", &self.discovery_mode);
+        debug_struct.field("error_detail", &self.error_detail);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("attributes", &self.attributes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Dependency].
 pub mod dependency {
     #[allow(unused_imports)]
@@ -17452,7 +18471,7 @@ pub mod dependency {
 }
 
 /// Reference to an entity participating in a dependency.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DependencyEntityReference {
     /// Output only. Display name of the entity.
@@ -17709,6 +18728,19 @@ impl serde::ser::Serialize for DependencyEntityReference {
     }
 }
 
+impl std::fmt::Debug for DependencyEntityReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DependencyEntityReference");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("identifier", &self.identifier);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DependencyEntityReference].
 pub mod dependency_entity_reference {
     #[allow(unused_imports)]
@@ -17732,7 +18764,7 @@ pub mod dependency_entity_reference {
 }
 
 /// Details describing error condition of a dependency.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DependencyErrorDetail {
     /// Optional. Error in the dependency.
@@ -17902,6 +18934,19 @@ impl serde::ser::Serialize for DependencyErrorDetail {
     }
 }
 
+impl std::fmt::Debug for DependencyErrorDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DependencyErrorDetail");
+        debug_struct.field("error", &self.error);
+        debug_struct.field("error_time", &self.error_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DependencyErrorDetail].
 pub mod dependency_error_detail {
     #[allow(unused_imports)]
@@ -18041,7 +19086,7 @@ pub mod dependency_error_detail {
 }
 
 /// LintResponse contains the response from the linter.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LintResponse {
     /// Optional. Array of issues found in the analyzed document.
@@ -18312,13 +19357,30 @@ impl serde::ser::Serialize for LintResponse {
     }
 }
 
+impl std::fmt::Debug for LintResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LintResponse");
+        debug_struct.field("issues", &self.issues);
+        debug_struct.field("summary", &self.summary);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("linter", &self.linter);
+        debug_struct.field("create_time", &self.create_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LintResponse].
 pub mod lint_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Count of issues with a given severity.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SummaryEntry {
         /// Required. Severity of the issue.
@@ -18491,10 +19553,23 @@ pub mod lint_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for SummaryEntry {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SummaryEntry");
+            debug_struct.field("severity", &self.severity);
+            debug_struct.field("count", &self.count);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Issue contains the details of a single issue found by the linter.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Issue {
     /// Required. Rule code unique to each rule defined in linter.
@@ -18734,8 +19809,24 @@ impl serde::ser::Serialize for Issue {
     }
 }
 
+impl std::fmt::Debug for Issue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Issue");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("message", &self.message);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("range", &self.range);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Object describing where in the file the issue was found.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Range {
     /// Required. Start of the issue.
@@ -18910,8 +20001,21 @@ impl serde::ser::Serialize for Range {
     }
 }
 
+impl std::fmt::Debug for Range {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Range");
+        debug_struct.field("start", &self.start);
+        debug_struct.field("end", &self.end);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Point within the file (line and character).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Point {
     /// Required. Line number (zero-indexed).
@@ -19100,8 +20204,21 @@ impl serde::ser::Serialize for Point {
     }
 }
 
+impl std::fmt::Debug for Point {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Point");
+        debug_struct.field("line", &self.line);
+        debug_struct.field("character", &self.character);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -19407,9 +20524,27 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An ApiHubInstance represents the instance resources of the API Hub.
 /// Currently, only one ApiHub instance is allowed for each project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApiHubInstance {
     /// Identifier. Format:
@@ -19758,13 +20893,32 @@ impl serde::ser::Serialize for ApiHubInstance {
     }
 }
 
+impl std::fmt::Debug for ApiHubInstance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApiHubInstance");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_message", &self.state_message);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ApiHubInstance].
 pub mod api_hub_instance {
     #[allow(unused_imports)]
     use super::*;
 
     /// Available configurations to provision an ApiHub Instance.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Config {
         /// Required. The Customer Managed Encryption Key (CMEK) used for data
@@ -19900,6 +21054,18 @@ pub mod api_hub_instance {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Config {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Config");
+            debug_struct.field("cmek_key_name", &self.cmek_key_name);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -20066,7 +21232,7 @@ pub mod api_hub_instance {
 
 /// An external API represents an API being provided by external sources. This
 /// can be used to model third-party APIs and can be used to define dependencies.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExternalApi {
     /// Identifier. Format:
@@ -20446,12 +21612,32 @@ impl serde::ser::Serialize for ExternalApi {
     }
 }
 
+impl std::fmt::Debug for ExternalApi {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExternalApi");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("endpoints", &self.endpoints);
+        debug_struct.field("paths", &self.paths);
+        debug_struct.field("documentation", &self.documentation);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [CreateHostProjectRegistration][google.cloud.apihub.v1.HostProjectRegistrationService.CreateHostProjectRegistration]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.HostProjectRegistrationService.CreateHostProjectRegistration]: crate::client::HostProjectRegistrationService::create_host_project_registration
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateHostProjectRegistrationRequest {
     /// Required. The parent resource for the host project.
@@ -20659,12 +21845,29 @@ impl serde::ser::Serialize for CreateHostProjectRegistrationRequest {
     }
 }
 
+impl std::fmt::Debug for CreateHostProjectRegistrationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateHostProjectRegistrationRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "host_project_registration_id",
+            &self.host_project_registration_id,
+        );
+        debug_struct.field("host_project_registration", &self.host_project_registration);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [GetHostProjectRegistration][google.cloud.apihub.v1.HostProjectRegistrationService.GetHostProjectRegistration]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.HostProjectRegistrationService.GetHostProjectRegistration]: crate::client::HostProjectRegistrationService::get_host_project_registration
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetHostProjectRegistrationRequest {
     /// Required. Host project registration resource name.
@@ -20794,12 +21997,24 @@ impl serde::ser::Serialize for GetHostProjectRegistrationRequest {
     }
 }
 
+impl std::fmt::Debug for GetHostProjectRegistrationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetHostProjectRegistrationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [ListHostProjectRegistrations][google.cloud.apihub.v1.HostProjectRegistrationService.ListHostProjectRegistrations]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.HostProjectRegistrationService.ListHostProjectRegistrations]: crate::client::HostProjectRegistrationService::list_host_project_registrations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHostProjectRegistrationsRequest {
     /// Required. The parent, which owns this collection of host projects.
@@ -21070,12 +22285,28 @@ impl serde::ser::Serialize for ListHostProjectRegistrationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListHostProjectRegistrationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHostProjectRegistrationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [ListHostProjectRegistrations][google.cloud.apihub.v1.HostProjectRegistrationService.ListHostProjectRegistrations]
 /// method's response.
 ///
 /// [google.cloud.apihub.v1.HostProjectRegistrationService.ListHostProjectRegistrations]: crate::client::HostProjectRegistrationService::list_host_project_registrations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHostProjectRegistrationsResponse {
     /// The list of host project registrations.
@@ -21256,12 +22487,28 @@ impl serde::ser::Serialize for ListHostProjectRegistrationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListHostProjectRegistrationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHostProjectRegistrationsResponse");
+        debug_struct.field(
+            "host_project_registrations",
+            &self.host_project_registrations,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Host project registration refers to the registration of a Google cloud
 /// project with Api Hub as a host project. This is the project where Api Hub is
 /// provisioned. It acts as the consumer project for the Api Hub instance
 /// provisioned. Multiple runtime projects can be attached to the host project
 /// and these attachments define the scope of Api Hub.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HostProjectRegistration {
     /// Identifier. The name of the host project registration.
@@ -21456,8 +22703,22 @@ impl serde::ser::Serialize for HostProjectRegistration {
     }
 }
 
+impl std::fmt::Debug for HostProjectRegistration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HostProjectRegistration");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("gcp_project", &self.gcp_project);
+        debug_struct.field("create_time", &self.create_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [GetStyleGuide][ApiHub.GetStyleGuide] method's request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetStyleGuideRequest {
     /// Required. The name of the spec to retrieve.
@@ -21588,8 +22849,20 @@ impl serde::ser::Serialize for GetStyleGuideRequest {
     }
 }
 
+impl std::fmt::Debug for GetStyleGuideRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetStyleGuideRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [UpdateStyleGuide][ApiHub.UpdateStyleGuide] method's request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateStyleGuideRequest {
     /// Required. The Style guide resource to update.
@@ -21766,8 +23039,21 @@ impl serde::ser::Serialize for UpdateStyleGuideRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateStyleGuideRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateStyleGuideRequest");
+        debug_struct.field("style_guide", &self.style_guide);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [GetStyleGuideContents][ApiHub.GetStyleGuideContents] method's request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetStyleGuideContentsRequest {
     /// Required. The name of the StyleGuide whose contents need to be retrieved.
@@ -21899,8 +23185,20 @@ impl serde::ser::Serialize for GetStyleGuideContentsRequest {
     }
 }
 
+impl std::fmt::Debug for GetStyleGuideContentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetStyleGuideContentsRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [LintSpec][ApiHub.LintSpec] method's request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LintSpecRequest {
     /// Required. The name of the spec to be linted.
@@ -22031,8 +23329,20 @@ impl serde::ser::Serialize for LintSpecRequest {
     }
 }
 
+impl std::fmt::Debug for LintSpecRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LintSpecRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The style guide contents.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StyleGuideContents {
     /// Required. The contents of the style guide.
@@ -22204,9 +23514,22 @@ impl serde::ser::Serialize for StyleGuideContents {
     }
 }
 
+impl std::fmt::Debug for StyleGuideContents {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StyleGuideContents");
+        debug_struct.field("contents", &self.contents);
+        debug_struct.field("mime_type", &self.mime_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a singleton style guide resource to be used for linting Open API
 /// specs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StyleGuide {
     /// Identifier. The name of the style guide.
@@ -22397,8 +23720,22 @@ impl serde::ser::Serialize for StyleGuide {
     }
 }
 
+impl std::fmt::Debug for StyleGuide {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StyleGuide");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("linter", &self.linter);
+        debug_struct.field("contents", &self.contents);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A plugin resource in the API Hub.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Plugin {
     /// Identifier. The name of the plugin.
@@ -22646,6 +23983,22 @@ impl serde::ser::Serialize for Plugin {
     }
 }
 
+impl std::fmt::Debug for Plugin {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Plugin");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Plugin].
 pub mod plugin {
     #[allow(unused_imports)]
@@ -22790,7 +24143,7 @@ pub mod plugin {
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHubPlugin.GetPlugin]: crate::client::ApiHubPlugin::get_plugin
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPluginRequest {
     /// Required. The name of the plugin to retrieve.
@@ -22920,11 +24273,23 @@ impl serde::ser::Serialize for GetPluginRequest {
     }
 }
 
+impl std::fmt::Debug for GetPluginRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPluginRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [EnablePlugin][google.cloud.apihub.v1.ApiHubPlugin.EnablePlugin] method's
 /// request.
 ///
 /// [google.cloud.apihub.v1.ApiHubPlugin.EnablePlugin]: crate::client::ApiHubPlugin::enable_plugin
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnablePluginRequest {
     /// Required. The name of the plugin to enable.
@@ -23054,11 +24419,23 @@ impl serde::ser::Serialize for EnablePluginRequest {
     }
 }
 
+impl std::fmt::Debug for EnablePluginRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnablePluginRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [DisablePlugin][google.cloud.apihub.v1.ApiHubPlugin.DisablePlugin]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.ApiHubPlugin.DisablePlugin]: crate::client::ApiHubPlugin::disable_plugin
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisablePluginRequest {
     /// Required. The name of the plugin to disable.
@@ -23188,12 +24565,24 @@ impl serde::ser::Serialize for DisablePluginRequest {
     }
 }
 
+impl std::fmt::Debug for DisablePluginRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisablePluginRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [CreateApiHubInstance][google.cloud.apihub.v1.Provisioning.CreateApiHubInstance]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.Provisioning.CreateApiHubInstance]: crate::client::Provisioning::create_api_hub_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateApiHubInstanceRequest {
     /// Required. The parent resource for the Api Hub instance resource.
@@ -23393,12 +24782,26 @@ impl serde::ser::Serialize for CreateApiHubInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateApiHubInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateApiHubInstanceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("api_hub_instance_id", &self.api_hub_instance_id);
+        debug_struct.field("api_hub_instance", &self.api_hub_instance);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [GetApiHubInstance][google.cloud.apihub.v1.Provisioning.GetApiHubInstance]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.Provisioning.GetApiHubInstance]: crate::client::Provisioning::get_api_hub_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetApiHubInstanceRequest {
     /// Required. The name of the Api Hub instance to retrieve.
@@ -23529,12 +24932,24 @@ impl serde::ser::Serialize for GetApiHubInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for GetApiHubInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetApiHubInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [LookupApiHubInstance][google.cloud.apihub.v1.Provisioning.LookupApiHubInstance]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.Provisioning.LookupApiHubInstance]: crate::client::Provisioning::lookup_api_hub_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupApiHubInstanceRequest {
     /// Required. There will always be only one Api Hub instance for a GCP project
@@ -23666,12 +25081,24 @@ impl serde::ser::Serialize for LookupApiHubInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for LookupApiHubInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupApiHubInstanceRequest");
+        debug_struct.field("parent", &self.parent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [LookupApiHubInstance][google.cloud.apihub.v1.Provisioning.LookupApiHubInstance]
 /// method's response.`
 ///
 /// [google.cloud.apihub.v1.Provisioning.LookupApiHubInstance]: crate::client::Provisioning::lookup_api_hub_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupApiHubInstanceResponse {
     /// API Hub instance for a project if it exists, empty otherwise.
@@ -23813,12 +25240,24 @@ impl serde::ser::Serialize for LookupApiHubInstanceResponse {
     }
 }
 
+impl std::fmt::Debug for LookupApiHubInstanceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupApiHubInstanceResponse");
+        debug_struct.field("api_hub_instance", &self.api_hub_instance);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [CreateRuntimeProjectAttachment][google.cloud.apihub.v1.RuntimeProjectAttachmentService.CreateRuntimeProjectAttachment]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.RuntimeProjectAttachmentService.CreateRuntimeProjectAttachment]: crate::client::RuntimeProjectAttachmentService::create_runtime_project_attachment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRuntimeProjectAttachmentRequest {
     /// Required. The parent resource for the Runtime Project Attachment.
@@ -24027,12 +25466,32 @@ impl serde::ser::Serialize for CreateRuntimeProjectAttachmentRequest {
     }
 }
 
+impl std::fmt::Debug for CreateRuntimeProjectAttachmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateRuntimeProjectAttachmentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "runtime_project_attachment_id",
+            &self.runtime_project_attachment_id,
+        );
+        debug_struct.field(
+            "runtime_project_attachment",
+            &self.runtime_project_attachment,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [GetRuntimeProjectAttachment][google.cloud.apihub.v1.RuntimeProjectAttachmentService.GetRuntimeProjectAttachment]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.RuntimeProjectAttachmentService.GetRuntimeProjectAttachment]: crate::client::RuntimeProjectAttachmentService::get_runtime_project_attachment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRuntimeProjectAttachmentRequest {
     /// Required. The name of the API resource to retrieve.
@@ -24163,12 +25622,24 @@ impl serde::ser::Serialize for GetRuntimeProjectAttachmentRequest {
     }
 }
 
+impl std::fmt::Debug for GetRuntimeProjectAttachmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRuntimeProjectAttachmentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [ListRuntimeProjectAttachments][google.cloud.apihub.v1.RuntimeProjectAttachmentService.ListRuntimeProjectAttachments]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.RuntimeProjectAttachmentService.ListRuntimeProjectAttachments]: crate::client::RuntimeProjectAttachmentService::list_runtime_project_attachments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeProjectAttachmentsRequest {
     /// Required. The parent, which owns this collection of runtime project
@@ -24439,12 +25910,28 @@ impl serde::ser::Serialize for ListRuntimeProjectAttachmentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListRuntimeProjectAttachmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRuntimeProjectAttachmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [ListRuntimeProjectAttachments][google.cloud.apihub.v1.RuntimeProjectAttachmentService.ListRuntimeProjectAttachments]
 /// method's response.
 ///
 /// [google.cloud.apihub.v1.RuntimeProjectAttachmentService.ListRuntimeProjectAttachments]: crate::client::RuntimeProjectAttachmentService::list_runtime_project_attachments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeProjectAttachmentsResponse {
     /// List of runtime project attachments.
@@ -24629,12 +26116,28 @@ impl serde::ser::Serialize for ListRuntimeProjectAttachmentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListRuntimeProjectAttachmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRuntimeProjectAttachmentsResponse");
+        debug_struct.field(
+            "runtime_project_attachments",
+            &self.runtime_project_attachments,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [DeleteRuntimeProjectAttachment][google.cloud.apihub.v1.RuntimeProjectAttachmentService.DeleteRuntimeProjectAttachment]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.RuntimeProjectAttachmentService.DeleteRuntimeProjectAttachment]: crate::client::RuntimeProjectAttachmentService::delete_runtime_project_attachment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRuntimeProjectAttachmentRequest {
     /// Required. The name of the Runtime Project Attachment to delete.
@@ -24766,12 +26269,24 @@ impl serde::ser::Serialize for DeleteRuntimeProjectAttachmentRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteRuntimeProjectAttachmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRuntimeProjectAttachmentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [LookupRuntimeProjectAttachment][google.cloud.apihub.v1.RuntimeProjectAttachmentService.LookupRuntimeProjectAttachment]
 /// method's request.
 ///
 /// [google.cloud.apihub.v1.RuntimeProjectAttachmentService.LookupRuntimeProjectAttachment]: crate::client::RuntimeProjectAttachmentService::lookup_runtime_project_attachment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupRuntimeProjectAttachmentRequest {
     /// Required. Runtime project ID to look up runtime project attachment for.
@@ -24903,12 +26418,24 @@ impl serde::ser::Serialize for LookupRuntimeProjectAttachmentRequest {
     }
 }
 
+impl std::fmt::Debug for LookupRuntimeProjectAttachmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupRuntimeProjectAttachmentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The
 /// [ListRuntimeProjectAttachments][google.cloud.apihub.v1.RuntimeProjectAttachmentService.ListRuntimeProjectAttachments]
 /// method's response.
 ///
 /// [google.cloud.apihub.v1.RuntimeProjectAttachmentService.ListRuntimeProjectAttachments]: crate::client::RuntimeProjectAttachmentService::list_runtime_project_attachments
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupRuntimeProjectAttachmentResponse {
     /// Runtime project attachment for a project if exists, empty otherwise.
@@ -25054,11 +26581,26 @@ impl serde::ser::Serialize for LookupRuntimeProjectAttachmentResponse {
     }
 }
 
+impl std::fmt::Debug for LookupRuntimeProjectAttachmentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupRuntimeProjectAttachmentResponse");
+        debug_struct.field(
+            "runtime_project_attachment",
+            &self.runtime_project_attachment,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime project attachment represents an attachment from the runtime project
 /// to the host project. Api Hub looks for deployments in the attached runtime
 /// projects and creates corresponding resources in Api Hub for the discovered
 /// deployments.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeProjectAttachment {
     /// Identifier. The resource name of a runtime project attachment. Format:
@@ -25249,6 +26791,20 @@ impl serde::ser::Serialize for RuntimeProjectAttachment {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for RuntimeProjectAttachment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RuntimeProjectAttachment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("runtime_project", &self.runtime_project);
+        debug_struct.field("create_time", &self.create_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

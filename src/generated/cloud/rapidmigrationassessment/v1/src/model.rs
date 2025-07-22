@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Message describing a MC Source of type Guest OS Scan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GuestOsScan {
     /// reference to the corresponding Guest OS Scan in MC Source.
@@ -164,8 +164,20 @@ impl serde::ser::Serialize for GuestOsScan {
     }
 }
 
+impl std::fmt::Debug for GuestOsScan {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GuestOsScan");
+        debug_struct.field("core_source", &self.core_source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message describing a MC Source of type VSphere Scan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VSphereScan {
     /// reference to the corresponding VSphere Scan in MC Source.
@@ -295,8 +307,20 @@ impl serde::ser::Serialize for VSphereScan {
     }
 }
 
+impl std::fmt::Debug for VSphereScan {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VSphereScan");
+        debug_struct.field("core_source", &self.core_source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message describing Collector object.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Collector {
     /// name of resource.
@@ -869,6 +893,32 @@ impl serde::ser::Serialize for Collector {
     }
 }
 
+impl std::fmt::Debug for Collector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Collector");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("expected_asset_count", &self.expected_asset_count);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("client_version", &self.client_version);
+        debug_struct.field("guest_os_scan", &self.guest_os_scan);
+        debug_struct.field("vsphere_scan", &self.vsphere_scan);
+        debug_struct.field("collection_days", &self.collection_days);
+        debug_struct.field("eula_uri", &self.eula_uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Collector].
 pub mod collector {
     #[allow(unused_imports)]
@@ -1057,7 +1107,7 @@ pub mod collector {
 }
 
 /// Message describing an Annotation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Annotation {
     /// name of resource.
@@ -1318,6 +1368,22 @@ impl serde::ser::Serialize for Annotation {
     }
 }
 
+impl std::fmt::Debug for Annotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Annotation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Annotation].
 pub mod annotation {
     #[allow(unused_imports)]
@@ -1459,7 +1525,7 @@ pub mod annotation {
 }
 
 /// Message for creating an AnnotationS.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAnnotationRequest {
     /// Required. Name of the parent (project+location).
@@ -1648,8 +1714,22 @@ impl serde::ser::Serialize for CreateAnnotationRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAnnotationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAnnotationRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("annotation", &self.annotation);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a specific Annotation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAnnotationRequest {
     /// Required. Name of the resource.
@@ -1778,8 +1858,20 @@ impl serde::ser::Serialize for GetAnnotationRequest {
     }
 }
 
+impl std::fmt::Debug for GetAnnotationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAnnotationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a Collector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCollectorRequest {
     /// Required. Name of the parent (project+location).
@@ -1993,8 +2085,23 @@ impl serde::ser::Serialize for CreateCollectorRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCollectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCollectorRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("collector_id", &self.collector_id);
+        debug_struct.field("collector", &self.collector);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of Collectors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCollectorsRequest {
     /// Required. Parent value for ListCollectorsRequest.
@@ -2241,8 +2348,24 @@ impl serde::ser::Serialize for ListCollectorsRequest {
     }
 }
 
+impl std::fmt::Debug for ListCollectorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCollectorsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing Collectors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCollectorsResponse {
     /// The list of Collectors.
@@ -2440,8 +2563,22 @@ impl serde::ser::Serialize for ListCollectorsResponse {
     }
 }
 
+impl std::fmt::Debug for ListCollectorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCollectorsResponse");
+        debug_struct.field("collectors", &self.collectors);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a specific Collector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCollectorRequest {
     /// Required. Name of the resource.
@@ -2570,8 +2707,20 @@ impl serde::ser::Serialize for GetCollectorRequest {
     }
 }
 
+impl std::fmt::Debug for GetCollectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCollectorRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a Collector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCollectorRequest {
     /// Required. Name of the resource.
@@ -2737,8 +2886,21 @@ impl serde::ser::Serialize for DeleteCollectorRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCollectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCollectorRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a Collector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCollectorRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -2955,8 +3117,22 @@ impl serde::ser::Serialize for UpdateCollectorRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCollectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCollectorRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("collector", &self.collector);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for resuming a Collector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeCollectorRequest {
     /// Required. Name of the resource.
@@ -3122,8 +3298,21 @@ impl serde::ser::Serialize for ResumeCollectorRequest {
     }
 }
 
+impl std::fmt::Debug for ResumeCollectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeCollectorRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for registering a Collector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RegisterCollectorRequest {
     /// Required. Name of the resource.
@@ -3289,8 +3478,21 @@ impl serde::ser::Serialize for RegisterCollectorRequest {
     }
 }
 
+impl std::fmt::Debug for RegisterCollectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegisterCollectorRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for pausing a Collector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseCollectorRequest {
     /// Required. Name of the resource.
@@ -3456,8 +3658,21 @@ impl serde::ser::Serialize for PauseCollectorRequest {
     }
 }
 
+impl std::fmt::Debug for PauseCollectorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PauseCollectorRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -3760,5 +3975,23 @@ impl serde::ser::Serialize for OperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

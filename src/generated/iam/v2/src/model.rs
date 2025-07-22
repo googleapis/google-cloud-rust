@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A deny rule in an IAM deny policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DenyRule {
     /// The identities that are prevented from using one or more permissions on
@@ -353,8 +353,24 @@ impl serde::ser::Serialize for DenyRule {
     }
 }
 
+impl std::fmt::Debug for DenyRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DenyRule");
+        debug_struct.field("denied_principals", &self.denied_principals);
+        debug_struct.field("exception_principals", &self.exception_principals);
+        debug_struct.field("denied_permissions", &self.denied_permissions);
+        debug_struct.field("exception_permissions", &self.exception_permissions);
+        debug_struct.field("denial_condition", &self.denial_condition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Data for an IAM policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
     /// Immutable. The resource name of the `Policy`, which must be unique. Format:
@@ -798,8 +814,30 @@ impl serde::ser::Serialize for Policy {
     }
 }
 
+impl std::fmt::Debug for Policy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Policy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("rules", &self.rules);
+        debug_struct.field("managing_authority", &self.managing_authority);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single rule in a `Policy`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyRule {
     /// A user-specified description of the rule. This value can be up to 256
@@ -993,6 +1031,19 @@ impl serde::ser::Serialize for PolicyRule {
     }
 }
 
+impl std::fmt::Debug for PolicyRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PolicyRule");
+        debug_struct.field("description", &self.description);
+        debug_struct.field("kind", &self.kind);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PolicyRule].
 pub mod policy_rule {
     #[allow(unused_imports)]
@@ -1007,7 +1058,7 @@ pub mod policy_rule {
 }
 
 /// Request message for `ListPolicies`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPoliciesRequest {
     /// Required. The resource that the policy is attached to, along with the kind of policy
@@ -1218,8 +1269,22 @@ impl serde::ser::Serialize for ListPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `ListPolicies`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPoliciesResponse {
     /// Metadata for the policies that are attached to the resource.
@@ -1393,8 +1458,21 @@ impl serde::ser::Serialize for ListPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPoliciesResponse");
+        debug_struct.field("policies", &self.policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GetPolicy`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPolicyRequest {
     /// Required. The resource name of the policy to retrieve. Format:
@@ -1531,8 +1609,20 @@ impl serde::ser::Serialize for GetPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPolicyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `CreatePolicy`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePolicyRequest {
     /// Required. The resource that the policy is attached to, along with the kind of policy
@@ -1733,8 +1823,22 @@ impl serde::ser::Serialize for CreatePolicyRequest {
     }
 }
 
+impl std::fmt::Debug for CreatePolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePolicyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("policy", &self.policy);
+        debug_struct.field("policy_id", &self.policy_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `UpdatePolicy`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePolicyRequest {
     /// Required. The policy to update.
@@ -1878,8 +1982,20 @@ impl serde::ser::Serialize for UpdatePolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdatePolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePolicyRequest");
+        debug_struct.field("policy", &self.policy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `DeletePolicy`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePolicyRequest {
     /// Required. The resource name of the policy to delete. Format:
@@ -2045,8 +2161,21 @@ impl serde::ser::Serialize for DeletePolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeletePolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePolicyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for long-running `Policy` operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyOperationMetadata {
     /// Timestamp when the `google.longrunning.Operation` was created.
@@ -2184,5 +2313,17 @@ impl serde::ser::Serialize for PolicyOperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for PolicyOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PolicyOperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

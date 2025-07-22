@@ -38,7 +38,7 @@ extern crate wkt;
 /// [Autokey.CreateKeyHandle][google.cloud.kms.v1.Autokey.CreateKeyHandle].
 ///
 /// [google.cloud.kms.v1.Autokey.CreateKeyHandle]: crate::client::Autokey::create_key_handle
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateKeyHandleRequest {
     /// Required. Name of the resource project and location to create the
@@ -238,10 +238,24 @@ impl serde::ser::Serialize for CreateKeyHandleRequest {
     }
 }
 
+impl std::fmt::Debug for CreateKeyHandleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateKeyHandleRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("key_handle_id", &self.key_handle_id);
+        debug_struct.field("key_handle", &self.key_handle);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for [GetKeyHandle][google.cloud.kms.v1.Autokey.GetKeyHandle].
 ///
 /// [google.cloud.kms.v1.Autokey.GetKeyHandle]: crate::client::Autokey::get_key_handle
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetKeyHandleRequest {
     /// Required. Name of the [KeyHandle][google.cloud.kms.v1.KeyHandle] resource,
@@ -374,11 +388,23 @@ impl serde::ser::Serialize for GetKeyHandleRequest {
     }
 }
 
+impl std::fmt::Debug for GetKeyHandleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetKeyHandleRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Resource-oriented representation of a request to Cloud KMS Autokey and the
 /// resulting provisioning of a [CryptoKey][google.cloud.kms.v1.CryptoKey].
 ///
 /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KeyHandle {
     /// Identifier. Name of the [KeyHandle][google.cloud.kms.v1.KeyHandle]
@@ -583,12 +609,26 @@ impl serde::ser::Serialize for KeyHandle {
     }
 }
 
+impl std::fmt::Debug for KeyHandle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KeyHandle");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("kms_key", &self.kms_key);
+        debug_struct.field("resource_type_selector", &self.resource_type_selector);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata message for
 /// [CreateKeyHandle][google.cloud.kms.v1.Autokey.CreateKeyHandle] long-running
 /// operation response.
 ///
 /// [google.cloud.kms.v1.Autokey.CreateKeyHandle]: crate::client::Autokey::create_key_handle
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateKeyHandleMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -690,11 +730,22 @@ impl serde::ser::Serialize for CreateKeyHandleMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateKeyHandleMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateKeyHandleMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [Autokey.ListKeyHandles][google.cloud.kms.v1.Autokey.ListKeyHandles].
 ///
 /// [google.cloud.kms.v1.Autokey.ListKeyHandles]: crate::client::Autokey::list_key_handles
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeyHandlesRequest {
     /// Required. Name of the resource project and location from which to list
@@ -936,11 +987,26 @@ impl serde::ser::Serialize for ListKeyHandlesRequest {
     }
 }
 
+impl std::fmt::Debug for ListKeyHandlesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListKeyHandlesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [Autokey.ListKeyHandles][google.cloud.kms.v1.Autokey.ListKeyHandles].
 ///
 /// [google.cloud.kms.v1.Autokey.ListKeyHandles]: crate::client::Autokey::list_key_handles
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeyHandlesResponse {
     /// Resulting [KeyHandles][google.cloud.kms.v1.KeyHandle].
@@ -1118,11 +1184,24 @@ impl serde::ser::Serialize for ListKeyHandlesResponse {
     }
 }
 
+impl std::fmt::Debug for ListKeyHandlesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListKeyHandlesResponse");
+        debug_struct.field("key_handles", &self.key_handles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdateAutokeyConfig][google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig].
 ///
 /// [google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig]: crate::client::AutokeyAdmin::update_autokey_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAutokeyConfigRequest {
     /// Required. [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] with values to
@@ -1306,11 +1385,24 @@ impl serde::ser::Serialize for UpdateAutokeyConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAutokeyConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAutokeyConfigRequest");
+        debug_struct.field("autokey_config", &self.autokey_config);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [GetAutokeyConfig][google.cloud.kms.v1.AutokeyAdmin.GetAutokeyConfig].
 ///
 /// [google.cloud.kms.v1.AutokeyAdmin.GetAutokeyConfig]: crate::client::AutokeyAdmin::get_autokey_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAutokeyConfigRequest {
     /// Required. Name of the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig]
@@ -1442,8 +1534,20 @@ impl serde::ser::Serialize for GetAutokeyConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetAutokeyConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAutokeyConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Cloud KMS Autokey configuration for a folder.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutokeyConfig {
     /// Identifier. Name of the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig]
@@ -1666,6 +1770,21 @@ impl serde::ser::Serialize for AutokeyConfig {
     }
 }
 
+impl std::fmt::Debug for AutokeyConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutokeyConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("key_project", &self.key_project);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AutokeyConfig].
 pub mod autokey_config {
     #[allow(unused_imports)]
@@ -1817,7 +1936,7 @@ pub mod autokey_config {
 /// [ShowEffectiveAutokeyConfig][google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig].
 ///
 /// [google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig]: crate::client::AutokeyAdmin::show_effective_autokey_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShowEffectiveAutokeyConfigRequest {
     /// Required. Name of the resource project to the show effective Cloud KMS
@@ -1948,11 +2067,23 @@ impl serde::ser::Serialize for ShowEffectiveAutokeyConfigRequest {
     }
 }
 
+impl std::fmt::Debug for ShowEffectiveAutokeyConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShowEffectiveAutokeyConfigRequest");
+        debug_struct.field("parent", &self.parent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ShowEffectiveAutokeyConfig][google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig].
 ///
 /// [google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig]: crate::client::AutokeyAdmin::show_effective_autokey_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShowEffectiveAutokeyConfigResponse {
     /// Name of the key project configured in the resource project's folder
@@ -2083,11 +2214,23 @@ impl serde::ser::Serialize for ShowEffectiveAutokeyConfigResponse {
     }
 }
 
+impl std::fmt::Debug for ShowEffectiveAutokeyConfigResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShowEffectiveAutokeyConfigResponse");
+        debug_struct.field("key_project", &self.key_project);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [EkmService.ListEkmConnections][google.cloud.kms.v1.EkmService.ListEkmConnections].
 ///
 /// [google.cloud.kms.v1.EkmService.ListEkmConnections]: crate::client::EkmService::list_ekm_connections
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEkmConnectionsRequest {
     /// Required. The resource name of the location associated with the
@@ -2355,11 +2498,27 @@ impl serde::ser::Serialize for ListEkmConnectionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListEkmConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEkmConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [EkmService.ListEkmConnections][google.cloud.kms.v1.EkmService.ListEkmConnections].
 ///
 /// [google.cloud.kms.v1.EkmService.ListEkmConnections]: crate::client::EkmService::list_ekm_connections
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEkmConnectionsResponse {
     /// The list of [EkmConnections][google.cloud.kms.v1.EkmConnection].
@@ -2588,11 +2747,25 @@ impl serde::ser::Serialize for ListEkmConnectionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListEkmConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEkmConnectionsResponse");
+        debug_struct.field("ekm_connections", &self.ekm_connections);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [EkmService.GetEkmConnection][google.cloud.kms.v1.EkmService.GetEkmConnection].
 ///
 /// [google.cloud.kms.v1.EkmService.GetEkmConnection]: crate::client::EkmService::get_ekm_connection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEkmConnectionRequest {
     /// Required. The [name][google.cloud.kms.v1.EkmConnection.name] of the
@@ -2725,11 +2898,23 @@ impl serde::ser::Serialize for GetEkmConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for GetEkmConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEkmConnectionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [EkmService.CreateEkmConnection][google.cloud.kms.v1.EkmService.CreateEkmConnection].
 ///
 /// [google.cloud.kms.v1.EkmService.CreateEkmConnection]: crate::client::EkmService::create_ekm_connection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEkmConnectionRequest {
     /// Required. The resource name of the location associated with the
@@ -2930,11 +3115,25 @@ impl serde::ser::Serialize for CreateEkmConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateEkmConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateEkmConnectionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("ekm_connection_id", &self.ekm_connection_id);
+        debug_struct.field("ekm_connection", &self.ekm_connection);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [EkmService.UpdateEkmConnection][google.cloud.kms.v1.EkmService.UpdateEkmConnection].
 ///
 /// [google.cloud.kms.v1.EkmService.UpdateEkmConnection]: crate::client::EkmService::update_ekm_connection
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEkmConnectionRequest {
     /// Required. [EkmConnection][google.cloud.kms.v1.EkmConnection] with updated
@@ -3114,11 +3313,24 @@ impl serde::ser::Serialize for UpdateEkmConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateEkmConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateEkmConnectionRequest");
+        debug_struct.field("ekm_connection", &self.ekm_connection);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [EkmService.GetEkmConfig][google.cloud.kms.v1.EkmService.GetEkmConfig].
 ///
 /// [google.cloud.kms.v1.EkmService.GetEkmConfig]: crate::client::EkmService::get_ekm_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEkmConfigRequest {
     /// Required. The [name][google.cloud.kms.v1.EkmConfig.name] of the
@@ -3251,11 +3463,23 @@ impl serde::ser::Serialize for GetEkmConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetEkmConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEkmConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [EkmService.UpdateEkmConfig][google.cloud.kms.v1.EkmService.UpdateEkmConfig].
 ///
 /// [google.cloud.kms.v1.EkmService.UpdateEkmConfig]: crate::client::EkmService::update_ekm_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEkmConfigRequest {
     /// Required. [EkmConfig][google.cloud.kms.v1.EkmConfig] with updated values.
@@ -3434,11 +3658,24 @@ impl serde::ser::Serialize for UpdateEkmConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateEkmConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateEkmConfigRequest");
+        debug_struct.field("ekm_config", &self.ekm_config);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A [Certificate][google.cloud.kms.v1.Certificate] represents an X.509
 /// certificate used to authenticate HTTPS connections to EKM replicas.
 ///
 /// [google.cloud.kms.v1.Certificate]: crate::model::Certificate
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Certificate {
     /// Required. The raw certificate bytes in DER format.
@@ -3839,6 +4076,29 @@ impl serde::ser::Serialize for Certificate {
     }
 }
 
+impl std::fmt::Debug for Certificate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Certificate");
+        debug_struct.field("raw_der", &self.raw_der);
+        debug_struct.field("parsed", &self.parsed);
+        debug_struct.field("issuer", &self.issuer);
+        debug_struct.field("subject", &self.subject);
+        debug_struct.field(
+            "subject_alternative_dns_names",
+            &self.subject_alternative_dns_names,
+        );
+        debug_struct.field("not_before_time", &self.not_before_time);
+        debug_struct.field("not_after_time", &self.not_after_time);
+        debug_struct.field("serial_number", &self.serial_number);
+        debug_struct.field("sha256_fingerprint", &self.sha256_fingerprint);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An [EkmConnection][google.cloud.kms.v1.EkmConnection] represents an
 /// individual EKM connection. It can be used for creating
 /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] and
@@ -3853,7 +4113,7 @@ impl serde::ser::Serialize for Certificate {
 /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
 /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
 /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EkmConnection {
     /// Output only. The resource name for the
@@ -4163,6 +4423,23 @@ impl serde::ser::Serialize for EkmConnection {
     }
 }
 
+impl std::fmt::Debug for EkmConnection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EkmConnection");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("service_resolvers", &self.service_resolvers);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("key_management_mode", &self.key_management_mode);
+        debug_struct.field("crypto_space_path", &self.crypto_space_path);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EkmConnection].
 pub mod ekm_connection {
     #[allow(unused_imports)]
@@ -4174,7 +4451,7 @@ pub mod ekm_connection {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.EkmConnection.ServiceResolver]: crate::model::ekm_connection::ServiceResolver
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ServiceResolver {
         /// Required. The resource name of the Service Directory service pointing to
@@ -4410,6 +4687,21 @@ pub mod ekm_connection {
         }
     }
 
+    impl std::fmt::Debug for ServiceResolver {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ServiceResolver");
+            debug_struct.field("service_directory_service", &self.service_directory_service);
+            debug_struct.field("endpoint_filter", &self.endpoint_filter);
+            debug_struct.field("hostname", &self.hostname);
+            debug_struct.field("server_certificates", &self.server_certificates);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// [KeyManagementMode][google.cloud.kms.v1.EkmConnection.KeyManagementMode]
     /// describes who can perform control plane cryptographic operations using this
     /// [EkmConnection][google.cloud.kms.v1.EkmConnection].
@@ -4597,7 +4889,7 @@ pub mod ekm_connection {
 /// [google.cloud.kms.v1.EkmConfig]: crate::model::EkmConfig
 /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
 /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EkmConfig {
     /// Output only. The resource name for the
@@ -4762,11 +5054,24 @@ impl serde::ser::Serialize for EkmConfig {
     }
 }
 
+impl std::fmt::Debug for EkmConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EkmConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("default_ekm_connection", &self.default_ekm_connection);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [EkmService.VerifyConnectivity][google.cloud.kms.v1.EkmService.VerifyConnectivity].
 ///
 /// [google.cloud.kms.v1.EkmService.VerifyConnectivity]: crate::client::EkmService::verify_connectivity
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyConnectivityRequest {
     /// Required. The [name][google.cloud.kms.v1.EkmConnection.name] of the
@@ -4899,11 +5204,23 @@ impl serde::ser::Serialize for VerifyConnectivityRequest {
     }
 }
 
+impl std::fmt::Debug for VerifyConnectivityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VerifyConnectivityRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [EkmService.VerifyConnectivity][google.cloud.kms.v1.EkmService.VerifyConnectivity].
 ///
 /// [google.cloud.kms.v1.EkmService.VerifyConnectivity]: crate::client::EkmService::verify_connectivity
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyConnectivityResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5005,12 +5322,23 @@ impl serde::ser::Serialize for VerifyConnectivityResponse {
     }
 }
 
+impl std::fmt::Debug for VerifyConnectivityResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VerifyConnectivityResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A [KeyRing][google.cloud.kms.v1.KeyRing] is a toplevel logical grouping of
 /// [CryptoKeys][google.cloud.kms.v1.CryptoKey].
 ///
 /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
 /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KeyRing {
     /// Output only. The resource name for the
@@ -5182,6 +5510,19 @@ impl serde::ser::Serialize for KeyRing {
     }
 }
 
+impl std::fmt::Debug for KeyRing {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KeyRing");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A [CryptoKey][google.cloud.kms.v1.CryptoKey] represents a logical key that
 /// can be used for cryptographic operations.
 ///
@@ -5191,7 +5532,7 @@ impl serde::ser::Serialize for KeyRing {
 ///
 /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CryptoKey {
     /// Output only. The resource name for this
@@ -5823,6 +6164,35 @@ impl serde::ser::Serialize for CryptoKey {
     }
 }
 
+impl std::fmt::Debug for CryptoKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CryptoKey");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("primary", &self.primary);
+        debug_struct.field("purpose", &self.purpose);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("next_rotation_time", &self.next_rotation_time);
+        debug_struct.field("version_template", &self.version_template);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("import_only", &self.import_only);
+        debug_struct.field(
+            "destroy_scheduled_duration",
+            &self.destroy_scheduled_duration,
+        );
+        debug_struct.field("crypto_key_backend", &self.crypto_key_backend);
+        debug_struct.field(
+            "key_access_justifications_policy",
+            &self.key_access_justifications_policy,
+        );
+        debug_struct.field("rotation_schedule", &self.rotation_schedule);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CryptoKey].
 pub mod crypto_key {
     #[allow(unused_imports)]
@@ -6057,7 +6427,7 @@ pub mod crypto_key {
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
 /// [google.cloud.kms.v1.CryptoKeyVersionTemplate]: crate::model::CryptoKeyVersionTemplate
 /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CryptoKeyVersionTemplate {
     /// [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] to use when creating
@@ -6242,10 +6612,23 @@ impl serde::ser::Serialize for CryptoKeyVersionTemplate {
     }
 }
 
+impl std::fmt::Debug for CryptoKeyVersionTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CryptoKeyVersionTemplate");
+        debug_struct.field("protection_level", &self.protection_level);
+        debug_struct.field("algorithm", &self.algorithm);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains an HSM-generated attestation about a key operation. For more
 /// information, see [Verifying attestations]
 /// (<https://cloud.google.com/kms/docs/attest-key>).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KeyOperationAttestation {
     /// Output only. The format of the attestation data.
@@ -6462,6 +6845,20 @@ impl serde::ser::Serialize for KeyOperationAttestation {
     }
 }
 
+impl std::fmt::Debug for KeyOperationAttestation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KeyOperationAttestation");
+        debug_struct.field("format", &self.format);
+        debug_struct.field("content", &self.content);
+        debug_struct.field("cert_chains", &self.cert_chains);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [KeyOperationAttestation].
 pub mod key_operation_attestation {
     #[allow(unused_imports)]
@@ -6470,7 +6867,7 @@ pub mod key_operation_attestation {
     /// Certificate chains needed to verify the attestation.
     /// Certificates in chains are PEM-encoded and are ordered based on
     /// <https://tools.ietf.org/html/rfc5246#section-7.4.2>.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CertificateChains {
         /// Cavium certificate chain corresponding to the attestation.
@@ -6664,6 +7061,20 @@ pub mod key_operation_attestation {
         }
     }
 
+    impl std::fmt::Debug for CertificateChains {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CertificateChains");
+            debug_struct.field("cavium_certs", &self.cavium_certs);
+            debug_struct.field("google_card_certs", &self.google_card_certs);
+            debug_struct.field("google_partition_certs", &self.google_partition_certs);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Attestation formats provided by the HSM.
     ///
     /// # Working with unknown values
@@ -6816,7 +7227,7 @@ pub mod key_operation_attestation {
 ///
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
 /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Enabled
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CryptoKeyVersion {
     /// Output only. The resource name for this
@@ -7526,6 +7937,39 @@ impl serde::ser::Serialize for CryptoKeyVersion {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for CryptoKeyVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CryptoKeyVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("protection_level", &self.protection_level);
+        debug_struct.field("algorithm", &self.algorithm);
+        debug_struct.field("attestation", &self.attestation);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("generate_time", &self.generate_time);
+        debug_struct.field("destroy_time", &self.destroy_time);
+        debug_struct.field("destroy_event_time", &self.destroy_event_time);
+        debug_struct.field("import_job", &self.import_job);
+        debug_struct.field("import_time", &self.import_time);
+        debug_struct.field("import_failure_reason", &self.import_failure_reason);
+        debug_struct.field("generation_failure_reason", &self.generation_failure_reason);
+        debug_struct.field(
+            "external_destruction_failure_reason",
+            &self.external_destruction_failure_reason,
+        );
+        debug_struct.field(
+            "external_protection_level_options",
+            &self.external_protection_level_options,
+        );
+        debug_struct.field("reimport_eligible", &self.reimport_eligible);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -8407,7 +8851,7 @@ pub mod crypto_key_version {
 }
 
 /// Data with integrity verification field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChecksummedData {
     /// Raw Data.
@@ -8626,13 +9070,26 @@ impl serde::ser::Serialize for ChecksummedData {
     }
 }
 
+impl std::fmt::Debug for ChecksummedData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChecksummedData");
+        debug_struct.field("data", &self.data);
+        debug_struct.field("crc32c_checksum", &self.crc32c_checksum);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The public keys for a given
 /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]. Obtained via
 /// [GetPublicKey][google.cloud.kms.v1.KeyManagementService.GetPublicKey].
 ///
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
 /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PublicKey {
     /// The public key, encoded in PEM format. For more information, see the
@@ -9010,6 +9467,24 @@ impl serde::ser::Serialize for PublicKey {
     }
 }
 
+impl std::fmt::Debug for PublicKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PublicKey");
+        debug_struct.field("pem", &self.pem);
+        debug_struct.field("algorithm", &self.algorithm);
+        debug_struct.field("pem_crc32c", &self.pem_crc32c);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("protection_level", &self.protection_level);
+        debug_struct.field("public_key_format", &self.public_key_format);
+        debug_struct.field("public_key", &self.public_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PublicKey].
 pub mod public_key {
     #[allow(unused_imports)]
@@ -9212,7 +9687,7 @@ pub mod public_key {
 /// [google.cloud.kms.v1.ImportJob.public_key]: crate::model::ImportJob::public_key
 /// [google.cloud.kms.v1.ImportJob.state]: crate::model::ImportJob::state
 /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportJob {
     /// Output only. The resource name for this
@@ -9684,6 +10159,27 @@ impl serde::ser::Serialize for ImportJob {
     }
 }
 
+impl std::fmt::Debug for ImportJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportJob");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("import_method", &self.import_method);
+        debug_struct.field("protection_level", &self.protection_level);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("generate_time", &self.generate_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("expire_event_time", &self.expire_event_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("public_key", &self.public_key);
+        debug_struct.field("attestation", &self.attestation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportJob].
 pub mod import_job {
     #[allow(unused_imports)]
@@ -9694,7 +10190,7 @@ pub mod import_job {
     /// [ImportMethod][google.cloud.kms.v1.ImportJob.ImportMethod].
     ///
     /// [google.cloud.kms.v1.ImportJob.ImportMethod]: crate::model::import_job::ImportMethod
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WrappingPublicKey {
         /// The public key, encoded in PEM format. For more information, see the [RFC
@@ -9827,6 +10323,18 @@ pub mod import_job {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for WrappingPublicKey {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("WrappingPublicKey");
+            debug_struct.field("pem", &self.pem);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -10194,7 +10702,7 @@ pub mod import_job {
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
 /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::ProtectionLevel::External
 /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExternalProtectionLevelOptions {
     /// The URI for an external resource that this
@@ -10363,6 +10871,19 @@ impl serde::ser::Serialize for ExternalProtectionLevelOptions {
     }
 }
 
+impl std::fmt::Debug for ExternalProtectionLevelOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExternalProtectionLevelOptions");
+        debug_struct.field("external_key_uri", &self.external_key_uri);
+        debug_struct.field("ekm_connection_key_path", &self.ekm_connection_key_path);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A
 /// [KeyAccessJustificationsPolicy][google.cloud.kms.v1.KeyAccessJustificationsPolicy]
 /// specifies zero or more allowed
@@ -10372,7 +10893,7 @@ impl serde::ser::Serialize for ExternalProtectionLevelOptions {
 /// [google.cloud.kms.v1.AccessReason]: crate::model::AccessReason
 /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
 /// [google.cloud.kms.v1.KeyAccessJustificationsPolicy]: crate::model::KeyAccessJustificationsPolicy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KeyAccessJustificationsPolicy {
     /// The list of allowed reasons for access to a
@@ -10511,11 +11032,23 @@ impl serde::ser::Serialize for KeyAccessJustificationsPolicy {
     }
 }
 
+impl std::fmt::Debug for KeyAccessJustificationsPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KeyAccessJustificationsPolicy");
+        debug_struct.field("allowed_access_reasons", &self.allowed_access_reasons);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.ListKeyRings][google.cloud.kms.v1.KeyManagementService.ListKeyRings].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.ListKeyRings]: crate::client::KeyManagementService::list_key_rings
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeyRingsRequest {
     /// Required. The resource name of the location associated with the
@@ -10783,11 +11316,27 @@ impl serde::ser::Serialize for ListKeyRingsRequest {
     }
 }
 
+impl std::fmt::Debug for ListKeyRingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListKeyRingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.ListCryptoKeys][google.cloud.kms.v1.KeyManagementService.ListCryptoKeys].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeys]: crate::client::KeyManagementService::list_crypto_keys
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCryptoKeysRequest {
     /// Required. The resource name of the [KeyRing][google.cloud.kms.v1.KeyRing]
@@ -11086,11 +11635,28 @@ impl serde::ser::Serialize for ListCryptoKeysRequest {
     }
 }
 
+impl std::fmt::Debug for ListCryptoKeysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCryptoKeysRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("version_view", &self.version_view);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.ListCryptoKeyVersions][google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions]: crate::client::KeyManagementService::list_crypto_key_versions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCryptoKeyVersionsRequest {
     /// Required. The resource name of the
@@ -11389,11 +11955,28 @@ impl serde::ser::Serialize for ListCryptoKeyVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListCryptoKeyVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCryptoKeyVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("view", &self.view);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.ListImportJobs][google.cloud.kms.v1.KeyManagementService.ListImportJobs].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.ListImportJobs]: crate::client::KeyManagementService::list_import_jobs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListImportJobsRequest {
     /// Required. The resource name of the [KeyRing][google.cloud.kms.v1.KeyRing]
@@ -11660,11 +12243,27 @@ impl serde::ser::Serialize for ListImportJobsRequest {
     }
 }
 
+impl std::fmt::Debug for ListImportJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListImportJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.ListKeyRings][google.cloud.kms.v1.KeyManagementService.ListKeyRings].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.ListKeyRings]: crate::client::KeyManagementService::list_key_rings
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeyRingsResponse {
     /// The list of [KeyRings][google.cloud.kms.v1.KeyRing].
@@ -11893,11 +12492,25 @@ impl serde::ser::Serialize for ListKeyRingsResponse {
     }
 }
 
+impl std::fmt::Debug for ListKeyRingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListKeyRingsResponse");
+        debug_struct.field("key_rings", &self.key_rings);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.ListCryptoKeys][google.cloud.kms.v1.KeyManagementService.ListCryptoKeys].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeys]: crate::client::KeyManagementService::list_crypto_keys
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCryptoKeysResponse {
     /// The list of [CryptoKeys][google.cloud.kms.v1.CryptoKey].
@@ -12126,11 +12739,25 @@ impl serde::ser::Serialize for ListCryptoKeysResponse {
     }
 }
 
+impl std::fmt::Debug for ListCryptoKeysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCryptoKeysResponse");
+        debug_struct.field("crypto_keys", &self.crypto_keys);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.ListCryptoKeyVersions][google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions]: crate::client::KeyManagementService::list_crypto_key_versions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCryptoKeyVersionsResponse {
     /// The list of [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion].
@@ -12364,11 +12991,25 @@ impl serde::ser::Serialize for ListCryptoKeyVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListCryptoKeyVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCryptoKeyVersionsResponse");
+        debug_struct.field("crypto_key_versions", &self.crypto_key_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.ListImportJobs][google.cloud.kms.v1.KeyManagementService.ListImportJobs].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.ListImportJobs]: crate::client::KeyManagementService::list_import_jobs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListImportJobsResponse {
     /// The list of [ImportJobs][google.cloud.kms.v1.ImportJob].
@@ -12597,11 +13238,25 @@ impl serde::ser::Serialize for ListImportJobsResponse {
     }
 }
 
+impl std::fmt::Debug for ListImportJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListImportJobsResponse");
+        debug_struct.field("import_jobs", &self.import_jobs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.GetKeyRing][google.cloud.kms.v1.KeyManagementService.GetKeyRing].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.GetKeyRing]: crate::client::KeyManagementService::get_key_ring
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetKeyRingRequest {
     /// Required. The [name][google.cloud.kms.v1.KeyRing.name] of the
@@ -12734,11 +13389,23 @@ impl serde::ser::Serialize for GetKeyRingRequest {
     }
 }
 
+impl std::fmt::Debug for GetKeyRingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetKeyRingRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.GetCryptoKey][google.cloud.kms.v1.KeyManagementService.GetCryptoKey].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.GetCryptoKey]: crate::client::KeyManagementService::get_crypto_key
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCryptoKeyRequest {
     /// Required. The [name][google.cloud.kms.v1.CryptoKey.name] of the
@@ -12871,11 +13538,23 @@ impl serde::ser::Serialize for GetCryptoKeyRequest {
     }
 }
 
+impl std::fmt::Debug for GetCryptoKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCryptoKeyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.GetCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.GetCryptoKeyVersion].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.GetCryptoKeyVersion]: crate::client::KeyManagementService::get_crypto_key_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCryptoKeyVersionRequest {
     /// Required. The [name][google.cloud.kms.v1.CryptoKeyVersion.name] of the
@@ -13008,11 +13687,23 @@ impl serde::ser::Serialize for GetCryptoKeyVersionRequest {
     }
 }
 
+impl std::fmt::Debug for GetCryptoKeyVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCryptoKeyVersionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.GetPublicKey][google.cloud.kms.v1.KeyManagementService.GetPublicKey].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPublicKeyRequest {
     /// Required. The [name][google.cloud.kms.v1.CryptoKeyVersion.name] of the
@@ -13183,11 +13874,24 @@ impl serde::ser::Serialize for GetPublicKeyRequest {
     }
 }
 
+impl std::fmt::Debug for GetPublicKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPublicKeyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("public_key_format", &self.public_key_format);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.GetImportJob][google.cloud.kms.v1.KeyManagementService.GetImportJob].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.GetImportJob]: crate::client::KeyManagementService::get_import_job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetImportJobRequest {
     /// Required. The [name][google.cloud.kms.v1.ImportJob.name] of the
@@ -13320,11 +14024,23 @@ impl serde::ser::Serialize for GetImportJobRequest {
     }
 }
 
+impl std::fmt::Debug for GetImportJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetImportJobRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.CreateKeyRing][google.cloud.kms.v1.KeyManagementService.CreateKeyRing].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.CreateKeyRing]: crate::client::KeyManagementService::create_key_ring
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateKeyRingRequest {
     /// Required. The resource name of the location associated with the
@@ -13522,11 +14238,25 @@ impl serde::ser::Serialize for CreateKeyRingRequest {
     }
 }
 
+impl std::fmt::Debug for CreateKeyRingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateKeyRingRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("key_ring_id", &self.key_ring_id);
+        debug_struct.field("key_ring", &self.key_ring);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.CreateCryptoKey][google.cloud.kms.v1.KeyManagementService.CreateCryptoKey].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKey]: crate::client::KeyManagementService::create_crypto_key
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCryptoKeyRequest {
     /// Required. The [name][google.cloud.kms.v1.KeyRing.name] of the KeyRing
@@ -13768,11 +14498,29 @@ impl serde::ser::Serialize for CreateCryptoKeyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCryptoKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCryptoKeyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("crypto_key_id", &self.crypto_key_id);
+        debug_struct.field("crypto_key", &self.crypto_key);
+        debug_struct.field(
+            "skip_initial_version_creation",
+            &self.skip_initial_version_creation,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.CreateCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCryptoKeyVersionRequest {
     /// Required. The [name][google.cloud.kms.v1.CryptoKey.name] of the
@@ -13947,11 +14695,24 @@ impl serde::ser::Serialize for CreateCryptoKeyVersionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCryptoKeyVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCryptoKeyVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("crypto_key_version", &self.crypto_key_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.ImportCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportCryptoKeyVersionRequest {
     /// Required. The [name][google.cloud.kms.v1.CryptoKey.name] of the
@@ -14386,6 +15147,23 @@ impl serde::ser::Serialize for ImportCryptoKeyVersionRequest {
     }
 }
 
+impl std::fmt::Debug for ImportCryptoKeyVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportCryptoKeyVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("crypto_key_version", &self.crypto_key_version);
+        debug_struct.field("algorithm", &self.algorithm);
+        debug_struct.field("import_job", &self.import_job);
+        debug_struct.field("wrapped_key", &self.wrapped_key);
+        debug_struct.field("wrapped_key_material", &self.wrapped_key_material);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportCryptoKeyVersionRequest].
 pub mod import_crypto_key_version_request {
     #[allow(unused_imports)]
@@ -14413,7 +15191,7 @@ pub mod import_crypto_key_version_request {
 /// [KeyManagementService.CreateImportJob][google.cloud.kms.v1.KeyManagementService.CreateImportJob].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.CreateImportJob]: crate::client::KeyManagementService::create_import_job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateImportJobRequest {
     /// Required. The [name][google.cloud.kms.v1.KeyRing.name] of the
@@ -14613,11 +15391,25 @@ impl serde::ser::Serialize for CreateImportJobRequest {
     }
 }
 
+impl std::fmt::Debug for CreateImportJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateImportJobRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("import_job_id", &self.import_job_id);
+        debug_struct.field("import_job", &self.import_job);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.UpdateCryptoKey][google.cloud.kms.v1.KeyManagementService.UpdateCryptoKey].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKey]: crate::client::KeyManagementService::update_crypto_key
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCryptoKeyRequest {
     /// Required. [CryptoKey][google.cloud.kms.v1.CryptoKey] with updated values.
@@ -14796,11 +15588,24 @@ impl serde::ser::Serialize for UpdateCryptoKeyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCryptoKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCryptoKeyRequest");
+        debug_struct.field("crypto_key", &self.crypto_key);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.UpdateCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyVersion].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyVersion]: crate::client::KeyManagementService::update_crypto_key_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCryptoKeyVersionRequest {
     /// Required. [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] with
@@ -14981,11 +15786,24 @@ impl serde::ser::Serialize for UpdateCryptoKeyVersionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCryptoKeyVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCryptoKeyVersionRequest");
+        debug_struct.field("crypto_key_version", &self.crypto_key_version);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.UpdateCryptoKeyPrimaryVersion][google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyPrimaryVersion].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyPrimaryVersion]: crate::client::KeyManagementService::update_crypto_key_primary_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCryptoKeyPrimaryVersionRequest {
     /// Required. The resource name of the
@@ -15148,11 +15966,24 @@ impl serde::ser::Serialize for UpdateCryptoKeyPrimaryVersionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCryptoKeyPrimaryVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCryptoKeyPrimaryVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("crypto_key_version_id", &self.crypto_key_version_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.DestroyCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::client::KeyManagementService::destroy_crypto_key_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestroyCryptoKeyVersionRequest {
     /// Required. The resource name of the
@@ -15284,11 +16115,23 @@ impl serde::ser::Serialize for DestroyCryptoKeyVersionRequest {
     }
 }
 
+impl std::fmt::Debug for DestroyCryptoKeyVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DestroyCryptoKeyVersionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.RestoreCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreCryptoKeyVersionRequest {
     /// Required. The resource name of the
@@ -15420,11 +16263,23 @@ impl serde::ser::Serialize for RestoreCryptoKeyVersionRequest {
     }
 }
 
+impl std::fmt::Debug for RestoreCryptoKeyVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreCryptoKeyVersionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.Encrypt][google.cloud.kms.v1.KeyManagementService.Encrypt].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptRequest {
     /// Required. The resource name of the
@@ -15863,11 +16718,33 @@ impl serde::ser::Serialize for EncryptRequest {
     }
 }
 
+impl std::fmt::Debug for EncryptRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("plaintext", &self.plaintext);
+        debug_struct.field(
+            "additional_authenticated_data",
+            &self.additional_authenticated_data,
+        );
+        debug_struct.field("plaintext_crc32c", &self.plaintext_crc32c);
+        debug_struct.field(
+            "additional_authenticated_data_crc32c",
+            &self.additional_authenticated_data_crc32c,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.Decrypt][google.cloud.kms.v1.KeyManagementService.Decrypt].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DecryptRequest {
     /// Required. The resource name of the
@@ -16271,11 +17148,33 @@ impl serde::ser::Serialize for DecryptRequest {
     }
 }
 
+impl std::fmt::Debug for DecryptRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DecryptRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ciphertext", &self.ciphertext);
+        debug_struct.field(
+            "additional_authenticated_data",
+            &self.additional_authenticated_data,
+        );
+        debug_struct.field("ciphertext_crc32c", &self.ciphertext_crc32c);
+        debug_struct.field(
+            "additional_authenticated_data_crc32c",
+            &self.additional_authenticated_data_crc32c,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.RawEncrypt][google.cloud.kms.v1.KeyManagementService.RawEncrypt].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.RawEncrypt]: crate::client::KeyManagementService::raw_encrypt
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawEncryptRequest {
     /// Required. The resource name of the
@@ -16830,11 +17729,38 @@ impl serde::ser::Serialize for RawEncryptRequest {
     }
 }
 
+impl std::fmt::Debug for RawEncryptRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RawEncryptRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("plaintext", &self.plaintext);
+        debug_struct.field(
+            "additional_authenticated_data",
+            &self.additional_authenticated_data,
+        );
+        debug_struct.field("plaintext_crc32c", &self.plaintext_crc32c);
+        debug_struct.field(
+            "additional_authenticated_data_crc32c",
+            &self.additional_authenticated_data_crc32c,
+        );
+        debug_struct.field("initialization_vector", &self.initialization_vector);
+        debug_struct.field(
+            "initialization_vector_crc32c",
+            &self.initialization_vector_crc32c,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.RawDecrypt][google.cloud.kms.v1.KeyManagementService.RawDecrypt].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.RawDecrypt]: crate::client::KeyManagementService::raw_decrypt
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawDecryptRequest {
     /// Required. The resource name of the
@@ -17406,11 +18332,39 @@ impl serde::ser::Serialize for RawDecryptRequest {
     }
 }
 
+impl std::fmt::Debug for RawDecryptRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RawDecryptRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ciphertext", &self.ciphertext);
+        debug_struct.field(
+            "additional_authenticated_data",
+            &self.additional_authenticated_data,
+        );
+        debug_struct.field("initialization_vector", &self.initialization_vector);
+        debug_struct.field("tag_length", &self.tag_length);
+        debug_struct.field("ciphertext_crc32c", &self.ciphertext_crc32c);
+        debug_struct.field(
+            "additional_authenticated_data_crc32c",
+            &self.additional_authenticated_data_crc32c,
+        );
+        debug_struct.field(
+            "initialization_vector_crc32c",
+            &self.initialization_vector_crc32c,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.AsymmetricSign][google.cloud.kms.v1.KeyManagementService.AsymmetricSign].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.AsymmetricSign]: crate::client::KeyManagementService::asymmetric_sign
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsymmetricSignRequest {
     /// Required. The resource name of the
@@ -17792,11 +18746,27 @@ impl serde::ser::Serialize for AsymmetricSignRequest {
     }
 }
 
+impl std::fmt::Debug for AsymmetricSignRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsymmetricSignRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("digest", &self.digest);
+        debug_struct.field("digest_crc32c", &self.digest_crc32c);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("data_crc32c", &self.data_crc32c);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.AsymmetricDecrypt][google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt]: crate::client::KeyManagementService::asymmetric_decrypt
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsymmetricDecryptRequest {
     /// Required. The resource name of the
@@ -18054,11 +19024,25 @@ impl serde::ser::Serialize for AsymmetricDecryptRequest {
     }
 }
 
+impl std::fmt::Debug for AsymmetricDecryptRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsymmetricDecryptRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ciphertext", &self.ciphertext);
+        debug_struct.field("ciphertext_crc32c", &self.ciphertext_crc32c);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.MacSign][google.cloud.kms.v1.KeyManagementService.MacSign].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.MacSign]: crate::client::KeyManagementService::mac_sign
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MacSignRequest {
     /// Required. The resource name of the
@@ -18311,11 +19295,25 @@ impl serde::ser::Serialize for MacSignRequest {
     }
 }
 
+impl std::fmt::Debug for MacSignRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MacSignRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("data_crc32c", &self.data_crc32c);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.MacVerify][google.cloud.kms.v1.KeyManagementService.MacVerify].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.MacVerify]: crate::client::KeyManagementService::mac_verify
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MacVerifyRequest {
     /// Required. The resource name of the
@@ -18691,11 +19689,27 @@ impl serde::ser::Serialize for MacVerifyRequest {
     }
 }
 
+impl std::fmt::Debug for MacVerifyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MacVerifyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("data_crc32c", &self.data_crc32c);
+        debug_struct.field("mac", &self.mac);
+        debug_struct.field("mac_crc32c", &self.mac_crc32c);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.GenerateRandomBytes][google.cloud.kms.v1.KeyManagementService.GenerateRandomBytes].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.GenerateRandomBytes]: crate::client::KeyManagementService::generate_random_bytes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateRandomBytesRequest {
     /// The project-specific location in which to generate random bytes.
@@ -18903,11 +19917,25 @@ impl serde::ser::Serialize for GenerateRandomBytesRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateRandomBytesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateRandomBytesRequest");
+        debug_struct.field("location", &self.location);
+        debug_struct.field("length_bytes", &self.length_bytes);
+        debug_struct.field("protection_level", &self.protection_level);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.Encrypt][google.cloud.kms.v1.KeyManagementService.Encrypt].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptResponse {
     /// The resource name of the
@@ -19287,11 +20315,31 @@ impl serde::ser::Serialize for EncryptResponse {
     }
 }
 
+impl std::fmt::Debug for EncryptResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptResponse");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ciphertext", &self.ciphertext);
+        debug_struct.field("ciphertext_crc32c", &self.ciphertext_crc32c);
+        debug_struct.field("verified_plaintext_crc32c", &self.verified_plaintext_crc32c);
+        debug_struct.field(
+            "verified_additional_authenticated_data_crc32c",
+            &self.verified_additional_authenticated_data_crc32c,
+        );
+        debug_struct.field("protection_level", &self.protection_level);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.Decrypt][google.cloud.kms.v1.KeyManagementService.Decrypt].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DecryptResponse {
     /// The decrypted data originally supplied in
@@ -19576,11 +20624,26 @@ impl serde::ser::Serialize for DecryptResponse {
     }
 }
 
+impl std::fmt::Debug for DecryptResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DecryptResponse");
+        debug_struct.field("plaintext", &self.plaintext);
+        debug_struct.field("plaintext_crc32c", &self.plaintext_crc32c);
+        debug_struct.field("used_primary", &self.used_primary);
+        debug_struct.field("protection_level", &self.protection_level);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.RawEncrypt][google.cloud.kms.v1.KeyManagementService.RawEncrypt].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.RawEncrypt]: crate::client::KeyManagementService::raw_encrypt
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawEncryptResponse {
     /// The encrypted data. In the case of AES-GCM, the authentication tag
@@ -20178,11 +21241,41 @@ impl serde::ser::Serialize for RawEncryptResponse {
     }
 }
 
+impl std::fmt::Debug for RawEncryptResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RawEncryptResponse");
+        debug_struct.field("ciphertext", &self.ciphertext);
+        debug_struct.field("initialization_vector", &self.initialization_vector);
+        debug_struct.field("tag_length", &self.tag_length);
+        debug_struct.field("ciphertext_crc32c", &self.ciphertext_crc32c);
+        debug_struct.field(
+            "initialization_vector_crc32c",
+            &self.initialization_vector_crc32c,
+        );
+        debug_struct.field("verified_plaintext_crc32c", &self.verified_plaintext_crc32c);
+        debug_struct.field(
+            "verified_additional_authenticated_data_crc32c",
+            &self.verified_additional_authenticated_data_crc32c,
+        );
+        debug_struct.field(
+            "verified_initialization_vector_crc32c",
+            &self.verified_initialization_vector_crc32c,
+        );
+        debug_struct.field("name", &self.name);
+        debug_struct.field("protection_level", &self.protection_level);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.RawDecrypt][google.cloud.kms.v1.KeyManagementService.RawDecrypt].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.RawDecrypt]: crate::client::KeyManagementService::raw_decrypt
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawDecryptResponse {
     /// The decrypted data.
@@ -20583,11 +21676,37 @@ impl serde::ser::Serialize for RawDecryptResponse {
     }
 }
 
+impl std::fmt::Debug for RawDecryptResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RawDecryptResponse");
+        debug_struct.field("plaintext", &self.plaintext);
+        debug_struct.field("plaintext_crc32c", &self.plaintext_crc32c);
+        debug_struct.field("protection_level", &self.protection_level);
+        debug_struct.field(
+            "verified_ciphertext_crc32c",
+            &self.verified_ciphertext_crc32c,
+        );
+        debug_struct.field(
+            "verified_additional_authenticated_data_crc32c",
+            &self.verified_additional_authenticated_data_crc32c,
+        );
+        debug_struct.field(
+            "verified_initialization_vector_crc32c",
+            &self.verified_initialization_vector_crc32c,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.AsymmetricSign][google.cloud.kms.v1.KeyManagementService.AsymmetricSign].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.AsymmetricSign]: crate::client::KeyManagementService::asymmetric_sign
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsymmetricSignResponse {
     /// The created signature.
@@ -20949,11 +22068,28 @@ impl serde::ser::Serialize for AsymmetricSignResponse {
     }
 }
 
+impl std::fmt::Debug for AsymmetricSignResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsymmetricSignResponse");
+        debug_struct.field("signature", &self.signature);
+        debug_struct.field("signature_crc32c", &self.signature_crc32c);
+        debug_struct.field("verified_digest_crc32c", &self.verified_digest_crc32c);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("verified_data_crc32c", &self.verified_data_crc32c);
+        debug_struct.field("protection_level", &self.protection_level);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.AsymmetricDecrypt][google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt]: crate::client::KeyManagementService::asymmetric_decrypt
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsymmetricDecryptResponse {
     /// The decrypted data originally encrypted with the matching public key.
@@ -21250,11 +22386,29 @@ impl serde::ser::Serialize for AsymmetricDecryptResponse {
     }
 }
 
+impl std::fmt::Debug for AsymmetricDecryptResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsymmetricDecryptResponse");
+        debug_struct.field("plaintext", &self.plaintext);
+        debug_struct.field("plaintext_crc32c", &self.plaintext_crc32c);
+        debug_struct.field(
+            "verified_ciphertext_crc32c",
+            &self.verified_ciphertext_crc32c,
+        );
+        debug_struct.field("protection_level", &self.protection_level);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.MacSign][google.cloud.kms.v1.KeyManagementService.MacSign].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.MacSign]: crate::client::KeyManagementService::mac_sign
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MacSignResponse {
     /// The resource name of the
@@ -21574,11 +22728,27 @@ impl serde::ser::Serialize for MacSignResponse {
     }
 }
 
+impl std::fmt::Debug for MacSignResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MacSignResponse");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("mac", &self.mac);
+        debug_struct.field("mac_crc32c", &self.mac_crc32c);
+        debug_struct.field("verified_data_crc32c", &self.verified_data_crc32c);
+        debug_struct.field("protection_level", &self.protection_level);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.MacVerify][google.cloud.kms.v1.KeyManagementService.MacVerify].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.MacVerify]: crate::client::KeyManagementService::mac_verify
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MacVerifyResponse {
     /// The resource name of the
@@ -21891,11 +23061,31 @@ impl serde::ser::Serialize for MacVerifyResponse {
     }
 }
 
+impl std::fmt::Debug for MacVerifyResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MacVerifyResponse");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("success", &self.success);
+        debug_struct.field("verified_data_crc32c", &self.verified_data_crc32c);
+        debug_struct.field("verified_mac_crc32c", &self.verified_mac_crc32c);
+        debug_struct.field(
+            "verified_success_integrity",
+            &self.verified_success_integrity,
+        );
+        debug_struct.field("protection_level", &self.protection_level);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.GenerateRandomBytes][google.cloud.kms.v1.KeyManagementService.GenerateRandomBytes].
 ///
 /// [google.cloud.kms.v1.KeyManagementService.GenerateRandomBytes]: crate::client::KeyManagementService::generate_random_bytes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateRandomBytesResponse {
     /// The generated data.
@@ -22113,10 +23303,23 @@ impl serde::ser::Serialize for GenerateRandomBytesResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateRandomBytesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateRandomBytesResponse");
+        debug_struct.field("data", &self.data);
+        debug_struct.field("data_crc32c", &self.data_crc32c);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A [Digest][google.cloud.kms.v1.Digest] holds a cryptographic message digest.
 ///
 /// [google.cloud.kms.v1.Digest]: crate::model::Digest
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Digest {
     /// Required. The message digest.
@@ -22422,6 +23625,18 @@ impl serde::ser::Serialize for Digest {
     }
 }
 
+impl std::fmt::Debug for Digest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Digest");
+        debug_struct.field("digest", &self.digest);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Digest].
 pub mod digest {
     #[allow(unused_imports)]
@@ -22444,7 +23659,7 @@ pub mod digest {
 /// [google.cloud.location.Location][google.cloud.location.Location].
 ///
 /// [google.cloud.location.Location]: location::model::Location
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     /// Indicates whether [CryptoKeys][google.cloud.kms.v1.CryptoKey] with
@@ -22610,6 +23825,19 @@ impl serde::ser::Serialize for LocationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+        debug_struct.field("hsm_available", &self.hsm_available);
+        debug_struct.field("ekm_available", &self.ekm_available);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

@@ -39,7 +39,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// The resource owners information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceOwners {
     /// List of resource owners.
@@ -172,9 +172,21 @@ impl serde::ser::Serialize for ResourceOwners {
     }
 }
 
+impl std::fmt::Debug for ResourceOwners {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceOwners");
+        debug_struct.field("resource_owners", &self.resource_owners);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the longrunning operation for the
 /// AnalyzeIamPolicyLongrunning RPC.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeIamPolicyLongrunningMetadata {
     /// Output only. The time the operation was created.
@@ -315,8 +327,20 @@ impl serde::ser::Serialize for AnalyzeIamPolicyLongrunningMetadata {
     }
 }
 
+impl std::fmt::Debug for AnalyzeIamPolicyLongrunningMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeIamPolicyLongrunningMetadata");
+        debug_struct.field("create_time", &self.create_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Export asset request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportAssetsRequest {
     /// Required. The relative name of the root asset. This can only be an
@@ -642,6 +666,23 @@ impl serde::ser::Serialize for ExportAssetsRequest {
     }
 }
 
+impl std::fmt::Debug for ExportAssetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportAssetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("read_time", &self.read_time);
+        debug_struct.field("asset_types", &self.asset_types);
+        debug_struct.field("content_type", &self.content_type);
+        debug_struct.field("output_config", &self.output_config);
+        debug_struct.field("relationship_types", &self.relationship_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The export asset response. This message is returned by the
 /// [google.longrunning.Operations.GetOperation][google.longrunning.Operations.GetOperation]
 /// method in the returned
@@ -649,7 +690,7 @@ impl serde::ser::Serialize for ExportAssetsRequest {
 /// field.
 ///
 /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportAssetsResponse {
     /// Time the snapshot was taken.
@@ -866,8 +907,22 @@ impl serde::ser::Serialize for ExportAssetsResponse {
     }
 }
 
+impl std::fmt::Debug for ExportAssetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportAssetsResponse");
+        debug_struct.field("read_time", &self.read_time);
+        debug_struct.field("output_config", &self.output_config);
+        debug_struct.field("output_result", &self.output_result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ListAssets request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAssetsRequest {
     /// Required. Name of the organization, folder, or project the assets belong
@@ -1228,8 +1283,26 @@ impl serde::ser::Serialize for ListAssetsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAssetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAssetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("read_time", &self.read_time);
+        debug_struct.field("asset_types", &self.asset_types);
+        debug_struct.field("content_type", &self.content_type);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("relationship_types", &self.relationship_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ListAssets response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAssetsResponse {
     /// Time the snapshot was taken.
@@ -1438,8 +1511,22 @@ impl serde::ser::Serialize for ListAssetsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAssetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAssetsResponse");
+        debug_struct.field("read_time", &self.read_time);
+        debug_struct.field("assets", &self.assets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Batch get assets history request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchGetAssetsHistoryRequest {
     /// Required. The relative name of the root asset. It can only be an
@@ -1718,8 +1805,24 @@ impl serde::ser::Serialize for BatchGetAssetsHistoryRequest {
     }
 }
 
+impl std::fmt::Debug for BatchGetAssetsHistoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchGetAssetsHistoryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("asset_names", &self.asset_names);
+        debug_struct.field("content_type", &self.content_type);
+        debug_struct.field("read_time_window", &self.read_time_window);
+        debug_struct.field("relationship_types", &self.relationship_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Batch get assets history response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchGetAssetsHistoryResponse {
     /// A list of assets with valid time windows.
@@ -1851,8 +1954,20 @@ impl serde::ser::Serialize for BatchGetAssetsHistoryResponse {
     }
 }
 
+impl std::fmt::Debug for BatchGetAssetsHistoryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchGetAssetsHistoryResponse");
+        debug_struct.field("assets", &self.assets);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Create asset feed request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFeedRequest {
     /// Required. The name of the project/folder/organization where this feed
@@ -2049,8 +2164,22 @@ impl serde::ser::Serialize for CreateFeedRequest {
     }
 }
 
+impl std::fmt::Debug for CreateFeedRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateFeedRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("feed_id", &self.feed_id);
+        debug_struct.field("feed", &self.feed);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Get asset feed request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFeedRequest {
     /// Required. The name of the Feed and it must be in the format of:
@@ -2182,8 +2311,20 @@ impl serde::ser::Serialize for GetFeedRequest {
     }
 }
 
+impl std::fmt::Debug for GetFeedRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFeedRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List asset feeds request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFeedsRequest {
     /// Required. The parent project/folder/organization whose feeds are to be
@@ -2314,7 +2455,19 @@ impl serde::ser::Serialize for ListFeedsRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for ListFeedsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFeedsRequest");
+        debug_struct.field("parent", &self.parent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFeedsResponse {
     /// A list of feeds.
@@ -2446,8 +2599,20 @@ impl serde::ser::Serialize for ListFeedsResponse {
     }
 }
 
+impl std::fmt::Debug for ListFeedsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFeedsResponse");
+        debug_struct.field("feeds", &self.feeds);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Update asset feed request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFeedRequest {
     /// Required. The new values of feed details. It must match an existing feed
@@ -2629,7 +2794,20 @@ impl serde::ser::Serialize for UpdateFeedRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for UpdateFeedRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFeedRequest");
+        debug_struct.field("feed", &self.feed);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFeedRequest {
     /// Required. The name of the feed and it must be in the format of:
@@ -2761,8 +2939,20 @@ impl serde::ser::Serialize for DeleteFeedRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteFeedRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFeedRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output configuration for export assets destination.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputConfig {
     /// Asset export destination.
@@ -3000,6 +3190,18 @@ impl serde::ser::Serialize for OutputConfig {
     }
 }
 
+impl std::fmt::Debug for OutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputConfig");
+        debug_struct.field("destination", &self.destination);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OutputConfig].
 pub mod output_config {
     #[allow(unused_imports)]
@@ -3018,7 +3220,7 @@ pub mod output_config {
 }
 
 /// Output result of export assets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputResult {
     /// Asset export result.
@@ -3193,6 +3395,18 @@ impl serde::ser::Serialize for OutputResult {
     }
 }
 
+impl std::fmt::Debug for OutputResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputResult");
+        debug_struct.field("result", &self.result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OutputResult].
 pub mod output_result {
     #[allow(unused_imports)]
@@ -3208,7 +3422,7 @@ pub mod output_result {
 }
 
 /// A Cloud Storage output result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsOutputResult {
     /// List of URIs of the Cloud Storage objects. Example:
@@ -3341,8 +3555,20 @@ impl serde::ser::Serialize for GcsOutputResult {
     }
 }
 
+impl std::fmt::Debug for GcsOutputResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsOutputResult");
+        debug_struct.field("uris", &self.uris);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Cloud Storage location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDestination {
     /// Required.
@@ -3556,6 +3782,18 @@ impl serde::ser::Serialize for GcsDestination {
     }
 }
 
+impl std::fmt::Debug for GcsDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsDestination");
+        debug_struct.field("object_uri", &self.object_uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GcsDestination].
 pub mod gcs_destination {
     #[allow(unused_imports)]
@@ -3589,7 +3827,7 @@ pub mod gcs_destination {
 }
 
 /// A BigQuery destination for exporting assets to.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryDestination {
     /// Required. The BigQuery dataset in format
@@ -3888,8 +4126,27 @@ impl serde::ser::Serialize for BigQueryDestination {
     }
 }
 
+impl std::fmt::Debug for BigQueryDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryDestination");
+        debug_struct.field("dataset", &self.dataset);
+        debug_struct.field("table", &self.table);
+        debug_struct.field("force", &self.force);
+        debug_struct.field("partition_spec", &self.partition_spec);
+        debug_struct.field(
+            "separate_tables_per_asset_type",
+            &self.separate_tables_per_asset_type,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifications of BigQuery partitioned table as export destination.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PartitionSpec {
     /// The partition key for BigQuery partitioned table.
@@ -4017,6 +4274,18 @@ impl serde::ser::Serialize for PartitionSpec {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for PartitionSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartitionSpec");
+        debug_struct.field("partition_key", &self.partition_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -4170,7 +4439,7 @@ pub mod partition_spec {
 }
 
 /// A Pub/Sub destination.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PubsubDestination {
     /// The name of the Pub/Sub topic to publish to.
@@ -4300,8 +4569,20 @@ impl serde::ser::Serialize for PubsubDestination {
     }
 }
 
+impl std::fmt::Debug for PubsubDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PubsubDestination");
+        debug_struct.field("topic", &self.topic);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output configuration for asset feed destination.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeedOutputConfig {
     /// Asset feed destination.
@@ -4481,6 +4762,18 @@ impl serde::ser::Serialize for FeedOutputConfig {
     }
 }
 
+impl std::fmt::Debug for FeedOutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FeedOutputConfig");
+        debug_struct.field("destination", &self.destination);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FeedOutputConfig].
 pub mod feed_output_config {
     #[allow(unused_imports)]
@@ -4500,7 +4793,7 @@ pub mod feed_output_config {
 /// The asset feed must be created within a project, organization, or
 /// folder. Supported destinations are:
 /// Pub/Sub topics.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Feed {
     /// Required. The format will be
@@ -4860,8 +5153,26 @@ impl serde::ser::Serialize for Feed {
     }
 }
 
+impl std::fmt::Debug for Feed {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Feed");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("asset_names", &self.asset_names);
+        debug_struct.field("asset_types", &self.asset_types);
+        debug_struct.field("content_type", &self.content_type);
+        debug_struct.field("feed_output_config", &self.feed_output_config);
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("relationship_types", &self.relationship_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Search all resources request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchAllResourcesRequest {
     /// Required. A scope can be a project, a folder, or an organization. The
@@ -5327,8 +5638,26 @@ impl serde::ser::Serialize for SearchAllResourcesRequest {
     }
 }
 
+impl std::fmt::Debug for SearchAllResourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchAllResourcesRequest");
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("asset_types", &self.asset_types);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("read_mask", &self.read_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Search all resources response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchAllResourcesResponse {
     /// A list of Resources that match the search query. It contains the resource
@@ -5506,8 +5835,21 @@ impl serde::ser::Serialize for SearchAllResourcesResponse {
     }
 }
 
+impl std::fmt::Debug for SearchAllResourcesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchAllResourcesResponse");
+        debug_struct.field("results", &self.results);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Search all IAM policies request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchAllIamPoliciesRequest {
     /// Required. A scope can be a project, a folder, or an organization. The
@@ -5866,8 +6208,25 @@ impl serde::ser::Serialize for SearchAllIamPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for SearchAllIamPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchAllIamPoliciesRequest");
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("asset_types", &self.asset_types);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Search all IAM policies response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchAllIamPoliciesResponse {
     /// A list of IAM policies that match the search query. Related information
@@ -6045,8 +6404,21 @@ impl serde::ser::Serialize for SearchAllIamPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for SearchAllIamPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchAllIamPoliciesResponse");
+        debug_struct.field("results", &self.results);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// IAM policy analysis query message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IamPolicyAnalysisQuery {
     /// Required. The relative name of the root asset. Only resources and IAM
@@ -6374,6 +6746,23 @@ impl serde::ser::Serialize for IamPolicyAnalysisQuery {
     }
 }
 
+impl std::fmt::Debug for IamPolicyAnalysisQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IamPolicyAnalysisQuery");
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("resource_selector", &self.resource_selector);
+        debug_struct.field("identity_selector", &self.identity_selector);
+        debug_struct.field("access_selector", &self.access_selector);
+        debug_struct.field("options", &self.options);
+        debug_struct.field("condition_context", &self.condition_context);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [IamPolicyAnalysisQuery].
 pub mod iam_policy_analysis_query {
     #[allow(unused_imports)]
@@ -6382,7 +6771,7 @@ pub mod iam_policy_analysis_query {
     /// Specifies the resource to analyze for access policies, which may be set
     /// directly on the resource, or on ancestors such as organizations, folders or
     /// projects.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceSelector {
         /// Required. The [full resource name]
@@ -6521,10 +6910,22 @@ pub mod iam_policy_analysis_query {
         }
     }
 
+    impl std::fmt::Debug for ResourceSelector {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResourceSelector");
+            debug_struct.field("full_resource_name", &self.full_resource_name);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Specifies an identity for which to determine resource access, based on
     /// roles assigned either directly to them or to the groups they belong to,
     /// directly or indirectly.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IdentitySelector {
         /// Required. The identity appear in the form of principals in
@@ -6667,12 +7068,24 @@ pub mod iam_policy_analysis_query {
         }
     }
 
+    impl std::fmt::Debug for IdentitySelector {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IdentitySelector");
+            debug_struct.field("identity", &self.identity);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Specifies roles and/or permissions to analyze, to determine both the
     /// identities possessing them and the resources they control. If multiple
     /// values are specified, results will include roles or permissions matching
     /// any of them. The total number of roles and permissions should be equal or
     /// less than 10.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AccessSelector {
         /// Optional. The roles to appear in result.
@@ -6834,8 +7247,21 @@ pub mod iam_policy_analysis_query {
         }
     }
 
+    impl std::fmt::Debug for AccessSelector {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AccessSelector");
+            debug_struct.field("roles", &self.roles);
+            debug_struct.field("permissions", &self.permissions);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Contains query options.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Options {
         /// Optional. If true, the identities section of the result will expand any
@@ -7196,8 +7622,28 @@ pub mod iam_policy_analysis_query {
         }
     }
 
+    impl std::fmt::Debug for Options {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Options");
+            debug_struct.field("expand_groups", &self.expand_groups);
+            debug_struct.field("expand_roles", &self.expand_roles);
+            debug_struct.field("expand_resources", &self.expand_resources);
+            debug_struct.field("output_resource_edges", &self.output_resource_edges);
+            debug_struct.field("output_group_edges", &self.output_group_edges);
+            debug_struct.field(
+                "analyze_service_account_impersonation",
+                &self.analyze_service_account_impersonation,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The IAM conditions context.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConditionContext {
         /// The IAM conditions time context.
@@ -7379,6 +7825,18 @@ pub mod iam_policy_analysis_query {
         }
     }
 
+    impl std::fmt::Debug for ConditionContext {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConditionContext");
+            debug_struct.field("time_context", &self.time_context);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ConditionContext].
     pub mod condition_context {
         #[allow(unused_imports)]
@@ -7400,7 +7858,7 @@ pub mod iam_policy_analysis_query {
 /// [AssetService.AnalyzeIamPolicy][google.cloud.asset.v1.AssetService.AnalyzeIamPolicy].
 ///
 /// [google.cloud.asset.v1.AssetService.AnalyzeIamPolicy]: crate::client::AssetService::analyze_iam_policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeIamPolicyRequest {
     /// Required. The request query.
@@ -7630,11 +8088,25 @@ impl serde::ser::Serialize for AnalyzeIamPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for AnalyzeIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeIamPolicyRequest");
+        debug_struct.field("analysis_query", &self.analysis_query);
+        debug_struct.field("saved_analysis_query", &self.saved_analysis_query);
+        debug_struct.field("execution_timeout", &self.execution_timeout);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response message for
 /// [AssetService.AnalyzeIamPolicy][google.cloud.asset.v1.AssetService.AnalyzeIamPolicy].
 ///
 /// [google.cloud.asset.v1.AssetService.AnalyzeIamPolicy]: crate::client::AssetService::analyze_iam_policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeIamPolicyResponse {
     /// The main analysis that matches the original request.
@@ -7850,13 +8322,30 @@ impl serde::ser::Serialize for AnalyzeIamPolicyResponse {
     }
 }
 
+impl std::fmt::Debug for AnalyzeIamPolicyResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeIamPolicyResponse");
+        debug_struct.field("main_analysis", &self.main_analysis);
+        debug_struct.field(
+            "service_account_impersonation_analysis",
+            &self.service_account_impersonation_analysis,
+        );
+        debug_struct.field("fully_explored", &self.fully_explored);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AnalyzeIamPolicyResponse].
 pub mod analyze_iam_policy_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// An analysis message to group the query and results.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IamPolicyAnalysis {
         /// The analysis query.
@@ -8096,10 +8585,25 @@ pub mod analyze_iam_policy_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for IamPolicyAnalysis {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IamPolicyAnalysis");
+            debug_struct.field("analysis_query", &self.analysis_query);
+            debug_struct.field("analysis_results", &self.analysis_results);
+            debug_struct.field("fully_explored", &self.fully_explored);
+            debug_struct.field("non_critical_errors", &self.non_critical_errors);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Output configuration for export IAM policy analysis destination.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IamPolicyAnalysisOutputConfig {
     /// IAM policy analysis export destination.
@@ -8346,13 +8850,25 @@ impl serde::ser::Serialize for IamPolicyAnalysisOutputConfig {
     }
 }
 
+impl std::fmt::Debug for IamPolicyAnalysisOutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IamPolicyAnalysisOutputConfig");
+        debug_struct.field("destination", &self.destination);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [IamPolicyAnalysisOutputConfig].
 pub mod iam_policy_analysis_output_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// A Cloud Storage location.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GcsDestination {
         /// Required. The URI of the Cloud Storage object. It's the same URI that is
@@ -8492,8 +9008,20 @@ pub mod iam_policy_analysis_output_config {
         }
     }
 
+    impl std::fmt::Debug for GcsDestination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GcsDestination");
+            debug_struct.field("uri", &self.uri);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A BigQuery destination.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BigQueryDestination {
         /// Required. The BigQuery dataset in format
@@ -8730,6 +9258,21 @@ pub mod iam_policy_analysis_output_config {
         }
     }
 
+    impl std::fmt::Debug for BigQueryDestination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BigQueryDestination");
+            debug_struct.field("dataset", &self.dataset);
+            debug_struct.field("table_prefix", &self.table_prefix);
+            debug_struct.field("partition_key", &self.partition_key);
+            debug_struct.field("write_disposition", &self.write_disposition);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [BigQueryDestination].
     pub mod big_query_destination {
         #[allow(unused_imports)]
@@ -8888,7 +9431,7 @@ pub mod iam_policy_analysis_output_config {
 /// [AssetService.AnalyzeIamPolicyLongrunning][google.cloud.asset.v1.AssetService.AnalyzeIamPolicyLongrunning].
 ///
 /// [google.cloud.asset.v1.AssetService.AnalyzeIamPolicyLongrunning]: crate::client::AssetService::analyze_iam_policy_longrunning
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeIamPolicyLongrunningRequest {
     /// Required. The request query.
@@ -9111,11 +9654,25 @@ impl serde::ser::Serialize for AnalyzeIamPolicyLongrunningRequest {
     }
 }
 
+impl std::fmt::Debug for AnalyzeIamPolicyLongrunningRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeIamPolicyLongrunningRequest");
+        debug_struct.field("analysis_query", &self.analysis_query);
+        debug_struct.field("saved_analysis_query", &self.saved_analysis_query);
+        debug_struct.field("output_config", &self.output_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response message for
 /// [AssetService.AnalyzeIamPolicyLongrunning][google.cloud.asset.v1.AssetService.AnalyzeIamPolicyLongrunning].
 ///
 /// [google.cloud.asset.v1.AssetService.AnalyzeIamPolicyLongrunning]: crate::client::AssetService::analyze_iam_policy_longrunning
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeIamPolicyLongrunningResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9217,8 +9774,19 @@ impl serde::ser::Serialize for AnalyzeIamPolicyLongrunningResponse {
     }
 }
 
+impl std::fmt::Debug for AnalyzeIamPolicyLongrunningResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeIamPolicyLongrunningResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A saved query which can be shared with others or used later.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SavedQuery {
     /// The resource name of the saved query. The format must be:
@@ -9570,13 +10138,32 @@ impl serde::ser::Serialize for SavedQuery {
     }
 }
 
+impl std::fmt::Debug for SavedQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SavedQuery");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("creator", &self.creator);
+        debug_struct.field("last_update_time", &self.last_update_time);
+        debug_struct.field("last_updater", &self.last_updater);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("content", &self.content);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SavedQuery].
 pub mod saved_query {
     #[allow(unused_imports)]
     use super::*;
 
     /// The query content.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QueryContent {
         pub query_content:
@@ -9764,6 +10351,18 @@ pub mod saved_query {
         }
     }
 
+    impl std::fmt::Debug for QueryContent {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QueryContent");
+            debug_struct.field("query_content", &self.query_content);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [QueryContent].
     pub mod query_content {
         #[allow(unused_imports)]
@@ -9787,7 +10386,7 @@ pub mod saved_query {
 }
 
 /// Request to create a saved query.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSavedQueryRequest {
     /// Required. The name of the project/folder/organization where this
@@ -9990,8 +10589,22 @@ impl serde::ser::Serialize for CreateSavedQueryRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSavedQueryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSavedQueryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("saved_query", &self.saved_query);
+        debug_struct.field("saved_query_id", &self.saved_query_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to get a saved query.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSavedQueryRequest {
     /// Required. The name of the saved query and it must be in the format of:
@@ -10124,8 +10737,20 @@ impl serde::ser::Serialize for GetSavedQueryRequest {
     }
 }
 
+impl std::fmt::Debug for GetSavedQueryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSavedQueryRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to list saved queries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSavedQueriesRequest {
     /// Required. The parent project/folder/organization whose savedQueries are to
@@ -10361,8 +10986,23 @@ impl serde::ser::Serialize for ListSavedQueriesRequest {
     }
 }
 
+impl std::fmt::Debug for ListSavedQueriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSavedQueriesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of listing saved queries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSavedQueriesResponse {
     /// A list of savedQueries.
@@ -10535,8 +11175,21 @@ impl serde::ser::Serialize for ListSavedQueriesResponse {
     }
 }
 
+impl std::fmt::Debug for ListSavedQueriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSavedQueriesResponse");
+        debug_struct.field("saved_queries", &self.saved_queries);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to update a saved query.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSavedQueryRequest {
     /// Required. The saved query to update.
@@ -10720,8 +11373,21 @@ impl serde::ser::Serialize for UpdateSavedQueryRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSavedQueryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSavedQueryRequest");
+        debug_struct.field("saved_query", &self.saved_query);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to delete a saved query.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSavedQueryRequest {
     /// Required. The name of the saved query to delete. It must be in the format
@@ -10855,8 +11521,20 @@ impl serde::ser::Serialize for DeleteSavedQueryRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSavedQueryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSavedQueryRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for performing resource move analysis.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeMoveRequest {
     /// Required. Name of the resource to perform the analysis against.
@@ -11050,6 +11728,20 @@ impl serde::ser::Serialize for AnalyzeMoveRequest {
     }
 }
 
+impl std::fmt::Debug for AnalyzeMoveRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeMoveRequest");
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("destination_parent", &self.destination_parent);
+        debug_struct.field("view", &self.view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AnalyzeMoveRequest].
 pub mod analyze_move_request {
     #[allow(unused_imports)]
@@ -11192,7 +11884,7 @@ pub mod analyze_move_request {
 }
 
 /// The response message for resource move analysis.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeMoveResponse {
     /// The list of analyses returned from performing the intended resource move
@@ -11326,8 +12018,20 @@ impl serde::ser::Serialize for AnalyzeMoveResponse {
     }
 }
 
+impl std::fmt::Debug for AnalyzeMoveResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeMoveResponse");
+        debug_struct.field("move_analysis", &self.move_analysis);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A message to group the analysis information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveAnalysis {
     /// The user friendly display name of the analysis. E.g. IAM, organization
@@ -11579,6 +12283,19 @@ impl serde::ser::Serialize for MoveAnalysis {
     }
 }
 
+impl std::fmt::Debug for MoveAnalysis {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveAnalysis");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("result", &self.result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MoveAnalysis].
 pub mod move_analysis {
     #[allow(unused_imports)]
@@ -11595,7 +12312,7 @@ pub mod move_analysis {
 }
 
 /// An analysis result including blockers and warnings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveAnalysisResult {
     /// Blocking information that would prevent the target resource from moving
@@ -11757,8 +12474,21 @@ impl serde::ser::Serialize for MoveAnalysisResult {
     }
 }
 
+impl std::fmt::Debug for MoveAnalysisResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveAnalysisResult");
+        debug_struct.field("blockers", &self.blockers);
+        debug_struct.field("warnings", &self.warnings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A message to group impacts of moving the target resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveImpact {
     /// User friendly impact detail in a free form message.
@@ -11887,8 +12617,20 @@ impl serde::ser::Serialize for MoveImpact {
     }
 }
 
+impl std::fmt::Debug for MoveImpact {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveImpact");
+        debug_struct.field("detail", &self.detail);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output configuration query assets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryAssetsOutputConfig {
     /// BigQuery destination where the query results will be saved.
@@ -12031,13 +12773,25 @@ impl serde::ser::Serialize for QueryAssetsOutputConfig {
     }
 }
 
+impl std::fmt::Debug for QueryAssetsOutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryAssetsOutputConfig");
+        debug_struct.field("bigquery_destination", &self.bigquery_destination);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QueryAssetsOutputConfig].
 pub mod query_assets_output_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// BigQuery destination.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BigQueryDestination {
         /// Required. The BigQuery dataset where the query results will be saved. It
@@ -12233,10 +12987,24 @@ pub mod query_assets_output_config {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for BigQueryDestination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BigQueryDestination");
+            debug_struct.field("dataset", &self.dataset);
+            debug_struct.field("table", &self.table);
+            debug_struct.field("write_disposition", &self.write_disposition);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// QueryAssets request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryAssetsRequest {
     /// Required. The relative name of the root asset. This can only be an
@@ -12778,6 +13546,24 @@ impl serde::ser::Serialize for QueryAssetsRequest {
     }
 }
 
+impl std::fmt::Debug for QueryAssetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryAssetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("timeout", &self.timeout);
+        debug_struct.field("output_config", &self.output_config);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("time", &self.time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QueryAssetsRequest].
 pub mod query_assets_request {
     #[allow(unused_imports)]
@@ -12816,7 +13602,7 @@ pub mod query_assets_request {
 }
 
 /// QueryAssets response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryAssetsResponse {
     /// Reference to a query job.
@@ -13157,6 +13943,20 @@ impl serde::ser::Serialize for QueryAssetsResponse {
     }
 }
 
+impl std::fmt::Debug for QueryAssetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryAssetsResponse");
+        debug_struct.field("job_reference", &self.job_reference);
+        debug_struct.field("done", &self.done);
+        debug_struct.field("response", &self.response);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QueryAssetsResponse].
 pub mod query_assets_response {
     #[allow(unused_imports)]
@@ -13181,7 +13981,7 @@ pub mod query_assets_response {
 /// The result is formatted as rows represented by BigQuery compatible [schema].
 /// When pagination is necessary, it will contains the page token to retrieve
 /// the results of following pages.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryResult {
     /// Each row hold a query result in the format of `Struct`.
@@ -13418,8 +14218,23 @@ impl serde::ser::Serialize for QueryResult {
     }
 }
 
+impl std::fmt::Debug for QueryResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryResult");
+        debug_struct.field("rows", &self.rows);
+        debug_struct.field("schema", &self.schema);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_rows", &self.total_rows);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// BigQuery Compatible table schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableSchema {
     /// Describes the fields in a table.
@@ -13555,8 +14370,20 @@ impl serde::ser::Serialize for TableSchema {
     }
 }
 
+impl std::fmt::Debug for TableSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableSchema");
+        debug_struct.field("fields", &self.fields);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A field in TableSchema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableFieldSchema {
     /// The field name. The name must contain only letters (a-z, A-Z),
@@ -13783,11 +14610,26 @@ impl serde::ser::Serialize for TableFieldSchema {
     }
 }
 
+impl std::fmt::Debug for TableFieldSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableFieldSchema");
+        debug_struct.field("field", &self.field);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("mode", &self.mode);
+        debug_struct.field("fields", &self.fields);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for
 /// [AssetService.BatchGetEffectiveIamPolicies][google.cloud.asset.v1.AssetService.BatchGetEffectiveIamPolicies].
 ///
 /// [google.cloud.asset.v1.AssetService.BatchGetEffectiveIamPolicies]: crate::client::AssetService::batch_get_effective_iam_policies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchGetEffectiveIamPoliciesRequest {
     /// Required. Only IAM policies on or below the scope will be returned.
@@ -13957,11 +14799,24 @@ impl serde::ser::Serialize for BatchGetEffectiveIamPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for BatchGetEffectiveIamPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchGetEffectiveIamPoliciesRequest");
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("names", &self.names);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response message for
 /// [AssetService.BatchGetEffectiveIamPolicies][google.cloud.asset.v1.AssetService.BatchGetEffectiveIamPolicies].
 ///
 /// [google.cloud.asset.v1.AssetService.BatchGetEffectiveIamPolicies]: crate::client::AssetService::batch_get_effective_iam_policies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchGetEffectiveIamPoliciesResponse {
     /// The effective policies for a batch of resources. Note that the results
@@ -14105,13 +14960,25 @@ impl serde::ser::Serialize for BatchGetEffectiveIamPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for BatchGetEffectiveIamPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchGetEffectiveIamPoliciesResponse");
+        debug_struct.field("policy_results", &self.policy_results);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchGetEffectiveIamPoliciesResponse].
 pub mod batch_get_effective_iam_policies_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// The effective IAM policies on one resource.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EffectiveIamPolicy {
 
@@ -14307,13 +15174,26 @@ pub mod batch_get_effective_iam_policies_response {
         }
     }
 
+    impl std::fmt::Debug for EffectiveIamPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EffectiveIamPolicy");
+            debug_struct.field("full_resource_name", &self.full_resource_name);
+            debug_struct.field("policies", &self.policies);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [EffectiveIamPolicy].
     pub mod effective_iam_policy {
         #[allow(unused_imports)]
         use super::*;
 
         /// The IAM policy and its attached resource.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PolicyInfo {
             /// The full resource name the
@@ -14496,6 +15376,19 @@ pub mod batch_get_effective_iam_policies_response {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for PolicyInfo {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("PolicyInfo");
+                debug_struct.field("attached_resource", &self.attached_resource);
+                debug_struct.field("policy", &self.policy);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 }
 
@@ -14503,7 +15396,7 @@ pub mod batch_get_effective_iam_policies_response {
 /// the Organization Policy system. This message contains several fields defined
 /// in the original organization policy with some new fields for analysis
 /// purpose.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzerOrgPolicy {
     /// The [full resource name]
@@ -14764,6 +15657,22 @@ impl serde::ser::Serialize for AnalyzerOrgPolicy {
     }
 }
 
+impl std::fmt::Debug for AnalyzerOrgPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzerOrgPolicy");
+        debug_struct.field("attached_resource", &self.attached_resource);
+        debug_struct.field("applied_resource", &self.applied_resource);
+        debug_struct.field("rules", &self.rules);
+        debug_struct.field("inherit_from_parent", &self.inherit_from_parent);
+        debug_struct.field("reset", &self.reset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AnalyzerOrgPolicy].
 pub mod analyzer_org_policy {
     #[allow(unused_imports)]
@@ -14773,7 +15682,7 @@ pub mod analyzer_org_policy {
     /// Organization Policy system. In addition to the fields defined in the
     /// original organization policy, it contains additional field(s) under
     /// specific circumstances to support analysis results.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Rule {
         /// The evaluating condition for this rule.
@@ -15191,13 +16100,27 @@ pub mod analyzer_org_policy {
         }
     }
 
+    impl std::fmt::Debug for Rule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Rule");
+            debug_struct.field("condition", &self.condition);
+            debug_struct.field("condition_evaluation", &self.condition_evaluation);
+            debug_struct.field("kind", &self.kind);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Rule].
     pub mod rule {
         #[allow(unused_imports)]
         use super::*;
 
         /// The string values for the list constraints.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct StringValues {
             /// List of values allowed at this resource.
@@ -15368,6 +16291,19 @@ pub mod analyzer_org_policy {
             }
         }
 
+        impl std::fmt::Debug for StringValues {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("StringValues");
+                debug_struct.field("allowed_values", &self.allowed_values);
+                debug_struct.field("denied_values", &self.denied_values);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Kind {
@@ -15389,7 +16325,7 @@ pub mod analyzer_org_policy {
 }
 
 /// The organization policy constraint definition.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzerOrgPolicyConstraint {
     pub constraint_definition:
@@ -15637,13 +16573,25 @@ impl serde::ser::Serialize for AnalyzerOrgPolicyConstraint {
     }
 }
 
+impl std::fmt::Debug for AnalyzerOrgPolicyConstraint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzerOrgPolicyConstraint");
+        debug_struct.field("constraint_definition", &self.constraint_definition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AnalyzerOrgPolicyConstraint].
 pub mod analyzer_org_policy_constraint {
     #[allow(unused_imports)]
     use super::*;
 
     /// The definition of a constraint.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Constraint {
         /// The unique name of the constraint. Format of the name should be
@@ -16014,6 +16962,22 @@ pub mod analyzer_org_policy_constraint {
         }
     }
 
+    impl std::fmt::Debug for Constraint {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Constraint");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("constraint_default", &self.constraint_default);
+            debug_struct.field("constraint_type", &self.constraint_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Constraint].
     pub mod constraint {
         #[allow(unused_imports)]
@@ -16021,7 +16985,7 @@ pub mod analyzer_org_policy_constraint {
 
         /// A `Constraint` that allows or disallows a list of string values, which
         /// are configured by an organization's policy administrator with a `Policy`.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ListConstraint {
             /// Indicates whether values grouped into categories can be used in
@@ -16191,12 +17155,25 @@ pub mod analyzer_org_policy_constraint {
             }
         }
 
+        impl std::fmt::Debug for ListConstraint {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ListConstraint");
+                debug_struct.field("supports_in", &self.supports_in);
+                debug_struct.field("supports_under", &self.supports_under);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A `Constraint` that is either enforced or not.
         ///
         /// For example a constraint `constraints/compute.disableSerialPortAccess`.
         /// If it is enforced on a VM instance, serial port connections will not be
         /// opened to that instance.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BooleanConstraint {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16301,6 +17278,17 @@ pub mod analyzer_org_policy_constraint {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for BooleanConstraint {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("BooleanConstraint");
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -16466,7 +17454,7 @@ pub mod analyzer_org_policy_constraint {
     }
 
     /// The definition of a custom constraint.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomConstraint {
         /// Name of the constraint. This is unique within the organization. Format of
@@ -16773,6 +17761,24 @@ pub mod analyzer_org_policy_constraint {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for CustomConstraint {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CustomConstraint");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("resource_types", &self.resource_types);
+            debug_struct.field("method_types", &self.method_types);
+            debug_struct.field("condition", &self.condition);
+            debug_struct.field("action_type", &self.action_type);
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("description", &self.description);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -17092,7 +18098,7 @@ pub mod analyzer_org_policy_constraint {
 /// [AssetService.AnalyzeOrgPolicies][google.cloud.asset.v1.AssetService.AnalyzeOrgPolicies].
 ///
 /// [google.cloud.asset.v1.AssetService.AnalyzeOrgPolicies]: crate::client::AssetService::analyze_org_policies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeOrgPoliciesRequest {
     /// Required. The organization to scope the request. Only organization
@@ -17373,11 +18379,27 @@ impl serde::ser::Serialize for AnalyzeOrgPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for AnalyzeOrgPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeOrgPoliciesRequest");
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("constraint", &self.constraint);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [AssetService.AnalyzeOrgPolicies][google.cloud.asset.v1.AssetService.AnalyzeOrgPolicies].
 ///
 /// [google.cloud.asset.v1.AssetService.AnalyzeOrgPolicies]: crate::client::AssetService::analyze_org_policies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeOrgPoliciesResponse {
     /// The organization policies under the
@@ -17594,13 +18616,27 @@ impl serde::ser::Serialize for AnalyzeOrgPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for AnalyzeOrgPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeOrgPoliciesResponse");
+        debug_struct.field("org_policy_results", &self.org_policy_results);
+        debug_struct.field("constraint", &self.constraint);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AnalyzeOrgPoliciesResponse].
 pub mod analyze_org_policies_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// The organization policy result to the query.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OrgPolicyResult {
         /// The consolidated organization policy for the analyzed resource. The
@@ -17872,13 +18908,29 @@ pub mod analyze_org_policies_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for OrgPolicyResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("OrgPolicyResult");
+            debug_struct.field("consolidated_policy", &self.consolidated_policy);
+            debug_struct.field("policy_bundle", &self.policy_bundle);
+            debug_struct.field("project", &self.project);
+            debug_struct.field("folders", &self.folders);
+            debug_struct.field("organization", &self.organization);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A request message for
 /// [AssetService.AnalyzeOrgPolicyGovernedContainers][google.cloud.asset.v1.AssetService.AnalyzeOrgPolicyGovernedContainers].
 ///
 /// [google.cloud.asset.v1.AssetService.AnalyzeOrgPolicyGovernedContainers]: crate::client::AssetService::analyze_org_policy_governed_containers
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeOrgPolicyGovernedContainersRequest {
     /// Required. The organization to scope the request. Only organization
@@ -18162,11 +19214,27 @@ impl serde::ser::Serialize for AnalyzeOrgPolicyGovernedContainersRequest {
     }
 }
 
+impl std::fmt::Debug for AnalyzeOrgPolicyGovernedContainersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeOrgPolicyGovernedContainersRequest");
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("constraint", &self.constraint);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [AssetService.AnalyzeOrgPolicyGovernedContainers][google.cloud.asset.v1.AssetService.AnalyzeOrgPolicyGovernedContainers].
 ///
 /// [google.cloud.asset.v1.AssetService.AnalyzeOrgPolicyGovernedContainers]: crate::client::AssetService::analyze_org_policy_governed_containers
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeOrgPolicyGovernedContainersResponse {
     /// The list of the analyzed governed containers.
@@ -18383,6 +19451,20 @@ impl serde::ser::Serialize for AnalyzeOrgPolicyGovernedContainersResponse {
     }
 }
 
+impl std::fmt::Debug for AnalyzeOrgPolicyGovernedContainersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeOrgPolicyGovernedContainersResponse");
+        debug_struct.field("governed_containers", &self.governed_containers);
+        debug_struct.field("constraint", &self.constraint);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AnalyzeOrgPolicyGovernedContainersResponse].
 pub mod analyze_org_policy_governed_containers_response {
     #[allow(unused_imports)]
@@ -18393,7 +19475,7 @@ pub mod analyze_org_policy_governed_containers_response {
     /// [AnalyzeOrgPolicyGovernedContainersRequest.constraint][google.cloud.asset.v1.AnalyzeOrgPolicyGovernedContainersRequest.constraint].
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedContainersRequest.constraint]: crate::model::AnalyzeOrgPolicyGovernedContainersRequest::constraint
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GovernedContainer {
         /// The [full resource name]
@@ -18756,13 +19838,32 @@ pub mod analyze_org_policy_governed_containers_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for GovernedContainer {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GovernedContainer");
+            debug_struct.field("full_resource_name", &self.full_resource_name);
+            debug_struct.field("parent", &self.parent);
+            debug_struct.field("consolidated_policy", &self.consolidated_policy);
+            debug_struct.field("policy_bundle", &self.policy_bundle);
+            debug_struct.field("project", &self.project);
+            debug_struct.field("folders", &self.folders);
+            debug_struct.field("organization", &self.organization);
+            debug_struct.field("effective_tags", &self.effective_tags);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A request message for
 /// [AssetService.AnalyzeOrgPolicyGovernedAssets][google.cloud.asset.v1.AssetService.AnalyzeOrgPolicyGovernedAssets].
 ///
 /// [google.cloud.asset.v1.AssetService.AnalyzeOrgPolicyGovernedAssets]: crate::client::AssetService::analyze_org_policy_governed_assets
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeOrgPolicyGovernedAssetsRequest {
     /// Required. The organization to scope the request. Only organization
@@ -19063,11 +20164,27 @@ impl serde::ser::Serialize for AnalyzeOrgPolicyGovernedAssetsRequest {
     }
 }
 
+impl std::fmt::Debug for AnalyzeOrgPolicyGovernedAssetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeOrgPolicyGovernedAssetsRequest");
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("constraint", &self.constraint);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [AssetService.AnalyzeOrgPolicyGovernedAssets][google.cloud.asset.v1.AssetService.AnalyzeOrgPolicyGovernedAssets].
 ///
 /// [google.cloud.asset.v1.AssetService.AnalyzeOrgPolicyGovernedAssets]: crate::client::AssetService::analyze_org_policy_governed_assets
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeOrgPolicyGovernedAssetsResponse {
     /// The list of the analyzed governed assets.
@@ -19281,6 +20398,20 @@ impl serde::ser::Serialize for AnalyzeOrgPolicyGovernedAssetsResponse {
     }
 }
 
+impl std::fmt::Debug for AnalyzeOrgPolicyGovernedAssetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeOrgPolicyGovernedAssetsResponse");
+        debug_struct.field("governed_assets", &self.governed_assets);
+        debug_struct.field("constraint", &self.constraint);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AnalyzeOrgPolicyGovernedAssetsResponse].
 pub mod analyze_org_policy_governed_assets_response {
     #[allow(unused_imports)]
@@ -19290,7 +20421,7 @@ pub mod analyze_org_policy_governed_assets_response {
     /// [AnalyzeOrgPolicyGovernedAssetsRequest.constraint][google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsRequest.constraint].
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsRequest.constraint]: crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::constraint
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GovernedResource {
         /// The [full resource name]
@@ -19606,11 +20737,29 @@ pub mod analyze_org_policy_governed_assets_response {
         }
     }
 
+    impl std::fmt::Debug for GovernedResource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GovernedResource");
+            debug_struct.field("full_resource_name", &self.full_resource_name);
+            debug_struct.field("parent", &self.parent);
+            debug_struct.field("project", &self.project);
+            debug_struct.field("folders", &self.folders);
+            debug_struct.field("organization", &self.organization);
+            debug_struct.field("asset_type", &self.asset_type);
+            debug_struct.field("effective_tags", &self.effective_tags);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The IAM policies governed by the organization policies of the
     /// [AnalyzeOrgPolicyGovernedAssetsRequest.constraint][google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsRequest.constraint].
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsRequest.constraint]: crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::constraint
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GovernedIamPolicy {
         /// The full resource name of the resource on which this IAM policy is set.
@@ -19903,12 +21052,29 @@ pub mod analyze_org_policy_governed_assets_response {
         }
     }
 
+    impl std::fmt::Debug for GovernedIamPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GovernedIamPolicy");
+            debug_struct.field("attached_resource", &self.attached_resource);
+            debug_struct.field("policy", &self.policy);
+            debug_struct.field("project", &self.project);
+            debug_struct.field("folders", &self.folders);
+            debug_struct.field("organization", &self.organization);
+            debug_struct.field("asset_type", &self.asset_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents a Google Cloud asset(resource or IAM policy) governed by the
     /// organization policies of the
     /// [AnalyzeOrgPolicyGovernedAssetsRequest.constraint][google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsRequest.constraint].
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsRequest.constraint]: crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::constraint
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GovernedAsset {
 
@@ -20227,6 +21393,20 @@ pub mod analyze_org_policy_governed_assets_response {
         }
     }
 
+    impl std::fmt::Debug for GovernedAsset {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GovernedAsset");
+            debug_struct.field("consolidated_policy", &self.consolidated_policy);
+            debug_struct.field("policy_bundle", &self.policy_bundle);
+            debug_struct.field("governed_asset", &self.governed_asset);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [GovernedAsset].
     pub mod governed_asset {
         #[allow(unused_imports)]
@@ -20261,7 +21441,7 @@ pub mod analyze_org_policy_governed_assets_response {
 
 /// An asset in Google Cloud and its temporal metadata, including the time window
 /// when it was observed and its status during that window.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TemporalAsset {
     /// The time window when the asset data and state was observed.
@@ -20529,6 +21709,22 @@ impl serde::ser::Serialize for TemporalAsset {
     }
 }
 
+impl std::fmt::Debug for TemporalAsset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TemporalAsset");
+        debug_struct.field("window", &self.window);
+        debug_struct.field("deleted", &self.deleted);
+        debug_struct.field("asset", &self.asset);
+        debug_struct.field("prior_asset_state", &self.prior_asset_state);
+        debug_struct.field("prior_asset", &self.prior_asset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TemporalAsset].
 pub mod temporal_asset {
     #[allow(unused_imports)]
@@ -20682,7 +21878,7 @@ pub mod temporal_asset {
 }
 
 /// A time window specified by its `start_time` and `end_time`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeWindow {
     /// Start time of the time window (exclusive).
@@ -20860,8 +22056,21 @@ impl serde::ser::Serialize for TimeWindow {
     }
 }
 
+impl std::fmt::Debug for TimeWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeWindow");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The enhanced metadata information for a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssetEnrichment {
     pub enrichment_data: std::option::Option<crate::model::asset_enrichment::EnrichmentData>,
@@ -21040,6 +22249,18 @@ impl serde::ser::Serialize for AssetEnrichment {
     }
 }
 
+impl std::fmt::Debug for AssetEnrichment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AssetEnrichment");
+        debug_struct.field("enrichment_data", &self.enrichment_data);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AssetEnrichment].
 pub mod asset_enrichment {
     #[allow(unused_imports)]
@@ -21065,7 +22286,7 @@ pub mod asset_enrichment {
 /// See [Supported asset
 /// types](https://cloud.google.com/asset-inventory/docs/supported-asset-types)
 /// for more information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Asset {
     /// The last update timestamp of an asset. update_time is updated when
@@ -21726,6 +22947,28 @@ impl serde::ser::Serialize for Asset {
     }
 }
 
+impl std::fmt::Debug for Asset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Asset");
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("asset_type", &self.asset_type);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("iam_policy", &self.iam_policy);
+        debug_struct.field("org_policy", &self.org_policy);
+        debug_struct.field("os_inventory", &self.os_inventory);
+        debug_struct.field("related_assets", &self.related_assets);
+        debug_struct.field("related_asset", &self.related_asset);
+        debug_struct.field("ancestors", &self.ancestors);
+        debug_struct.field("access_context_policy", &self.access_context_policy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Asset].
 pub mod asset {
     #[allow(unused_imports)]
@@ -21749,7 +22992,7 @@ pub mod asset {
 }
 
 /// A representation of a Google Cloud resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Resource {
     /// The API version. Example: `v1`
@@ -22062,11 +23305,29 @@ impl serde::ser::Serialize for Resource {
     }
 }
 
+impl std::fmt::Debug for Resource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Resource");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("discovery_document_uri", &self.discovery_document_uri);
+        debug_struct.field("discovery_name", &self.discovery_name);
+        debug_struct.field("resource_url", &self.resource_url);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// DEPRECATED. This message only presents for the purpose of
 /// backward-compatibility. The server will never populate this message in
 /// responses.
 /// The detailed related assets with the `relationship_type`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct RelatedAssets {
@@ -22235,12 +23496,25 @@ impl serde::ser::Serialize for RelatedAssets {
     }
 }
 
+impl std::fmt::Debug for RelatedAssets {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelatedAssets");
+        debug_struct.field("relationship_attributes", &self.relationship_attributes);
+        debug_struct.field("assets", &self.assets);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// DEPRECATED. This message only presents for the purpose of
 /// backward-compatibility. The server will never populate this message in
 /// responses.
 /// The relationship attributes which include  `type`, `source_resource_type`,
 /// `target_resource_type` and `action`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct RelationshipAttributes {
@@ -22451,6 +23725,21 @@ impl serde::ser::Serialize for RelationshipAttributes {
     }
 }
 
+impl std::fmt::Debug for RelationshipAttributes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelationshipAttributes");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("source_resource_type", &self.source_resource_type);
+        debug_struct.field("target_resource_type", &self.target_resource_type);
+        debug_struct.field("action", &self.action);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An asset identifier in Google Cloud which contains its name, type and
 /// ancestors. An asset can be any resource in the Google Cloud [resource
 /// hierarchy](https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy),
@@ -22459,7 +23748,7 @@ impl serde::ser::Serialize for RelationshipAttributes {
 /// See [Supported asset
 /// types](https://cloud.google.com/asset-inventory/docs/supported-asset-types)
 /// for more information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RelatedAsset {
     /// The full name of the asset. Example:
@@ -22683,9 +23972,24 @@ impl serde::ser::Serialize for RelatedAsset {
     }
 }
 
+impl std::fmt::Debug for RelatedAsset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelatedAsset");
+        debug_struct.field("asset", &self.asset);
+        debug_struct.field("asset_type", &self.asset_type);
+        debug_struct.field("ancestors", &self.ancestors);
+        debug_struct.field("relationship_type", &self.relationship_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The key and value for a
 /// [tag](https://cloud.google.com/resource-manager/docs/tags/tags-overview).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Tag {
     /// TagKey namespaced name, in the format of {ORG_ID}/{TAG_KEY_SHORT_NAME}.
@@ -22935,8 +24239,23 @@ impl serde::ser::Serialize for Tag {
     }
 }
 
+impl std::fmt::Debug for Tag {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Tag");
+        debug_struct.field("tag_key", &self.tag_key);
+        debug_struct.field("tag_key_id", &self.tag_key_id);
+        debug_struct.field("tag_value", &self.tag_value);
+        debug_struct.field("tag_value_id", &self.tag_value_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The effective tags and the ancestor resources from which they were inherited.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EffectiveTagDetails {
     /// The [full resource
@@ -23121,8 +24440,21 @@ impl serde::ser::Serialize for EffectiveTagDetails {
     }
 }
 
+impl std::fmt::Debug for EffectiveTagDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EffectiveTagDetails");
+        debug_struct.field("attached_resource", &self.attached_resource);
+        debug_struct.field("effective_tags", &self.effective_tags);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A result of Resource Search, containing information of a cloud resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceSearchResult {
     /// The full resource name of this resource. Example:
@@ -24344,9 +25676,48 @@ impl serde::ser::Serialize for ResourceSearchResult {
     }
 }
 
+impl std::fmt::Debug for ResourceSearchResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceSearchResult");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("asset_type", &self.asset_type);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("folders", &self.folders);
+        debug_struct.field("organization", &self.organization);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("network_tags", &self.network_tags);
+        debug_struct.field("kms_key", &self.kms_key);
+        debug_struct.field("kms_keys", &self.kms_keys);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("additional_attributes", &self.additional_attributes);
+        debug_struct.field("parent_full_resource_name", &self.parent_full_resource_name);
+        debug_struct.field("versioned_resources", &self.versioned_resources);
+        debug_struct.field("attached_resources", &self.attached_resources);
+        debug_struct.field("relationships", &self.relationships);
+        debug_struct.field("tag_keys", &self.tag_keys);
+        debug_struct.field("tag_values", &self.tag_values);
+        debug_struct.field("tag_value_ids", &self.tag_value_ids);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("effective_tags", &self.effective_tags);
+        debug_struct.field("enrichments", &self.enrichments);
+        debug_struct.field("parent_asset_type", &self.parent_asset_type);
+        debug_struct.field("scc_security_marks", &self.scc_security_marks);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Resource representation as defined by the corresponding service providing the
 /// resource for a given API version.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VersionedResource {
     /// API version of the resource.
@@ -24526,9 +25897,22 @@ impl serde::ser::Serialize for VersionedResource {
     }
 }
 
+impl std::fmt::Debug for VersionedResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VersionedResource");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("resource", &self.resource);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Attached resource representation, which is defined by the corresponding
 /// service provider. It represents an attached resource's payload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedResource {
     /// The type of this attached resource.
@@ -24698,8 +26082,21 @@ impl serde::ser::Serialize for AttachedResource {
     }
 }
 
+impl std::fmt::Debug for AttachedResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedResource");
+        debug_struct.field("asset_type", &self.asset_type);
+        debug_struct.field("versioned_resources", &self.versioned_resources);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The related resources of the primary resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RelatedResources {
     /// The detailed related resources of the primary resource.
@@ -24836,8 +26233,20 @@ impl serde::ser::Serialize for RelatedResources {
     }
 }
 
+impl std::fmt::Debug for RelatedResources {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelatedResources");
+        debug_struct.field("related_resources", &self.related_resources);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The detailed related resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RelatedResource {
     /// The type of the asset. Example: `compute.googleapis.com/Instance`
@@ -24996,8 +26405,21 @@ impl serde::ser::Serialize for RelatedResource {
     }
 }
 
+impl std::fmt::Debug for RelatedResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelatedResource");
+        debug_struct.field("asset_type", &self.asset_type);
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A result of IAM Policy search, containing information of an IAM policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IamPolicySearchResult {
     /// The full resource name of the resource associated with this IAM policy.
@@ -25349,13 +26771,31 @@ impl serde::ser::Serialize for IamPolicySearchResult {
     }
 }
 
+impl std::fmt::Debug for IamPolicySearchResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IamPolicySearchResult");
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("asset_type", &self.asset_type);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("folders", &self.folders);
+        debug_struct.field("organization", &self.organization);
+        debug_struct.field("policy", &self.policy);
+        debug_struct.field("explanation", &self.explanation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [IamPolicySearchResult].
 pub mod iam_policy_search_result {
     #[allow(unused_imports)]
     use super::*;
 
     /// Explanation about the IAM policy search result.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Explanation {
         /// The map from roles to their included permissions that match the
@@ -25501,13 +26941,25 @@ pub mod iam_policy_search_result {
         }
     }
 
+    impl std::fmt::Debug for Explanation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Explanation");
+            debug_struct.field("matched_permissions", &self.matched_permissions);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Explanation].
     pub mod explanation {
         #[allow(unused_imports)]
         use super::*;
 
         /// IAM permissions
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Permissions {
             /// A list of permissions. A sample permission string: `compute.disk.get`.
@@ -25646,12 +27098,24 @@ pub mod iam_policy_search_result {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for Permissions {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Permissions");
+                debug_struct.field("permissions", &self.permissions);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 }
 
 /// Represents the detailed state of an entity under analysis, such as a
 /// resource, an identity or an access.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IamPolicyAnalysisState {
     /// The Google standard error code that best describes the state.
@@ -25810,8 +27274,21 @@ impl serde::ser::Serialize for IamPolicyAnalysisState {
     }
 }
 
+impl std::fmt::Debug for IamPolicyAnalysisState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IamPolicyAnalysisState");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("cause", &self.cause);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The condition evaluation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConditionEvaluation {
     /// The evaluation result.
@@ -25945,6 +27422,18 @@ impl serde::ser::Serialize for ConditionEvaluation {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ConditionEvaluation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConditionEvaluation");
+        debug_struct.field("evaluation_value", &self.evaluation_value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -26097,7 +27586,7 @@ pub mod condition_evaluation {
 
 /// IAM Policy analysis result, consisting of one IAM policy binding and derived
 /// access control lists.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IamPolicyAnalysisResult {
     /// The [full resource
@@ -26389,13 +27878,32 @@ impl serde::ser::Serialize for IamPolicyAnalysisResult {
     }
 }
 
+impl std::fmt::Debug for IamPolicyAnalysisResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IamPolicyAnalysisResult");
+        debug_struct.field(
+            "attached_resource_full_name",
+            &self.attached_resource_full_name,
+        );
+        debug_struct.field("iam_binding", &self.iam_binding);
+        debug_struct.field("access_control_lists", &self.access_control_lists);
+        debug_struct.field("identity_list", &self.identity_list);
+        debug_struct.field("fully_explored", &self.fully_explored);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [IamPolicyAnalysisResult].
 pub mod iam_policy_analysis_result {
     #[allow(unused_imports)]
     use super::*;
 
     /// A Google Cloud resource under analysis.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Resource {
         /// The [full resource
@@ -26568,8 +28076,21 @@ pub mod iam_policy_analysis_result {
         }
     }
 
+    impl std::fmt::Debug for Resource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Resource");
+            debug_struct.field("full_resource_name", &self.full_resource_name);
+            debug_struct.field("analysis_state", &self.analysis_state);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// An IAM role or permission under analysis.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Access {
         /// The analysis state of this access.
@@ -26828,6 +28349,19 @@ pub mod iam_policy_analysis_result {
         }
     }
 
+    impl std::fmt::Debug for Access {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Access");
+            debug_struct.field("analysis_state", &self.analysis_state);
+            debug_struct.field("oneof_access", &self.oneof_access);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Access].
     pub mod access {
         #[allow(unused_imports)]
@@ -26844,7 +28378,7 @@ pub mod iam_policy_analysis_result {
     }
 
     /// An identity under analysis.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Identity {
         /// The identity of members, formatted as appear in an
@@ -27022,8 +28556,21 @@ pub mod iam_policy_analysis_result {
         }
     }
 
+    impl std::fmt::Debug for Identity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Identity");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("analysis_state", &self.analysis_state);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A directional edge.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Edge {
         /// The source node of the edge. For example, it could be a full resource
@@ -27183,6 +28730,19 @@ pub mod iam_policy_analysis_result {
         }
     }
 
+    impl std::fmt::Debug for Edge {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Edge");
+            debug_struct.field("source_node", &self.source_node);
+            debug_struct.field("target_node", &self.target_node);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// An access control list, derived from the above IAM policy binding, which
     /// contains a set of resources and accesses. May include one
     /// item from each set to compose an access control entry.
@@ -27200,7 +28760,7 @@ pub mod iam_policy_analysis_result {
     ///
     /// - AccessControlList 1: [R1, R2], [P1, P2]
     /// - AccessControlList 2: [R2, R3], [P3]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AccessControlList {
         /// The resources that match one of the following conditions:
@@ -27460,8 +29020,23 @@ pub mod iam_policy_analysis_result {
         }
     }
 
+    impl std::fmt::Debug for AccessControlList {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AccessControlList");
+            debug_struct.field("resources", &self.resources);
+            debug_struct.field("accesses", &self.accesses);
+            debug_struct.field("resource_edges", &self.resource_edges);
+            debug_struct.field("condition_evaluation", &self.condition_evaluation);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The identities and group edges.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IdentityList {
         /// Only the identities that match one of the following conditions will be
@@ -27650,6 +29225,19 @@ pub mod iam_policy_analysis_result {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for IdentityList {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IdentityList");
+            debug_struct.field("identities", &self.identities);
+            debug_struct.field("group_edges", &self.group_edges);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 }

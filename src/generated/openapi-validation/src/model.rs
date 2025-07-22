@@ -31,7 +31,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// The response message for Locations.ListLocations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLocationsResponse {
     /// A list of locations that matches the specified filter in the request.
@@ -212,8 +212,21 @@ impl serde::ser::Serialize for ListLocationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListLocationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLocationsResponse");
+        debug_struct.field("locations", &self.locations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A resource that represents a Google Cloud location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Location {
     /// Resource name for the location, which may vary between implementations.
@@ -499,8 +512,24 @@ impl serde::ser::Serialize for Location {
     }
 }
 
+impl std::fmt::Debug for Location {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Location");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("location_id", &self.location_id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("metadata", &self.metadata);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for SecretManagerService.ListSecrets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecretsResponse {
     /// The list of Secrets sorted in reverse by create_time (newest
@@ -740,12 +769,26 @@ impl serde::ser::Serialize for ListSecretsResponse {
     }
 }
 
+impl std::fmt::Debug for ListSecretsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSecretsResponse");
+        debug_struct.field("secrets", &self.secrets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Secret is a logical secret whose value and versions can
 /// be accessed.
 ///
 /// A Secret is made up of zero or more SecretVersions that
 /// represent the secret data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Secret {
     /// Output only. The resource name of the Secret in the format `projects/_*_/secrets/*`.
@@ -1373,8 +1416,35 @@ impl serde::ser::Serialize for Secret {
     }
 }
 
+impl std::fmt::Debug for Secret {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Secret");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("replication", &self.replication);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("topics", &self.topics);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("ttl", &self.ttl);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("rotation", &self.rotation);
+        debug_struct.field("version_aliases", &self.version_aliases);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("version_destroy_ttl", &self.version_destroy_ttl);
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A policy that defines the replication and encryption configuration of data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Replication {
     /// The Secret will automatically be replicated without any restrictions.
@@ -1549,9 +1619,22 @@ impl serde::ser::Serialize for Replication {
     }
 }
 
+impl std::fmt::Debug for Replication {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Replication");
+        debug_struct.field("automatic", &self.automatic);
+        debug_struct.field("user_managed", &self.user_managed);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A replication policy that replicates the Secret payload without any
 /// restrictions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Automatic {
     /// Optional. The customer-managed encryption configuration of the Secret. If no
@@ -1701,9 +1784,24 @@ impl serde::ser::Serialize for Automatic {
     }
 }
 
+impl std::fmt::Debug for Automatic {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Automatic");
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for encrypting secret payloads using customer-managed
 /// encryption keys (CMEK).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomerManagedEncryption {
     /// Required. The resource name of the Cloud KMS CryptoKey used to encrypt secret
@@ -1842,9 +1940,21 @@ impl serde::ser::Serialize for CustomerManagedEncryption {
     }
 }
 
+impl std::fmt::Debug for CustomerManagedEncryption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomerManagedEncryption");
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A replication policy that replicates the Secret payload into the
 /// locations specified in Secret.replication.user_managed.replicas
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserManaged {
     /// Required. The list of Replicas for this Secret.
@@ -1978,8 +2088,20 @@ impl serde::ser::Serialize for UserManaged {
     }
 }
 
+impl std::fmt::Debug for UserManaged {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserManaged");
+        debug_struct.field("replicas", &self.replicas);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a Replica for this Secret.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Replica {
     /// The canonical IDs of the location to replicate data.
@@ -2166,9 +2288,25 @@ impl serde::ser::Serialize for Replica {
     }
 }
 
+impl std::fmt::Debug for Replica {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Replica");
+        debug_struct.field("location", &self.location);
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Topic {
     /// Required. The resource name of the Pub/Sub topic that will be published to, in the
@@ -2301,10 +2439,22 @@ impl serde::ser::Serialize for Topic {
     }
 }
 
+impl std::fmt::Debug for Topic {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Topic");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The rotation time and period for a Secret. At next_rotation_time, Secret
 /// Manager will send a Pub/Sub notification to the topics configured on the
 /// Secret. Secret.topics must be set to configure rotation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rotation {
     /// Optional. Timestamp in UTC at which the Secret is scheduled to rotate. Cannot be
@@ -2488,8 +2638,21 @@ impl serde::ser::Serialize for Rotation {
     }
 }
 
+impl std::fmt::Debug for Rotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Rotation");
+        debug_struct.field("next_rotation_time", &self.next_rotation_time);
+        debug_struct.field("rotation_period", &self.rotation_period);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for SecretManagerService.AddSecretVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddSecretVersionRequest {
     /// Required. The secret payload of the SecretVersion.
@@ -2692,9 +2855,24 @@ impl serde::ser::Serialize for AddSecretVersionRequest {
     }
 }
 
+impl std::fmt::Debug for AddSecretVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddSecretVersionRequest");
+        debug_struct.field("payload", &self.payload);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A secret payload resource in the Secret Manager API. This contains the
 /// sensitive secret payload that is associated with a SecretVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretPayload {
     /// The secret data. Must be no larger than 64KiB.
@@ -2920,8 +3098,21 @@ impl serde::ser::Serialize for SecretPayload {
     }
 }
 
+impl std::fmt::Debug for SecretPayload {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecretPayload");
+        debug_struct.field("data", &self.data);
+        debug_struct.field("data_crc_32_c", &self.data_crc_32_c);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A secret version resource in the Secret Manager API.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretVersion {
     /// Output only. The resource name of the SecretVersion in the
@@ -3372,8 +3563,34 @@ impl serde::ser::Serialize for SecretVersion {
     }
 }
 
+impl std::fmt::Debug for SecretVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecretVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("destroy_time", &self.destroy_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("replication_status", &self.replication_status);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field(
+            "client_specified_payload_checksum",
+            &self.client_specified_payload_checksum,
+        );
+        debug_struct.field("scheduled_destroy_time", &self.scheduled_destroy_time);
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The replication status of a SecretVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicationStatus {
     /// Describes the replication status of a SecretVersion with
@@ -3558,11 +3775,24 @@ impl serde::ser::Serialize for ReplicationStatus {
     }
 }
 
+impl std::fmt::Debug for ReplicationStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplicationStatus");
+        debug_struct.field("automatic", &self.automatic);
+        debug_struct.field("user_managed", &self.user_managed);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The replication status of a SecretVersion using automatic replication.
 ///
 /// Only populated if the parent Secret has an automatic replication
 /// policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutomaticStatus {
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
@@ -3711,8 +3941,23 @@ impl serde::ser::Serialize for AutomaticStatus {
     }
 }
 
+impl std::fmt::Debug for AutomaticStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutomaticStatus");
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes the status of customer-managed encryption.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomerManagedEncryptionStatus {
     /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to encrypt the
@@ -3846,12 +4091,24 @@ impl serde::ser::Serialize for CustomerManagedEncryptionStatus {
     }
 }
 
+impl std::fmt::Debug for CustomerManagedEncryptionStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomerManagedEncryptionStatus");
+        debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The replication status of a SecretVersion using user-managed
 /// replication.
 ///
 /// Only populated if the parent Secret has a user-managed replication
 /// policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserManagedStatus {
     /// Output only. The list of replica statuses for the SecretVersion.
@@ -3983,8 +4240,20 @@ impl serde::ser::Serialize for UserManagedStatus {
     }
 }
 
+impl std::fmt::Debug for UserManagedStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserManagedStatus");
+        debug_struct.field("replicas", &self.replicas);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes the status of a user-managed replica for the SecretVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicaStatus {
     /// Output only. The canonical ID of the replica location.
@@ -4169,6 +4438,22 @@ impl serde::ser::Serialize for ReplicaStatus {
     }
 }
 
+impl std::fmt::Debug for ReplicaStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplicaStatus");
+        debug_struct.field("location", &self.location);
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A generic empty message that you can re-use to avoid defining duplicated
 /// empty messages in your APIs. A typical example is to use it as the request
 /// or the response type of an API method. For instance:
@@ -4178,7 +4463,7 @@ impl serde::ser::Serialize for ReplicaStatus {
 ///   rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
 /// }
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Empty {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4280,8 +4565,19 @@ impl serde::ser::Serialize for Empty {
     }
 }
 
+impl std::fmt::Debug for Empty {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Empty");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for SecretManagerService.ListSecretVersions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecretVersionsResponse {
     /// The list of SecretVersions sorted in reverse by
@@ -4521,8 +4817,22 @@ impl serde::ser::Serialize for ListSecretVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListSecretVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSecretVersionsResponse");
+        debug_struct.field("versions", &self.versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for SecretManagerService.AccessSecretVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessSecretVersionResponse {
     /// The resource name of the SecretVersion in the format
@@ -4699,8 +5009,21 @@ impl serde::ser::Serialize for AccessSecretVersionResponse {
     }
 }
 
+impl std::fmt::Debug for AccessSecretVersionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessSecretVersionResponse");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("payload", &self.payload);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for SecretManagerService.DisableSecretVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableSecretVersionRequest {
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
@@ -4928,8 +5251,24 @@ impl serde::ser::Serialize for DisableSecretVersionRequest {
     }
 }
 
+impl std::fmt::Debug for DisableSecretVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableSecretVersionRequest");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for SecretManagerService.EnableSecretVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableSecretVersionRequest {
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
@@ -5157,8 +5496,24 @@ impl serde::ser::Serialize for EnableSecretVersionRequest {
     }
 }
 
+impl std::fmt::Debug for EnableSecretVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableSecretVersionRequest");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for SecretManagerService.DestroySecretVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestroySecretVersionRequest {
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
@@ -5386,8 +5741,24 @@ impl serde::ser::Serialize for DestroySecretVersionRequest {
     }
 }
 
+impl std::fmt::Debug for DestroySecretVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DestroySecretVersionRequest");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `SetIamPolicy` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetIamPolicyRequest {
     /// REQUIRED: The complete policy to be applied to the `resource`. The size of
@@ -5632,6 +6003,22 @@ impl serde::ser::Serialize for SetIamPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for SetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetIamPolicyRequest");
+        debug_struct.field("policy", &self.policy);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An Identity and Access Management (IAM) policy, which specifies access
 /// controls for Google Cloud resources.
 ///
@@ -5702,7 +6089,7 @@ impl serde::ser::Serialize for SetIamPolicyRequest {
 ///
 /// For a description of IAM and its features, see the
 /// [IAM documentation](https://cloud.google.com/iam/docs/).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
     /// Specifies the format of the policy.
@@ -6016,8 +6403,23 @@ impl serde::ser::Serialize for Policy {
     }
 }
 
+impl std::fmt::Debug for Policy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Policy");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("bindings", &self.bindings);
+        debug_struct.field("audit_configs", &self.audit_configs);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Associates `members`, or principals, with a `role`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Binding {
     /// Role that is assigned to the list of `members`, or principals.
@@ -6313,6 +6715,20 @@ impl serde::ser::Serialize for Binding {
     }
 }
 
+impl std::fmt::Debug for Binding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Binding");
+        debug_struct.field("role", &self.role);
+        debug_struct.field("members", &self.members);
+        debug_struct.field("condition", &self.condition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a textual expression in the Common Expression Language (CEL)
 /// syntax. CEL is a C-like expression language. The syntax and semantics of CEL
 /// are documented at <https://github.com/google/cel-spec>.
@@ -6352,7 +6768,7 @@ impl serde::ser::Serialize for Binding {
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
 /// documentation for additional information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Expr {
     /// Textual representation of an expression in Common Expression Language
@@ -6602,6 +7018,21 @@ impl serde::ser::Serialize for Expr {
     }
 }
 
+impl std::fmt::Debug for Expr {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Expr");
+        debug_struct.field("expression", &self.expression);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the audit configuration for a service.
 /// The configuration determines which permission types are logged, and what
 /// identities, if any, are exempted from logging.
@@ -6655,7 +7086,7 @@ impl serde::ser::Serialize for Expr {
 /// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
 /// logging. It also exempts `jose@example.com` from DATA_READ logging, and
 /// `aliya@example.com` from DATA_WRITE logging.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditConfig {
     /// Specifies a service that will be enabled for audit logging.
@@ -6828,6 +7259,19 @@ impl serde::ser::Serialize for AuditConfig {
     }
 }
 
+impl std::fmt::Debug for AuditConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuditConfig");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("audit_log_configs", &self.audit_log_configs);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Provides the configuration for logging a type of permissions.
 /// Example:
 ///
@@ -6849,7 +7293,7 @@ impl serde::ser::Serialize for AuditConfig {
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
 /// jose@example.com from DATA_READ logging.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditLogConfig {
     /// The log type that this config enables.
@@ -7018,8 +7462,21 @@ impl serde::ser::Serialize for AuditLogConfig {
     }
 }
 
+impl std::fmt::Debug for AuditLogConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuditLogConfig");
+        debug_struct.field("log_type", &self.log_type);
+        debug_struct.field("exempted_members", &self.exempted_members);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TestIamPermissions` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestIamPermissionsRequest {
     /// The set of permissions to check for the `resource`. Permissions with
@@ -7217,8 +7674,23 @@ impl serde::ser::Serialize for TestIamPermissionsRequest {
     }
 }
 
+impl std::fmt::Debug for TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("permissions", &self.permissions);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `TestIamPermissions` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestIamPermissionsResponse {
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
@@ -7351,8 +7823,20 @@ impl serde::ser::Serialize for TestIamPermissionsResponse {
     }
 }
 
+impl std::fmt::Debug for TestIamPermissionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsResponse");
+        debug_struct.field("permissions", &self.permissions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for ListLocations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLocationsRequest {
     /// The `{project}` component of the target path.
@@ -7584,8 +8068,23 @@ impl serde::ser::Serialize for ListLocationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListLocationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLocationsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for GetLocation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLocationRequest {
     /// The `{project}` component of the target path.
@@ -7730,8 +8229,21 @@ impl serde::ser::Serialize for GetLocationRequest {
     }
 }
 
+impl std::fmt::Debug for GetLocationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLocationRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for ListSecrets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecretsRequest {
     /// The `{project}` component of the target path.
@@ -7966,8 +8478,23 @@ impl serde::ser::Serialize for ListSecretsRequest {
     }
 }
 
+impl std::fmt::Debug for ListSecretsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSecretsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for CreateSecret.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSecretRequest {
     /// The request body.
@@ -8149,8 +8676,22 @@ impl serde::ser::Serialize for CreateSecretRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSecretRequest");
+        debug_struct.field("request_body", &self.request_body);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret_id", &self.secret_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for ListSecretsByProjectAndLocation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecretsByProjectAndLocationRequest {
     /// The `{project}` component of the target path.
@@ -8409,8 +8950,24 @@ impl serde::ser::Serialize for ListSecretsByProjectAndLocationRequest {
     }
 }
 
+impl std::fmt::Debug for ListSecretsByProjectAndLocationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSecretsByProjectAndLocationRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for CreateSecretByProjectAndLocation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSecretByProjectAndLocationRequest {
     /// The request body.
@@ -8616,8 +9173,23 @@ impl serde::ser::Serialize for CreateSecretByProjectAndLocationRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSecretByProjectAndLocationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSecretByProjectAndLocationRequest");
+        debug_struct.field("request_body", &self.request_body);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("secret_id", &self.secret_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for GetSecret.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSecretRequest {
     /// The `{project}` component of the target path.
@@ -8762,8 +9334,21 @@ impl serde::ser::Serialize for GetSecretRequest {
     }
 }
 
+impl std::fmt::Debug for GetSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSecretRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for DeleteSecret.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSecretRequest {
     /// The `{project}` component of the target path.
@@ -8942,8 +9527,22 @@ impl serde::ser::Serialize for DeleteSecretRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSecretRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for UpdateSecret.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSecretRequest {
     /// The request body.
@@ -9144,8 +9743,23 @@ impl serde::ser::Serialize for UpdateSecretRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSecretRequest");
+        debug_struct.field("request_body", &self.request_body);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for GetSecretByProjectAndLocationAndSecret.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSecretByProjectAndLocationAndSecretRequest {
     /// The `{project}` component of the target path.
@@ -9315,8 +9929,22 @@ impl serde::ser::Serialize for GetSecretByProjectAndLocationAndSecretRequest {
     }
 }
 
+impl std::fmt::Debug for GetSecretByProjectAndLocationAndSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSecretByProjectAndLocationAndSecretRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("secret", &self.secret);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for DeleteSecretByProjectAndLocationAndSecret.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSecretByProjectAndLocationAndSecretRequest {
     /// The `{project}` component of the target path.
@@ -9520,8 +10148,23 @@ impl serde::ser::Serialize for DeleteSecretByProjectAndLocationAndSecretRequest 
     }
 }
 
+impl std::fmt::Debug for DeleteSecretByProjectAndLocationAndSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSecretByProjectAndLocationAndSecretRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for UpdateSecretByProjectAndLocationAndSecret.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSecretByProjectAndLocationAndSecretRequest {
     /// The request body.
@@ -9747,8 +10390,24 @@ impl serde::ser::Serialize for UpdateSecretByProjectAndLocationAndSecretRequest 
     }
 }
 
+impl std::fmt::Debug for UpdateSecretByProjectAndLocationAndSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSecretByProjectAndLocationAndSecretRequest");
+        debug_struct.field("request_body", &self.request_body);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for ListSecretVersions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecretVersionsRequest {
     /// The `{project}` component of the target path.
@@ -10006,8 +10665,24 @@ impl serde::ser::Serialize for ListSecretVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListSecretVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSecretVersionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for ListSecretVersionsByProjectAndLocationAndSecret.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
     /// The `{project}` component of the target path.
@@ -10288,8 +10963,26 @@ impl serde::ser::Serialize for ListSecretVersionsByProjectAndLocationAndSecretRe
     }
 }
 
+impl std::fmt::Debug for ListSecretVersionsByProjectAndLocationAndSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("ListSecretVersionsByProjectAndLocationAndSecretRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for GetSecretVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSecretVersionRequest {
     /// The `{project}` component of the target path.
@@ -10457,8 +11150,22 @@ impl serde::ser::Serialize for GetSecretVersionRequest {
     }
 }
 
+impl std::fmt::Debug for GetSecretVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSecretVersionRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for GetSecretVersionByProjectAndLocationAndSecretAndVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
     /// The `{project}` component of the target path.
@@ -10653,8 +11360,24 @@ impl serde::ser::Serialize for GetSecretVersionByProjectAndLocationAndSecretAndV
     }
 }
 
+impl std::fmt::Debug for GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for AccessSecretVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessSecretVersionRequest {
     /// The `{project}` component of the target path.
@@ -10822,8 +11545,22 @@ impl serde::ser::Serialize for AccessSecretVersionRequest {
     }
 }
 
+impl std::fmt::Debug for AccessSecretVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessSecretVersionRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for AccessSecretVersionByProjectAndLocationAndSecretAndVersion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
     /// The `{project}` component of the target path.
@@ -11018,8 +11755,24 @@ impl serde::ser::Serialize for AccessSecretVersionByProjectAndLocationAndSecretA
     }
 }
 
+impl std::fmt::Debug for AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for GetIamPolicy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIamPolicyRequest {
     /// The `{project}` component of the target path.
@@ -11228,8 +11981,25 @@ impl serde::ser::Serialize for GetIamPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIamPolicyRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field(
+            "options_requested_policy_version",
+            &self.options_requested_policy_version,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for GetIamPolicyByProjectAndLocationAndSecret.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
     /// The `{project}` component of the target path.
@@ -11460,5 +12230,23 @@ impl serde::ser::Serialize for GetIamPolicyByProjectAndLocationAndSecretRequest 
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GetIamPolicyByProjectAndLocationAndSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIamPolicyByProjectAndLocationAndSecretRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field(
+            "options_requested_policy_version",
+            &self.options_requested_policy_version,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

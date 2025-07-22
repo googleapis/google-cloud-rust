@@ -36,7 +36,7 @@ extern crate wkt;
 /// image specifying what is installed on the environment and a home directory
 /// containing the user's data that will remain across sessions. Each user has
 /// at least an environment with the ID "default".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Environment {
     /// Immutable. Full name of this resource, in the format
@@ -399,6 +399,26 @@ impl serde::ser::Serialize for Environment {
     }
 }
 
+impl std::fmt::Debug for Environment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Environment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("docker_image", &self.docker_image);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("web_host", &self.web_host);
+        debug_struct.field("ssh_username", &self.ssh_username);
+        debug_struct.field("ssh_host", &self.ssh_host);
+        debug_struct.field("ssh_port", &self.ssh_port);
+        debug_struct.field("public_keys", &self.public_keys);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Environment].
 pub mod environment {
     #[allow(unused_imports)]
@@ -559,7 +579,7 @@ pub mod environment {
 /// [GetEnvironment][google.cloud.shell.v1.CloudShellService.GetEnvironment].
 ///
 /// [google.cloud.shell.v1.CloudShellService.GetEnvironment]: crate::client::CloudShellService::get_environment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEnvironmentRequest {
     /// Required. Name of the requested resource, for example `users/me/environments/default`
@@ -689,9 +709,21 @@ impl serde::ser::Serialize for GetEnvironmentRequest {
     }
 }
 
+impl std::fmt::Debug for GetEnvironmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEnvironmentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message included in the metadata field of operations returned from
 /// [CreateEnvironment][google.cloud.shell.v1.CloudShellService.CreateEnvironment].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEnvironmentMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -793,9 +825,20 @@ impl serde::ser::Serialize for CreateEnvironmentMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateEnvironmentMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateEnvironmentMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message included in the metadata field of operations returned from
 /// [DeleteEnvironment][google.cloud.shell.v1.CloudShellService.DeleteEnvironment].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEnvironmentMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -897,11 +940,22 @@ impl serde::ser::Serialize for DeleteEnvironmentMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteEnvironmentMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteEnvironmentMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [StartEnvironment][google.cloud.shell.v1.CloudShellService.StartEnvironment].
 ///
 /// [google.cloud.shell.v1.CloudShellService.StartEnvironment]: crate::client::CloudShellService::start_environment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartEnvironmentRequest {
     /// Name of the resource that should be started, for example
@@ -1088,11 +1142,25 @@ impl serde::ser::Serialize for StartEnvironmentRequest {
     }
 }
 
+impl std::fmt::Debug for StartEnvironmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartEnvironmentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("access_token", &self.access_token);
+        debug_struct.field("public_keys", &self.public_keys);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [AuthorizeEnvironment][google.cloud.shell.v1.CloudShellService.AuthorizeEnvironment].
 ///
 /// [google.cloud.shell.v1.CloudShellService.AuthorizeEnvironment]: crate::client::CloudShellService::authorize_environment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthorizeEnvironmentRequest {
     /// Name of the resource that should receive the credentials, for example
@@ -1310,11 +1378,26 @@ impl serde::ser::Serialize for AuthorizeEnvironmentRequest {
     }
 }
 
+impl std::fmt::Debug for AuthorizeEnvironmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthorizeEnvironmentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("access_token", &self.access_token);
+        debug_struct.field("id_token", &self.id_token);
+        debug_struct.field("expire_time", &self.expire_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [AuthorizeEnvironment][google.cloud.shell.v1.CloudShellService.AuthorizeEnvironment].
 ///
 /// [google.cloud.shell.v1.CloudShellService.AuthorizeEnvironment]: crate::client::CloudShellService::authorize_environment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthorizeEnvironmentResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1416,11 +1499,22 @@ impl serde::ser::Serialize for AuthorizeEnvironmentResponse {
     }
 }
 
+impl std::fmt::Debug for AuthorizeEnvironmentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthorizeEnvironmentResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message included in the metadata field of operations returned from
 /// [AuthorizeEnvironment][google.cloud.shell.v1.CloudShellService.AuthorizeEnvironment].
 ///
 /// [google.cloud.shell.v1.CloudShellService.AuthorizeEnvironment]: crate::client::CloudShellService::authorize_environment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthorizeEnvironmentMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1522,11 +1616,22 @@ impl serde::ser::Serialize for AuthorizeEnvironmentMetadata {
     }
 }
 
+impl std::fmt::Debug for AuthorizeEnvironmentMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthorizeEnvironmentMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message included in the metadata field of operations returned from
 /// [StartEnvironment][google.cloud.shell.v1.CloudShellService.StartEnvironment].
 ///
 /// [google.cloud.shell.v1.CloudShellService.StartEnvironment]: crate::client::CloudShellService::start_environment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartEnvironmentMetadata {
     /// Current state of the environment being started.
@@ -1657,6 +1762,18 @@ impl serde::ser::Serialize for StartEnvironmentMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for StartEnvironmentMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartEnvironmentMetadata");
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -1831,7 +1948,7 @@ pub mod start_environment_metadata {
 /// once the operation is complete.
 ///
 /// [google.cloud.shell.v1.CloudShellService.StartEnvironment]: crate::client::CloudShellService::start_environment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartEnvironmentResponse {
     /// Environment that was started.
@@ -1971,11 +2088,23 @@ impl serde::ser::Serialize for StartEnvironmentResponse {
     }
 }
 
+impl std::fmt::Debug for StartEnvironmentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartEnvironmentResponse");
+        debug_struct.field("environment", &self.environment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [AddPublicKey][google.cloud.shell.v1.CloudShellService.AddPublicKey].
 ///
 /// [google.cloud.shell.v1.CloudShellService.AddPublicKey]: crate::client::CloudShellService::add_public_key
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddPublicKeyRequest {
     /// Environment this key should be added to, e.g.
@@ -2134,11 +2263,24 @@ impl serde::ser::Serialize for AddPublicKeyRequest {
     }
 }
 
+impl std::fmt::Debug for AddPublicKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddPublicKeyRequest");
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("key", &self.key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [AddPublicKey][google.cloud.shell.v1.CloudShellService.AddPublicKey].
 ///
 /// [google.cloud.shell.v1.CloudShellService.AddPublicKey]: crate::client::CloudShellService::add_public_key
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddPublicKeyResponse {
     /// Key that was added to the environment.
@@ -2267,11 +2409,23 @@ impl serde::ser::Serialize for AddPublicKeyResponse {
     }
 }
 
+impl std::fmt::Debug for AddPublicKeyResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddPublicKeyResponse");
+        debug_struct.field("key", &self.key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message included in the metadata field of operations returned from
 /// [AddPublicKey][google.cloud.shell.v1.CloudShellService.AddPublicKey].
 ///
 /// [google.cloud.shell.v1.CloudShellService.AddPublicKey]: crate::client::CloudShellService::add_public_key
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddPublicKeyMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2373,11 +2527,22 @@ impl serde::ser::Serialize for AddPublicKeyMetadata {
     }
 }
 
+impl std::fmt::Debug for AddPublicKeyMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddPublicKeyMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [RemovePublicKey][google.cloud.shell.v1.CloudShellService.RemovePublicKey].
 ///
 /// [google.cloud.shell.v1.CloudShellService.RemovePublicKey]: crate::client::CloudShellService::remove_public_key
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemovePublicKeyRequest {
     /// Environment this key should be removed from, e.g.
@@ -2531,11 +2696,24 @@ impl serde::ser::Serialize for RemovePublicKeyRequest {
     }
 }
 
+impl std::fmt::Debug for RemovePublicKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemovePublicKeyRequest");
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("key", &self.key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [RemovePublicKey][google.cloud.shell.v1.CloudShellService.RemovePublicKey].
 ///
 /// [google.cloud.shell.v1.CloudShellService.RemovePublicKey]: crate::client::CloudShellService::remove_public_key
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemovePublicKeyResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2637,11 +2815,22 @@ impl serde::ser::Serialize for RemovePublicKeyResponse {
     }
 }
 
+impl std::fmt::Debug for RemovePublicKeyResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemovePublicKeyResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message included in the metadata field of operations returned from
 /// [RemovePublicKey][google.cloud.shell.v1.CloudShellService.RemovePublicKey].
 ///
 /// [google.cloud.shell.v1.CloudShellService.RemovePublicKey]: crate::client::CloudShellService::remove_public_key
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemovePublicKeyMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2743,9 +2932,20 @@ impl serde::ser::Serialize for RemovePublicKeyMetadata {
     }
 }
 
+impl std::fmt::Debug for RemovePublicKeyMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemovePublicKeyMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Cloud-shell specific information that will be included as details in failure
 /// responses.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudShellErrorDetails {
     /// Code indicating the specific error the occurred.
@@ -2878,6 +3078,18 @@ impl serde::ser::Serialize for CloudShellErrorDetails {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for CloudShellErrorDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudShellErrorDetails");
+        debug_struct.field("code", &self.code);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

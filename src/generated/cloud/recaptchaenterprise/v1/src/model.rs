@@ -32,7 +32,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// The create assessment request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAssessmentRequest {
     /// Required. The name of the project in which the assessment is created,
@@ -197,8 +197,21 @@ impl serde::ser::Serialize for CreateAssessmentRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAssessmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAssessmentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("assessment", &self.assessment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes an event in the lifecycle of a payment transaction.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransactionEvent {
     /// Optional. The type of this transaction event.
@@ -439,6 +452,21 @@ impl serde::ser::Serialize for TransactionEvent {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for TransactionEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransactionEvent");
+        debug_struct.field("event_type", &self.event_type);
+        debug_struct.field("reason", &self.reason);
+        debug_struct.field("value", &self.value);
+        debug_struct.field("event_time", &self.event_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -735,7 +763,7 @@ pub mod transaction_event {
 }
 
 /// The request message to annotate an Assessment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateAssessmentRequest {
     /// Required. The resource name of the Assessment, in the format
@@ -1040,6 +1068,23 @@ impl serde::ser::Serialize for AnnotateAssessmentRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AnnotateAssessmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnnotateAssessmentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("annotation", &self.annotation);
+        debug_struct.field("reasons", &self.reasons);
+        debug_struct.field("account_id", &self.account_id);
+        debug_struct.field("hashed_account_id", &self.hashed_account_id);
+        debug_struct.field("transaction_event", &self.transaction_event);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -1435,7 +1480,7 @@ pub mod annotate_assessment_request {
 }
 
 /// Empty response for AnnotateAssessment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateAssessmentResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1537,8 +1582,19 @@ impl serde::ser::Serialize for AnnotateAssessmentResponse {
     }
 }
 
+impl std::fmt::Debug for AnnotateAssessmentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnnotateAssessmentResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about a verification endpoint that can be used for 2FA.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EndpointVerificationInfo {
     /// Output only. Token to provide to the client to trigger endpoint
@@ -1820,6 +1876,20 @@ impl serde::ser::Serialize for EndpointVerificationInfo {
     }
 }
 
+impl std::fmt::Debug for EndpointVerificationInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EndpointVerificationInfo");
+        debug_struct.field("request_token", &self.request_token);
+        debug_struct.field("last_verification_time", &self.last_verification_time);
+        debug_struct.field("endpoint", &self.endpoint);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EndpointVerificationInfo].
 pub mod endpoint_verification_info {
     #[allow(unused_imports)]
@@ -1837,7 +1907,7 @@ pub mod endpoint_verification_info {
 }
 
 /// Information about account verification, used for identity verification.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccountVerificationInfo {
     /// Optional. Endpoints that can be used for identity verification.
@@ -2062,6 +2132,24 @@ impl serde::ser::Serialize for AccountVerificationInfo {
     }
 }
 
+impl std::fmt::Debug for AccountVerificationInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccountVerificationInfo");
+        debug_struct.field("endpoints", &self.endpoints);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field(
+            "latest_verification_result",
+            &self.latest_verification_result,
+        );
+        debug_struct.field("username", &self.username);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AccountVerificationInfo].
 pub mod account_verification_info {
     #[allow(unused_imports)]
@@ -2270,7 +2358,7 @@ pub mod account_verification_info {
 }
 
 /// Private password leak verification info.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivatePasswordLeakVerification {
     /// Required. Exactly 26-bit prefix of the SHA-256 hash of the canonicalized
@@ -2598,8 +2686,32 @@ impl serde::ser::Serialize for PrivatePasswordLeakVerification {
     }
 }
 
+impl std::fmt::Debug for PrivatePasswordLeakVerification {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrivatePasswordLeakVerification");
+        debug_struct.field("lookup_hash_prefix", &self.lookup_hash_prefix);
+        debug_struct.field(
+            "encrypted_user_credentials_hash",
+            &self.encrypted_user_credentials_hash,
+        );
+        debug_struct.field(
+            "encrypted_leak_match_prefixes",
+            &self.encrypted_leak_match_prefixes,
+        );
+        debug_struct.field(
+            "reencrypted_user_credentials_hash",
+            &self.reencrypted_user_credentials_hash,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A reCAPTCHA Enterprise assessment resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Assessment {
     /// Output only. Identifier. The resource name for the Assessment in the format
@@ -3167,8 +3279,43 @@ impl serde::ser::Serialize for Assessment {
     }
 }
 
+impl std::fmt::Debug for Assessment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Assessment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("event", &self.event);
+        debug_struct.field("risk_analysis", &self.risk_analysis);
+        debug_struct.field("token_properties", &self.token_properties);
+        debug_struct.field("account_verification", &self.account_verification);
+        debug_struct.field(
+            "account_defender_assessment",
+            &self.account_defender_assessment,
+        );
+        debug_struct.field(
+            "private_password_leak_verification",
+            &self.private_password_leak_verification,
+        );
+        debug_struct.field(
+            "firewall_policy_assessment",
+            &self.firewall_policy_assessment,
+        );
+        debug_struct.field(
+            "fraud_prevention_assessment",
+            &self.fraud_prevention_assessment,
+        );
+        debug_struct.field("fraud_signals", &self.fraud_signals);
+        debug_struct.field("phone_fraud_assessment", &self.phone_fraud_assessment);
+        debug_struct.field("assessment_environment", &self.assessment_environment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The event being assessed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Event {
     /// Optional. The user response token provided by the reCAPTCHA Enterprise
@@ -3740,6 +3887,36 @@ impl serde::ser::Serialize for Event {
     }
 }
 
+impl std::fmt::Debug for Event {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Event");
+        debug_struct.field("token", &self.token);
+        debug_struct.field("site_key", &self.site_key);
+        debug_struct.field("user_agent", &self.user_agent);
+        debug_struct.field("user_ip_address", &self.user_ip_address);
+        debug_struct.field("expected_action", &self.expected_action);
+        debug_struct.field("hashed_account_id", &self.hashed_account_id);
+        debug_struct.field("express", &self.express);
+        debug_struct.field("requested_uri", &self.requested_uri);
+        debug_struct.field("waf_token_assessment", &self.waf_token_assessment);
+        debug_struct.field("ja3", &self.ja3);
+        debug_struct.field("ja4", &self.ja4);
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field(
+            "firewall_policy_evaluation",
+            &self.firewall_policy_evaluation,
+        );
+        debug_struct.field("transaction_data", &self.transaction_data);
+        debug_struct.field("user_info", &self.user_info);
+        debug_struct.field("fraud_prevention", &self.fraud_prevention);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Event].
 pub mod event {
     #[allow(unused_imports)]
@@ -3883,7 +4060,7 @@ pub mod event {
 }
 
 /// Transaction data associated with a payment protected by reCAPTCHA Enterprise.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransactionData {
     /// Unique identifier for the transaction. This custom identifier can be used
@@ -4432,13 +4609,37 @@ impl serde::ser::Serialize for TransactionData {
     }
 }
 
+impl std::fmt::Debug for TransactionData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransactionData");
+        debug_struct.field("transaction_id", &self.transaction_id);
+        debug_struct.field("payment_method", &self.payment_method);
+        debug_struct.field("card_bin", &self.card_bin);
+        debug_struct.field("card_last_four", &self.card_last_four);
+        debug_struct.field("currency_code", &self.currency_code);
+        debug_struct.field("value", &self.value);
+        debug_struct.field("shipping_value", &self.shipping_value);
+        debug_struct.field("shipping_address", &self.shipping_address);
+        debug_struct.field("billing_address", &self.billing_address);
+        debug_struct.field("user", &self.user);
+        debug_struct.field("merchants", &self.merchants);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("gateway_info", &self.gateway_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransactionData].
 pub mod transaction_data {
     #[allow(unused_imports)]
     use super::*;
 
     /// Structured address format for billing and shipping addresses.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Address {
         /// Optional. The recipient name, potentially including information such as
@@ -4703,8 +4904,25 @@ pub mod transaction_data {
         }
     }
 
+    impl std::fmt::Debug for Address {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Address");
+            debug_struct.field("recipient", &self.recipient);
+            debug_struct.field("address", &self.address);
+            debug_struct.field("locality", &self.locality);
+            debug_struct.field("administrative_area", &self.administrative_area);
+            debug_struct.field("region_code", &self.region_code);
+            debug_struct.field("postal_code", &self.postal_code);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Details about a user's account involved in the transaction.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct User {
         /// Optional. Unique account identifier for this user. If using account
@@ -4987,8 +5205,25 @@ pub mod transaction_data {
         }
     }
 
+    impl std::fmt::Debug for User {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("User");
+            debug_struct.field("account_id", &self.account_id);
+            debug_struct.field("creation_ms", &self.creation_ms);
+            debug_struct.field("email", &self.email);
+            debug_struct.field("email_verified", &self.email_verified);
+            debug_struct.field("phone_number", &self.phone_number);
+            debug_struct.field("phone_verified", &self.phone_verified);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Line items being purchased in this transaction.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Item {
         /// Optional. The full name of the item.
@@ -5234,8 +5469,23 @@ pub mod transaction_data {
         }
     }
 
+    impl std::fmt::Debug for Item {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Item");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("value", &self.value);
+            debug_struct.field("quantity", &self.quantity);
+            debug_struct.field("merchant_account_id", &self.merchant_account_id);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Details about the transaction from the gateway.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GatewayInfo {
         /// Optional. Name of the gateway service (for example, stripe, square,
@@ -5453,10 +5703,25 @@ pub mod transaction_data {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for GatewayInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GatewayInfo");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("gateway_response_code", &self.gateway_response_code);
+            debug_struct.field("avs_response_code", &self.avs_response_code);
+            debug_struct.field("cvv_response_code", &self.cvv_response_code);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// User information associated with a request protected by reCAPTCHA Enterprise.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserInfo {
     /// Optional. Creation time for this account associated with this user. Leave
@@ -5656,8 +5921,22 @@ impl serde::ser::Serialize for UserInfo {
     }
 }
 
+impl std::fmt::Debug for UserInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserInfo");
+        debug_struct.field("create_account_time", &self.create_account_time);
+        debug_struct.field("account_id", &self.account_id);
+        debug_struct.field("user_ids", &self.user_ids);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An identifier associated with a user.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserId {
     pub id_oneof: std::option::Option<crate::model::user_id::IdOneof>,
@@ -5912,6 +6191,18 @@ impl serde::ser::Serialize for UserId {
     }
 }
 
+impl std::fmt::Debug for UserId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserId");
+        debug_struct.field("id_oneof", &self.id_oneof);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [UserId].
 pub mod user_id {
     #[allow(unused_imports)]
@@ -5932,7 +6223,7 @@ pub mod user_id {
 }
 
 /// Risk analysis result for an event.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RiskAnalysis {
     /// Output only. Legitimate event score from 0.0 to 1.0.
@@ -6168,6 +6459,21 @@ impl serde::ser::Serialize for RiskAnalysis {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for RiskAnalysis {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RiskAnalysis");
+        debug_struct.field("score", &self.score);
+        debug_struct.field("reasons", &self.reasons);
+        debug_struct.field("extended_verdict_reasons", &self.extended_verdict_reasons);
+        debug_struct.field("challenge", &self.challenge);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -6489,7 +6795,7 @@ pub mod risk_analysis {
 }
 
 /// Properties of the provided event token.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TokenProperties {
     /// Output only. Whether the provided user response token is valid. When valid
@@ -6794,6 +7100,24 @@ impl serde::ser::Serialize for TokenProperties {
     }
 }
 
+impl std::fmt::Debug for TokenProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TokenProperties");
+        debug_struct.field("valid", &self.valid);
+        debug_struct.field("invalid_reason", &self.invalid_reason);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("hostname", &self.hostname);
+        debug_struct.field("android_package_name", &self.android_package_name);
+        debug_struct.field("ios_bundle_id", &self.ios_bundle_id);
+        debug_struct.field("action", &self.action);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TokenProperties].
 pub mod token_properties {
     #[allow(unused_imports)]
@@ -6962,7 +7286,7 @@ pub mod token_properties {
 }
 
 /// Assessment for Fraud Prevention.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FraudPreventionAssessment {
     /// Output only. Probability of this transaction being fraudulent. Summarizes
@@ -7239,6 +7563,21 @@ impl serde::ser::Serialize for FraudPreventionAssessment {
     }
 }
 
+impl std::fmt::Debug for FraudPreventionAssessment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FraudPreventionAssessment");
+        debug_struct.field("transaction_risk", &self.transaction_risk);
+        debug_struct.field("stolen_instrument_verdict", &self.stolen_instrument_verdict);
+        debug_struct.field("card_testing_verdict", &self.card_testing_verdict);
+        debug_struct.field("behavioral_trust_verdict", &self.behavioral_trust_verdict);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FraudPreventionAssessment].
 pub mod fraud_prevention_assessment {
     #[allow(unused_imports)]
@@ -7246,7 +7585,7 @@ pub mod fraud_prevention_assessment {
 
     /// Information about stolen instrument fraud, where the user is not the
     /// legitimate owner of the instrument being used for the purchase.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StolenInstrumentVerdict {
         /// Output only. Probability of this transaction being executed with a stolen
@@ -7397,9 +7736,21 @@ pub mod fraud_prevention_assessment {
         }
     }
 
+    impl std::fmt::Debug for StolenInstrumentVerdict {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StolenInstrumentVerdict");
+            debug_struct.field("risk", &self.risk);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Information about card testing fraud, where an adversary is testing
     /// fraudulently obtained cards or brute forcing their details.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CardTestingVerdict {
         /// Output only. Probability of this transaction attempt being part of a card
@@ -7550,8 +7901,20 @@ pub mod fraud_prevention_assessment {
         }
     }
 
+    impl std::fmt::Debug for CardTestingVerdict {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CardTestingVerdict");
+            debug_struct.field("risk", &self.risk);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Information about behavioral trust of the transaction.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BehavioralTrustVerdict {
         /// Output only. Probability of this transaction attempt being executed in a
@@ -7702,10 +8065,22 @@ pub mod fraud_prevention_assessment {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for BehavioralTrustVerdict {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BehavioralTrustVerdict");
+            debug_struct.field("trust", &self.trust);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Fraud signals describing users and cards involved in the transaction.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FraudSignals {
     /// Output only. Signals describing the end user in this transaction.
@@ -7883,13 +8258,26 @@ impl serde::ser::Serialize for FraudSignals {
     }
 }
 
+impl std::fmt::Debug for FraudSignals {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FraudSignals");
+        debug_struct.field("user_signals", &self.user_signals);
+        debug_struct.field("card_signals", &self.card_signals);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FraudSignals].
 pub mod fraud_signals {
     #[allow(unused_imports)]
     use super::*;
 
     /// Signals describing the user involved in this transaction.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UserSignals {
         /// Output only. This user (based on email, phone, and other identifiers) has
@@ -8093,8 +8481,21 @@ pub mod fraud_signals {
         }
     }
 
+    impl std::fmt::Debug for UserSignals {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("UserSignals");
+            debug_struct.field("active_days_lower_bound", &self.active_days_lower_bound);
+            debug_struct.field("synthetic_risk", &self.synthetic_risk);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Signals describing the payment card used in this transaction.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CardSignals {
         /// Output only. The labels for the payment card in this transaction.
@@ -8233,6 +8634,18 @@ pub mod fraud_signals {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for CardSignals {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CardSignals");
+            debug_struct.field("card_labels", &self.card_labels);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -8389,7 +8802,7 @@ pub mod fraud_signals {
 }
 
 /// Information about SMS toll fraud.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SmsTollFraudVerdict {
     /// Output only. Probability of an SMS event being fraudulent.
@@ -8570,6 +8983,19 @@ impl serde::ser::Serialize for SmsTollFraudVerdict {
     }
 }
 
+impl std::fmt::Debug for SmsTollFraudVerdict {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SmsTollFraudVerdict");
+        debug_struct.field("risk", &self.risk);
+        debug_struct.field("reasons", &self.reasons);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SmsTollFraudVerdict].
 pub mod sms_toll_fraud_verdict {
     #[allow(unused_imports)]
@@ -8702,7 +9128,7 @@ pub mod sms_toll_fraud_verdict {
 }
 
 /// Assessment for Phone Fraud
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PhoneFraudAssessment {
     /// Output only. Assessment of this phone event for risk of SMS toll fraud.
@@ -8843,8 +9269,20 @@ impl serde::ser::Serialize for PhoneFraudAssessment {
     }
 }
 
+impl std::fmt::Debug for PhoneFraudAssessment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PhoneFraudAssessment");
+        debug_struct.field("sms_toll_fraud_verdict", &self.sms_toll_fraud_verdict);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Account defender risk assessment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccountDefenderAssessment {
     /// Output only. Labels for this request.
@@ -8973,6 +9411,18 @@ impl serde::ser::Serialize for AccountDefenderAssessment {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AccountDefenderAssessment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccountDefenderAssessment");
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -9140,7 +9590,7 @@ pub mod account_defender_assessment {
 }
 
 /// The create key request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateKeyRequest {
     /// Required. The name of the project in which the key is created, in the
@@ -9305,8 +9755,21 @@ impl serde::ser::Serialize for CreateKeyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateKeyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("key", &self.key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The list keys request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeysRequest {
     /// Required. The name of the project that contains the keys that is
@@ -9506,8 +9969,22 @@ impl serde::ser::Serialize for ListKeysRequest {
     }
 }
 
+impl std::fmt::Debug for ListKeysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListKeysRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to request to list keys in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeysResponse {
     /// Key details.
@@ -9679,8 +10156,21 @@ impl serde::ser::Serialize for ListKeysResponse {
     }
 }
 
+impl std::fmt::Debug for ListKeysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListKeysResponse");
+        debug_struct.field("keys", &self.keys);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The retrieve legacy secret key request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveLegacySecretKeyRequest {
     /// Required. The public key name linked to the requested secret key in the
@@ -9810,8 +10300,20 @@ impl serde::ser::Serialize for RetrieveLegacySecretKeyRequest {
     }
 }
 
+impl std::fmt::Debug for RetrieveLegacySecretKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrieveLegacySecretKeyRequest");
+        debug_struct.field("key", &self.key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The get key request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetKeyRequest {
     /// Required. The name of the requested key, in the format
@@ -9941,8 +10443,20 @@ impl serde::ser::Serialize for GetKeyRequest {
     }
 }
 
+impl std::fmt::Debug for GetKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetKeyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The update key request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateKeyRequest {
     /// Required. The key to update.
@@ -10119,8 +10633,21 @@ impl serde::ser::Serialize for UpdateKeyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateKeyRequest");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The delete key request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteKeyRequest {
     /// Required. The name of the key to be deleted, in the format
@@ -10250,8 +10777,20 @@ impl serde::ser::Serialize for DeleteKeyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteKeyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The create firewall policy request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFirewallPolicyRequest {
     /// Required. The name of the project this policy applies to, in the format
@@ -10418,8 +10957,21 @@ impl serde::ser::Serialize for CreateFirewallPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateFirewallPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateFirewallPolicyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("firewall_policy", &self.firewall_policy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The list firewall policies request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFirewallPoliciesRequest {
     /// Required. The name of the project to list the policies for, in the format
@@ -10619,8 +11171,22 @@ impl serde::ser::Serialize for ListFirewallPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListFirewallPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFirewallPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to request to list firewall policies belonging to a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFirewallPoliciesResponse {
     /// Policy details.
@@ -10797,8 +11363,21 @@ impl serde::ser::Serialize for ListFirewallPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListFirewallPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFirewallPoliciesResponse");
+        debug_struct.field("firewall_policies", &self.firewall_policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The get firewall policy request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFirewallPolicyRequest {
     /// Required. The name of the requested policy, in the format
@@ -10928,8 +11507,20 @@ impl serde::ser::Serialize for GetFirewallPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetFirewallPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFirewallPolicyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The update firewall policy request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFirewallPolicyRequest {
     /// Required. The policy to update.
@@ -11108,8 +11699,21 @@ impl serde::ser::Serialize for UpdateFirewallPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateFirewallPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFirewallPolicyRequest");
+        debug_struct.field("firewall_policy", &self.firewall_policy);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The delete firewall policy request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFirewallPolicyRequest {
     /// Required. The name of the policy to be deleted, in the format
@@ -11239,8 +11843,20 @@ impl serde::ser::Serialize for DeleteFirewallPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteFirewallPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFirewallPolicyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The reorder firewall policies request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReorderFirewallPoliciesRequest {
     /// Required. The name of the project to list the policies for, in the format
@@ -11398,8 +12014,21 @@ impl serde::ser::Serialize for ReorderFirewallPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ReorderFirewallPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReorderFirewallPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("names", &self.names);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The reorder firewall policies response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReorderFirewallPoliciesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -11501,8 +12130,19 @@ impl serde::ser::Serialize for ReorderFirewallPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ReorderFirewallPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReorderFirewallPoliciesResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The migrate key request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrateKeyRequest {
     /// Required. The name of the key to be migrated, in the format
@@ -11664,8 +12304,21 @@ impl serde::ser::Serialize for MigrateKeyRequest {
     }
 }
 
+impl std::fmt::Debug for MigrateKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MigrateKeyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("skip_billing_check", &self.skip_billing_check);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The get metrics request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMetricsRequest {
     /// Required. The name of the requested metrics, in the format
@@ -11795,8 +12448,20 @@ impl serde::ser::Serialize for GetMetricsRequest {
     }
 }
 
+impl std::fmt::Debug for GetMetricsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMetricsRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metrics for a single Key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Metrics {
     /// Output only. Identifier. The name of the metrics, in the format
@@ -12026,9 +12691,24 @@ impl serde::ser::Serialize for Metrics {
     }
 }
 
+impl std::fmt::Debug for Metrics {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Metrics");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("score_metrics", &self.score_metrics);
+        debug_struct.field("challenge_metrics", &self.challenge_metrics);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Secret key is used only in legacy reCAPTCHA. It must be used in a 3rd party
 /// integration with legacy reCAPTCHA.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveLegacySecretKeyResponse {
     /// The secret key (also known as shared secret) authorizes communication
@@ -12164,9 +12844,21 @@ impl serde::ser::Serialize for RetrieveLegacySecretKeyResponse {
     }
 }
 
+impl std::fmt::Debug for RetrieveLegacySecretKeyResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrieveLegacySecretKeyResponse");
+        debug_struct.field("legacy_secret_key", &self.legacy_secret_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A key used to identify and configure applications (web and/or mobile) that
 /// use reCAPTCHA Enterprise.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Key {
     /// Identifier. The resource name for the Key in the format
@@ -12706,6 +13398,24 @@ impl serde::ser::Serialize for Key {
     }
 }
 
+impl std::fmt::Debug for Key {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Key");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("testing_options", &self.testing_options);
+        debug_struct.field("waf_settings", &self.waf_settings);
+        debug_struct.field("platform_settings", &self.platform_settings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Key].
 pub mod key {
     #[allow(unused_imports)]
@@ -12728,7 +13438,7 @@ pub mod key {
 }
 
 /// Options for user acceptance testing.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestingOptions {
     /// Optional. All assessments for this Key return this score. Must be between 0
@@ -12912,6 +13622,19 @@ impl serde::ser::Serialize for TestingOptions {
     }
 }
 
+impl std::fmt::Debug for TestingOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestingOptions");
+        debug_struct.field("testing_score", &self.testing_score);
+        debug_struct.field("testing_challenge", &self.testing_challenge);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TestingOptions].
 pub mod testing_options {
     #[allow(unused_imports)]
@@ -13055,7 +13778,7 @@ pub mod testing_options {
 }
 
 /// Settings specific to keys that can be used by websites.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WebKeySettings {
     /// Optional. If set to true, it means allowed_domains are not enforced.
@@ -13312,6 +14035,25 @@ impl serde::ser::Serialize for WebKeySettings {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for WebKeySettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WebKeySettings");
+        debug_struct.field("allow_all_domains", &self.allow_all_domains);
+        debug_struct.field("allowed_domains", &self.allowed_domains);
+        debug_struct.field("allow_amp_traffic", &self.allow_amp_traffic);
+        debug_struct.field("integration_type", &self.integration_type);
+        debug_struct.field(
+            "challenge_security_preference",
+            &self.challenge_security_preference,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -13607,7 +14349,7 @@ pub mod web_key_settings {
 }
 
 /// Settings specific to keys that can be used by Android apps.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AndroidKeySettings {
     /// Optional. If set to true, allowed_package_names are not enforced.
@@ -13805,8 +14547,25 @@ impl serde::ser::Serialize for AndroidKeySettings {
     }
 }
 
+impl std::fmt::Debug for AndroidKeySettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AndroidKeySettings");
+        debug_struct.field("allow_all_package_names", &self.allow_all_package_names);
+        debug_struct.field("allowed_package_names", &self.allowed_package_names);
+        debug_struct.field(
+            "support_non_google_app_store_distribution",
+            &self.support_non_google_app_store_distribution,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings specific to keys that can be used by iOS apps.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IOSKeySettings {
     /// Optional. If set to true, allowed_bundle_ids are not enforced.
@@ -14006,8 +14765,22 @@ impl serde::ser::Serialize for IOSKeySettings {
     }
 }
 
+impl std::fmt::Debug for IOSKeySettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IOSKeySettings");
+        debug_struct.field("allow_all_bundle_ids", &self.allow_all_bundle_ids);
+        debug_struct.field("allowed_bundle_ids", &self.allowed_bundle_ids);
+        debug_struct.field("apple_developer_id", &self.apple_developer_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings specific to keys that can be used for reCAPTCHA Express.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExpressKeySettings {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -14109,8 +14882,19 @@ impl serde::ser::Serialize for ExpressKeySettings {
     }
 }
 
+impl std::fmt::Debug for ExpressKeySettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExpressKeySettings");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains fields that are required to perform Apple-specific integrity checks.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppleDeveloperId {
     /// Required. Input only. A private key (downloaded as a text file with a .p8
@@ -14293,8 +15077,22 @@ impl serde::ser::Serialize for AppleDeveloperId {
     }
 }
 
+impl std::fmt::Debug for AppleDeveloperId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppleDeveloperId");
+        debug_struct.field("private_key", &self.private_key);
+        debug_struct.field("key_id", &self.key_id);
+        debug_struct.field("team_id", &self.team_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Score distribution.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScoreDistribution {
     /// Map key is score value multiplied by 100. The scores are discrete values
@@ -14461,8 +15259,20 @@ impl serde::ser::Serialize for ScoreDistribution {
     }
 }
 
+impl std::fmt::Debug for ScoreDistribution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScoreDistribution");
+        debug_struct.field("score_buckets", &self.score_buckets);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metrics related to scoring.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScoreMetrics {
     /// Aggregated score metrics for all traffic.
@@ -14642,8 +15452,21 @@ impl serde::ser::Serialize for ScoreMetrics {
     }
 }
 
+impl std::fmt::Debug for ScoreMetrics {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScoreMetrics");
+        debug_struct.field("overall_metrics", &self.overall_metrics);
+        debug_struct.field("action_metrics", &self.action_metrics);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metrics related to challenges.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChallengeMetrics {
     /// Count of reCAPTCHA checkboxes or badges rendered. This is mostly equivalent
@@ -14926,8 +15749,23 @@ impl serde::ser::Serialize for ChallengeMetrics {
     }
 }
 
+impl std::fmt::Debug for ChallengeMetrics {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChallengeMetrics");
+        debug_struct.field("pageload_count", &self.pageload_count);
+        debug_struct.field("nocaptcha_count", &self.nocaptcha_count);
+        debug_struct.field("failed_count", &self.failed_count);
+        debug_struct.field("passed_count", &self.passed_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Policy config assessment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FirewallPolicyAssessment {
     /// Output only. If the processing of a policy config fails, an error is
@@ -15107,9 +15945,22 @@ impl serde::ser::Serialize for FirewallPolicyAssessment {
     }
 }
 
+impl std::fmt::Debug for FirewallPolicyAssessment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FirewallPolicyAssessment");
+        debug_struct.field("error", &self.error);
+        debug_struct.field("firewall_policy", &self.firewall_policy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An individual action. Each action represents what to do if a policy
 /// matches.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FirewallAction {
     pub firewall_action_oneof:
@@ -15585,13 +16436,25 @@ impl serde::ser::Serialize for FirewallAction {
     }
 }
 
+impl std::fmt::Debug for FirewallAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FirewallAction");
+        debug_struct.field("firewall_action_oneof", &self.firewall_action_oneof);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FirewallAction].
 pub mod firewall_action {
     #[allow(unused_imports)]
     use super::*;
 
     /// An allow action continues processing a request unimpeded.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AllowAction {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15696,9 +16559,20 @@ pub mod firewall_action {
         }
     }
 
+    impl std::fmt::Debug for AllowAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AllowAction");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A block action serves an HTTP error code a prevents the request from
     /// hitting the backend.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BlockAction {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15803,12 +16677,23 @@ pub mod firewall_action {
         }
     }
 
+    impl std::fmt::Debug for BlockAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BlockAction");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// An include reCAPTCHA script action involves injecting reCAPTCHA JavaScript
     /// code into the HTML returned by the site backend. This reCAPTCHA
     /// script is tasked with collecting user signals on the requested web page,
     /// issuing tokens as a cookie within the site domain, and enabling their
     /// utilization in subsequent page requests.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IncludeRecaptchaScriptAction {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15913,9 +16798,20 @@ pub mod firewall_action {
         }
     }
 
+    impl std::fmt::Debug for IncludeRecaptchaScriptAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IncludeRecaptchaScriptAction");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A redirect action returns a 307 (temporary redirect) response, pointing
     /// the user to a reCAPTCHA interstitial page to attach a token.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RedirectAction {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16020,9 +16916,20 @@ pub mod firewall_action {
         }
     }
 
+    impl std::fmt::Debug for RedirectAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RedirectAction");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A substitute action transparently serves a different page than the one
     /// requested.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SubstituteAction {
         /// Optional. The address to redirect to. The target is a relative path in
@@ -16155,10 +17062,22 @@ pub mod firewall_action {
         }
     }
 
+    impl std::fmt::Debug for SubstituteAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SubstituteAction");
+            debug_struct.field("path", &self.path);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A set header action sets a header and forwards the request to the
     /// backend. This can be used to trigger custom protection implemented on the
     /// backend.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SetHeaderAction {
         /// Optional. The header key to set in the request to the backend server.
@@ -16314,6 +17233,19 @@ pub mod firewall_action {
         }
     }
 
+    impl std::fmt::Debug for SetHeaderAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SetHeaderAction");
+            debug_struct.field("key", &self.key);
+            debug_struct.field("value", &self.value);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FirewallActionOneof {
@@ -16342,7 +17274,7 @@ pub mod firewall_action {
 
 /// A FirewallPolicy represents a single matching pattern and resulting actions
 /// to take.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FirewallPolicy {
     /// Identifier. The resource name for the FirewallPolicy in the format
@@ -16593,8 +17525,24 @@ impl serde::ser::Serialize for FirewallPolicy {
     }
 }
 
+impl std::fmt::Debug for FirewallPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FirewallPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("actions", &self.actions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message to list memberships in a related account group.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRelatedAccountGroupMembershipsRequest {
     /// Required. The resource name for the related account group in the format
@@ -16800,8 +17748,22 @@ impl serde::ser::Serialize for ListRelatedAccountGroupMembershipsRequest {
     }
 }
 
+impl std::fmt::Debug for ListRelatedAccountGroupMembershipsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRelatedAccountGroupMembershipsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response to a `ListRelatedAccountGroupMemberships` call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRelatedAccountGroupMembershipsResponse {
     /// The memberships listed by the query.
@@ -16988,8 +17950,24 @@ impl serde::ser::Serialize for ListRelatedAccountGroupMembershipsResponse {
     }
 }
 
+impl std::fmt::Debug for ListRelatedAccountGroupMembershipsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRelatedAccountGroupMembershipsResponse");
+        debug_struct.field(
+            "related_account_group_memberships",
+            &self.related_account_group_memberships,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message to list related account groups.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRelatedAccountGroupsRequest {
     /// Required. The name of the project to list related account groups from, in
@@ -17194,8 +18172,22 @@ impl serde::ser::Serialize for ListRelatedAccountGroupsRequest {
     }
 }
 
+impl std::fmt::Debug for ListRelatedAccountGroupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRelatedAccountGroupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response to a `ListRelatedAccountGroups` call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRelatedAccountGroupsResponse {
     /// The groups of related accounts listed by the query.
@@ -17372,8 +18364,21 @@ impl serde::ser::Serialize for ListRelatedAccountGroupsResponse {
     }
 }
 
+impl std::fmt::Debug for ListRelatedAccountGroupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRelatedAccountGroupsResponse");
+        debug_struct.field("related_account_groups", &self.related_account_groups);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message to search related account group memberships.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchRelatedAccountGroupMembershipsRequest {
     /// Required. The name of the project to search related account group
@@ -17660,8 +18665,24 @@ impl serde::ser::Serialize for SearchRelatedAccountGroupMembershipsRequest {
     }
 }
 
+impl std::fmt::Debug for SearchRelatedAccountGroupMembershipsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchRelatedAccountGroupMembershipsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("account_id", &self.account_id);
+        debug_struct.field("hashed_account_id", &self.hashed_account_id);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response to a `SearchRelatedAccountGroupMemberships` call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchRelatedAccountGroupMembershipsResponse {
     /// The queried memberships.
@@ -17848,8 +18869,24 @@ impl serde::ser::Serialize for SearchRelatedAccountGroupMembershipsResponse {
     }
 }
 
+impl std::fmt::Debug for SearchRelatedAccountGroupMembershipsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchRelatedAccountGroupMembershipsResponse");
+        debug_struct.field(
+            "related_account_group_memberships",
+            &self.related_account_group_memberships,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The AddIpOverride request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddIpOverrideRequest {
     /// Required. The name of the key to which the IP override is added, in the
@@ -18016,8 +19053,21 @@ impl serde::ser::Serialize for AddIpOverrideRequest {
     }
 }
 
+impl std::fmt::Debug for AddIpOverrideRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddIpOverrideRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ip_override_data", &self.ip_override_data);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for AddIpOverride.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddIpOverrideResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -18119,8 +19169,19 @@ impl serde::ser::Serialize for AddIpOverrideResponse {
     }
 }
 
+impl std::fmt::Debug for AddIpOverrideResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddIpOverrideResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The RemoveIpOverride request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveIpOverrideRequest {
     /// Required. The name of the key from which the IP override is removed, in the
@@ -18287,8 +19348,21 @@ impl serde::ser::Serialize for RemoveIpOverrideRequest {
     }
 }
 
+impl std::fmt::Debug for RemoveIpOverrideRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveIpOverrideRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ip_override_data", &self.ip_override_data);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for RemoveIpOverride.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveIpOverrideResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -18390,8 +19464,19 @@ impl serde::ser::Serialize for RemoveIpOverrideResponse {
     }
 }
 
+impl std::fmt::Debug for RemoveIpOverrideResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveIpOverrideResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The ListIpOverrides request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIpOverridesRequest {
     /// Required. The parent key for which the IP overrides are listed, in the
@@ -18593,8 +19678,22 @@ impl serde::ser::Serialize for ListIpOverridesRequest {
     }
 }
 
+impl std::fmt::Debug for ListIpOverridesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIpOverridesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListIpOverrides.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIpOverridesResponse {
     /// IP Overrides details.
@@ -18771,8 +19870,21 @@ impl serde::ser::Serialize for ListIpOverridesResponse {
     }
 }
 
+impl std::fmt::Debug for ListIpOverridesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIpOverridesResponse");
+        debug_struct.field("ip_overrides", &self.ip_overrides);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A membership in a group of related accounts.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RelatedAccountGroupMembership {
     /// Required. Identifier. The resource name for this membership in the format
@@ -18978,8 +20090,22 @@ impl serde::ser::Serialize for RelatedAccountGroupMembership {
     }
 }
 
+impl std::fmt::Debug for RelatedAccountGroupMembership {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelatedAccountGroupMembership");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("account_id", &self.account_id);
+        debug_struct.field("hashed_account_id", &self.hashed_account_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A group of related accounts.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RelatedAccountGroup {
     /// Required. Identifier. The resource name for the related account group in
@@ -19110,9 +20236,21 @@ impl serde::ser::Serialize for RelatedAccountGroup {
     }
 }
 
+impl std::fmt::Debug for RelatedAccountGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelatedAccountGroup");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings specific to keys that can be used for WAF (Web Application
 /// Firewall).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WafSettings {
     /// Required. The WAF service that uses this key.
@@ -19266,6 +20404,19 @@ impl serde::ser::Serialize for WafSettings {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for WafSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WafSettings");
+        debug_struct.field("waf_service", &self.waf_service);
+        debug_struct.field("waf_feature", &self.waf_feature);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -19572,7 +20723,7 @@ pub mod waf_settings {
 
 /// The environment creating the assessment. This describes your environment
 /// (the system invoking CreateAssessment), NOT the environment of your user.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssessmentEnvironment {
     /// Optional. Identifies the client module initiating the CreateAssessment
@@ -19732,8 +20883,21 @@ impl serde::ser::Serialize for AssessmentEnvironment {
     }
 }
 
+impl std::fmt::Debug for AssessmentEnvironment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AssessmentEnvironment");
+        debug_struct.field("client", &self.client);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about the IP or IP range override.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IpOverrideData {
     /// Required. The IP address to override (can be IPv4, IPv6 or CIDR).
@@ -19897,6 +21061,19 @@ impl serde::ser::Serialize for IpOverrideData {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for IpOverrideData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IpOverrideData");
+        debug_struct.field("ip", &self.ip);
+        debug_struct.field("override_type", &self.override_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

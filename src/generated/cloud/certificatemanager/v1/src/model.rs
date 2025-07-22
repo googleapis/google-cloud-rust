@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request for the `ListCertificateIssuanceConfigs` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateIssuanceConfigsRequest {
     /// Required. The project and location from which the certificate should be
@@ -287,8 +287,24 @@ impl serde::ser::Serialize for ListCertificateIssuanceConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListCertificateIssuanceConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificateIssuanceConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListCertificateIssuanceConfigs` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateIssuanceConfigsResponse {
     /// A list of certificate configs for the parent resource.
@@ -501,8 +517,25 @@ impl serde::ser::Serialize for ListCertificateIssuanceConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListCertificateIssuanceConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificateIssuanceConfigsResponse");
+        debug_struct.field(
+            "certificate_issuance_configs",
+            &self.certificate_issuance_configs,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetCertificateIssuanceConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateIssuanceConfigRequest {
     /// Required. A name of the certificate issuance config to describe. Must be in
@@ -632,8 +665,20 @@ impl serde::ser::Serialize for GetCertificateIssuanceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetCertificateIssuanceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCertificateIssuanceConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `CreateCertificateIssuanceConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCertificateIssuanceConfigRequest {
     /// Required. The parent resource of the certificate issuance config. Must be
@@ -842,8 +887,28 @@ impl serde::ser::Serialize for CreateCertificateIssuanceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCertificateIssuanceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCertificateIssuanceConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "certificate_issuance_config_id",
+            &self.certificate_issuance_config_id,
+        );
+        debug_struct.field(
+            "certificate_issuance_config",
+            &self.certificate_issuance_config,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `DeleteCertificateIssuanceConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCertificateIssuanceConfigRequest {
     /// Required. A name of the certificate issuance config to delete. Must be in
@@ -974,8 +1039,20 @@ impl serde::ser::Serialize for DeleteCertificateIssuanceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCertificateIssuanceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCertificateIssuanceConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// CertificateIssuanceConfig specifies how to issue and manage a certificate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateIssuanceConfig {
     /// A user-defined name of the certificate issuance config.
@@ -1406,6 +1483,32 @@ impl serde::ser::Serialize for CertificateIssuanceConfig {
     }
 }
 
+impl std::fmt::Debug for CertificateIssuanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateIssuanceConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field(
+            "certificate_authority_config",
+            &self.certificate_authority_config,
+        );
+        debug_struct.field("lifetime", &self.lifetime);
+        debug_struct.field(
+            "rotation_window_percentage",
+            &self.rotation_window_percentage,
+        );
+        debug_struct.field("key_algorithm", &self.key_algorithm);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CertificateIssuanceConfig].
 pub mod certificate_issuance_config {
     #[allow(unused_imports)]
@@ -1413,7 +1516,7 @@ pub mod certificate_issuance_config {
 
     /// The CA that issues the workload certificate. It includes CA address, type,
     /// authentication to CA service, etc.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CertificateAuthorityConfig {
         pub kind: std::option::Option<
@@ -1589,13 +1692,25 @@ pub mod certificate_issuance_config {
         }
     }
 
+    impl std::fmt::Debug for CertificateAuthorityConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CertificateAuthorityConfig");
+            debug_struct.field("kind", &self.kind);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [CertificateAuthorityConfig].
     pub mod certificate_authority_config {
         #[allow(unused_imports)]
         use super::*;
 
         /// Contains information required to contact CA service.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CertificateAuthorityServiceConfig {
             /// Required. A CA pool resource used to issue a certificate.
@@ -1733,6 +1848,18 @@ pub mod certificate_issuance_config {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for CertificateAuthorityServiceConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("CertificateAuthorityServiceConfig");
+                debug_struct.field("ca_pool", &self.ca_pool);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -1878,7 +2005,7 @@ pub mod certificate_issuance_config {
 }
 
 /// Request for the `ListCertificates` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificatesRequest {
     /// Required. The project and location from which the certificate should be
@@ -2129,8 +2256,24 @@ impl serde::ser::Serialize for ListCertificatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListCertificatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListCertificates` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificatesResponse {
     /// A list of certificates for the parent resource.
@@ -2330,8 +2473,22 @@ impl serde::ser::Serialize for ListCertificatesResponse {
     }
 }
 
+impl std::fmt::Debug for ListCertificatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificatesResponse");
+        debug_struct.field("certificates", &self.certificates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetCertificate` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateRequest {
     /// Required. A name of the certificate to describe. Must be in the format
@@ -2461,8 +2618,20 @@ impl serde::ser::Serialize for GetCertificateRequest {
     }
 }
 
+impl std::fmt::Debug for GetCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCertificateRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `CreateCertificate` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCertificateRequest {
     /// Required. The parent resource of the certificate. Must be in the format
@@ -2652,8 +2821,22 @@ impl serde::ser::Serialize for CreateCertificateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCertificateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("certificate_id", &self.certificate_id);
+        debug_struct.field("certificate", &self.certificate);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `UpdateCertificate` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCertificateRequest {
     /// Required. A definition of the certificate to update.
@@ -2831,8 +3014,21 @@ impl serde::ser::Serialize for UpdateCertificateRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCertificateRequest");
+        debug_struct.field("certificate", &self.certificate);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `DeleteCertificate` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCertificateRequest {
     /// Required. A name of the certificate to delete. Must be in the format
@@ -2962,8 +3158,20 @@ impl serde::ser::Serialize for DeleteCertificateRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCertificateRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListCertificateMaps` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateMapsRequest {
     /// Required. The project and location from which the certificate maps should
@@ -3214,8 +3422,24 @@ impl serde::ser::Serialize for ListCertificateMapsRequest {
     }
 }
 
+impl std::fmt::Debug for ListCertificateMapsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificateMapsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListCertificateMaps` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateMapsResponse {
     /// A list of certificate maps for the parent resource.
@@ -3420,8 +3644,22 @@ impl serde::ser::Serialize for ListCertificateMapsResponse {
     }
 }
 
+impl std::fmt::Debug for ListCertificateMapsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificateMapsResponse");
+        debug_struct.field("certificate_maps", &self.certificate_maps);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetCertificateMap` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateMapRequest {
     /// Required. A name of the certificate map to describe. Must be in the format
@@ -3551,8 +3789,20 @@ impl serde::ser::Serialize for GetCertificateMapRequest {
     }
 }
 
+impl std::fmt::Debug for GetCertificateMapRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCertificateMapRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `CreateCertificateMap` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCertificateMapRequest {
     /// Required. The parent resource of the certificate map. Must be in the format
@@ -3747,8 +3997,22 @@ impl serde::ser::Serialize for CreateCertificateMapRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCertificateMapRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCertificateMapRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("certificate_map_id", &self.certificate_map_id);
+        debug_struct.field("certificate_map", &self.certificate_map);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `UpdateCertificateMap` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCertificateMapRequest {
     /// Required. A definition of the certificate map to update.
@@ -3928,8 +4192,21 @@ impl serde::ser::Serialize for UpdateCertificateMapRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCertificateMapRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCertificateMapRequest");
+        debug_struct.field("certificate_map", &self.certificate_map);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `DeleteCertificateMap` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCertificateMapRequest {
     /// Required. A name of the certificate map to delete. Must be in the format
@@ -4059,8 +4336,20 @@ impl serde::ser::Serialize for DeleteCertificateMapRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCertificateMapRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCertificateMapRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListCertificateMapEntries` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateMapEntriesRequest {
     /// Required. The project, location and certificate map from which the
@@ -4316,8 +4605,24 @@ impl serde::ser::Serialize for ListCertificateMapEntriesRequest {
     }
 }
 
+impl std::fmt::Debug for ListCertificateMapEntriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificateMapEntriesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListCertificateMapEntries` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateMapEntriesResponse {
     /// A list of certificate map entries for the parent resource.
@@ -4522,8 +4827,22 @@ impl serde::ser::Serialize for ListCertificateMapEntriesResponse {
     }
 }
 
+impl std::fmt::Debug for ListCertificateMapEntriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCertificateMapEntriesResponse");
+        debug_struct.field("certificate_map_entries", &self.certificate_map_entries);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetCertificateMapEntry` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateMapEntryRequest {
     /// Required. A name of the certificate map entry to describe. Must be in the
@@ -4653,8 +4972,20 @@ impl serde::ser::Serialize for GetCertificateMapEntryRequest {
     }
 }
 
+impl std::fmt::Debug for GetCertificateMapEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCertificateMapEntryRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `CreateCertificateMapEntry` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCertificateMapEntryRequest {
     /// Required. The parent resource of the certificate map entry. Must be in the
@@ -4850,8 +5181,22 @@ impl serde::ser::Serialize for CreateCertificateMapEntryRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCertificateMapEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCertificateMapEntryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("certificate_map_entry_id", &self.certificate_map_entry_id);
+        debug_struct.field("certificate_map_entry", &self.certificate_map_entry);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `UpdateCertificateMapEntry` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCertificateMapEntryRequest {
     /// Required. A definition of the certificate map entry to create map entry.
@@ -5030,8 +5375,21 @@ impl serde::ser::Serialize for UpdateCertificateMapEntryRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCertificateMapEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCertificateMapEntryRequest");
+        debug_struct.field("certificate_map_entry", &self.certificate_map_entry);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `DeleteCertificateMapEntry` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCertificateMapEntryRequest {
     /// Required. A name of the certificate map entry to delete. Must be in the
@@ -5161,8 +5519,20 @@ impl serde::ser::Serialize for DeleteCertificateMapEntryRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCertificateMapEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCertificateMapEntryRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListDnsAuthorizations` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDnsAuthorizationsRequest {
     /// Required. The project and location from which the dns authorizations should
@@ -5413,8 +5783,24 @@ impl serde::ser::Serialize for ListDnsAuthorizationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDnsAuthorizationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDnsAuthorizationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListDnsAuthorizations` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDnsAuthorizationsResponse {
     /// A list of dns authorizations for the parent resource.
@@ -5619,8 +6005,22 @@ impl serde::ser::Serialize for ListDnsAuthorizationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDnsAuthorizationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDnsAuthorizationsResponse");
+        debug_struct.field("dns_authorizations", &self.dns_authorizations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetDnsAuthorization` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDnsAuthorizationRequest {
     /// Required. A name of the dns authorization to describe. Must be in the
@@ -5750,8 +6150,20 @@ impl serde::ser::Serialize for GetDnsAuthorizationRequest {
     }
 }
 
+impl std::fmt::Debug for GetDnsAuthorizationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDnsAuthorizationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `CreateDnsAuthorization` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDnsAuthorizationRequest {
     /// Required. The parent resource of the dns authorization. Must be in the
@@ -5946,8 +6358,22 @@ impl serde::ser::Serialize for CreateDnsAuthorizationRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDnsAuthorizationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDnsAuthorizationRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("dns_authorization_id", &self.dns_authorization_id);
+        debug_struct.field("dns_authorization", &self.dns_authorization);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `UpdateDnsAuthorization` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDnsAuthorizationRequest {
     /// Required. A definition of the dns authorization to update.
@@ -6127,8 +6553,21 @@ impl serde::ser::Serialize for UpdateDnsAuthorizationRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDnsAuthorizationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDnsAuthorizationRequest");
+        debug_struct.field("dns_authorization", &self.dns_authorization);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `DeleteDnsAuthorization` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDnsAuthorizationRequest {
     /// Required. A name of the dns authorization to delete. Must be in the format
@@ -6258,8 +6697,20 @@ impl serde::ser::Serialize for DeleteDnsAuthorizationRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDnsAuthorizationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDnsAuthorizationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation. Output only.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The time the operation was created.
@@ -6565,8 +7016,26 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines TLS certificate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Certificate {
     /// A user-defined name of the certificate. Certificate names must be unique
@@ -7071,6 +7540,27 @@ impl serde::ser::Serialize for Certificate {
     }
 }
 
+impl std::fmt::Debug for Certificate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Certificate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("san_dnsnames", &self.san_dnsnames);
+        debug_struct.field("pem_certificate", &self.pem_certificate);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Certificate].
 pub mod certificate {
     #[allow(unused_imports)]
@@ -7079,7 +7569,7 @@ pub mod certificate {
     /// Certificate data for a SelfManaged Certificate.
     /// SelfManaged Certificates are uploaded by the user. Updating such
     /// certificates before they expire remains the user's responsibility.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SelfManagedCertificate {
         /// Input only. The PEM-encoded certificate chain.
@@ -7244,10 +7734,23 @@ pub mod certificate {
         }
     }
 
+    impl std::fmt::Debug for SelfManagedCertificate {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SelfManagedCertificate");
+            debug_struct.field("pem_certificate", &self.pem_certificate);
+            debug_struct.field("pem_private_key", &self.pem_private_key);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration and state of a Managed Certificate.
     /// Certificate Manager provisions and renews Managed Certificates
     /// automatically, for as long as it's authorized to do so.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ManagedCertificate {
         /// Immutable. The domains for which a managed SSL certificate will be
@@ -7561,13 +8064,33 @@ pub mod certificate {
         }
     }
 
+    impl std::fmt::Debug for ManagedCertificate {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ManagedCertificate");
+            debug_struct.field("domains", &self.domains);
+            debug_struct.field("dns_authorizations", &self.dns_authorizations);
+            debug_struct.field("issuance_config", &self.issuance_config);
+            debug_struct.field("state", &self.state);
+            debug_struct.field("provisioning_issue", &self.provisioning_issue);
+            debug_struct.field(
+                "authorization_attempt_info",
+                &self.authorization_attempt_info,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ManagedCertificate].
     pub mod managed_certificate {
         #[allow(unused_imports)]
         use super::*;
 
         /// Information about issues with provisioning a Managed Certificate.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ProvisioningIssue {
             /// Output only. Reason for provisioning failures.
@@ -7735,6 +8258,19 @@ pub mod certificate {
             }
         }
 
+        impl std::fmt::Debug for ProvisioningIssue {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ProvisioningIssue");
+                debug_struct.field("reason", &self.reason);
+                debug_struct.field("details", &self.details);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [ProvisioningIssue].
         pub mod provisioning_issue {
             #[allow(unused_imports)]
@@ -7883,7 +8419,7 @@ pub mod certificate {
 
         /// State of the latest attempt to authorize a domain for certificate
         /// issuance.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AuthorizationAttemptInfo {
 
@@ -8092,6 +8628,21 @@ pub mod certificate {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for AuthorizationAttemptInfo {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("AuthorizationAttemptInfo");
+                debug_struct.field("domain", &self.domain);
+                debug_struct.field("state", &self.state);
+                debug_struct.field("failure_reason", &self.failure_reason);
+                debug_struct.field("details", &self.details);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -8687,7 +9238,7 @@ pub mod certificate {
 }
 
 /// Defines a collection of certificate configurations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateMap {
     /// A user-defined name of the Certificate Map. Certificate Map names must be
@@ -8983,13 +9534,30 @@ impl serde::ser::Serialize for CertificateMap {
     }
 }
 
+impl std::fmt::Debug for CertificateMap {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateMap");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("gclb_targets", &self.gclb_targets);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CertificateMap].
 pub mod certificate_map {
     #[allow(unused_imports)]
     use super::*;
 
     /// Describes a Target Proxy that uses this Certificate Map.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GclbTarget {
         /// Output only. IP configurations for this Target Proxy where the
@@ -9254,13 +9822,26 @@ pub mod certificate_map {
         }
     }
 
+    impl std::fmt::Debug for GclbTarget {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GclbTarget");
+            debug_struct.field("ip_configs", &self.ip_configs);
+            debug_struct.field("target_proxy", &self.target_proxy);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [GclbTarget].
     pub mod gclb_target {
         #[allow(unused_imports)]
         use super::*;
 
         /// Defines IP configuration where this Certificate Map is serving.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct IpConfig {
             /// Output only. An external IP address.
@@ -9461,6 +10042,19 @@ pub mod certificate_map {
             }
         }
 
+        impl std::fmt::Debug for IpConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("IpConfig");
+                debug_struct.field("ip_address", &self.ip_address);
+                debug_struct.field("ports", &self.ports);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A Target Proxy to which this map is attached to.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -9478,7 +10072,7 @@ pub mod certificate_map {
 }
 
 /// Defines a certificate map entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateMapEntry {
     /// A user-defined name of the Certificate Map Entry. Certificate Map Entry
@@ -9906,6 +10500,25 @@ impl serde::ser::Serialize for CertificateMapEntry {
     }
 }
 
+impl std::fmt::Debug for CertificateMapEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateMapEntry");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("certificates", &self.certificates);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("r#match", &self.r#match);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CertificateMapEntry].
 pub mod certificate_map_entry {
     #[allow(unused_imports)]
@@ -10052,7 +10665,7 @@ pub mod certificate_map_entry {
 
 /// A DnsAuthorization resource describes a way to perform domain authorization
 /// for certificate issuance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DnsAuthorization {
     /// A user-defined name of the dns authorization. DnsAuthorization names must
@@ -10408,6 +11021,25 @@ impl serde::ser::Serialize for DnsAuthorization {
     }
 }
 
+impl std::fmt::Debug for DnsAuthorization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DnsAuthorization");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("domain", &self.domain);
+        debug_struct.field("dns_resource_record", &self.dns_resource_record);
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DnsAuthorization].
 pub mod dns_authorization {
     #[allow(unused_imports)]
@@ -10416,7 +11048,7 @@ pub mod dns_authorization {
     /// The structure describing the DNS Resource Record that needs to be added
     /// to DNS configuration for the authorization to be usable by
     /// certificate.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DnsResourceRecord {
         /// Output only. Fully qualified name of the DNS Resource Record.
@@ -10598,6 +11230,20 @@ pub mod dns_authorization {
         }
     }
 
+    impl std::fmt::Debug for DnsResourceRecord {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DnsResourceRecord");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("data", &self.data);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// DnsAuthorization type.
     ///
     /// # Working with unknown values
@@ -10734,7 +11380,7 @@ pub mod dns_authorization {
 }
 
 /// Request for the `ListTrustConfigs` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTrustConfigsRequest {
     /// Required. The project and location from which the TrustConfigs should be
@@ -10985,8 +11631,24 @@ impl serde::ser::Serialize for ListTrustConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListTrustConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTrustConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListTrustConfigs` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTrustConfigsResponse {
     /// A list of TrustConfigs for the parent resource.
@@ -11187,8 +11849,22 @@ impl serde::ser::Serialize for ListTrustConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListTrustConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTrustConfigsResponse");
+        debug_struct.field("trust_configs", &self.trust_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetTrustConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTrustConfigRequest {
     /// Required. A name of the TrustConfig to describe. Must be in the format
@@ -11318,8 +11994,20 @@ impl serde::ser::Serialize for GetTrustConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetTrustConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTrustConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `CreateTrustConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTrustConfigRequest {
     /// Required. The parent resource of the TrustConfig. Must be in the format
@@ -11511,8 +12199,22 @@ impl serde::ser::Serialize for CreateTrustConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTrustConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTrustConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("trust_config_id", &self.trust_config_id);
+        debug_struct.field("trust_config", &self.trust_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `UpdateTrustConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTrustConfigRequest {
     /// Required. A definition of the TrustConfig to update.
@@ -11691,8 +12393,21 @@ impl serde::ser::Serialize for UpdateTrustConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTrustConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTrustConfigRequest");
+        debug_struct.field("trust_config", &self.trust_config);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `DeleteTrustConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTrustConfigRequest {
     /// Required. A name of the TrustConfig to delete. Must be in the format
@@ -11848,8 +12563,21 @@ impl serde::ser::Serialize for DeleteTrustConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTrustConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTrustConfigRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines a trust config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrustConfig {
     /// A user-defined name of the trust config. TrustConfig names must be
@@ -12174,13 +12902,31 @@ impl serde::ser::Serialize for TrustConfig {
     }
 }
 
+impl std::fmt::Debug for TrustConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TrustConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("trust_stores", &self.trust_stores);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TrustConfig].
 pub mod trust_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Defines a trust anchor.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TrustAnchor {
         pub kind: std::option::Option<crate::model::trust_config::trust_anchor::Kind>,
@@ -12357,6 +13103,18 @@ pub mod trust_config {
         }
     }
 
+    impl std::fmt::Debug for TrustAnchor {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TrustAnchor");
+            debug_struct.field("kind", &self.kind);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [TrustAnchor].
     pub mod trust_anchor {
         #[allow(unused_imports)]
@@ -12373,7 +13131,7 @@ pub mod trust_config {
     }
 
     /// Defines an intermediate CA.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IntermediateCA {
         pub kind: std::option::Option<crate::model::trust_config::intermediate_ca::Kind>,
@@ -12550,6 +13308,18 @@ pub mod trust_config {
         }
     }
 
+    impl std::fmt::Debug for IntermediateCA {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IntermediateCA");
+            debug_struct.field("kind", &self.kind);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [IntermediateCA].
     pub mod intermediate_ca {
         #[allow(unused_imports)]
@@ -12567,7 +13337,7 @@ pub mod trust_config {
     }
 
     /// Defines a trust store.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TrustStore {
         /// List of Trust Anchors to be used while performing validation
@@ -12741,6 +13511,19 @@ pub mod trust_config {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for TrustStore {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TrustStore");
+            debug_struct.field("trust_anchors", &self.trust_anchors);
+            debug_struct.field("intermediate_cas", &self.intermediate_cas);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 }

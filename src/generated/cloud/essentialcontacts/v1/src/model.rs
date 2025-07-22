@@ -31,7 +31,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A contact that will receive notifications from Google Cloud.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Contact {
     /// Output only. The identifier for the contact.
@@ -321,8 +321,28 @@ impl serde::ser::Serialize for Contact {
     }
 }
 
+impl std::fmt::Debug for Contact {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Contact");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("email", &self.email);
+        debug_struct.field(
+            "notification_category_subscriptions",
+            &self.notification_category_subscriptions,
+        );
+        debug_struct.field("language_tag", &self.language_tag);
+        debug_struct.field("validation_state", &self.validation_state);
+        debug_struct.field("validate_time", &self.validate_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the ListContacts method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListContactsRequest {
     /// Required. The parent resource name.
@@ -527,8 +547,22 @@ impl serde::ser::Serialize for ListContactsRequest {
     }
 }
 
+impl std::fmt::Debug for ListContactsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListContactsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the ListContacts method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListContactsResponse {
     /// The contacts for the specified resource.
@@ -702,8 +736,21 @@ impl serde::ser::Serialize for ListContactsResponse {
     }
 }
 
+impl std::fmt::Debug for ListContactsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListContactsResponse");
+        debug_struct.field("contacts", &self.contacts);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the GetContact method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetContactRequest {
     /// Required. The name of the contact to retrieve.
@@ -835,8 +882,20 @@ impl serde::ser::Serialize for GetContactRequest {
     }
 }
 
+impl std::fmt::Debug for GetContactRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetContactRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the DeleteContact method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteContactRequest {
     /// Required. The name of the contact to delete.
@@ -968,8 +1027,20 @@ impl serde::ser::Serialize for DeleteContactRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteContactRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteContactRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the CreateContact method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateContactRequest {
     /// Required. The resource to save this contact for.
@@ -1136,8 +1207,21 @@ impl serde::ser::Serialize for CreateContactRequest {
     }
 }
 
+impl std::fmt::Debug for CreateContactRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateContactRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("contact", &self.contact);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the UpdateContact method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateContactRequest {
     /// Required. The contact resource to replace the existing saved contact. Note:
@@ -1316,8 +1400,21 @@ impl serde::ser::Serialize for UpdateContactRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateContactRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateContactRequest");
+        debug_struct.field("contact", &self.contact);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the ComputeContacts method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeContactsRequest {
     /// Required. The name of the resource to compute contacts for.
@@ -1556,8 +1653,23 @@ impl serde::ser::Serialize for ComputeContactsRequest {
     }
 }
 
+impl std::fmt::Debug for ComputeContactsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ComputeContactsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("notification_categories", &self.notification_categories);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the ComputeContacts method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeContactsResponse {
     /// All contacts for the resource that are subscribed to the specified
@@ -1733,8 +1845,21 @@ impl serde::ser::Serialize for ComputeContactsResponse {
     }
 }
 
+impl std::fmt::Debug for ComputeContactsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ComputeContactsResponse");
+        debug_struct.field("contacts", &self.contacts);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the SendTestMessage method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SendTestMessageRequest {
     /// Required. The list of names of the contacts to send a test message to.
@@ -1921,6 +2046,20 @@ impl serde::ser::Serialize for SendTestMessageRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for SendTestMessageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SendTestMessageRequest");
+        debug_struct.field("contacts", &self.contacts);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("notification_category", &self.notification_category);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

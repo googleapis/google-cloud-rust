@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request message for the Check method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckRequest {
     /// The service name as specified in its service configuration. For example,
@@ -284,8 +284,24 @@ impl serde::ser::Serialize for CheckRequest {
     }
 }
 
+impl std::fmt::Debug for CheckRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckRequest");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("service_config_id", &self.service_config_id);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("resources", &self.resources);
+        debug_struct.field("flags", &self.flags);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a resource referenced in the request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceInfo {
     /// The name of the resource referenced in the request.
@@ -522,8 +538,24 @@ impl serde::ser::Serialize for ResourceInfo {
     }
 }
 
+impl std::fmt::Debug for ResourceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceInfo");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("permission", &self.permission);
+        debug_struct.field("container", &self.container);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the Check method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckResponse {
     /// Operation is allowed when this field is not set. Any non-'OK' status
@@ -702,8 +734,21 @@ impl serde::ser::Serialize for CheckResponse {
     }
 }
 
+impl std::fmt::Debug for CheckResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckResponse");
+        debug_struct.field("status", &self.status);
+        debug_struct.field("headers", &self.headers);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the Report method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportRequest {
     /// The service name as specified in its service configuration. For example,
@@ -901,9 +946,23 @@ impl serde::ser::Serialize for ReportRequest {
     }
 }
 
+impl std::fmt::Debug for ReportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReportRequest");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("service_config_id", &self.service_config_id);
+        debug_struct.field("operations", &self.operations);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the Report method.
 /// If the request contains any invalid data, the server returns an RPC error.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1005,8 +1064,19 @@ impl serde::ser::Serialize for ReportResponse {
     }
 }
 
+impl std::fmt::Debug for ReportResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReportResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message containing resource details in a batch mode.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceInfoList {
     /// The resource details.
@@ -1135,5 +1205,17 @@ impl serde::ser::Serialize for ResourceInfoList {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ResourceInfoList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceInfoList");
+        debug_struct.field("resources", &self.resources);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

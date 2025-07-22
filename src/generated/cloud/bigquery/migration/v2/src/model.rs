@@ -34,7 +34,7 @@ extern crate wkt;
 
 /// A migration workflow which specifies what needs to be done for an EDW
 /// migration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrationWorkflow {
     /// Output only. Immutable. Identifier. The unique identifier for the migration
@@ -326,6 +326,23 @@ impl serde::ser::Serialize for MigrationWorkflow {
     }
 }
 
+impl std::fmt::Debug for MigrationWorkflow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MigrationWorkflow");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("tasks", &self.tasks);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("last_update_time", &self.last_update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MigrationWorkflow].
 pub mod migration_workflow {
     #[allow(unused_imports)]
@@ -484,7 +501,7 @@ pub mod migration_workflow {
 
 /// A single task for a migration which has details about the configuration of
 /// the task.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrationTask {
     /// Output only. Immutable. The unique identifier for the migration task. The
@@ -1161,6 +1178,36 @@ impl serde::ser::Serialize for MigrationTask {
     }
 }
 
+impl std::fmt::Debug for MigrationTask {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MigrationTask");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("processing_error", &self.processing_error);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("last_update_time", &self.last_update_time);
+        debug_struct.field("resource_error_details", &self.resource_error_details);
+        debug_struct.field("resource_error_count", &self.resource_error_count);
+        debug_struct.field("metrics", &self.metrics);
+        debug_struct.field("task_result", &self.task_result);
+        debug_struct.field(
+            "total_processing_error_count",
+            &self.total_processing_error_count,
+        );
+        debug_struct.field(
+            "total_resource_error_count",
+            &self.total_resource_error_count,
+        );
+        debug_struct.field("task_details", &self.task_details);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MigrationTask].
 pub mod migration_task {
     #[allow(unused_imports)]
@@ -1341,7 +1388,7 @@ pub mod migration_task {
 /// A subtask for a migration which carries details about the configuration of
 /// the subtask. The content of the details should not matter to the end user,
 /// but is a contract between the subtask creator and subtask worker.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrationSubtask {
     /// Output only. Immutable. The resource name for the migration subtask. The ID
@@ -1767,6 +1814,27 @@ impl serde::ser::Serialize for MigrationSubtask {
     }
 }
 
+impl std::fmt::Debug for MigrationSubtask {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MigrationSubtask");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("task_id", &self.task_id);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("processing_error", &self.processing_error);
+        debug_struct.field("resource_error_details", &self.resource_error_details);
+        debug_struct.field("resource_error_count", &self.resource_error_count);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("last_update_time", &self.last_update_time);
+        debug_struct.field("metrics", &self.metrics);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MigrationSubtask].
 pub mod migration_subtask {
     #[allow(unused_imports)]
@@ -1936,7 +2004,7 @@ pub mod migration_subtask {
 }
 
 /// The migration task result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrationTaskResult {
     /// Details specific to the task type.
@@ -2116,6 +2184,18 @@ impl serde::ser::Serialize for MigrationTaskResult {
     }
 }
 
+impl std::fmt::Debug for MigrationTaskResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MigrationTaskResult");
+        debug_struct.field("details", &self.details);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MigrationTaskResult].
 pub mod migration_task_result {
     #[allow(unused_imports)]
@@ -2131,7 +2211,7 @@ pub mod migration_task_result {
 }
 
 /// Translation specific result details from the migration task.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslationTaskResult {
     /// The list of the translated literals.
@@ -2296,8 +2376,21 @@ impl serde::ser::Serialize for TranslationTaskResult {
     }
 }
 
+impl std::fmt::Debug for TranslationTaskResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TranslationTaskResult");
+        debug_struct.field("translated_literals", &self.translated_literals);
+        debug_struct.field("report_log_messages", &self.report_log_messages);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Provides details for errors and the corresponding resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceErrorDetail {
     /// Required. Information about the resource where the error is located.
@@ -2511,9 +2604,23 @@ impl serde::ser::Serialize for ResourceErrorDetail {
     }
 }
 
+impl std::fmt::Debug for ResourceErrorDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceErrorDetail");
+        debug_struct.field("resource_info", &self.resource_info);
+        debug_struct.field("error_details", &self.error_details);
+        debug_struct.field("error_count", &self.error_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Provides details for errors, e.g. issues that where encountered when
 /// processing a subtask.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorDetail {
     /// Optional. The exact location within the resource (if applicable).
@@ -2689,8 +2796,21 @@ impl serde::ser::Serialize for ErrorDetail {
     }
 }
 
+impl std::fmt::Debug for ErrorDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorDetail");
+        debug_struct.field("location", &self.location);
+        debug_struct.field("error_info", &self.error_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Holds information about where the error is located.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorLocation {
     /// Optional. If applicable, denotes the line where the error occurred. A zero
@@ -2881,8 +3001,21 @@ impl serde::ser::Serialize for ErrorLocation {
     }
 }
 
+impl std::fmt::Debug for ErrorLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorLocation");
+        debug_struct.field("line", &self.line);
+        debug_struct.field("column", &self.column);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metrics object for a SubTask.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeries {
     /// Required. The name of the metric.
@@ -3104,8 +3237,23 @@ impl serde::ser::Serialize for TimeSeries {
     }
 }
 
+impl std::fmt::Debug for TimeSeries {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeSeries");
+        debug_struct.field("metric", &self.metric);
+        debug_struct.field("value_type", &self.value_type);
+        debug_struct.field("metric_kind", &self.metric_kind);
+        debug_struct.field("points", &self.points);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single data point in a time series.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Point {
     /// The time interval to which the data point applies.  For `GAUGE` metrics,
@@ -3288,10 +3436,23 @@ impl serde::ser::Serialize for Point {
     }
 }
 
+impl std::fmt::Debug for Point {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Point");
+        debug_struct.field("interval", &self.interval);
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A time interval extending just after a start time through an end time.
 /// If the start time is the same as the end time, then the interval
 /// represents a single point in time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeInterval {
     /// Optional. The beginning of the time interval.  The default value
@@ -3470,8 +3631,21 @@ impl serde::ser::Serialize for TimeInterval {
     }
 }
 
+impl std::fmt::Debug for TimeInterval {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeInterval");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single strongly-typed value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TypedValue {
     /// The typed value field.
@@ -3871,6 +4045,18 @@ impl serde::ser::Serialize for TypedValue {
     }
 }
 
+impl std::fmt::Debug for TypedValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TypedValue");
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TypedValue].
 pub mod typed_value {
     #[allow(unused_imports)]
@@ -3896,7 +4082,7 @@ pub mod typed_value {
 }
 
 /// Request to create a migration workflow resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMigrationWorkflowRequest {
     /// Required. The name of the project to which this migration workflow belongs.
@@ -4063,8 +4249,21 @@ impl serde::ser::Serialize for CreateMigrationWorkflowRequest {
     }
 }
 
+impl std::fmt::Debug for CreateMigrationWorkflowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMigrationWorkflowRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("migration_workflow", &self.migration_workflow);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get a previously created migration workflow.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMigrationWorkflowRequest {
     /// Required. The unique identifier for the migration workflow.
@@ -4230,8 +4429,21 @@ impl serde::ser::Serialize for GetMigrationWorkflowRequest {
     }
 }
 
+impl std::fmt::Debug for GetMigrationWorkflowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMigrationWorkflowRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("read_mask", &self.read_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list previously created migration workflows.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMigrationWorkflowsRequest {
     /// Required. The project and location of the migration workflows to list.
@@ -4470,8 +4682,23 @@ impl serde::ser::Serialize for ListMigrationWorkflowsRequest {
     }
 }
 
+impl std::fmt::Debug for ListMigrationWorkflowsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMigrationWorkflowsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("read_mask", &self.read_mask);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response object for a `ListMigrationWorkflows` call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMigrationWorkflowsResponse {
     /// The migration workflows for the specified project / location.
@@ -4648,8 +4875,21 @@ impl serde::ser::Serialize for ListMigrationWorkflowsResponse {
     }
 }
 
+impl std::fmt::Debug for ListMigrationWorkflowsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMigrationWorkflowsResponse");
+        debug_struct.field("migration_workflows", &self.migration_workflows);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete a previously created migration workflow.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMigrationWorkflowRequest {
     /// Required. The unique identifier for the migration workflow.
@@ -4779,8 +5019,20 @@ impl serde::ser::Serialize for DeleteMigrationWorkflowRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteMigrationWorkflowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteMigrationWorkflowRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to start a previously created migration workflow.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartMigrationWorkflowRequest {
     /// Required. The unique identifier for the migration workflow.
@@ -4910,8 +5162,20 @@ impl serde::ser::Serialize for StartMigrationWorkflowRequest {
     }
 }
 
+impl std::fmt::Debug for StartMigrationWorkflowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartMigrationWorkflowRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get a previously created migration subtasks.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMigrationSubtaskRequest {
     /// Required. The unique identifier for the migration subtask.
@@ -5077,8 +5341,21 @@ impl serde::ser::Serialize for GetMigrationSubtaskRequest {
     }
 }
 
+impl std::fmt::Debug for GetMigrationSubtaskRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMigrationSubtaskRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("read_mask", &self.read_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list previously created migration subtasks.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMigrationSubtasksRequest {
     /// Required. The migration task of the subtasks to list.
@@ -5343,8 +5620,24 @@ impl serde::ser::Serialize for ListMigrationSubtasksRequest {
     }
 }
 
+impl std::fmt::Debug for ListMigrationSubtasksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMigrationSubtasksRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("read_mask", &self.read_mask);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response object for a `ListMigrationSubtasks` call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMigrationSubtasksResponse {
     /// The migration subtasks for the specified task.
@@ -5521,9 +5814,22 @@ impl serde::ser::Serialize for ListMigrationSubtasksResponse {
     }
 }
 
+impl std::fmt::Debug for ListMigrationSubtasksResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMigrationSubtasksResponse");
+        debug_struct.field("migration_subtasks", &self.migration_subtasks);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The translation config to capture necessary settings for a translation task
 /// and subtask.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslationConfigDetails {
     /// The dialect of the input files.
@@ -6004,6 +6310,25 @@ impl serde::ser::Serialize for TranslationConfigDetails {
     }
 }
 
+impl std::fmt::Debug for TranslationConfigDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TranslationConfigDetails");
+        debug_struct.field("source_dialect", &self.source_dialect);
+        debug_struct.field("target_dialect", &self.target_dialect);
+        debug_struct.field("source_env", &self.source_env);
+        debug_struct.field("request_source", &self.request_source);
+        debug_struct.field("target_types", &self.target_types);
+        debug_struct.field("source_location", &self.source_location);
+        debug_struct.field("target_location", &self.target_location);
+        debug_struct.field("output_name_mapping", &self.output_name_mapping);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TranslationConfigDetails].
 pub mod translation_config_details {
     #[allow(unused_imports)]
@@ -6036,7 +6361,7 @@ pub mod translation_config_details {
 }
 
 /// The possible dialect options for translation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Dialect {
     /// The possible dialect options that this message represents.
@@ -7108,6 +7433,18 @@ impl serde::ser::Serialize for Dialect {
     }
 }
 
+impl std::fmt::Debug for Dialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Dialect");
+        debug_struct.field("dialect_value", &self.dialect_value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Dialect].
 pub mod dialect {
     #[allow(unused_imports)]
@@ -7155,7 +7492,7 @@ pub mod dialect {
 }
 
 /// The dialect definition for BigQuery.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7257,8 +7594,19 @@ impl serde::ser::Serialize for BigQueryDialect {
     }
 }
 
+impl std::fmt::Debug for BigQueryDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for HiveQL.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HiveQLDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7360,8 +7708,19 @@ impl serde::ser::Serialize for HiveQLDialect {
     }
 }
 
+impl std::fmt::Debug for HiveQLDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HiveQLDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for Redshift.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RedshiftDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7463,8 +7822,19 @@ impl serde::ser::Serialize for RedshiftDialect {
     }
 }
 
+impl std::fmt::Debug for RedshiftDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RedshiftDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for Teradata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TeradataDialect {
     /// Which Teradata sub-dialect mode the user specifies.
@@ -7591,6 +7961,18 @@ impl serde::ser::Serialize for TeradataDialect {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for TeradataDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TeradataDialect");
+        debug_struct.field("mode", &self.mode);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -7733,7 +8115,7 @@ pub mod teradata_dialect {
 }
 
 /// The dialect definition for Oracle.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OracleDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7835,8 +8217,19 @@ impl serde::ser::Serialize for OracleDialect {
     }
 }
 
+impl std::fmt::Debug for OracleDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OracleDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for SparkSQL.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkSQLDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7938,8 +8331,19 @@ impl serde::ser::Serialize for SparkSQLDialect {
     }
 }
 
+impl std::fmt::Debug for SparkSQLDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SparkSQLDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for Snowflake.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SnowflakeDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8041,8 +8445,19 @@ impl serde::ser::Serialize for SnowflakeDialect {
     }
 }
 
+impl std::fmt::Debug for SnowflakeDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SnowflakeDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for Netezza.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetezzaDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8144,8 +8559,19 @@ impl serde::ser::Serialize for NetezzaDialect {
     }
 }
 
+impl std::fmt::Debug for NetezzaDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetezzaDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for Azure Synapse.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureSynapseDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8247,8 +8673,19 @@ impl serde::ser::Serialize for AzureSynapseDialect {
     }
 }
 
+impl std::fmt::Debug for AzureSynapseDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureSynapseDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for Vertica.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerticaDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8350,8 +8787,19 @@ impl serde::ser::Serialize for VerticaDialect {
     }
 }
 
+impl std::fmt::Debug for VerticaDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VerticaDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for SQL Server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SQLServerDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8453,8 +8901,19 @@ impl serde::ser::Serialize for SQLServerDialect {
     }
 }
 
+impl std::fmt::Debug for SQLServerDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SQLServerDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for Postgresql.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostgresqlDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8556,8 +9015,19 @@ impl serde::ser::Serialize for PostgresqlDialect {
     }
 }
 
+impl std::fmt::Debug for PostgresqlDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PostgresqlDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for Presto.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrestoDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8659,8 +9129,19 @@ impl serde::ser::Serialize for PrestoDialect {
     }
 }
 
+impl std::fmt::Debug for PrestoDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrestoDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for MySQL.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MySQLDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8762,8 +9243,19 @@ impl serde::ser::Serialize for MySQLDialect {
     }
 }
 
+impl std::fmt::Debug for MySQLDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MySQLDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for DB2.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DB2Dialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8865,8 +9357,19 @@ impl serde::ser::Serialize for DB2Dialect {
     }
 }
 
+impl std::fmt::Debug for DB2Dialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DB2Dialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for SQLite.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SQLiteDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8968,8 +9471,19 @@ impl serde::ser::Serialize for SQLiteDialect {
     }
 }
 
+impl std::fmt::Debug for SQLiteDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SQLiteDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The dialect definition for Greenplum.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GreenplumDialect {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9071,9 +9585,20 @@ impl serde::ser::Serialize for GreenplumDialect {
     }
 }
 
+impl std::fmt::Debug for GreenplumDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GreenplumDialect");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a map of name mappings using a list of key:value proto messages of
 /// existing name to desired output name.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectNameMappingList {
     /// The elements of the object name map.
@@ -9210,9 +9735,21 @@ impl serde::ser::Serialize for ObjectNameMappingList {
     }
 }
 
+impl std::fmt::Debug for ObjectNameMappingList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectNameMappingList");
+        debug_struct.field("name_map", &self.name_map);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a key-value pair of NameMappingKey to NameMappingValue to
 /// represent the mapping of SQL names from the input value to desired output.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectNameMapping {
     /// The name of the object in source that is being mapped.
@@ -9389,9 +9926,22 @@ impl serde::ser::Serialize for ObjectNameMapping {
     }
 }
 
+impl std::fmt::Debug for ObjectNameMapping {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectNameMapping");
+        debug_struct.field("source", &self.source);
+        debug_struct.field("target", &self.target);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The potential components of a full name mapping that will be mapped
 /// during translation in the source data warehouse.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NameMappingKey {
     /// The type of object that is being mapped.
@@ -9620,6 +10170,22 @@ impl serde::ser::Serialize for NameMappingKey {
     }
 }
 
+impl std::fmt::Debug for NameMappingKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NameMappingKey");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("schema", &self.schema);
+        debug_struct.field("relation", &self.relation);
+        debug_struct.field("attribute", &self.attribute);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NameMappingKey].
 pub mod name_mapping_key {
     #[allow(unused_imports)]
@@ -9795,7 +10361,7 @@ pub mod name_mapping_key {
 
 /// The potential components of a full name mapping that will be mapped
 /// during translation in the target data warehouse.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NameMappingValue {
     /// The database name (BigQuery project ID equivalent in the target data
@@ -9999,8 +10565,23 @@ impl serde::ser::Serialize for NameMappingValue {
     }
 }
 
+impl std::fmt::Debug for NameMappingValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NameMappingValue");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("schema", &self.schema);
+        debug_struct.field("relation", &self.relation);
+        debug_struct.field("attribute", &self.attribute);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the default source environment values for the translation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceEnv {
     /// The default database name to fully qualify SQL objects when their database
@@ -10196,9 +10777,23 @@ impl serde::ser::Serialize for SourceEnv {
     }
 }
 
+impl std::fmt::Debug for SourceEnv {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceEnv");
+        debug_struct.field("default_database", &self.default_database);
+        debug_struct.field("schema_search_path", &self.schema_search_path);
+        debug_struct.field("metadata_store_dataset", &self.metadata_store_dataset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The translation details to capture the necessary settings for a translation
 /// job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslationDetails {
     /// The mapping from source to target SQL.
@@ -10458,8 +11053,24 @@ impl serde::ser::Serialize for TranslationDetails {
     }
 }
 
+impl std::fmt::Debug for TranslationDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TranslationDetails");
+        debug_struct.field("source_target_mapping", &self.source_target_mapping);
+        debug_struct.field("target_base_uri", &self.target_base_uri);
+        debug_struct.field("source_environment", &self.source_environment);
+        debug_struct.field("target_return_literals", &self.target_return_literals);
+        debug_struct.field("target_types", &self.target_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents one mapping from a source SQL to a target SQL.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceTargetMapping {
     /// The source SQL or the path to it.
@@ -10636,8 +11247,21 @@ impl serde::ser::Serialize for SourceTargetMapping {
     }
 }
 
+impl std::fmt::Debug for SourceTargetMapping {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceTargetMapping");
+        debug_struct.field("source_spec", &self.source_spec);
+        debug_struct.field("target_spec", &self.target_spec);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents one path to the location that holds source data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceSpec {
     /// Optional. The optional field to specify the encoding of the sql bytes.
@@ -10880,6 +11504,19 @@ impl serde::ser::Serialize for SourceSpec {
     }
 }
 
+impl std::fmt::Debug for SourceSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceSpec");
+        debug_struct.field("encoding", &self.encoding);
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SourceSpec].
 pub mod source_spec {
     #[allow(unused_imports)]
@@ -10897,7 +11534,7 @@ pub mod source_spec {
 }
 
 /// Represents one path to the location that holds target data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TargetSpec {
     /// The relative path for the target data. Given source file
@@ -11029,8 +11666,20 @@ impl serde::ser::Serialize for TargetSpec {
     }
 }
 
+impl std::fmt::Debug for TargetSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TargetSpec");
+        debug_struct.field("relative_path", &self.relative_path);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Literal data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Literal {
     /// Required. The identifier of the literal entry.
@@ -11288,6 +11937,19 @@ impl serde::ser::Serialize for Literal {
     }
 }
 
+impl std::fmt::Debug for Literal {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Literal");
+        debug_struct.field("relative_path", &self.relative_path);
+        debug_struct.field("literal_data", &self.literal_data);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Literal].
 pub mod literal {
     #[allow(unused_imports)]
@@ -11305,7 +11967,7 @@ pub mod literal {
 }
 
 /// Represents the default source environment values for the translation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceEnvironment {
     /// The default database name to fully qualify SQL objects when their database
@@ -11501,8 +12163,22 @@ impl serde::ser::Serialize for SourceEnvironment {
     }
 }
 
+impl std::fmt::Debug for SourceEnvironment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceEnvironment");
+        debug_struct.field("default_database", &self.default_database);
+        debug_struct.field("schema_search_path", &self.schema_search_path);
+        debug_struct.field("metadata_store_dataset", &self.metadata_store_dataset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about a record.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslationReportRecord {
     /// Severity of the translation record.
@@ -11775,6 +12451,22 @@ impl serde::ser::Serialize for TranslationReportRecord {
     }
 }
 
+impl std::fmt::Debug for TranslationReportRecord {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TranslationReportRecord");
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("script_line", &self.script_line);
+        debug_struct.field("script_column", &self.script_column);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("message", &self.message);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TranslationReportRecord].
 pub mod translation_report_record {
     #[allow(unused_imports)]
@@ -11922,7 +12614,7 @@ pub mod translation_report_record {
 }
 
 /// A record in the aggregate CSV report for a migration workflow
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsReportLogMessage {
     /// Severity of the translation record.
@@ -12333,5 +13025,27 @@ impl serde::ser::Serialize for GcsReportLogMessage {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GcsReportLogMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsReportLogMessage");
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("file_path", &self.file_path);
+        debug_struct.field("filename", &self.filename);
+        debug_struct.field("source_script_line", &self.source_script_line);
+        debug_struct.field("source_script_column", &self.source_script_column);
+        debug_struct.field("message", &self.message);
+        debug_struct.field("script_context", &self.script_context);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("effect", &self.effect);
+        debug_struct.field("object_name", &self.object_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
