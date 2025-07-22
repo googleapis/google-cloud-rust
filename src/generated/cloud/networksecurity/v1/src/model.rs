@@ -369,7 +369,6 @@ impl std::fmt::Debug for AuthorizationPolicy {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("action", &self.action);
         debug_struct.field("rules", &self.rules);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -569,7 +568,6 @@ pub mod authorization_policy {
             let mut debug_struct = f.debug_struct("Rule");
             debug_struct.field("sources", &self.sources);
             debug_struct.field("destinations", &self.destinations);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -767,7 +765,6 @@ pub mod authorization_policy {
                 let mut debug_struct = f.debug_struct("Source");
                 debug_struct.field("principals", &self.principals);
                 debug_struct.field("ip_blocks", &self.ip_blocks);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -1062,7 +1059,6 @@ pub mod authorization_policy {
                 debug_struct.field("ports", &self.ports);
                 debug_struct.field("methods", &self.methods);
                 debug_struct.field("http_header_match", &self.http_header_match);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -1301,7 +1297,6 @@ pub mod authorization_policy {
                     let mut debug_struct = f.debug_struct("HttpHeaderMatch");
                     debug_struct.field("header_name", &self.header_name);
                     debug_struct.field("r#type", &self.r#type);
-
                     if !self._unknown_fields.is_empty() {
                         debug_struct.field("_unknown_fields", &self._unknown_fields);
                     }
@@ -1674,7 +1669,6 @@ impl std::fmt::Debug for ListAuthorizationPoliciesRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1866,7 +1860,6 @@ impl std::fmt::Debug for ListAuthorizationPoliciesResponse {
         let mut debug_struct = f.debug_struct("ListAuthorizationPoliciesResponse");
         debug_struct.field("authorization_policies", &self.authorization_policies);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2009,7 +2002,6 @@ impl std::fmt::Debug for GetAuthorizationPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAuthorizationPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2221,7 +2213,6 @@ impl std::fmt::Debug for CreateAuthorizationPolicyRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("authorization_policy_id", &self.authorization_policy_id);
         debug_struct.field("authorization_policy", &self.authorization_policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2416,7 +2407,6 @@ impl std::fmt::Debug for UpdateAuthorizationPolicyRequest {
         let mut debug_struct = f.debug_struct("UpdateAuthorizationPolicyRequest");
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("authorization_policy", &self.authorization_policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2559,7 +2549,6 @@ impl std::fmt::Debug for DeleteAuthorizationPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAuthorizationPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2934,7 +2923,6 @@ impl std::fmt::Debug for ClientTlsPolicy {
         debug_struct.field("sni", &self.sni);
         debug_struct.field("client_certificate", &self.client_certificate);
         debug_struct.field("server_validation_ca", &self.server_validation_ca);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3150,7 +3138,6 @@ impl std::fmt::Debug for ListClientTlsPoliciesRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3342,7 +3329,6 @@ impl std::fmt::Debug for ListClientTlsPoliciesResponse {
         let mut debug_struct = f.debug_struct("ListClientTlsPoliciesResponse");
         debug_struct.field("client_tls_policies", &self.client_tls_policies);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3485,7 +3471,6 @@ impl std::fmt::Debug for GetClientTlsPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetClientTlsPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3697,7 +3682,6 @@ impl std::fmt::Debug for CreateClientTlsPolicyRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("client_tls_policy_id", &self.client_tls_policy_id);
         debug_struct.field("client_tls_policy", &self.client_tls_policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3894,7 +3878,6 @@ impl std::fmt::Debug for UpdateClientTlsPolicyRequest {
         let mut debug_struct = f.debug_struct("UpdateClientTlsPolicyRequest");
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("client_tls_policy", &self.client_tls_policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4037,7 +4020,6 @@ impl std::fmt::Debug for DeleteClientTlsPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteClientTlsPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4361,7 +4343,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4757,7 +4738,6 @@ impl std::fmt::Debug for ServerTlsPolicy {
         debug_struct.field("allow_open", &self.allow_open);
         debug_struct.field("server_certificate", &self.server_certificate);
         debug_struct.field("mtls_policy", &self.mtls_policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4916,7 +4896,6 @@ pub mod server_tls_policy {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("MTLSPolicy");
             debug_struct.field("client_validation_ca", &self.client_validation_ca);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -5133,7 +5112,6 @@ impl std::fmt::Debug for ListServerTlsPoliciesRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5325,7 +5303,6 @@ impl std::fmt::Debug for ListServerTlsPoliciesResponse {
         let mut debug_struct = f.debug_struct("ListServerTlsPoliciesResponse");
         debug_struct.field("server_tls_policies", &self.server_tls_policies);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5468,7 +5445,6 @@ impl std::fmt::Debug for GetServerTlsPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetServerTlsPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5680,7 +5656,6 @@ impl std::fmt::Debug for CreateServerTlsPolicyRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("server_tls_policy_id", &self.server_tls_policy_id);
         debug_struct.field("server_tls_policy", &self.server_tls_policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5877,7 +5852,6 @@ impl std::fmt::Debug for UpdateServerTlsPolicyRequest {
         let mut debug_struct = f.debug_struct("UpdateServerTlsPolicyRequest");
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("server_tls_policy", &self.server_tls_policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6020,7 +5994,6 @@ impl std::fmt::Debug for DeleteServerTlsPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteServerTlsPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6164,7 +6137,6 @@ impl std::fmt::Debug for GrpcEndpoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GrpcEndpoint");
         debug_struct.field("target_uri", &self.target_uri);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6415,7 +6387,6 @@ impl std::fmt::Debug for ValidationCA {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ValidationCA");
         debug_struct.field("r#type", &self.r#type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6582,7 +6553,6 @@ impl std::fmt::Debug for CertificateProviderInstance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CertificateProviderInstance");
         debug_struct.field("plugin_instance", &self.plugin_instance);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6834,7 +6804,6 @@ impl std::fmt::Debug for CertificateProvider {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CertificateProvider");
         debug_struct.field("r#type", &self.r#type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

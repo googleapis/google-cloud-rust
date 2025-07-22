@@ -224,7 +224,6 @@ impl std::fmt::Debug for MetadataExchangeRequest {
         debug_struct.field("user_agent", &self.user_agent);
         debug_struct.field("auth_type", &self.auth_type);
         debug_struct.field("oauth2_token", &self.oauth2_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -539,7 +538,6 @@ impl std::fmt::Debug for MetadataExchangeResponse {
         let mut debug_struct = f.debug_struct("MetadataExchangeResponse");
         debug_struct.field("response_code", &self.response_code);
         debug_struct.field("error", &self.error);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -258,7 +258,6 @@ impl std::fmt::Debug for ActionLog {
         debug_struct.field("state", &self.state);
         debug_struct.field("state_metadata", &self.state_metadata);
         debug_struct.field("recommendation_name", &self.recommendation_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -493,7 +492,6 @@ impl std::fmt::Debug for InsightActionLog {
         debug_struct.field("state", &self.state);
         debug_struct.field("state_metadata", &self.state_metadata);
         debug_struct.field("insight", &self.insight);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

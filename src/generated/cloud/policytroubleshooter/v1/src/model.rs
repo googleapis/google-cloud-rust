@@ -183,7 +183,6 @@ impl std::fmt::Debug for TroubleshootIamPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TroubleshootIamPolicyRequest");
         debug_struct.field("access_tuple", &self.access_tuple);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -399,7 +398,6 @@ impl std::fmt::Debug for TroubleshootIamPolicyResponse {
         debug_struct.field("access", &self.access);
         debug_struct.field("explained_policies", &self.explained_policies);
         debug_struct.field("errors", &self.errors);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -612,7 +610,6 @@ impl std::fmt::Debug for AccessTuple {
         debug_struct.field("principal", &self.principal);
         debug_struct.field("full_resource_name", &self.full_resource_name);
         debug_struct.field("permission", &self.permission);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -906,7 +903,6 @@ impl std::fmt::Debug for ExplainedPolicy {
         debug_struct.field("policy", &self.policy);
         debug_struct.field("binding_explanations", &self.binding_explanations);
         debug_struct.field("relevance", &self.relevance);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1278,7 +1274,6 @@ impl std::fmt::Debug for BindingExplanation {
         debug_struct.field("memberships", &self.memberships);
         debug_struct.field("relevance", &self.relevance);
         debug_struct.field("condition", &self.condition);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1462,7 +1457,6 @@ pub mod binding_explanation {
             let mut debug_struct = f.debug_struct("AnnotatedMembership");
             debug_struct.field("membership", &self.membership);
             debug_struct.field("relevance", &self.relevance);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }

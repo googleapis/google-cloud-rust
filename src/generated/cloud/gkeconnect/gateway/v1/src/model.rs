@@ -288,7 +288,6 @@ impl std::fmt::Debug for GenerateCredentialsRequest {
         debug_struct.field("version", &self.version);
         debug_struct.field("kubernetes_namespace", &self.kubernetes_namespace);
         debug_struct.field("operating_system", &self.operating_system);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -607,7 +606,6 @@ impl std::fmt::Debug for GenerateCredentialsResponse {
         let mut debug_struct = f.debug_struct("GenerateCredentialsResponse");
         debug_struct.field("kubeconfig", &self.kubeconfig);
         debug_struct.field("endpoint", &self.endpoint);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

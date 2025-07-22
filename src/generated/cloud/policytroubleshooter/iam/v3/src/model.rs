@@ -184,7 +184,6 @@ impl std::fmt::Debug for TroubleshootIamPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TroubleshootIamPolicyRequest");
         debug_struct.field("access_tuple", &self.access_tuple);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -451,7 +450,6 @@ impl std::fmt::Debug for TroubleshootIamPolicyResponse {
         debug_struct.field("access_tuple", &self.access_tuple);
         debug_struct.field("allow_policy_explanation", &self.allow_policy_explanation);
         debug_struct.field("deny_policy_explanation", &self.deny_policy_explanation);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -887,7 +885,6 @@ impl std::fmt::Debug for AccessTuple {
         debug_struct.field("permission", &self.permission);
         debug_struct.field("permission_fqdn", &self.permission_fqdn);
         debug_struct.field("condition_context", &self.condition_context);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1151,7 +1148,6 @@ impl std::fmt::Debug for ConditionContext {
         debug_struct.field("destination", &self.destination);
         debug_struct.field("request", &self.request);
         debug_struct.field("effective_tags", &self.effective_tags);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1367,7 +1363,6 @@ pub mod condition_context {
             debug_struct.field("service", &self.service);
             debug_struct.field("name", &self.name);
             debug_struct.field("r#type", &self.r#type);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1558,7 +1553,6 @@ pub mod condition_context {
             let mut debug_struct = f.debug_struct("Peer");
             debug_struct.field("ip", &self.ip);
             debug_struct.field("port", &self.port);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1718,7 +1712,6 @@ pub mod condition_context {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Request");
             debug_struct.field("receive_time", &self.receive_time);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2018,7 +2011,6 @@ pub mod condition_context {
             debug_struct.field("namespaced_tag_key", &self.namespaced_tag_key);
             debug_struct.field("tag_key_parent_name", &self.tag_key_parent_name);
             debug_struct.field("inherited", &self.inherited);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2236,7 +2228,6 @@ impl std::fmt::Debug for AllowPolicyExplanation {
         debug_struct.field("allow_access_state", &self.allow_access_state);
         debug_struct.field("explained_policies", &self.explained_policies);
         debug_struct.field("relevance", &self.relevance);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2538,7 +2529,6 @@ impl std::fmt::Debug for ExplainedAllowPolicy {
         debug_struct.field("binding_explanations", &self.binding_explanations);
         debug_struct.field("relevance", &self.relevance);
         debug_struct.field("policy", &self.policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2982,7 +2972,6 @@ impl std::fmt::Debug for AllowBindingExplanation {
         debug_struct.field("relevance", &self.relevance);
         debug_struct.field("condition", &self.condition);
         debug_struct.field("condition_explanation", &self.condition_explanation);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3160,7 +3149,6 @@ pub mod allow_binding_explanation {
             let mut debug_struct = f.debug_struct("AnnotatedAllowMembership");
             debug_struct.field("membership", &self.membership);
             debug_struct.field("relevance", &self.relevance);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3407,7 +3395,6 @@ impl std::fmt::Debug for DenyPolicyExplanation {
         debug_struct.field("explained_resources", &self.explained_resources);
         debug_struct.field("relevance", &self.relevance);
         debug_struct.field("permission_deniable", &self.permission_deniable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3667,7 +3654,6 @@ impl std::fmt::Debug for ExplainedDenyResource {
         debug_struct.field("full_resource_name", &self.full_resource_name);
         debug_struct.field("explained_policies", &self.explained_policies);
         debug_struct.field("relevance", &self.relevance);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3934,7 +3920,6 @@ impl std::fmt::Debug for ExplainedDenyPolicy {
         debug_struct.field("policy", &self.policy);
         debug_struct.field("rule_explanations", &self.rule_explanations);
         debug_struct.field("relevance", &self.relevance);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4550,7 +4535,6 @@ impl std::fmt::Debug for DenyRuleExplanation {
         debug_struct.field("relevance", &self.relevance);
         debug_struct.field("condition", &self.condition);
         debug_struct.field("condition_explanation", &self.condition_explanation);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4742,7 +4726,6 @@ pub mod deny_rule_explanation {
             let mut debug_struct = f.debug_struct("AnnotatedPermissionMatching");
             debug_struct.field("permission_matching_state", &self.permission_matching_state);
             debug_struct.field("relevance", &self.relevance);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -4918,7 +4901,6 @@ pub mod deny_rule_explanation {
             let mut debug_struct = f.debug_struct("AnnotatedDenyPrincipalMatching");
             debug_struct.field("membership", &self.membership);
             debug_struct.field("relevance", &self.relevance);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -5138,7 +5120,6 @@ impl std::fmt::Debug for ConditionExplanation {
         debug_struct.field("value", &self.value);
         debug_struct.field("errors", &self.errors);
         debug_struct.field("evaluation_states", &self.evaluation_states);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5417,7 +5398,6 @@ pub mod condition_explanation {
             debug_struct.field("end", &self.end);
             debug_struct.field("value", &self.value);
             debug_struct.field("errors", &self.errors);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }

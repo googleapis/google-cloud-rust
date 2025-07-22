@@ -299,7 +299,6 @@ impl std::fmt::Debug for Notification {
         debug_struct.field("messages", &self.messages);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("notification_type", &self.notification_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -498,7 +497,6 @@ impl std::fmt::Debug for Text {
         debug_struct.field("en_text", &self.en_text);
         debug_struct.field("localized_text", &self.localized_text);
         debug_struct.field("localization_state", &self.localization_state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -651,7 +649,6 @@ impl std::fmt::Debug for Subject {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Subject");
         debug_struct.field("text", &self.text);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -906,7 +903,6 @@ impl std::fmt::Debug for Message {
         debug_struct.field("attachments", &self.attachments);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("localization_time", &self.localization_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1067,7 +1063,6 @@ pub mod message {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Body");
             debug_struct.field("text", &self.text);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1273,7 +1268,6 @@ impl std::fmt::Debug for Attachment {
         let mut debug_struct = f.debug_struct("Attachment");
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("data", &self.data);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1463,7 +1457,6 @@ impl std::fmt::Debug for Csv {
         let mut debug_struct = f.debug_struct("Csv");
         debug_struct.field("headers", &self.headers);
         debug_struct.field("data_rows", &self.data_rows);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1617,7 +1610,6 @@ pub mod csv {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("CsvRow");
             debug_struct.field("entries", &self.entries);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1894,7 +1886,6 @@ impl std::fmt::Debug for ListNotificationsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("view", &self.view);
         debug_struct.field("language_code", &self.language_code);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2124,7 +2115,6 @@ impl std::fmt::Debug for ListNotificationsResponse {
         debug_struct.field("notifications", &self.notifications);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("total_size", &self.total_size);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2299,7 +2289,6 @@ impl std::fmt::Debug for GetNotificationRequest {
         let mut debug_struct = f.debug_struct("GetNotificationRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("language_code", &self.language_code);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2512,7 +2501,6 @@ impl std::fmt::Debug for Settings {
         debug_struct.field("name", &self.name);
         debug_struct.field("notification_settings", &self.notification_settings);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2654,7 +2642,6 @@ impl std::fmt::Debug for NotificationSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NotificationSettings");
         debug_struct.field("enabled", &self.enabled);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2799,7 +2786,6 @@ impl std::fmt::Debug for GetSettingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSettingsRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2952,7 +2938,6 @@ impl std::fmt::Debug for UpdateSettingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateSettingsRequest");
         debug_struct.field("settings", &self.settings);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

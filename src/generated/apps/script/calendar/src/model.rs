@@ -357,7 +357,6 @@ impl std::fmt::Debug for CalendarAddOnManifest {
         debug_struct.field("event_open_trigger", &self.event_open_trigger);
         debug_struct.field("event_update_trigger", &self.event_update_trigger);
         debug_struct.field("current_event_access", &self.current_event_access);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -741,7 +740,6 @@ impl std::fmt::Debug for ConferenceSolution {
         debug_struct.field("id", &self.id);
         debug_struct.field("name", &self.name);
         debug_struct.field("logo_url", &self.logo_url);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -885,7 +883,6 @@ impl std::fmt::Debug for CalendarExtensionPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CalendarExtensionPoint");
         debug_struct.field("run_function", &self.run_function);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

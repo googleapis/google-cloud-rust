@@ -587,7 +587,6 @@ impl std::fmt::Debug for Event {
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("next_update_time", &self.next_update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1879,7 +1878,6 @@ impl std::fmt::Debug for OrganizationEvent {
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("next_update_time", &self.next_update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2709,7 +2707,6 @@ impl std::fmt::Debug for EventUpdate {
         debug_struct.field("description", &self.description);
         debug_struct.field("symptom", &self.symptom);
         debug_struct.field("workaround", &self.workaround);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2852,7 +2849,6 @@ impl std::fmt::Debug for Location {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Location");
         debug_struct.field("location_name", &self.location_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3020,7 +3016,6 @@ impl std::fmt::Debug for Product {
         let mut debug_struct = f.debug_struct("Product");
         debug_struct.field("product_name", &self.product_name);
         debug_struct.field("id", &self.id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3209,7 +3204,6 @@ impl std::fmt::Debug for EventImpact {
         let mut debug_struct = f.debug_struct("EventImpact");
         debug_struct.field("product", &self.product);
         debug_struct.field("location", &self.location);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3462,7 +3456,6 @@ impl std::fmt::Debug for OrganizationImpact {
         debug_struct.field("events", &self.events);
         debug_struct.field("asset", &self.asset);
         debug_struct.field("update_time", &self.update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3634,7 +3627,6 @@ impl std::fmt::Debug for Asset {
         let mut debug_struct = f.debug_struct("Asset");
         debug_struct.field("asset_name", &self.asset_name);
         debug_struct.field("asset_type", &self.asset_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3926,7 +3918,6 @@ impl std::fmt::Debug for ListEventsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("view", &self.view);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4143,7 +4134,6 @@ impl std::fmt::Debug for ListEventsResponse {
         debug_struct.field("events", &self.events);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4291,7 +4281,6 @@ impl std::fmt::Debug for GetEventRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEventRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4588,7 +4577,6 @@ impl std::fmt::Debug for ListOrganizationEventsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("view", &self.view);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4810,7 +4798,6 @@ impl std::fmt::Debug for ListOrganizationEventsResponse {
         debug_struct.field("organization_events", &self.organization_events);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4960,7 +4947,6 @@ impl std::fmt::Debug for GetOrganizationEventRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOrganizationEventRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5231,7 +5217,6 @@ impl std::fmt::Debug for ListOrganizationImpactsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5456,7 +5441,6 @@ impl std::fmt::Debug for ListOrganizationImpactsResponse {
         debug_struct.field("organization_impacts", &self.organization_impacts);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5606,7 +5590,6 @@ impl std::fmt::Debug for GetOrganizationImpactRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOrganizationImpactRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

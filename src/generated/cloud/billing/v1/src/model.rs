@@ -326,7 +326,6 @@ impl std::fmt::Debug for BillingAccount {
         debug_struct.field("master_billing_account", &self.master_billing_account);
         debug_struct.field("parent", &self.parent);
         debug_struct.field("currency_code", &self.currency_code);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -560,7 +559,6 @@ impl std::fmt::Debug for ProjectBillingInfo {
         debug_struct.field("project_id", &self.project_id);
         debug_struct.field("billing_account_name", &self.billing_account_name);
         debug_struct.field("billing_enabled", &self.billing_enabled);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -703,7 +701,6 @@ impl std::fmt::Debug for GetBillingAccountRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetBillingAccountRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -955,7 +952,6 @@ impl std::fmt::Debug for ListBillingAccountsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("parent", &self.parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1147,7 +1143,6 @@ impl std::fmt::Debug for ListBillingAccountsResponse {
         let mut debug_struct = f.debug_struct("ListBillingAccountsResponse");
         debug_struct.field("billing_accounts", &self.billing_accounts);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1334,7 +1329,6 @@ impl std::fmt::Debug for CreateBillingAccountRequest {
         let mut debug_struct = f.debug_struct("CreateBillingAccountRequest");
         debug_struct.field("billing_account", &self.billing_account);
         debug_struct.field("parent", &self.parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1552,7 +1546,6 @@ impl std::fmt::Debug for UpdateBillingAccountRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("account", &self.account);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1769,7 +1762,6 @@ impl std::fmt::Debug for ListProjectBillingInfoRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1962,7 +1954,6 @@ impl std::fmt::Debug for ListProjectBillingInfoResponse {
         let mut debug_struct = f.debug_struct("ListProjectBillingInfoResponse");
         debug_struct.field("project_billing_info", &self.project_billing_info);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2105,7 +2096,6 @@ impl std::fmt::Debug for GetProjectBillingInfoRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetProjectBillingInfoRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2288,7 +2278,6 @@ impl std::fmt::Debug for UpdateProjectBillingInfoRequest {
         let mut debug_struct = f.debug_struct("UpdateProjectBillingInfoRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("project_billing_info", &self.project_billing_info);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2464,7 +2453,6 @@ impl std::fmt::Debug for MoveBillingAccountRequest {
         let mut debug_struct = f.debug_struct("MoveBillingAccountRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("destination_parent", &self.destination_parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2690,7 +2678,6 @@ impl std::fmt::Debug for Service {
         debug_struct.field("service_id", &self.service_id);
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("business_entity_name", &self.business_entity_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3049,7 +3036,6 @@ impl std::fmt::Debug for Sku {
         debug_struct.field("pricing_info", &self.pricing_info);
         debug_struct.field("service_provider_name", &self.service_provider_name);
         debug_struct.field("geo_taxonomy", &self.geo_taxonomy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3276,7 +3262,6 @@ impl std::fmt::Debug for Category {
         debug_struct.field("resource_family", &self.resource_family);
         debug_struct.field("resource_group", &self.resource_group);
         debug_struct.field("usage_type", &self.usage_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3592,7 +3577,6 @@ impl std::fmt::Debug for PricingInfo {
         debug_struct.field("pricing_expression", &self.pricing_expression);
         debug_struct.field("aggregation_info", &self.aggregation_info);
         debug_struct.field("currency_conversion_rate", &self.currency_conversion_rate);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3978,7 +3962,6 @@ impl std::fmt::Debug for PricingExpression {
             "base_unit_conversion_factor",
             &self.base_unit_conversion_factor,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4188,7 +4171,6 @@ pub mod pricing_expression {
             let mut debug_struct = f.debug_struct("TierRate");
             debug_struct.field("start_usage_amount", &self.start_usage_amount);
             debug_struct.field("unit_price", &self.unit_price);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -4417,7 +4399,6 @@ impl std::fmt::Debug for AggregationInfo {
         debug_struct.field("aggregation_level", &self.aggregation_level);
         debug_struct.field("aggregation_interval", &self.aggregation_interval);
         debug_struct.field("aggregation_count", &self.aggregation_count);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4857,7 +4838,6 @@ impl std::fmt::Debug for GeoTaxonomy {
         let mut debug_struct = f.debug_struct("GeoTaxonomy");
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("regions", &self.regions);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5193,7 +5173,6 @@ impl std::fmt::Debug for ListServicesRequest {
         let mut debug_struct = f.debug_struct("ListServicesRequest");
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5380,7 +5359,6 @@ impl std::fmt::Debug for ListServicesResponse {
         let mut debug_struct = f.debug_struct("ListServicesResponse");
         debug_struct.field("services", &self.services);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5707,7 +5685,6 @@ impl std::fmt::Debug for ListSkusRequest {
         debug_struct.field("currency_code", &self.currency_code);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5894,7 +5871,6 @@ impl std::fmt::Debug for ListSkusResponse {
         let mut debug_struct = f.debug_struct("ListSkusResponse");
         debug_struct.field("skus", &self.skus);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

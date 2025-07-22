@@ -242,7 +242,6 @@ impl std::fmt::Debug for ListCryptoKeysRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -434,7 +433,6 @@ impl std::fmt::Debug for ListCryptoKeysResponse {
         let mut debug_struct = f.debug_struct("ListCryptoKeysResponse");
         debug_struct.field("crypto_keys", &self.crypto_keys);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -582,7 +580,6 @@ impl std::fmt::Debug for GetProtectedResourcesSummaryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetProtectedResourcesSummaryRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1006,7 +1003,6 @@ impl std::fmt::Debug for ProtectedResourcesSummary {
         debug_struct.field("resource_types", &self.resource_types);
         debug_struct.field("cloud_products", &self.cloud_products);
         debug_struct.field("locations", &self.locations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1304,7 +1300,6 @@ impl std::fmt::Debug for SearchProtectedResourcesRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("resource_types", &self.resource_types);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1498,7 +1493,6 @@ impl std::fmt::Debug for SearchProtectedResourcesResponse {
         let mut debug_struct = f.debug_struct("SearchProtectedResourcesResponse");
         debug_struct.field("protected_resources", &self.protected_resources);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1915,7 +1909,6 @@ impl std::fmt::Debug for ProtectedResource {
         debug_struct.field("crypto_key_version", &self.crypto_key_version);
         debug_struct.field("crypto_key_versions", &self.crypto_key_versions);
         debug_struct.field("create_time", &self.create_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

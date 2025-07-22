@@ -240,7 +240,6 @@ impl std::fmt::Debug for ExternalAccountKey {
         debug_struct.field("name", &self.name);
         debug_struct.field("key_id", &self.key_id);
         debug_struct.field("b64_mac_key", &self.b64_mac_key);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -428,7 +427,6 @@ impl std::fmt::Debug for CreateExternalAccountKeyRequest {
         let mut debug_struct = f.debug_struct("CreateExternalAccountKeyRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("external_account_key", &self.external_account_key);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

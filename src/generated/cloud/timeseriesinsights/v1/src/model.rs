@@ -232,7 +232,6 @@ impl std::fmt::Debug for BigqueryMapping {
         debug_struct.field("timestamp_column", &self.timestamp_column);
         debug_struct.field("group_id_column", &self.group_id_column);
         debug_struct.field("dimension_column", &self.dimension_column);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -421,7 +420,6 @@ impl std::fmt::Debug for DataSource {
         let mut debug_struct = f.debug_struct("DataSource");
         debug_struct.field("uri", &self.uri);
         debug_struct.field("bq_mapping", &self.bq_mapping);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -727,7 +725,6 @@ impl std::fmt::Debug for DataSet {
         debug_struct.field("state", &self.state);
         debug_struct.field("status", &self.status);
         debug_struct.field("ttl", &self.ttl);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1290,7 +1287,6 @@ impl std::fmt::Debug for EventDimension {
         let mut debug_struct = f.debug_struct("EventDimension");
         debug_struct.field("name", &self.name);
         debug_struct.field("value", &self.value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1571,7 +1567,6 @@ impl std::fmt::Debug for Event {
         debug_struct.field("dimensions", &self.dimensions);
         debug_struct.field("group_id", &self.group_id);
         debug_struct.field("event_time", &self.event_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1761,7 +1756,6 @@ impl std::fmt::Debug for AppendEventsRequest {
         let mut debug_struct = f.debug_struct("AppendEventsRequest");
         debug_struct.field("events", &self.events);
         debug_struct.field("dataset", &self.dataset);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1907,7 +1901,6 @@ impl std::fmt::Debug for AppendEventsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AppendEventsResponse");
         debug_struct.field("dropped_events", &self.dropped_events);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2086,7 +2079,6 @@ impl std::fmt::Debug for CreateDataSetRequest {
         let mut debug_struct = f.debug_struct("CreateDataSetRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("dataset", &self.dataset);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2228,7 +2220,6 @@ impl std::fmt::Debug for DeleteDataSetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteDataSetRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2440,7 +2431,6 @@ impl std::fmt::Debug for ListDataSetsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2625,7 +2615,6 @@ impl std::fmt::Debug for ListDataSetsResponse {
         let mut debug_struct = f.debug_struct("ListDataSetsResponse");
         debug_struct.field("datasets", &self.datasets);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2880,7 +2869,6 @@ impl std::fmt::Debug for PinnedDimension {
         let mut debug_struct = f.debug_struct("PinnedDimension");
         debug_struct.field("name", &self.name);
         debug_struct.field("value", &self.value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3188,7 +3176,6 @@ impl std::fmt::Debug for ForecastParams {
         debug_struct.field("noise_threshold", &self.noise_threshold);
         debug_struct.field("seasonality_hint", &self.seasonality_hint);
         debug_struct.field("horizon_duration", &self.horizon_duration);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3565,7 +3552,6 @@ impl std::fmt::Debug for TimeseriesPoint {
         let mut debug_struct = f.debug_struct("TimeseriesPoint");
         debug_struct.field("time", &self.time);
         debug_struct.field("value", &self.value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3714,7 +3700,6 @@ impl std::fmt::Debug for Timeseries {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Timeseries");
         debug_struct.field("point", &self.point);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4296,7 +4281,6 @@ impl std::fmt::Debug for EvaluatedSlice {
         debug_struct.field("history", &self.history);
         debug_struct.field("forecast", &self.forecast);
         debug_struct.field("status", &self.status);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4524,7 +4508,6 @@ impl std::fmt::Debug for SlicingParams {
         let mut debug_struct = f.debug_struct("SlicingParams");
         debug_struct.field("dimension_names", &self.dimension_names);
         debug_struct.field("pinned_dimensions", &self.pinned_dimensions);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4903,7 +4886,6 @@ impl std::fmt::Debug for TimeseriesParams {
         debug_struct.field("granularity", &self.granularity);
         debug_struct.field("metric", &self.metric);
         debug_struct.field("metric_aggregation_method", &self.metric_aggregation_method);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5465,7 +5447,6 @@ impl std::fmt::Debug for QueryDataSetRequest {
         debug_struct.field("timeseries_params", &self.timeseries_params);
         debug_struct.field("forecast_params", &self.forecast_params);
         debug_struct.field("return_timeseries", &self.return_timeseries);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5646,7 +5627,6 @@ impl std::fmt::Debug for QueryDataSetResponse {
         let mut debug_struct = f.debug_struct("QueryDataSetResponse");
         debug_struct.field("name", &self.name);
         debug_struct.field("slices", &self.slices);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5945,7 +5925,6 @@ impl std::fmt::Debug for EvaluateSliceRequest {
         debug_struct.field("detection_time", &self.detection_time);
         debug_struct.field("timeseries_params", &self.timeseries_params);
         debug_struct.field("forecast_params", &self.forecast_params);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6218,7 +6197,6 @@ impl std::fmt::Debug for EvaluateTimeseriesRequest {
         debug_struct.field("timeseries", &self.timeseries);
         debug_struct.field("granularity", &self.granularity);
         debug_struct.field("forecast_params", &self.forecast_params);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

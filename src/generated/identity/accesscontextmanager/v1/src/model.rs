@@ -244,7 +244,6 @@ impl std::fmt::Debug for ListAccessPoliciesRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -431,7 +430,6 @@ impl std::fmt::Debug for ListAccessPoliciesResponse {
         let mut debug_struct = f.debug_struct("ListAccessPoliciesResponse");
         debug_struct.field("access_policies", &self.access_policies);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -575,7 +573,6 @@ impl std::fmt::Debug for GetAccessPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAccessPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -765,7 +762,6 @@ impl std::fmt::Debug for UpdateAccessPolicyRequest {
         let mut debug_struct = f.debug_struct("UpdateAccessPolicyRequest");
         debug_struct.field("policy", &self.policy);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -909,7 +905,6 @@ impl std::fmt::Debug for DeleteAccessPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAccessPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1160,7 +1155,6 @@ impl std::fmt::Debug for ListAccessLevelsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("access_level_format", &self.access_level_format);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1348,7 +1342,6 @@ impl std::fmt::Debug for ListAccessLevelsResponse {
         let mut debug_struct = f.debug_struct("ListAccessLevelsResponse");
         debug_struct.field("access_levels", &self.access_levels);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1530,7 +1523,6 @@ impl std::fmt::Debug for GetAccessLevelRequest {
         let mut debug_struct = f.debug_struct("GetAccessLevelRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("access_level_format", &self.access_level_format);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1716,7 +1708,6 @@ impl std::fmt::Debug for CreateAccessLevelRequest {
         let mut debug_struct = f.debug_struct("CreateAccessLevelRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("access_level", &self.access_level);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1911,7 +1902,6 @@ impl std::fmt::Debug for UpdateAccessLevelRequest {
         let mut debug_struct = f.debug_struct("UpdateAccessLevelRequest");
         debug_struct.field("access_level", &self.access_level);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2057,7 +2047,6 @@ impl std::fmt::Debug for DeleteAccessLevelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAccessLevelRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2269,7 +2258,6 @@ impl std::fmt::Debug for ReplaceAccessLevelsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("access_levels", &self.access_levels);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2417,7 +2405,6 @@ impl std::fmt::Debug for ReplaceAccessLevelsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplaceAccessLevelsResponse");
         debug_struct.field("access_levels", &self.access_levels);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2637,7 +2624,6 @@ impl std::fmt::Debug for ListServicePerimetersRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2829,7 +2815,6 @@ impl std::fmt::Debug for ListServicePerimetersResponse {
         let mut debug_struct = f.debug_struct("ListServicePerimetersResponse");
         debug_struct.field("service_perimeters", &self.service_perimeters);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2975,7 +2960,6 @@ impl std::fmt::Debug for GetServicePerimeterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetServicePerimeterRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3162,7 +3146,6 @@ impl std::fmt::Debug for CreateServicePerimeterRequest {
         let mut debug_struct = f.debug_struct("CreateServicePerimeterRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("service_perimeter", &self.service_perimeter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3355,7 +3338,6 @@ impl std::fmt::Debug for UpdateServicePerimeterRequest {
         let mut debug_struct = f.debug_struct("UpdateServicePerimeterRequest");
         debug_struct.field("service_perimeter", &self.service_perimeter);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3501,7 +3483,6 @@ impl std::fmt::Debug for DeleteServicePerimeterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteServicePerimeterRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3717,7 +3698,6 @@ impl std::fmt::Debug for ReplaceServicePerimetersRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("service_perimeters", &self.service_perimeters);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3869,7 +3849,6 @@ impl std::fmt::Debug for ReplaceServicePerimetersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplaceServicePerimetersResponse");
         debug_struct.field("service_perimeters", &self.service_perimeters);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4052,7 +4031,6 @@ impl std::fmt::Debug for CommitServicePerimetersRequest {
         let mut debug_struct = f.debug_struct("CommitServicePerimetersRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4206,7 +4184,6 @@ impl std::fmt::Debug for CommitServicePerimetersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CommitServicePerimetersResponse");
         debug_struct.field("service_perimeters", &self.service_perimeters);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4423,7 +4400,6 @@ impl std::fmt::Debug for ListGcpUserAccessBindingsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4617,7 +4593,6 @@ impl std::fmt::Debug for ListGcpUserAccessBindingsResponse {
         let mut debug_struct = f.debug_struct("ListGcpUserAccessBindingsResponse");
         debug_struct.field("gcp_user_access_bindings", &self.gcp_user_access_bindings);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4760,7 +4735,6 @@ impl std::fmt::Debug for GetGcpUserAccessBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetGcpUserAccessBindingRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4941,7 +4915,6 @@ impl std::fmt::Debug for CreateGcpUserAccessBindingRequest {
         let mut debug_struct = f.debug_struct("CreateGcpUserAccessBindingRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("gcp_user_access_binding", &self.gcp_user_access_binding);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5139,7 +5112,6 @@ impl std::fmt::Debug for UpdateGcpUserAccessBindingRequest {
         let mut debug_struct = f.debug_struct("UpdateGcpUserAccessBindingRequest");
         debug_struct.field("gcp_user_access_binding", &self.gcp_user_access_binding);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5282,7 +5254,6 @@ impl std::fmt::Debug for DeleteGcpUserAccessBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteGcpUserAccessBindingRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5399,7 +5370,6 @@ impl serde::ser::Serialize for GcpUserAccessBindingOperationMetadata {
 impl std::fmt::Debug for GcpUserAccessBindingOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcpUserAccessBindingOperationMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5514,7 +5484,6 @@ impl serde::ser::Serialize for AccessContextManagerOperationMetadata {
 impl std::fmt::Debug for AccessContextManagerOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessContextManagerOperationMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5901,7 +5870,6 @@ impl std::fmt::Debug for AccessLevel {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("level", &self.level);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6099,7 +6067,6 @@ impl std::fmt::Debug for BasicLevel {
         let mut debug_struct = f.debug_struct("BasicLevel");
         debug_struct.field("conditions", &self.conditions);
         debug_struct.field("combining_function", &self.combining_function);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6547,7 +6514,6 @@ impl std::fmt::Debug for Condition {
         debug_struct.field("negate", &self.negate);
         debug_struct.field("members", &self.members);
         debug_struct.field("regions", &self.regions);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6702,7 +6668,6 @@ impl std::fmt::Debug for CustomLevel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomLevel");
         debug_struct.field("expr", &self.expr);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7028,7 +6993,6 @@ impl std::fmt::Debug for DevicePolicy {
         );
         debug_struct.field("require_admin_approval", &self.require_admin_approval);
         debug_struct.field("require_corp_owned", &self.require_corp_owned);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7236,7 +7200,6 @@ impl std::fmt::Debug for OsConstraint {
             "require_verified_chrome_os",
             &self.require_verified_chrome_os,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7579,7 +7542,6 @@ impl std::fmt::Debug for AccessPolicy {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7790,7 +7752,6 @@ impl std::fmt::Debug for GcpUserAccessBinding {
         debug_struct.field("name", &self.name);
         debug_struct.field("group_key", &self.group_key);
         debug_struct.field("access_levels", &self.access_levels);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8221,7 +8182,6 @@ impl std::fmt::Debug for ServicePerimeter {
         debug_struct.field("status", &self.status);
         debug_struct.field("spec", &self.spec);
         debug_struct.field("use_explicit_dry_run_spec", &self.use_explicit_dry_run_spec);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8704,7 +8664,6 @@ impl std::fmt::Debug for ServicePerimeterConfig {
         debug_struct.field("vpc_accessible_services", &self.vpc_accessible_services);
         debug_struct.field("ingress_policies", &self.ingress_policies);
         debug_struct.field("egress_policies", &self.egress_policies);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8889,7 +8848,6 @@ pub mod service_perimeter_config {
             let mut debug_struct = f.debug_struct("VpcAccessibleServices");
             debug_struct.field("enable_restriction", &self.enable_restriction);
             debug_struct.field("allowed_services", &self.allowed_services);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -9127,7 +9085,6 @@ pub mod service_perimeter_config {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("MethodSelector");
             debug_struct.field("kind", &self.kind);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -9344,7 +9301,6 @@ pub mod service_perimeter_config {
             let mut debug_struct = f.debug_struct("ApiOperation");
             debug_struct.field("service_name", &self.service_name);
             debug_struct.field("method_selectors", &self.method_selectors);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -9591,7 +9547,6 @@ pub mod service_perimeter_config {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("IngressSource");
             debug_struct.field("source", &self.source);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -9857,7 +9812,6 @@ pub mod service_perimeter_config {
             debug_struct.field("sources", &self.sources);
             debug_struct.field("identities", &self.identities);
             debug_struct.field("identity_type", &self.identity_type);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -10059,7 +10013,6 @@ pub mod service_perimeter_config {
             let mut debug_struct = f.debug_struct("IngressTo");
             debug_struct.field("operations", &self.operations);
             debug_struct.field("resources", &self.resources);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -10281,7 +10234,6 @@ pub mod service_perimeter_config {
             let mut debug_struct = f.debug_struct("IngressPolicy");
             debug_struct.field("ingress_from", &self.ingress_from);
             debug_struct.field("ingress_to", &self.ingress_to);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -10476,7 +10428,6 @@ pub mod service_perimeter_config {
             let mut debug_struct = f.debug_struct("EgressFrom");
             debug_struct.field("identities", &self.identities);
             debug_struct.field("identity_type", &self.identity_type);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -10718,7 +10669,6 @@ pub mod service_perimeter_config {
             debug_struct.field("resources", &self.resources);
             debug_struct.field("operations", &self.operations);
             debug_struct.field("external_resources", &self.external_resources);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -10947,7 +10897,6 @@ pub mod service_perimeter_config {
             let mut debug_struct = f.debug_struct("EgressPolicy");
             debug_struct.field("egress_from", &self.egress_from);
             debug_struct.field("egress_to", &self.egress_to);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }

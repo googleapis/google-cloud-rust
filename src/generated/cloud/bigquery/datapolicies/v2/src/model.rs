@@ -232,7 +232,6 @@ impl std::fmt::Debug for CreateDataPolicyRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("data_policy_id", &self.data_policy_id);
         debug_struct.field("data_policy", &self.data_policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -458,7 +457,6 @@ impl std::fmt::Debug for UpdateDataPolicyRequest {
         debug_struct.field("data_policy", &self.data_policy);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("allow_missing", &self.allow_missing);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -640,7 +638,6 @@ impl std::fmt::Debug for AddGranteesRequest {
         let mut debug_struct = f.debug_struct("AddGranteesRequest");
         debug_struct.field("data_policy", &self.data_policy);
         debug_struct.field("grantees", &self.grantees);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -822,7 +819,6 @@ impl std::fmt::Debug for RemoveGranteesRequest {
         let mut debug_struct = f.debug_struct("RemoveGranteesRequest");
         debug_struct.field("data_policy", &self.data_policy);
         debug_struct.field("grantees", &self.grantees);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -965,7 +961,6 @@ impl std::fmt::Debug for DeleteDataPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteDataPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1108,7 +1103,6 @@ impl std::fmt::Debug for GetDataPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDataPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1355,7 +1349,6 @@ impl std::fmt::Debug for ListDataPoliciesRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1542,7 +1535,6 @@ impl std::fmt::Debug for ListDataPoliciesResponse {
         let mut debug_struct = f.debug_struct("ListDataPoliciesResponse");
         debug_struct.field("data_policies", &self.data_policies);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1945,7 +1937,6 @@ impl std::fmt::Debug for DataPolicy {
         debug_struct.field("grantees", &self.grantees);
         debug_struct.field("version", &self.version);
         debug_struct.field("policy", &self.policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2477,7 +2468,6 @@ impl std::fmt::Debug for DataMaskingPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataMaskingPolicy");
         debug_struct.field("masking_expression", &self.masking_expression);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

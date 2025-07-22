@@ -559,7 +559,6 @@ impl std::fmt::Debug for Policy {
         );
         debug_struct.field("default_admission_rule", &self.default_admission_rule);
         debug_struct.field("update_time", &self.update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -850,7 +849,6 @@ impl std::fmt::Debug for AdmissionWhitelistPattern {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdmissionWhitelistPattern");
         debug_struct.field("name_pattern", &self.name_pattern);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1079,7 +1077,6 @@ impl std::fmt::Debug for AdmissionRule {
         debug_struct.field("evaluation_mode", &self.evaluation_mode);
         debug_struct.field("require_attestations_by", &self.require_attestations_by);
         debug_struct.field("enforcement_mode", &self.enforcement_mode);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1646,7 +1643,6 @@ impl std::fmt::Debug for Attestor {
         debug_struct.field("description", &self.description);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("attestor_type", &self.attestor_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1900,7 +1896,6 @@ impl std::fmt::Debug for UserOwnedGrafeasNote {
             "delegation_service_account_email",
             &self.delegation_service_account_email,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2084,7 +2079,6 @@ impl std::fmt::Debug for PkixPublicKey {
         let mut debug_struct = f.debug_struct("PkixPublicKey");
         debug_struct.field("public_key_pem", &self.public_key_pem);
         debug_struct.field("signature_algorithm", &self.signature_algorithm);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2622,7 +2616,6 @@ impl std::fmt::Debug for AttestorPublicKey {
         debug_struct.field("comment", &self.comment);
         debug_struct.field("id", &self.id);
         debug_struct.field("public_key", &self.public_key);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2794,7 +2787,6 @@ impl std::fmt::Debug for GetPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2952,7 +2944,6 @@ impl std::fmt::Debug for UpdatePolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdatePolicyRequest");
         debug_struct.field("policy", &self.policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3165,7 +3156,6 @@ impl std::fmt::Debug for CreateAttestorRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("attestor_id", &self.attestor_id);
         debug_struct.field("attestor", &self.attestor);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3310,7 +3300,6 @@ impl std::fmt::Debug for GetAttestorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAttestorRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3468,7 +3457,6 @@ impl std::fmt::Debug for UpdateAttestorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateAttestorRequest");
         debug_struct.field("attestor", &self.attestor);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3688,7 +3676,6 @@ impl std::fmt::Debug for ListAttestorsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3879,7 +3866,6 @@ impl std::fmt::Debug for ListAttestorsResponse {
         let mut debug_struct = f.debug_struct("ListAttestorsResponse");
         debug_struct.field("attestors", &self.attestors);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4024,7 +4010,6 @@ impl std::fmt::Debug for DeleteAttestorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAttestorRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4167,7 +4152,6 @@ impl std::fmt::Debug for GetSystemPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSystemPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4414,7 +4398,6 @@ impl std::fmt::Debug for ValidateAttestationOccurrenceRequest {
         debug_struct.field("attestation", &self.attestation);
         debug_struct.field("occurrence_note", &self.occurrence_note);
         debug_struct.field("occurrence_resource_uri", &self.occurrence_resource_uri);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4593,7 +4576,6 @@ impl std::fmt::Debug for ValidateAttestationOccurrenceResponse {
         let mut debug_struct = f.debug_struct("ValidateAttestationOccurrenceResponse");
         debug_struct.field("result", &self.result);
         debug_struct.field("denial_reason", &self.denial_reason);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

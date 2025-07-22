@@ -338,7 +338,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("status_detail", &self.status_detail);
         debug_struct.field("cancel_requested", &self.cancel_requested);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

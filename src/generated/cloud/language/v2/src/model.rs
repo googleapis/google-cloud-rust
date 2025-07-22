@@ -306,7 +306,6 @@ impl std::fmt::Debug for Document {
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("source", &self.source);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -652,7 +651,6 @@ impl std::fmt::Debug for Sentence {
         let mut debug_struct = f.debug_struct("Sentence");
         debug_struct.field("text", &self.text);
         debug_struct.field("sentiment", &self.sentiment);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -928,7 +926,6 @@ impl std::fmt::Debug for Entity {
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("mentions", &self.mentions);
         debug_struct.field("sentiment", &self.sentiment);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1379,7 +1376,6 @@ impl std::fmt::Debug for Sentiment {
         let mut debug_struct = f.debug_struct("Sentiment");
         debug_struct.field("magnitude", &self.magnitude);
         debug_struct.field("score", &self.score);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1644,7 +1640,6 @@ impl std::fmt::Debug for EntityMention {
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("sentiment", &self.sentiment);
         debug_struct.field("probability", &self.probability);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1973,7 +1968,6 @@ impl std::fmt::Debug for TextSpan {
         let mut debug_struct = f.debug_struct("TextSpan");
         debug_struct.field("content", &self.content);
         debug_struct.field("begin_offset", &self.begin_offset);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2204,7 +2198,6 @@ impl std::fmt::Debug for ClassificationCategory {
         debug_struct.field("name", &self.name);
         debug_struct.field("confidence", &self.confidence);
         debug_struct.field("severity", &self.severity);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2386,7 +2379,6 @@ impl std::fmt::Debug for AnalyzeSentimentRequest {
         let mut debug_struct = f.debug_struct("AnalyzeSentimentRequest");
         debug_struct.field("document", &self.document);
         debug_struct.field("encoding_type", &self.encoding_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2624,7 +2616,6 @@ impl std::fmt::Debug for AnalyzeSentimentResponse {
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("sentences", &self.sentences);
         debug_struct.field("language_supported", &self.language_supported);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2806,7 +2797,6 @@ impl std::fmt::Debug for AnalyzeEntitiesRequest {
         let mut debug_struct = f.debug_struct("AnalyzeEntitiesRequest");
         debug_struct.field("document", &self.document);
         debug_struct.field("encoding_type", &self.encoding_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3007,7 +2997,6 @@ impl std::fmt::Debug for AnalyzeEntitiesResponse {
         debug_struct.field("entities", &self.entities);
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("language_supported", &self.language_supported);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3160,7 +3149,6 @@ impl std::fmt::Debug for ClassifyTextRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClassifyTextRequest");
         debug_struct.field("document", &self.document);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3365,7 +3353,6 @@ impl std::fmt::Debug for ClassifyTextResponse {
         debug_struct.field("categories", &self.categories);
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("language_supported", &self.language_supported);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3551,7 +3538,6 @@ impl std::fmt::Debug for ModerateTextRequest {
         let mut debug_struct = f.debug_struct("ModerateTextRequest");
         debug_struct.field("document", &self.document);
         debug_struct.field("model_version", &self.model_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3899,7 +3885,6 @@ impl std::fmt::Debug for ModerateTextResponse {
         debug_struct.field("moderation_categories", &self.moderation_categories);
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("language_supported", &self.language_supported);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4119,7 +4104,6 @@ impl std::fmt::Debug for AnnotateTextRequest {
         debug_struct.field("document", &self.document);
         debug_struct.field("features", &self.features);
         debug_struct.field("encoding_type", &self.encoding_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4359,7 +4343,6 @@ pub mod annotate_text_request {
             );
             debug_struct.field("classify_text", &self.classify_text);
             debug_struct.field("moderate_text", &self.moderate_text);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -4703,7 +4686,6 @@ impl std::fmt::Debug for AnnotateTextResponse {
         debug_struct.field("categories", &self.categories);
         debug_struct.field("moderation_categories", &self.moderation_categories);
         debug_struct.field("language_supported", &self.language_supported);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -237,7 +237,6 @@ impl std::fmt::Debug for LoginProfile {
         debug_struct.field("name", &self.name);
         debug_struct.field("posix_accounts", &self.posix_accounts);
         debug_struct.field("ssh_public_keys", &self.ssh_public_keys);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -416,7 +415,6 @@ impl std::fmt::Debug for CreateSshPublicKeyRequest {
         let mut debug_struct = f.debug_struct("CreateSshPublicKeyRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("ssh_public_key", &self.ssh_public_key);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -560,7 +558,6 @@ impl std::fmt::Debug for DeletePosixAccountRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeletePosixAccountRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -704,7 +701,6 @@ impl std::fmt::Debug for DeleteSshPublicKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSshPublicKeyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -898,7 +894,6 @@ impl std::fmt::Debug for GetLoginProfileRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("project_id", &self.project_id);
         debug_struct.field("system_id", &self.system_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1042,7 +1037,6 @@ impl std::fmt::Debug for GetSshPublicKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSshPublicKeyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1277,7 +1271,6 @@ impl std::fmt::Debug for ImportSshPublicKeyRequest {
         debug_struct.field("ssh_public_key", &self.ssh_public_key);
         debug_struct.field("project_id", &self.project_id);
         debug_struct.field("regions", &self.regions);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1456,7 +1449,6 @@ impl std::fmt::Debug for ImportSshPublicKeyResponse {
         let mut debug_struct = f.debug_struct("ImportSshPublicKeyResponse");
         debug_struct.field("login_profile", &self.login_profile);
         debug_struct.field("details", &self.details);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1674,7 +1666,6 @@ impl std::fmt::Debug for UpdateSshPublicKeyRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("ssh_public_key", &self.ssh_public_key);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

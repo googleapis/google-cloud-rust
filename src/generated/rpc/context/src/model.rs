@@ -439,7 +439,6 @@ impl std::fmt::Debug for AttributeContext {
         debug_struct.field("resource", &self.resource);
         debug_struct.field("api", &self.api);
         debug_struct.field("extensions", &self.extensions);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -726,7 +725,6 @@ pub mod attribute_context {
             debug_struct.field("labels", &self.labels);
             debug_struct.field("principal", &self.principal);
             debug_struct.field("region_code", &self.region_code);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -954,7 +952,6 @@ pub mod attribute_context {
             debug_struct.field("operation", &self.operation);
             debug_struct.field("protocol", &self.protocol);
             debug_struct.field("version", &self.version);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1259,7 +1256,6 @@ pub mod attribute_context {
             debug_struct.field("presenter", &self.presenter);
             debug_struct.field("claims", &self.claims);
             debug_struct.field("access_levels", &self.access_levels);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1743,7 +1739,6 @@ pub mod attribute_context {
             debug_struct.field("protocol", &self.protocol);
             debug_struct.field("reason", &self.reason);
             debug_struct.field("auth", &self.auth);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2065,7 +2060,6 @@ pub mod attribute_context {
             debug_struct.field("headers", &self.headers);
             debug_struct.field("time", &self.time);
             debug_struct.field("backend_latency", &self.backend_latency);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2589,7 +2583,6 @@ pub mod attribute_context {
             debug_struct.field("delete_time", &self.delete_time);
             debug_struct.field("etag", &self.etag);
             debug_struct.field("location", &self.location);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2912,7 +2905,6 @@ impl std::fmt::Debug for AuditContext {
             &self.scrubbed_response_item_count,
         );
         debug_struct.field("target_resource", &self.target_resource);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

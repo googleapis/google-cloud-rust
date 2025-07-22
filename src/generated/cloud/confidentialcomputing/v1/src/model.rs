@@ -293,7 +293,6 @@ impl std::fmt::Debug for Challenge {
         debug_struct.field("expire_time", &self.expire_time);
         debug_struct.field("used", &self.used);
         debug_struct.field("tpm_nonce", &self.tpm_nonce);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -473,7 +472,6 @@ impl std::fmt::Debug for CreateChallengeRequest {
         let mut debug_struct = f.debug_struct("CreateChallengeRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("challenge", &self.challenge);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -930,7 +928,6 @@ impl std::fmt::Debug for VerifyAttestationRequest {
         debug_struct.field("token_options", &self.token_options);
         debug_struct.field("attester", &self.attester);
         debug_struct.field("tee_attestation", &self.tee_attestation);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1245,7 +1242,6 @@ impl std::fmt::Debug for TdxCcelAttestation {
         debug_struct.field("ccel_data", &self.ccel_data);
         debug_struct.field("canonical_event_log", &self.canonical_event_log);
         debug_struct.field("td_quote", &self.td_quote);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1457,7 +1453,6 @@ impl std::fmt::Debug for SevSnpAttestation {
         let mut debug_struct = f.debug_struct("SevSnpAttestation");
         debug_struct.field("report", &self.report);
         debug_struct.field("aux_blob", &self.aux_blob);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1634,7 +1629,6 @@ impl std::fmt::Debug for VerifyAttestationResponse {
         let mut debug_struct = f.debug_struct("VerifyAttestationResponse");
         debug_struct.field("oidc_claims_token", &self.oidc_claims_token);
         debug_struct.field("partial_errors", &self.partial_errors);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1783,7 +1777,6 @@ impl std::fmt::Debug for GcpCredentials {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcpCredentials");
         debug_struct.field("service_account_id_tokens", &self.service_account_id_tokens);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2060,7 +2053,6 @@ impl std::fmt::Debug for TokenOptions {
         debug_struct.field("nonce", &self.nonce);
         debug_struct.field("token_type", &self.token_type);
         debug_struct.field("token_type_options", &self.token_type_options);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2230,7 +2222,6 @@ pub mod token_options {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("AwsPrincipalTagsOptions");
             debug_struct.field("allowed_principal_tags", &self.allowed_principal_tags);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2407,7 +2398,6 @@ pub mod token_options {
                     "container_image_signatures",
                     &self.container_image_signatures,
                 );
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -2579,7 +2569,6 @@ pub mod token_options {
                 fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
                     let mut debug_struct = f.debug_struct("ContainerImageSignatures");
                     debug_struct.field("key_ids", &self.key_ids);
-
                     if !self._unknown_fields.is_empty() {
                         debug_struct.field("_unknown_fields", &self._unknown_fields);
                     }
@@ -2938,7 +2927,6 @@ impl std::fmt::Debug for TpmAttestation {
         debug_struct.field("canonical_event_log", &self.canonical_event_log);
         debug_struct.field("ak_cert", &self.ak_cert);
         debug_struct.field("cert_chain", &self.cert_chain);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3279,7 +3267,6 @@ pub mod tpm_attestation {
             debug_struct.field("pcr_values", &self.pcr_values);
             debug_struct.field("raw_quote", &self.raw_quote);
             debug_struct.field("raw_signature", &self.raw_signature);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3428,7 +3415,6 @@ impl std::fmt::Debug for ConfidentialSpaceInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfidentialSpaceInfo");
         debug_struct.field("signed_entities", &self.signed_entities);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3587,7 +3573,6 @@ impl std::fmt::Debug for SignedEntity {
             "container_image_signatures",
             &self.container_image_signatures,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3874,7 +3859,6 @@ impl std::fmt::Debug for ContainerImageSignature {
         debug_struct.field("signature", &self.signature);
         debug_struct.field("public_key", &self.public_key);
         debug_struct.field("sig_alg", &self.sig_alg);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

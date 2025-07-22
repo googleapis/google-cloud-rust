@@ -265,7 +265,6 @@ impl std::fmt::Debug for CreateRecognizerRequest {
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("recognizer_id", &self.recognizer_id);
         debug_struct.field("parent", &self.parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1559,7 +1558,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("progress_percent", &self.progress_percent);
         debug_struct.field("request", &self.request);
         debug_struct.field("metadata", &self.metadata);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1860,7 +1858,6 @@ impl std::fmt::Debug for ListRecognizersRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("show_deleted", &self.show_deleted);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2053,7 +2050,6 @@ impl std::fmt::Debug for ListRecognizersResponse {
         let mut debug_struct = f.debug_struct("ListRecognizersResponse");
         debug_struct.field("recognizers", &self.recognizers);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2199,7 +2195,6 @@ impl std::fmt::Debug for GetRecognizerRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRecognizerRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2423,7 +2418,6 @@ impl std::fmt::Debug for UpdateRecognizerRequest {
         debug_struct.field("recognizer", &self.recognizer);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2650,7 +2644,6 @@ impl std::fmt::Debug for DeleteRecognizerRequest {
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("allow_missing", &self.allow_missing);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2851,7 +2844,6 @@ impl std::fmt::Debug for UndeleteRecognizerRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3517,7 +3509,6 @@ impl std::fmt::Debug for Recognizer {
         debug_struct.field("reconciling", &self.reconciling);
         debug_struct.field("kms_key_name", &self.kms_key_name);
         debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3795,7 +3786,6 @@ impl serde::ser::Serialize for AutoDetectDecodingConfig {
 impl std::fmt::Debug for AutoDetectDecodingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutoDetectDecodingConfig");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4043,7 +4033,6 @@ impl std::fmt::Debug for ExplicitDecodingConfig {
         debug_struct.field("encoding", &self.encoding);
         debug_struct.field("sample_rate_hertz", &self.sample_rate_hertz);
         debug_struct.field("audio_channel_count", &self.audio_channel_count);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4466,7 +4455,6 @@ impl std::fmt::Debug for SpeakerDiarizationConfig {
         let mut debug_struct = f.debug_struct("SpeakerDiarizationConfig");
         debug_struct.field("min_speaker_count", &self.min_speaker_count);
         debug_struct.field("max_speaker_count", &self.max_speaker_count);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4896,7 +4884,6 @@ impl std::fmt::Debug for RecognitionFeatures {
         debug_struct.field("multi_channel_mode", &self.multi_channel_mode);
         debug_struct.field("diarization_config", &self.diarization_config);
         debug_struct.field("max_alternatives", &self.max_alternatives);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5190,7 +5177,6 @@ impl std::fmt::Debug for TranscriptNormalization {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TranscriptNormalization");
         debug_struct.field("entries", &self.entries);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5391,7 +5377,6 @@ pub mod transcript_normalization {
             debug_struct.field("search", &self.search);
             debug_struct.field("replace", &self.replace);
             debug_struct.field("case_sensitive", &self.case_sensitive);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -5536,7 +5521,6 @@ impl std::fmt::Debug for TranslationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TranslationConfig");
         debug_struct.field("target_language", &self.target_language);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5720,7 +5704,6 @@ impl std::fmt::Debug for SpeechAdaptation {
         let mut debug_struct = f.debug_struct("SpeechAdaptation");
         debug_struct.field("phrase_sets", &self.phrase_sets);
         debug_struct.field("custom_classes", &self.custom_classes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5973,7 +5956,6 @@ pub mod speech_adaptation {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("AdaptationPhraseSet");
             debug_struct.field("value", &self.value);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -6184,7 +6166,6 @@ impl std::fmt::Debug for DenoiserConfig {
         let mut debug_struct = f.debug_struct("DenoiserConfig");
         debug_struct.field("denoise_audio", &self.denoise_audio);
         debug_struct.field("snr_threshold", &self.snr_threshold);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6698,7 +6679,6 @@ impl std::fmt::Debug for RecognitionConfig {
         debug_struct.field("translation_config", &self.translation_config);
         debug_struct.field("denoiser_config", &self.denoiser_config);
         debug_struct.field("decoding_config", &self.decoding_config);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7095,7 +7075,6 @@ impl std::fmt::Debug for RecognizeRequest {
         debug_struct.field("config", &self.config);
         debug_struct.field("config_mask", &self.config_mask);
         debug_struct.field("audio_source", &self.audio_source);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7306,7 +7285,6 @@ impl std::fmt::Debug for RecognitionResponseMetadata {
         let mut debug_struct = f.debug_struct("RecognitionResponseMetadata");
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("total_billed_duration", &self.total_billed_duration);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7533,7 +7511,6 @@ impl std::fmt::Debug for SpeechRecognitionAlternative {
         debug_struct.field("transcript", &self.transcript);
         debug_struct.field("confidence", &self.confidence);
         debug_struct.field("words", &self.words);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7847,7 +7824,6 @@ impl std::fmt::Debug for WordInfo {
         debug_struct.field("word", &self.word);
         debug_struct.field("confidence", &self.confidence);
         debug_struct.field("speaker_label", &self.speaker_label);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8111,7 +8087,6 @@ impl std::fmt::Debug for SpeechRecognitionResult {
         debug_struct.field("channel_tag", &self.channel_tag);
         debug_struct.field("result_end_offset", &self.result_end_offset);
         debug_struct.field("language_code", &self.language_code);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8300,7 +8275,6 @@ impl std::fmt::Debug for RecognizeResponse {
         let mut debug_struct = f.debug_struct("RecognizeResponse");
         debug_struct.field("results", &self.results);
         debug_struct.field("metadata", &self.metadata);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8523,7 +8497,6 @@ impl std::fmt::Debug for StreamingRecognitionFeatures {
         );
         debug_struct.field("interim_results", &self.interim_results);
         debug_struct.field("voice_activity_timeout", &self.voice_activity_timeout);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8726,7 +8699,6 @@ pub mod streaming_recognition_features {
             let mut debug_struct = f.debug_struct("VoiceActivityTimeout");
             debug_struct.field("speech_start_timeout", &self.speech_start_timeout);
             debug_struct.field("speech_end_timeout", &self.speech_end_timeout);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -8979,7 +8951,6 @@ impl std::fmt::Debug for StreamingRecognitionConfig {
         debug_struct.field("config", &self.config);
         debug_struct.field("config_mask", &self.config_mask);
         debug_struct.field("streaming_features", &self.streaming_features);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9291,7 +9262,6 @@ impl std::fmt::Debug for StreamingRecognizeRequest {
         let mut debug_struct = f.debug_struct("StreamingRecognizeRequest");
         debug_struct.field("recognizer", &self.recognizer);
         debug_struct.field("streaming_request", &self.streaming_request);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9662,7 +9632,6 @@ impl std::fmt::Debug for BatchRecognizeRequest {
         debug_struct.field("files", &self.files);
         debug_struct.field("recognition_output_config", &self.recognition_output_config);
         debug_struct.field("processing_strategy", &self.processing_strategy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9938,7 +9907,6 @@ impl std::fmt::Debug for GcsOutputConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcsOutputConfig");
         debug_struct.field("uri", &self.uri);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10052,7 +10020,6 @@ impl serde::ser::Serialize for InlineOutputConfig {
 impl std::fmt::Debug for InlineOutputConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineOutputConfig");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10166,7 +10133,6 @@ impl serde::ser::Serialize for NativeOutputFileFormatConfig {
 impl std::fmt::Debug for NativeOutputFileFormatConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NativeOutputFileFormatConfig");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10281,7 +10247,6 @@ impl serde::ser::Serialize for VttOutputFileFormatConfig {
 impl std::fmt::Debug for VttOutputFileFormatConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VttOutputFileFormatConfig");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10397,7 +10362,6 @@ impl serde::ser::Serialize for SrtOutputFileFormatConfig {
 impl std::fmt::Debug for SrtOutputFileFormatConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SrtOutputFileFormatConfig");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10626,7 +10590,6 @@ impl std::fmt::Debug for OutputFormatConfig {
         debug_struct.field("native", &self.native);
         debug_struct.field("vtt", &self.vtt);
         debug_struct.field("srt", &self.srt);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10911,7 +10874,6 @@ impl std::fmt::Debug for RecognitionOutputConfig {
         let mut debug_struct = f.debug_struct("RecognitionOutputConfig");
         debug_struct.field("output_format_config", &self.output_format_config);
         debug_struct.field("output", &self.output);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11130,7 +11092,6 @@ impl std::fmt::Debug for BatchRecognizeResponse {
         let mut debug_struct = f.debug_struct("BatchRecognizeResponse");
         debug_struct.field("results", &self.results);
         debug_struct.field("total_billed_duration", &self.total_billed_duration);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11318,7 +11279,6 @@ impl std::fmt::Debug for BatchRecognizeResults {
         let mut debug_struct = f.debug_struct("BatchRecognizeResults");
         debug_struct.field("results", &self.results);
         debug_struct.field("metadata", &self.metadata);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11514,7 +11474,6 @@ impl std::fmt::Debug for CloudStorageResult {
         debug_struct.field("uri", &self.uri);
         debug_struct.field("vtt_format_uri", &self.vtt_format_uri);
         debug_struct.field("srt_format_uri", &self.srt_format_uri);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11721,7 +11680,6 @@ impl std::fmt::Debug for InlineResult {
         debug_struct.field("transcript", &self.transcript);
         debug_struct.field("vtt_captions", &self.vtt_captions);
         debug_struct.field("srt_captions", &self.srt_captions);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12103,7 +12061,6 @@ impl std::fmt::Debug for BatchRecognizeFileResult {
         debug_struct.field("uri", &self.uri);
         debug_struct.field("transcript", &self.transcript);
         debug_struct.field("result", &self.result);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12353,7 +12310,6 @@ impl std::fmt::Debug for BatchRecognizeTranscriptionMetadata {
         debug_struct.field("progress_percent", &self.progress_percent);
         debug_struct.field("error", &self.error);
         debug_struct.field("uri", &self.uri);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12513,7 +12469,6 @@ impl std::fmt::Debug for BatchRecognizeMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchRecognizeMetadata");
         debug_struct.field("transcription_metadata", &self.transcription_metadata);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12798,7 +12753,6 @@ impl std::fmt::Debug for BatchRecognizeFileMetadata {
         debug_struct.field("config", &self.config);
         debug_struct.field("config_mask", &self.config_mask);
         debug_struct.field("audio_source", &self.audio_source);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13160,7 +13114,6 @@ impl std::fmt::Debug for StreamingRecognitionResult {
         debug_struct.field("result_end_offset", &self.result_end_offset);
         debug_struct.field("channel_tag", &self.channel_tag);
         debug_struct.field("language_code", &self.language_code);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13472,7 +13425,6 @@ impl std::fmt::Debug for StreamingRecognizeResponse {
         debug_struct.field("speech_event_type", &self.speech_event_type);
         debug_struct.field("speech_event_offset", &self.speech_event_offset);
         debug_struct.field("metadata", &self.metadata);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13844,7 +13796,6 @@ impl std::fmt::Debug for Config {
         debug_struct.field("name", &self.name);
         debug_struct.field("kms_key_name", &self.kms_key_name);
         debug_struct.field("update_time", &self.update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13991,7 +13942,6 @@ impl std::fmt::Debug for GetConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConfigRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14187,7 +14137,6 @@ impl std::fmt::Debug for UpdateConfigRequest {
         let mut debug_struct = f.debug_struct("UpdateConfigRequest");
         debug_struct.field("config", &self.config);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14743,7 +14692,6 @@ impl std::fmt::Debug for CustomClass {
         debug_struct.field("reconciling", &self.reconciling);
         debug_struct.field("kms_key_name", &self.kms_key_name);
         debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14893,7 +14841,6 @@ pub mod custom_class {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("ClassItem");
             debug_struct.field("value", &self.value);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -15633,7 +15580,6 @@ impl std::fmt::Debug for PhraseSet {
         debug_struct.field("reconciling", &self.reconciling);
         debug_struct.field("kms_key_name", &self.kms_key_name);
         debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15842,7 +15788,6 @@ pub mod phrase_set {
             let mut debug_struct = f.debug_struct("Phrase");
             debug_struct.field("value", &self.value);
             debug_struct.field("boost", &self.boost);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -16216,7 +16161,6 @@ impl std::fmt::Debug for CreateCustomClassRequest {
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("custom_class_id", &self.custom_class_id);
         debug_struct.field("parent", &self.parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -16469,7 +16413,6 @@ impl std::fmt::Debug for ListCustomClassesRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("show_deleted", &self.show_deleted);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -16663,7 +16606,6 @@ impl std::fmt::Debug for ListCustomClassesResponse {
         let mut debug_struct = f.debug_struct("ListCustomClassesResponse");
         debug_struct.field("custom_classes", &self.custom_classes);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -16809,7 +16751,6 @@ impl std::fmt::Debug for GetCustomClassRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCustomClassRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -17035,7 +16976,6 @@ impl std::fmt::Debug for UpdateCustomClassRequest {
         debug_struct.field("custom_class", &self.custom_class);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -17263,7 +17203,6 @@ impl std::fmt::Debug for DeleteCustomClassRequest {
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("allow_missing", &self.allow_missing);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -17465,7 +17404,6 @@ impl std::fmt::Debug for UndeleteCustomClassRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -17705,7 +17643,6 @@ impl std::fmt::Debug for CreatePhraseSetRequest {
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("phrase_set_id", &self.phrase_set_id);
         debug_struct.field("parent", &self.parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -17957,7 +17894,6 @@ impl std::fmt::Debug for ListPhraseSetsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("show_deleted", &self.show_deleted);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -18151,7 +18087,6 @@ impl std::fmt::Debug for ListPhraseSetsResponse {
         let mut debug_struct = f.debug_struct("ListPhraseSetsResponse");
         debug_struct.field("phrase_sets", &self.phrase_sets);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -18297,7 +18232,6 @@ impl std::fmt::Debug for GetPhraseSetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPhraseSetRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -18522,7 +18456,6 @@ impl std::fmt::Debug for UpdatePhraseSetRequest {
         debug_struct.field("phrase_set", &self.phrase_set);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -18749,7 +18682,6 @@ impl std::fmt::Debug for DeletePhraseSetRequest {
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("allow_missing", &self.allow_missing);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -18950,7 +18882,6 @@ impl std::fmt::Debug for UndeletePhraseSetRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -19119,7 +19050,6 @@ impl std::fmt::Debug for ModelFeature {
         let mut debug_struct = f.debug_struct("ModelFeature");
         debug_struct.field("feature", &self.feature);
         debug_struct.field("release_state", &self.release_state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -19265,7 +19195,6 @@ impl std::fmt::Debug for ModelFeatures {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModelFeatures");
         debug_struct.field("model_feature", &self.model_feature);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -19420,7 +19349,6 @@ impl std::fmt::Debug for ModelMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModelMetadata");
         debug_struct.field("model_features", &self.model_features);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -19574,7 +19502,6 @@ impl std::fmt::Debug for LanguageMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LanguageMetadata");
         debug_struct.field("models", &self.models);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -19725,7 +19652,6 @@ impl std::fmt::Debug for AccessMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessMetadata");
         debug_struct.field("constraint_type", &self.constraint_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -20055,7 +19981,6 @@ impl std::fmt::Debug for LocationsMetadata {
         let mut debug_struct = f.debug_struct("LocationsMetadata");
         debug_struct.field("languages", &self.languages);
         debug_struct.field("access_metadata", &self.access_metadata);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

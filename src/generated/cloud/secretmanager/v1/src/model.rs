@@ -788,7 +788,6 @@ impl std::fmt::Debug for Secret {
         );
         debug_struct.field("tags", &self.tags);
         debug_struct.field("expiration", &self.expiration);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1303,7 +1302,6 @@ impl std::fmt::Debug for SecretVersion {
             "customer_managed_encryption",
             &self.customer_managed_encryption,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1711,7 +1709,6 @@ impl std::fmt::Debug for Replication {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Replication");
         debug_struct.field("replication", &self.replication);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1904,7 +1901,6 @@ pub mod replication {
                 "customer_managed_encryption",
                 &self.customer_managed_encryption,
             );
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2069,7 +2065,6 @@ pub mod replication {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("UserManaged");
             debug_struct.field("replicas", &self.replicas);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2298,7 +2293,6 @@ pub mod replication {
                     "customer_managed_encryption",
                     &self.customer_managed_encryption,
                 );
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -2475,7 +2469,6 @@ impl std::fmt::Debug for CustomerManagedEncryption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomerManagedEncryption");
         debug_struct.field("kms_key_name", &self.kms_key_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2740,7 +2733,6 @@ impl std::fmt::Debug for ReplicationStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplicationStatus");
         debug_struct.field("replication_status", &self.replication_status);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2930,7 +2922,6 @@ pub mod replication_status {
                 "customer_managed_encryption",
                 &self.customer_managed_encryption,
             );
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3092,7 +3083,6 @@ pub mod replication_status {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("UserManagedStatus");
             debug_struct.field("replicas", &self.replicas);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3313,7 +3303,6 @@ pub mod replication_status {
                     "customer_managed_encryption",
                     &self.customer_managed_encryption,
                 );
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -3494,7 +3483,6 @@ impl std::fmt::Debug for CustomerManagedEncryptionStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomerManagedEncryptionStatus");
         debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3641,7 +3629,6 @@ impl std::fmt::Debug for Topic {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Topic");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3864,7 +3851,6 @@ impl std::fmt::Debug for Rotation {
         let mut debug_struct = f.debug_struct("Rotation");
         debug_struct.field("next_rotation_time", &self.next_rotation_time);
         debug_struct.field("rotation_period", &self.rotation_period);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4106,7 +4092,6 @@ impl std::fmt::Debug for SecretPayload {
         let mut debug_struct = f.debug_struct("SecretPayload");
         debug_struct.field("data", &self.data);
         debug_struct.field("data_crc32c", &self.data_crc32c);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4359,7 +4344,6 @@ impl std::fmt::Debug for ListSecretsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4604,7 +4588,6 @@ impl std::fmt::Debug for ListSecretsResponse {
         debug_struct.field("secrets", &self.secrets);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("total_size", &self.total_size);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4822,7 +4805,6 @@ impl std::fmt::Debug for CreateSecretRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("secret_id", &self.secret_id);
         debug_struct.field("secret", &self.secret);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5012,7 +4994,6 @@ impl std::fmt::Debug for AddSecretVersionRequest {
         let mut debug_struct = f.debug_struct("AddSecretVersionRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("payload", &self.payload);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5161,7 +5142,6 @@ impl std::fmt::Debug for GetSecretRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSecretRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5414,7 +5394,6 @@ impl std::fmt::Debug for ListSecretVersionsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5660,7 +5639,6 @@ impl std::fmt::Debug for ListSecretVersionsResponse {
         debug_struct.field("versions", &self.versions);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("total_size", &self.total_size);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5815,7 +5793,6 @@ impl std::fmt::Debug for GetSecretVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSecretVersionRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6011,7 +5988,6 @@ impl std::fmt::Debug for UpdateSecretRequest {
         let mut debug_struct = f.debug_struct("UpdateSecretRequest");
         debug_struct.field("secret", &self.secret);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6166,7 +6142,6 @@ impl std::fmt::Debug for AccessSecretVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessSecretVersionRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6352,7 +6327,6 @@ impl std::fmt::Debug for AccessSecretVersionResponse {
         let mut debug_struct = f.debug_struct("AccessSecretVersionResponse");
         debug_struct.field("name", &self.name);
         debug_struct.field("payload", &self.payload);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6530,7 +6504,6 @@ impl std::fmt::Debug for DeleteSecretRequest {
         let mut debug_struct = f.debug_struct("DeleteSecretRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6710,7 +6683,6 @@ impl std::fmt::Debug for DisableSecretVersionRequest {
         let mut debug_struct = f.debug_struct("DisableSecretVersionRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6890,7 +6862,6 @@ impl std::fmt::Debug for EnableSecretVersionRequest {
         let mut debug_struct = f.debug_struct("EnableSecretVersionRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7070,7 +7041,6 @@ impl std::fmt::Debug for DestroySecretVersionRequest {
         let mut debug_struct = f.debug_struct("DestroySecretVersionRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

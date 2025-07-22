@@ -303,7 +303,6 @@ impl std::fmt::Debug for AppConnectorInstanceConfig {
         debug_struct.field("instance_config", &self.instance_config);
         debug_struct.field("notification_config", &self.notification_config);
         debug_struct.field("image_config", &self.image_config);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -496,7 +495,6 @@ impl std::fmt::Debug for NotificationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NotificationConfig");
         debug_struct.field("config", &self.config);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -650,7 +648,6 @@ pub mod notification_config {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("CloudPubSubNotificationConfig");
             debug_struct.field("pubsub_subscription", &self.pubsub_subscription);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -831,7 +828,6 @@ impl std::fmt::Debug for ImageConfig {
         let mut debug_struct = f.debug_struct("ImageConfig");
         debug_struct.field("target_image", &self.target_image);
         debug_struct.field("stable_image", &self.stable_image);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1104,7 +1100,6 @@ impl std::fmt::Debug for ListAppConnectorsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1319,7 +1314,6 @@ impl std::fmt::Debug for ListAppConnectorsResponse {
         debug_struct.field("app_connectors", &self.app_connectors);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1462,7 +1456,6 @@ impl std::fmt::Debug for GetAppConnectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAppConnectorRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1740,7 +1733,6 @@ impl std::fmt::Debug for CreateAppConnectorRequest {
         debug_struct.field("app_connector", &self.app_connector);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2002,7 +1994,6 @@ impl std::fmt::Debug for UpdateAppConnectorRequest {
         debug_struct.field("app_connector", &self.app_connector);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2210,7 +2201,6 @@ impl std::fmt::Debug for DeleteAppConnectorRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2456,7 +2446,6 @@ impl std::fmt::Debug for ReportStatusRequest {
         debug_struct.field("resource_info", &self.resource_info);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2866,7 +2855,6 @@ impl std::fmt::Debug for AppConnector {
         debug_struct.field("state", &self.state);
         debug_struct.field("principal_info", &self.principal_info);
         debug_struct.field("resource_info", &self.resource_info);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3069,7 +3057,6 @@ pub mod app_connector {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("PrincipalInfo");
             debug_struct.field("r#type", &self.r#type);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3222,7 +3209,6 @@ pub mod app_connector {
             fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
                 let mut debug_struct = f.debug_struct("ServiceAccount");
                 debug_struct.field("email", &self.email);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -3712,7 +3698,6 @@ impl std::fmt::Debug for AppConnectorOperationMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3990,7 +3975,6 @@ impl std::fmt::Debug for ResourceInfo {
         debug_struct.field("resource", &self.resource);
         debug_struct.field("time", &self.time);
         debug_struct.field("sub", &self.sub);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

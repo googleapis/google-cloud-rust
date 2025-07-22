@@ -204,7 +204,6 @@ impl std::fmt::Debug for TestStatus {
         debug_struct.field("name", &self.name);
         debug_struct.field("failure_message", &self.failure_message);
         debug_struct.field("matched_name", &self.matched_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -354,7 +353,6 @@ impl std::fmt::Debug for FailureSet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FailureSet");
         debug_struct.field("test", &self.test);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -870,7 +868,6 @@ impl std::fmt::Debug for ConformanceRequest {
         debug_struct.field("jspb_encoding_options", &self.jspb_encoding_options);
         debug_struct.field("print_unknown_fields", &self.print_unknown_fields);
         debug_struct.field("payload", &self.payload);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1495,7 +1492,6 @@ impl std::fmt::Debug for ConformanceResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConformanceResponse");
         debug_struct.field("result", &self.result);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1724,7 +1720,6 @@ impl std::fmt::Debug for JspbEncodingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("JspbEncodingConfig");
         debug_struct.field("use_jspb_array_any_format", &self.use_jspb_array_any_format);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

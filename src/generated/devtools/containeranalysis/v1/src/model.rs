@@ -250,7 +250,6 @@ impl std::fmt::Debug for ExportSBOMRequest {
         let mut debug_struct = f.debug_struct("ExportSBOMRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("target", &self.target);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -373,7 +372,6 @@ pub mod export_sbom_request {
     impl std::fmt::Debug for CloudStorageLocation {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("CloudStorageLocation");
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -533,7 +531,6 @@ impl std::fmt::Debug for ExportSBOMResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportSBOMResponse");
         debug_struct.field("discovery_occurrence", &self.discovery_occurrence);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -702,7 +699,6 @@ impl std::fmt::Debug for GetVulnerabilityOccurrencesSummaryRequest {
         let mut debug_struct = f.debug_struct("GetVulnerabilityOccurrencesSummaryRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -851,7 +847,6 @@ impl std::fmt::Debug for VulnerabilityOccurrencesSummary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VulnerabilityOccurrencesSummary");
         debug_struct.field("counts", &self.counts);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1124,7 +1119,6 @@ pub mod vulnerability_occurrences_summary {
             debug_struct.field("severity", &self.severity);
             debug_struct.field("fixable_count", &self.fixable_count);
             debug_struct.field("total_count", &self.total_count);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }

@@ -576,7 +576,6 @@ impl std::fmt::Debug for Registration {
         debug_struct.field("contact_settings", &self.contact_settings);
         debug_struct.field("pending_contact_settings", &self.pending_contact_settings);
         debug_struct.field("supported_privacy", &self.supported_privacy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1077,7 +1076,6 @@ impl std::fmt::Debug for ManagementSettings {
         let mut debug_struct = f.debug_struct("ManagementSettings");
         debug_struct.field("renewal_method", &self.renewal_method);
         debug_struct.field("transfer_lock_state", &self.transfer_lock_state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1507,7 +1505,6 @@ impl std::fmt::Debug for DnsSettings {
         let mut debug_struct = f.debug_struct("DnsSettings");
         debug_struct.field("glue_records", &self.glue_records);
         debug_struct.field("dns_provider", &self.dns_provider);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1698,7 +1695,6 @@ pub mod dns_settings {
             let mut debug_struct = f.debug_struct("CustomDns");
             debug_struct.field("name_servers", &self.name_servers);
             debug_struct.field("ds_records", &self.ds_records);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1916,7 +1912,6 @@ pub mod dns_settings {
             debug_struct.field("name_servers", &self.name_servers);
             debug_struct.field("ds_state", &self.ds_state);
             debug_struct.field("ds_records", &self.ds_records);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2172,7 +2167,6 @@ pub mod dns_settings {
             debug_struct.field("algorithm", &self.algorithm);
             debug_struct.field("digest_type", &self.digest_type);
             debug_struct.field("digest", &self.digest);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2782,7 +2776,6 @@ pub mod dns_settings {
             debug_struct.field("host_name", &self.host_name);
             debug_struct.field("ipv4_addresses", &self.ipv4_addresses);
             debug_struct.field("ipv6_addresses", &self.ipv6_addresses);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3197,7 +3190,6 @@ impl std::fmt::Debug for ContactSettings {
         debug_struct.field("registrant_contact", &self.registrant_contact);
         debug_struct.field("admin_contact", &self.admin_contact);
         debug_struct.field("technical_contact", &self.technical_contact);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3442,7 +3434,6 @@ pub mod contact_settings {
             debug_struct.field("email", &self.email);
             debug_struct.field("phone_number", &self.phone_number);
             debug_struct.field("fax_number", &self.fax_number);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3610,7 +3601,6 @@ impl std::fmt::Debug for SearchDomainsRequest {
         let mut debug_struct = f.debug_struct("SearchDomainsRequest");
         debug_struct.field("query", &self.query);
         debug_struct.field("location", &self.location);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3760,7 +3750,6 @@ impl std::fmt::Debug for SearchDomainsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchDomainsResponse");
         debug_struct.field("register_parameters", &self.register_parameters);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3928,7 +3917,6 @@ impl std::fmt::Debug for RetrieveRegisterParametersRequest {
         let mut debug_struct = f.debug_struct("RetrieveRegisterParametersRequest");
         debug_struct.field("domain_name", &self.domain_name);
         debug_struct.field("location", &self.location);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4082,7 +4070,6 @@ impl std::fmt::Debug for RetrieveRegisterParametersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RetrieveRegisterParametersResponse");
         debug_struct.field("register_parameters", &self.register_parameters);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4389,7 +4376,6 @@ impl std::fmt::Debug for RegisterDomainRequest {
         debug_struct.field("contact_notices", &self.contact_notices);
         debug_struct.field("yearly_price", &self.yearly_price);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4557,7 +4543,6 @@ impl std::fmt::Debug for RetrieveTransferParametersRequest {
         let mut debug_struct = f.debug_struct("RetrieveTransferParametersRequest");
         debug_struct.field("domain_name", &self.domain_name);
         debug_struct.field("location", &self.location);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4711,7 +4696,6 @@ impl std::fmt::Debug for RetrieveTransferParametersResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RetrieveTransferParametersResponse");
         debug_struct.field("transfer_parameters", &self.transfer_parameters);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5031,7 +5015,6 @@ impl std::fmt::Debug for TransferDomainRequest {
         debug_struct.field("yearly_price", &self.yearly_price);
         debug_struct.field("authorization_code", &self.authorization_code);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5285,7 +5268,6 @@ impl std::fmt::Debug for ListRegistrationsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5471,7 +5453,6 @@ impl std::fmt::Debug for ListRegistrationsResponse {
         let mut debug_struct = f.debug_struct("ListRegistrationsResponse");
         debug_struct.field("registrations", &self.registrations);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5614,7 +5595,6 @@ impl std::fmt::Debug for GetRegistrationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRegistrationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5806,7 +5786,6 @@ impl std::fmt::Debug for UpdateRegistrationRequest {
         let mut debug_struct = f.debug_struct("UpdateRegistrationRequest");
         debug_struct.field("registration", &self.registration);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6025,7 +6004,6 @@ impl std::fmt::Debug for ConfigureManagementSettingsRequest {
         debug_struct.field("registration", &self.registration);
         debug_struct.field("management_settings", &self.management_settings);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6276,7 +6254,6 @@ impl std::fmt::Debug for ConfigureDnsSettingsRequest {
         debug_struct.field("dns_settings", &self.dns_settings);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6552,7 +6529,6 @@ impl std::fmt::Debug for ConfigureContactSettingsRequest {
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("contact_notices", &self.contact_notices);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6695,7 +6671,6 @@ impl std::fmt::Debug for ExportRegistrationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportRegistrationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6838,7 +6813,6 @@ impl std::fmt::Debug for DeleteRegistrationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteRegistrationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6981,7 +6955,6 @@ impl std::fmt::Debug for RetrieveAuthorizationCodeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RetrieveAuthorizationCodeRequest");
         debug_struct.field("registration", &self.registration);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7124,7 +7097,6 @@ impl std::fmt::Debug for ResetAuthorizationCodeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResetAuthorizationCodeRequest");
         debug_struct.field("registration", &self.registration);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7400,7 +7372,6 @@ impl std::fmt::Debug for RegisterParameters {
         debug_struct.field("supported_privacy", &self.supported_privacy);
         debug_struct.field("domain_notices", &self.domain_notices);
         debug_struct.field("yearly_price", &self.yearly_price);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7858,7 +7829,6 @@ impl std::fmt::Debug for TransferParameters {
         debug_struct.field("transfer_lock_state", &self.transfer_lock_state);
         debug_struct.field("supported_privacy", &self.supported_privacy);
         debug_struct.field("yearly_price", &self.yearly_price);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8001,7 +7971,6 @@ impl std::fmt::Debug for AuthorizationCode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuthorizationCode");
         debug_struct.field("code", &self.code);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8294,7 +8263,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("verb", &self.verb);
         debug_struct.field("status_detail", &self.status_detail);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

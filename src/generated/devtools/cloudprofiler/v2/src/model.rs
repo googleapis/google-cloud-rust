@@ -232,7 +232,6 @@ impl std::fmt::Debug for CreateProfileRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("deployment", &self.deployment);
         debug_struct.field("profile_type", &self.profile_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -411,7 +410,6 @@ impl std::fmt::Debug for CreateOfflineProfileRequest {
         let mut debug_struct = f.debug_struct("CreateOfflineProfileRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("profile", &self.profile);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -604,7 +602,6 @@ impl std::fmt::Debug for UpdateProfileRequest {
         let mut debug_struct = f.debug_struct("UpdateProfileRequest");
         debug_struct.field("profile", &self.profile);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -976,7 +973,6 @@ impl std::fmt::Debug for Profile {
         debug_struct.field("profile_bytes", &self.profile_bytes);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("start_time", &self.start_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1199,7 +1195,6 @@ impl std::fmt::Debug for Deployment {
         debug_struct.field("project_id", &self.project_id);
         debug_struct.field("target", &self.target);
         debug_struct.field("labels", &self.labels);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1417,7 +1412,6 @@ impl std::fmt::Debug for ListProfilesRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1652,7 +1646,6 @@ impl std::fmt::Debug for ListProfilesResponse {
         debug_struct.field("profiles", &self.profiles);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("skipped_profiles", &self.skipped_profiles);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

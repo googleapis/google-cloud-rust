@@ -246,7 +246,6 @@ impl std::fmt::Debug for SetIamPolicyRequest {
         debug_struct.field("resource", &self.resource);
         debug_struct.field("policy", &self.policy);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -427,7 +426,6 @@ impl std::fmt::Debug for GetIamPolicyRequest {
         let mut debug_struct = f.debug_struct("GetIamPolicyRequest");
         debug_struct.field("resource", &self.resource);
         debug_struct.field("options", &self.options);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -601,7 +599,6 @@ impl std::fmt::Debug for TestIamPermissionsRequest {
         let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
         debug_struct.field("resource", &self.resource);
         debug_struct.field("permissions", &self.permissions);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -747,7 +744,6 @@ impl std::fmt::Debug for TestIamPermissionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TestIamPermissionsResponse");
         debug_struct.field("permissions", &self.permissions);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -931,7 +927,6 @@ impl std::fmt::Debug for GetPolicyOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPolicyOptions");
         debug_struct.field("requested_policy_version", &self.requested_policy_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1306,7 +1301,6 @@ impl std::fmt::Debug for Policy {
         debug_struct.field("bindings", &self.bindings);
         debug_struct.field("audit_configs", &self.audit_configs);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1564,7 +1558,6 @@ impl std::fmt::Debug for Binding {
         debug_struct.field("role", &self.role);
         debug_struct.field("members", &self.members);
         debug_struct.field("condition", &self.condition);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1793,7 +1786,6 @@ impl std::fmt::Debug for AuditConfig {
         let mut debug_struct = f.debug_struct("AuditConfig");
         debug_struct.field("service", &self.service);
         debug_struct.field("audit_log_configs", &self.audit_log_configs);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1991,7 +1983,6 @@ impl std::fmt::Debug for AuditLogConfig {
         let mut debug_struct = f.debug_struct("AuditLogConfig");
         debug_struct.field("log_type", &self.log_type);
         debug_struct.field("exempted_members", &self.exempted_members);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2316,7 +2307,6 @@ impl std::fmt::Debug for PolicyDelta {
         let mut debug_struct = f.debug_struct("PolicyDelta");
         debug_struct.field("binding_deltas", &self.binding_deltas);
         debug_struct.field("audit_config_deltas", &self.audit_config_deltas);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2551,7 +2541,6 @@ impl std::fmt::Debug for BindingDelta {
         debug_struct.field("role", &self.role);
         debug_struct.field("member", &self.member);
         debug_struct.field("condition", &self.condition);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2918,7 +2907,6 @@ impl std::fmt::Debug for AuditConfigDelta {
         debug_struct.field("service", &self.service);
         debug_struct.field("exempted_member", &self.exempted_member);
         debug_struct.field("log_type", &self.log_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3248,7 +3236,6 @@ impl std::fmt::Debug for ResourcePolicyMember {
         let mut debug_struct = f.debug_struct("ResourcePolicyMember");
         debug_struct.field("iam_policy_name_principal", &self.iam_policy_name_principal);
         debug_struct.field("iam_policy_uid_principal", &self.iam_policy_uid_principal);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

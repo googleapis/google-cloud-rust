@@ -576,7 +576,6 @@ impl std::fmt::Debug for Execution {
         debug_struct.field("status", &self.status);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("state_error", &self.state_error);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -788,7 +787,6 @@ pub mod execution {
             debug_struct.field("step", &self.step);
             debug_struct.field("routine", &self.routine);
             debug_struct.field("position", &self.position);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1059,7 +1057,6 @@ pub mod execution {
                 debug_struct.field("line", &self.line);
                 debug_struct.field("column", &self.column);
                 debug_struct.field("length", &self.length);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -1212,7 +1209,6 @@ pub mod execution {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("StackTrace");
             debug_struct.field("elements", &self.elements);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1419,7 +1415,6 @@ pub mod execution {
             debug_struct.field("payload", &self.payload);
             debug_struct.field("context", &self.context);
             debug_struct.field("stack_trace", &self.stack_trace);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1578,7 +1573,6 @@ pub mod execution {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Status");
             debug_struct.field("current_steps", &self.current_steps);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1758,7 +1752,6 @@ pub mod execution {
                 let mut debug_struct = f.debug_struct("Step");
                 debug_struct.field("routine", &self.routine);
                 debug_struct.field("step", &self.step);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -1934,7 +1927,6 @@ pub mod execution {
             let mut debug_struct = f.debug_struct("StateError");
             debug_struct.field("details", &self.details);
             debug_struct.field("r#type", &self.r#type);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2680,7 +2672,6 @@ impl std::fmt::Debug for ListExecutionsRequest {
         debug_struct.field("view", &self.view);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2870,7 +2861,6 @@ impl std::fmt::Debug for ListExecutionsResponse {
         let mut debug_struct = f.debug_struct("ListExecutionsResponse");
         debug_struct.field("executions", &self.executions);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3054,7 +3044,6 @@ impl std::fmt::Debug for CreateExecutionRequest {
         let mut debug_struct = f.debug_struct("CreateExecutionRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("execution", &self.execution);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3228,7 +3217,6 @@ impl std::fmt::Debug for GetExecutionRequest {
         let mut debug_struct = f.debug_struct("GetExecutionRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("view", &self.view);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3376,7 +3364,6 @@ impl std::fmt::Debug for CancelExecutionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelExecutionRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -261,7 +261,6 @@ impl std::fmt::Debug for ListLocationsRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -448,7 +447,6 @@ impl std::fmt::Debug for ListLocationsResponse {
         let mut debug_struct = f.debug_struct("ListLocationsResponse");
         debug_struct.field("locations", &self.locations);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -592,7 +590,6 @@ impl std::fmt::Debug for GetLocationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetLocationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -864,7 +861,6 @@ impl std::fmt::Debug for Location {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("metadata", &self.metadata);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

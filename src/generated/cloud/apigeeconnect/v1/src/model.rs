@@ -242,7 +242,6 @@ impl std::fmt::Debug for ListConnectionsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -429,7 +428,6 @@ impl std::fmt::Debug for ListConnectionsResponse {
         let mut debug_struct = f.debug_struct("ListConnectionsResponse");
         debug_struct.field("connections", &self.connections);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -651,7 +649,6 @@ impl std::fmt::Debug for Connection {
         debug_struct.field("endpoint", &self.endpoint);
         debug_struct.field("cluster", &self.cluster);
         debug_struct.field("stream_count", &self.stream_count);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -817,7 +814,6 @@ impl std::fmt::Debug for Cluster {
         let mut debug_struct = f.debug_struct("Cluster");
         debug_struct.field("name", &self.name);
         debug_struct.field("region", &self.region);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1111,7 +1107,6 @@ impl std::fmt::Debug for EgressRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("trace_id", &self.trace_id);
         debug_struct.field("timeout", &self.timeout);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1386,7 +1381,6 @@ impl std::fmt::Debug for Payload {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Payload");
         debug_struct.field("kind", &self.kind);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1546,7 +1540,6 @@ impl std::fmt::Debug for StreamInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamInfo");
         debug_struct.field("id", &self.id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1868,7 +1861,6 @@ impl std::fmt::Debug for EgressResponse {
         debug_struct.field("trace_id", &self.trace_id);
         debug_struct.field("endpoint", &self.endpoint);
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2143,7 +2135,6 @@ impl std::fmt::Debug for HttpRequest {
         debug_struct.field("url", &self.url);
         debug_struct.field("headers", &self.headers);
         debug_struct.field("body", &self.body);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2340,7 +2331,6 @@ impl std::fmt::Debug for Url {
         debug_struct.field("scheme", &self.scheme);
         debug_struct.field("host", &self.host);
         debug_struct.field("path", &self.path);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2508,7 +2498,6 @@ impl std::fmt::Debug for Header {
         let mut debug_struct = f.debug_struct("Header");
         debug_struct.field("key", &self.key);
         debug_struct.field("values", &self.values);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2838,7 +2827,6 @@ impl std::fmt::Debug for HttpResponse {
         debug_struct.field("body", &self.body);
         debug_struct.field("headers", &self.headers);
         debug_struct.field("content_length", &self.content_length);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

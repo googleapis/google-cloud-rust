@@ -299,7 +299,6 @@ impl std::fmt::Debug for ListAppConnectionsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -514,7 +513,6 @@ impl std::fmt::Debug for ListAppConnectionsResponse {
         debug_struct.field("app_connections", &self.app_connections);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -657,7 +655,6 @@ impl std::fmt::Debug for GetAppConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAppConnectionRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -935,7 +932,6 @@ impl std::fmt::Debug for CreateAppConnectionRequest {
         debug_struct.field("app_connection", &self.app_connection);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1225,7 +1221,6 @@ impl std::fmt::Debug for UpdateAppConnectionRequest {
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("allow_missing", &self.allow_missing);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1433,7 +1428,6 @@ impl std::fmt::Debug for DeleteAppConnectionRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1683,7 +1677,6 @@ impl std::fmt::Debug for ResolveAppConnectionsRequest {
         debug_struct.field("app_connector_id", &self.app_connector_id);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1899,7 +1892,6 @@ impl std::fmt::Debug for ResolveAppConnectionsResponse {
         debug_struct.field("app_connection_details", &self.app_connection_details);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2092,7 +2084,6 @@ pub mod resolve_app_connections_response {
             let mut debug_struct = f.debug_struct("AppConnectionDetails");
             debug_struct.field("app_connection", &self.app_connection);
             debug_struct.field("recent_mig_vms", &self.recent_mig_vms);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2559,7 +2550,6 @@ impl std::fmt::Debug for AppConnection {
         debug_struct.field("connectors", &self.connectors);
         debug_struct.field("state", &self.state);
         debug_struct.field("gateway", &self.gateway);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2752,7 +2742,6 @@ pub mod app_connection {
             let mut debug_struct = f.debug_struct("ApplicationEndpoint");
             debug_struct.field("host", &self.host);
             debug_struct.field("port", &self.port);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3001,7 +2990,6 @@ pub mod app_connection {
             debug_struct.field("uri", &self.uri);
             debug_struct.field("ingress_port", &self.ingress_port);
             debug_struct.field("app_gateway", &self.app_gateway);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3742,7 +3730,6 @@ impl std::fmt::Debug for AppConnectionOperationMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

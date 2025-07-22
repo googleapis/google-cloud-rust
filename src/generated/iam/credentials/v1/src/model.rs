@@ -273,7 +273,6 @@ impl std::fmt::Debug for GenerateAccessTokenRequest {
         debug_struct.field("delegates", &self.delegates);
         debug_struct.field("scope", &self.scope);
         debug_struct.field("lifetime", &self.lifetime);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -453,7 +452,6 @@ impl std::fmt::Debug for GenerateAccessTokenResponse {
         let mut debug_struct = f.debug_struct("GenerateAccessTokenResponse");
         debug_struct.field("access_token", &self.access_token);
         debug_struct.field("expire_time", &self.expire_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -677,7 +675,6 @@ impl std::fmt::Debug for SignBlobRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("delegates", &self.delegates);
         debug_struct.field("payload", &self.payload);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -863,7 +860,6 @@ impl std::fmt::Debug for SignBlobResponse {
         let mut debug_struct = f.debug_struct("SignBlobResponse");
         debug_struct.field("key_id", &self.key_id);
         debug_struct.field("signed_blob", &self.signed_blob);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1069,7 +1065,6 @@ impl std::fmt::Debug for SignJwtRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("delegates", &self.delegates);
         debug_struct.field("payload", &self.payload);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1237,7 +1232,6 @@ impl std::fmt::Debug for SignJwtResponse {
         let mut debug_struct = f.debug_struct("SignJwtResponse");
         debug_struct.field("key_id", &self.key_id);
         debug_struct.field("signed_jwt", &self.signed_jwt);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1471,7 +1465,6 @@ impl std::fmt::Debug for GenerateIdTokenRequest {
         debug_struct.field("delegates", &self.delegates);
         debug_struct.field("audience", &self.audience);
         debug_struct.field("include_email", &self.include_email);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1612,7 +1605,6 @@ impl std::fmt::Debug for GenerateIdTokenResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateIdTokenResponse");
         debug_struct.field("token", &self.token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -348,7 +348,6 @@ impl std::fmt::Debug for Operation {
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("done", &self.done);
         debug_struct.field("result", &self.result);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -519,7 +518,6 @@ impl std::fmt::Debug for GetOperationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOperationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -759,7 +757,6 @@ impl std::fmt::Debug for ListOperationsRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -947,7 +944,6 @@ impl std::fmt::Debug for ListOperationsResponse {
         let mut debug_struct = f.debug_struct("ListOperationsResponse");
         debug_struct.field("operations", &self.operations);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1092,7 +1088,6 @@ impl std::fmt::Debug for CancelOperationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelOperationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1237,7 +1232,6 @@ impl std::fmt::Debug for DeleteOperationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteOperationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1418,7 +1412,6 @@ impl std::fmt::Debug for WaitOperationRequest {
         let mut debug_struct = f.debug_struct("WaitOperationRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("timeout", &self.timeout);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1611,7 +1604,6 @@ impl std::fmt::Debug for OperationInfo {
         let mut debug_struct = f.debug_struct("OperationInfo");
         debug_struct.field("response_type", &self.response_type);
         debug_struct.field("metadata_type", &self.metadata_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

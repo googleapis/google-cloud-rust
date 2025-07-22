@@ -356,7 +356,6 @@ impl std::fmt::Debug for MembershipState {
             "hierarchy_controller_state",
             &self.hierarchy_controller_state,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -668,7 +667,6 @@ impl std::fmt::Debug for MembershipSpec {
         debug_struct.field("version", &self.version);
         debug_struct.field("cluster", &self.cluster);
         debug_struct.field("management", &self.management);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1135,7 +1133,6 @@ impl std::fmt::Debug for ConfigSync {
             "metrics_gcp_service_account_email",
             &self.metrics_gcp_service_account_email,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1488,7 +1485,6 @@ impl std::fmt::Debug for GitConfig {
         debug_struct.field("secret_type", &self.secret_type);
         debug_struct.field("https_proxy", &self.https_proxy);
         debug_struct.field("gcp_service_account_email", &self.gcp_service_account_email);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1762,7 +1758,6 @@ impl std::fmt::Debug for OciConfig {
         debug_struct.field("sync_wait_secs", &self.sync_wait_secs);
         debug_struct.field("secret_type", &self.secret_type);
         debug_struct.field("gcp_service_account_email", &self.gcp_service_account_email);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2099,7 +2094,6 @@ impl std::fmt::Debug for PolicyController {
         debug_struct.field("exemptable_namespaces", &self.exemptable_namespaces);
         debug_struct.field("referential_rules_enabled", &self.referential_rules_enabled);
         debug_struct.field("log_denies_enabled", &self.log_denies_enabled);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2306,7 +2300,6 @@ impl std::fmt::Debug for HierarchyControllerConfig {
             "enable_hierarchical_resource_quota",
             &self.enable_hierarchical_resource_quota,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2476,7 +2469,6 @@ impl std::fmt::Debug for HierarchyControllerDeploymentState {
         let mut debug_struct = f.debug_struct("HierarchyControllerDeploymentState");
         debug_struct.field("hnc", &self.hnc);
         debug_struct.field("extension", &self.extension);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2643,7 +2635,6 @@ impl std::fmt::Debug for HierarchyControllerVersion {
         let mut debug_struct = f.debug_struct("HierarchyControllerVersion");
         debug_struct.field("hnc", &self.hnc);
         debug_struct.field("extension", &self.extension);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2833,7 +2824,6 @@ impl std::fmt::Debug for HierarchyControllerState {
         let mut debug_struct = f.debug_struct("HierarchyControllerState");
         debug_struct.field("version", &self.version);
         debug_struct.field("state", &self.state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3032,7 +3022,6 @@ impl std::fmt::Debug for OperatorState {
         debug_struct.field("version", &self.version);
         debug_struct.field("deployment_state", &self.deployment_state);
         debug_struct.field("errors", &self.errors);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3175,7 +3164,6 @@ impl std::fmt::Debug for InstallError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstallError");
         debug_struct.field("error_message", &self.error_message);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3517,7 +3505,6 @@ impl std::fmt::Debug for ConfigSyncState {
         debug_struct.field("rootsync_crd", &self.rootsync_crd);
         debug_struct.field("reposync_crd", &self.reposync_crd);
         debug_struct.field("state", &self.state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3959,7 +3946,6 @@ impl std::fmt::Debug for ConfigSyncError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfigSyncError");
         debug_struct.field("error_message", &self.error_message);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4261,7 +4247,6 @@ impl std::fmt::Debug for ConfigSyncVersion {
         debug_struct.field("reconciler_manager", &self.reconciler_manager);
         debug_struct.field("root_reconciler", &self.root_reconciler);
         debug_struct.field("admission_webhook", &self.admission_webhook);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4578,7 +4563,6 @@ impl std::fmt::Debug for ConfigSyncDeploymentState {
         debug_struct.field("reconciler_manager", &self.reconciler_manager);
         debug_struct.field("root_reconciler", &self.root_reconciler);
         debug_struct.field("admission_webhook", &self.admission_webhook);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4896,7 +4880,6 @@ impl std::fmt::Debug for SyncState {
         debug_struct.field("last_sync_time", &self.last_sync_time);
         debug_struct.field("code", &self.code);
         debug_struct.field("errors", &self.errors);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5266,7 +5249,6 @@ impl std::fmt::Debug for SyncError {
         debug_struct.field("code", &self.code);
         debug_struct.field("error_message", &self.error_message);
         debug_struct.field("error_resources", &self.error_resources);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5502,7 +5484,6 @@ impl std::fmt::Debug for ErrorResource {
         debug_struct.field("resource_name", &self.resource_name);
         debug_struct.field("resource_namespace", &self.resource_namespace);
         debug_struct.field("resource_gvk", &self.resource_gvk);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5694,7 +5675,6 @@ impl std::fmt::Debug for GroupVersionKind {
         debug_struct.field("group", &self.group);
         debug_struct.field("version", &self.version);
         debug_struct.field("kind", &self.kind);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5884,7 +5864,6 @@ impl std::fmt::Debug for PolicyControllerState {
         let mut debug_struct = f.debug_struct("PolicyControllerState");
         debug_struct.field("version", &self.version);
         debug_struct.field("deployment_state", &self.deployment_state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6027,7 +6006,6 @@ impl std::fmt::Debug for PolicyControllerVersion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolicyControllerVersion");
         debug_struct.field("version", &self.version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6214,7 +6192,6 @@ impl std::fmt::Debug for GatekeeperDeploymentState {
             &self.gatekeeper_controller_manager_state,
         );
         debug_struct.field("gatekeeper_audit", &self.gatekeeper_audit);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -257,7 +257,6 @@ impl std::fmt::Debug for Actor {
         debug_struct.field("email", &self.email);
         debug_struct.field("google_support", &self.google_support);
         debug_struct.field("username", &self.username);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -575,7 +574,6 @@ impl std::fmt::Debug for Attachment {
         debug_struct.field("filename", &self.filename);
         debug_struct.field("mime_type", &self.mime_type);
         debug_struct.field("size_bytes", &self.size_bytes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -795,7 +793,6 @@ impl std::fmt::Debug for ListAttachmentsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -982,7 +979,6 @@ impl std::fmt::Debug for ListAttachmentsResponse {
         let mut debug_struct = f.debug_struct("ListAttachmentsResponse");
         debug_struct.field("attachments", &self.attachments);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1580,7 +1576,6 @@ impl std::fmt::Debug for Case {
         debug_struct.field("test_case", &self.test_case);
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("priority", &self.priority);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2081,7 +2076,6 @@ impl std::fmt::Debug for CaseClassification {
         let mut debug_struct = f.debug_struct("CaseClassification");
         debug_struct.field("id", &self.id);
         debug_struct.field("display_name", &self.display_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2223,7 +2217,6 @@ impl std::fmt::Debug for GetCaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCaseRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2401,7 +2394,6 @@ impl std::fmt::Debug for CreateCaseRequest {
         let mut debug_struct = f.debug_struct("CreateCaseRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("case", &self.case);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2657,7 +2649,6 @@ impl std::fmt::Debug for ListCasesRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2845,7 +2836,6 @@ impl std::fmt::Debug for ListCasesResponse {
         let mut debug_struct = f.debug_struct("ListCasesResponse");
         debug_struct.field("cases", &self.cases);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3115,7 +3105,6 @@ impl std::fmt::Debug for SearchCasesRequest {
         debug_struct.field("query", &self.query);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3303,7 +3292,6 @@ impl std::fmt::Debug for SearchCasesResponse {
         let mut debug_struct = f.debug_struct("SearchCasesResponse");
         debug_struct.field("cases", &self.cases);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3481,7 +3469,6 @@ impl std::fmt::Debug for EscalateCaseRequest {
         let mut debug_struct = f.debug_struct("EscalateCaseRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("escalation", &self.escalation);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3678,7 +3665,6 @@ impl std::fmt::Debug for UpdateCaseRequest {
         let mut debug_struct = f.debug_struct("UpdateCaseRequest");
         debug_struct.field("case", &self.case);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3820,7 +3806,6 @@ impl std::fmt::Debug for CloseCaseRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloseCaseRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4036,7 +4021,6 @@ impl std::fmt::Debug for SearchCaseClassificationsRequest {
         debug_struct.field("query", &self.query);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4228,7 +4212,6 @@ impl std::fmt::Debug for SearchCaseClassificationsResponse {
         let mut debug_struct = f.debug_struct("SearchCaseClassificationsResponse");
         debug_struct.field("case_classifications", &self.case_classifications);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4506,7 +4489,6 @@ impl std::fmt::Debug for Comment {
         debug_struct.field("creator", &self.creator);
         debug_struct.field("body", &self.body);
         debug_struct.field("plain_text_body", &self.plain_text_body);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4719,7 +4701,6 @@ impl std::fmt::Debug for ListCommentsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4906,7 +4887,6 @@ impl std::fmt::Debug for ListCommentsResponse {
         let mut debug_struct = f.debug_struct("ListCommentsResponse");
         debug_struct.field("comments", &self.comments);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5084,7 +5064,6 @@ impl std::fmt::Debug for CreateCommentRequest {
         let mut debug_struct = f.debug_struct("CreateCommentRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("comment", &self.comment);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5253,7 +5232,6 @@ impl std::fmt::Debug for Escalation {
         let mut debug_struct = f.debug_struct("Escalation");
         debug_struct.field("reason", &self.reason);
         debug_struct.field("justification", &self.justification);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

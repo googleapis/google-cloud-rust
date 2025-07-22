@@ -520,7 +520,6 @@ impl std::fmt::Debug for Connector {
         debug_struct.field("machine_type", &self.machine_type);
         debug_struct.field("min_instances", &self.min_instances);
         debug_struct.field("max_instances", &self.max_instances);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -701,7 +700,6 @@ pub mod connector {
             let mut debug_struct = f.debug_struct("Subnet");
             debug_struct.field("name", &self.name);
             debug_struct.field("project_id", &self.project_id);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1060,7 +1058,6 @@ impl std::fmt::Debug for CreateConnectorRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("connector_id", &self.connector_id);
         debug_struct.field("connector", &self.connector);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1202,7 +1199,6 @@ impl std::fmt::Debug for GetConnectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConnectorRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1414,7 +1410,6 @@ impl std::fmt::Debug for ListConnectorsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1599,7 +1594,6 @@ impl std::fmt::Debug for ListConnectorsResponse {
         let mut debug_struct = f.debug_struct("ListConnectorsResponse");
         debug_struct.field("connectors", &self.connectors);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1741,7 +1735,6 @@ impl std::fmt::Debug for DeleteConnectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteConnectorRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1984,7 +1977,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("target", &self.target);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

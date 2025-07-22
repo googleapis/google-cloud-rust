@@ -264,7 +264,6 @@ impl std::fmt::Debug for Service {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("config", &self.config);
         debug_struct.field("state", &self.state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -711,7 +710,6 @@ impl std::fmt::Debug for ServiceConfig {
         debug_struct.field("endpoints", &self.endpoints);
         debug_struct.field("monitored_resources", &self.monitored_resources);
         debug_struct.field("monitoring", &self.monitoring);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -858,7 +856,6 @@ impl std::fmt::Debug for OperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationMetadata");
         debug_struct.field("resource_names", &self.resource_names);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1010,7 +1007,6 @@ impl std::fmt::Debug for EnableServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnableServiceRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1165,7 +1161,6 @@ impl std::fmt::Debug for EnableServiceResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnableServiceResponse");
         debug_struct.field("service", &self.service);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1390,7 +1385,6 @@ impl std::fmt::Debug for DisableServiceRequest {
             "check_if_service_has_usage",
             &self.check_if_service_has_usage,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1688,7 +1682,6 @@ impl std::fmt::Debug for DisableServiceResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DisableServiceResponse");
         debug_struct.field("service", &self.service);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1834,7 +1827,6 @@ impl std::fmt::Debug for GetServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetServiceRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2078,7 +2070,6 @@ impl std::fmt::Debug for ListServicesRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2264,7 +2255,6 @@ impl std::fmt::Debug for ListServicesResponse {
         let mut debug_struct = f.debug_struct("ListServicesResponse");
         debug_struct.field("services", &self.services);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2450,7 +2440,6 @@ impl std::fmt::Debug for BatchEnableServicesRequest {
         let mut debug_struct = f.debug_struct("BatchEnableServicesRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("service_ids", &self.service_ids);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2632,7 +2621,6 @@ impl std::fmt::Debug for BatchEnableServicesResponse {
         let mut debug_struct = f.debug_struct("BatchEnableServicesResponse");
         debug_struct.field("services", &self.services);
         debug_struct.field("failures", &self.failures);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2812,7 +2800,6 @@ pub mod batch_enable_services_response {
             let mut debug_struct = f.debug_struct("EnableFailure");
             debug_struct.field("service_id", &self.service_id);
             debug_struct.field("error_message", &self.error_message);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2992,7 +2979,6 @@ impl std::fmt::Debug for BatchGetServicesRequest {
         let mut debug_struct = f.debug_struct("BatchGetServicesRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("names", &self.names);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3137,7 +3123,6 @@ impl std::fmt::Debug for BatchGetServicesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchGetServicesResponse");
         debug_struct.field("services", &self.services);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

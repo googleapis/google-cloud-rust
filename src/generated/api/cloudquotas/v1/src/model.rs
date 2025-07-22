@@ -242,7 +242,6 @@ impl std::fmt::Debug for ListQuotaInfosRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -429,7 +428,6 @@ impl std::fmt::Debug for ListQuotaInfosResponse {
         let mut debug_struct = f.debug_struct("ListQuotaInfosResponse");
         debug_struct.field("quota_infos", &self.quota_infos);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -574,7 +572,6 @@ impl std::fmt::Debug for GetQuotaInfoRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetQuotaInfoRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -857,7 +854,6 @@ impl std::fmt::Debug for ListQuotaPreferencesRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1076,7 +1072,6 @@ impl std::fmt::Debug for ListQuotaPreferencesResponse {
         debug_struct.field("quota_preferences", &self.quota_preferences);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1221,7 +1216,6 @@ impl std::fmt::Debug for GetQuotaPreferenceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetQuotaPreferenceRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1467,7 +1461,6 @@ impl std::fmt::Debug for CreateQuotaPreferenceRequest {
         debug_struct.field("quota_preference_id", &self.quota_preference_id);
         debug_struct.field("quota_preference", &self.quota_preference);
         debug_struct.field("ignore_safety_checks", &self.ignore_safety_checks);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1751,7 +1744,6 @@ impl std::fmt::Debug for UpdateQuotaPreferenceRequest {
         debug_struct.field("allow_missing", &self.allow_missing);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("ignore_safety_checks", &self.ignore_safety_checks);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2339,7 +2331,6 @@ impl std::fmt::Debug for QuotaInfo {
         debug_struct.field("dimensions_infos", &self.dimensions_infos);
         debug_struct.field("is_concurrent", &self.is_concurrent);
         debug_struct.field("service_request_quota_uri", &self.service_request_quota_uri);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2662,7 +2653,6 @@ impl std::fmt::Debug for QuotaIncreaseEligibility {
         let mut debug_struct = f.debug_struct("QuotaIncreaseEligibility");
         debug_struct.field("is_eligible", &self.is_eligible);
         debug_struct.field("ineligibility_reason", &self.ineligibility_reason);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3292,7 +3282,6 @@ impl std::fmt::Debug for QuotaPreference {
         debug_struct.field("reconciling", &self.reconciling);
         debug_struct.field("justification", &self.justification);
         debug_struct.field("contact_email", &self.contact_email);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3634,7 +3623,6 @@ impl std::fmt::Debug for QuotaConfig {
         debug_struct.field("trace_id", &self.trace_id);
         debug_struct.field("annotations", &self.annotations);
         debug_struct.field("request_origin", &self.request_origin);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4001,7 +3989,6 @@ impl std::fmt::Debug for DimensionsInfo {
         debug_struct.field("dimensions", &self.dimensions);
         debug_struct.field("details", &self.details);
         debug_struct.field("applicable_locations", &self.applicable_locations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4200,7 +4187,6 @@ impl std::fmt::Debug for QuotaDetails {
         let mut debug_struct = f.debug_struct("QuotaDetails");
         debug_struct.field("value", &self.value);
         debug_struct.field("rollout_info", &self.rollout_info);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4343,7 +4329,6 @@ impl std::fmt::Debug for RolloutInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RolloutInfo");
         debug_struct.field("ongoing_rollout", &self.ongoing_rollout);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

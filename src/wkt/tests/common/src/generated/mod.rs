@@ -261,7 +261,6 @@ impl std::fmt::Debug for MessageWithEnum {
         debug_struct.field("optional", &self.optional);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -960,7 +959,6 @@ impl std::fmt::Debug for MessageWithOneOf {
         debug_struct.field("two_strings", &self.two_strings);
         debug_struct.field("one_message", &self.one_message);
         debug_struct.field("mixed", &self.mixed);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1108,7 +1106,6 @@ pub mod message_with_one_of {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Message");
             debug_struct.field("parent", &self.parent);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2044,7 +2041,6 @@ impl std::fmt::Debug for MessageWithComplexOneOf {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithComplexOneOf");
         debug_struct.field("complex", &self.complex);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2195,7 +2191,6 @@ pub mod message_with_complex_one_of {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Inner");
             debug_struct.field("strings", &self.strings);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2670,7 +2665,6 @@ impl std::fmt::Debug for MessageWithF32 {
         debug_struct.field("optional", &self.optional);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3002,7 +2996,6 @@ impl std::fmt::Debug for MessageWithF64 {
         debug_struct.field("optional", &self.optional);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3457,7 +3450,6 @@ impl std::fmt::Debug for MessageWithI32 {
         debug_struct.field("map_value", &self.map_value);
         debug_struct.field("map_key", &self.map_key);
         debug_struct.field("map_key_value", &self.map_key_value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3912,7 +3904,6 @@ impl std::fmt::Debug for MessageWithU32 {
         debug_struct.field("map_value", &self.map_value);
         debug_struct.field("map_key", &self.map_key);
         debug_struct.field("map_key_value", &self.map_key_value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4367,7 +4358,6 @@ impl std::fmt::Debug for MessageWithI64 {
         debug_struct.field("map_value", &self.map_value);
         debug_struct.field("map_key", &self.map_key);
         debug_struct.field("map_key_value", &self.map_key_value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4822,7 +4812,6 @@ impl std::fmt::Debug for MessageWithU64 {
         debug_struct.field("map_value", &self.map_value);
         debug_struct.field("map_key", &self.map_key);
         debug_struct.field("map_key_value", &self.map_key_value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5158,7 +5147,6 @@ impl std::fmt::Debug for MessageWithBytes {
         debug_struct.field("optional", &self.optional);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5526,7 +5514,6 @@ impl std::fmt::Debug for MessageWithBool {
         debug_struct.field("map_value", &self.map_value);
         debug_struct.field("map_key", &self.map_key);
         debug_struct.field("map_key_value", &self.map_key_value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5893,7 +5880,6 @@ impl std::fmt::Debug for MessageWithString {
         debug_struct.field("map_value", &self.map_value);
         debug_struct.field("map_key", &self.map_key);
         debug_struct.field("map_key_value", &self.map_key_value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6157,7 +6143,6 @@ impl std::fmt::Debug for MessageWithRecursion {
         debug_struct.field("optional", &self.optional);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6357,7 +6342,6 @@ pub mod message_with_recursion {
             let mut debug_struct = f.debug_struct("Level0");
             debug_struct.field("level_1", &self.level_1);
             debug_struct.field("side", &self.side);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -6512,7 +6496,6 @@ pub mod message_with_recursion {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Level1");
             debug_struct.field("recurse", &self.recurse);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -6655,7 +6638,6 @@ pub mod message_with_recursion {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("NonRecursive");
             debug_struct.field("value", &self.value);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -6910,7 +6892,6 @@ impl std::fmt::Debug for MessageWithValue {
         debug_struct.field("optional", &self.optional);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7162,7 +7143,6 @@ impl std::fmt::Debug for MessageWithStruct {
         debug_struct.field("optional", &self.optional);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7414,7 +7394,6 @@ impl std::fmt::Debug for MessageWithListValue {
         debug_struct.field("optional", &self.optional);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7656,7 +7635,6 @@ impl std::fmt::Debug for MessageWithNullValue {
         debug_struct.field("optional", &self.optional);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7908,7 +7886,6 @@ impl std::fmt::Debug for MessageWithFieldMask {
         debug_struct.field("optional", &self.optional);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8196,7 +8173,6 @@ impl std::fmt::Debug for MessageWithFloatValue {
         debug_struct.field("singular", &self.singular);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8487,7 +8463,6 @@ impl std::fmt::Debug for MessageWithDoubleValue {
         debug_struct.field("singular", &self.singular);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8775,7 +8750,6 @@ impl std::fmt::Debug for MessageWithInt32Value {
         debug_struct.field("singular", &self.singular);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9066,7 +9040,6 @@ impl std::fmt::Debug for MessageWithUInt32Value {
         debug_struct.field("singular", &self.singular);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9354,7 +9327,6 @@ impl std::fmt::Debug for MessageWithInt64Value {
         debug_struct.field("singular", &self.singular);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9642,7 +9614,6 @@ impl std::fmt::Debug for MessageWithUInt64Value {
         debug_struct.field("singular", &self.singular);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9935,7 +9906,6 @@ impl std::fmt::Debug for MessageWithBytesValue {
         debug_struct.field("singular", &self.singular);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10151,7 +10121,6 @@ impl std::fmt::Debug for MessageWithBoolValue {
         debug_struct.field("singular", &self.singular);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10371,7 +10340,6 @@ impl std::fmt::Debug for MessageWithStringValue {
         debug_struct.field("singular", &self.singular);
         debug_struct.field("repeated", &self.repeated);
         debug_struct.field("map", &self.map);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

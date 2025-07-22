@@ -326,7 +326,6 @@ impl std::fmt::Debug for ClientGateway {
         debug_struct.field("state", &self.state);
         debug_struct.field("id", &self.id);
         debug_struct.field("client_connector_service", &self.client_connector_service);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -757,7 +756,6 @@ impl std::fmt::Debug for ListClientGatewaysRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -971,7 +969,6 @@ impl std::fmt::Debug for ListClientGatewaysResponse {
         debug_struct.field("client_gateways", &self.client_gateways);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1113,7 +1110,6 @@ impl std::fmt::Debug for GetClientGatewayRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetClientGatewayRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1390,7 +1386,6 @@ impl std::fmt::Debug for CreateClientGatewayRequest {
         debug_struct.field("client_gateway", &self.client_gateway);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1597,7 +1592,6 @@ impl std::fmt::Debug for DeleteClientGatewayRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1922,7 +1916,6 @@ impl std::fmt::Debug for ClientGatewayOperationMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

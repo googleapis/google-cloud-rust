@@ -281,7 +281,6 @@ impl std::fmt::Debug for MetricsScope {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("monitored_projects", &self.monitored_projects);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -466,7 +465,6 @@ impl std::fmt::Debug for MonitoredProject {
         let mut debug_struct = f.debug_struct("MonitoredProject");
         debug_struct.field("name", &self.name);
         debug_struct.field("create_time", &self.create_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -610,7 +608,6 @@ impl std::fmt::Debug for GetMetricsScopeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetMetricsScopeRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -770,7 +767,6 @@ impl std::fmt::Debug for ListMetricsScopesByMonitoredProjectRequest {
             "monitored_resource_container",
             &self.monitored_resource_container,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -919,7 +915,6 @@ impl std::fmt::Debug for ListMetricsScopesByMonitoredProjectResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListMetricsScopesByMonitoredProjectResponse");
         debug_struct.field("metrics_scopes", &self.metrics_scopes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1105,7 +1100,6 @@ impl std::fmt::Debug for CreateMonitoredProjectRequest {
         let mut debug_struct = f.debug_struct("CreateMonitoredProjectRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("monitored_project", &self.monitored_project);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1253,7 +1247,6 @@ impl std::fmt::Debug for DeleteMonitoredProjectRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteMonitoredProjectRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1471,7 +1464,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("state", &self.state);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

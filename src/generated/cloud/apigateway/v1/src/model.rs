@@ -359,7 +359,6 @@ impl std::fmt::Debug for Api {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("managed_service", &self.managed_service);
         debug_struct.field("state", &self.state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1007,7 +1006,6 @@ impl std::fmt::Debug for ApiConfig {
         debug_struct.field("openapi_documents", &self.openapi_documents);
         debug_struct.field("grpc_services", &self.grpc_services);
         debug_struct.field("managed_service_configs", &self.managed_service_configs);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1206,7 +1204,6 @@ pub mod api_config {
             let mut debug_struct = f.debug_struct("File");
             debug_struct.field("path", &self.path);
             debug_struct.field("contents", &self.contents);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1362,7 +1359,6 @@ pub mod api_config {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("OpenApiDocument");
             debug_struct.field("document", &self.document);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1560,7 +1556,6 @@ pub mod api_config {
             let mut debug_struct = f.debug_struct("GrpcServiceDefinition");
             debug_struct.field("file_descriptor_set", &self.file_descriptor_set);
             debug_struct.field("source", &self.source);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2087,7 +2082,6 @@ impl std::fmt::Debug for Gateway {
         debug_struct.field("api_config", &self.api_config);
         debug_struct.field("state", &self.state);
         debug_struct.field("default_hostname", &self.default_hostname);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2510,7 +2504,6 @@ impl std::fmt::Debug for ListGatewaysRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2724,7 +2717,6 @@ impl std::fmt::Debug for ListGatewaysResponse {
         debug_struct.field("gateways", &self.gateways);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable_locations", &self.unreachable_locations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2867,7 +2859,6 @@ impl std::fmt::Debug for GetGatewayRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetGatewayRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3073,7 +3064,6 @@ impl std::fmt::Debug for CreateGatewayRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("gateway_id", &self.gateway_id);
         debug_struct.field("gateway", &self.gateway);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3267,7 +3257,6 @@ impl std::fmt::Debug for UpdateGatewayRequest {
         let mut debug_struct = f.debug_struct("UpdateGatewayRequest");
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("gateway", &self.gateway);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3410,7 +3399,6 @@ impl std::fmt::Debug for DeleteGatewayRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteGatewayRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3674,7 +3662,6 @@ impl std::fmt::Debug for ListApisRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3888,7 +3875,6 @@ impl std::fmt::Debug for ListApisResponse {
         debug_struct.field("apis", &self.apis);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable_locations", &self.unreachable_locations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4031,7 +4017,6 @@ impl std::fmt::Debug for GetApiRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetApiRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4237,7 +4222,6 @@ impl std::fmt::Debug for CreateApiRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("api_id", &self.api_id);
         debug_struct.field("api", &self.api);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4431,7 +4415,6 @@ impl std::fmt::Debug for UpdateApiRequest {
         let mut debug_struct = f.debug_struct("UpdateApiRequest");
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("api", &self.api);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4574,7 +4557,6 @@ impl std::fmt::Debug for DeleteApiRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteApiRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4838,7 +4820,6 @@ impl std::fmt::Debug for ListApiConfigsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5053,7 +5034,6 @@ impl std::fmt::Debug for ListApiConfigsResponse {
         debug_struct.field("api_configs", &self.api_configs);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable_locations", &self.unreachable_locations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5227,7 +5207,6 @@ impl std::fmt::Debug for GetApiConfigRequest {
         let mut debug_struct = f.debug_struct("GetApiConfigRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("view", &self.view);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5571,7 +5550,6 @@ impl std::fmt::Debug for CreateApiConfigRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("api_config_id", &self.api_config_id);
         debug_struct.field("api_config", &self.api_config);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5766,7 +5744,6 @@ impl std::fmt::Debug for UpdateApiConfigRequest {
         let mut debug_struct = f.debug_struct("UpdateApiConfigRequest");
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("api_config", &self.api_config);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5909,7 +5886,6 @@ impl std::fmt::Debug for DeleteApiConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteApiConfigRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6265,7 +6241,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
         debug_struct.field("diagnostics", &self.diagnostics);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6440,7 +6415,6 @@ pub mod operation_metadata {
             let mut debug_struct = f.debug_struct("Diagnostic");
             debug_struct.field("location", &self.location);
             debug_struct.field("message", &self.message);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }

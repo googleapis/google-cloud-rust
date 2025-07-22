@@ -240,7 +240,6 @@ impl std::fmt::Debug for CreateApiRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("api_id", &self.api_id);
         debug_struct.field("api", &self.api);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -385,7 +384,6 @@ impl std::fmt::Debug for GetApiRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetApiRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -581,7 +579,6 @@ impl std::fmt::Debug for UpdateApiRequest {
         let mut debug_struct = f.debug_struct("UpdateApiRequest");
         debug_struct.field("api", &self.api);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -752,7 +749,6 @@ impl std::fmt::Debug for DeleteApiRequest {
         let mut debug_struct = f.debug_struct("DeleteApiRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("force", &self.force);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1069,7 +1065,6 @@ impl std::fmt::Debug for ListApisRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1257,7 +1252,6 @@ impl std::fmt::Debug for ListApisResponse {
         let mut debug_struct = f.debug_struct("ListApisResponse");
         debug_struct.field("apis", &self.apis);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1473,7 +1467,6 @@ impl std::fmt::Debug for CreateVersionRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("version_id", &self.version_id);
         debug_struct.field("version", &self.version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1619,7 +1612,6 @@ impl std::fmt::Debug for GetVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetVersionRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1816,7 +1808,6 @@ impl std::fmt::Debug for UpdateVersionRequest {
         let mut debug_struct = f.debug_struct("UpdateVersionRequest");
         debug_struct.field("version", &self.version);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1989,7 +1980,6 @@ impl std::fmt::Debug for DeleteVersionRequest {
         let mut debug_struct = f.debug_struct("DeleteVersionRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("force", &self.force);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2296,7 +2286,6 @@ impl std::fmt::Debug for ListVersionsRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2485,7 +2474,6 @@ impl std::fmt::Debug for ListVersionsResponse {
         let mut debug_struct = f.debug_struct("ListVersionsResponse");
         debug_struct.field("versions", &self.versions);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2702,7 +2690,6 @@ impl std::fmt::Debug for CreateSpecRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("spec_id", &self.spec_id);
         debug_struct.field("spec", &self.spec);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2848,7 +2835,6 @@ impl std::fmt::Debug for GetSpecRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSpecRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3044,7 +3030,6 @@ impl std::fmt::Debug for UpdateSpecRequest {
         let mut debug_struct = f.debug_struct("UpdateSpecRequest");
         debug_struct.field("spec", &self.spec);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3190,7 +3175,6 @@ impl std::fmt::Debug for DeleteSpecRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSpecRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3487,7 +3471,6 @@ impl std::fmt::Debug for ListSpecsRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3675,7 +3658,6 @@ impl std::fmt::Debug for ListSpecsResponse {
         let mut debug_struct = f.debug_struct("ListSpecsResponse");
         debug_struct.field("specs", &self.specs);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3822,7 +3804,6 @@ impl std::fmt::Debug for GetSpecContentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSpecContentsRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3969,7 +3950,6 @@ impl std::fmt::Debug for GetApiOperationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetApiOperationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4258,7 +4238,6 @@ impl std::fmt::Debug for ListApiOperationsRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4451,7 +4430,6 @@ impl std::fmt::Debug for ListApiOperationsResponse {
         let mut debug_struct = f.debug_struct("ListApiOperationsResponse");
         debug_struct.field("api_operations", &self.api_operations);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4598,7 +4576,6 @@ impl std::fmt::Debug for GetDefinitionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDefinitionRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4815,7 +4792,6 @@ impl std::fmt::Debug for CreateDeploymentRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("deployment_id", &self.deployment_id);
         debug_struct.field("deployment", &self.deployment);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4961,7 +4937,6 @@ impl std::fmt::Debug for GetDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDeploymentRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5158,7 +5133,6 @@ impl std::fmt::Debug for UpdateDeploymentRequest {
         let mut debug_struct = f.debug_struct("UpdateDeploymentRequest");
         debug_struct.field("deployment", &self.deployment);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5304,7 +5278,6 @@ impl std::fmt::Debug for DeleteDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteDeploymentRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5610,7 +5583,6 @@ impl std::fmt::Debug for ListDeploymentsRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5799,7 +5771,6 @@ impl std::fmt::Debug for ListDeploymentsResponse {
         let mut debug_struct = f.debug_struct("ListDeploymentsResponse");
         debug_struct.field("deployments", &self.deployments);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6016,7 +5987,6 @@ impl std::fmt::Debug for CreateAttributeRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("attribute_id", &self.attribute_id);
         debug_struct.field("attribute", &self.attribute);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6163,7 +6133,6 @@ impl std::fmt::Debug for GetAttributeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAttributeRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6360,7 +6329,6 @@ impl std::fmt::Debug for UpdateAttributeRequest {
         let mut debug_struct = f.debug_struct("UpdateAttributeRequest");
         debug_struct.field("attribute", &self.attribute);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6507,7 +6475,6 @@ impl std::fmt::Debug for DeleteAttributeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAttributeRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6797,7 +6764,6 @@ impl std::fmt::Debug for ListAttributesRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6986,7 +6952,6 @@ impl std::fmt::Debug for ListAttributesResponse {
         let mut debug_struct = f.debug_struct("ListAttributesResponse");
         debug_struct.field("attributes", &self.attributes);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7287,7 +7252,6 @@ impl std::fmt::Debug for SearchResourcesRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7724,7 +7688,6 @@ impl std::fmt::Debug for ApiHubResource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ApiHubResource");
         debug_struct.field("resource", &self.resource);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7908,7 +7871,6 @@ impl std::fmt::Debug for SearchResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchResult");
         debug_struct.field("resource", &self.resource);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8103,7 +8065,6 @@ impl std::fmt::Debug for SearchResourcesResponse {
         let mut debug_struct = f.debug_struct("SearchResourcesResponse");
         debug_struct.field("search_results", &self.search_results);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8320,7 +8281,6 @@ impl std::fmt::Debug for CreateDependencyRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("dependency_id", &self.dependency_id);
         debug_struct.field("dependency", &self.dependency);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8464,7 +8424,6 @@ impl std::fmt::Debug for GetDependencyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDependencyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8661,7 +8620,6 @@ impl std::fmt::Debug for UpdateDependencyRequest {
         let mut debug_struct = f.debug_struct("UpdateDependencyRequest");
         debug_struct.field("dependency", &self.dependency);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8808,7 +8766,6 @@ impl std::fmt::Debug for DeleteDependencyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteDependencyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9090,7 +9047,6 @@ impl std::fmt::Debug for ListDependenciesRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9281,7 +9237,6 @@ impl std::fmt::Debug for ListDependenciesResponse {
         let mut debug_struct = f.debug_struct("ListDependenciesResponse");
         debug_struct.field("dependencies", &self.dependencies);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9500,7 +9455,6 @@ impl std::fmt::Debug for CreateExternalApiRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("external_api_id", &self.external_api_id);
         debug_struct.field("external_api", &self.external_api);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9647,7 +9601,6 @@ impl std::fmt::Debug for GetExternalApiRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetExternalApiRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9845,7 +9798,6 @@ impl std::fmt::Debug for UpdateExternalApiRequest {
         let mut debug_struct = f.debug_struct("UpdateExternalApiRequest");
         debug_struct.field("external_api", &self.external_api);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9992,7 +9944,6 @@ impl std::fmt::Debug for DeleteExternalApiRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteExternalApiRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10215,7 +10166,6 @@ impl std::fmt::Debug for ListExternalApisRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10407,7 +10357,6 @@ impl std::fmt::Debug for ListExternalApisResponse {
         let mut debug_struct = f.debug_struct("ListExternalApisResponse");
         debug_struct.field("external_apis", &self.external_apis);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11075,7 +11024,6 @@ impl std::fmt::Debug for Api {
         debug_struct.field("attributes", &self.attributes);
         debug_struct.field("api_style", &self.api_style);
         debug_struct.field("selected_version", &self.selected_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11712,7 +11660,6 @@ impl std::fmt::Debug for Version {
         debug_struct.field("accreditation", &self.accreditation);
         debug_struct.field("attributes", &self.attributes);
         debug_struct.field("selected_deployment", &self.selected_deployment);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12250,7 +12197,6 @@ impl std::fmt::Debug for Spec {
         debug_struct.field("attributes", &self.attributes);
         debug_struct.field("documentation", &self.documentation);
         debug_struct.field("parsing_mode", &self.parsing_mode);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12967,7 +12913,6 @@ impl std::fmt::Debug for Deployment {
         debug_struct.field("slo", &self.slo);
         debug_struct.field("environment", &self.environment);
         debug_struct.field("attributes", &self.attributes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13293,7 +13238,6 @@ impl std::fmt::Debug for ApiOperation {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("attributes", &self.attributes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13677,7 +13621,6 @@ impl std::fmt::Debug for Definition {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("attributes", &self.attributes);
         debug_struct.field("value", &self.value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14281,7 +14224,6 @@ impl std::fmt::Debug for Attribute {
         debug_struct.field("mandatory", &self.mandatory);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14522,7 +14464,6 @@ pub mod attribute {
             debug_struct.field("display_name", &self.display_name);
             debug_struct.field("description", &self.description);
             debug_struct.field("immutable", &self.immutable);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -15164,7 +15105,6 @@ impl std::fmt::Debug for SpecContents {
         let mut debug_struct = f.debug_struct("SpecContents");
         debug_struct.field("contents", &self.contents);
         debug_struct.field("mime_type", &self.mime_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15382,7 +15322,6 @@ impl std::fmt::Debug for SpecDetails {
         let mut debug_struct = f.debug_struct("SpecDetails");
         debug_struct.field("description", &self.description);
         debug_struct.field("details", &self.details);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15615,7 +15554,6 @@ impl std::fmt::Debug for OpenApiSpecDetails {
         debug_struct.field("format", &self.format);
         debug_struct.field("version", &self.version);
         debug_struct.field("owner", &self.owner);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -16042,7 +15980,6 @@ impl std::fmt::Debug for OperationDetails {
         debug_struct.field("documentation", &self.documentation);
         debug_struct.field("deprecated", &self.deprecated);
         debug_struct.field("operation", &self.operation);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -16234,7 +16171,6 @@ impl std::fmt::Debug for HttpOperation {
         let mut debug_struct = f.debug_struct("HttpOperation");
         debug_struct.field("path", &self.path);
         debug_struct.field("method", &self.method);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -16581,7 +16517,6 @@ impl std::fmt::Debug for Path {
         let mut debug_struct = f.debug_struct("Path");
         debug_struct.field("path", &self.path);
         debug_struct.field("description", &self.description);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -16774,7 +16709,6 @@ impl std::fmt::Debug for Schema {
         let mut debug_struct = f.debug_struct("Schema");
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("raw_value", &self.raw_value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -16942,7 +16876,6 @@ impl std::fmt::Debug for Owner {
         let mut debug_struct = f.debug_struct("Owner");
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("email", &self.email);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -17085,7 +17018,6 @@ impl std::fmt::Debug for Documentation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Documentation");
         debug_struct.field("external_uri", &self.external_uri);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -17421,7 +17353,6 @@ impl std::fmt::Debug for AttributeValues {
         let mut debug_struct = f.debug_struct("AttributeValues");
         debug_struct.field("attribute", &self.attribute);
         debug_struct.field("value", &self.value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -17578,7 +17509,6 @@ pub mod attribute_values {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("EnumAttributeValues");
             debug_struct.field("values", &self.values);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -17727,7 +17657,6 @@ pub mod attribute_values {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("StringAttributeValues");
             debug_struct.field("values", &self.values);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -18197,7 +18126,6 @@ impl std::fmt::Debug for Dependency {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("attributes", &self.attributes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -18733,7 +18661,6 @@ impl std::fmt::Debug for DependencyEntityReference {
         let mut debug_struct = f.debug_struct("DependencyEntityReference");
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("identifier", &self.identifier);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -18939,7 +18866,6 @@ impl std::fmt::Debug for DependencyErrorDetail {
         let mut debug_struct = f.debug_struct("DependencyErrorDetail");
         debug_struct.field("error", &self.error);
         debug_struct.field("error_time", &self.error_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -19366,7 +19292,6 @@ impl std::fmt::Debug for LintResponse {
         debug_struct.field("source", &self.source);
         debug_struct.field("linter", &self.linter);
         debug_struct.field("create_time", &self.create_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -19559,7 +19484,6 @@ pub mod lint_response {
             let mut debug_struct = f.debug_struct("SummaryEntry");
             debug_struct.field("severity", &self.severity);
             debug_struct.field("count", &self.count);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -19817,7 +19741,6 @@ impl std::fmt::Debug for Issue {
         debug_struct.field("message", &self.message);
         debug_struct.field("severity", &self.severity);
         debug_struct.field("range", &self.range);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -20006,7 +19929,6 @@ impl std::fmt::Debug for Range {
         let mut debug_struct = f.debug_struct("Range");
         debug_struct.field("start", &self.start);
         debug_struct.field("end", &self.end);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -20209,7 +20131,6 @@ impl std::fmt::Debug for Point {
         let mut debug_struct = f.debug_struct("Point");
         debug_struct.field("line", &self.line);
         debug_struct.field("character", &self.character);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -20534,7 +20455,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -20904,7 +20824,6 @@ impl std::fmt::Debug for ApiHubInstance {
         debug_struct.field("config", &self.config);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("description", &self.description);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -21061,7 +20980,6 @@ pub mod api_hub_instance {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Config");
             debug_struct.field("cmek_key_name", &self.cmek_key_name);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -21624,7 +21542,6 @@ impl std::fmt::Debug for ExternalApi {
         debug_struct.field("attributes", &self.attributes);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -21854,7 +21771,6 @@ impl std::fmt::Debug for CreateHostProjectRegistrationRequest {
             &self.host_project_registration_id,
         );
         debug_struct.field("host_project_registration", &self.host_project_registration);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -22001,7 +21917,6 @@ impl std::fmt::Debug for GetHostProjectRegistrationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetHostProjectRegistrationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -22293,7 +22208,6 @@ impl std::fmt::Debug for ListHostProjectRegistrationsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -22495,7 +22409,6 @@ impl std::fmt::Debug for ListHostProjectRegistrationsResponse {
             &self.host_project_registrations,
         );
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -22709,7 +22622,6 @@ impl std::fmt::Debug for HostProjectRegistration {
         debug_struct.field("name", &self.name);
         debug_struct.field("gcp_project", &self.gcp_project);
         debug_struct.field("create_time", &self.create_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -22853,7 +22765,6 @@ impl std::fmt::Debug for GetStyleGuideRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetStyleGuideRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -23044,7 +22955,6 @@ impl std::fmt::Debug for UpdateStyleGuideRequest {
         let mut debug_struct = f.debug_struct("UpdateStyleGuideRequest");
         debug_struct.field("style_guide", &self.style_guide);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -23189,7 +23099,6 @@ impl std::fmt::Debug for GetStyleGuideContentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetStyleGuideContentsRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -23333,7 +23242,6 @@ impl std::fmt::Debug for LintSpecRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LintSpecRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -23519,7 +23427,6 @@ impl std::fmt::Debug for StyleGuideContents {
         let mut debug_struct = f.debug_struct("StyleGuideContents");
         debug_struct.field("contents", &self.contents);
         debug_struct.field("mime_type", &self.mime_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -23726,7 +23633,6 @@ impl std::fmt::Debug for StyleGuide {
         debug_struct.field("name", &self.name);
         debug_struct.field("linter", &self.linter);
         debug_struct.field("contents", &self.contents);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -23991,7 +23897,6 @@ impl std::fmt::Debug for Plugin {
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("description", &self.description);
         debug_struct.field("state", &self.state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -24277,7 +24182,6 @@ impl std::fmt::Debug for GetPluginRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPluginRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -24423,7 +24327,6 @@ impl std::fmt::Debug for EnablePluginRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnablePluginRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -24569,7 +24472,6 @@ impl std::fmt::Debug for DisablePluginRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DisablePluginRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -24788,7 +24690,6 @@ impl std::fmt::Debug for CreateApiHubInstanceRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("api_hub_instance_id", &self.api_hub_instance_id);
         debug_struct.field("api_hub_instance", &self.api_hub_instance);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -24936,7 +24837,6 @@ impl std::fmt::Debug for GetApiHubInstanceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetApiHubInstanceRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -25085,7 +24985,6 @@ impl std::fmt::Debug for LookupApiHubInstanceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LookupApiHubInstanceRequest");
         debug_struct.field("parent", &self.parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -25244,7 +25143,6 @@ impl std::fmt::Debug for LookupApiHubInstanceResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LookupApiHubInstanceResponse");
         debug_struct.field("api_hub_instance", &self.api_hub_instance);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -25478,7 +25376,6 @@ impl std::fmt::Debug for CreateRuntimeProjectAttachmentRequest {
             "runtime_project_attachment",
             &self.runtime_project_attachment,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -25626,7 +25523,6 @@ impl std::fmt::Debug for GetRuntimeProjectAttachmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRuntimeProjectAttachmentRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -25918,7 +25814,6 @@ impl std::fmt::Debug for ListRuntimeProjectAttachmentsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -26124,7 +26019,6 @@ impl std::fmt::Debug for ListRuntimeProjectAttachmentsResponse {
             &self.runtime_project_attachments,
         );
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -26273,7 +26167,6 @@ impl std::fmt::Debug for DeleteRuntimeProjectAttachmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteRuntimeProjectAttachmentRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -26422,7 +26315,6 @@ impl std::fmt::Debug for LookupRuntimeProjectAttachmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LookupRuntimeProjectAttachmentRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -26588,7 +26480,6 @@ impl std::fmt::Debug for LookupRuntimeProjectAttachmentResponse {
             "runtime_project_attachment",
             &self.runtime_project_attachment,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -26800,7 +26691,6 @@ impl std::fmt::Debug for RuntimeProjectAttachment {
         debug_struct.field("name", &self.name);
         debug_struct.field("runtime_project", &self.runtime_project);
         debug_struct.field("create_time", &self.create_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
