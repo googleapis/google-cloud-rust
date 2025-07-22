@@ -94,7 +94,7 @@ resource "google_service_account_iam_member" "impersonation_token_creator" {
   provider           = google.external_account_project
   service_account_id = google_service_account.impersonation_target.name
   role               = "roles/iam.serviceAccountTokenCreator"
-  member             = "serviceAccount:${google_service_account.service_account.email}"
+  member             = "principal://iam.googleapis.com/${google_iam_workload_identity_pool.pool.name}/subject/${google_service_account.service_account.unique_id}"
 }
 
 output "audience" {
