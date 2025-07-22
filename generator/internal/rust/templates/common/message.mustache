@@ -344,12 +344,11 @@ impl std::fmt::Debug for {{Codec.Name}} {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("{{Codec.Name}}");
         {{#Codec.BasicFields}}
-            debug_struct.field("{{Codec.FieldName}}", &self.{{Codec.FieldName}});
+        debug_struct.field("{{Codec.FieldName}}", &self.{{Codec.FieldName}});
         {{/Codec.BasicFields}}
         {{#OneOfs}}
-            debug_struct.field("{{Codec.FieldName}}", &self.{{Codec.FieldName}});
+        debug_struct.field("{{Codec.FieldName}}", &self.{{Codec.FieldName}});
         {{/OneOfs}}
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
