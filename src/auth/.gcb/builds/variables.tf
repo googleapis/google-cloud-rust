@@ -26,7 +26,7 @@ variable "zone" {
 
 variable "external_account_project" {
   type    = string
-  default = "rust-auth-testing-joonix"
+  default = "rust-external-account-joonix"
 }
 
 variable "external_account_service_account_id" {
