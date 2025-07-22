@@ -45,13 +45,13 @@ As usual with Rust, you must declare dependencies in your `Cargo.toml` file:
 
 ## Configuring the default retry policy
 
-This example uses the [`Aip194Strict`] policy. As the name implies, this policy
-is based on the guidelines in [`AIP-194`], which documents the conditions under
-which a Google API client should automatically retry a request. The policy is
-fairly conservative, and will not retry any error that indicates the request
-*may* have reached the service, **unless** the request is idempotent. As such,
-the policy is safe to use as a default. The only downside may be additional
-requests to the service, consuming some quota and billing.
+This example uses the [`Aip194Strict`] policy. This policy is based on the
+guidelines in [`AIP-194`], which documents the conditions under which a Google
+API client should automatically retry a request. The policy is fairly
+conservative, and will not retry any error that indicates the request *may* have
+reached the service, **unless** the request is idempotent. As such, the policy
+is safe to use as a default. The only downside may be additional requests to the
+service, consuming some quota and billing.
 
 To make this the default policy for the service, set the policy during the
 client initialization:
