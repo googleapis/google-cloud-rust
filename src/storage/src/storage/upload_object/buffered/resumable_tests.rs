@@ -22,14 +22,15 @@
 //! all the data needs to be buffered in memory, as the source offers no
 //! "rewind" feature.
 //!
-//! Resumable uploads can be used for artitrarily large uploads (up to the
+//! Resumable uploads can be used for arbitrarily large uploads (up to the
 //! service limit), but we need to perform some amount of buffering. Recall that
 //! resumable uploads consist of a POST request to create the resumable upload
 //! session, followed by a number of PUT requests with the data.
+//!
 //! The POST request may fail. We use the normal retry loop to handle the
 //! failure.
 //!
-//! The PUT requests may fail, in which case the client library need to resend
+//! The PUT requests may fail, in which case the client library needs to resend
 //! any portion of the data not persisted by the service.
 //!
 //! If the client keeps the last PUT request in a buffer it can handle failures
@@ -65,7 +66,7 @@
 //!    was successful.
 //!    - Discard the portion of the buffer successfully persisted.
 //!    - Add the remaining portion of the buffer to any data saved in step 2.
-//!    - Got back to step 2.
+//!    - Go back to step 2.
 //! 5. Query the resumable upload session to find the persisted size.
 //!    - If that succeeds, go to step 4.
 //!    - If that fails with a non-retryable error, return immediately.
