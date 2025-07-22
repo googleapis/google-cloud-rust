@@ -37,7 +37,7 @@ extern crate wkt;
 /// [google.api.servicecontrol.v1.CheckResponse.check_errors][google.api.servicecontrol.v1.CheckResponse.check_errors].
 ///
 /// [google.api.servicecontrol.v1.CheckResponse.check_errors]: crate::model::CheckResponse::check_errors
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckError {
     /// The error code.
@@ -257,6 +257,21 @@ impl serde::ser::Serialize for CheckError {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for CheckError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckError");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("subject", &self.subject);
+        debug_struct.field("detail", &self.detail);
+        debug_struct.field("status", &self.status);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -549,7 +564,7 @@ pub mod check_error {
 /// * the minimum and maximum of the samples
 /// * the sum-squared-deviation of the samples, used to compute variance
 /// * a histogram of the values of the sample points
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Distribution {
     /// The total number of samples in the distribution. Must be >= 0.
@@ -1187,13 +1202,32 @@ impl serde::ser::Serialize for Distribution {
     }
 }
 
+impl std::fmt::Debug for Distribution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Distribution");
+        debug_struct.field("count", &self.count);
+        debug_struct.field("mean", &self.mean);
+        debug_struct.field("minimum", &self.minimum);
+        debug_struct.field("maximum", &self.maximum);
+        debug_struct.field("sum_of_squared_deviation", &self.sum_of_squared_deviation);
+        debug_struct.field("bucket_counts", &self.bucket_counts);
+        debug_struct.field("exemplars", &self.exemplars);
+        debug_struct.field("bucket_option", &self.bucket_option);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Distribution].
 pub mod distribution {
     #[allow(unused_imports)]
     use super::*;
 
     /// Describing buckets with constant width.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LinearBuckets {
         /// The number of finite buckets. With the underflow and overflow buckets,
@@ -1436,8 +1470,22 @@ pub mod distribution {
         }
     }
 
+    impl std::fmt::Debug for LinearBuckets {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LinearBuckets");
+            debug_struct.field("num_finite_buckets", &self.num_finite_buckets);
+            debug_struct.field("width", &self.width);
+            debug_struct.field("offset", &self.offset);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Describing buckets with exponentially growing width.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExponentialBuckets {
         /// The number of finite buckets. With the underflow and overflow buckets,
@@ -1683,8 +1731,22 @@ pub mod distribution {
         }
     }
 
+    impl std::fmt::Debug for ExponentialBuckets {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ExponentialBuckets");
+            debug_struct.field("num_finite_buckets", &self.num_finite_buckets);
+            debug_struct.field("growth_factor", &self.growth_factor);
+            debug_struct.field("scale", &self.scale);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Describing buckets with arbitrary user-provided width.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExplicitBuckets {
         /// 'bound' is a list of strictly increasing boundaries between
@@ -1860,6 +1922,18 @@ pub mod distribution {
         }
     }
 
+    impl std::fmt::Debug for ExplicitBuckets {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ExplicitBuckets");
+            debug_struct.field("bounds", &self.bounds);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines the buckets in the histogram. `bucket_option` and `bucket_counts`
     /// must be both set, or both unset.
     ///
@@ -1898,7 +1972,7 @@ pub mod distribution {
 /// A common proto for logging HTTP requests. Only contains semantics
 /// defined by the HTTP specification. Product-specific logging
 /// information MUST be defined in a separate message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRequest {
     /// The request method. Examples: `"GET"`, `"HEAD"`, `"PUT"`, `"POST"`.
@@ -2485,8 +2559,37 @@ impl serde::ser::Serialize for HttpRequest {
     }
 }
 
+impl std::fmt::Debug for HttpRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpRequest");
+        debug_struct.field("request_method", &self.request_method);
+        debug_struct.field("request_url", &self.request_url);
+        debug_struct.field("request_size", &self.request_size);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("response_size", &self.response_size);
+        debug_struct.field("user_agent", &self.user_agent);
+        debug_struct.field("remote_ip", &self.remote_ip);
+        debug_struct.field("server_ip", &self.server_ip);
+        debug_struct.field("referer", &self.referer);
+        debug_struct.field("latency", &self.latency);
+        debug_struct.field("cache_lookup", &self.cache_lookup);
+        debug_struct.field("cache_hit", &self.cache_hit);
+        debug_struct.field(
+            "cache_validated_with_origin_server",
+            &self.cache_validated_with_origin_server,
+        );
+        debug_struct.field("cache_fill_bytes", &self.cache_fill_bytes);
+        debug_struct.field("protocol", &self.protocol);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An individual log entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntry {
     /// Required. The log to which this log entry belongs. Examples: `"syslog"`,
@@ -3037,6 +3140,27 @@ impl serde::ser::Serialize for LogEntry {
     }
 }
 
+impl std::fmt::Debug for LogEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogEntry");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("timestamp", &self.timestamp);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("http_request", &self.http_request);
+        debug_struct.field("trace", &self.trace);
+        debug_struct.field("insert_id", &self.insert_id);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("source_location", &self.source_location);
+        debug_struct.field("payload", &self.payload);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LogEntry].
 pub mod log_entry {
     #[allow(unused_imports)]
@@ -3060,7 +3184,7 @@ pub mod log_entry {
 
 /// Additional information about a potentially long-running operation with which
 /// a log entry is associated.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntryOperation {
     /// Optional. An arbitrary operation identifier. Log entries with the
@@ -3264,9 +3388,24 @@ impl serde::ser::Serialize for LogEntryOperation {
     }
 }
 
+impl std::fmt::Debug for LogEntryOperation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogEntryOperation");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("producer", &self.producer);
+        debug_struct.field("first", &self.first);
+        debug_struct.field("last", &self.last);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Additional information about the source code location that produced the log
 /// entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntrySourceLocation {
     /// Optional. Source file name. Depending on the runtime environment, this
@@ -3468,8 +3607,22 @@ impl serde::ser::Serialize for LogEntrySourceLocation {
     }
 }
 
+impl std::fmt::Debug for LogEntrySourceLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogEntrySourceLocation");
+        debug_struct.field("file", &self.file);
+        debug_struct.field("line", &self.line);
+        debug_struct.field("function", &self.function);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a single metric value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetricValue {
     /// The labels describing the metric value.
@@ -3993,6 +4146,21 @@ impl serde::ser::Serialize for MetricValue {
     }
 }
 
+impl std::fmt::Debug for MetricValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetricValue");
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MetricValue].
 pub mod metric_value {
     #[allow(unused_imports)]
@@ -4020,7 +4188,7 @@ pub mod metric_value {
 /// Represents a set of metric values in the same metric.
 /// Each metric value in the set should have a unique combination of start time,
 /// end time, and label values.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetricValueSet {
     /// The metric name defined in the service configuration.
@@ -4178,8 +4346,21 @@ impl serde::ser::Serialize for MetricValueSet {
     }
 }
 
+impl std::fmt::Debug for MetricValueSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetricValueSet");
+        debug_struct.field("metric_name", &self.metric_name);
+        debug_struct.field("metric_values", &self.metric_values);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents information regarding an operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Operation {
     /// Identity of the operation. This must be unique within the scope of the
@@ -4630,6 +4811,27 @@ impl serde::ser::Serialize for Operation {
     }
 }
 
+impl std::fmt::Debug for Operation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Operation");
+        debug_struct.field("operation_id", &self.operation_id);
+        debug_struct.field("operation_name", &self.operation_name);
+        debug_struct.field("consumer_id", &self.consumer_id);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("metric_value_sets", &self.metric_value_sets);
+        debug_struct.field("log_entries", &self.log_entries);
+        debug_struct.field("importance", &self.importance);
+        debug_struct.field("extensions", &self.extensions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Operation].
 pub mod operation {
     #[allow(unused_imports)]
@@ -4765,7 +4967,7 @@ pub mod operation {
 }
 
 /// Request message for the AllocateQuota method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllocateQuotaRequest {
     /// Name of the service as specified in the service configuration. For example,
@@ -4965,8 +5167,22 @@ impl serde::ser::Serialize for AllocateQuotaRequest {
     }
 }
 
+impl std::fmt::Debug for AllocateQuotaRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AllocateQuotaRequest");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("allocate_operation", &self.allocate_operation);
+        debug_struct.field("service_config_id", &self.service_config_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents information regarding a quota operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaOperation {
     /// Identity of the operation. This is expected to be unique within the scope
@@ -5272,6 +5488,23 @@ impl serde::ser::Serialize for QuotaOperation {
     }
 }
 
+impl std::fmt::Debug for QuotaOperation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuotaOperation");
+        debug_struct.field("operation_id", &self.operation_id);
+        debug_struct.field("method_name", &self.method_name);
+        debug_struct.field("consumer_id", &self.consumer_id);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("quota_metrics", &self.quota_metrics);
+        debug_struct.field("quota_mode", &self.quota_mode);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QuotaOperation].
 pub mod quota_operation {
     #[allow(unused_imports)]
@@ -5454,7 +5687,7 @@ pub mod quota_operation {
 }
 
 /// Response message for the AllocateQuota method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllocateQuotaResponse {
     /// The same operation_id value used in the AllocateQuotaRequest. Used for
@@ -5683,10 +5916,25 @@ impl serde::ser::Serialize for AllocateQuotaResponse {
     }
 }
 
+impl std::fmt::Debug for AllocateQuotaResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AllocateQuotaResponse");
+        debug_struct.field("operation_id", &self.operation_id);
+        debug_struct.field("allocate_errors", &self.allocate_errors);
+        debug_struct.field("quota_metrics", &self.quota_metrics);
+        debug_struct.field("service_config_id", &self.service_config_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents error information for [QuotaOperation][google.api.servicecontrol.v1.QuotaOperation].
 ///
 /// [google.api.servicecontrol.v1.QuotaOperation]: crate::model::QuotaOperation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaError {
     /// Error code.
@@ -5905,6 +6153,21 @@ impl serde::ser::Serialize for QuotaError {
     }
 }
 
+impl std::fmt::Debug for QuotaError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuotaError");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("subject", &self.subject);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("status", &self.status);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QuotaError].
 pub mod quota_error {
     #[allow(unused_imports)]
@@ -6071,7 +6334,7 @@ pub mod quota_error {
 }
 
 /// Request message for the Check method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckRequest {
     /// The service name as specified in its service configuration. For example,
@@ -6273,8 +6536,22 @@ impl serde::ser::Serialize for CheckRequest {
     }
 }
 
+impl std::fmt::Debug for CheckRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckRequest");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("service_config_id", &self.service_config_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the Check method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckResponse {
     /// The same operation_id value used in the
@@ -6532,13 +6809,29 @@ impl serde::ser::Serialize for CheckResponse {
     }
 }
 
+impl std::fmt::Debug for CheckResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckResponse");
+        debug_struct.field("operation_id", &self.operation_id);
+        debug_struct.field("check_errors", &self.check_errors);
+        debug_struct.field("service_config_id", &self.service_config_id);
+        debug_struct.field("service_rollout_id", &self.service_rollout_id);
+        debug_struct.field("check_info", &self.check_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CheckResponse].
 pub mod check_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Contains additional information about the check operation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CheckInfo {
         /// A list of fields and label keys that are ignored by the server.
@@ -6740,8 +7033,22 @@ pub mod check_response {
         }
     }
 
+    impl std::fmt::Debug for CheckInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CheckInfo");
+            debug_struct.field("unused_arguments", &self.unused_arguments);
+            debug_struct.field("consumer_info", &self.consumer_info);
+            debug_struct.field("api_key_uid", &self.api_key_uid);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// `ConsumerInfo` provides information about the consumer.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConsumerInfo {
         /// The Google cloud project number, e.g. 1234567890. A value of 0 indicates
@@ -6975,6 +7282,20 @@ pub mod check_response {
         }
     }
 
+    impl std::fmt::Debug for ConsumerInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConsumerInfo");
+            debug_struct.field("project_number", &self.project_number);
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("consumer_number", &self.consumer_number);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ConsumerInfo].
     pub mod consumer_info {
         #[allow(unused_imports)]
@@ -7135,7 +7456,7 @@ pub mod check_response {
 }
 
 /// Request message for the Report method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportRequest {
     /// The service name as specified in its service configuration. For example,
@@ -7341,8 +7662,22 @@ impl serde::ser::Serialize for ReportRequest {
     }
 }
 
+impl std::fmt::Debug for ReportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReportRequest");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("operations", &self.operations);
+        debug_struct.field("service_config_id", &self.service_config_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the Report method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportResponse {
     /// Partial failures, one for each `Operation` in the request that failed
@@ -7548,6 +7883,20 @@ impl serde::ser::Serialize for ReportResponse {
     }
 }
 
+impl std::fmt::Debug for ReportResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReportResponse");
+        debug_struct.field("report_errors", &self.report_errors);
+        debug_struct.field("service_config_id", &self.service_config_id);
+        debug_struct.field("service_rollout_id", &self.service_rollout_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReportResponse].
 pub mod report_response {
     #[allow(unused_imports)]
@@ -7557,7 +7906,7 @@ pub mod report_response {
     /// [Operation][google.api.servicecontrol.v1.Operation] in the request.
     ///
     /// [google.api.servicecontrol.v1.Operation]: crate::model::Operation
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReportError {
         /// The
@@ -7732,6 +8081,19 @@ pub mod report_response {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ReportError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ReportError");
+            debug_struct.field("operation_id", &self.operation_id);
+            debug_struct.field("status", &self.status);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 }

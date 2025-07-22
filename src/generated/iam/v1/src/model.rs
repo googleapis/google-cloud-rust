@@ -32,7 +32,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request message for `SetIamPolicy` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetIamPolicyRequest {
     /// REQUIRED: The resource for which the policy is being specified.
@@ -240,8 +240,22 @@ impl serde::ser::Serialize for SetIamPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for SetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetIamPolicyRequest");
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("policy", &self.policy);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GetIamPolicy` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIamPolicyRequest {
     /// REQUIRED: The resource for which the policy is being requested.
@@ -408,8 +422,21 @@ impl serde::ser::Serialize for GetIamPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIamPolicyRequest");
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("options", &self.options);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TestIamPermissions` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestIamPermissionsRequest {
     /// REQUIRED: The resource for which the policy detail is being requested.
@@ -569,8 +596,21 @@ impl serde::ser::Serialize for TestIamPermissionsRequest {
     }
 }
 
+impl std::fmt::Debug for TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("permissions", &self.permissions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `TestIamPermissions` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestIamPermissionsResponse {
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
@@ -703,8 +743,20 @@ impl serde::ser::Serialize for TestIamPermissionsResponse {
     }
 }
 
+impl std::fmt::Debug for TestIamPermissionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsResponse");
+        debug_struct.field("permissions", &self.permissions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encapsulates settings provided to GetIamPolicy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPolicyOptions {
     /// Optional. The maximum policy version that will be used to format the
@@ -875,6 +927,18 @@ impl serde::ser::Serialize for GetPolicyOptions {
     }
 }
 
+impl std::fmt::Debug for GetPolicyOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPolicyOptions");
+        debug_struct.field("requested_policy_version", &self.requested_policy_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An Identity and Access Management (IAM) policy, which specifies access
 /// controls for Google Cloud resources.
 ///
@@ -947,7 +1011,7 @@ impl serde::ser::Serialize for GetPolicyOptions {
 ///
 /// For a description of IAM and its features, see the
 /// [IAM documentation](https://cloud.google.com/iam/docs/).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
     /// Specifies the format of the policy.
@@ -1235,8 +1299,23 @@ impl serde::ser::Serialize for Policy {
     }
 }
 
+impl std::fmt::Debug for Policy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Policy");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("bindings", &self.bindings);
+        debug_struct.field("audit_configs", &self.audit_configs);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Associates `members`, or principals, with a `role`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Binding {
     /// Role that is assigned to the list of `members`, or principals.
@@ -1479,6 +1558,20 @@ impl serde::ser::Serialize for Binding {
     }
 }
 
+impl std::fmt::Debug for Binding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Binding");
+        debug_struct.field("role", &self.role);
+        debug_struct.field("members", &self.members);
+        debug_struct.field("condition", &self.condition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the audit configuration for a service.
 /// The configuration determines which permission types are logged, and what
 /// identities, if any, are exempted from logging.
@@ -1532,7 +1625,7 @@ impl serde::ser::Serialize for Binding {
 /// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
 /// logging. It also exempts `jose@example.com` from DATA_READ logging, and
 /// `aliya@example.com` from DATA_WRITE logging.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditConfig {
     /// Specifies a service that will be enabled for audit logging.
@@ -1695,6 +1788,19 @@ impl serde::ser::Serialize for AuditConfig {
     }
 }
 
+impl std::fmt::Debug for AuditConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuditConfig");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("audit_log_configs", &self.audit_log_configs);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Provides the configuration for logging a type of permissions.
 /// Example:
 ///
@@ -1716,7 +1822,7 @@ impl serde::ser::Serialize for AuditConfig {
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
 /// jose@example.com from DATA_READ logging.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditLogConfig {
     /// The log type that this config enables.
@@ -1880,6 +1986,19 @@ impl serde::ser::Serialize for AuditLogConfig {
     }
 }
 
+impl std::fmt::Debug for AuditLogConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuditLogConfig");
+        debug_struct.field("log_type", &self.log_type);
+        debug_struct.field("exempted_members", &self.exempted_members);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AuditLogConfig].
 pub mod audit_log_config {
     #[allow(unused_imports)]
@@ -2027,7 +2146,7 @@ pub mod audit_log_config {
 }
 
 /// The difference delta between two policies.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyDelta {
     /// The delta for Bindings between two policies.
@@ -2192,9 +2311,22 @@ impl serde::ser::Serialize for PolicyDelta {
     }
 }
 
+impl std::fmt::Debug for PolicyDelta {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PolicyDelta");
+        debug_struct.field("binding_deltas", &self.binding_deltas);
+        debug_struct.field("audit_config_deltas", &self.audit_config_deltas);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// One delta entry for Binding. Each individual change (only one member in each
 /// entry) to a binding will be a separate entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BindingDelta {
     /// The action that was performed on a Binding.
@@ -2412,6 +2544,21 @@ impl serde::ser::Serialize for BindingDelta {
     }
 }
 
+impl std::fmt::Debug for BindingDelta {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BindingDelta");
+        debug_struct.field("action", &self.action);
+        debug_struct.field("role", &self.role);
+        debug_struct.field("member", &self.member);
+        debug_struct.field("condition", &self.condition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BindingDelta].
 pub mod binding_delta {
     #[allow(unused_imports)]
@@ -2552,7 +2699,7 @@ pub mod binding_delta {
 
 /// One delta entry for AuditConfig. Each individual change (only one
 /// exempted_member in each entry) to a AuditConfig will be a separate entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditConfigDelta {
     /// The action that was performed on an audit configuration in a policy.
@@ -2764,6 +2911,21 @@ impl serde::ser::Serialize for AuditConfigDelta {
     }
 }
 
+impl std::fmt::Debug for AuditConfigDelta {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuditConfigDelta");
+        debug_struct.field("action", &self.action);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("exempted_member", &self.exempted_member);
+        debug_struct.field("log_type", &self.log_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AuditConfigDelta].
 pub mod audit_config_delta {
     #[allow(unused_imports)]
@@ -2904,7 +3066,7 @@ pub mod audit_config_delta {
 
 /// Output-only policy member strings of a Google Cloud resource's built-in
 /// identity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourcePolicyMember {
     /// IAM policy binding member referring to a Google Cloud resource by
@@ -3078,5 +3240,18 @@ impl serde::ser::Serialize for ResourcePolicyMember {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ResourcePolicyMember {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourcePolicyMember");
+        debug_struct.field("iam_policy_name_principal", &self.iam_policy_name_principal);
+        debug_struct.field("iam_policy_uid_principal", &self.iam_policy_uid_principal);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

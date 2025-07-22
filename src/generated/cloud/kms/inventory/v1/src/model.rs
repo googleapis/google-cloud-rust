@@ -35,7 +35,7 @@ extern crate wkt;
 /// [KeyDashboardService.ListCryptoKeys][google.cloud.kms.inventory.v1.KeyDashboardService.ListCryptoKeys].
 ///
 /// [google.cloud.kms.inventory.v1.KeyDashboardService.ListCryptoKeys]: crate::client::KeyDashboardService::list_crypto_keys
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCryptoKeysRequest {
     /// Required. The Google Cloud project for which to retrieve key metadata, in
@@ -236,11 +236,25 @@ impl serde::ser::Serialize for ListCryptoKeysRequest {
     }
 }
 
+impl std::fmt::Debug for ListCryptoKeysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCryptoKeysRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyDashboardService.ListCryptoKeys][google.cloud.kms.inventory.v1.KeyDashboardService.ListCryptoKeys].
 ///
 /// [google.cloud.kms.inventory.v1.KeyDashboardService.ListCryptoKeys]: crate::client::KeyDashboardService::list_crypto_keys
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCryptoKeysResponse {
     /// The list of [CryptoKeys][google.cloud.kms.v1.CryptoKey].
@@ -415,11 +429,24 @@ impl serde::ser::Serialize for ListCryptoKeysResponse {
     }
 }
 
+impl std::fmt::Debug for ListCryptoKeysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCryptoKeysResponse");
+        debug_struct.field("crypto_keys", &self.crypto_keys);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyTrackingService.GetProtectedResourcesSummary][google.cloud.kms.inventory.v1.KeyTrackingService.GetProtectedResourcesSummary].
 ///
 /// [google.cloud.kms.inventory.v1.KeyTrackingService.GetProtectedResourcesSummary]: crate::client::KeyTrackingService::get_protected_resources_summary
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProtectedResourcesSummaryRequest {
     /// Required. The resource name of the
@@ -551,9 +578,21 @@ impl serde::ser::Serialize for GetProtectedResourcesSummaryRequest {
     }
 }
 
+impl std::fmt::Debug for GetProtectedResourcesSummaryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProtectedResourcesSummaryRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Aggregate information about the resources protected by a Cloud KMS key in the
 /// same Cloud organization as the key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProtectedResourcesSummary {
     /// The full name of the ProtectedResourcesSummary resource.
@@ -958,11 +997,28 @@ impl serde::ser::Serialize for ProtectedResourcesSummary {
     }
 }
 
+impl std::fmt::Debug for ProtectedResourcesSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProtectedResourcesSummary");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("resource_count", &self.resource_count);
+        debug_struct.field("project_count", &self.project_count);
+        debug_struct.field("resource_types", &self.resource_types);
+        debug_struct.field("cloud_products", &self.cloud_products);
+        debug_struct.field("locations", &self.locations);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [KeyTrackingService.SearchProtectedResources][google.cloud.kms.inventory.v1.KeyTrackingService.SearchProtectedResources].
 ///
 /// [google.cloud.kms.inventory.v1.KeyTrackingService.SearchProtectedResources]: crate::client::KeyTrackingService::search_protected_resources
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchProtectedResourcesRequest {
     /// Required. Resource name of the organization.
@@ -1240,11 +1296,27 @@ impl serde::ser::Serialize for SearchProtectedResourcesRequest {
     }
 }
 
+impl std::fmt::Debug for SearchProtectedResourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchProtectedResourcesRequest");
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("crypto_key", &self.crypto_key);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("resource_types", &self.resource_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [KeyTrackingService.SearchProtectedResources][google.cloud.kms.inventory.v1.KeyTrackingService.SearchProtectedResources].
 ///
 /// [google.cloud.kms.inventory.v1.KeyTrackingService.SearchProtectedResources]: crate::client::KeyTrackingService::search_protected_resources
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchProtectedResourcesResponse {
     /// Protected resources for this page.
@@ -1421,8 +1493,21 @@ impl serde::ser::Serialize for SearchProtectedResourcesResponse {
     }
 }
 
+impl std::fmt::Debug for SearchProtectedResourcesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchProtectedResourcesResponse");
+        debug_struct.field("protected_resources", &self.protected_resources);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata about a resource protected by a Cloud KMS key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProtectedResource {
     /// The full resource name of the resource.
@@ -1814,5 +1899,26 @@ impl serde::ser::Serialize for ProtectedResource {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ProtectedResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProtectedResource");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("cloud_product", &self.cloud_product);
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("crypto_key_version", &self.crypto_key_version);
+        debug_struct.field("crypto_key_versions", &self.crypto_key_versions);
+        debug_struct.field("create_time", &self.create_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

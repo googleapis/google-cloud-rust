@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Describes an API diff request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeThreatListDiffRequest {
     /// Required. The threat list to update. Only a single ThreatType should be
@@ -253,13 +253,27 @@ impl serde::ser::Serialize for ComputeThreatListDiffRequest {
     }
 }
 
+impl std::fmt::Debug for ComputeThreatListDiffRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ComputeThreatListDiffRequest");
+        debug_struct.field("threat_type", &self.threat_type);
+        debug_struct.field("version_token", &self.version_token);
+        debug_struct.field("constraints", &self.constraints);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ComputeThreatListDiffRequest].
 pub mod compute_threat_list_diff_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// The constraints for this diff.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Constraints {
         /// The maximum size in number of entries. The diff will not contain more
@@ -492,9 +506,23 @@ pub mod compute_threat_list_diff_request {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Constraints {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Constraints");
+            debug_struct.field("max_diff_entries", &self.max_diff_entries);
+            debug_struct.field("max_database_entries", &self.max_database_entries);
+            debug_struct.field("supported_compressions", &self.supported_compressions);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeThreatListDiffResponse {
     /// The type of response. This may indicate that an action must be taken by the
@@ -827,13 +855,30 @@ impl serde::ser::Serialize for ComputeThreatListDiffResponse {
     }
 }
 
+impl std::fmt::Debug for ComputeThreatListDiffResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ComputeThreatListDiffResponse");
+        debug_struct.field("response_type", &self.response_type);
+        debug_struct.field("additions", &self.additions);
+        debug_struct.field("removals", &self.removals);
+        debug_struct.field("new_version_token", &self.new_version_token);
+        debug_struct.field("checksum", &self.checksum);
+        debug_struct.field("recommended_next_diff", &self.recommended_next_diff);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ComputeThreatListDiffResponse].
 pub mod compute_threat_list_diff_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// The expected state of a client's local database.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Checksum {
         /// The SHA256 hash of the client state; that is, of the sorted list of all
@@ -989,6 +1034,18 @@ pub mod compute_threat_list_diff_response {
         }
     }
 
+    impl std::fmt::Debug for Checksum {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Checksum");
+            debug_struct.field("sha256", &self.sha256);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The type of response sent to the client.
     ///
     /// # Working with unknown values
@@ -1125,7 +1182,7 @@ pub mod compute_threat_list_diff_response {
 }
 
 /// Request to check URI entries against threatLists.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchUrisRequest {
     /// Required. The URI to be checked for matches.
@@ -1283,7 +1340,20 @@ impl serde::ser::Serialize for SearchUrisRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for SearchUrisRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchUrisRequest");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("threat_types", &self.threat_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchUrisResponse {
     /// The threat list matches. This might be empty if the URI is on no list.
@@ -1424,13 +1494,25 @@ impl serde::ser::Serialize for SearchUrisResponse {
     }
 }
 
+impl std::fmt::Debug for SearchUrisResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchUrisResponse");
+        debug_struct.field("threat", &self.threat);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SearchUrisResponse].
 pub mod search_uris_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Contains threat information on a matching uri.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ThreatUri {
         /// The ThreatList this threat belongs to.
@@ -1606,10 +1688,23 @@ pub mod search_uris_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ThreatUri {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ThreatUri");
+            debug_struct.field("threat_types", &self.threat_types);
+            debug_struct.field("expire_time", &self.expire_time);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request to return full hashes matched by the provided hash prefixes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchHashesRequest {
     /// A hash prefix, consisting of the most significant 4-32 bytes of a SHA256
@@ -1789,7 +1884,20 @@ impl serde::ser::Serialize for SearchHashesRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for SearchHashesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchHashesRequest");
+        debug_struct.field("hash_prefix", &self.hash_prefix);
+        debug_struct.field("threat_types", &self.threat_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchHashesResponse {
     /// The full hashes that matched the requested prefixes.
@@ -1963,13 +2071,26 @@ impl serde::ser::Serialize for SearchHashesResponse {
     }
 }
 
+impl std::fmt::Debug for SearchHashesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchHashesResponse");
+        debug_struct.field("threats", &self.threats);
+        debug_struct.field("negative_expire_time", &self.negative_expire_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SearchHashesResponse].
 pub mod search_hashes_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Contains threat information on a matching hash.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ThreatHash {
         /// The ThreatList this threat belongs to.
@@ -2194,11 +2315,25 @@ pub mod search_hashes_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ThreatHash {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ThreatHash");
+            debug_struct.field("threat_types", &self.threat_types);
+            debug_struct.field("hash", &self.hash);
+            debug_struct.field("expire_time", &self.expire_time);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Contains the set of entries to add to a local database.
 /// May contain a combination of compressed and raw data in a single response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ThreatEntryAdditions {
     /// The raw SHA256-formatted entries.
@@ -2371,8 +2506,21 @@ impl serde::ser::Serialize for ThreatEntryAdditions {
     }
 }
 
+impl std::fmt::Debug for ThreatEntryAdditions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ThreatEntryAdditions");
+        debug_struct.field("raw_hashes", &self.raw_hashes);
+        debug_struct.field("rice_hashes", &self.rice_hashes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains the set of entries to remove from a local database.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ThreatEntryRemovals {
     /// The raw removal indices for a local list.
@@ -2553,8 +2701,21 @@ impl serde::ser::Serialize for ThreatEntryRemovals {
     }
 }
 
+impl std::fmt::Debug for ThreatEntryRemovals {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ThreatEntryRemovals");
+        debug_struct.field("raw_indices", &self.raw_indices);
+        debug_struct.field("rice_indices", &self.rice_indices);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A set of raw indices to remove from a local list.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawIndices {
     /// The indices to remove from a lexicographically-sorted local list.
@@ -2711,6 +2872,18 @@ impl serde::ser::Serialize for RawIndices {
     }
 }
 
+impl std::fmt::Debug for RawIndices {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RawIndices");
+        debug_struct.field("indices", &self.indices);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The uncompressed threat entries in hash format.
 /// Hashes can be anywhere from 4 to 32 bytes in size. A large majority are 4
 /// bytes, but some hashes are lengthened if they collide with the hash of a
@@ -2719,7 +2892,7 @@ impl serde::ser::Serialize for RawIndices {
 /// Used for sending ThreatEntryAdditons to clients that do not support
 /// compression, or when sending non-4-byte hashes to clients that do support
 /// compression.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawHashes {
     /// The number of bytes for each prefix encoded below.  This field can be
@@ -2914,9 +3087,22 @@ impl serde::ser::Serialize for RawHashes {
     }
 }
 
+impl std::fmt::Debug for RawHashes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RawHashes");
+        debug_struct.field("prefix_size", &self.prefix_size);
+        debug_struct.field("raw_hashes", &self.raw_hashes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Rice-Golomb encoded data. Used for sending compressed 4-byte hashes or
 /// compressed removal indices.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RiceDeltaEncoding {
     /// The offset of the first entry in the encoded data, or, if only a single
@@ -3199,8 +3385,23 @@ impl serde::ser::Serialize for RiceDeltaEncoding {
     }
 }
 
+impl std::fmt::Debug for RiceDeltaEncoding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RiceDeltaEncoding");
+        debug_struct.field("first_value", &self.first_value);
+        debug_struct.field("rice_parameter", &self.rice_parameter);
+        debug_struct.field("entry_count", &self.entry_count);
+        debug_struct.field("encoded_data", &self.encoded_data);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Wraps a URI that might be displaying malicious content.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Submission {
     /// Required. The URI that is being reported for malicious content to be
@@ -3360,9 +3561,22 @@ impl serde::ser::Serialize for Submission {
     }
 }
 
+impl std::fmt::Debug for Submission {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Submission");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("threat_types", &self.threat_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Context about the submission including the type of abuse found on the URI and
 /// supporting details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ThreatInfo {
     /// The type of abuse.
@@ -3566,13 +3780,27 @@ impl serde::ser::Serialize for ThreatInfo {
     }
 }
 
+impl std::fmt::Debug for ThreatInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ThreatInfo");
+        debug_struct.field("abuse_type", &self.abuse_type);
+        debug_struct.field("threat_confidence", &self.threat_confidence);
+        debug_struct.field("threat_justification", &self.threat_justification);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ThreatInfo].
 pub mod threat_info {
     #[allow(unused_imports)]
     use super::*;
 
     /// Confidence that a URI is unsafe.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Confidence {
         pub value: std::option::Option<crate::model::threat_info::confidence::Value>,
@@ -3820,6 +4048,18 @@ pub mod threat_info {
         }
     }
 
+    impl std::fmt::Debug for Confidence {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Confidence");
+            debug_struct.field("value", &self.value);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Confidence].
     pub mod confidence {
         #[allow(unused_imports)]
@@ -3980,7 +4220,7 @@ pub mod threat_info {
     }
 
     /// Context about why the URI is unsafe.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ThreatJustification {
         /// Labels associated with this URI that explain how it was classified.
@@ -4142,6 +4382,19 @@ pub mod threat_info {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ThreatJustification {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ThreatJustification");
+            debug_struct.field("labels", &self.labels);
+            debug_struct.field("comments", &self.comments);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -4436,7 +4689,7 @@ pub mod threat_info {
 }
 
 /// Details about how the threat was discovered.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ThreatDiscovery {
     /// Platform on which the threat was discovered.
@@ -4595,6 +4848,19 @@ impl serde::ser::Serialize for ThreatDiscovery {
     }
 }
 
+impl std::fmt::Debug for ThreatDiscovery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ThreatDiscovery");
+        debug_struct.field("platform", &self.platform);
+        debug_struct.field("region_codes", &self.region_codes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ThreatDiscovery].
 pub mod threat_discovery {
     #[allow(unused_imports)]
@@ -4748,7 +5014,7 @@ pub mod threat_discovery {
 }
 
 /// Request to send a potentially phishy URI to WebRisk.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSubmissionRequest {
     /// Required. The name of the project that is making the submission. This
@@ -4913,8 +5179,21 @@ impl serde::ser::Serialize for CreateSubmissionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSubmissionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSubmissionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("submission", &self.submission);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to send a potentially malicious URI to WebRisk.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitUriRequest {
     /// Required. The name of the project that is making the submission. This
@@ -5152,8 +5431,23 @@ impl serde::ser::Serialize for SubmitUriRequest {
     }
 }
 
+impl std::fmt::Debug for SubmitUriRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubmitUriRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("submission", &self.submission);
+        debug_struct.field("threat_info", &self.threat_info);
+        debug_struct.field("threat_discovery", &self.threat_discovery);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for the Submit URI long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitUriMetadata {
     /// The state of the operation.
@@ -5352,6 +5646,20 @@ impl serde::ser::Serialize for SubmitUriMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for SubmitUriMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubmitUriMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

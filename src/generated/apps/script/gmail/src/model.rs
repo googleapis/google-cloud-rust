@@ -26,7 +26,7 @@ extern crate std;
 extern crate wkt;
 
 /// Properties customizing the appearance and execution of a Gmail add-on.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GmailAddOnManifest {
     /// Defines an endpoint that will be executed in contexts that don't
@@ -321,9 +321,28 @@ impl serde::ser::Serialize for GmailAddOnManifest {
     }
 }
 
+impl std::fmt::Debug for GmailAddOnManifest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GmailAddOnManifest");
+        debug_struct.field("homepage_trigger", &self.homepage_trigger);
+        debug_struct.field("contextual_triggers", &self.contextual_triggers);
+        debug_struct.field("universal_actions", &self.universal_actions);
+        debug_struct.field("compose_trigger", &self.compose_trigger);
+        debug_struct.field(
+            "authorization_check_function",
+            &self.authorization_check_function,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An action that is always available in the add-on toolbar menu regardless of
 /// message context.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UniversalAction {
     /// Required. User-visible text describing the action, for example, "Add a new
@@ -567,6 +586,19 @@ impl serde::ser::Serialize for UniversalAction {
     }
 }
 
+impl std::fmt::Debug for UniversalAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UniversalAction");
+        debug_struct.field("text", &self.text);
+        debug_struct.field("action_type", &self.action_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [UniversalAction].
 pub mod universal_action {
     #[allow(unused_imports)]
@@ -587,7 +619,7 @@ pub mod universal_action {
 }
 
 /// A trigger that activates when user is composing an email.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComposeTrigger {
     /// Defines the set of actions for compose time add-on. These are actions
@@ -750,6 +782,19 @@ impl serde::ser::Serialize for ComposeTrigger {
     }
 }
 
+impl std::fmt::Debug for ComposeTrigger {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ComposeTrigger");
+        debug_struct.field("actions", &self.actions);
+        debug_struct.field("draft_access", &self.draft_access);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ComposeTrigger].
 pub mod compose_trigger {
     #[allow(unused_imports)]
@@ -894,7 +939,7 @@ pub mod compose_trigger {
 /// Defines a trigger that fires when the open email meets a specific criteria.
 /// When the trigger fires, it executes a specific endpoint, usually
 /// in order to create new cards and update the UI.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContextualTrigger {
     /// Required. The name of the endpoint to call when a message matches the
@@ -1103,6 +1148,19 @@ impl serde::ser::Serialize for ContextualTrigger {
     }
 }
 
+impl std::fmt::Debug for ContextualTrigger {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContextualTrigger");
+        debug_struct.field("on_trigger_function", &self.on_trigger_function);
+        debug_struct.field("trigger", &self.trigger);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ContextualTrigger].
 pub mod contextual_trigger {
     #[allow(unused_imports)]
@@ -1119,7 +1177,7 @@ pub mod contextual_trigger {
 }
 
 /// A trigger that fires when any email message is opened.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnconditionalTrigger {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1218,5 +1276,16 @@ impl serde::ser::Serialize for UnconditionalTrigger {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for UnconditionalTrigger {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UnconditionalTrigger");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

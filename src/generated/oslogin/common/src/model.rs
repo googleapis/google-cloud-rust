@@ -25,7 +25,7 @@ extern crate std;
 extern crate wkt;
 
 /// The POSIX account information associated with a Google account.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PosixAccount {
     /// Only one POSIX account can be marked as primary.
@@ -436,8 +436,30 @@ impl serde::ser::Serialize for PosixAccount {
     }
 }
 
+impl std::fmt::Debug for PosixAccount {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PosixAccount");
+        debug_struct.field("primary", &self.primary);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("gid", &self.gid);
+        debug_struct.field("home_directory", &self.home_directory);
+        debug_struct.field("shell", &self.shell);
+        debug_struct.field("gecos", &self.gecos);
+        debug_struct.field("system_id", &self.system_id);
+        debug_struct.field("account_id", &self.account_id);
+        debug_struct.field("operating_system_type", &self.operating_system_type);
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The SSH public key information associated with a Google account.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SshPublicKey {
     /// Public key text in SSH format, defined by
@@ -656,6 +678,21 @@ impl serde::ser::Serialize for SshPublicKey {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for SshPublicKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SshPublicKey");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("expiration_time_usec", &self.expiration_time_usec);
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

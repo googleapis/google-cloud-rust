@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A backup of a Cloud Spanner database.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Backup {
     /// Required for the
@@ -864,6 +864,39 @@ impl serde::ser::Serialize for Backup {
     }
 }
 
+impl std::fmt::Debug for Backup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Backup");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("version_time", &self.version_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("size_bytes", &self.size_bytes);
+        debug_struct.field("freeable_size_bytes", &self.freeable_size_bytes);
+        debug_struct.field("exclusive_size_bytes", &self.exclusive_size_bytes);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("referencing_databases", &self.referencing_databases);
+        debug_struct.field("encryption_info", &self.encryption_info);
+        debug_struct.field("encryption_information", &self.encryption_information);
+        debug_struct.field("database_dialect", &self.database_dialect);
+        debug_struct.field("referencing_backups", &self.referencing_backups);
+        debug_struct.field("max_expire_time", &self.max_expire_time);
+        debug_struct.field("backup_schedules", &self.backup_schedules);
+        debug_struct.field(
+            "incremental_backup_chain_id",
+            &self.incremental_backup_chain_id,
+        );
+        debug_struct.field("oldest_version_time", &self.oldest_version_time);
+        debug_struct.field("instance_partitions", &self.instance_partitions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
@@ -1007,7 +1040,7 @@ pub mod backup {
 /// [CreateBackup][google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupRequest {
     /// Required. The name of the instance in which the backup will be
@@ -1245,11 +1278,26 @@ impl serde::ser::Serialize for CreateBackupRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBackupRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("backup_id", &self.backup_id);
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("encryption_config", &self.encryption_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [CreateBackup][google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupMetadata {
     /// The name of the backup being created.
@@ -1492,11 +1540,26 @@ impl serde::ser::Serialize for CreateBackupMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateBackupMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBackupMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("progress", &self.progress);
+        debug_struct.field("cancel_time", &self.cancel_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [CopyBackup][google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::client::DatabaseAdmin::copy_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyBackupRequest {
     /// Required. The name of the destination instance that will contain the backup
@@ -1765,11 +1828,27 @@ impl serde::ser::Serialize for CopyBackupRequest {
     }
 }
 
+impl std::fmt::Debug for CopyBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CopyBackupRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("backup_id", &self.backup_id);
+        debug_struct.field("source_backup", &self.source_backup);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("encryption_config", &self.encryption_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [CopyBackup][google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::client::DatabaseAdmin::copy_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyBackupMetadata {
     /// The name of the backup being created through the copy operation.
@@ -2017,11 +2096,26 @@ impl serde::ser::Serialize for CopyBackupMetadata {
     }
 }
 
+impl std::fmt::Debug for CopyBackupMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CopyBackupMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source_backup", &self.source_backup);
+        debug_struct.field("progress", &self.progress);
+        debug_struct.field("cancel_time", &self.cancel_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [UpdateBackup][google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackup].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackup]: crate::client::DatabaseAdmin::update_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupRequest {
     /// Required. The backup to update. `backup.name`, and the fields to be updated
@@ -2205,11 +2299,24 @@ impl serde::ser::Serialize for UpdateBackupRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBackupRequest");
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [GetBackup][google.spanner.admin.database.v1.DatabaseAdmin.GetBackup].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.GetBackup]: crate::client::DatabaseAdmin::get_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupRequest {
     /// Required. Name of the backup.
@@ -2340,11 +2447,23 @@ impl serde::ser::Serialize for GetBackupRequest {
     }
 }
 
+impl std::fmt::Debug for GetBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [DeleteBackup][google.spanner.admin.database.v1.DatabaseAdmin.DeleteBackup].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.DeleteBackup]: crate::client::DatabaseAdmin::delete_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupRequest {
     /// Required. Name of the backup to delete.
@@ -2475,11 +2594,23 @@ impl serde::ser::Serialize for DeleteBackupRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBackupRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ListBackups][google.spanner.admin.database.v1.DatabaseAdmin.ListBackups].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackups]: crate::client::DatabaseAdmin::list_backups
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsRequest {
     /// Required. The instance to list backups from.  Values are of the
@@ -2749,11 +2880,26 @@ impl serde::ser::Serialize for ListBackupsRequest {
     }
 }
 
+impl std::fmt::Debug for ListBackupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListBackups][google.spanner.admin.database.v1.DatabaseAdmin.ListBackups].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackups]: crate::client::DatabaseAdmin::list_backups
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsResponse {
     /// The list of matching backups. Backups returned are ordered by `create_time`
@@ -2929,11 +3075,24 @@ impl serde::ser::Serialize for ListBackupsResponse {
     }
 }
 
+impl std::fmt::Debug for ListBackupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupsResponse");
+        debug_struct.field("backups", &self.backups);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ListBackupOperations][google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations]: crate::client::DatabaseAdmin::list_backup_operations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupOperationsRequest {
     /// Required. The instance of the backup operations. Values are of
@@ -3236,11 +3395,26 @@ impl serde::ser::Serialize for ListBackupOperationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListBackupOperationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupOperationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListBackupOperations][google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations]: crate::client::DatabaseAdmin::list_backup_operations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupOperationsResponse {
     /// The list of matching backup [long-running
@@ -3430,8 +3604,21 @@ impl serde::ser::Serialize for ListBackupOperationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListBackupOperationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupOperationsResponse");
+        debug_struct.field("operations", &self.operations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about a backup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupInfo {
     /// Name of the backup.
@@ -3667,8 +3854,23 @@ impl serde::ser::Serialize for BackupInfo {
     }
 }
 
+impl std::fmt::Debug for BackupInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupInfo");
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("version_time", &self.version_time);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("source_database", &self.source_database);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encryption configuration for the backup to create.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupEncryptionConfig {
     /// Required. The encryption type of the backup.
@@ -3879,6 +4081,20 @@ impl serde::ser::Serialize for CreateBackupEncryptionConfig {
     }
 }
 
+impl std::fmt::Debug for CreateBackupEncryptionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBackupEncryptionConfig");
+        debug_struct.field("encryption_type", &self.encryption_type);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("kms_key_names", &self.kms_key_names);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CreateBackupEncryptionConfig].
 pub mod create_backup_encryption_config {
     #[allow(unused_imports)]
@@ -4037,7 +4253,7 @@ pub mod create_backup_encryption_config {
 }
 
 /// Encryption configuration for the copied backup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyBackupEncryptionConfig {
     /// Required. The encryption type of the backup.
@@ -4249,6 +4465,20 @@ impl serde::ser::Serialize for CopyBackupEncryptionConfig {
     }
 }
 
+impl std::fmt::Debug for CopyBackupEncryptionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CopyBackupEncryptionConfig");
+        debug_struct.field("encryption_type", &self.encryption_type);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("kms_key_names", &self.kms_key_names);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CopyBackupEncryptionConfig].
 pub mod copy_backup_encryption_config {
     #[allow(unused_imports)]
@@ -4415,7 +4645,7 @@ pub mod copy_backup_encryption_config {
 /// The specification for full backups.
 /// A full backup stores the entire contents of the database at a given
 /// version time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FullBackupSpec {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4517,13 +4747,24 @@ impl serde::ser::Serialize for FullBackupSpec {
     }
 }
 
+impl std::fmt::Debug for FullBackupSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FullBackupSpec");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The specification for incremental backup chains.
 /// An incremental backup stores the delta of changes between a previous
 /// backup and the database contents at a given version time. An
 /// incremental backup chain consists of a full backup and zero or more
 /// successive incremental backups. The first backup created for an
 /// incremental backup chain is always a full backup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IncrementalBackupSpec {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4625,8 +4866,19 @@ impl serde::ser::Serialize for IncrementalBackupSpec {
     }
 }
 
+impl std::fmt::Debug for IncrementalBackupSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IncrementalBackupSpec");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Instance partition information for the backup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupInstancePartition {
     /// A unique identifier for the instance partition. Values are of the form
@@ -4760,8 +5012,20 @@ impl serde::ser::Serialize for BackupInstancePartition {
     }
 }
 
+impl std::fmt::Debug for BackupInstancePartition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupInstancePartition");
+        debug_struct.field("instance_partition", &self.instance_partition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines specifications of the backup schedule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupScheduleSpec {
     /// Required.
@@ -4937,6 +5201,18 @@ impl serde::ser::Serialize for BackupScheduleSpec {
     }
 }
 
+impl std::fmt::Debug for BackupScheduleSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupScheduleSpec");
+        debug_struct.field("schedule_spec", &self.schedule_spec);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BackupScheduleSpec].
 pub mod backup_schedule_spec {
     #[allow(unused_imports)]
@@ -4954,7 +5230,7 @@ pub mod backup_schedule_spec {
 /// BackupSchedule expresses the automated backup creation specification for a
 /// Spanner database.
 /// Next ID: 10
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupSchedule {
     /// Identifier. Output only for the
@@ -5374,6 +5650,23 @@ impl serde::ser::Serialize for BackupSchedule {
     }
 }
 
+impl std::fmt::Debug for BackupSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupSchedule");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("spec", &self.spec);
+        debug_struct.field("retention_duration", &self.retention_duration);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("backup_type_spec", &self.backup_type_spec);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BackupSchedule].
 pub mod backup_schedule {
     #[allow(unused_imports)]
@@ -5393,7 +5686,7 @@ pub mod backup_schedule {
 
 /// CrontabSpec can be used to specify the version time and frequency at
 /// which the backup should be created.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CrontabSpec {
     /// Required. Textual representation of the crontab. User can customize the
@@ -5602,11 +5895,25 @@ impl serde::ser::Serialize for CrontabSpec {
     }
 }
 
+impl std::fmt::Debug for CrontabSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CrontabSpec");
+        debug_struct.field("text", &self.text);
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field("creation_window", &self.creation_window);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [CreateBackupSchedule][google.spanner.admin.database.v1.DatabaseAdmin.CreateBackupSchedule].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackupSchedule]: crate::client::DatabaseAdmin::create_backup_schedule
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupScheduleRequest {
     /// Required. The name of the database that this backup schedule applies to.
@@ -5802,11 +6109,25 @@ impl serde::ser::Serialize for CreateBackupScheduleRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBackupScheduleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBackupScheduleRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("backup_schedule_id", &self.backup_schedule_id);
+        debug_struct.field("backup_schedule", &self.backup_schedule);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [GetBackupSchedule][google.spanner.admin.database.v1.DatabaseAdmin.GetBackupSchedule].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.GetBackupSchedule]: crate::client::DatabaseAdmin::get_backup_schedule
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupScheduleRequest {
     /// Required. The name of the schedule to retrieve.
@@ -5937,11 +6258,23 @@ impl serde::ser::Serialize for GetBackupScheduleRequest {
     }
 }
 
+impl std::fmt::Debug for GetBackupScheduleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupScheduleRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [DeleteBackupSchedule][google.spanner.admin.database.v1.DatabaseAdmin.DeleteBackupSchedule].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.DeleteBackupSchedule]: crate::client::DatabaseAdmin::delete_backup_schedule
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupScheduleRequest {
     /// Required. The name of the schedule to delete.
@@ -6072,11 +6405,23 @@ impl serde::ser::Serialize for DeleteBackupScheduleRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBackupScheduleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBackupScheduleRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ListBackupSchedules][google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules]: crate::client::DatabaseAdmin::list_backup_schedules
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupSchedulesRequest {
     /// Required. Database is the parent resource whose backup schedules should be
@@ -6283,11 +6628,25 @@ impl serde::ser::Serialize for ListBackupSchedulesRequest {
     }
 }
 
+impl std::fmt::Debug for ListBackupSchedulesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupSchedulesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListBackupSchedules][google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules]: crate::client::DatabaseAdmin::list_backup_schedules
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupSchedulesResponse {
     /// The list of backup schedules for a database.
@@ -6467,11 +6826,24 @@ impl serde::ser::Serialize for ListBackupSchedulesResponse {
     }
 }
 
+impl std::fmt::Debug for ListBackupSchedulesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupSchedulesResponse");
+        debug_struct.field("backup_schedules", &self.backup_schedules);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [UpdateBackupScheduleRequest][google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackupSchedule].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackupSchedule]: crate::client::DatabaseAdmin::update_backup_schedule
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupScheduleRequest {
     /// Required. The backup schedule to update. `backup_schedule.name`, and the
@@ -6655,9 +7027,22 @@ impl serde::ser::Serialize for UpdateBackupScheduleRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateBackupScheduleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBackupScheduleRequest");
+        debug_struct.field("backup_schedule", &self.backup_schedule);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encapsulates progress related information for a Cloud Spanner long
 /// running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationProgress {
     /// Percent completion of the operation.
@@ -6880,8 +7265,22 @@ impl serde::ser::Serialize for OperationProgress {
     }
 }
 
+impl std::fmt::Debug for OperationProgress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationProgress");
+        debug_struct.field("progress_percent", &self.progress_percent);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encryption configuration for a Cloud Spanner database.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionConfig {
     /// The Cloud KMS key to be used for encrypting and decrypting
@@ -7056,8 +7455,21 @@ impl serde::ser::Serialize for EncryptionConfig {
     }
 }
 
+impl std::fmt::Debug for EncryptionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionConfig");
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("kms_key_names", &self.kms_key_names);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encryption information for a Cloud Spanner database or backup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionInfo {
     /// Output only. The type of encryption.
@@ -7252,6 +7664,20 @@ impl serde::ser::Serialize for EncryptionInfo {
     }
 }
 
+impl std::fmt::Debug for EncryptionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionInfo");
+        debug_struct.field("encryption_type", &self.encryption_type);
+        debug_struct.field("encryption_status", &self.encryption_status);
+        debug_struct.field("kms_key_version", &self.kms_key_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EncryptionInfo].
 pub mod encryption_info {
     #[allow(unused_imports)]
@@ -7399,7 +7825,7 @@ pub mod encryption_info {
 }
 
 /// Information about the database restore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreInfo {
     /// The type of the restore source.
@@ -7601,6 +8027,19 @@ impl serde::ser::Serialize for RestoreInfo {
     }
 }
 
+impl std::fmt::Debug for RestoreInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreInfo");
+        debug_struct.field("source_type", &self.source_type);
+        debug_struct.field("source_info", &self.source_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RestoreInfo].
 pub mod restore_info {
     #[allow(unused_imports)]
@@ -7617,7 +8056,7 @@ pub mod restore_info {
 }
 
 /// A Cloud Spanner database.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Database {
     /// Required. The name of the database. Values are of the form
@@ -8115,6 +8554,29 @@ impl serde::ser::Serialize for Database {
     }
 }
 
+impl std::fmt::Debug for Database {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Database");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("restore_info", &self.restore_info);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        debug_struct.field("encryption_info", &self.encryption_info);
+        debug_struct.field("version_retention_period", &self.version_retention_period);
+        debug_struct.field("earliest_version_time", &self.earliest_version_time);
+        debug_struct.field("default_leader", &self.default_leader);
+        debug_struct.field("database_dialect", &self.database_dialect);
+        debug_struct.field("enable_drop_protection", &self.enable_drop_protection);
+        debug_struct.field("reconciling", &self.reconciling);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Database].
 pub mod database {
     #[allow(unused_imports)]
@@ -8272,7 +8734,7 @@ pub mod database {
 /// [ListDatabases][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases]: crate::client::DatabaseAdmin::list_databases
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabasesRequest {
     /// Required. The instance whose databases should be listed.
@@ -8477,11 +8939,25 @@ impl serde::ser::Serialize for ListDatabasesRequest {
     }
 }
 
+impl std::fmt::Debug for ListDatabasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatabasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListDatabases][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases]: crate::client::DatabaseAdmin::list_databases
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabasesResponse {
     /// Databases that matched the request.
@@ -8656,11 +9132,24 @@ impl serde::ser::Serialize for ListDatabasesResponse {
     }
 }
 
+impl std::fmt::Debug for ListDatabasesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatabasesResponse");
+        debug_struct.field("databases", &self.databases);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [CreateDatabase][google.spanner.admin.database.v1.DatabaseAdmin.CreateDatabase].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateDatabase]: crate::client::DatabaseAdmin::create_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatabaseRequest {
     /// Required. The name of the instance that will serve the new database.
@@ -8980,11 +9469,28 @@ impl serde::ser::Serialize for CreateDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDatabaseRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("create_statement", &self.create_statement);
+        debug_struct.field("extra_statements", &self.extra_statements);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        debug_struct.field("database_dialect", &self.database_dialect);
+        debug_struct.field("proto_descriptors", &self.proto_descriptors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [CreateDatabase][google.spanner.admin.database.v1.DatabaseAdmin.CreateDatabase].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateDatabase]: crate::client::DatabaseAdmin::create_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatabaseMetadata {
     /// The database being created.
@@ -9113,11 +9619,23 @@ impl serde::ser::Serialize for CreateDatabaseMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateDatabaseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDatabaseMetadata");
+        debug_struct.field("database", &self.database);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [GetDatabase][google.spanner.admin.database.v1.DatabaseAdmin.GetDatabase].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.GetDatabase]: crate::client::DatabaseAdmin::get_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDatabaseRequest {
     /// Required. The name of the requested database. Values are of the form
@@ -9247,11 +9765,23 @@ impl serde::ser::Serialize for GetDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for GetDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDatabaseRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [UpdateDatabase][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase]: crate::client::DatabaseAdmin::update_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatabaseRequest {
     /// Required. The database to update.
@@ -9430,11 +9960,24 @@ impl serde::ser::Serialize for UpdateDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDatabaseRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [UpdateDatabase][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase]: crate::client::DatabaseAdmin::update_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatabaseMetadata {
     /// The request for
@@ -9654,6 +10197,20 @@ impl serde::ser::Serialize for UpdateDatabaseMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateDatabaseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDatabaseMetadata");
+        debug_struct.field("request", &self.request);
+        debug_struct.field("progress", &self.progress);
+        debug_struct.field("cancel_time", &self.cancel_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Enqueues the given DDL statements to be applied, in order but not
 /// necessarily all at once, to the database schema at some point (or
 /// points) in the future. The server checks that the statements
@@ -9673,7 +10230,7 @@ impl serde::ser::Serialize for UpdateDatabaseMetadata {
 ///
 /// [google.longrunning.Operations]: longrunning::client::Operations
 /// [google.spanner.admin.database.v1.UpdateDatabaseDdlRequest.operation_id]: crate::model::UpdateDatabaseDdlRequest::operation_id
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatabaseDdlRequest {
     /// Required. The database to update.
@@ -9965,12 +10522,28 @@ impl serde::ser::Serialize for UpdateDatabaseDdlRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDatabaseDdlRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDatabaseDdlRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("statements", &self.statements);
+        debug_struct.field("operation_id", &self.operation_id);
+        debug_struct.field("proto_descriptors", &self.proto_descriptors);
+        debug_struct.field("throughput_mode", &self.throughput_mode);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Action information extracted from a DDL statement. This proto is used to
 /// display the brief info of the DDL statement for the operation
 /// [UpdateDatabaseDdl][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::client::DatabaseAdmin::update_database_ddl
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DdlStatementActionInfo {
     /// The action for the DDL statement, e.g. CREATE, ALTER, DROP, GRANT, etc.
@@ -10160,11 +10733,25 @@ impl serde::ser::Serialize for DdlStatementActionInfo {
     }
 }
 
+impl std::fmt::Debug for DdlStatementActionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DdlStatementActionInfo");
+        debug_struct.field("action", &self.action);
+        debug_struct.field("entity_type", &self.entity_type);
+        debug_struct.field("entity_names", &self.entity_names);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [UpdateDatabaseDdl][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::client::DatabaseAdmin::update_database_ddl
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatabaseDdlMetadata {
     /// The database being modified.
@@ -10450,11 +11037,28 @@ impl serde::ser::Serialize for UpdateDatabaseDdlMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateDatabaseDdlMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDatabaseDdlMetadata");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("statements", &self.statements);
+        debug_struct.field("commit_timestamps", &self.commit_timestamps);
+        debug_struct.field("throttled", &self.throttled);
+        debug_struct.field("progress", &self.progress);
+        debug_struct.field("actions", &self.actions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [DropDatabase][google.spanner.admin.database.v1.DatabaseAdmin.DropDatabase].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.DropDatabase]: crate::client::DatabaseAdmin::drop_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DropDatabaseRequest {
     /// Required. The database to be dropped.
@@ -10583,11 +11187,23 @@ impl serde::ser::Serialize for DropDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for DropDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DropDatabaseRequest");
+        debug_struct.field("database", &self.database);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [GetDatabaseDdl][google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl]: crate::client::DatabaseAdmin::get_database_ddl
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDatabaseDdlRequest {
     /// Required. The database whose schema we wish to get.
@@ -10718,11 +11334,23 @@ impl serde::ser::Serialize for GetDatabaseDdlRequest {
     }
 }
 
+impl std::fmt::Debug for GetDatabaseDdlRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDatabaseDdlRequest");
+        debug_struct.field("database", &self.database);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [GetDatabaseDdl][google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl]: crate::client::DatabaseAdmin::get_database_ddl
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDatabaseDdlResponse {
     /// A list of formatted DDL statements defining the schema of the database
@@ -10903,11 +11531,24 @@ impl serde::ser::Serialize for GetDatabaseDdlResponse {
     }
 }
 
+impl std::fmt::Debug for GetDatabaseDdlResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDatabaseDdlResponse");
+        debug_struct.field("statements", &self.statements);
+        debug_struct.field("proto_descriptors", &self.proto_descriptors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ListDatabaseOperations][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations]: crate::client::DatabaseAdmin::list_database_operations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabaseOperationsRequest {
     /// Required. The instance of the database operations.
@@ -11184,11 +11825,26 @@ impl serde::ser::Serialize for ListDatabaseOperationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDatabaseOperationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatabaseOperationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListDatabaseOperations][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations]: crate::client::DatabaseAdmin::list_database_operations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabaseOperationsResponse {
     /// The list of matching database [long-running
@@ -11374,11 +12030,24 @@ impl serde::ser::Serialize for ListDatabaseOperationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDatabaseOperationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatabaseOperationsResponse");
+        debug_struct.field("operations", &self.operations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [RestoreDatabase][google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase]: crate::client::DatabaseAdmin::restore_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreDatabaseRequest {
     /// Required. The name of the instance in which to create the
@@ -11648,6 +12317,21 @@ impl serde::ser::Serialize for RestoreDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for RestoreDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreDatabaseRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("database_id", &self.database_id);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RestoreDatabaseRequest].
 pub mod restore_database_request {
     #[allow(unused_imports)]
@@ -11664,7 +12348,7 @@ pub mod restore_database_request {
 }
 
 /// Encryption configuration for the restored database.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreDatabaseEncryptionConfig {
     /// Required. The encryption type of the restored database.
@@ -11871,6 +12555,20 @@ impl serde::ser::Serialize for RestoreDatabaseEncryptionConfig {
     }
 }
 
+impl std::fmt::Debug for RestoreDatabaseEncryptionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreDatabaseEncryptionConfig");
+        debug_struct.field("encryption_type", &self.encryption_type);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("kms_key_names", &self.kms_key_names);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RestoreDatabaseEncryptionConfig].
 pub mod restore_database_encryption_config {
     #[allow(unused_imports)]
@@ -12033,7 +12731,7 @@ pub mod restore_database_encryption_config {
 /// [RestoreDatabase][google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase]: crate::client::DatabaseAdmin::restore_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreDatabaseMetadata {
     /// Name of the database being created and restored to.
@@ -12405,6 +13103,26 @@ impl serde::ser::Serialize for RestoreDatabaseMetadata {
     }
 }
 
+impl std::fmt::Debug for RestoreDatabaseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreDatabaseMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source_type", &self.source_type);
+        debug_struct.field("progress", &self.progress);
+        debug_struct.field("cancel_time", &self.cancel_time);
+        debug_struct.field(
+            "optimize_database_operation_name",
+            &self.optimize_database_operation_name,
+        );
+        debug_struct.field("source_info", &self.source_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RestoreDatabaseMetadata].
 pub mod restore_database_metadata {
     #[allow(unused_imports)]
@@ -12427,7 +13145,7 @@ pub mod restore_database_metadata {
 /// of optimizations performed on a newly restored database. This long-running
 /// operation is automatically created by the system after the successful
 /// completion of a database restore, and cannot be cancelled.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OptimizeRestoredDatabaseMetadata {
     /// Name of the restored database being optimized.
@@ -12592,8 +13310,21 @@ impl serde::ser::Serialize for OptimizeRestoredDatabaseMetadata {
     }
 }
 
+impl std::fmt::Debug for OptimizeRestoredDatabaseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OptimizeRestoredDatabaseMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("progress", &self.progress);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Cloud Spanner database role.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseRole {
     /// Required. The name of the database role. Values are of the form
@@ -12724,11 +13455,23 @@ impl serde::ser::Serialize for DatabaseRole {
     }
 }
 
+impl std::fmt::Debug for DatabaseRole {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseRole");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ListDatabaseRoles][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles]: crate::client::DatabaseAdmin::list_database_roles
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabaseRolesRequest {
     /// Required. The database whose roles should be listed.
@@ -12934,11 +13677,25 @@ impl serde::ser::Serialize for ListDatabaseRolesRequest {
     }
 }
 
+impl std::fmt::Debug for ListDatabaseRolesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatabaseRolesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListDatabaseRoles][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles]: crate::client::DatabaseAdmin::list_database_roles
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatabaseRolesResponse {
     /// Database roles that matched the request.
@@ -13114,11 +13871,24 @@ impl serde::ser::Serialize for ListDatabaseRolesResponse {
     }
 }
 
+impl std::fmt::Debug for ListDatabaseRolesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDatabaseRolesResponse");
+        debug_struct.field("database_roles", &self.database_roles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [AddSplitPoints][google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints]: crate::client::DatabaseAdmin::add_split_points
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddSplitPointsRequest {
     /// Required. The database on whose tables/indexes split points are to be
@@ -13305,11 +14075,25 @@ impl serde::ser::Serialize for AddSplitPointsRequest {
     }
 }
 
+impl std::fmt::Debug for AddSplitPointsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddSplitPointsRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("split_points", &self.split_points);
+        debug_struct.field("initiator", &self.initiator);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [AddSplitPoints][google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints].
 ///
 /// [google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints]: crate::client::DatabaseAdmin::add_split_points
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddSplitPointsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13411,8 +14195,19 @@ impl serde::ser::Serialize for AddSplitPointsResponse {
     }
 }
 
+impl std::fmt::Debug for AddSplitPointsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddSplitPointsResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The split points of a table/index.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SplitPoints {
     /// The table to split.
@@ -13636,13 +14431,28 @@ impl serde::ser::Serialize for SplitPoints {
     }
 }
 
+impl std::fmt::Debug for SplitPoints {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SplitPoints");
+        debug_struct.field("table", &self.table);
+        debug_struct.field("index", &self.index);
+        debug_struct.field("keys", &self.keys);
+        debug_struct.field("expire_time", &self.expire_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SplitPoints].
 pub mod split_points {
     #[allow(unused_imports)]
     use super::*;
 
     /// A split key.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Key {
         /// Required. The column values making up the split key.
@@ -13783,6 +14593,18 @@ pub mod split_points {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Key {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Key");
+            debug_struct.field("key_parts", &self.key_parts);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 }

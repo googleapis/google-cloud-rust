@@ -37,7 +37,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Encodes the detailed information of a barcode.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Barcode {
     /// Format of a barcode.
@@ -248,11 +248,25 @@ impl serde::ser::Serialize for Barcode {
     }
 }
 
+impl std::fmt::Debug for Barcode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Barcode");
+        debug_struct.field("format", &self.format);
+        debug_struct.field("value_format", &self.value_format);
+        debug_struct.field("raw_value", &self.raw_value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Document represents the canonical document resource in Document AI. It is an
 /// interchange format that provides insights into documents and allows for
 /// collaboration between users and Document AI to iterate and optimize for
 /// quality.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Document {
     /// Optional. An internal identifier for document. Should be loggable (no PII).
@@ -904,6 +918,31 @@ impl serde::ser::Serialize for Document {
     }
 }
 
+impl std::fmt::Debug for Document {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Document");
+        debug_struct.field("docid", &self.docid);
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("text", &self.text);
+        debug_struct.field("text_styles", &self.text_styles);
+        debug_struct.field("pages", &self.pages);
+        debug_struct.field("entities", &self.entities);
+        debug_struct.field("entity_relations", &self.entity_relations);
+        debug_struct.field("text_changes", &self.text_changes);
+        debug_struct.field("shard_info", &self.shard_info);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("revisions", &self.revisions);
+        debug_struct.field("document_layout", &self.document_layout);
+        debug_struct.field("chunked_document", &self.chunked_document);
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Document].
 pub mod document {
     #[allow(unused_imports)]
@@ -912,7 +951,7 @@ pub mod document {
     /// For a large document, sharding may be performed to produce several
     /// document shards. Each document shard contains this field to detail which
     /// shard it is.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ShardInfo {
         /// The 0-based index of this shard.
@@ -1156,9 +1195,23 @@ pub mod document {
         }
     }
 
+    impl std::fmt::Debug for ShardInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ShardInfo");
+            debug_struct.field("shard_index", &self.shard_index);
+            debug_struct.field("shard_count", &self.shard_count);
+            debug_struct.field("text_offset", &self.text_offset);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Annotation for common text style attributes. This adheres to CSS
     /// conventions as much as possible.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Style {
         /// Text anchor indexing into the
@@ -1523,13 +1576,32 @@ pub mod document {
         }
     }
 
+    impl std::fmt::Debug for Style {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Style");
+            debug_struct.field("text_anchor", &self.text_anchor);
+            debug_struct.field("color", &self.color);
+            debug_struct.field("background_color", &self.background_color);
+            debug_struct.field("font_weight", &self.font_weight);
+            debug_struct.field("text_style", &self.text_style);
+            debug_struct.field("text_decoration", &self.text_decoration);
+            debug_struct.field("font_size", &self.font_size);
+            debug_struct.field("font_family", &self.font_family);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Style].
     pub mod style {
         #[allow(unused_imports)]
         use super::*;
 
         /// Font size with unit.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FontSize {
             /// Font size for the text.
@@ -1709,12 +1781,25 @@ pub mod document {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for FontSize {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("FontSize");
+                debug_struct.field("size", &self.size);
+                debug_struct.field("unit", &self.unit);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// A page in a [Document][google.cloud.documentai.v1.Document].
     ///
     /// [google.cloud.documentai.v1.Document]: crate::model::Document
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Page {
         /// 1-based index for current
@@ -2418,13 +2503,41 @@ pub mod document {
         }
     }
 
+    impl std::fmt::Debug for Page {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Page");
+            debug_struct.field("page_number", &self.page_number);
+            debug_struct.field("image", &self.image);
+            debug_struct.field("transforms", &self.transforms);
+            debug_struct.field("dimension", &self.dimension);
+            debug_struct.field("layout", &self.layout);
+            debug_struct.field("detected_languages", &self.detected_languages);
+            debug_struct.field("blocks", &self.blocks);
+            debug_struct.field("paragraphs", &self.paragraphs);
+            debug_struct.field("lines", &self.lines);
+            debug_struct.field("tokens", &self.tokens);
+            debug_struct.field("visual_elements", &self.visual_elements);
+            debug_struct.field("tables", &self.tables);
+            debug_struct.field("form_fields", &self.form_fields);
+            debug_struct.field("symbols", &self.symbols);
+            debug_struct.field("detected_barcodes", &self.detected_barcodes);
+            debug_struct.field("image_quality_scores", &self.image_quality_scores);
+            debug_struct.field("provenance", &self.provenance);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Page].
     pub mod page {
         #[allow(unused_imports)]
         use super::*;
 
         /// Dimension for the page.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Dimension {
             /// Page width.
@@ -2651,8 +2764,22 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for Dimension {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Dimension");
+                debug_struct.field("width", &self.width);
+                debug_struct.field("height", &self.height);
+                debug_struct.field("unit", &self.unit);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Rendered image contents for this page.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Image {
             /// Raw byte content of the image.
@@ -2942,9 +3069,24 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for Image {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Image");
+                debug_struct.field("content", &self.content);
+                debug_struct.field("mime_type", &self.mime_type);
+                debug_struct.field("width", &self.width);
+                debug_struct.field("height", &self.height);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Representation for transformation matrix, intended to be compatible and
         /// used with OpenCV format for image manipulation.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Matrix {
             /// Number of rows in the matrix.
@@ -3246,8 +3388,23 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for Matrix {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Matrix");
+                debug_struct.field("rows", &self.rows);
+                debug_struct.field("cols", &self.cols);
+                debug_struct.field("r#type", &self.r#type);
+                debug_struct.field("data", &self.data);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Visual element describing a layout unit on a page.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Layout {
             /// Text anchor indexing into the
@@ -3530,6 +3687,21 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for Layout {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Layout");
+                debug_struct.field("text_anchor", &self.text_anchor);
+                debug_struct.field("confidence", &self.confidence);
+                debug_struct.field("bounding_poly", &self.bounding_poly);
+                debug_struct.field("orientation", &self.orientation);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Layout].
         pub mod layout {
             #[allow(unused_imports)]
@@ -3690,7 +3862,7 @@ pub mod document {
 
         /// A block has a set of lines (collected into paragraphs) that have a
         /// common line-spacing and orientation.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Block {
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
@@ -3918,8 +4090,22 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for Block {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Block");
+                debug_struct.field("layout", &self.layout);
+                debug_struct.field("detected_languages", &self.detected_languages);
+                debug_struct.field("provenance", &self.provenance);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A collection of lines that a human would perceive as a paragraph.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Paragraph {
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
@@ -4147,9 +4333,23 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for Paragraph {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Paragraph");
+                debug_struct.field("layout", &self.layout);
+                debug_struct.field("detected_languages", &self.detected_languages);
+                debug_struct.field("provenance", &self.provenance);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A collection of tokens that a human would perceive as a line.
         /// Does not cross column boundaries, can be horizontal, vertical, etc.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Line {
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
@@ -4377,8 +4577,22 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for Line {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Line");
+                debug_struct.field("layout", &self.layout);
+                debug_struct.field("detected_languages", &self.detected_languages);
+                debug_struct.field("provenance", &self.provenance);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A detected token.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Token {
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
@@ -4690,6 +4904,22 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for Token {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Token");
+                debug_struct.field("layout", &self.layout);
+                debug_struct.field("detected_break", &self.detected_break);
+                debug_struct.field("detected_languages", &self.detected_languages);
+                debug_struct.field("provenance", &self.provenance);
+                debug_struct.field("style_info", &self.style_info);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Token].
         pub mod token {
             #[allow(unused_imports)]
@@ -4699,7 +4929,7 @@ pub mod document {
             /// [Token][google.cloud.documentai.v1.Document.Page.Token].
             ///
             /// [google.cloud.documentai.v1.Document.Page.Token]: crate::model::document::page::Token
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct DetectedBreak {
                 /// Detected break type.
@@ -4842,6 +5072,18 @@ pub mod document {
                         }
                     }
                     state.end()
+                }
+            }
+
+            impl std::fmt::Debug for DetectedBreak {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("DetectedBreak");
+                    debug_struct.field("r#type", &self.r#type);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
                 }
             }
 
@@ -4994,7 +5236,7 @@ pub mod document {
             }
 
             /// Font and other text style attributes.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct StyleInfo {
                 /// Font size in points (`1` point is `¹⁄₇₂` inches).
@@ -5653,10 +5895,36 @@ pub mod document {
                     state.end()
                 }
             }
+
+            impl std::fmt::Debug for StyleInfo {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("StyleInfo");
+                    debug_struct.field("font_size", &self.font_size);
+                    debug_struct.field("pixel_font_size", &self.pixel_font_size);
+                    debug_struct.field("letter_spacing", &self.letter_spacing);
+                    debug_struct.field("font_type", &self.font_type);
+                    debug_struct.field("bold", &self.bold);
+                    debug_struct.field("italic", &self.italic);
+                    debug_struct.field("underlined", &self.underlined);
+                    debug_struct.field("strikeout", &self.strikeout);
+                    debug_struct.field("subscript", &self.subscript);
+                    debug_struct.field("superscript", &self.superscript);
+                    debug_struct.field("smallcaps", &self.smallcaps);
+                    debug_struct.field("font_weight", &self.font_weight);
+                    debug_struct.field("handwritten", &self.handwritten);
+                    debug_struct.field("text_color", &self.text_color);
+                    debug_struct.field("background_color", &self.background_color);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
         }
 
         /// A detected symbol.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Symbol {
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
@@ -5844,9 +6112,22 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for Symbol {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Symbol");
+                debug_struct.field("layout", &self.layout);
+                debug_struct.field("detected_languages", &self.detected_languages);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Detected non-text visual elements e.g. checkbox, signature etc. on the
         /// page.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct VisualElement {
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
@@ -6061,8 +6342,22 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for VisualElement {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("VisualElement");
+                debug_struct.field("layout", &self.layout);
+                debug_struct.field("r#type", &self.r#type);
+                debug_struct.field("detected_languages", &self.detected_languages);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A table representation similar to HTML table structure.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Table {
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
@@ -6362,13 +6657,29 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for Table {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Table");
+                debug_struct.field("layout", &self.layout);
+                debug_struct.field("header_rows", &self.header_rows);
+                debug_struct.field("body_rows", &self.body_rows);
+                debug_struct.field("detected_languages", &self.detected_languages);
+                debug_struct.field("provenance", &self.provenance);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Table].
         pub mod table {
             #[allow(unused_imports)]
             use super::*;
 
             /// A row of table cells.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct TableRow {
                 /// Cells that make up this row.
@@ -6520,8 +6831,20 @@ pub mod document {
                 }
             }
 
+            impl std::fmt::Debug for TableRow {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("TableRow");
+                    debug_struct.field("cells", &self.cells);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// A cell representation inside the table.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct TableCell {
                 /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
@@ -6827,10 +7150,25 @@ pub mod document {
                     state.end()
                 }
             }
+
+            impl std::fmt::Debug for TableCell {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("TableCell");
+                    debug_struct.field("layout", &self.layout);
+                    debug_struct.field("row_span", &self.row_span);
+                    debug_struct.field("col_span", &self.col_span);
+                    debug_struct.field("detected_languages", &self.detected_languages);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
         }
 
         /// A form field detected on the page.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FormField {
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for the
@@ -7254,8 +7592,27 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for FormField {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("FormField");
+                debug_struct.field("field_name", &self.field_name);
+                debug_struct.field("field_value", &self.field_value);
+                debug_struct.field("name_detected_languages", &self.name_detected_languages);
+                debug_struct.field("value_detected_languages", &self.value_detected_languages);
+                debug_struct.field("value_type", &self.value_type);
+                debug_struct.field("corrected_key_text", &self.corrected_key_text);
+                debug_struct.field("corrected_value_text", &self.corrected_value_text);
+                debug_struct.field("provenance", &self.provenance);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A detected barcode.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DetectedBarcode {
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for
@@ -7448,8 +7805,21 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for DetectedBarcode {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("DetectedBarcode");
+                debug_struct.field("layout", &self.layout);
+                debug_struct.field("barcode", &self.barcode);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Detected language for a structural component.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DetectedLanguage {
             /// The [BCP-47 language
@@ -7640,8 +8010,21 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for DetectedLanguage {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("DetectedLanguage");
+                debug_struct.field("language_code", &self.language_code);
+                debug_struct.field("confidence", &self.confidence);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Image quality scores for the page image.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ImageQualityScores {
             /// The overall quality score. Range `[0, 1]` where `1` is perfect quality.
@@ -7834,13 +8217,26 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for ImageQualityScores {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ImageQualityScores");
+                debug_struct.field("quality_score", &self.quality_score);
+                debug_struct.field("detected_defects", &self.detected_defects);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [ImageQualityScores].
         pub mod image_quality_scores {
             #[allow(unused_imports)]
             use super::*;
 
             /// Image Quality Defects
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct DetectedDefect {
                 /// Name of the defect type. Supported values are:
@@ -8049,13 +8445,26 @@ pub mod document {
                     state.end()
                 }
             }
+
+            impl std::fmt::Debug for DetectedDefect {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("DetectedDefect");
+                    debug_struct.field("r#type", &self.r#type);
+                    debug_struct.field("confidence", &self.confidence);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
         }
     }
 
     /// An entity that could be a phrase in the text or a property that belongs to
     /// the document. It is a known entity type, such as a person, an organization,
     /// or location.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Entity {
         /// Optional. Provenance of the entity.
@@ -8518,13 +8927,35 @@ pub mod document {
         }
     }
 
+    impl std::fmt::Debug for Entity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Entity");
+            debug_struct.field("text_anchor", &self.text_anchor);
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("mention_text", &self.mention_text);
+            debug_struct.field("mention_id", &self.mention_id);
+            debug_struct.field("confidence", &self.confidence);
+            debug_struct.field("page_anchor", &self.page_anchor);
+            debug_struct.field("id", &self.id);
+            debug_struct.field("normalized_value", &self.normalized_value);
+            debug_struct.field("properties", &self.properties);
+            debug_struct.field("provenance", &self.provenance);
+            debug_struct.field("redacted", &self.redacted);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Entity].
     pub mod entity {
         #[allow(unused_imports)]
         use super::*;
 
         /// Parsed and normalized entity value.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NormalizedValue {
             /// Optional. An optional field to store a normalized string.
@@ -9127,6 +9558,19 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for NormalizedValue {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("NormalizedValue");
+                debug_struct.field("text", &self.text);
+                debug_struct.field("structured_value", &self.structured_value);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [NormalizedValue].
         pub mod normalized_value {
             #[allow(unused_imports)]
@@ -9166,7 +9610,7 @@ pub mod document {
     /// [Entities][google.cloud.documentai.v1.Document.Entity].
     ///
     /// [google.cloud.documentai.v1.Document.Entity]: crate::model::document::Entity
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EntityRelation {
         /// Subject entity id.
@@ -9348,11 +9792,25 @@ pub mod document {
         }
     }
 
+    impl std::fmt::Debug for EntityRelation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EntityRelation");
+            debug_struct.field("subject_id", &self.subject_id);
+            debug_struct.field("object_id", &self.object_id);
+            debug_struct.field("relation", &self.relation);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Text reference indexing into the
     /// [Document.text][google.cloud.documentai.v1.Document.text].
     ///
     /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextAnchor {
         /// The text segments from the
@@ -9523,6 +9981,19 @@ pub mod document {
         }
     }
 
+    impl std::fmt::Debug for TextAnchor {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TextAnchor");
+            debug_struct.field("text_segments", &self.text_segments);
+            debug_struct.field("content", &self.content);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [TextAnchor].
     pub mod text_anchor {
         #[allow(unused_imports)]
@@ -9536,7 +10007,7 @@ pub mod document {
         ///
         /// [google.cloud.documentai.v1.Document.ShardInfo.text_offset]: crate::model::document::ShardInfo::text_offset
         /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct TextSegment {
             /// [TextSegment][google.cloud.documentai.v1.Document.TextAnchor.TextSegment]
@@ -9754,6 +10225,19 @@ pub mod document {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for TextSegment {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("TextSegment");
+                debug_struct.field("start_index", &self.start_index);
+                debug_struct.field("end_index", &self.end_index);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Referencing the visual context of the entity in the
@@ -9762,7 +10246,7 @@ pub mod document {
     /// reference specific layout element types.
     ///
     /// [google.cloud.documentai.v1.Document.pages]: crate::model::Document::pages
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PageAnchor {
         /// One or more references to visual page elements
@@ -9902,13 +10386,25 @@ pub mod document {
         }
     }
 
+    impl std::fmt::Debug for PageAnchor {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PageAnchor");
+            debug_struct.field("page_refs", &self.page_refs);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [PageAnchor].
     pub mod page_anchor {
         #[allow(unused_imports)]
         use super::*;
 
         /// Represents a weak reference to a page element within a document.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PageRef {
             /// Required. Index into the
@@ -10227,6 +10723,22 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for PageRef {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("PageRef");
+                debug_struct.field("page", &self.page);
+                debug_struct.field("layout_type", &self.layout_type);
+                debug_struct.field("layout_id", &self.layout_id);
+                debug_struct.field("bounding_poly", &self.bounding_poly);
+                debug_struct.field("confidence", &self.confidence);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [PageRef].
         pub mod page_ref {
             #[allow(unused_imports)]
@@ -10433,7 +10945,7 @@ pub mod document {
 
     /// Structure to identify provenance relationships between annotations in
     /// different revisions.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Provenance {
         /// The index of the revision that produced this element.
@@ -10692,6 +11204,21 @@ pub mod document {
         }
     }
 
+    impl std::fmt::Debug for Provenance {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Provenance");
+            debug_struct.field("revision", &self.revision);
+            debug_struct.field("id", &self.id);
+            debug_struct.field("parents", &self.parents);
+            debug_struct.field("r#type", &self.r#type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Provenance].
     pub mod provenance {
         #[allow(unused_imports)]
@@ -10699,7 +11226,7 @@ pub mod document {
 
         /// The parent element the current element is based on. Used for
         /// referencing/aligning, removal and replacement operations.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Parent {
             /// The index of the index into current revision's parent_ids list.
@@ -10952,6 +11479,20 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for Parent {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Parent");
+                debug_struct.field("revision", &self.revision);
+                debug_struct.field("index", &self.index);
+                debug_struct.field("id", &self.id);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// If a processor or agent does an explicit operation on existing elements.
         ///
         /// # Working with unknown values
@@ -11133,7 +11674,7 @@ pub mod document {
     }
 
     /// Contains past or forward revisions of this document.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Revision {
         /// Id of the revision, internally generated by doc proto storage.
@@ -11541,13 +12082,30 @@ pub mod document {
         }
     }
 
+    impl std::fmt::Debug for Revision {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Revision");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("parent", &self.parent);
+            debug_struct.field("parent_ids", &self.parent_ids);
+            debug_struct.field("create_time", &self.create_time);
+            debug_struct.field("human_review", &self.human_review);
+            debug_struct.field("source", &self.source);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Revision].
     pub mod revision {
         #[allow(unused_imports)]
         use super::*;
 
         /// Human Review information of the document.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct HumanReview {
             /// Human review state. e.g. `requested`, `succeeded`, `rejected`.
@@ -11713,6 +12271,19 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for HumanReview {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("HumanReview");
+                debug_struct.field("state", &self.state);
+                debug_struct.field("state_message", &self.state_message);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Who/what made the change
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -11727,7 +12298,7 @@ pub mod document {
     }
 
     /// This message is used for text changes aka. OCR corrections.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextChange {
         /// Provenance of the correction.
@@ -11939,9 +12510,23 @@ pub mod document {
         }
     }
 
+    impl std::fmt::Debug for TextChange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TextChange");
+            debug_struct.field("text_anchor", &self.text_anchor);
+            debug_struct.field("changed_text", &self.changed_text);
+            debug_struct.field("provenance", &self.provenance);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents the parsed layout of a document as a collection of blocks that
     /// the document is divided into.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DocumentLayout {
         /// List of blocks in the document.
@@ -12076,6 +12661,18 @@ pub mod document {
         }
     }
 
+    impl std::fmt::Debug for DocumentLayout {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DocumentLayout");
+            debug_struct.field("blocks", &self.blocks);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [DocumentLayout].
     pub mod document_layout {
         #[allow(unused_imports)]
@@ -12083,7 +12680,7 @@ pub mod document {
 
         /// Represents a block. A block could be one of the various types (text,
         /// table, list) supported.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DocumentLayoutBlock {
             /// ID of the block.
@@ -12490,13 +13087,28 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for DocumentLayoutBlock {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("DocumentLayoutBlock");
+                debug_struct.field("block_id", &self.block_id);
+                debug_struct.field("page_span", &self.page_span);
+                debug_struct.field("bounding_box", &self.bounding_box);
+                debug_struct.field("block", &self.block);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [DocumentLayoutBlock].
         pub mod document_layout_block {
             #[allow(unused_imports)]
             use super::*;
 
             /// Represents where the block starts and ends in the document.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutPageSpan {
                 /// Page where block starts in the document.
@@ -12721,8 +13333,21 @@ pub mod document {
                 }
             }
 
+            impl std::fmt::Debug for LayoutPageSpan {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("LayoutPageSpan");
+                    debug_struct.field("page_start", &self.page_start);
+                    debug_struct.field("page_end", &self.page_end);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Represents a text type block.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutTextBlock {
                 /// Text content stored in the block.
@@ -12934,8 +13559,22 @@ pub mod document {
                 }
             }
 
+            impl std::fmt::Debug for LayoutTextBlock {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("LayoutTextBlock");
+                    debug_struct.field("text", &self.text);
+                    debug_struct.field("r#type", &self.r#type);
+                    debug_struct.field("blocks", &self.blocks);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Represents a table type block.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutTableBlock {
                 /// Header rows at the top of the table.
@@ -13146,8 +13785,22 @@ pub mod document {
                 }
             }
 
+            impl std::fmt::Debug for LayoutTableBlock {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("LayoutTableBlock");
+                    debug_struct.field("header_rows", &self.header_rows);
+                    debug_struct.field("body_rows", &self.body_rows);
+                    debug_struct.field("caption", &self.caption);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Represents a row in a table.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutTableRow {
                 /// A table row is a list of table cells.
@@ -13295,8 +13948,20 @@ pub mod document {
                 }
             }
 
+            impl std::fmt::Debug for LayoutTableRow {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("LayoutTableRow");
+                    debug_struct.field("cells", &self.cells);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Represents a cell in a table row.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutTableCell {
                 /// A table cell is a list of blocks.
@@ -13554,8 +14219,22 @@ pub mod document {
                 }
             }
 
+            impl std::fmt::Debug for LayoutTableCell {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("LayoutTableCell");
+                    debug_struct.field("blocks", &self.blocks);
+                    debug_struct.field("row_span", &self.row_span);
+                    debug_struct.field("col_span", &self.col_span);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Represents a list type block.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutListBlock {
                 /// List entries that constitute a list block.
@@ -13735,8 +14414,21 @@ pub mod document {
                 }
             }
 
+            impl std::fmt::Debug for LayoutListBlock {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("LayoutListBlock");
+                    debug_struct.field("list_entries", &self.list_entries);
+                    debug_struct.field("r#type", &self.r#type);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Represents an entry in the list.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct LayoutListEntry {
                 /// A list entry is a list of blocks.
@@ -13886,6 +14578,18 @@ pub mod document {
                 }
             }
 
+            impl std::fmt::Debug for LayoutListEntry {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("LayoutListEntry");
+                    debug_struct.field("blocks", &self.blocks);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum Block {
@@ -13900,7 +14604,7 @@ pub mod document {
     }
 
     /// Represents the chunks that the document is divided into.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ChunkedDocument {
         /// List of chunks.
@@ -14041,13 +14745,25 @@ pub mod document {
         }
     }
 
+    impl std::fmt::Debug for ChunkedDocument {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ChunkedDocument");
+            debug_struct.field("chunks", &self.chunks);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ChunkedDocument].
     pub mod chunked_document {
         #[allow(unused_imports)]
         use super::*;
 
         /// Represents a chunk.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Chunk {
             /// ID of the chunk.
@@ -14353,13 +15069,30 @@ pub mod document {
             }
         }
 
+        impl std::fmt::Debug for Chunk {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Chunk");
+                debug_struct.field("chunk_id", &self.chunk_id);
+                debug_struct.field("source_block_ids", &self.source_block_ids);
+                debug_struct.field("content", &self.content);
+                debug_struct.field("page_span", &self.page_span);
+                debug_struct.field("page_headers", &self.page_headers);
+                debug_struct.field("page_footers", &self.page_footers);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Chunk].
         pub mod chunk {
             #[allow(unused_imports)]
             use super::*;
 
             /// Represents where the chunk starts and ends in the document.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ChunkPageSpan {
                 /// Page where chunk starts in the document.
@@ -14584,8 +15317,21 @@ pub mod document {
                 }
             }
 
+            impl std::fmt::Debug for ChunkPageSpan {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("ChunkPageSpan");
+                    debug_struct.field("page_start", &self.page_start);
+                    debug_struct.field("page_end", &self.page_end);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Represents the page header associated with the chunk.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ChunkPageHeader {
                 /// Header in text format.
@@ -14776,8 +15522,21 @@ pub mod document {
                 }
             }
 
+            impl std::fmt::Debug for ChunkPageHeader {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("ChunkPageHeader");
+                    debug_struct.field("text", &self.text);
+                    debug_struct.field("page_span", &self.page_span);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Represents the page footer associated with the chunk.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ChunkPageFooter {
                 /// Footer in text format.
@@ -14967,6 +15726,19 @@ pub mod document {
                     state.end()
                 }
             }
+
+            impl std::fmt::Debug for ChunkPageFooter {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("ChunkPageFooter");
+                    debug_struct.field("text", &self.text);
+                    debug_struct.field("page_span", &self.page_span);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
         }
     }
 
@@ -14987,7 +15759,7 @@ pub mod document {
 }
 
 /// Payload message of raw document content (bytes).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawDocument {
     /// Inline document content.
@@ -15191,8 +15963,22 @@ impl serde::ser::Serialize for RawDocument {
     }
 }
 
+impl std::fmt::Debug for RawDocument {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RawDocument");
+        debug_struct.field("content", &self.content);
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("display_name", &self.display_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies a document stored on Cloud Storage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDocument {
     /// The Cloud Storage object uri.
@@ -15347,8 +16133,21 @@ impl serde::ser::Serialize for GcsDocument {
     }
 }
 
+impl std::fmt::Debug for GcsDocument {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsDocument");
+        debug_struct.field("gcs_uri", &self.gcs_uri);
+        debug_struct.field("mime_type", &self.mime_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies a set of documents on Cloud Storage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDocuments {
     /// The list of documents.
@@ -15480,8 +16279,20 @@ impl serde::ser::Serialize for GcsDocuments {
     }
 }
 
+impl std::fmt::Debug for GcsDocuments {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsDocuments");
+        debug_struct.field("documents", &self.documents);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies all documents on Cloud Storage with a common prefix.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsPrefix {
     /// The URI prefix.
@@ -15611,8 +16422,20 @@ impl serde::ser::Serialize for GcsPrefix {
     }
 }
 
+impl std::fmt::Debug for GcsPrefix {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsPrefix");
+        debug_struct.field("gcs_uri_prefix", &self.gcs_uri_prefix);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The common config to specify a set of documents used as input.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDocumentsInputConfig {
     /// The source. Make sure that the caller of the API has storage.objects.get
@@ -15845,6 +16668,18 @@ impl serde::ser::Serialize for BatchDocumentsInputConfig {
     }
 }
 
+impl std::fmt::Debug for BatchDocumentsInputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchDocumentsInputConfig");
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchDocumentsInputConfig].
 pub mod batch_documents_input_config {
     #[allow(unused_imports)]
@@ -15864,7 +16699,7 @@ pub mod batch_documents_input_config {
 
 /// Config that controls the output of documents. All documents will be written
 /// as a JSON file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentOutputConfig {
     /// The destination of the results.
@@ -16047,13 +16882,25 @@ impl serde::ser::Serialize for DocumentOutputConfig {
     }
 }
 
+impl std::fmt::Debug for DocumentOutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DocumentOutputConfig");
+        debug_struct.field("destination", &self.destination);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DocumentOutputConfig].
 pub mod document_output_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// The configuration used when outputting documents.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GcsOutputConfig {
         /// The Cloud Storage uri (a directory) of the output.
@@ -16266,13 +17113,27 @@ pub mod document_output_config {
         }
     }
 
+    impl std::fmt::Debug for GcsOutputConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GcsOutputConfig");
+            debug_struct.field("gcs_uri", &self.gcs_uri);
+            debug_struct.field("field_mask", &self.field_mask);
+            debug_struct.field("sharding_config", &self.sharding_config);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [GcsOutputConfig].
     pub mod gcs_output_config {
         #[allow(unused_imports)]
         use super::*;
 
         /// The sharding config for the output document.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ShardingConfig {
             /// The number of pages per shard.
@@ -16480,6 +17341,19 @@ pub mod document_output_config {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for ShardingConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ShardingConfig");
+                debug_struct.field("pages_per_shard", &self.pages_per_shard);
+                debug_struct.field("pages_overlap", &self.pages_overlap);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// The destination of the results.
@@ -16492,7 +17366,7 @@ pub mod document_output_config {
 }
 
 /// Config for Document OCR.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OcrConfig {
     /// Hints for the OCR model.
@@ -16858,13 +17732,38 @@ impl serde::ser::Serialize for OcrConfig {
     }
 }
 
+impl std::fmt::Debug for OcrConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OcrConfig");
+        debug_struct.field("hints", &self.hints);
+        debug_struct.field("enable_native_pdf_parsing", &self.enable_native_pdf_parsing);
+        debug_struct.field(
+            "enable_image_quality_scores",
+            &self.enable_image_quality_scores,
+        );
+        debug_struct.field("advanced_ocr_options", &self.advanced_ocr_options);
+        debug_struct.field("enable_symbol", &self.enable_symbol);
+        debug_struct.field("compute_style_info", &self.compute_style_info);
+        debug_struct.field(
+            "disable_character_boxes_detection",
+            &self.disable_character_boxes_detection,
+        );
+        debug_struct.field("premium_features", &self.premium_features);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OcrConfig].
 pub mod ocr_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Hints for OCR Engine
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Hints {
         /// List of BCP-47 language codes to use for OCR. In most cases, not
@@ -17005,8 +17904,20 @@ pub mod ocr_config {
         }
     }
 
+    impl std::fmt::Debug for Hints {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Hints");
+            debug_struct.field("language_hints", &self.language_hints);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configurations for premium OCR features.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PremiumFeatures {
         /// Turn on selection mark detector in OCR engine. Only available in OCR 2.0
@@ -17199,10 +18110,27 @@ pub mod ocr_config {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for PremiumFeatures {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PremiumFeatures");
+            debug_struct.field(
+                "enable_selection_mark_detection",
+                &self.enable_selection_mark_detection,
+            );
+            debug_struct.field("compute_style_info", &self.compute_style_info);
+            debug_struct.field("enable_math_ocr", &self.enable_math_ocr);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Options for Process API
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessOptions {
     /// Only applicable to `OCR_PROCESSOR` and `FORM_PARSER_PROCESSOR`.
@@ -17646,13 +18574,28 @@ impl serde::ser::Serialize for ProcessOptions {
     }
 }
 
+impl std::fmt::Debug for ProcessOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProcessOptions");
+        debug_struct.field("ocr_config", &self.ocr_config);
+        debug_struct.field("layout_config", &self.layout_config);
+        debug_struct.field("schema_override", &self.schema_override);
+        debug_struct.field("page_range", &self.page_range);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ProcessOptions].
 pub mod process_options {
     #[allow(unused_imports)]
     use super::*;
 
     /// Serving config for layout parser processor.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LayoutConfig {
         /// Optional. Config for chunking in layout parser processor.
@@ -17849,13 +18792,27 @@ pub mod process_options {
         }
     }
 
+    impl std::fmt::Debug for LayoutConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LayoutConfig");
+            debug_struct.field("chunking_config", &self.chunking_config);
+            debug_struct.field("return_images", &self.return_images);
+            debug_struct.field("return_bounding_boxes", &self.return_bounding_boxes);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [LayoutConfig].
     pub mod layout_config {
         #[allow(unused_imports)]
         use super::*;
 
         /// Serving config for chunking.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ChunkingConfig {
             /// Optional. The chunk sizes to use when splitting documents, in order of
@@ -18052,10 +19009,23 @@ pub mod process_options {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for ChunkingConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ChunkingConfig");
+                debug_struct.field("chunk_size", &self.chunk_size);
+                debug_struct.field("include_ancestor_headings", &self.include_ancestor_headings);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// A list of individual page numbers.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IndividualPageSelector {
         /// Optional. Indices of the pages (starting from 1).
@@ -18217,6 +19187,18 @@ pub mod process_options {
         }
     }
 
+    impl std::fmt::Debug for IndividualPageSelector {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IndividualPageSelector");
+            debug_struct.field("pages", &self.pages);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A subset of pages to process. If not specified, all pages are processed.
     /// If a page range is set, only the given pages are extracted and processed
     /// from the document. In the output document,
@@ -18247,7 +19229,7 @@ pub mod process_options {
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.ProcessDocument]: crate::client::DocumentProcessorService::process_document
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessRequest {
     /// Required. The resource name of the
@@ -18731,6 +19713,24 @@ impl serde::ser::Serialize for ProcessRequest {
     }
 }
 
+impl std::fmt::Debug for ProcessRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProcessRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("skip_human_review", &self.skip_human_review);
+        debug_struct.field("field_mask", &self.field_mask);
+        debug_struct.field("process_options", &self.process_options);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("imageless_mode", &self.imageless_mode);
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ProcessRequest].
 pub mod process_request {
     #[allow(unused_imports)]
@@ -18750,7 +19750,7 @@ pub mod process_request {
 }
 
 /// The status of human review on a processed document.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HumanReviewStatus {
     /// The state of human review on the processing request.
@@ -18941,6 +19941,20 @@ impl serde::ser::Serialize for HumanReviewStatus {
     }
 }
 
+impl std::fmt::Debug for HumanReviewStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HumanReviewStatus");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_message", &self.state_message);
+        debug_struct.field("human_review_operation", &self.human_review_operation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [HumanReviewStatus].
 pub mod human_review_status {
     #[allow(unused_imports)]
@@ -19104,7 +20118,7 @@ pub mod human_review_status {
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.ProcessDocument]: crate::client::DocumentProcessorService::process_document
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessResponse {
     /// The document payload, will populate fields based on the processor's
@@ -19282,11 +20296,24 @@ impl serde::ser::Serialize for ProcessResponse {
     }
 }
 
+impl std::fmt::Debug for ProcessResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProcessResponse");
+        debug_struct.field("document", &self.document);
+        debug_struct.field("human_review_status", &self.human_review_status);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [BatchProcessDocuments][google.cloud.documentai.v1.DocumentProcessorService.BatchProcessDocuments].
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.BatchProcessDocuments]: crate::client::DocumentProcessorService::batch_process_documents
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchProcessRequest {
     /// Required. The resource name of
@@ -19606,11 +20633,28 @@ impl serde::ser::Serialize for BatchProcessRequest {
     }
 }
 
+impl std::fmt::Debug for BatchProcessRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchProcessRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("input_documents", &self.input_documents);
+        debug_struct.field("document_output_config", &self.document_output_config);
+        debug_struct.field("skip_human_review", &self.skip_human_review);
+        debug_struct.field("process_options", &self.process_options);
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [BatchProcessDocuments][google.cloud.documentai.v1.DocumentProcessorService.BatchProcessDocuments].
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.BatchProcessDocuments]: crate::client::DocumentProcessorService::batch_process_documents
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchProcessResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -19712,11 +20756,22 @@ impl serde::ser::Serialize for BatchProcessResponse {
     }
 }
 
+impl std::fmt::Debug for BatchProcessResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchProcessResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The long-running operation metadata for
 /// [BatchProcessDocuments][google.cloud.documentai.v1.DocumentProcessorService.BatchProcessDocuments].
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.BatchProcessDocuments]: crate::client::DocumentProcessorService::batch_process_documents
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchProcessMetadata {
     /// The state of the current batch processing.
@@ -19984,13 +21039,32 @@ impl serde::ser::Serialize for BatchProcessMetadata {
     }
 }
 
+impl std::fmt::Debug for BatchProcessMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchProcessMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_message", &self.state_message);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field(
+            "individual_process_statuses",
+            &self.individual_process_statuses,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchProcessMetadata].
 pub mod batch_process_metadata {
     #[allow(unused_imports)]
     use super::*;
 
     /// The status of a each individual document in the batch process.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IndividualProcessStatus {
         /// The source of the document, same as the
@@ -20235,6 +21309,21 @@ pub mod batch_process_metadata {
         }
     }
 
+    impl std::fmt::Debug for IndividualProcessStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IndividualProcessStatus");
+            debug_struct.field("input_gcs_source", &self.input_gcs_source);
+            debug_struct.field("status", &self.status);
+            debug_struct.field("output_gcs_destination", &self.output_gcs_destination);
+            debug_struct.field("human_review_status", &self.human_review_status);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Possible states of the batch processing operation.
     ///
     /// # Working with unknown values
@@ -20402,7 +21491,7 @@ pub mod batch_process_metadata {
 /// allowlist.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.FetchProcessorTypes]: crate::client::DocumentProcessorService::fetch_processor_types
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchProcessorTypesRequest {
     /// Required. The location of processor types to list.
@@ -20532,12 +21621,24 @@ impl serde::ser::Serialize for FetchProcessorTypesRequest {
     }
 }
 
+impl std::fmt::Debug for FetchProcessorTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchProcessorTypesRequest");
+        debug_struct.field("parent", &self.parent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [FetchProcessorTypes][google.cloud.documentai.v1.DocumentProcessorService.FetchProcessorTypes]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.FetchProcessorTypes]: crate::client::DocumentProcessorService::fetch_processor_types
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchProcessorTypesResponse {
     /// The list of processor types.
@@ -20670,13 +21771,25 @@ impl serde::ser::Serialize for FetchProcessorTypesResponse {
     }
 }
 
+impl std::fmt::Debug for FetchProcessorTypesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchProcessorTypesResponse");
+        debug_struct.field("processor_types", &self.processor_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [ListProcessorTypes][google.cloud.documentai.v1.DocumentProcessorService.ListProcessorTypes]
 /// method. Some processor types may require the project be added to an
 /// allowlist.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.ListProcessorTypes]: crate::client::DocumentProcessorService::list_processor_types
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessorTypesRequest {
     /// Required. The location of processor types to list.
@@ -20876,12 +21989,26 @@ impl serde::ser::Serialize for ListProcessorTypesRequest {
     }
 }
 
+impl std::fmt::Debug for ListProcessorTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProcessorTypesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [ListProcessorTypes][google.cloud.documentai.v1.DocumentProcessorService.ListProcessorTypes]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.ListProcessorTypes]: crate::client::DocumentProcessorService::list_processor_types
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessorTypesResponse {
     /// The processor types.
@@ -21053,8 +22180,21 @@ impl serde::ser::Serialize for ListProcessorTypesResponse {
     }
 }
 
+impl std::fmt::Debug for ListProcessorTypesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProcessorTypesResponse");
+        debug_struct.field("processor_types", &self.processor_types);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for list all processors belongs to a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessorsRequest {
     /// Required. The parent (project and location) which owns this collection of
@@ -21255,12 +22395,26 @@ impl serde::ser::Serialize for ListProcessorsRequest {
     }
 }
 
+impl std::fmt::Debug for ListProcessorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProcessorsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [ListProcessors][google.cloud.documentai.v1.DocumentProcessorService.ListProcessors]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.ListProcessors]: crate::client::DocumentProcessorService::list_processors
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessorsResponse {
     /// The list of processors.
@@ -21431,12 +22585,25 @@ impl serde::ser::Serialize for ListProcessorsResponse {
     }
 }
 
+impl std::fmt::Debug for ListProcessorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProcessorsResponse");
+        debug_struct.field("processors", &self.processors);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [GetProcessorType][google.cloud.documentai.v1.DocumentProcessorService.GetProcessorType]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.GetProcessorType]: crate::client::DocumentProcessorService::get_processor_type
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProcessorTypeRequest {
     /// Required. The processor type resource name.
@@ -21565,12 +22732,24 @@ impl serde::ser::Serialize for GetProcessorTypeRequest {
     }
 }
 
+impl std::fmt::Debug for GetProcessorTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProcessorTypeRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [GetProcessor][google.cloud.documentai.v1.DocumentProcessorService.GetProcessor]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.GetProcessor]: crate::client::DocumentProcessorService::get_processor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProcessorRequest {
     /// Required. The processor resource name.
@@ -21699,12 +22878,24 @@ impl serde::ser::Serialize for GetProcessorRequest {
     }
 }
 
+impl std::fmt::Debug for GetProcessorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProcessorRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [GetProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.GetProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.GetProcessorVersion]: crate::client::DocumentProcessorService::get_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProcessorVersionRequest {
     /// Required. The processor resource name.
@@ -21833,8 +23024,20 @@ impl serde::ser::Serialize for GetProcessorVersionRequest {
     }
 }
 
+impl std::fmt::Debug for GetProcessorVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProcessorVersionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for list all processor versions belongs to a processor.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessorVersionsRequest {
     /// Required. The parent (project, location and processor) to list all
@@ -22036,12 +23239,26 @@ impl serde::ser::Serialize for ListProcessorVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListProcessorVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProcessorVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [ListProcessorVersions][google.cloud.documentai.v1.DocumentProcessorService.ListProcessorVersions]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.ListProcessorVersions]: crate::client::DocumentProcessorService::list_processor_versions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessorVersionsResponse {
     /// The list of processors.
@@ -22217,12 +23434,25 @@ impl serde::ser::Serialize for ListProcessorVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListProcessorVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProcessorVersionsResponse");
+        debug_struct.field("processor_versions", &self.processor_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [DeleteProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.DeleteProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.DeleteProcessorVersion]: crate::client::DocumentProcessorService::delete_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProcessorVersionRequest {
     /// Required. The processor version resource name to be deleted.
@@ -22351,12 +23581,24 @@ impl serde::ser::Serialize for DeleteProcessorVersionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteProcessorVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteProcessorVersionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The long-running operation metadata for the
 /// [DeleteProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.DeleteProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.DeleteProcessorVersion]: crate::client::DocumentProcessorService::delete_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProcessorVersionMetadata {
     /// The basic metadata of the long-running operation.
@@ -22497,12 +23739,24 @@ impl serde::ser::Serialize for DeleteProcessorVersionMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteProcessorVersionMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteProcessorVersionMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [DeployProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.DeployProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.DeployProcessorVersion]: crate::client::DocumentProcessorService::deploy_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployProcessorVersionRequest {
     /// Required. The processor version resource name to be deployed.
@@ -22631,12 +23885,24 @@ impl serde::ser::Serialize for DeployProcessorVersionRequest {
     }
 }
 
+impl std::fmt::Debug for DeployProcessorVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeployProcessorVersionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [DeployProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.DeployProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.DeployProcessorVersion]: crate::client::DocumentProcessorService::deploy_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployProcessorVersionResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -22738,12 +24004,23 @@ impl serde::ser::Serialize for DeployProcessorVersionResponse {
     }
 }
 
+impl std::fmt::Debug for DeployProcessorVersionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeployProcessorVersionResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The long-running operation metadata for the
 /// [DeployProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.DeployProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.DeployProcessorVersion]: crate::client::DocumentProcessorService::deploy_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployProcessorVersionMetadata {
     /// The basic metadata of the long-running operation.
@@ -22884,12 +24161,24 @@ impl serde::ser::Serialize for DeployProcessorVersionMetadata {
     }
 }
 
+impl std::fmt::Debug for DeployProcessorVersionMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeployProcessorVersionMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [UndeployProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.UndeployProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.UndeployProcessorVersion]: crate::client::DocumentProcessorService::undeploy_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeployProcessorVersionRequest {
     /// Required. The processor version resource name to be undeployed.
@@ -23018,12 +24307,24 @@ impl serde::ser::Serialize for UndeployProcessorVersionRequest {
     }
 }
 
+impl std::fmt::Debug for UndeployProcessorVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeployProcessorVersionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [UndeployProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.UndeployProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.UndeployProcessorVersion]: crate::client::DocumentProcessorService::undeploy_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeployProcessorVersionResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -23125,12 +24426,23 @@ impl serde::ser::Serialize for UndeployProcessorVersionResponse {
     }
 }
 
+impl std::fmt::Debug for UndeployProcessorVersionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeployProcessorVersionResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The long-running operation metadata for the
 /// [UndeployProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.UndeployProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.UndeployProcessorVersion]: crate::client::DocumentProcessorService::undeploy_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeployProcessorVersionMetadata {
     /// The basic metadata of the long-running operation.
@@ -23271,6 +24583,18 @@ impl serde::ser::Serialize for UndeployProcessorVersionMetadata {
     }
 }
 
+impl std::fmt::Debug for UndeployProcessorVersionMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeployProcessorVersionMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [CreateProcessor][google.cloud.documentai.v1.DocumentProcessorService.CreateProcessor]
 /// method. Notice this request is sent to a regionalized backend service. If the
@@ -23279,7 +24603,7 @@ impl serde::ser::Serialize for UndeployProcessorVersionMetadata {
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.CreateProcessor]: crate::client::DocumentProcessorService::create_processor
 /// [google.cloud.documentai.v1.ProcessorType]: crate::model::ProcessorType
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProcessorRequest {
     /// Required. The parent (project and location) under which to create the
@@ -23453,12 +24777,25 @@ impl serde::ser::Serialize for CreateProcessorRequest {
     }
 }
 
+impl std::fmt::Debug for CreateProcessorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateProcessorRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("processor", &self.processor);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [DeleteProcessor][google.cloud.documentai.v1.DocumentProcessorService.DeleteProcessor]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.DeleteProcessor]: crate::client::DocumentProcessorService::delete_processor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProcessorRequest {
     /// Required. The processor resource name to be deleted.
@@ -23587,12 +24924,24 @@ impl serde::ser::Serialize for DeleteProcessorRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteProcessorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteProcessorRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The long-running operation metadata for the
 /// [DeleteProcessor][google.cloud.documentai.v1.DocumentProcessorService.DeleteProcessor]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.DeleteProcessor]: crate::client::DocumentProcessorService::delete_processor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProcessorMetadata {
     /// The basic metadata of the long-running operation.
@@ -23733,12 +25082,24 @@ impl serde::ser::Serialize for DeleteProcessorMetadata {
     }
 }
 
+impl std::fmt::Debug for DeleteProcessorMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteProcessorMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [EnableProcessor][google.cloud.documentai.v1.DocumentProcessorService.EnableProcessor]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.EnableProcessor]: crate::client::DocumentProcessorService::enable_processor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableProcessorRequest {
     /// Required. The processor resource name to be enabled.
@@ -23867,12 +25228,24 @@ impl serde::ser::Serialize for EnableProcessorRequest {
     }
 }
 
+impl std::fmt::Debug for EnableProcessorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableProcessorRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [EnableProcessor][google.cloud.documentai.v1.DocumentProcessorService.EnableProcessor]
 /// method. Intentionally empty proto for adding fields in future.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.EnableProcessor]: crate::client::DocumentProcessorService::enable_processor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableProcessorResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -23974,12 +25347,23 @@ impl serde::ser::Serialize for EnableProcessorResponse {
     }
 }
 
+impl std::fmt::Debug for EnableProcessorResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableProcessorResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The long-running operation metadata for the
 /// [EnableProcessor][google.cloud.documentai.v1.DocumentProcessorService.EnableProcessor]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.EnableProcessor]: crate::client::DocumentProcessorService::enable_processor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableProcessorMetadata {
     /// The basic metadata of the long-running operation.
@@ -24120,12 +25504,24 @@ impl serde::ser::Serialize for EnableProcessorMetadata {
     }
 }
 
+impl std::fmt::Debug for EnableProcessorMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableProcessorMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [DisableProcessor][google.cloud.documentai.v1.DocumentProcessorService.DisableProcessor]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.DisableProcessor]: crate::client::DocumentProcessorService::disable_processor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableProcessorRequest {
     /// Required. The processor resource name to be disabled.
@@ -24254,12 +25650,24 @@ impl serde::ser::Serialize for DisableProcessorRequest {
     }
 }
 
+impl std::fmt::Debug for DisableProcessorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableProcessorRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [DisableProcessor][google.cloud.documentai.v1.DocumentProcessorService.DisableProcessor]
 /// method. Intentionally empty proto for adding fields in future.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.DisableProcessor]: crate::client::DocumentProcessorService::disable_processor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableProcessorResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -24361,12 +25769,23 @@ impl serde::ser::Serialize for DisableProcessorResponse {
     }
 }
 
+impl std::fmt::Debug for DisableProcessorResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableProcessorResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The long-running operation metadata for the
 /// [DisableProcessor][google.cloud.documentai.v1.DocumentProcessorService.DisableProcessor]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.DisableProcessor]: crate::client::DocumentProcessorService::disable_processor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableProcessorMetadata {
     /// The basic metadata of the long-running operation.
@@ -24507,12 +25926,24 @@ impl serde::ser::Serialize for DisableProcessorMetadata {
     }
 }
 
+impl std::fmt::Debug for DisableProcessorMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableProcessorMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [SetDefaultProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.SetDefaultProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.SetDefaultProcessorVersion]: crate::client::DocumentProcessorService::set_default_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetDefaultProcessorVersionRequest {
     /// Required. The resource name of the
@@ -24682,12 +26113,25 @@ impl serde::ser::Serialize for SetDefaultProcessorVersionRequest {
     }
 }
 
+impl std::fmt::Debug for SetDefaultProcessorVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetDefaultProcessorVersionRequest");
+        debug_struct.field("processor", &self.processor);
+        debug_struct.field("default_processor_version", &self.default_processor_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the
 /// [SetDefaultProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.SetDefaultProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.SetDefaultProcessorVersion]: crate::client::DocumentProcessorService::set_default_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetDefaultProcessorVersionResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -24789,12 +26233,23 @@ impl serde::ser::Serialize for SetDefaultProcessorVersionResponse {
     }
 }
 
+impl std::fmt::Debug for SetDefaultProcessorVersionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetDefaultProcessorVersionResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The long-running operation metadata for the
 /// [SetDefaultProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.SetDefaultProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.SetDefaultProcessorVersion]: crate::client::DocumentProcessorService::set_default_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetDefaultProcessorVersionMetadata {
     /// The basic metadata of the long-running operation.
@@ -24935,12 +26390,24 @@ impl serde::ser::Serialize for SetDefaultProcessorVersionMetadata {
     }
 }
 
+impl std::fmt::Debug for SetDefaultProcessorVersionMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetDefaultProcessorVersionMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the
 /// [TrainProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.TrainProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.TrainProcessorVersion]: crate::client::DocumentProcessorService::train_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrainProcessorVersionRequest {
     /// Required. The parent (project, location and processor) to create the new
@@ -25368,6 +26835,23 @@ impl serde::ser::Serialize for TrainProcessorVersionRequest {
     }
 }
 
+impl std::fmt::Debug for TrainProcessorVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TrainProcessorVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("processor_version", &self.processor_version);
+        debug_struct.field("document_schema", &self.document_schema);
+        debug_struct.field("input_data", &self.input_data);
+        debug_struct.field("base_processor_version", &self.base_processor_version);
+        debug_struct.field("processor_flags", &self.processor_flags);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TrainProcessorVersionRequest].
 pub mod train_processor_version_request {
     #[allow(unused_imports)]
@@ -25377,7 +26861,7 @@ pub mod train_processor_version_request {
     /// [ProcessorVersion][google.cloud.documentai.v1.ProcessorVersion].
     ///
     /// [google.cloud.documentai.v1.ProcessorVersion]: crate::model::ProcessorVersion
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InputData {
         /// The documents used for training the new version.
@@ -25561,9 +27045,22 @@ pub mod train_processor_version_request {
         }
     }
 
+    impl std::fmt::Debug for InputData {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InputData");
+            debug_struct.field("training_documents", &self.training_documents);
+            debug_struct.field("test_documents", &self.test_documents);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Options to control the training of the Custom Document Extraction (CDE)
     /// Processor.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomDocumentExtractionOptions {
 
@@ -25692,6 +27189,18 @@ pub mod train_processor_version_request {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for CustomDocumentExtractionOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CustomDocumentExtractionOptions");
+            debug_struct.field("training_method", &self.training_method);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -25834,7 +27343,7 @@ pub mod train_processor_version_request {
     }
 
     /// Options to control foundation model tuning of the processor.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FoundationModelTuningOptions {
         /// Optional. The number of steps to run for model tuning. Valid values are
@@ -26040,6 +27549,19 @@ pub mod train_processor_version_request {
         }
     }
 
+    impl std::fmt::Debug for FoundationModelTuningOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FoundationModelTuningOptions");
+            debug_struct.field("train_steps", &self.train_steps);
+            debug_struct.field("learning_rate_multiplier", &self.learning_rate_multiplier);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ProcessorFlags {
@@ -26062,7 +27584,7 @@ pub mod train_processor_version_request {
 /// [TrainProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.TrainProcessorVersion].
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.TrainProcessorVersion]: crate::client::DocumentProcessorService::train_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrainProcessorVersionResponse {
     /// The resource name of the processor version produced by training.
@@ -26195,8 +27717,20 @@ impl serde::ser::Serialize for TrainProcessorVersionResponse {
     }
 }
 
+impl std::fmt::Debug for TrainProcessorVersionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TrainProcessorVersionResponse");
+        debug_struct.field("processor_version", &self.processor_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata that represents a processor version being created.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrainProcessorVersionMetadata {
     /// The basic metadata of the long-running operation.
@@ -26422,6 +27956,23 @@ impl serde::ser::Serialize for TrainProcessorVersionMetadata {
     }
 }
 
+impl std::fmt::Debug for TrainProcessorVersionMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TrainProcessorVersionMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+        debug_struct.field(
+            "training_dataset_validation",
+            &self.training_dataset_validation,
+        );
+        debug_struct.field("test_dataset_validation", &self.test_dataset_validation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TrainProcessorVersionMetadata].
 pub mod train_processor_version_metadata {
     #[allow(unused_imports)]
@@ -26429,7 +27980,7 @@ pub mod train_processor_version_metadata {
 
     /// The dataset validation information.
     /// This includes any and all errors with documents and the dataset.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DatasetValidation {
         /// The total number of document errors.
@@ -26684,6 +28235,21 @@ pub mod train_processor_version_metadata {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for DatasetValidation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DatasetValidation");
+            debug_struct.field("document_error_count", &self.document_error_count);
+            debug_struct.field("dataset_error_count", &self.dataset_error_count);
+            debug_struct.field("document_errors", &self.document_errors);
+            debug_struct.field("dataset_errors", &self.dataset_errors);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request message for the
@@ -26691,7 +28257,7 @@ pub mod train_processor_version_metadata {
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.ReviewDocument]: crate::client::DocumentProcessorService::review_document
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReviewDocumentRequest {
     /// Required. The resource name of the
@@ -26990,6 +28556,22 @@ impl serde::ser::Serialize for ReviewDocumentRequest {
     }
 }
 
+impl std::fmt::Debug for ReviewDocumentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReviewDocumentRequest");
+        debug_struct.field("human_review_config", &self.human_review_config);
+        debug_struct.field("enable_schema_validation", &self.enable_schema_validation);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("document_schema", &self.document_schema);
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReviewDocumentRequest].
 pub mod review_document_request {
     #[allow(unused_imports)]
@@ -27135,7 +28717,7 @@ pub mod review_document_request {
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.ReviewDocument]: crate::client::DocumentProcessorService::review_document
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReviewDocumentResponse {
     /// The Cloud Storage uri for the human reviewed document if the review is
@@ -27323,6 +28905,20 @@ impl serde::ser::Serialize for ReviewDocumentResponse {
     }
 }
 
+impl std::fmt::Debug for ReviewDocumentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReviewDocumentResponse");
+        debug_struct.field("gcs_destination", &self.gcs_destination);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("rejection_reason", &self.rejection_reason);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReviewDocumentResponse].
 pub mod review_document_response {
     #[allow(unused_imports)]
@@ -27466,7 +29062,7 @@ pub mod review_document_response {
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.ReviewDocument]: crate::client::DocumentProcessorService::review_document
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReviewDocumentOperationMetadata {
     /// The basic metadata of the long-running operation.
@@ -27632,12 +29228,25 @@ impl serde::ser::Serialize for ReviewDocumentOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for ReviewDocumentOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReviewDocumentOperationMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+        debug_struct.field("question_id", &self.question_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Evaluates the given
 /// [ProcessorVersion][google.cloud.documentai.v1.ProcessorVersion] against the
 /// supplied documents.
 ///
 /// [google.cloud.documentai.v1.ProcessorVersion]: crate::model::ProcessorVersion
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvaluateProcessorVersionRequest {
     /// Required. The resource name of the
@@ -27812,12 +29421,25 @@ impl serde::ser::Serialize for EvaluateProcessorVersionRequest {
     }
 }
 
+impl std::fmt::Debug for EvaluateProcessorVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluateProcessorVersionRequest");
+        debug_struct.field("processor_version", &self.processor_version);
+        debug_struct.field("evaluation_documents", &self.evaluation_documents);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata of the
 /// [EvaluateProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.EvaluateProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.EvaluateProcessorVersion]: crate::client::DocumentProcessorService::evaluate_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvaluateProcessorVersionMetadata {
     /// The basic metadata of the long-running operation.
@@ -27958,12 +29580,24 @@ impl serde::ser::Serialize for EvaluateProcessorVersionMetadata {
     }
 }
 
+impl std::fmt::Debug for EvaluateProcessorVersionMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluateProcessorVersionMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the
 /// [EvaluateProcessorVersion][google.cloud.documentai.v1.DocumentProcessorService.EvaluateProcessorVersion]
 /// method.
 ///
 /// [google.cloud.documentai.v1.DocumentProcessorService.EvaluateProcessorVersion]: crate::client::DocumentProcessorService::evaluate_processor_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvaluateProcessorVersionResponse {
     /// The resource name of the created evaluation.
@@ -28092,8 +29726,20 @@ impl serde::ser::Serialize for EvaluateProcessorVersionResponse {
     }
 }
 
+impl std::fmt::Debug for EvaluateProcessorVersionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluateProcessorVersionResponse");
+        debug_struct.field("evaluation", &self.evaluation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Retrieves a specific Evaluation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEvaluationRequest {
     /// Required. The resource name of the
@@ -28226,11 +29872,23 @@ impl serde::ser::Serialize for GetEvaluationRequest {
     }
 }
 
+impl std::fmt::Debug for GetEvaluationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEvaluationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Retrieves a list of evaluations for a given
 /// [ProcessorVersion][google.cloud.documentai.v1.ProcessorVersion].
 ///
 /// [google.cloud.documentai.v1.ProcessorVersion]: crate::model::ProcessorVersion
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEvaluationsRequest {
     /// Required. The resource name of the
@@ -28435,8 +30093,22 @@ impl serde::ser::Serialize for ListEvaluationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListEvaluationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEvaluationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response from `ListEvaluations`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEvaluationsResponse {
     /// The evaluations requested.
@@ -28608,8 +30280,21 @@ impl serde::ser::Serialize for ListEvaluationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListEvaluationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEvaluationsResponse");
+        debug_struct.field("evaluations", &self.evaluations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The schema defines the output of the processed document by a processor.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentSchema {
     /// Display name to show to users.
@@ -28830,6 +30515,21 @@ impl serde::ser::Serialize for DocumentSchema {
     }
 }
 
+impl std::fmt::Debug for DocumentSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DocumentSchema");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("entity_types", &self.entity_types);
+        debug_struct.field("metadata", &self.metadata);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DocumentSchema].
 pub mod document_schema {
     #[allow(unused_imports)]
@@ -28838,7 +30538,7 @@ pub mod document_schema {
     /// EntityType is the wrapper of a label of the corresponding model with
     /// detailed attributes and limitations for entity-based processors. Multiple
     /// types can also compose a dependency tree to represent nested types.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EntityType {
         /// User defined name for the type.
@@ -29150,13 +30850,29 @@ pub mod document_schema {
         }
     }
 
+    impl std::fmt::Debug for EntityType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EntityType");
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("name", &self.name);
+            debug_struct.field("base_types", &self.base_types);
+            debug_struct.field("properties", &self.properties);
+            debug_struct.field("value_source", &self.value_source);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [EntityType].
     pub mod entity_type {
         #[allow(unused_imports)]
         use super::*;
 
         /// Defines the a list of enum values.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct EnumValues {
             /// The individual values that this enum values type can include.
@@ -29294,8 +31010,20 @@ pub mod document_schema {
             }
         }
 
+        impl std::fmt::Debug for EnumValues {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("EnumValues");
+                debug_struct.field("values", &self.values);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines properties that can be part of the entity type.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Property {
             /// The name of the property.  Follows the same guidelines as the
@@ -29526,6 +31254,21 @@ pub mod document_schema {
             }
         }
 
+        impl std::fmt::Debug for Property {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Property");
+                debug_struct.field("name", &self.name);
+                debug_struct.field("display_name", &self.display_name);
+                debug_struct.field("value_type", &self.value_type);
+                debug_struct.field("occurrence_type", &self.occurrence_type);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Property].
         pub mod property {
             #[allow(unused_imports)]
@@ -29705,7 +31448,7 @@ pub mod document_schema {
     }
 
     /// Metadata for global schema behavior.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Metadata {
         /// If true, a `document` entity type can be applied to subdocument
@@ -29939,10 +31682,31 @@ pub mod document_schema {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Metadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Metadata");
+            debug_struct.field("document_splitter", &self.document_splitter);
+            debug_struct.field(
+                "document_allow_multiple_labels",
+                &self.document_allow_multiple_labels,
+            );
+            debug_struct.field(
+                "prefixed_naming_on_properties",
+                &self.prefixed_naming_on_properties,
+            );
+            debug_struct.field("skip_naming_validation", &self.skip_naming_validation);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Gives a short summary of an evaluation, and links to the evaluation itself.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvaluationReference {
     /// The resource name of the Long Running Operation for the evaluation.
@@ -30167,8 +31931,23 @@ impl serde::ser::Serialize for EvaluationReference {
     }
 }
 
+impl std::fmt::Debug for EvaluationReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluationReference");
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("evaluation", &self.evaluation);
+        debug_struct.field("aggregate_metrics", &self.aggregate_metrics);
+        debug_struct.field("aggregate_metrics_exact", &self.aggregate_metrics_exact);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An evaluation of a ProcessorVersion's performance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Evaluation {
     /// The resource name of the evaluation.
@@ -30500,13 +32279,31 @@ impl serde::ser::Serialize for Evaluation {
     }
 }
 
+impl std::fmt::Debug for Evaluation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Evaluation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("document_counters", &self.document_counters);
+        debug_struct.field("all_entities_metrics", &self.all_entities_metrics);
+        debug_struct.field("entity_metrics", &self.entity_metrics);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Evaluation].
 pub mod evaluation {
     #[allow(unused_imports)]
     use super::*;
 
     /// Evaluation counters for the documents that were used.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Counters {
         /// How many documents were sent for evaluation.
@@ -30812,8 +32609,23 @@ pub mod evaluation {
         }
     }
 
+    impl std::fmt::Debug for Counters {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Counters");
+            debug_struct.field("input_documents_count", &self.input_documents_count);
+            debug_struct.field("invalid_documents_count", &self.invalid_documents_count);
+            debug_struct.field("failed_documents_count", &self.failed_documents_count);
+            debug_struct.field("evaluated_documents_count", &self.evaluated_documents_count);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Evaluation metrics, either in aggregate or about a specific entity.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Metrics {
         /// The calculated precision.
@@ -31435,8 +33247,39 @@ pub mod evaluation {
         }
     }
 
+    impl std::fmt::Debug for Metrics {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Metrics");
+            debug_struct.field("precision", &self.precision);
+            debug_struct.field("recall", &self.recall);
+            debug_struct.field("f1_score", &self.f1_score);
+            debug_struct.field(
+                "predicted_occurrences_count",
+                &self.predicted_occurrences_count,
+            );
+            debug_struct.field(
+                "ground_truth_occurrences_count",
+                &self.ground_truth_occurrences_count,
+            );
+            debug_struct.field("predicted_document_count", &self.predicted_document_count);
+            debug_struct.field(
+                "ground_truth_document_count",
+                &self.ground_truth_document_count,
+            );
+            debug_struct.field("true_positives_count", &self.true_positives_count);
+            debug_struct.field("false_positives_count", &self.false_positives_count);
+            debug_struct.field("false_negatives_count", &self.false_negatives_count);
+            debug_struct.field("total_documents_count", &self.total_documents_count);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Evaluations metrics, at a specific confidence level.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConfidenceLevelMetrics {
         /// The confidence level.
@@ -31623,8 +33466,21 @@ pub mod evaluation {
         }
     }
 
+    impl std::fmt::Debug for ConfidenceLevelMetrics {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConfidenceLevelMetrics");
+            debug_struct.field("confidence_level", &self.confidence_level);
+            debug_struct.field("metrics", &self.metrics);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Metrics across multiple confidence levels.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MultiConfidenceMetrics {
         /// Metrics across confidence levels with fuzzy matching enabled.
@@ -32036,6 +33892,33 @@ pub mod evaluation {
         }
     }
 
+    impl std::fmt::Debug for MultiConfidenceMetrics {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MultiConfidenceMetrics");
+            debug_struct.field("confidence_level_metrics", &self.confidence_level_metrics);
+            debug_struct.field(
+                "confidence_level_metrics_exact",
+                &self.confidence_level_metrics_exact,
+            );
+            debug_struct.field("auprc", &self.auprc);
+            debug_struct.field(
+                "estimated_calibration_error",
+                &self.estimated_calibration_error,
+            );
+            debug_struct.field("auprc_exact", &self.auprc_exact);
+            debug_struct.field(
+                "estimated_calibration_error_exact",
+                &self.estimated_calibration_error_exact,
+            );
+            debug_struct.field("metrics_type", &self.metrics_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [MultiConfidenceMetrics].
     pub mod multi_confidence_metrics {
         #[allow(unused_imports)]
@@ -32179,7 +34062,7 @@ pub mod evaluation {
 
 /// A vertex represents a 2D point in the image.
 /// NOTE: the vertex coordinates are in the same scale as the original image.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Vertex {
     /// X coordinate.
@@ -32368,10 +34251,23 @@ impl serde::ser::Serialize for Vertex {
     }
 }
 
+impl std::fmt::Debug for Vertex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Vertex");
+        debug_struct.field("x", &self.x);
+        debug_struct.field("y", &self.y);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A vertex represents a 2D point in the image.
 /// NOTE: the normalized vertex coordinates are relative to the original image
 /// and range from 0 to 1.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedVertex {
     /// X coordinate.
@@ -32560,8 +34456,21 @@ impl serde::ser::Serialize for NormalizedVertex {
     }
 }
 
+impl std::fmt::Debug for NormalizedVertex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NormalizedVertex");
+        debug_struct.field("x", &self.x);
+        debug_struct.field("y", &self.y);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A bounding polygon for the detected image annotation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BoundingPoly {
     /// The bounding polygon vertices.
@@ -32725,8 +34634,21 @@ impl serde::ser::Serialize for BoundingPoly {
     }
 }
 
+impl std::fmt::Debug for BoundingPoly {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BoundingPoly");
+        debug_struct.field("vertices", &self.vertices);
+        debug_struct.field("normalized_vertices", &self.normalized_vertices);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The common metadata for long running operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonOperationMetadata {
     /// The state of the operation.
@@ -32981,6 +34903,22 @@ impl serde::ser::Serialize for CommonOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for CommonOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommonOperationMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_message", &self.state_message);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CommonOperationMetadata].
 pub mod common_operation_metadata {
     #[allow(unused_imports)]
@@ -33144,7 +35082,7 @@ pub mod common_operation_metadata {
 /// can have multiple versions, pretrained by Google internally or uptrained
 /// by the customer. A processor can only have one default version at a time.
 /// Its document-processing behavior is defined by that version.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessorVersion {
     /// Identifier. The resource name of the processor version.
@@ -33663,13 +35601,38 @@ impl serde::ser::Serialize for ProcessorVersion {
     }
 }
 
+impl std::fmt::Debug for ProcessorVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProcessorVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("document_schema", &self.document_schema);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("latest_evaluation", &self.latest_evaluation);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
+        debug_struct.field("google_managed", &self.google_managed);
+        debug_struct.field("deprecation_info", &self.deprecation_info);
+        debug_struct.field("model_type", &self.model_type);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("gen_ai_model_info", &self.gen_ai_model_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ProcessorVersion].
 pub mod processor_version {
     #[allow(unused_imports)]
     use super::*;
 
     /// Information about the upcoming deprecation of this processor version.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DeprecationInfo {
         /// The time at which this processor version will be deprecated.
@@ -33848,8 +35811,24 @@ pub mod processor_version {
         }
     }
 
+    impl std::fmt::Debug for DeprecationInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DeprecationInfo");
+            debug_struct.field("deprecation_time", &self.deprecation_time);
+            debug_struct.field(
+                "replacement_processor_version",
+                &self.replacement_processor_version,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Information about Generative AI model-based processor versions.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GenAiModelInfo {
         /// The processor version is either a pretrained Google-managed foundation
@@ -34105,13 +36084,25 @@ pub mod processor_version {
         }
     }
 
+    impl std::fmt::Debug for GenAiModelInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GenAiModelInfo");
+            debug_struct.field("model_info", &self.model_info);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [GenAiModelInfo].
     pub mod gen_ai_model_info {
         #[allow(unused_imports)]
         use super::*;
 
         /// Information for a pretrained Google-managed foundation model.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FoundationGenAiModelInfo {
             /// Whether finetuning is allowed for this base processor version.
@@ -34309,10 +36300,26 @@ pub mod processor_version {
             }
         }
 
+        impl std::fmt::Debug for FoundationGenAiModelInfo {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("FoundationGenAiModelInfo");
+                debug_struct.field("finetuning_allowed", &self.finetuning_allowed);
+                debug_struct.field(
+                    "min_train_labeled_documents",
+                    &self.min_train_labeled_documents,
+                );
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Information for a custom Generative AI model created by the user. These
         /// are created with `Create New Version` in either the `Call foundation
         /// model` or `Fine tuning` tabs.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomGenAiModelInfo {
 
@@ -34483,6 +36490,19 @@ pub mod processor_version {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for CustomGenAiModelInfo {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("CustomGenAiModelInfo");
+                debug_struct.field("custom_model_type", &self.custom_model_type);
+                debug_struct.field("base_processor_version_id", &self.base_processor_version_id);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -34958,7 +36978,7 @@ pub mod processor_version {
 }
 
 /// Contains the alias and the aliased resource name of processor version.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessorVersionAlias {
     /// The alias in the form of `processor_version` resource name.
@@ -35115,9 +37135,22 @@ impl serde::ser::Serialize for ProcessorVersionAlias {
     }
 }
 
+impl std::fmt::Debug for ProcessorVersionAlias {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProcessorVersionAlias");
+        debug_struct.field("alias", &self.alias);
+        debug_struct.field("processor_version", &self.processor_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The first-class citizen for Document AI. Each processor defines how to
 /// extract structural information from a document.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Processor {
     /// Output only. Immutable. The resource name of the processor.
@@ -35537,6 +37570,28 @@ impl serde::ser::Serialize for Processor {
     }
 }
 
+impl std::fmt::Debug for Processor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Processor");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("default_processor_version", &self.default_processor_version);
+        debug_struct.field("processor_version_aliases", &self.processor_version_aliases);
+        debug_struct.field("process_endpoint", &self.process_endpoint);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Processor].
 pub mod processor {
     #[allow(unused_imports)]
@@ -35720,7 +37775,7 @@ pub mod processor {
 
 /// A processor type is responsible for performing a certain document
 /// understanding task on a certain type of document.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessorType {
     /// The resource name of the processor type.
@@ -36012,13 +38067,31 @@ impl serde::ser::Serialize for ProcessorType {
     }
 }
 
+impl std::fmt::Debug for ProcessorType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProcessorType");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("available_locations", &self.available_locations);
+        debug_struct.field("allow_creation", &self.allow_creation);
+        debug_struct.field("launch_stage", &self.launch_stage);
+        debug_struct.field("sample_document_uris", &self.sample_document_uris);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ProcessorType].
 pub mod processor_type {
     #[allow(unused_imports)]
     use super::*;
 
     /// The location information about where the processor is available.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LocationInfo {
         /// The location ID. For supported locations, refer to [regional and
@@ -36149,6 +38222,18 @@ pub mod processor_type {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for LocationInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LocationInfo");
+            debug_struct.field("location_id", &self.location_id);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 }

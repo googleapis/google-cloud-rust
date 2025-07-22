@@ -31,7 +31,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A request for connection information for a particular membership.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateCredentialsRequest {
     /// Required. The Fleet membership resource.
@@ -280,6 +280,22 @@ impl serde::ser::Serialize for GenerateCredentialsRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateCredentialsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateCredentialsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force_use_agent", &self.force_use_agent);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("kubernetes_namespace", &self.kubernetes_namespace);
+        debug_struct.field("operating_system", &self.operating_system);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GenerateCredentialsRequest].
 pub mod generate_credentials_request {
     #[allow(unused_imports)]
@@ -414,7 +430,7 @@ pub mod generate_credentials_request {
 }
 
 /// Connection information for a particular membership.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateCredentialsResponse {
     /// A full YAML kubeconfig in serialized format.
@@ -583,5 +599,18 @@ impl serde::ser::Serialize for GenerateCredentialsResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GenerateCredentialsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateCredentialsResponse");
+        debug_struct.field("kubeconfig", &self.kubeconfig);
+        debug_struct.field("endpoint", &self.endpoint);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

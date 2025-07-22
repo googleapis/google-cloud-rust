@@ -32,7 +32,7 @@ extern crate wkt;
 
 /// A representation of an ExternalAccountKey used for [external account
 /// binding](https://tools.ietf.org/html/rfc8555#section-7.3.4) within ACME.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExternalAccountKey {
     /// Output only. Resource name.
@@ -234,12 +234,26 @@ impl serde::ser::Serialize for ExternalAccountKey {
     }
 }
 
+impl std::fmt::Debug for ExternalAccountKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExternalAccountKey");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("key_id", &self.key_id);
+        debug_struct.field("b64_mac_key", &self.b64_mac_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Creates a new
 /// [ExternalAccountKey][google.cloud.security.publicca.v1.ExternalAccountKey] in
 /// a given project.
 ///
 /// [google.cloud.security.publicca.v1.ExternalAccountKey]: crate::model::ExternalAccountKey
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateExternalAccountKeyRequest {
     /// Required. The parent resource where this external_account_key will be
@@ -406,5 +420,18 @@ impl serde::ser::Serialize for CreateExternalAccountKeyRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for CreateExternalAccountKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateExternalAccountKeyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("external_account_key", &self.external_account_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

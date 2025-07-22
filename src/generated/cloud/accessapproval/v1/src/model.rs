@@ -31,7 +31,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Home office and physical location of the principal.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessLocations {
     /// The "home office" location of the principal. A two-letter country code
@@ -227,7 +227,23 @@ impl serde::ser::Serialize for AccessLocations {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for AccessLocations {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessLocations");
+        debug_struct.field("principal_office_country", &self.principal_office_country);
+        debug_struct.field(
+            "principal_physical_location_country",
+            &self.principal_physical_location_country,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessReason {
     /// Type of access justification.
@@ -378,6 +394,19 @@ impl serde::ser::Serialize for AccessReason {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AccessReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessReason");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("detail", &self.detail);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -564,7 +593,7 @@ pub mod access_reason {
 }
 
 /// Information about the digital signature of the resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignatureInfo {
     /// The digital signature.
@@ -833,6 +862,19 @@ impl serde::ser::Serialize for SignatureInfo {
     }
 }
 
+impl std::fmt::Debug for SignatureInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SignatureInfo");
+        debug_struct.field("signature", &self.signature);
+        debug_struct.field("verification_info", &self.verification_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SignatureInfo].
 pub mod signature_info {
     #[allow(unused_imports)]
@@ -852,7 +894,7 @@ pub mod signature_info {
 }
 
 /// A decision that has been made to approve access to a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApproveDecision {
     /// The time at which approval was granted.
@@ -1126,8 +1168,24 @@ impl serde::ser::Serialize for ApproveDecision {
     }
 }
 
+impl std::fmt::Debug for ApproveDecision {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApproveDecision");
+        debug_struct.field("approve_time", &self.approve_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("invalidate_time", &self.invalidate_time);
+        debug_struct.field("signature_info", &self.signature_info);
+        debug_struct.field("auto_approved", &self.auto_approved);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A decision that has been made to dismiss an approval request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DismissDecision {
     /// The time at which the approval request was dismissed.
@@ -1294,8 +1352,21 @@ impl serde::ser::Serialize for DismissDecision {
     }
 }
 
+impl std::fmt::Debug for DismissDecision {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DismissDecision");
+        debug_struct.field("dismiss_time", &self.dismiss_time);
+        debug_struct.field("implicit", &self.implicit);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The properties associated with the resource of the request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceProperties {
     /// Whether an approval will exclude the descendants of the resource being
@@ -1426,8 +1497,20 @@ impl serde::ser::Serialize for ResourceProperties {
     }
 }
 
+impl std::fmt::Debug for ResourceProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceProperties");
+        debug_struct.field("excludes_descendants", &self.excludes_descendants);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request for the customer to approve access to a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApprovalRequest {
     /// The resource name of the request. Format is
@@ -1900,6 +1983,28 @@ impl serde::ser::Serialize for ApprovalRequest {
     }
 }
 
+impl std::fmt::Debug for ApprovalRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApprovalRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("requested_resource_name", &self.requested_resource_name);
+        debug_struct.field(
+            "requested_resource_properties",
+            &self.requested_resource_properties,
+        );
+        debug_struct.field("requested_reason", &self.requested_reason);
+        debug_struct.field("requested_locations", &self.requested_locations);
+        debug_struct.field("request_time", &self.request_time);
+        debug_struct.field("requested_expiration", &self.requested_expiration);
+        debug_struct.field("decision", &self.decision);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ApprovalRequest].
 pub mod approval_request {
     #[allow(unused_imports)]
@@ -1917,7 +2022,7 @@ pub mod approval_request {
 }
 
 /// Represents the enrollment of a cloud resource into a specific service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnrolledService {
     /// The product for which Access Approval will be enrolled. Allowed values are
@@ -2136,8 +2241,21 @@ impl serde::ser::Serialize for EnrolledService {
     }
 }
 
+impl std::fmt::Debug for EnrolledService {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnrolledService");
+        debug_struct.field("cloud_product", &self.cloud_product);
+        debug_struct.field("enrollment_level", &self.enrollment_level);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings on a Project/Folder/Organization related to Access Approval.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessApprovalSettings {
     /// The resource name of the settings. Format is one of:
@@ -2472,8 +2590,29 @@ impl serde::ser::Serialize for AccessApprovalSettings {
     }
 }
 
+impl std::fmt::Debug for AccessApprovalSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessApprovalSettings");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("notification_emails", &self.notification_emails);
+        debug_struct.field("enrolled_services", &self.enrolled_services);
+        debug_struct.field("enrolled_ancestor", &self.enrolled_ancestor);
+        debug_struct.field("active_key_version", &self.active_key_version);
+        debug_struct.field(
+            "ancestor_has_active_key_version",
+            &self.ancestor_has_active_key_version,
+        );
+        debug_struct.field("invalid_key_version", &self.invalid_key_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Access Approval service account related to a project/folder/organization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessApprovalServiceAccount {
     /// The resource name of the Access Approval service account. Format is one of:
@@ -2631,8 +2770,21 @@ impl serde::ser::Serialize for AccessApprovalServiceAccount {
     }
 }
 
+impl std::fmt::Debug for AccessApprovalServiceAccount {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessApprovalServiceAccount");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("account_email", &self.account_email);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to list approval requests.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApprovalRequestsMessage {
     /// The parent resource. This may be "projects/{project}",
@@ -2865,8 +3017,23 @@ impl serde::ser::Serialize for ListApprovalRequestsMessage {
     }
 }
 
+impl std::fmt::Debug for ListApprovalRequestsMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListApprovalRequestsMessage");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to listing of ApprovalRequest objects.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApprovalRequestsResponse {
     /// Approval request details.
@@ -3042,8 +3209,21 @@ impl serde::ser::Serialize for ListApprovalRequestsResponse {
     }
 }
 
+impl std::fmt::Debug for ListApprovalRequestsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListApprovalRequestsResponse");
+        debug_struct.field("approval_requests", &self.approval_requests);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to get an approval request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetApprovalRequestMessage {
     /// The name of the approval request to retrieve.
@@ -3174,8 +3354,20 @@ impl serde::ser::Serialize for GetApprovalRequestMessage {
     }
 }
 
+impl std::fmt::Debug for GetApprovalRequestMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetApprovalRequestMessage");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to approve an ApprovalRequest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApproveApprovalRequestMessage {
     /// Name of the approval request to approve.
@@ -3340,8 +3532,21 @@ impl serde::ser::Serialize for ApproveApprovalRequestMessage {
     }
 }
 
+impl std::fmt::Debug for ApproveApprovalRequestMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApproveApprovalRequestMessage");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("expire_time", &self.expire_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to dismiss an approval request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DismissApprovalRequestMessage {
     /// Name of the ApprovalRequest to dismiss.
@@ -3470,8 +3675,20 @@ impl serde::ser::Serialize for DismissApprovalRequestMessage {
     }
 }
 
+impl std::fmt::Debug for DismissApprovalRequestMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DismissApprovalRequestMessage");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to invalidate an existing approval.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InvalidateApprovalRequestMessage {
     /// Name of the ApprovalRequest to invalidate.
@@ -3600,8 +3817,20 @@ impl serde::ser::Serialize for InvalidateApprovalRequestMessage {
     }
 }
 
+impl std::fmt::Debug for InvalidateApprovalRequestMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InvalidateApprovalRequestMessage");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to get access approval settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAccessApprovalSettingsMessage {
     /// The name of the AccessApprovalSettings to retrieve.
@@ -3731,8 +3960,20 @@ impl serde::ser::Serialize for GetAccessApprovalSettingsMessage {
     }
 }
 
+impl std::fmt::Debug for GetAccessApprovalSettingsMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAccessApprovalSettingsMessage");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to update access approval settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAccessApprovalSettingsMessage {
     /// The new AccessApprovalSettings.
@@ -3917,8 +4158,21 @@ impl serde::ser::Serialize for UpdateAccessApprovalSettingsMessage {
     }
 }
 
+impl std::fmt::Debug for UpdateAccessApprovalSettingsMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAccessApprovalSettingsMessage");
+        debug_struct.field("settings", &self.settings);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to delete access approval settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAccessApprovalSettingsMessage {
     /// Name of the AccessApprovalSettings to delete.
@@ -4047,8 +4301,20 @@ impl serde::ser::Serialize for DeleteAccessApprovalSettingsMessage {
     }
 }
 
+impl std::fmt::Debug for DeleteAccessApprovalSettingsMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAccessApprovalSettingsMessage");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to get an Access Approval service account.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAccessApprovalServiceAccountMessage {
     /// Name of the AccessApprovalServiceAccount to retrieve.
@@ -4175,6 +4441,18 @@ impl serde::ser::Serialize for GetAccessApprovalServiceAccountMessage {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GetAccessApprovalServiceAccountMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAccessApprovalServiceAccountMessage");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

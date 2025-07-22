@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request message for BigtableInstanceAdmin.CreateInstance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
     /// Required. The unique name of the project in which to create the new
@@ -266,8 +266,23 @@ impl serde::ser::Serialize for CreateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstanceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("clusters", &self.clusters);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.GetInstance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
     /// Required. The unique name of the requested instance. Values are of the form
@@ -397,8 +412,20 @@ impl serde::ser::Serialize for GetInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.ListInstances.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
     /// Required. The unique name of the project for which a list of instances is
@@ -553,8 +580,21 @@ impl serde::ser::Serialize for ListInstancesRequest {
     }
 }
 
+impl std::fmt::Debug for ListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for BigtableInstanceAdmin.ListInstances.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
     /// The list of requested instances.
@@ -744,8 +784,22 @@ impl serde::ser::Serialize for ListInstancesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesResponse");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("failed_locations", &self.failed_locations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.PartialUpdateInstance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PartialUpdateInstanceRequest {
     /// Required. The Instance which will (partially) replace the current value.
@@ -922,8 +976,21 @@ impl serde::ser::Serialize for PartialUpdateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for PartialUpdateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartialUpdateInstanceRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.DeleteInstance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
     /// Required. The unique name of the instance to be deleted.
@@ -1053,8 +1120,20 @@ impl serde::ser::Serialize for DeleteInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.CreateCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClusterRequest {
     /// Required. The unique name of the instance in which to create the new
@@ -1247,8 +1326,22 @@ impl serde::ser::Serialize for CreateClusterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateClusterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("cluster_id", &self.cluster_id);
+        debug_struct.field("cluster", &self.cluster);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.GetCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClusterRequest {
     /// Required. The unique name of the requested cluster. Values are of the form
@@ -1378,8 +1471,20 @@ impl serde::ser::Serialize for GetClusterRequest {
     }
 }
 
+impl std::fmt::Debug for GetClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetClusterRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.ListClusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersRequest {
     /// Required. The unique name of the instance for which a list of clusters is
@@ -1537,8 +1642,21 @@ impl serde::ser::Serialize for ListClustersRequest {
     }
 }
 
+impl std::fmt::Debug for ListClustersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClustersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for BigtableInstanceAdmin.ListClusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersResponse {
     /// The list of requested clusters.
@@ -1727,8 +1845,22 @@ impl serde::ser::Serialize for ListClustersResponse {
     }
 }
 
+impl std::fmt::Debug for ListClustersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClustersResponse");
+        debug_struct.field("clusters", &self.clusters);
+        debug_struct.field("failed_locations", &self.failed_locations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.DeleteCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClusterRequest {
     /// Required. The unique name of the cluster to be deleted. Values are of the
@@ -1858,8 +1990,20 @@ impl serde::ser::Serialize for DeleteClusterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteClusterRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by CreateInstance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceMetadata {
     /// The request that prompted the initiation of this CreateInstance operation.
@@ -2072,8 +2216,22 @@ impl serde::ser::Serialize for CreateInstanceMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateInstanceMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstanceMetadata");
+        debug_struct.field("original_request", &self.original_request);
+        debug_struct.field("request_time", &self.request_time);
+        debug_struct.field("finish_time", &self.finish_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by UpdateInstance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceMetadata {
     /// The request that prompted the initiation of this UpdateInstance operation.
@@ -2286,8 +2444,22 @@ impl serde::ser::Serialize for UpdateInstanceMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateInstanceMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstanceMetadata");
+        debug_struct.field("original_request", &self.original_request);
+        debug_struct.field("request_time", &self.request_time);
+        debug_struct.field("finish_time", &self.finish_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by CreateCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClusterMetadata {
     /// The request that prompted the initiation of this CreateCluster operation.
@@ -2545,13 +2717,28 @@ impl serde::ser::Serialize for CreateClusterMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateClusterMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateClusterMetadata");
+        debug_struct.field("original_request", &self.original_request);
+        debug_struct.field("request_time", &self.request_time);
+        debug_struct.field("finish_time", &self.finish_time);
+        debug_struct.field("tables", &self.tables);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CreateClusterMetadata].
 pub mod create_cluster_metadata {
     #[allow(unused_imports)]
     use super::*;
 
     /// Progress info for copying a table's data to the new cluster.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TableProgress {
         /// Estimate of the size of the table to be copied.
@@ -2780,6 +2967,20 @@ pub mod create_cluster_metadata {
         }
     }
 
+    impl std::fmt::Debug for TableProgress {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TableProgress");
+            debug_struct.field("estimated_size_bytes", &self.estimated_size_bytes);
+            debug_struct.field("estimated_copied_bytes", &self.estimated_copied_bytes);
+            debug_struct.field("state", &self.state);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [TableProgress].
     pub mod table_progress {
         #[allow(unused_imports)]
@@ -2937,7 +3138,7 @@ pub mod create_cluster_metadata {
 }
 
 /// The metadata for the Operation returned by UpdateCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateClusterMetadata {
     /// The request that prompted the initiation of this UpdateCluster operation.
@@ -3150,8 +3351,22 @@ impl serde::ser::Serialize for UpdateClusterMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateClusterMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateClusterMetadata");
+        debug_struct.field("original_request", &self.original_request);
+        debug_struct.field("request_time", &self.request_time);
+        debug_struct.field("finish_time", &self.finish_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by PartialUpdateCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PartialUpdateClusterMetadata {
     /// The time at which the original request was received.
@@ -3364,8 +3579,22 @@ impl serde::ser::Serialize for PartialUpdateClusterMetadata {
     }
 }
 
+impl std::fmt::Debug for PartialUpdateClusterMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartialUpdateClusterMetadata");
+        debug_struct.field("request_time", &self.request_time);
+        debug_struct.field("finish_time", &self.finish_time);
+        debug_struct.field("original_request", &self.original_request);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.PartialUpdateCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PartialUpdateClusterRequest {
     /// Required. The Cluster which contains the partial updates to be applied,
@@ -3542,8 +3771,21 @@ impl serde::ser::Serialize for PartialUpdateClusterRequest {
     }
 }
 
+impl std::fmt::Debug for PartialUpdateClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartialUpdateClusterRequest");
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.CreateAppProfile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAppProfileRequest {
     /// Required. The unique name of the instance in which to create the new app
@@ -3762,8 +4004,23 @@ impl serde::ser::Serialize for CreateAppProfileRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAppProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAppProfileRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("app_profile_id", &self.app_profile_id);
+        debug_struct.field("app_profile", &self.app_profile);
+        debug_struct.field("ignore_warnings", &self.ignore_warnings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.GetAppProfile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAppProfileRequest {
     /// Required. The unique name of the requested app profile. Values are of the
@@ -3893,8 +4150,20 @@ impl serde::ser::Serialize for GetAppProfileRequest {
     }
 }
 
+impl std::fmt::Debug for GetAppProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAppProfileRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.ListAppProfiles.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAppProfilesRequest {
     /// Required. The unique name of the instance for which a list of app profiles
@@ -4103,8 +4372,22 @@ impl serde::ser::Serialize for ListAppProfilesRequest {
     }
 }
 
+impl std::fmt::Debug for ListAppProfilesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAppProfilesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for BigtableInstanceAdmin.ListAppProfiles.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAppProfilesResponse {
     /// The list of requested app profiles.
@@ -4309,8 +4592,22 @@ impl serde::ser::Serialize for ListAppProfilesResponse {
     }
 }
 
+impl std::fmt::Debug for ListAppProfilesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAppProfilesResponse");
+        debug_struct.field("app_profiles", &self.app_profiles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("failed_locations", &self.failed_locations);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.UpdateAppProfile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAppProfileRequest {
     /// Required. The app profile which will (partially) replace the current value.
@@ -4513,8 +4810,22 @@ impl serde::ser::Serialize for UpdateAppProfileRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAppProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAppProfileRequest");
+        debug_struct.field("app_profile", &self.app_profile);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("ignore_warnings", &self.ignore_warnings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.DeleteAppProfile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAppProfileRequest {
     /// Required. The unique name of the app profile to be deleted. Values are of
@@ -4670,8 +4981,21 @@ impl serde::ser::Serialize for DeleteAppProfileRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAppProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAppProfileRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ignore_warnings", &self.ignore_warnings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by UpdateAppProfile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAppProfileMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4773,8 +5097,19 @@ impl serde::ser::Serialize for UpdateAppProfileMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateAppProfileMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAppProfileMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.ListHotTablets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHotTabletsRequest {
     /// Required. The cluster name to list hot tablets.
@@ -5058,8 +5393,24 @@ impl serde::ser::Serialize for ListHotTabletsRequest {
     }
 }
 
+impl std::fmt::Debug for ListHotTabletsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHotTabletsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for BigtableInstanceAdmin.ListHotTablets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHotTabletsResponse {
     /// List of hot tablets in the tables of the requested cluster that fall
@@ -5237,8 +5588,21 @@ impl serde::ser::Serialize for ListHotTabletsResponse {
     }
 }
 
+impl std::fmt::Debug for ListHotTabletsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHotTabletsResponse");
+        debug_struct.field("hot_tablets", &self.hot_tablets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.CreateLogicalView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLogicalViewRequest {
     /// Required. The parent instance where this logical view will be created.
@@ -5430,8 +5794,22 @@ impl serde::ser::Serialize for CreateLogicalViewRequest {
     }
 }
 
+impl std::fmt::Debug for CreateLogicalViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateLogicalViewRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("logical_view_id", &self.logical_view_id);
+        debug_struct.field("logical_view", &self.logical_view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by CreateLogicalView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLogicalViewMetadata {
     /// The request that prompted the initiation of this CreateLogicalView
@@ -5645,8 +6023,22 @@ impl serde::ser::Serialize for CreateLogicalViewMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateLogicalViewMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateLogicalViewMetadata");
+        debug_struct.field("original_request", &self.original_request);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.GetLogicalView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLogicalViewRequest {
     /// Required. The unique name of the requested logical view. Values are of the
@@ -5776,8 +6168,20 @@ impl serde::ser::Serialize for GetLogicalViewRequest {
     }
 }
 
+impl std::fmt::Debug for GetLogicalViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLogicalViewRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.ListLogicalViews.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogicalViewsRequest {
     /// Required. The unique name of the instance for which the list of logical
@@ -5981,8 +6385,22 @@ impl serde::ser::Serialize for ListLogicalViewsRequest {
     }
 }
 
+impl std::fmt::Debug for ListLogicalViewsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLogicalViewsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for BigtableInstanceAdmin.ListLogicalViews.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLogicalViewsResponse {
     /// The list of requested logical views.
@@ -6155,8 +6573,21 @@ impl serde::ser::Serialize for ListLogicalViewsResponse {
     }
 }
 
+impl std::fmt::Debug for ListLogicalViewsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLogicalViewsResponse");
+        debug_struct.field("logical_views", &self.logical_views);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.UpdateLogicalView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateLogicalViewRequest {
     /// Required. The logical view to update.
@@ -6337,8 +6768,21 @@ impl serde::ser::Serialize for UpdateLogicalViewRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateLogicalViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateLogicalViewRequest");
+        debug_struct.field("logical_view", &self.logical_view);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by UpdateLogicalView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateLogicalViewMetadata {
     /// The request that prompted the initiation of this UpdateLogicalView
@@ -6552,8 +6996,22 @@ impl serde::ser::Serialize for UpdateLogicalViewMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateLogicalViewMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateLogicalViewMetadata");
+        debug_struct.field("original_request", &self.original_request);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.DeleteLogicalView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLogicalViewRequest {
     /// Required. The unique name of the logical view to be deleted.
@@ -6711,8 +7169,21 @@ impl serde::ser::Serialize for DeleteLogicalViewRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteLogicalViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteLogicalViewRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.CreateMaterializedView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMaterializedViewRequest {
     /// Required. The parent instance where this materialized view will be created.
@@ -6908,8 +7379,22 @@ impl serde::ser::Serialize for CreateMaterializedViewRequest {
     }
 }
 
+impl std::fmt::Debug for CreateMaterializedViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMaterializedViewRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("materialized_view_id", &self.materialized_view_id);
+        debug_struct.field("materialized_view", &self.materialized_view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by CreateMaterializedView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMaterializedViewMetadata {
     /// The request that prompted the initiation of this CreateMaterializedView
@@ -7125,8 +7610,22 @@ impl serde::ser::Serialize for CreateMaterializedViewMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateMaterializedViewMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMaterializedViewMetadata");
+        debug_struct.field("original_request", &self.original_request);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.GetMaterializedView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMaterializedViewRequest {
     /// Required. The unique name of the requested materialized view. Values are of
@@ -7257,8 +7756,20 @@ impl serde::ser::Serialize for GetMaterializedViewRequest {
     }
 }
 
+impl std::fmt::Debug for GetMaterializedViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMaterializedViewRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.ListMaterializedViews.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMaterializedViewsRequest {
     /// Required. The unique name of the instance for which the list of
@@ -7462,8 +7973,22 @@ impl serde::ser::Serialize for ListMaterializedViewsRequest {
     }
 }
 
+impl std::fmt::Debug for ListMaterializedViewsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMaterializedViewsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for BigtableInstanceAdmin.ListMaterializedViews.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMaterializedViewsResponse {
     /// The list of requested materialized views.
@@ -7640,8 +8165,21 @@ impl serde::ser::Serialize for ListMaterializedViewsResponse {
     }
 }
 
+impl std::fmt::Debug for ListMaterializedViewsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMaterializedViewsResponse");
+        debug_struct.field("materialized_views", &self.materialized_views);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.UpdateMaterializedView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateMaterializedViewRequest {
     /// Required. The materialized view to update.
@@ -7823,8 +8361,21 @@ impl serde::ser::Serialize for UpdateMaterializedViewRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateMaterializedViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateMaterializedViewRequest");
+        debug_struct.field("materialized_view", &self.materialized_view);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by UpdateMaterializedView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateMaterializedViewMetadata {
     /// The request that prompted the initiation of this UpdateMaterializedView
@@ -8040,8 +8591,22 @@ impl serde::ser::Serialize for UpdateMaterializedViewMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateMaterializedViewMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateMaterializedViewMetadata");
+        debug_struct.field("original_request", &self.original_request);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.DeleteMaterializedView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMaterializedViewRequest {
     /// Required. The unique name of the materialized view to be deleted.
@@ -8199,11 +8764,24 @@ impl serde::ser::Serialize for DeleteMaterializedViewRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteMaterializedViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteMaterializedViewRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [RestoreTable][google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable]: crate::client::BigtableTableAdmin::restore_table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreTableRequest {
     /// Required. The name of the instance in which to create the restored
@@ -8424,6 +9002,20 @@ impl serde::ser::Serialize for RestoreTableRequest {
     }
 }
 
+impl std::fmt::Debug for RestoreTableRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreTableRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("table_id", &self.table_id);
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RestoreTableRequest].
 pub mod restore_table_request {
     #[allow(unused_imports)]
@@ -8443,7 +9035,7 @@ pub mod restore_table_request {
 /// [RestoreTable][google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable]: crate::client::BigtableTableAdmin::restore_table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreTableMetadata {
     /// Name of the table being created and restored to.
@@ -8761,6 +9353,25 @@ impl serde::ser::Serialize for RestoreTableMetadata {
     }
 }
 
+impl std::fmt::Debug for RestoreTableMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreTableMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source_type", &self.source_type);
+        debug_struct.field(
+            "optimize_table_operation_name",
+            &self.optimize_table_operation_name,
+        );
+        debug_struct.field("progress", &self.progress);
+        debug_struct.field("source_info", &self.source_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RestoreTableMetadata].
 pub mod restore_table_metadata {
     #[allow(unused_imports)]
@@ -8782,7 +9393,7 @@ pub mod restore_table_metadata {
 /// of optimizations performed on a newly restored table. This long-running
 /// operation is automatically created by the system after the successful
 /// completion of a table restore, and cannot be cancelled.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OptimizeRestoredTableMetadata {
     /// Name of the restored table being optimized.
@@ -8947,11 +9558,24 @@ impl serde::ser::Serialize for OptimizeRestoredTableMetadata {
     }
 }
 
+impl std::fmt::Debug for OptimizeRestoredTableMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OptimizeRestoredTableMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("progress", &self.progress);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CreateTable][google.bigtable.admin.v2.BigtableTableAdmin.CreateTable]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CreateTable]: crate::client::BigtableTableAdmin::create_table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTableRequest {
     /// Required. The unique name of the instance in which to create the table.
@@ -9190,13 +9814,28 @@ impl serde::ser::Serialize for CreateTableRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTableRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTableRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("table_id", &self.table_id);
+        debug_struct.field("table", &self.table);
+        debug_struct.field("initial_splits", &self.initial_splits);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CreateTableRequest].
 pub mod create_table_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// An initial split point for a newly created table.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Split {
         /// Row key to use as an initial tablet boundary.
@@ -9350,6 +9989,18 @@ pub mod create_table_request {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Split {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Split");
+            debug_struct.field("key", &self.key);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request message for
@@ -9361,7 +10012,7 @@ pub mod create_table_request {
 /// for production use. It is not subject to any SLA or deprecation policy.
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CreateTableFromSnapshot]: crate::client::BigtableTableAdmin::create_table_from_snapshot
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTableFromSnapshotRequest {
     /// Required. The unique name of the instance in which to create the table.
@@ -9545,11 +10196,25 @@ impl serde::ser::Serialize for CreateTableFromSnapshotRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTableFromSnapshotRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTableFromSnapshotRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("table_id", &self.table_id);
+        debug_struct.field("source_snapshot", &self.source_snapshot);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DropRowRange][google.bigtable.admin.v2.BigtableTableAdmin.DropRowRange]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DropRowRange]: crate::client::BigtableTableAdmin::drop_row_range
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DropRowRangeRequest {
     /// Required. The unique name of the table on which to drop a range of rows.
@@ -9817,6 +10482,19 @@ impl serde::ser::Serialize for DropRowRangeRequest {
     }
 }
 
+impl std::fmt::Debug for DropRowRangeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DropRowRangeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("target", &self.target);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DropRowRangeRequest].
 pub mod drop_row_range_request {
     #[allow(unused_imports)]
@@ -9838,7 +10516,7 @@ pub mod drop_row_range_request {
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListTables][google.bigtable.admin.v2.BigtableTableAdmin.ListTables]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListTables]: crate::client::BigtableTableAdmin::list_tables
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTablesRequest {
     /// Required. The unique name of the instance for which tables should be
@@ -10069,11 +10747,26 @@ impl serde::ser::Serialize for ListTablesRequest {
     }
 }
 
+impl std::fmt::Debug for ListTablesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTablesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("view", &self.view);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListTables][google.bigtable.admin.v2.BigtableTableAdmin.ListTables]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListTables]: crate::client::BigtableTableAdmin::list_tables
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTablesResponse {
     /// The tables present in the requested instance.
@@ -10246,11 +10939,24 @@ impl serde::ser::Serialize for ListTablesResponse {
     }
 }
 
+impl std::fmt::Debug for ListTablesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTablesResponse");
+        debug_struct.field("tables", &self.tables);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GetTable][google.bigtable.admin.v2.BigtableTableAdmin.GetTable]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GetTable]: crate::client::BigtableTableAdmin::get_table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTableRequest {
     /// Required. The unique name of the requested table.
@@ -10406,11 +11112,24 @@ impl serde::ser::Serialize for GetTableRequest {
     }
 }
 
+impl std::fmt::Debug for GetTableRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTableRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [UpdateTable][google.bigtable.admin.v2.BigtableTableAdmin.UpdateTable].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateTable]: crate::client::BigtableTableAdmin::update_table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTableRequest {
     /// Required. The table to update.
@@ -10624,11 +11343,25 @@ impl serde::ser::Serialize for UpdateTableRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTableRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTableRequest");
+        debug_struct.field("table", &self.table);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("ignore_warnings", &self.ignore_warnings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [UpdateTable][google.bigtable.admin.v2.BigtableTableAdmin.UpdateTable].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateTable]: crate::client::BigtableTableAdmin::update_table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTableMetadata {
     /// The name of the table being updated.
@@ -10829,11 +11562,25 @@ impl serde::ser::Serialize for UpdateTableMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateTableMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTableMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteTable][google.bigtable.admin.v2.BigtableTableAdmin.DeleteTable]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteTable]: crate::client::BigtableTableAdmin::delete_table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTableRequest {
     /// Required. The unique name of the table to be deleted.
@@ -10964,11 +11711,23 @@ impl serde::ser::Serialize for DeleteTableRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTableRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTableRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable][google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable]: crate::client::BigtableTableAdmin::undelete_table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteTableRequest {
     /// Required. The unique name of the table to be restored.
@@ -11099,11 +11858,23 @@ impl serde::ser::Serialize for UndeleteTableRequest {
     }
 }
 
+impl std::fmt::Debug for UndeleteTableRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteTableRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable][google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable]: crate::client::BigtableTableAdmin::undelete_table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteTableMetadata {
     /// The name of the table being restored.
@@ -11304,11 +12075,25 @@ impl serde::ser::Serialize for UndeleteTableMetadata {
     }
 }
 
+impl std::fmt::Debug for UndeleteTableMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteTableMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ModifyColumnFamilies][google.bigtable.admin.v2.BigtableTableAdmin.ModifyColumnFamilies]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ModifyColumnFamilies]: crate::client::BigtableTableAdmin::modify_column_families
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModifyColumnFamiliesRequest {
     /// Required. The unique name of the table whose families should be modified.
@@ -11500,13 +12285,27 @@ impl serde::ser::Serialize for ModifyColumnFamiliesRequest {
     }
 }
 
+impl std::fmt::Debug for ModifyColumnFamiliesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ModifyColumnFamiliesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("modifications", &self.modifications);
+        debug_struct.field("ignore_warnings", &self.ignore_warnings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ModifyColumnFamiliesRequest].
 pub mod modify_column_families_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// A create, update, or delete of a particular column family.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Modification {
         /// The ID of the column family to be modified.
@@ -11845,6 +12644,20 @@ pub mod modify_column_families_request {
         }
     }
 
+    impl std::fmt::Debug for Modification {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Modification");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("update_mask", &self.update_mask);
+            debug_struct.field("r#mod", &self.r#mod);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Modification].
     pub mod modification {
         #[allow(unused_imports)]
@@ -11871,7 +12684,7 @@ pub mod modify_column_families_request {
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken][google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken]: crate::client::BigtableTableAdmin::generate_consistency_token
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateConsistencyTokenRequest {
     /// Required. The unique name of the Table for which to create a consistency
@@ -12002,11 +12815,23 @@ impl serde::ser::Serialize for GenerateConsistencyTokenRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateConsistencyTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateConsistencyTokenRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken][google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken]: crate::client::BigtableTableAdmin::generate_consistency_token
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateConsistencyTokenResponse {
     /// The generated consistency token.
@@ -12139,11 +12964,23 @@ impl serde::ser::Serialize for GenerateConsistencyTokenResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateConsistencyTokenResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateConsistencyTokenResponse");
+        debug_struct.field("consistency_token", &self.consistency_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency][google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency]: crate::client::BigtableTableAdmin::check_consistency
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckConsistencyRequest {
     /// Required. The unique name of the Table for which to check replication
@@ -12438,6 +13275,20 @@ impl serde::ser::Serialize for CheckConsistencyRequest {
     }
 }
 
+impl std::fmt::Debug for CheckConsistencyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckConsistencyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("consistency_token", &self.consistency_token);
+        debug_struct.field("mode", &self.mode);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CheckConsistencyRequest].
 pub mod check_consistency_request {
     #[allow(unused_imports)]
@@ -12461,7 +13312,7 @@ pub mod check_consistency_request {
 
 /// Checks that all writes before the consistency token was generated are
 /// replicated in every cluster and readable.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StandardReadRemoteWrites {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12563,9 +13414,20 @@ impl serde::ser::Serialize for StandardReadRemoteWrites {
     }
 }
 
+impl std::fmt::Debug for StandardReadRemoteWrites {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StandardReadRemoteWrites");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Checks that all writes before the consistency token was generated in the same
 /// cluster are readable by Databoost.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataBoostReadLocalWrites {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12667,11 +13529,22 @@ impl serde::ser::Serialize for DataBoostReadLocalWrites {
     }
 }
 
+impl std::fmt::Debug for DataBoostReadLocalWrites {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataBoostReadLocalWrites");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency][google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency]: crate::client::BigtableTableAdmin::check_consistency
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckConsistencyResponse {
     /// True only if the token is consistent. A token is consistent if replication
@@ -12801,6 +13674,18 @@ impl serde::ser::Serialize for CheckConsistencyResponse {
     }
 }
 
+impl std::fmt::Debug for CheckConsistencyResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckConsistencyResponse");
+        debug_struct.field("consistent", &self.consistent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.SnapshotTable][google.bigtable.admin.v2.BigtableTableAdmin.SnapshotTable]
 ///
@@ -12810,7 +13695,7 @@ impl serde::ser::Serialize for CheckConsistencyResponse {
 /// for production use. It is not subject to any SLA or deprecation policy.
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.SnapshotTable]: crate::client::BigtableTableAdmin::snapshot_table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SnapshotTableRequest {
     /// Required. The unique name of the table to have the snapshot taken.
@@ -13056,6 +13941,22 @@ impl serde::ser::Serialize for SnapshotTableRequest {
     }
 }
 
+impl std::fmt::Debug for SnapshotTableRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SnapshotTableRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("snapshot_id", &self.snapshot_id);
+        debug_struct.field("ttl", &self.ttl);
+        debug_struct.field("description", &self.description);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GetSnapshot][google.bigtable.admin.v2.BigtableTableAdmin.GetSnapshot]
 ///
@@ -13065,7 +13966,7 @@ impl serde::ser::Serialize for SnapshotTableRequest {
 /// for production use. It is not subject to any SLA or deprecation policy.
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GetSnapshot]: crate::client::BigtableTableAdmin::get_snapshot
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSnapshotRequest {
     /// Required. The unique name of the requested snapshot.
@@ -13196,6 +14097,18 @@ impl serde::ser::Serialize for GetSnapshotRequest {
     }
 }
 
+impl std::fmt::Debug for GetSnapshotRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSnapshotRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListSnapshots][google.bigtable.admin.v2.BigtableTableAdmin.ListSnapshots]
 ///
@@ -13205,7 +14118,7 @@ impl serde::ser::Serialize for GetSnapshotRequest {
 /// for production use. It is not subject to any SLA or deprecation policy.
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListSnapshots]: crate::client::BigtableTableAdmin::list_snapshots
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSnapshotsRequest {
     /// Required. The unique name of the cluster for which snapshots should be
@@ -13407,6 +14320,20 @@ impl serde::ser::Serialize for ListSnapshotsRequest {
     }
 }
 
+impl std::fmt::Debug for ListSnapshotsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSnapshotsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListSnapshots][google.bigtable.admin.v2.BigtableTableAdmin.ListSnapshots]
 ///
@@ -13416,7 +14343,7 @@ impl serde::ser::Serialize for ListSnapshotsRequest {
 /// for production use. It is not subject to any SLA or deprecation policy.
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListSnapshots]: crate::client::BigtableTableAdmin::list_snapshots
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSnapshotsResponse {
     /// The snapshots present in the requested cluster.
@@ -13589,6 +14516,19 @@ impl serde::ser::Serialize for ListSnapshotsResponse {
     }
 }
 
+impl std::fmt::Debug for ListSnapshotsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSnapshotsResponse");
+        debug_struct.field("snapshots", &self.snapshots);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteSnapshot][google.bigtable.admin.v2.BigtableTableAdmin.DeleteSnapshot]
 ///
@@ -13598,7 +14538,7 @@ impl serde::ser::Serialize for ListSnapshotsResponse {
 /// for production use. It is not subject to any SLA or deprecation policy.
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteSnapshot]: crate::client::BigtableTableAdmin::delete_snapshot
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSnapshotRequest {
     /// Required. The unique name of the snapshot to be deleted.
@@ -13729,13 +14669,25 @@ impl serde::ser::Serialize for DeleteSnapshotRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSnapshotRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSnapshotRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by SnapshotTable.
 ///
 /// Note: This is a private alpha release of Cloud Bigtable snapshots. This
 /// feature is not currently available to most Cloud Bigtable customers. This
 /// feature might be changed in backward-incompatible ways and is not recommended
 /// for production use. It is not subject to any SLA or deprecation policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SnapshotTableMetadata {
     /// The request that prompted the initiation of this SnapshotTable operation.
@@ -13948,13 +14900,27 @@ impl serde::ser::Serialize for SnapshotTableMetadata {
     }
 }
 
+impl std::fmt::Debug for SnapshotTableMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SnapshotTableMetadata");
+        debug_struct.field("original_request", &self.original_request);
+        debug_struct.field("request_time", &self.request_time);
+        debug_struct.field("finish_time", &self.finish_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by CreateTableFromSnapshot.
 ///
 /// Note: This is a private alpha release of Cloud Bigtable snapshots. This
 /// feature is not currently available to most Cloud Bigtable customers. This
 /// feature might be changed in backward-incompatible ways and is not recommended
 /// for production use. It is not subject to any SLA or deprecation policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTableFromSnapshotMetadata {
     /// The request that prompted the initiation of this CreateTableFromSnapshot
@@ -14170,11 +15136,25 @@ impl serde::ser::Serialize for CreateTableFromSnapshotMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateTableFromSnapshotMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTableFromSnapshotMetadata");
+        debug_struct.field("original_request", &self.original_request);
+        debug_struct.field("request_time", &self.request_time);
+        debug_struct.field("finish_time", &self.finish_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [CreateBackup][google.bigtable.admin.v2.BigtableTableAdmin.CreateBackup].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CreateBackup]: crate::client::BigtableTableAdmin::create_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupRequest {
     /// Required. This must be one of the clusters in the instance in which this
@@ -14370,11 +15350,25 @@ impl serde::ser::Serialize for CreateBackupRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBackupRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("backup_id", &self.backup_id);
+        debug_struct.field("backup", &self.backup);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [CreateBackup][google.bigtable.admin.v2.BigtableTableAdmin.CreateBackup].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CreateBackup]: crate::client::BigtableTableAdmin::create_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupMetadata {
     /// The name of the backup being created.
@@ -14600,11 +15594,26 @@ impl serde::ser::Serialize for CreateBackupMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateBackupMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBackupMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source_table", &self.source_table);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [UpdateBackup][google.bigtable.admin.v2.BigtableTableAdmin.UpdateBackup].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateBackup]: crate::client::BigtableTableAdmin::update_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupRequest {
     /// Required. The backup to update. `backup.name`, and the fields to be updated
@@ -14788,11 +15797,24 @@ impl serde::ser::Serialize for UpdateBackupRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBackupRequest");
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [GetBackup][google.bigtable.admin.v2.BigtableTableAdmin.GetBackup].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GetBackup]: crate::client::BigtableTableAdmin::get_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupRequest {
     /// Required. Name of the backup.
@@ -14923,11 +15945,23 @@ impl serde::ser::Serialize for GetBackupRequest {
     }
 }
 
+impl std::fmt::Debug for GetBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [DeleteBackup][google.bigtable.admin.v2.BigtableTableAdmin.DeleteBackup].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteBackup]: crate::client::BigtableTableAdmin::delete_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupRequest {
     /// Required. Name of the backup to delete.
@@ -15058,11 +16092,23 @@ impl serde::ser::Serialize for DeleteBackupRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBackupRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ListBackups][google.bigtable.admin.v2.BigtableTableAdmin.ListBackups].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListBackups]: crate::client::BigtableTableAdmin::list_backups
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsRequest {
     /// Required. The cluster to list backups from.  Values are of the
@@ -15374,11 +16420,27 @@ impl serde::ser::Serialize for ListBackupsRequest {
     }
 }
 
+impl std::fmt::Debug for ListBackupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListBackups][google.bigtable.admin.v2.BigtableTableAdmin.ListBackups].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListBackups]: crate::client::BigtableTableAdmin::list_backups
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsResponse {
     /// The list of matching backups.
@@ -15553,11 +16615,24 @@ impl serde::ser::Serialize for ListBackupsResponse {
     }
 }
 
+impl std::fmt::Debug for ListBackupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupsResponse");
+        debug_struct.field("backups", &self.backups);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [CopyBackup][google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup]: crate::client::BigtableTableAdmin::copy_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyBackupRequest {
     /// Required. The name of the destination cluster that will contain the backup
@@ -15789,11 +16864,26 @@ impl serde::ser::Serialize for CopyBackupRequest {
     }
 }
 
+impl std::fmt::Debug for CopyBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CopyBackupRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("backup_id", &self.backup_id);
+        debug_struct.field("source_backup", &self.source_backup);
+        debug_struct.field("expire_time", &self.expire_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the google.longrunning.Operation returned by
 /// [CopyBackup][google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup]: crate::client::BigtableTableAdmin::copy_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CopyBackupMetadata {
     /// The name of the backup being created through the copy operation.
@@ -16000,11 +17090,25 @@ impl serde::ser::Serialize for CopyBackupMetadata {
     }
 }
 
+impl std::fmt::Debug for CopyBackupMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CopyBackupMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source_backup_info", &self.source_backup_info);
+        debug_struct.field("progress", &self.progress);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [CreateAuthorizedView][google.bigtable.admin.v2.BigtableTableAdmin.CreateAuthorizedView]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CreateAuthorizedView]: crate::client::BigtableTableAdmin::create_authorized_view
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAuthorizedViewRequest {
     /// Required. This is the name of the table the AuthorizedView belongs to.
@@ -16203,8 +17307,22 @@ impl serde::ser::Serialize for CreateAuthorizedViewRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAuthorizedViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAuthorizedViewRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("authorized_view_id", &self.authorized_view_id);
+        debug_struct.field("authorized_view", &self.authorized_view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by CreateAuthorizedView.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAuthorizedViewMetadata {
     /// The request that prompted the initiation of this CreateAuthorizedView
@@ -16418,11 +17536,25 @@ impl serde::ser::Serialize for CreateAuthorizedViewMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateAuthorizedViewMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAuthorizedViewMetadata");
+        debug_struct.field("original_request", &self.original_request);
+        debug_struct.field("request_time", &self.request_time);
+        debug_struct.field("finish_time", &self.finish_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews][google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews]: crate::client::BigtableTableAdmin::list_authorized_views
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuthorizedViewsRequest {
     /// Required. The unique name of the table for which AuthorizedViews should be
@@ -16659,11 +17791,26 @@ impl serde::ser::Serialize for ListAuthorizedViewsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAuthorizedViewsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAuthorizedViewsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("view", &self.view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews][google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews]: crate::client::BigtableTableAdmin::list_authorized_views
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuthorizedViewsResponse {
     /// The AuthorizedViews present in the requested table.
@@ -16841,11 +17988,24 @@ impl serde::ser::Serialize for ListAuthorizedViewsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAuthorizedViewsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAuthorizedViewsResponse");
+        debug_struct.field("authorized_views", &self.authorized_views);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GetAuthorizedView][google.bigtable.admin.v2.BigtableTableAdmin.GetAuthorizedView]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GetAuthorizedView]: crate::client::BigtableTableAdmin::get_authorized_view
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAuthorizedViewRequest {
     /// Required. The unique name of the requested AuthorizedView.
@@ -17006,11 +18166,24 @@ impl serde::ser::Serialize for GetAuthorizedViewRequest {
     }
 }
 
+impl std::fmt::Debug for GetAuthorizedViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAuthorizedViewRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [UpdateAuthorizedView][google.bigtable.admin.v2.BigtableTableAdmin.UpdateAuthorizedView].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateAuthorizedView]: crate::client::BigtableTableAdmin::update_authorized_view
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAuthorizedViewRequest {
     /// Required. The AuthorizedView to update. The `name` in `authorized_view` is
@@ -17223,11 +18396,25 @@ impl serde::ser::Serialize for UpdateAuthorizedViewRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAuthorizedViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAuthorizedViewRequest");
+        debug_struct.field("authorized_view", &self.authorized_view);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("ignore_warnings", &self.ignore_warnings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for the google.longrunning.Operation returned by
 /// [UpdateAuthorizedView][google.bigtable.admin.v2.BigtableTableAdmin.UpdateAuthorizedView].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateAuthorizedView]: crate::client::BigtableTableAdmin::update_authorized_view
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAuthorizedViewMetadata {
     /// The request that prompted the initiation of this UpdateAuthorizedView
@@ -17441,11 +18628,25 @@ impl serde::ser::Serialize for UpdateAuthorizedViewMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateAuthorizedViewMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAuthorizedViewMetadata");
+        debug_struct.field("original_request", &self.original_request);
+        debug_struct.field("request_time", &self.request_time);
+        debug_struct.field("finish_time", &self.finish_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteAuthorizedView][google.bigtable.admin.v2.BigtableTableAdmin.DeleteAuthorizedView]
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteAuthorizedView]: crate::client::BigtableTableAdmin::delete_authorized_view
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAuthorizedViewRequest {
     /// Required. The unique name of the AuthorizedView to be deleted.
@@ -17603,11 +18804,24 @@ impl serde::ser::Serialize for DeleteAuthorizedViewRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAuthorizedViewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAuthorizedViewRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [CreateSchemaBundle][google.bigtable.admin.v2.BigtableTableAdmin.CreateSchemaBundle].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CreateSchemaBundle]: crate::client::BigtableTableAdmin::create_schema_bundle
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSchemaBundleRequest {
     /// Required. The parent resource where this schema bundle will be created.
@@ -17803,11 +19017,25 @@ impl serde::ser::Serialize for CreateSchemaBundleRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSchemaBundleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSchemaBundleRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("schema_bundle_id", &self.schema_bundle_id);
+        debug_struct.field("schema_bundle", &self.schema_bundle);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by
 /// [CreateSchemaBundle][google.bigtable.admin.v2.BigtableTableAdmin.CreateSchemaBundle].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CreateSchemaBundle]: crate::client::BigtableTableAdmin::create_schema_bundle
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSchemaBundleMetadata {
     /// The unique name identifying this schema bundle.
@@ -18010,11 +19238,25 @@ impl serde::ser::Serialize for CreateSchemaBundleMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateSchemaBundleMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSchemaBundleMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [UpdateSchemaBundle][google.bigtable.admin.v2.BigtableTableAdmin.UpdateSchemaBundle].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateSchemaBundle]: crate::client::BigtableTableAdmin::update_schema_bundle
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSchemaBundleRequest {
     /// Required. The schema bundle to update.
@@ -18224,11 +19466,25 @@ impl serde::ser::Serialize for UpdateSchemaBundleRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSchemaBundleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSchemaBundleRequest");
+        debug_struct.field("schema_bundle", &self.schema_bundle);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("ignore_warnings", &self.ignore_warnings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata for the Operation returned by
 /// [UpdateSchemaBundle][google.bigtable.admin.v2.BigtableTableAdmin.UpdateSchemaBundle].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateSchemaBundle]: crate::client::BigtableTableAdmin::update_schema_bundle
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSchemaBundleMetadata {
     /// The unique name identifying this schema bundle.
@@ -18431,11 +19687,25 @@ impl serde::ser::Serialize for UpdateSchemaBundleMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateSchemaBundleMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSchemaBundleMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [GetSchemaBundle][google.bigtable.admin.v2.BigtableTableAdmin.GetSchemaBundle].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GetSchemaBundle]: crate::client::BigtableTableAdmin::get_schema_bundle
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSchemaBundleRequest {
     /// Required. The unique name of the schema bundle to retrieve.
@@ -18566,11 +19836,23 @@ impl serde::ser::Serialize for GetSchemaBundleRequest {
     }
 }
 
+impl std::fmt::Debug for GetSchemaBundleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSchemaBundleRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ListSchemaBundles][google.bigtable.admin.v2.BigtableTableAdmin.ListSchemaBundles].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListSchemaBundles]: crate::client::BigtableTableAdmin::list_schema_bundles
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemaBundlesRequest {
     /// Required. The parent, which owns this collection of schema bundles.
@@ -18775,11 +20057,25 @@ impl serde::ser::Serialize for ListSchemaBundlesRequest {
     }
 }
 
+impl std::fmt::Debug for ListSchemaBundlesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSchemaBundlesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListSchemaBundles][google.bigtable.admin.v2.BigtableTableAdmin.ListSchemaBundles].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListSchemaBundles]: crate::client::BigtableTableAdmin::list_schema_bundles
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSchemaBundlesResponse {
     /// The schema bundles from the specified table.
@@ -18952,11 +20248,24 @@ impl serde::ser::Serialize for ListSchemaBundlesResponse {
     }
 }
 
+impl std::fmt::Debug for ListSchemaBundlesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSchemaBundlesResponse");
+        debug_struct.field("schema_bundles", &self.schema_bundles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [DeleteSchemaBundle][google.bigtable.admin.v2.BigtableTableAdmin.DeleteSchemaBundle].
 ///
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteSchemaBundle]: crate::client::BigtableTableAdmin::delete_schema_bundle
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSchemaBundleRequest {
     /// Required. The unique name of the schema bundle to delete.
@@ -19113,9 +20422,22 @@ impl serde::ser::Serialize for DeleteSchemaBundleRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSchemaBundleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSchemaBundleRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encapsulates progress related information for a Cloud Bigtable long
 /// running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationProgress {
     /// Percent completion of the operation.
@@ -19338,6 +20660,20 @@ impl serde::ser::Serialize for OperationProgress {
     }
 }
 
+impl std::fmt::Debug for OperationProgress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationProgress");
+        debug_struct.field("progress_percent", &self.progress_percent);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A collection of Bigtable [Tables][google.bigtable.admin.v2.Table] and
 /// the resources that serve them.
 /// All tables in an instance are served from all
@@ -19345,7 +20681,7 @@ impl serde::ser::Serialize for OperationProgress {
 ///
 /// [google.bigtable.admin.v2.Cluster]: crate::model::Cluster
 /// [google.bigtable.admin.v2.Table]: crate::model::Table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
     /// The unique name of the instance. Values are of the form
@@ -19703,6 +21039,25 @@ impl serde::ser::Serialize for Instance {
     }
 }
 
+impl std::fmt::Debug for Instance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instance");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
@@ -19980,7 +21335,7 @@ pub mod instance {
 }
 
 /// The Autoscaling targets for a Cluster. These determine the recommended nodes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoscalingTargets {
     /// The cpu utilization that the Autoscaler should be trying to achieve.
@@ -20194,8 +21549,24 @@ impl serde::ser::Serialize for AutoscalingTargets {
     }
 }
 
+impl std::fmt::Debug for AutoscalingTargets {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutoscalingTargets");
+        debug_struct.field("cpu_utilization_percent", &self.cpu_utilization_percent);
+        debug_struct.field(
+            "storage_utilization_gib_per_node",
+            &self.storage_utilization_gib_per_node,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Limits for the number of nodes a Cluster can autoscale up/down to.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoscalingLimits {
     /// Required. Minimum number of nodes to scale down to.
@@ -20388,13 +21759,26 @@ impl serde::ser::Serialize for AutoscalingLimits {
     }
 }
 
+impl std::fmt::Debug for AutoscalingLimits {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutoscalingLimits");
+        debug_struct.field("min_serve_nodes", &self.min_serve_nodes);
+        debug_struct.field("max_serve_nodes", &self.max_serve_nodes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A resizable group of nodes in a particular cloud location, capable
 /// of serving all [Tables][google.bigtable.admin.v2.Table] in the parent
 /// [Instance][google.bigtable.admin.v2.Instance].
 ///
 /// [google.bigtable.admin.v2.Instance]: crate::model::Instance
 /// [google.bigtable.admin.v2.Table]: crate::model::Table
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cluster {
     /// The unique name of the cluster. Values are of the form
@@ -20782,13 +22166,32 @@ impl serde::ser::Serialize for Cluster {
     }
 }
 
+impl std::fmt::Debug for Cluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Cluster");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("serve_nodes", &self.serve_nodes);
+        debug_struct.field("node_scaling_factor", &self.node_scaling_factor);
+        debug_struct.field("default_storage_type", &self.default_storage_type);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        debug_struct.field("config", &self.config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Cluster].
 pub mod cluster {
     #[allow(unused_imports)]
     use super::*;
 
     /// Autoscaling config for a cluster.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClusterAutoscalingConfig {
         /// Required. Autoscaling limits for this cluster.
@@ -20968,8 +22371,21 @@ pub mod cluster {
         }
     }
 
+    impl std::fmt::Debug for ClusterAutoscalingConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ClusterAutoscalingConfig");
+            debug_struct.field("autoscaling_limits", &self.autoscaling_limits);
+            debug_struct.field("autoscaling_targets", &self.autoscaling_targets);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for a cluster.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClusterConfig {
         /// Autoscaling configuration for this cluster.
@@ -21126,9 +22542,24 @@ pub mod cluster {
         }
     }
 
+    impl std::fmt::Debug for ClusterConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ClusterConfig");
+            debug_struct.field(
+                "cluster_autoscaling_config",
+                &self.cluster_autoscaling_config,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Cloud Key Management Service (Cloud KMS) settings for a CMEK-protected
     /// cluster.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EncryptionConfig {
         /// Describes the Cloud KMS encryption key that will be used to protect the
@@ -21270,6 +22701,18 @@ pub mod cluster {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for EncryptionConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EncryptionConfig");
+            debug_struct.field("kms_key_name", &self.kms_key_name);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -21571,7 +23014,7 @@ pub mod cluster {
 
 /// A configuration object describing how Cloud Bigtable should treat traffic
 /// from a particular end user application.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppProfile {
     /// The unique name of the app profile. Values are of the form
@@ -22095,6 +23538,22 @@ impl serde::ser::Serialize for AppProfile {
     }
 }
 
+impl std::fmt::Debug for AppProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppProfile");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("routing_policy", &self.routing_policy);
+        debug_struct.field("isolation", &self.isolation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AppProfile].
 pub mod app_profile {
     #[allow(unused_imports)]
@@ -22105,7 +23564,7 @@ pub mod app_profile {
     /// transient errors or delays. Clusters in a region are considered
     /// equidistant. Choosing this option sacrifices read-your-writes consistency
     /// to improve availability.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MultiClusterRoutingUseAny {
         /// The set of clusters to route to. The order is ignored; clusters will be
@@ -22334,6 +23793,19 @@ pub mod app_profile {
         }
     }
 
+    impl std::fmt::Debug for MultiClusterRoutingUseAny {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MultiClusterRoutingUseAny");
+            debug_struct.field("cluster_ids", &self.cluster_ids);
+            debug_struct.field("affinity", &self.affinity);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [MultiClusterRoutingUseAny].
     pub mod multi_cluster_routing_use_any {
         #[allow(unused_imports)]
@@ -22348,7 +23820,7 @@ pub mod app_profile {
         /// cluster group will not be routed to, and routing will be unaffected by
         /// the new cluster. Moreover, clusters specified in the cluster group cannot
         /// be deleted unless removed from the cluster group.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct RowAffinity {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -22456,6 +23928,17 @@ pub mod app_profile {
             }
         }
 
+        impl std::fmt::Debug for RowAffinity {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("RowAffinity");
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Possible algorithms for routing affinity. If enabled, Bigtable will
         /// route between equidistant clusters in a deterministic order rather than
         /// choosing randomly.
@@ -22480,7 +23963,7 @@ pub mod app_profile {
     /// Unconditionally routes all read/write requests to a specific cluster.
     /// This option preserves read-your-writes consistency but does not improve
     /// availability.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SingleClusterRouting {
         /// The cluster to which read/write requests should be routed.
@@ -22647,9 +24130,25 @@ pub mod app_profile {
         }
     }
 
+    impl std::fmt::Debug for SingleClusterRouting {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SingleClusterRouting");
+            debug_struct.field("cluster_id", &self.cluster_id);
+            debug_struct.field(
+                "allow_transactional_writes",
+                &self.allow_transactional_writes,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Standard options for isolating this app profile's traffic from other use
     /// cases.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StandardIsolation {
         /// The priority of requests sent using this app profile.
@@ -22782,12 +24281,24 @@ pub mod app_profile {
         }
     }
 
+    impl std::fmt::Debug for StandardIsolation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StandardIsolation");
+            debug_struct.field("priority", &self.priority);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Data Boost is a serverless compute capability that lets you run
     /// high-throughput read jobs and queries on your Bigtable data, without
     /// impacting the performance of the clusters that handle your application
     /// traffic. Data Boost supports read-only use cases with single-cluster
     /// routing.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DataBoostIsolationReadOnly {
         /// The Compute Billing Owner for this Data Boost App Profile.
@@ -22934,6 +24445,18 @@ pub mod app_profile {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for DataBoostIsolationReadOnly {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DataBoostIsolationReadOnly");
+            debug_struct.field("compute_billing_owner", &self.compute_billing_owner);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -23252,7 +24775,7 @@ pub mod app_profile {
 /// <https://cloud.google.com/bigtable/docs/performance#optimization>.
 /// A Hot tablet is a tablet that exhibits high average cpu usage during the time
 /// interval from start time to end time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HotTablet {
     /// The unique name of the hot tablet. Values are of the form
@@ -23577,8 +25100,26 @@ impl serde::ser::Serialize for HotTablet {
     }
 }
 
+impl std::fmt::Debug for HotTablet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HotTablet");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("table_name", &self.table_name);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("start_key", &self.start_key);
+        debug_struct.field("end_key", &self.end_key);
+        debug_struct.field("node_cpu_usage_percent", &self.node_cpu_usage_percent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A SQL logical view object that can be referenced in SQL queries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogicalView {
     /// Identifier. The unique name of the logical view.
@@ -23785,8 +25326,23 @@ impl serde::ser::Serialize for LogicalView {
     }
 }
 
+impl std::fmt::Debug for LogicalView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogicalView");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("deletion_protection", &self.deletion_protection);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A materialized view object that can be referenced in SQL queries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaterializedView {
     /// Identifier. The unique name of the materialized view.
@@ -23993,8 +25549,23 @@ impl serde::ser::Serialize for MaterializedView {
     }
 }
 
+impl std::fmt::Debug for MaterializedView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaterializedView");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("deletion_protection", &self.deletion_protection);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about a table restore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreInfo {
     /// The type of the restore source.
@@ -24196,6 +25767,19 @@ impl serde::ser::Serialize for RestoreInfo {
     }
 }
 
+impl std::fmt::Debug for RestoreInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreInfo");
+        debug_struct.field("source_type", &self.source_type);
+        debug_struct.field("source_info", &self.source_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RestoreInfo].
 pub mod restore_info {
     #[allow(unused_imports)]
@@ -24212,7 +25796,7 @@ pub mod restore_info {
 }
 
 /// Change stream configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChangeStreamConfig {
     /// How long the change stream should be retained. Change stream data older
@@ -24357,9 +25941,21 @@ impl serde::ser::Serialize for ChangeStreamConfig {
     }
 }
 
+impl std::fmt::Debug for ChangeStreamConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChangeStreamConfig");
+        debug_struct.field("retention_period", &self.retention_period);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A collection of user data indexed by row, column, and timestamp.
 /// Each table is served using the resources of its parent cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Table {
     /// The unique name of the table. Values are of the form
@@ -24870,13 +26466,33 @@ impl serde::ser::Serialize for Table {
     }
 }
 
+impl std::fmt::Debug for Table {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Table");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("cluster_states", &self.cluster_states);
+        debug_struct.field("column_families", &self.column_families);
+        debug_struct.field("granularity", &self.granularity);
+        debug_struct.field("restore_info", &self.restore_info);
+        debug_struct.field("change_stream_config", &self.change_stream_config);
+        debug_struct.field("deletion_protection", &self.deletion_protection);
+        debug_struct.field("row_key_schema", &self.row_key_schema);
+        debug_struct.field("automated_backup_config", &self.automated_backup_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Table].
 pub mod table {
     #[allow(unused_imports)]
     use super::*;
 
     /// The state of a table's data in a particular cluster.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClusterState {
         /// Output only. The state of replication for the table in this cluster.
@@ -25049,6 +26665,19 @@ pub mod table {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ClusterState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ClusterState");
+            debug_struct.field("replication_state", &self.replication_state);
+            debug_struct.field("encryption_info", &self.encryption_info);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -25225,7 +26854,7 @@ pub mod table {
     }
 
     /// Defines an automated backup policy for a table
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AutomatedBackupPolicy {
         /// Required. How long the automated backups should be retained. The only
@@ -25403,6 +27032,19 @@ pub mod table {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for AutomatedBackupPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AutomatedBackupPolicy");
+            debug_struct.field("retention_period", &self.retention_period);
+            debug_struct.field("frequency", &self.frequency);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -25699,7 +27341,7 @@ pub mod table {
 /// AuthorizedViews represent subsets of a particular Cloud Bigtable table. Users
 /// can configure access to each Authorized View independently from the table and
 /// use the existing Data APIs to access the subset of data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthorizedView {
     /// Identifier. The name of this AuthorizedView.
@@ -25958,13 +27600,28 @@ impl serde::ser::Serialize for AuthorizedView {
     }
 }
 
+impl std::fmt::Debug for AuthorizedView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthorizedView");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("deletion_protection", &self.deletion_protection);
+        debug_struct.field("authorized_view", &self.authorized_view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AuthorizedView].
 pub mod authorized_view {
     #[allow(unused_imports)]
     use super::*;
 
     /// Subsets of a column family that are included in this AuthorizedView.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FamilySubsets {
         /// Individual exact column qualifiers to be included in the AuthorizedView.
@@ -26191,8 +27848,21 @@ pub mod authorized_view {
         }
     }
 
+    impl std::fmt::Debug for FamilySubsets {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FamilySubsets");
+            debug_struct.field("qualifiers", &self.qualifiers);
+            debug_struct.field("qualifier_prefixes", &self.qualifier_prefixes);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines a simple AuthorizedView that is a subset of the underlying Table.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SubsetView {
         /// Row prefixes to be included in the AuthorizedView.
@@ -26399,6 +28069,19 @@ pub mod authorized_view {
         }
     }
 
+    impl std::fmt::Debug for SubsetView {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SubsetView");
+            debug_struct.field("row_prefixes", &self.row_prefixes);
+            debug_struct.field("family_subsets", &self.family_subsets);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines a subset of an AuthorizedView's fields.
     ///
     /// # Working with unknown values
@@ -26549,7 +28232,7 @@ pub mod authorized_view {
 }
 
 /// A set of columns within a table which share a common configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ColumnFamily {
     /// Garbage collection rule specified as a protobuf.
@@ -26740,8 +28423,21 @@ impl serde::ser::Serialize for ColumnFamily {
     }
 }
 
+impl std::fmt::Debug for ColumnFamily {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnFamily");
+        debug_struct.field("gc_rule", &self.gc_rule);
+        debug_struct.field("value_type", &self.value_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Rule for determining which cells to delete during garbage collection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcRule {
     /// Garbage collection rules.
@@ -27074,13 +28770,25 @@ impl serde::ser::Serialize for GcRule {
     }
 }
 
+impl std::fmt::Debug for GcRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcRule");
+        debug_struct.field("rule", &self.rule);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GcRule].
 pub mod gc_rule {
     #[allow(unused_imports)]
     use super::*;
 
     /// A GcRule which deletes cells matching all of the given rules.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Intersection {
         /// Only delete cells which would be deleted by every element of `rules`.
@@ -27215,8 +28923,20 @@ pub mod gc_rule {
         }
     }
 
+    impl std::fmt::Debug for Intersection {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Intersection");
+            debug_struct.field("rules", &self.rules);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A GcRule which deletes cells matching any of the given rules.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Union {
         /// Delete cells which would be deleted by any element of `rules`.
@@ -27351,6 +29071,18 @@ pub mod gc_rule {
         }
     }
 
+    impl std::fmt::Debug for Union {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Union");
+            debug_struct.field("rules", &self.rules);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Garbage collection rules.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -27372,7 +29104,7 @@ pub mod gc_rule {
 /// If this resource is protected with customer managed encryption, the in-use
 /// Cloud Key Management Service (Cloud KMS) key version is specified along with
 /// its status.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionInfo {
     /// Output only. The type of encryption used to protect this resource.
@@ -27573,6 +29305,20 @@ impl serde::ser::Serialize for EncryptionInfo {
     }
 }
 
+impl std::fmt::Debug for EncryptionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionInfo");
+        debug_struct.field("encryption_type", &self.encryption_type);
+        debug_struct.field("encryption_status", &self.encryption_status);
+        debug_struct.field("kms_key_version", &self.kms_key_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EncryptionInfo].
 pub mod encryption_info {
     #[allow(unused_imports)]
@@ -27730,7 +29476,7 @@ pub mod encryption_info {
 /// feature is not currently available to most Cloud Bigtable customers. This
 /// feature might be changed in backward-incompatible ways and is not recommended
 /// for production use. It is not subject to any SLA or deprecation policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Snapshot {
     /// The unique name of the snapshot.
@@ -28066,6 +29812,24 @@ impl serde::ser::Serialize for Snapshot {
     }
 }
 
+impl std::fmt::Debug for Snapshot {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Snapshot");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source_table", &self.source_table);
+        debug_struct.field("data_size_bytes", &self.data_size_bytes);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("description", &self.description);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Snapshot].
 pub mod snapshot {
     #[allow(unused_imports)]
@@ -28207,7 +29971,7 @@ pub mod snapshot {
 }
 
 /// A backup of a Cloud Bigtable table.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Backup {
     /// A globally unique identifier for the backup which cannot be
@@ -28696,6 +30460,28 @@ impl serde::ser::Serialize for Backup {
     }
 }
 
+impl std::fmt::Debug for Backup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Backup");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source_table", &self.source_table);
+        debug_struct.field("source_backup", &self.source_backup);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("size_bytes", &self.size_bytes);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("encryption_info", &self.encryption_info);
+        debug_struct.field("backup_type", &self.backup_type);
+        debug_struct.field("hot_to_standard_time", &self.hot_to_standard_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
@@ -28973,7 +30759,7 @@ pub mod backup {
 }
 
 /// Information about a backup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupInfo {
     /// Output only. Name of the backup.
@@ -29229,8 +31015,24 @@ impl serde::ser::Serialize for BackupInfo {
     }
 }
 
+impl std::fmt::Debug for BackupInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupInfo");
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("source_table", &self.source_table);
+        debug_struct.field("source_backup", &self.source_backup);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a protobuf schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProtoSchema {
     /// Required. Contains a protobuf-serialized
@@ -29395,8 +31197,20 @@ impl serde::ser::Serialize for ProtoSchema {
     }
 }
 
+impl std::fmt::Debug for ProtoSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProtoSchema");
+        debug_struct.field("proto_descriptors", &self.proto_descriptors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A named collection of related schemas.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchemaBundle {
     /// Identifier. The unique name identifying this schema bundle.
@@ -29623,6 +31437,20 @@ impl serde::ser::Serialize for SchemaBundle {
     }
 }
 
+impl std::fmt::Debug for SchemaBundle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchemaBundle");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SchemaBundle].
 pub mod schema_bundle {
     #[allow(unused_imports)]
@@ -29660,7 +31488,7 @@ pub mod schema_bundle {
 /// modes. For example, when encoding INT64 as a numeric STRING, negative numbers
 /// cannot be encoded in sorted mode. This is because `INT64(1) > INT64(-1)`, but
 /// `STRING("-00001") > STRING("00001")`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Type {
     /// The kind of type that this represents.
@@ -30488,6 +32316,18 @@ impl serde::ser::Serialize for Type {
     }
 }
 
+impl std::fmt::Debug for Type {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Type");
+        debug_struct.field("kind", &self.kind);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Type].
 pub mod r#type {
     #[allow(unused_imports)]
@@ -30495,7 +32335,7 @@ pub mod r#type {
 
     /// Bytes
     /// Values of type `Bytes` are stored in `Value.bytes_value`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Bytes {
         /// The encoding to use when converting to or from lower level types.
@@ -30638,13 +32478,25 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Bytes {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Bytes");
+            debug_struct.field("encoding", &self.encoding);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Bytes].
     pub mod bytes {
         #[allow(unused_imports)]
         use super::*;
 
         /// Rules used to convert to or from lower level types.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Encoding {
             /// Which encoding to use.
@@ -30836,6 +32688,18 @@ pub mod r#type {
             }
         }
 
+        impl std::fmt::Debug for Encoding {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Encoding");
+                debug_struct.field("encoding", &self.encoding);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Encoding].
         pub mod encoding {
             #[allow(unused_imports)]
@@ -30846,7 +32710,7 @@ pub mod r#type {
             /// Sorted mode: all values are supported.
             ///
             /// Distinct mode: all values are supported.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Raw {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -30960,6 +32824,17 @@ pub mod r#type {
                 }
             }
 
+            impl std::fmt::Debug for Raw {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Raw");
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Which encoding to use.
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -30972,7 +32847,7 @@ pub mod r#type {
 
     /// String
     /// Values of type `String` are stored in `Value.string_value`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct String {
         /// The encoding to use when converting to or from lower level types.
@@ -31115,13 +32990,25 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for String {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("String");
+            debug_struct.field("encoding", &self.encoding);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [String].
     pub mod string {
         #[allow(unused_imports)]
         use super::*;
 
         /// Rules used to convert to or from lower level types.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Encoding {
             /// Which encoding to use.
@@ -31384,13 +33271,25 @@ pub mod r#type {
             }
         }
 
+        impl std::fmt::Debug for Encoding {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Encoding");
+                debug_struct.field("encoding", &self.encoding);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Encoding].
         pub mod encoding {
             #[allow(unused_imports)]
             use super::*;
 
             /// Deprecated: prefer the equivalent `Utf8Bytes`.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             #[deprecated]
             pub struct Utf8Raw {
@@ -31505,6 +33404,17 @@ pub mod r#type {
                 }
             }
 
+            impl std::fmt::Debug for Utf8Raw {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Utf8Raw");
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// UTF-8 encoding.
             ///
             /// Sorted mode:
@@ -31519,7 +33429,7 @@ pub mod r#type {
             /// - BigQuery `TEXT` encoding
             /// - HBase `Bytes.toBytes`
             /// - Java `String#getBytes(StandardCharsets.UTF_8)`
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Utf8Bytes {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -31633,6 +33543,17 @@ pub mod r#type {
                 }
             }
 
+            impl std::fmt::Debug for Utf8Bytes {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Utf8Bytes");
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Which encoding to use.
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -31648,7 +33569,7 @@ pub mod r#type {
 
     /// Int64
     /// Values of type `Int64` are stored in `Value.int_value`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Int64 {
         /// The encoding to use when converting to or from lower level types.
@@ -31791,13 +33712,25 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Int64 {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Int64");
+            debug_struct.field("encoding", &self.encoding);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Int64].
     pub mod int_64 {
         #[allow(unused_imports)]
         use super::*;
 
         /// Rules used to convert to or from lower level types.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Encoding {
             /// Which encoding to use.
@@ -32053,6 +33986,18 @@ pub mod r#type {
             }
         }
 
+        impl std::fmt::Debug for Encoding {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Encoding");
+                debug_struct.field("encoding", &self.encoding);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Encoding].
         pub mod encoding {
             #[allow(unused_imports)]
@@ -32069,7 +34014,7 @@ pub mod r#type {
             /// - BigQuery `BINARY` encoding
             /// - HBase `Bytes.toBytes`
             /// - Java `ByteBuffer.putLong()` with `ByteOrder.BIG_ENDIAN`
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct BigEndianBytes {
                 /// Deprecated: ignored if set.
@@ -32227,13 +34172,25 @@ pub mod r#type {
                 }
             }
 
+            impl std::fmt::Debug for BigEndianBytes {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("BigEndianBytes");
+                    debug_struct.field("bytes_type", &self.bytes_type);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Encodes the value in a variable length binary format of up to 10 bytes.
             /// Values that are closer to zero use fewer bytes.
             ///
             /// Sorted mode: all values are supported.
             ///
             /// Distinct mode: all values are supported.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct OrderedCodeBytes {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -32347,6 +34304,17 @@ pub mod r#type {
                 }
             }
 
+            impl std::fmt::Debug for OrderedCodeBytes {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("OrderedCodeBytes");
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Which encoding to use.
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -32365,7 +34333,7 @@ pub mod r#type {
 
     /// bool
     /// Values of type `Bool` are stored in `Value.bool_value`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Bool {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -32470,9 +34438,20 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Bool {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Bool");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Float32
     /// Values of type `Float32` are stored in `Value.float_value`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Float32 {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -32577,9 +34556,20 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Float32 {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Float32");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Float64
     /// Values of type `Float64` are stored in `Value.float_value`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Float64 {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -32684,9 +34674,20 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Float64 {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Float64");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Timestamp
     /// Values of type `Timestamp` are stored in `Value.timestamp_value`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Timestamp {
         /// The encoding to use when converting to or from lower level types.
@@ -32830,13 +34831,25 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Timestamp {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Timestamp");
+            debug_struct.field("encoding", &self.encoding);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Timestamp].
     pub mod timestamp {
         #[allow(unused_imports)]
         use super::*;
 
         /// Rules used to convert to or from lower level types.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Encoding {
             /// Which encoding to use.
@@ -33026,6 +35039,18 @@ pub mod r#type {
             }
         }
 
+        impl std::fmt::Debug for Encoding {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Encoding");
+                debug_struct.field("encoding", &self.encoding);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Encoding].
         pub mod encoding {
             #[allow(unused_imports)]
@@ -33048,7 +35073,7 @@ pub mod r#type {
 
     /// Date
     /// Values of type `Date` are stored in `Value.date_value`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Date {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -33153,11 +35178,22 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Date {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Date");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A structured data value, consisting of fields which map to dynamically
     /// typed values.
     /// Values of type `Struct` are stored in `Value.array_value` where entries are
     /// in the same order and number as `field_types`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Struct {
         /// The names and types of the fields in this struct.
@@ -33333,13 +35369,26 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Struct {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Struct");
+            debug_struct.field("fields", &self.fields);
+            debug_struct.field("encoding", &self.encoding);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Struct].
     pub mod r#struct {
         #[allow(unused_imports)]
         use super::*;
 
         /// A struct field and its type.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Field {
             /// The field name (optional). Fields without a `field_name` are considered
@@ -33518,8 +35567,21 @@ pub mod r#type {
             }
         }
 
+        impl std::fmt::Debug for Field {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Field");
+                debug_struct.field("field_name", &self.field_name);
+                debug_struct.field("r#type", &self.r#type);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Rules used to convert to or from lower level types.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Encoding {
             /// Which encoding to use.
@@ -33837,6 +35899,18 @@ pub mod r#type {
             }
         }
 
+        impl std::fmt::Debug for Encoding {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Encoding");
+                debug_struct.field("encoding", &self.encoding);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Encoding].
         pub mod encoding {
             #[allow(unused_imports)]
@@ -33844,7 +35918,7 @@ pub mod r#type {
 
             /// Uses the encoding of `fields[0].type` as-is.
             /// Only valid if `fields.size == 1`.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Singleton {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -33958,6 +36032,17 @@ pub mod r#type {
                 }
             }
 
+            impl std::fmt::Debug for Singleton {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Singleton");
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Fields are encoded independently and concatenated with a configurable
             /// `delimiter` in between.
             ///
@@ -33974,7 +36059,7 @@ pub mod r#type {
             ///
             /// - Fields are encoded in distinct mode.
             /// - Encoded field values must not contain `delimiter[0]`.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct DelimitedBytes {
                 /// Byte sequence used to delimit concatenated fields. The delimiter must
@@ -34150,6 +36235,18 @@ pub mod r#type {
                 }
             }
 
+            impl std::fmt::Debug for DelimitedBytes {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("DelimitedBytes");
+                    debug_struct.field("delimiter", &self.delimiter);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Fields are encoded independently and concatenated with the fixed byte
             /// pair {0x00, 0x01} in between.
             ///
@@ -34190,7 +36287,7 @@ pub mod r#type {
             ///
             /// - Fields are encoded in distinct mode.
             /// - All values supported by the field encodings are allowed.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct OrderedCodeBytes {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -34304,6 +36401,17 @@ pub mod r#type {
                 }
             }
 
+            impl std::fmt::Debug for OrderedCodeBytes {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("OrderedCodeBytes");
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Which encoding to use.
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -34324,7 +36432,7 @@ pub mod r#type {
 
     /// A protobuf message type.
     /// Values of type `Proto` are stored in `Value.bytes_value`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Proto {
         /// The ID of the schema bundle that this proto is defined in.
@@ -34489,9 +36597,22 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Proto {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Proto");
+            debug_struct.field("schema_bundle_id", &self.schema_bundle_id);
+            debug_struct.field("message_name", &self.message_name);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A protobuf enum type.
     /// Values of type `Enum` are stored in `Value.int_value`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Enum {
         /// The ID of the schema bundle that this enum is defined in.
@@ -34653,9 +36774,22 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Enum {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Enum");
+            debug_struct.field("schema_bundle_id", &self.schema_bundle_id);
+            debug_struct.field("enum_name", &self.enum_name);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// An ordered list of elements of a given type.
     /// Values of type `Array` are stored in `Value.array_value`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Array {
         /// The type of the elements in the array. This must not be `Array`.
@@ -34799,6 +36933,18 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Array {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Array");
+            debug_struct.field("element_type", &self.element_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A mapping of keys to values of a given type.
     /// Values of type `Map` are stored in a `Value.array_value` where each entry
     /// is another `Value.array_value` with two elements (the key and the value,
@@ -34806,7 +36952,7 @@ pub mod r#type {
     /// Normally encoded Map values won't have repeated keys, however, clients are
     /// expected to handle the case in which they do. If the same key appears
     /// multiple times, the _last_ value takes precedence.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Map {
         /// The type of a map key.
@@ -34987,12 +37133,25 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Map {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Map");
+            debug_struct.field("key_type", &self.key_type);
+            debug_struct.field("value_type", &self.value_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A value that combines incremental updates into a summarized value.
     ///
     /// Data is never directly written or read using type `Aggregate`. Writes will
     /// provide either the `input_type` or `state_type`, and reads will always
     /// return the `state_type` .
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Aggregate {
         /// Type of the inputs that are accumulated by this `Aggregate`, which must
@@ -35419,6 +37578,20 @@ pub mod r#type {
         }
     }
 
+    impl std::fmt::Debug for Aggregate {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Aggregate");
+            debug_struct.field("input_type", &self.input_type);
+            debug_struct.field("state_type", &self.state_type);
+            debug_struct.field("aggregator", &self.aggregator);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Aggregate].
     pub mod aggregate {
         #[allow(unused_imports)]
@@ -35427,7 +37600,7 @@ pub mod r#type {
         /// Computes the sum of the input values.
         /// Allowed input: `Int64`
         /// State: same as input
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Sum {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -35535,10 +37708,21 @@ pub mod r#type {
             }
         }
 
+        impl std::fmt::Debug for Sum {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Sum");
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Computes the max of the input values.
         /// Allowed input: `Int64`
         /// State: same as input
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Max {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -35646,10 +37830,21 @@ pub mod r#type {
             }
         }
 
+        impl std::fmt::Debug for Max {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Max");
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Computes the min of the input values.
         /// Allowed input: `Int64`
         /// State: same as input
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Min {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -35757,6 +37952,17 @@ pub mod r#type {
             }
         }
 
+        impl std::fmt::Debug for Min {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Min");
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Computes an approximate unique count over the input values. When using
         /// raw data as input, be careful to use a consistent encoding. Otherwise
         /// the same value encoded differently could count more than once, or two
@@ -35764,7 +37970,7 @@ pub mod r#type {
         /// Input: Any, or omit for Raw
         /// State: TBD
         /// Special state conversions: `Int64` (the unique count estimate)
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct HyperLogLogPlusPlusUniqueCount {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -35870,6 +38076,17 @@ pub mod r#type {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for HyperLogLogPlusPlusUniqueCount {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("HyperLogLogPlusPlusUniqueCount");
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 

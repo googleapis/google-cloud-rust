@@ -25,7 +25,7 @@ extern crate std;
 extern crate wkt;
 
 /// The widget subset used by an add-on.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddOnWidgetSet {
     /// The list of widgets used in an add-on.
@@ -159,6 +159,18 @@ impl serde::ser::Serialize for AddOnWidgetSet {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AddOnWidgetSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddOnWidgetSet");
+        debug_struct.field("used_widgets", &self.used_widgets);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -339,7 +351,7 @@ pub mod add_on_widget_set {
 
 /// Common format for declaring a  menu item, or button, that appears within a
 /// host app.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MenuItemExtensionPoint {
     /// Required. The endpoint to execute when this extension point is
@@ -522,8 +534,22 @@ impl serde::ser::Serialize for MenuItemExtensionPoint {
     }
 }
 
+impl std::fmt::Debug for MenuItemExtensionPoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MenuItemExtensionPoint");
+        debug_struct.field("run_function", &self.run_function);
+        debug_struct.field("label", &self.label);
+        debug_struct.field("logo_url", &self.logo_url);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Common format for declaring an add-on's home-page view.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HomepageExtensionPoint {
     /// Required. The endpoint to execute when this extension point is
@@ -694,8 +720,21 @@ impl serde::ser::Serialize for HomepageExtensionPoint {
     }
 }
 
+impl std::fmt::Debug for HomepageExtensionPoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HomepageExtensionPoint");
+        debug_struct.field("run_function", &self.run_function);
+        debug_struct.field("enabled", &self.enabled);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Format for declaring a universal action menu item extension point.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UniversalActionExtensionPoint {
     /// Required. User-visible text describing the action taken by activating this
@@ -942,6 +981,19 @@ impl serde::ser::Serialize for UniversalActionExtensionPoint {
     }
 }
 
+impl std::fmt::Debug for UniversalActionExtensionPoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UniversalActionExtensionPoint");
+        debug_struct.field("label", &self.label);
+        debug_struct.field("action_type", &self.action_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [UniversalActionExtensionPoint].
 pub mod universal_action_extension_point {
     #[allow(unused_imports)]
@@ -960,7 +1012,7 @@ pub mod universal_action_extension_point {
 }
 
 /// Add-on configuration that is shared across all add-on host applications.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonAddOnManifest {
     /// Required. The display name of the add-on.
@@ -1330,8 +1382,27 @@ impl serde::ser::Serialize for CommonAddOnManifest {
     }
 }
 
+impl std::fmt::Debug for CommonAddOnManifest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommonAddOnManifest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("logo_url", &self.logo_url);
+        debug_struct.field("layout_properties", &self.layout_properties);
+        debug_struct.field("add_on_widget_set", &self.add_on_widget_set);
+        debug_struct.field("use_locale_from_app", &self.use_locale_from_app);
+        debug_struct.field("homepage_trigger", &self.homepage_trigger);
+        debug_struct.field("universal_actions", &self.universal_actions);
+        debug_struct.field("open_link_url_prefixes", &self.open_link_url_prefixes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Card layout properties shared across all add-on host applications.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LayoutProperties {
     /// The primary color of the add-on. It sets the color of toolbar. If no
@@ -1492,8 +1563,21 @@ impl serde::ser::Serialize for LayoutProperties {
     }
 }
 
+impl std::fmt::Debug for LayoutProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LayoutProperties");
+        debug_struct.field("primary_color", &self.primary_color);
+        debug_struct.field("secondary_color", &self.secondary_color);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options for sending requests to add-on HTTP endpoints
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpOptions {
     /// Configuration for the token sent in the HTTP Authorization header
@@ -1623,6 +1707,18 @@ impl serde::ser::Serialize for HttpOptions {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for HttpOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpOptions");
+        debug_struct.field("authorization_header", &self.authorization_header);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

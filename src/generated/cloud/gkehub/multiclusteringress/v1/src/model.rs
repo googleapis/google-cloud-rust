@@ -26,7 +26,7 @@ extern crate wkt;
 
 /// **Multi-cluster Ingress**: The configuration for the MultiClusterIngress
 /// feature.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureSpec {
     /// Fully-qualified Membership name which hosts the MultiClusterIngress CRD.
@@ -157,5 +157,17 @@ impl serde::ser::Serialize for FeatureSpec {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for FeatureSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FeatureSpec");
+        debug_struct.field("config_membership", &self.config_membership);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

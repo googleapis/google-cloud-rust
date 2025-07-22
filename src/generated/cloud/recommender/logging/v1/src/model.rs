@@ -26,7 +26,7 @@ extern crate std;
 extern crate wkt;
 
 /// Log content of an action on a recommendation. This includes Mark* actions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ActionLog {
     /// Required. User that executed this action. Eg, foo@gmail.com
@@ -251,8 +251,23 @@ impl serde::ser::Serialize for ActionLog {
     }
 }
 
+impl std::fmt::Debug for ActionLog {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ActionLog");
+        debug_struct.field("actor", &self.actor);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_metadata", &self.state_metadata);
+        debug_struct.field("recommendation_name", &self.recommendation_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Log content of an action on an insight. This includes Mark* actions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InsightActionLog {
     /// Required. User that executed this action. Eg, foo@gmail.com
@@ -468,5 +483,20 @@ impl serde::ser::Serialize for InsightActionLog {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for InsightActionLog {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsightActionLog");
+        debug_struct.field("actor", &self.actor);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_metadata", &self.state_metadata);
+        debug_struct.field("insight", &self.insight);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

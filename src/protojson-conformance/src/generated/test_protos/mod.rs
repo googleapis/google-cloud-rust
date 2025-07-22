@@ -24,7 +24,7 @@
 /// submessages of this message.  So for example, a fuzz test of TestAllTypes
 /// could trigger bugs that occur in any message type in this file.  We verify
 /// this stays true in a unit test.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestAllTypesProto3 {
     /// Singular
@@ -7073,12 +7073,168 @@ impl serde::ser::Serialize for TestAllTypesProto3 {
     }
 }
 
+impl std::fmt::Debug for TestAllTypesProto3 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestAllTypesProto3");
+        debug_struct.field("optional_int32", &self.optional_int32);
+        debug_struct.field("optional_int64", &self.optional_int64);
+        debug_struct.field("optional_uint32", &self.optional_uint32);
+        debug_struct.field("optional_uint64", &self.optional_uint64);
+        debug_struct.field("optional_sint32", &self.optional_sint32);
+        debug_struct.field("optional_sint64", &self.optional_sint64);
+        debug_struct.field("optional_fixed32", &self.optional_fixed32);
+        debug_struct.field("optional_fixed64", &self.optional_fixed64);
+        debug_struct.field("optional_sfixed32", &self.optional_sfixed32);
+        debug_struct.field("optional_sfixed64", &self.optional_sfixed64);
+        debug_struct.field("optional_float", &self.optional_float);
+        debug_struct.field("optional_double", &self.optional_double);
+        debug_struct.field("optional_bool", &self.optional_bool);
+        debug_struct.field("optional_string", &self.optional_string);
+        debug_struct.field("optional_bytes", &self.optional_bytes);
+        debug_struct.field("optional_nested_message", &self.optional_nested_message);
+        debug_struct.field("optional_foreign_message", &self.optional_foreign_message);
+        debug_struct.field("optional_nested_enum", &self.optional_nested_enum);
+        debug_struct.field("optional_foreign_enum", &self.optional_foreign_enum);
+        debug_struct.field("optional_aliased_enum", &self.optional_aliased_enum);
+        debug_struct.field("optional_string_piece", &self.optional_string_piece);
+        debug_struct.field("optional_cord", &self.optional_cord);
+        debug_struct.field("recursive_message", &self.recursive_message);
+        debug_struct.field("repeated_int32", &self.repeated_int32);
+        debug_struct.field("repeated_int64", &self.repeated_int64);
+        debug_struct.field("repeated_uint32", &self.repeated_uint32);
+        debug_struct.field("repeated_uint64", &self.repeated_uint64);
+        debug_struct.field("repeated_sint32", &self.repeated_sint32);
+        debug_struct.field("repeated_sint64", &self.repeated_sint64);
+        debug_struct.field("repeated_fixed32", &self.repeated_fixed32);
+        debug_struct.field("repeated_fixed64", &self.repeated_fixed64);
+        debug_struct.field("repeated_sfixed32", &self.repeated_sfixed32);
+        debug_struct.field("repeated_sfixed64", &self.repeated_sfixed64);
+        debug_struct.field("repeated_float", &self.repeated_float);
+        debug_struct.field("repeated_double", &self.repeated_double);
+        debug_struct.field("repeated_bool", &self.repeated_bool);
+        debug_struct.field("repeated_string", &self.repeated_string);
+        debug_struct.field("repeated_bytes", &self.repeated_bytes);
+        debug_struct.field("repeated_nested_message", &self.repeated_nested_message);
+        debug_struct.field("repeated_foreign_message", &self.repeated_foreign_message);
+        debug_struct.field("repeated_nested_enum", &self.repeated_nested_enum);
+        debug_struct.field("repeated_foreign_enum", &self.repeated_foreign_enum);
+        debug_struct.field("repeated_string_piece", &self.repeated_string_piece);
+        debug_struct.field("repeated_cord", &self.repeated_cord);
+        debug_struct.field("packed_int32", &self.packed_int32);
+        debug_struct.field("packed_int64", &self.packed_int64);
+        debug_struct.field("packed_uint32", &self.packed_uint32);
+        debug_struct.field("packed_uint64", &self.packed_uint64);
+        debug_struct.field("packed_sint32", &self.packed_sint32);
+        debug_struct.field("packed_sint64", &self.packed_sint64);
+        debug_struct.field("packed_fixed32", &self.packed_fixed32);
+        debug_struct.field("packed_fixed64", &self.packed_fixed64);
+        debug_struct.field("packed_sfixed32", &self.packed_sfixed32);
+        debug_struct.field("packed_sfixed64", &self.packed_sfixed64);
+        debug_struct.field("packed_float", &self.packed_float);
+        debug_struct.field("packed_double", &self.packed_double);
+        debug_struct.field("packed_bool", &self.packed_bool);
+        debug_struct.field("packed_nested_enum", &self.packed_nested_enum);
+        debug_struct.field("unpacked_int32", &self.unpacked_int32);
+        debug_struct.field("unpacked_int64", &self.unpacked_int64);
+        debug_struct.field("unpacked_uint32", &self.unpacked_uint32);
+        debug_struct.field("unpacked_uint64", &self.unpacked_uint64);
+        debug_struct.field("unpacked_sint32", &self.unpacked_sint32);
+        debug_struct.field("unpacked_sint64", &self.unpacked_sint64);
+        debug_struct.field("unpacked_fixed32", &self.unpacked_fixed32);
+        debug_struct.field("unpacked_fixed64", &self.unpacked_fixed64);
+        debug_struct.field("unpacked_sfixed32", &self.unpacked_sfixed32);
+        debug_struct.field("unpacked_sfixed64", &self.unpacked_sfixed64);
+        debug_struct.field("unpacked_float", &self.unpacked_float);
+        debug_struct.field("unpacked_double", &self.unpacked_double);
+        debug_struct.field("unpacked_bool", &self.unpacked_bool);
+        debug_struct.field("unpacked_nested_enum", &self.unpacked_nested_enum);
+        debug_struct.field("map_int32_int32", &self.map_int32_int32);
+        debug_struct.field("map_int64_int64", &self.map_int64_int64);
+        debug_struct.field("map_uint32_uint32", &self.map_uint32_uint32);
+        debug_struct.field("map_uint64_uint64", &self.map_uint64_uint64);
+        debug_struct.field("map_sint32_sint32", &self.map_sint32_sint32);
+        debug_struct.field("map_sint64_sint64", &self.map_sint64_sint64);
+        debug_struct.field("map_fixed32_fixed32", &self.map_fixed32_fixed32);
+        debug_struct.field("map_fixed64_fixed64", &self.map_fixed64_fixed64);
+        debug_struct.field("map_sfixed32_sfixed32", &self.map_sfixed32_sfixed32);
+        debug_struct.field("map_sfixed64_sfixed64", &self.map_sfixed64_sfixed64);
+        debug_struct.field("map_int32_float", &self.map_int32_float);
+        debug_struct.field("map_int32_double", &self.map_int32_double);
+        debug_struct.field("map_bool_bool", &self.map_bool_bool);
+        debug_struct.field("map_string_string", &self.map_string_string);
+        debug_struct.field("map_string_bytes", &self.map_string_bytes);
+        debug_struct.field("map_string_nested_message", &self.map_string_nested_message);
+        debug_struct.field(
+            "map_string_foreign_message",
+            &self.map_string_foreign_message,
+        );
+        debug_struct.field("map_string_nested_enum", &self.map_string_nested_enum);
+        debug_struct.field("map_string_foreign_enum", &self.map_string_foreign_enum);
+        debug_struct.field("optional_bool_wrapper", &self.optional_bool_wrapper);
+        debug_struct.field("optional_int32_wrapper", &self.optional_int32_wrapper);
+        debug_struct.field("optional_int64_wrapper", &self.optional_int64_wrapper);
+        debug_struct.field("optional_uint32_wrapper", &self.optional_uint32_wrapper);
+        debug_struct.field("optional_uint64_wrapper", &self.optional_uint64_wrapper);
+        debug_struct.field("optional_float_wrapper", &self.optional_float_wrapper);
+        debug_struct.field("optional_double_wrapper", &self.optional_double_wrapper);
+        debug_struct.field("optional_string_wrapper", &self.optional_string_wrapper);
+        debug_struct.field("optional_bytes_wrapper", &self.optional_bytes_wrapper);
+        debug_struct.field("repeated_bool_wrapper", &self.repeated_bool_wrapper);
+        debug_struct.field("repeated_int32_wrapper", &self.repeated_int32_wrapper);
+        debug_struct.field("repeated_int64_wrapper", &self.repeated_int64_wrapper);
+        debug_struct.field("repeated_uint32_wrapper", &self.repeated_uint32_wrapper);
+        debug_struct.field("repeated_uint64_wrapper", &self.repeated_uint64_wrapper);
+        debug_struct.field("repeated_float_wrapper", &self.repeated_float_wrapper);
+        debug_struct.field("repeated_double_wrapper", &self.repeated_double_wrapper);
+        debug_struct.field("repeated_string_wrapper", &self.repeated_string_wrapper);
+        debug_struct.field("repeated_bytes_wrapper", &self.repeated_bytes_wrapper);
+        debug_struct.field("optional_duration", &self.optional_duration);
+        debug_struct.field("optional_timestamp", &self.optional_timestamp);
+        debug_struct.field("optional_field_mask", &self.optional_field_mask);
+        debug_struct.field("optional_struct", &self.optional_struct);
+        debug_struct.field("optional_any", &self.optional_any);
+        debug_struct.field("optional_value", &self.optional_value);
+        debug_struct.field("optional_null_value", &self.optional_null_value);
+        debug_struct.field("repeated_duration", &self.repeated_duration);
+        debug_struct.field("repeated_timestamp", &self.repeated_timestamp);
+        debug_struct.field("repeated_fieldmask", &self.repeated_fieldmask);
+        debug_struct.field("repeated_struct", &self.repeated_struct);
+        debug_struct.field("repeated_any", &self.repeated_any);
+        debug_struct.field("repeated_value", &self.repeated_value);
+        debug_struct.field("repeated_list_value", &self.repeated_list_value);
+        debug_struct.field("fieldname1", &self.fieldname1);
+        debug_struct.field("field_name2", &self.field_name2);
+        debug_struct.field("_field_name3", &self._field_name3);
+        debug_struct.field("field__name4_", &self.field__name4_);
+        debug_struct.field("field0name5", &self.field0name5);
+        debug_struct.field("field_0_name6", &self.field_0_name6);
+        debug_struct.field("field_name_7", &self.field_name_7);
+        debug_struct.field("field_name_8", &self.field_name_8);
+        debug_struct.field("field_name_9", &self.field_name_9);
+        debug_struct.field("field_name_10", &self.field_name_10);
+        debug_struct.field("field_name_11", &self.field_name_11);
+        debug_struct.field("field_name_12", &self.field_name_12);
+        debug_struct.field("__field_name13", &self.__field_name13);
+        debug_struct.field("__field_name_14", &self.__field_name_14);
+        debug_struct.field("field__name15", &self.field__name15);
+        debug_struct.field("field__name_16", &self.field__name_16);
+        debug_struct.field("field_name17__", &self.field_name17__);
+        debug_struct.field("field_name_18__", &self.field_name_18__);
+        debug_struct.field("oneof_field", &self.oneof_field);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TestAllTypesProto3].
 pub mod test_all_types_proto_3 {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NestedMessage {
         pub a: i32,
@@ -7262,6 +7418,19 @@ pub mod test_all_types_proto_3 {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for NestedMessage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NestedMessage");
+            debug_struct.field("a", &self.a);
+            debug_struct.field("corecursive", &self.corecursive);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -7556,7 +7725,7 @@ pub mod test_all_types_proto_3 {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ForeignMessage {
     pub c: i32,
@@ -7702,7 +7871,19 @@ impl serde::ser::Serialize for ForeignMessage {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for ForeignMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ForeignMessage");
+        debug_struct.field("c", &self.c);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NullHypothesisProto3 {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7804,7 +7985,18 @@ impl serde::ser::Serialize for NullHypothesisProto3 {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for NullHypothesisProto3 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NullHypothesisProto3");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumOnlyProto3 {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7903,6 +8095,17 @@ impl serde::ser::Serialize for EnumOnlyProto3 {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for EnumOnlyProto3 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnumOnlyProto3");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

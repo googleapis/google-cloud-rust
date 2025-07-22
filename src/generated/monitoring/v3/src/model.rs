@@ -37,7 +37,7 @@ extern crate wkt;
 /// considered to be "unhealthy" and the ways to notify people or services about
 /// this state. For an overview of alerting policies, see
 /// [Introduction to Alerting](https://cloud.google.com/monitoring/alerts/).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AlertPolicy {
     /// Identifier. Required if the policy exists. The resource name for this
@@ -629,6 +629,30 @@ impl serde::ser::Serialize for AlertPolicy {
     }
 }
 
+impl std::fmt::Debug for AlertPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AlertPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("documentation", &self.documentation);
+        debug_struct.field("user_labels", &self.user_labels);
+        debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("combiner", &self.combiner);
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("validity", &self.validity);
+        debug_struct.field("notification_channels", &self.notification_channels);
+        debug_struct.field("creation_record", &self.creation_record);
+        debug_struct.field("mutation_record", &self.mutation_record);
+        debug_struct.field("alert_strategy", &self.alert_strategy);
+        debug_struct.field("severity", &self.severity);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AlertPolicy].
 pub mod alert_policy {
     #[allow(unused_imports)]
@@ -636,7 +660,7 @@ pub mod alert_policy {
 
     /// Documentation that is included in the notifications and incidents
     /// pertaining to this policy.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Documentation {
         /// The body of the documentation, interpreted according to `mime_type`.
@@ -869,13 +893,28 @@ pub mod alert_policy {
         }
     }
 
+    impl std::fmt::Debug for Documentation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Documentation");
+            debug_struct.field("content", &self.content);
+            debug_struct.field("mime_type", &self.mime_type);
+            debug_struct.field("subject", &self.subject);
+            debug_struct.field("links", &self.links);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Documentation].
     pub mod documentation {
         #[allow(unused_imports)]
         use super::*;
 
         /// Links to content such as playbooks, repositories, and other resources.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Link {
             /// A short display name for the link. The display name must not be empty
@@ -1044,12 +1083,25 @@ pub mod alert_policy {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for Link {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Link");
+                debug_struct.field("display_name", &self.display_name);
+                debug_struct.field("url", &self.url);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// A condition is a true/false test that determines when an alerting policy
     /// should open an incident. If a condition evaluates to true, it signifies
     /// that something is wrong.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Condition {
         /// Required if the condition exists. The unique resource name for this
@@ -1633,6 +1685,20 @@ pub mod alert_policy {
         }
     }
 
+    impl std::fmt::Debug for Condition {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Condition");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("condition", &self.condition);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Condition].
     pub mod condition {
         #[allow(unused_imports)]
@@ -1640,7 +1706,7 @@ pub mod alert_policy {
 
         /// Specifies how many time series must fail a predicate to trigger a
         /// condition. If not specified, then a `{count: 1}` trigger is used.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Trigger {
             /// A type of trigger.
@@ -1916,6 +1982,18 @@ pub mod alert_policy {
             }
         }
 
+        impl std::fmt::Debug for Trigger {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Trigger");
+                debug_struct.field("r#type", &self.r#type);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Trigger].
         pub mod trigger {
             #[allow(unused_imports)]
@@ -1936,7 +2014,7 @@ pub mod alert_policy {
 
         /// A condition type that compares a collection of time series
         /// against a threshold.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MetricThreshold {
             /// Required. A
@@ -2468,6 +2546,27 @@ pub mod alert_policy {
             }
         }
 
+        impl std::fmt::Debug for MetricThreshold {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("MetricThreshold");
+                debug_struct.field("filter", &self.filter);
+                debug_struct.field("aggregations", &self.aggregations);
+                debug_struct.field("denominator_filter", &self.denominator_filter);
+                debug_struct.field("denominator_aggregations", &self.denominator_aggregations);
+                debug_struct.field("forecast_options", &self.forecast_options);
+                debug_struct.field("comparison", &self.comparison);
+                debug_struct.field("threshold_value", &self.threshold_value);
+                debug_struct.field("duration", &self.duration);
+                debug_struct.field("trigger", &self.trigger);
+                debug_struct.field("evaluation_missing_data", &self.evaluation_missing_data);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [MetricThreshold].
         pub mod metric_threshold {
             #[allow(unused_imports)]
@@ -2475,7 +2574,7 @@ pub mod alert_policy {
 
             /// Options used when forecasting the time series and testing
             /// the predicted value against the threshold.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ForecastOptions {
                 /// Required. The length of time into the future to forecast whether a
@@ -2634,6 +2733,18 @@ pub mod alert_policy {
                     state.end()
                 }
             }
+
+            impl std::fmt::Debug for ForecastOptions {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("ForecastOptions");
+                    debug_struct.field("forecast_horizon", &self.forecast_horizon);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
         }
 
         /// A condition type that checks that monitored resources
@@ -2641,7 +2752,7 @@ pub mod alert_policy {
         /// a set of monitored resources. The predicate is considered in violation
         /// when a time series for the specified metric of a monitored
         /// resource does not include any data in the specified `duration`.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MetricAbsence {
             /// Required. A
@@ -2913,11 +3024,26 @@ pub mod alert_policy {
             }
         }
 
+        impl std::fmt::Debug for MetricAbsence {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("MetricAbsence");
+                debug_struct.field("filter", &self.filter);
+                debug_struct.field("aggregations", &self.aggregations);
+                debug_struct.field("duration", &self.duration);
+                debug_struct.field("trigger", &self.trigger);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A condition type that checks whether a log message in the [scoping
         /// project](https://cloud.google.com/monitoring/api/v3#project_name)
         /// satisfies the given filter. Logs from other projects in the metrics
         /// scope are not evaluated.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct LogMatch {
             /// Required. A logs-based filter. See [Advanced Logs
@@ -3103,9 +3229,22 @@ pub mod alert_policy {
             }
         }
 
+        impl std::fmt::Debug for LogMatch {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("LogMatch");
+                debug_struct.field("filter", &self.filter);
+                debug_struct.field("label_extractors", &self.label_extractors);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A condition type that allows alerting policies to be defined using
         /// [Monitoring Query Language](https://cloud.google.com/monitoring/mql).
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MonitoringQueryLanguageCondition {
             /// [Monitoring Query Language](https://cloud.google.com/monitoring/mql)
@@ -3368,6 +3507,21 @@ pub mod alert_policy {
             }
         }
 
+        impl std::fmt::Debug for MonitoringQueryLanguageCondition {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("MonitoringQueryLanguageCondition");
+                debug_struct.field("query", &self.query);
+                debug_struct.field("duration", &self.duration);
+                debug_struct.field("trigger", &self.trigger);
+                debug_struct.field("evaluation_missing_data", &self.evaluation_missing_data);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A condition type that allows alerting policies to be defined using
         /// [Prometheus Query Language
         /// (PromQL)](https://prometheus.io/docs/prometheus/latest/querying/basics/).
@@ -3399,7 +3553,7 @@ pub mod alert_policy {
         /// buffer may change in the future to support future rule group and/or
         /// alerting rule features. There are no new such features at the present
         /// time (2023-06-26).
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PrometheusQueryLanguageCondition {
             /// Required. The PromQL expression to evaluate. Every evaluation cycle
@@ -3791,10 +3945,28 @@ pub mod alert_policy {
             }
         }
 
+        impl std::fmt::Debug for PrometheusQueryLanguageCondition {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("PrometheusQueryLanguageCondition");
+                debug_struct.field("query", &self.query);
+                debug_struct.field("duration", &self.duration);
+                debug_struct.field("evaluation_interval", &self.evaluation_interval);
+                debug_struct.field("labels", &self.labels);
+                debug_struct.field("rule_group", &self.rule_group);
+                debug_struct.field("alert_rule", &self.alert_rule);
+                debug_struct.field("disable_metric_validation", &self.disable_metric_validation);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A condition that allows alerting policies to be defined using GoogleSQL.
         /// SQL conditions examine a sliding window of logs using GoogleSQL.
         /// Alert policies with SQL conditions may incur additional billing.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SqlCondition {
             /// Required. The Log Analytics SQL query to run, as a string.  The query
@@ -4315,13 +4487,27 @@ pub mod alert_policy {
             }
         }
 
+        impl std::fmt::Debug for SqlCondition {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("SqlCondition");
+                debug_struct.field("query", &self.query);
+                debug_struct.field("schedule", &self.schedule);
+                debug_struct.field("evaluate", &self.evaluate);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [SqlCondition].
         pub mod sql_condition {
             #[allow(unused_imports)]
             use super::*;
 
             /// Used to schedule the query to run every so many minutes.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Minutes {
                 /// Required. Number of minutes between runs. The interval must be
@@ -4493,8 +4679,20 @@ pub mod alert_policy {
                 }
             }
 
+            impl std::fmt::Debug for Minutes {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Minutes");
+                    debug_struct.field("periodicity", &self.periodicity);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Used to schedule the query to run every so many hours.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Hourly {
                 /// Required. The number of hours between runs. Must be greater than or
@@ -4735,8 +4933,21 @@ pub mod alert_policy {
                 }
             }
 
+            impl std::fmt::Debug for Hourly {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Hourly");
+                    debug_struct.field("periodicity", &self.periodicity);
+                    debug_struct.field("minute_offset", &self.minute_offset);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Used to schedule the query to run every so many days.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Daily {
                 /// Required. The number of days between runs. Must be greater than or
@@ -4947,9 +5158,22 @@ pub mod alert_policy {
                 }
             }
 
+            impl std::fmt::Debug for Daily {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Daily");
+                    debug_struct.field("periodicity", &self.periodicity);
+                    debug_struct.field("execution_time", &self.execution_time);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// A test that checks if the number of rows in the result set
             /// violates some threshold.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct RowCountTest {
                 /// Required. The comparison to apply between the number of rows returned
@@ -5147,9 +5371,22 @@ pub mod alert_policy {
                 }
             }
 
+            impl std::fmt::Debug for RowCountTest {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("RowCountTest");
+                    debug_struct.field("comparison", &self.comparison);
+                    debug_struct.field("threshold", &self.threshold);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// A test that uses an alerting result in a boolean column produced by
             /// the SQL query.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct BooleanTest {
                 /// Required. The name of the column containing the boolean value. If the
@@ -5294,6 +5531,18 @@ pub mod alert_policy {
                         }
                     }
                     state.end()
+                }
+            }
+
+            impl std::fmt::Debug for BooleanTest {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("BooleanTest");
+                    debug_struct.field("column", &self.column);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
                 }
             }
 
@@ -5517,7 +5766,7 @@ pub mod alert_policy {
 
     /// Control over how the notification channels in `notification_channels`
     /// are notified when this alert fires.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AlertStrategy {
         /// Required for log-based alerting policies, i.e. policies with a `LogMatch`
@@ -5780,6 +6029,24 @@ pub mod alert_policy {
         }
     }
 
+    impl std::fmt::Debug for AlertStrategy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AlertStrategy");
+            debug_struct.field("notification_rate_limit", &self.notification_rate_limit);
+            debug_struct.field("notification_prompts", &self.notification_prompts);
+            debug_struct.field("auto_close", &self.auto_close);
+            debug_struct.field(
+                "notification_channel_strategy",
+                &self.notification_channel_strategy,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [AlertStrategy].
     pub mod alert_strategy {
         #[allow(unused_imports)]
@@ -5787,7 +6054,7 @@ pub mod alert_policy {
 
         /// Control over the rate of notifications sent to this alerting policy's
         /// notification channels.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NotificationRateLimit {
             /// Not more than one notification per `period`.
@@ -5933,9 +6200,21 @@ pub mod alert_policy {
             }
         }
 
+        impl std::fmt::Debug for NotificationRateLimit {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("NotificationRateLimit");
+                debug_struct.field("period", &self.period);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Control over how the notification channels in `notification_channels`
         /// are notified when this alert fires, on a per-channel basis.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NotificationChannelStrategy {
             /// The full REST resource name for the notification channels that these
@@ -6127,6 +6406,22 @@ pub mod alert_policy {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for NotificationChannelStrategy {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("NotificationChannelStrategy");
+                debug_struct.field(
+                    "notification_channel_names",
+                    &self.notification_channel_names,
+                );
+                debug_struct.field("renotify_interval", &self.renotify_interval);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -6560,7 +6855,7 @@ pub mod alert_policy {
 }
 
 /// The protocol for the `CreateAlertPolicy` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAlertPolicyRequest {
     /// Required. The
@@ -6741,8 +7036,21 @@ impl serde::ser::Serialize for CreateAlertPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAlertPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAlertPolicyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("alert_policy", &self.alert_policy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `GetAlertPolicy` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAlertPolicyRequest {
     /// Required. The alerting policy to retrieve. The format is:
@@ -6875,8 +7183,20 @@ impl serde::ser::Serialize for GetAlertPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetAlertPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAlertPolicyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `ListAlertPolicies` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAlertPoliciesRequest {
     /// Required. The
@@ -7148,8 +7468,24 @@ impl serde::ser::Serialize for ListAlertPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListAlertPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAlertPoliciesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `ListAlertPolicies` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAlertPoliciesResponse {
     /// The returned alert policies.
@@ -7367,8 +7703,22 @@ impl serde::ser::Serialize for ListAlertPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListAlertPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAlertPoliciesResponse");
+        debug_struct.field("alert_policies", &self.alert_policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `UpdateAlertPolicy` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAlertPolicyRequest {
     /// Optional. A list of alerting policy field names. If this field is not
@@ -7568,8 +7918,21 @@ impl serde::ser::Serialize for UpdateAlertPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAlertPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAlertPolicyRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("alert_policy", &self.alert_policy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `DeleteAlertPolicy` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAlertPolicyRequest {
     /// Required. The alerting policy to delete. The format is:
@@ -7706,8 +8069,20 @@ impl serde::ser::Serialize for DeleteAlertPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAlertPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAlertPolicyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single strongly-typed value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TypedValue {
     /// The typed value field.
@@ -8107,6 +8482,18 @@ impl serde::ser::Serialize for TypedValue {
     }
 }
 
+impl std::fmt::Debug for TypedValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TypedValue");
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TypedValue].
 pub mod typed_value {
     #[allow(unused_imports)]
@@ -8169,7 +8556,7 @@ pub mod typed_value {
 ///     start time of a new interval is the same as the end time of the
 ///     previous interval, then data written at the new start time could
 ///     overwrite data written at the previous end time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeInterval {
     /// Required. The end of the time interval.
@@ -8348,6 +8735,19 @@ impl serde::ser::Serialize for TimeInterval {
     }
 }
 
+impl std::fmt::Debug for TimeInterval {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeInterval");
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("start_time", &self.start_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes how to combine multiple time series to provide a different view of
 /// the data.  Aggregation of time series is done in two steps. First, each time
 /// series in the set is _aligned_ to the same time interval boundaries, then the
@@ -8374,7 +8774,7 @@ impl serde::ser::Serialize for TimeInterval {
 /// individual time series data is still available for later drilldown. For more
 /// details, see [Filtering and
 /// aggregation](https://cloud.google.com/monitoring/api/v3/aggregation).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Aggregation {
     /// The `alignment_period` specifies a time interval, in seconds, that is used
@@ -8647,6 +9047,21 @@ impl serde::ser::Serialize for Aggregation {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Aggregation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Aggregation");
+        debug_struct.field("alignment_period", &self.alignment_period);
+        debug_struct.field("per_series_aligner", &self.per_series_aligner);
+        debug_struct.field("cross_series_reducer", &self.cross_series_reducer);
+        debug_struct.field("group_by_fields", &self.group_by_fields);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -9281,7 +9696,7 @@ pub mod aggregation {
 /// exemplar-to-exemplar and from distribution-to-distribution in the same
 /// stream, and there may be duplicates.  It is up to clients to resolve any
 /// ambiguities.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DroppedLabels {
     /// Map from label to its value, for all labels dropped in any aggregation.
@@ -9421,6 +9836,18 @@ impl serde::ser::Serialize for DroppedLabels {
     }
 }
 
+impl std::fmt::Debug for DroppedLabels {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DroppedLabels");
+        debug_struct.field("label", &self.label);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The description of a dynamic collection of monitored resources. Each group
 /// has a filter that is matched against monitored resources and their associated
 /// metadata. If a group's filter matches an available monitored resource, then
@@ -9447,7 +9874,7 @@ impl serde::ser::Serialize for DroppedLabels {
 /// The monitored resources contained in a group can change at any moment,
 /// depending on what resources exist and what filters are associated with the
 /// group and its ancestors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Group {
     /// Output only. The name of this group. The format is:
@@ -9691,8 +10118,24 @@ impl serde::ser::Serialize for Group {
     }
 }
 
+impl std::fmt::Debug for Group {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Group");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("parent_name", &self.parent_name);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("is_cluster", &self.is_cluster);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListGroup` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGroupsRequest {
     /// Required. The
@@ -10072,6 +10515,21 @@ impl serde::ser::Serialize for ListGroupsRequest {
     }
 }
 
+impl std::fmt::Debug for ListGroupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGroupsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListGroupsRequest].
 pub mod list_groups_request {
     #[allow(unused_imports)]
@@ -10117,7 +10575,7 @@ pub mod list_groups_request {
 }
 
 /// The `ListGroups` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGroupsResponse {
     /// The groups that match the specified filters.
@@ -10290,8 +10748,21 @@ impl serde::ser::Serialize for ListGroupsResponse {
     }
 }
 
+impl std::fmt::Debug for ListGroupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGroupsResponse");
+        debug_struct.field("group", &self.group);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `GetGroup` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGroupRequest {
     /// Required. The group to retrieve. The format is:
@@ -10424,8 +10895,20 @@ impl serde::ser::Serialize for GetGroupRequest {
     }
 }
 
+impl std::fmt::Debug for GetGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGroupRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `CreateGroup` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGroupRequest {
     /// Required. The
@@ -10621,8 +11104,22 @@ impl serde::ser::Serialize for CreateGroupRequest {
     }
 }
 
+impl std::fmt::Debug for CreateGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGroupRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("group", &self.group);
+        debug_struct.field("validate_only", &self.validate_only);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `UpdateGroup` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGroupRequest {
     /// Required. The new definition of the group.  All fields of the existing
@@ -10789,9 +11286,22 @@ impl serde::ser::Serialize for UpdateGroupRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGroupRequest");
+        debug_struct.field("group", &self.group);
+        debug_struct.field("validate_only", &self.validate_only);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `DeleteGroup` request. The default behavior is to be able to delete a
 /// single group without any descendants.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGroupRequest {
     /// Required. The group to delete. The format is:
@@ -10950,8 +11460,21 @@ impl serde::ser::Serialize for DeleteGroupRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGroupRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("recursive", &self.recursive);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListGroupMembers` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGroupMembersRequest {
     /// Required. The group whose members are listed. The format is:
@@ -11225,8 +11748,24 @@ impl serde::ser::Serialize for ListGroupMembersRequest {
     }
 }
 
+impl std::fmt::Debug for ListGroupMembersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGroupMembersRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("interval", &self.interval);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListGroupMembers` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGroupMembersResponse {
     /// A set of monitored resources in the group.
@@ -11446,8 +11985,22 @@ impl serde::ser::Serialize for ListGroupMembersResponse {
     }
 }
 
+impl std::fmt::Debug for ListGroupMembersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGroupMembersResponse");
+        debug_struct.field("members", &self.members);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single data point in a time series.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Point {
     /// The time interval to which the data point applies.  For `GAUGE` metrics,
@@ -11630,11 +12183,24 @@ impl serde::ser::Serialize for Point {
     }
 }
 
+impl std::fmt::Debug for Point {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Point");
+        debug_struct.field("interval", &self.interval);
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A collection of data points that describes the time-varying values
 /// of a metric. A time series is identified by a combination of a
 /// fully-specified monitored resource and a fully-specified metric.
 /// This type is used for both listing and creating time series.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeries {
     /// The associated metric. A fully-specified metric used to identify the time
@@ -12006,8 +12572,27 @@ impl serde::ser::Serialize for TimeSeries {
     }
 }
 
+impl std::fmt::Debug for TimeSeries {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeSeries");
+        debug_struct.field("metric", &self.metric);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("metric_kind", &self.metric_kind);
+        debug_struct.field("value_type", &self.value_type);
+        debug_struct.field("points", &self.points);
+        debug_struct.field("unit", &self.unit);
+        debug_struct.field("description", &self.description);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A descriptor for the labels and points in a time series.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeriesDescriptor {
     /// Descriptors for the labels.
@@ -12174,13 +12759,26 @@ impl serde::ser::Serialize for TimeSeriesDescriptor {
     }
 }
 
+impl std::fmt::Debug for TimeSeriesDescriptor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeSeriesDescriptor");
+        debug_struct.field("label_descriptors", &self.label_descriptors);
+        debug_struct.field("point_descriptors", &self.point_descriptors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TimeSeriesDescriptor].
 pub mod time_series_descriptor {
     #[allow(unused_imports)]
     use super::*;
 
     /// A descriptor for the value columns in a data point.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ValueDescriptor {
         /// The value key.
@@ -12398,11 +12996,26 @@ pub mod time_series_descriptor {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ValueDescriptor {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ValueDescriptor");
+            debug_struct.field("key", &self.key);
+            debug_struct.field("value_type", &self.value_type);
+            debug_struct.field("metric_kind", &self.metric_kind);
+            debug_struct.field("unit", &self.unit);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Represents the values of a time series associated with a
 /// TimeSeriesDescriptor.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeriesData {
     /// The values of the labels in the time series identifier, given in the same
@@ -12570,6 +13183,19 @@ impl serde::ser::Serialize for TimeSeriesData {
     }
 }
 
+impl std::fmt::Debug for TimeSeriesData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeSeriesData");
+        debug_struct.field("label_values", &self.label_values);
+        debug_struct.field("point_data", &self.point_data);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TimeSeriesData].
 pub mod time_series_data {
     #[allow(unused_imports)]
@@ -12578,7 +13204,7 @@ pub mod time_series_data {
     /// A point's value columns and time interval. Each point has one or more
     /// point values corresponding to the entries in `point_descriptors` field in
     /// the TimeSeriesDescriptor associated with this object.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PointData {
         /// The values that make up the point.
@@ -12753,10 +13379,23 @@ pub mod time_series_data {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for PointData {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PointData");
+            debug_struct.field("values", &self.values);
+            debug_struct.field("time_interval", &self.time_interval);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A label value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelValue {
     /// The label value can be a bool, int64, or string.
@@ -13035,6 +13674,18 @@ impl serde::ser::Serialize for LabelValue {
     }
 }
 
+impl std::fmt::Debug for LabelValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LabelValue");
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LabelValue].
 pub mod label_value {
     #[allow(unused_imports)]
@@ -13054,7 +13705,7 @@ pub mod label_value {
 }
 
 /// An error associated with a query in the time series query language format.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryError {
     /// The location of the time series query language text that this error applies
@@ -13219,6 +13870,19 @@ impl serde::ser::Serialize for QueryError {
     }
 }
 
+impl std::fmt::Debug for QueryError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryError");
+        debug_struct.field("locator", &self.locator);
+        debug_struct.field("message", &self.message);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A locator for text. Indicates a particular part of the text of a request or
 /// of an object referenced in the request.
 ///
@@ -13239,7 +13903,7 @@ impl serde::ser::Serialize for QueryError {
 /// }
 ///
 /// refers to the part of the text: "fox".
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextLocator {
     /// The source of the text. The source may be a field in the request, in which
@@ -13515,13 +14179,29 @@ impl serde::ser::Serialize for TextLocator {
     }
 }
 
+impl std::fmt::Debug for TextLocator {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextLocator");
+        debug_struct.field("source", &self.source);
+        debug_struct.field("start_position", &self.start_position);
+        debug_struct.field("end_position", &self.end_position);
+        debug_struct.field("nested_locator", &self.nested_locator);
+        debug_struct.field("nesting_reason", &self.nesting_reason);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TextLocator].
 pub mod text_locator {
     #[allow(unused_imports)]
     use super::*;
 
     /// The position of a byte within the text.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Position {
         /// The line, starting with 1, where the byte is positioned.
@@ -13713,10 +14393,23 @@ pub mod text_locator {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Position {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Position");
+            debug_struct.field("line", &self.line);
+            debug_struct.field("column", &self.column);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The `ListMonitoredResourceDescriptors` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMonitoredResourceDescriptorsRequest {
     /// Required. The
@@ -13953,8 +14646,23 @@ impl serde::ser::Serialize for ListMonitoredResourceDescriptorsRequest {
     }
 }
 
+impl std::fmt::Debug for ListMonitoredResourceDescriptorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMonitoredResourceDescriptorsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListMonitoredResourceDescriptors` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMonitoredResourceDescriptorsResponse {
     /// The monitored resource descriptors that are available to this project
@@ -14134,8 +14842,21 @@ impl serde::ser::Serialize for ListMonitoredResourceDescriptorsResponse {
     }
 }
 
+impl std::fmt::Debug for ListMonitoredResourceDescriptorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMonitoredResourceDescriptorsResponse");
+        debug_struct.field("resource_descriptors", &self.resource_descriptors);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `GetMonitoredResourceDescriptor` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMonitoredResourceDescriptorRequest {
     /// Required. The monitored resource descriptor to get.  The format is:
@@ -14272,8 +14993,20 @@ impl serde::ser::Serialize for GetMonitoredResourceDescriptorRequest {
     }
 }
 
+impl std::fmt::Debug for GetMonitoredResourceDescriptorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMonitoredResourceDescriptorRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListMetricDescriptors` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMetricDescriptorsRequest {
     /// Required. The
@@ -14549,8 +15282,24 @@ impl serde::ser::Serialize for ListMetricDescriptorsRequest {
     }
 }
 
+impl std::fmt::Debug for ListMetricDescriptorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMetricDescriptorsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("active_only", &self.active_only);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListMetricDescriptors` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMetricDescriptorsResponse {
     /// The metric descriptors that are available to the project
@@ -14729,8 +15478,21 @@ impl serde::ser::Serialize for ListMetricDescriptorsResponse {
     }
 }
 
+impl std::fmt::Debug for ListMetricDescriptorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMetricDescriptorsResponse");
+        debug_struct.field("metric_descriptors", &self.metric_descriptors);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `GetMetricDescriptor` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMetricDescriptorRequest {
     /// Required. The metric descriptor on which to execute the request. The format
@@ -14867,8 +15629,20 @@ impl serde::ser::Serialize for GetMetricDescriptorRequest {
     }
 }
 
+impl std::fmt::Debug for GetMetricDescriptorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMetricDescriptorRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `CreateMetricDescriptor` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMetricDescriptorRequest {
     /// Required. The
@@ -15039,8 +15813,21 @@ impl serde::ser::Serialize for CreateMetricDescriptorRequest {
     }
 }
 
+impl std::fmt::Debug for CreateMetricDescriptorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMetricDescriptorRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("metric_descriptor", &self.metric_descriptor);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `DeleteMetricDescriptor` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMetricDescriptorRequest {
     /// Required. The metric descriptor on which to execute the request. The format
@@ -15177,8 +15964,20 @@ impl serde::ser::Serialize for DeleteMetricDescriptorRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteMetricDescriptorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteMetricDescriptorRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListTimeSeries` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTimeSeriesRequest {
     /// Required. The
@@ -15592,6 +16391,26 @@ impl serde::ser::Serialize for ListTimeSeriesRequest {
     }
 }
 
+impl std::fmt::Debug for ListTimeSeriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTimeSeriesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("interval", &self.interval);
+        debug_struct.field("aggregation", &self.aggregation);
+        debug_struct.field("secondary_aggregation", &self.secondary_aggregation);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("view", &self.view);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListTimeSeriesRequest].
 pub mod list_time_series_request {
     #[allow(unused_imports)]
@@ -15726,7 +16545,7 @@ pub mod list_time_series_request {
 }
 
 /// The `ListTimeSeries` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTimeSeriesResponse {
     /// One or more time series that match the filter included in the request.
@@ -15958,8 +16777,23 @@ impl serde::ser::Serialize for ListTimeSeriesResponse {
     }
 }
 
+impl std::fmt::Debug for ListTimeSeriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTimeSeriesResponse");
+        debug_struct.field("time_series", &self.time_series);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("execution_errors", &self.execution_errors);
+        debug_struct.field("unit", &self.unit);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `CreateTimeSeries` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTimeSeriesRequest {
     /// Required. The
@@ -16128,8 +16962,21 @@ impl serde::ser::Serialize for CreateTimeSeriesRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTimeSeriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTimeSeriesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("time_series", &self.time_series);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// DEPRECATED. Used to hold per-time-series error status.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTimeSeriesError {
     /// DEPRECATED. Time series ID that resulted in the `status` error.
@@ -16311,8 +17158,21 @@ impl serde::ser::Serialize for CreateTimeSeriesError {
     }
 }
 
+impl std::fmt::Debug for CreateTimeSeriesError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTimeSeriesError");
+        debug_struct.field("time_series", &self.time_series);
+        debug_struct.field("status", &self.status);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Summary of the result of a failed request to write data to a time series.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTimeSeriesSummary {
     /// The number of points in the request.
@@ -16536,13 +17396,27 @@ impl serde::ser::Serialize for CreateTimeSeriesSummary {
     }
 }
 
+impl std::fmt::Debug for CreateTimeSeriesSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTimeSeriesSummary");
+        debug_struct.field("total_point_count", &self.total_point_count);
+        debug_struct.field("success_point_count", &self.success_point_count);
+        debug_struct.field("errors", &self.errors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CreateTimeSeriesSummary].
 pub mod create_time_series_summary {
     #[allow(unused_imports)]
     use super::*;
 
     /// Detailed information about an error category.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Error {
         /// The status of the requested write operation.
@@ -16728,12 +17602,25 @@ pub mod create_time_series_summary {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Error {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Error");
+            debug_struct.field("status", &self.status);
+            debug_struct.field("point_count", &self.point_count);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The `QueryTimeSeries` request. For information about the status of
 /// Monitoring Query Language (MQL), see the [MQL deprecation
 /// notice](https://cloud.google.com/stackdriver/docs/deprecations/mql).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct QueryTimeSeriesRequest {
@@ -16965,10 +17852,25 @@ impl serde::ser::Serialize for QueryTimeSeriesRequest {
     }
 }
 
+impl std::fmt::Debug for QueryTimeSeriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryTimeSeriesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `QueryTimeSeries` response. For information about the status of
 /// Monitoring Query Language (MQL), see the [MQL deprecation
 /// notice](https://cloud.google.com/stackdriver/docs/deprecations/mql).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct QueryTimeSeriesResponse {
@@ -17213,8 +18115,23 @@ impl serde::ser::Serialize for QueryTimeSeriesResponse {
     }
 }
 
+impl std::fmt::Debug for QueryTimeSeriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryTimeSeriesResponse");
+        debug_struct.field("time_series_descriptor", &self.time_series_descriptor);
+        debug_struct.field("time_series_data", &self.time_series_data);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("partial_errors", &self.partial_errors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// This is an error detail intended to be used with INVALID_ARGUMENT errors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryErrorList {
     /// Errors in parsing the time series query language text. The number of errors
@@ -17372,8 +18289,21 @@ impl serde::ser::Serialize for QueryErrorList {
     }
 }
 
+impl std::fmt::Debug for QueryErrorList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryErrorList");
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("error_summary", &self.error_summary);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a change made to a configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MutationRecord {
     /// When the change occurred.
@@ -17539,10 +18469,23 @@ impl serde::ser::Serialize for MutationRecord {
     }
 }
 
+impl std::fmt::Debug for MutationRecord {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MutationRecord");
+        debug_struct.field("mutate_time", &self.mutate_time);
+        debug_struct.field("mutated_by", &self.mutated_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A description of a notification channel. The descriptor includes
 /// the properties of the channel and the set of labels or fields that
 /// must be specified to configure channels of a given type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotificationChannelDescriptor {
     /// The full REST resource name for this descriptor. The format is:
@@ -17845,12 +18788,30 @@ impl serde::ser::Serialize for NotificationChannelDescriptor {
     }
 }
 
+impl std::fmt::Debug for NotificationChannelDescriptor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NotificationChannelDescriptor");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("supported_tiers", &self.supported_tiers);
+        debug_struct.field("launch_stage", &self.launch_stage);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A `NotificationChannel` is a medium through which an alert is
 /// delivered when a policy violation is detected. Examples of channels
 /// include email, SMS, and third-party messaging applications. Fields
 /// containing sensitive information like authentication tokens or
 /// contact info are only partially populated on retrieval.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotificationChannel {
     /// The type of the notification channel. This field matches the
@@ -18316,6 +19277,27 @@ impl serde::ser::Serialize for NotificationChannel {
     }
 }
 
+impl std::fmt::Debug for NotificationChannel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NotificationChannel");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("user_labels", &self.user_labels);
+        debug_struct.field("verification_status", &self.verification_status);
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("creation_record", &self.creation_record);
+        debug_struct.field("mutation_records", &self.mutation_records);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NotificationChannel].
 pub mod notification_channel {
     #[allow(unused_imports)]
@@ -18470,7 +19452,7 @@ pub mod notification_channel {
 }
 
 /// The `ListNotificationChannelDescriptors` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationChannelDescriptorsRequest {
     /// Required. The REST resource name of the parent from which to retrieve
@@ -18686,8 +19668,22 @@ impl serde::ser::Serialize for ListNotificationChannelDescriptorsRequest {
     }
 }
 
+impl std::fmt::Debug for ListNotificationChannelDescriptorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNotificationChannelDescriptorsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListNotificationChannelDescriptors` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationChannelDescriptorsResponse {
     /// The monitored resource descriptors supported for the specified
@@ -18869,8 +19865,21 @@ impl serde::ser::Serialize for ListNotificationChannelDescriptorsResponse {
     }
 }
 
+impl std::fmt::Debug for ListNotificationChannelDescriptorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNotificationChannelDescriptorsResponse");
+        debug_struct.field("channel_descriptors", &self.channel_descriptors);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `GetNotificationChannelDescriptor` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNotificationChannelDescriptorRequest {
     /// Required. The channel type for which to execute the request. The format is:
@@ -19004,8 +20013,20 @@ impl serde::ser::Serialize for GetNotificationChannelDescriptorRequest {
     }
 }
 
+impl std::fmt::Debug for GetNotificationChannelDescriptorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNotificationChannelDescriptorRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `CreateNotificationChannel` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNotificationChannelRequest {
     /// Required. The
@@ -19181,8 +20202,21 @@ impl serde::ser::Serialize for CreateNotificationChannelRequest {
     }
 }
 
+impl std::fmt::Debug for CreateNotificationChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateNotificationChannelRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("notification_channel", &self.notification_channel);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListNotificationChannels` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationChannelsRequest {
     /// Required. The
@@ -19456,8 +20490,24 @@ impl serde::ser::Serialize for ListNotificationChannelsRequest {
     }
 }
 
+impl std::fmt::Debug for ListNotificationChannelsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNotificationChannelsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListNotificationChannels` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationChannelsResponse {
     /// The notification channels defined for the specified project.
@@ -19680,8 +20730,22 @@ impl serde::ser::Serialize for ListNotificationChannelsResponse {
     }
 }
 
+impl std::fmt::Debug for ListNotificationChannelsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNotificationChannelsResponse");
+        debug_struct.field("notification_channels", &self.notification_channels);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `GetNotificationChannel` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNotificationChannelRequest {
     /// Required. The channel for which to execute the request. The format is:
@@ -19814,8 +20878,20 @@ impl serde::ser::Serialize for GetNotificationChannelRequest {
     }
 }
 
+impl std::fmt::Debug for GetNotificationChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNotificationChannelRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `UpdateNotificationChannel` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNotificationChannelRequest {
     /// Optional. The fields to update.
@@ -19995,8 +21071,21 @@ impl serde::ser::Serialize for UpdateNotificationChannelRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateNotificationChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateNotificationChannelRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("notification_channel", &self.notification_channel);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `DeleteNotificationChannel` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNotificationChannelRequest {
     /// Required. The channel for which to execute the request. The format is:
@@ -20156,8 +21245,21 @@ impl serde::ser::Serialize for DeleteNotificationChannelRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteNotificationChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteNotificationChannelRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `SendNotificationChannelVerificationCode` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SendNotificationChannelVerificationCodeRequest {
     /// Required. The notification channel to which to send a verification code.
@@ -20288,8 +21390,20 @@ impl serde::ser::Serialize for SendNotificationChannelVerificationCodeRequest {
     }
 }
 
+impl std::fmt::Debug for SendNotificationChannelVerificationCodeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SendNotificationChannelVerificationCodeRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `GetNotificationChannelVerificationCode` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNotificationChannelVerificationCodeRequest {
     /// Required. The notification channel for which a verification code is to be
@@ -20466,8 +21580,21 @@ impl serde::ser::Serialize for GetNotificationChannelVerificationCodeRequest {
     }
 }
 
+impl std::fmt::Debug for GetNotificationChannelVerificationCodeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNotificationChannelVerificationCodeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("expire_time", &self.expire_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `GetNotificationChannelVerificationCode` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNotificationChannelVerificationCodeResponse {
     /// The verification code, which may be used to verify other channels
@@ -20639,8 +21766,21 @@ impl serde::ser::Serialize for GetNotificationChannelVerificationCodeResponse {
     }
 }
 
+impl std::fmt::Debug for GetNotificationChannelVerificationCodeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNotificationChannelVerificationCodeResponse");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("expire_time", &self.expire_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `VerifyNotificationChannel` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyNotificationChannelRequest {
     /// Required. The notification channel to verify.
@@ -20799,12 +21939,25 @@ impl serde::ser::Serialize for VerifyNotificationChannelRequest {
     }
 }
 
+impl std::fmt::Debug for VerifyNotificationChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VerifyNotificationChannelRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("code", &self.code);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A `Service` is a discrete, autonomous, and network-accessible unit, designed
 /// to solve an individual concern
 /// ([Wikipedia](https://en.wikipedia.org/wiki/Service-orientation)). In
 /// Cloud Monitoring, a `Service` acts as the root resource under which
 /// operational aspects of the service are accessible.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
     /// Identifier. Resource name for this Service. The format is:
@@ -21644,6 +22797,23 @@ impl serde::ser::Serialize for Service {
     }
 }
 
+impl std::fmt::Debug for Service {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Service");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("basic_service", &self.basic_service);
+        debug_struct.field("telemetry", &self.telemetry);
+        debug_struct.field("user_labels", &self.user_labels);
+        debug_struct.field("identifier", &self.identifier);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Service].
 pub mod service {
     #[allow(unused_imports)]
@@ -21652,7 +22822,7 @@ pub mod service {
     /// Use a custom service to designate a service that you want to monitor
     /// when none of the other service types (like App Engine, Cloud Run, or
     /// a GKE type) matches your intended service.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Custom {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -21757,8 +22927,19 @@ pub mod service {
         }
     }
 
+    impl std::fmt::Debug for Custom {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Custom");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// App Engine service. Learn more at <https://cloud.google.com/appengine>.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AppEngine {
         /// The ID of the App Engine module underlying this service. Corresponds to
@@ -21893,8 +23074,20 @@ pub mod service {
         }
     }
 
+    impl std::fmt::Debug for AppEngine {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AppEngine");
+            debug_struct.field("module_id", &self.module_id);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Cloud Endpoints service. Learn more at <https://cloud.google.com/endpoints>.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudEndpoints {
         /// The name of the Cloud Endpoints service underlying this service.
@@ -22028,10 +23221,22 @@ pub mod service {
         }
     }
 
+    impl std::fmt::Debug for CloudEndpoints {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CloudEndpoints");
+            debug_struct.field("service", &self.service);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Istio service scoped to a single Kubernetes cluster. Learn more at
     /// <https://istio.io>. Clusters running OSS Istio will have their services
     /// ingested as this type.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClusterIstio {
         /// The location of the Kubernetes cluster in which this Istio service is
@@ -22253,9 +23458,24 @@ pub mod service {
         }
     }
 
+    impl std::fmt::Debug for ClusterIstio {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ClusterIstio");
+            debug_struct.field("location", &self.location);
+            debug_struct.field("cluster_name", &self.cluster_name);
+            debug_struct.field("service_namespace", &self.service_namespace);
+            debug_struct.field("service_name", &self.service_name);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Istio service scoped to an Istio mesh. Anthos clusters running ASM < 1.6.8
     /// will have their services ingested as this type.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MeshIstio {
         /// Identifier for the mesh in which this Istio service is defined.
@@ -22447,9 +23667,23 @@ pub mod service {
         }
     }
 
+    impl std::fmt::Debug for MeshIstio {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MeshIstio");
+            debug_struct.field("mesh_uid", &self.mesh_uid);
+            debug_struct.field("service_namespace", &self.service_namespace);
+            debug_struct.field("service_name", &self.service_name);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Canonical service scoped to an Istio mesh. Anthos clusters running ASM >=
     /// 1.6.8 will have their services ingested as this type.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IstioCanonicalService {
         /// Identifier for the Istio mesh in which this canonical service is defined.
@@ -22653,8 +23887,25 @@ pub mod service {
         }
     }
 
+    impl std::fmt::Debug for IstioCanonicalService {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IstioCanonicalService");
+            debug_struct.field("mesh_uid", &self.mesh_uid);
+            debug_struct.field(
+                "canonical_service_namespace",
+                &self.canonical_service_namespace,
+            );
+            debug_struct.field("canonical_service", &self.canonical_service);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Cloud Run service. Learn more at <https://cloud.google.com/run>.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudRun {
         /// The name of the Cloud Run service. Corresponds to the `service_name`
@@ -22818,10 +24069,23 @@ pub mod service {
         }
     }
 
+    impl std::fmt::Debug for CloudRun {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CloudRun");
+            debug_struct.field("service_name", &self.service_name);
+            debug_struct.field("location", &self.location);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// GKE Namespace. The field names correspond to the resource metadata labels
     /// on monitored resources that fall under a namespace (for example,
     /// `k8s_container` or `k8s_pod`).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GkeNamespace {
         /// Output only. The project this resource lives in. For legacy services
@@ -23036,10 +24300,25 @@ pub mod service {
         }
     }
 
+    impl std::fmt::Debug for GkeNamespace {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GkeNamespace");
+            debug_struct.field("project_id", &self.project_id);
+            debug_struct.field("location", &self.location);
+            debug_struct.field("cluster_name", &self.cluster_name);
+            debug_struct.field("namespace_name", &self.namespace_name);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A GKE Workload (Deployment, StatefulSet, etc). The field names correspond
     /// to the metadata labels on monitored resources that fall under a workload
     /// (for example, `k8s_container` or `k8s_pod`).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GkeWorkload {
         /// Output only. The project this resource lives in. For legacy services
@@ -23318,13 +24597,30 @@ pub mod service {
         }
     }
 
+    impl std::fmt::Debug for GkeWorkload {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GkeWorkload");
+            debug_struct.field("project_id", &self.project_id);
+            debug_struct.field("location", &self.location);
+            debug_struct.field("cluster_name", &self.cluster_name);
+            debug_struct.field("namespace_name", &self.namespace_name);
+            debug_struct.field("top_level_controller_type", &self.top_level_controller_type);
+            debug_struct.field("top_level_controller_name", &self.top_level_controller_name);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// GKE Service. The "service" here represents a
     /// [Kubernetes service
     /// object](https://kubernetes.io/docs/concepts/services-networking/service).
     /// The field names correspond to the resource labels on [`k8s_service`
     /// monitored
     /// resources](https://cloud.google.com/monitoring/api/resources#tag_k8s_service).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GkeService {
         /// Output only. The project this resource lives in. For legacy services
@@ -23567,10 +24863,26 @@ pub mod service {
         }
     }
 
+    impl std::fmt::Debug for GkeService {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GkeService");
+            debug_struct.field("project_id", &self.project_id);
+            debug_struct.field("location", &self.location);
+            debug_struct.field("cluster_name", &self.cluster_name);
+            debug_struct.field("namespace_name", &self.namespace_name);
+            debug_struct.field("service_name", &self.service_name);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A well-known service type, defined by its service type and service labels.
     /// Documentation and examples
     /// [here](https://cloud.google.com/stackdriver/docs/solutions/slo-monitoring/api/api-structures#basic-svc-w-basic-sli).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BasicService {
         /// The type of service that this basic service defines, e.g.
@@ -23748,8 +25060,21 @@ pub mod service {
         }
     }
 
+    impl std::fmt::Debug for BasicService {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BasicService");
+            debug_struct.field("service_type", &self.service_type);
+            debug_struct.field("service_labels", &self.service_labels);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for how to query telemetry on a Service.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Telemetry {
         /// The full name of the resource that defines this service. Formatted as
@@ -23886,6 +25211,18 @@ pub mod service {
         }
     }
 
+    impl std::fmt::Debug for Telemetry {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Telemetry");
+            debug_struct.field("resource_name", &self.resource_name);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// REQUIRED. Service-identifying atoms specifying the underlying service.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -23921,7 +25258,7 @@ pub mod service {
 /// use SLIs defined in a number of different manners. Typical SLOs might include
 /// "99% of requests in each rolling week have latency below 200 milliseconds" or
 /// "99.5% of requests in each calendar month return successfully."
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceLevelObjective {
     /// Identifier. Resource name for this `ServiceLevelObjective`. The format is:
@@ -24320,6 +25657,23 @@ impl serde::ser::Serialize for ServiceLevelObjective {
     }
 }
 
+impl std::fmt::Debug for ServiceLevelObjective {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceLevelObjective");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("service_level_indicator", &self.service_level_indicator);
+        debug_struct.field("goal", &self.goal);
+        debug_struct.field("user_labels", &self.user_labels);
+        debug_struct.field("period", &self.period);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServiceLevelObjective].
 pub mod service_level_objective {
     #[allow(unused_imports)]
@@ -24491,7 +25845,7 @@ pub mod service_level_objective {
 /// of concerns, a single Service-Level Indicator measures performance for only
 /// one aspect of service quality, such as fraction of successful queries or
 /// fast-enough queries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceLevelIndicator {
     /// Service level indicators can be grouped by whether the "unit" of service
@@ -24785,6 +26139,18 @@ impl serde::ser::Serialize for ServiceLevelIndicator {
     }
 }
 
+impl std::fmt::Debug for ServiceLevelIndicator {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceLevelIndicator");
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServiceLevelIndicator].
 pub mod service_level_indicator {
     #[allow(unused_imports)]
@@ -24811,7 +26177,7 @@ pub mod service_level_indicator {
 /// `service_resource.labels` and `metric_labels` are used to construct a
 /// monitoring filter to filter that metric down to just the data relevant to
 /// this service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BasicSli {
     /// OPTIONAL: The set of RPCs to which this SLI is relevant. Telemetry from
@@ -25136,13 +26502,28 @@ impl serde::ser::Serialize for BasicSli {
     }
 }
 
+impl std::fmt::Debug for BasicSli {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BasicSli");
+        debug_struct.field("method", &self.method);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("sli_criteria", &self.sli_criteria);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BasicSli].
 pub mod basic_sli {
     #[allow(unused_imports)]
     use super::*;
 
     /// Future parameters for the availability SLI.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AvailabilityCriteria {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -25247,8 +26628,19 @@ pub mod basic_sli {
         }
     }
 
+    impl std::fmt::Debug for AvailabilityCriteria {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AvailabilityCriteria");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Parameters for a latency threshold SLI.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LatencyCriteria {
         /// Good service is defined to be the count of requests made to this service
@@ -25392,6 +26784,18 @@ pub mod basic_sli {
         }
     }
 
+    impl std::fmt::Debug for LatencyCriteria {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LatencyCriteria");
+            debug_struct.field("threshold", &self.threshold);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// This SLI can be evaluated on the basis of availability or latency.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -25406,7 +26810,7 @@ pub mod basic_sli {
 }
 
 /// Range of numerical values within `min` and `max`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Range {
     /// Range minimum.
@@ -25595,9 +26999,22 @@ impl serde::ser::Serialize for Range {
     }
 }
 
+impl std::fmt::Debug for Range {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Range");
+        debug_struct.field("min", &self.min);
+        debug_struct.field("max", &self.max);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Service Level Indicators for which atomic units of service are counted
 /// directly.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RequestBasedSli {
     /// The means to compute a ratio of `good_service` to `total_service`.
@@ -25835,6 +27252,18 @@ impl serde::ser::Serialize for RequestBasedSli {
     }
 }
 
+impl std::fmt::Debug for RequestBasedSli {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RequestBasedSli");
+        debug_struct.field("method", &self.method);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RequestBasedSli].
 pub mod request_based_sli {
     #[allow(unused_imports)]
@@ -25861,7 +27290,7 @@ pub mod request_based_sli {
 /// DELTA` or `MetricKind = CUMULATIVE`. The `TimeSeriesRatio` must specify
 /// exactly two of good, bad, and total, and the relationship `good_service +
 /// bad_service = total_service` will be assumed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSeriesRatio {
     /// A [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
@@ -26060,12 +27489,26 @@ impl serde::ser::Serialize for TimeSeriesRatio {
     }
 }
 
+impl std::fmt::Debug for TimeSeriesRatio {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeSeriesRatio");
+        debug_struct.field("good_service_filter", &self.good_service_filter);
+        debug_struct.field("bad_service_filter", &self.bad_service_filter);
+        debug_struct.field("total_service_filter", &self.total_service_filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A `DistributionCut` defines a `TimeSeries` and thresholds used for measuring
 /// good service and total service. The `TimeSeries` must have `ValueType =
 /// DISTRIBUTION` and `MetricKind = DELTA` or `MetricKind = CUMULATIVE`. The
 /// computed `good_service` will be the estimated count of values in the
 /// `Distribution` that fall within the specified `min` and `max`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DistributionCut {
     /// A [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
@@ -26236,10 +27679,23 @@ impl serde::ser::Serialize for DistributionCut {
     }
 }
 
+impl std::fmt::Debug for DistributionCut {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DistributionCut");
+        debug_struct.field("distribution_filter", &self.distribution_filter);
+        debug_struct.field("range", &self.range);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A `WindowsBasedSli` defines `good_service` as the count of time windows for
 /// which the provided service was of good quality. Criteria for determining
 /// if service was good are embedded in the `window_criterion`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WindowsBasedSli {
     /// Duration over which window quality is evaluated. Must be an integer
@@ -26629,6 +28085,19 @@ impl serde::ser::Serialize for WindowsBasedSli {
     }
 }
 
+impl std::fmt::Debug for WindowsBasedSli {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WindowsBasedSli");
+        debug_struct.field("window_period", &self.window_period);
+        debug_struct.field("window_criterion", &self.window_criterion);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WindowsBasedSli].
 pub mod windows_based_sli {
     #[allow(unused_imports)]
@@ -26636,7 +28105,7 @@ pub mod windows_based_sli {
 
     /// A `PerformanceThreshold` is used when each window is good when that window
     /// has a sufficiently high `performance`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PerformanceThreshold {
         /// If window `performance >= threshold`, the window is counted as good.
@@ -26919,6 +28388,19 @@ pub mod windows_based_sli {
         }
     }
 
+    impl std::fmt::Debug for PerformanceThreshold {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PerformanceThreshold");
+            debug_struct.field("threshold", &self.threshold);
+            debug_struct.field("r#type", &self.r#type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [PerformanceThreshold].
     pub mod performance_threshold {
         #[allow(unused_imports)]
@@ -26940,7 +28422,7 @@ pub mod windows_based_sli {
     /// single `TimeSeries` satisfies `range.min <= x <= range.max`. The provided
     /// `TimeSeries` must have `ValueType = INT64` or `ValueType = DOUBLE` and
     /// `MetricKind = GAUGE`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MetricRange {
         /// A [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
@@ -27110,6 +28592,19 @@ pub mod windows_based_sli {
         }
     }
 
+    impl std::fmt::Debug for MetricRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MetricRange");
+            debug_struct.field("time_series", &self.time_series);
+            debug_struct.field("range", &self.range);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The criterion to use for evaluating window goodness.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -27132,7 +28627,7 @@ pub mod windows_based_sli {
 }
 
 /// The `CreateService` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceRequest {
     /// Required. Resource
@@ -27328,8 +28823,22 @@ impl serde::ser::Serialize for CreateServiceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("service_id", &self.service_id);
+        debug_struct.field("service", &self.service);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `GetService` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRequest {
     /// Required. Resource name of the `Service`. The format is:
@@ -27462,8 +28971,20 @@ impl serde::ser::Serialize for GetServiceRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListServices` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
     /// Required. Resource name of the parent containing the listed services,
@@ -27711,8 +29232,23 @@ impl serde::ser::Serialize for ListServicesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListServices` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
     /// The `Service`s matching the specified filter.
@@ -27885,8 +29421,21 @@ impl serde::ser::Serialize for ListServicesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesResponse");
+        debug_struct.field("services", &self.services);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `UpdateService` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceRequest {
     /// Required. The `Service` to draw updates from.
@@ -28063,8 +29612,21 @@ impl serde::ser::Serialize for UpdateServiceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServiceRequest");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `DeleteService` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceRequest {
     /// Required. Resource name of the `Service` to delete. The format is:
@@ -28197,8 +29759,20 @@ impl serde::ser::Serialize for DeleteServiceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `CreateServiceLevelObjective` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceLevelObjectiveRequest {
     /// Required. Resource name of the parent `Service`. The format is:
@@ -28403,8 +29977,25 @@ impl serde::ser::Serialize for CreateServiceLevelObjectiveRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceLevelObjectiveRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceLevelObjectiveRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "service_level_objective_id",
+            &self.service_level_objective_id,
+        );
+        debug_struct.field("service_level_objective", &self.service_level_objective);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `GetServiceLevelObjective` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceLevelObjectiveRequest {
     /// Required. Resource name of the `ServiceLevelObjective` to get. The format
@@ -28570,8 +30161,21 @@ impl serde::ser::Serialize for GetServiceLevelObjectiveRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceLevelObjectiveRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceLevelObjectiveRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListServiceLevelObjectives` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceLevelObjectivesRequest {
     /// Required. Resource name of the parent containing the listed SLOs, either a
@@ -28833,8 +30437,24 @@ impl serde::ser::Serialize for ListServiceLevelObjectivesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServiceLevelObjectivesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceLevelObjectivesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("view", &self.view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `ListServiceLevelObjectives` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceLevelObjectivesResponse {
     /// The `ServiceLevelObjective`s matching the specified filter.
@@ -29014,8 +30634,21 @@ impl serde::ser::Serialize for ListServiceLevelObjectivesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServiceLevelObjectivesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceLevelObjectivesResponse");
+        debug_struct.field("service_level_objectives", &self.service_level_objectives);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `UpdateServiceLevelObjective` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceLevelObjectiveRequest {
     /// Required. The `ServiceLevelObjective` to draw updates from.
@@ -29193,8 +30826,21 @@ impl serde::ser::Serialize for UpdateServiceLevelObjectiveRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServiceLevelObjectiveRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServiceLevelObjectiveRequest");
+        debug_struct.field("service_level_objective", &self.service_level_objective);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `DeleteServiceLevelObjective` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceLevelObjectiveRequest {
     /// Required. Resource name of the `ServiceLevelObjective` to delete. The
@@ -29328,11 +30974,23 @@ impl serde::ser::Serialize for DeleteServiceLevelObjectiveRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceLevelObjectiveRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceLevelObjectiveRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A `Snooze` will prevent any alerts from being opened, and close any that
 /// are already open. The `Snooze` will work on alerts that match the
 /// criteria defined in the `Snooze`. The `Snooze` will be active from
 /// `interval.start_time` through `interval.end_time`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Snooze {
     /// Required. Identifier. The name of the `Snooze`. The format is:
@@ -29569,6 +31227,21 @@ impl serde::ser::Serialize for Snooze {
     }
 }
 
+impl std::fmt::Debug for Snooze {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Snooze");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("criteria", &self.criteria);
+        debug_struct.field("interval", &self.interval);
+        debug_struct.field("display_name", &self.display_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Snooze].
 pub mod snooze {
     #[allow(unused_imports)]
@@ -29577,7 +31250,7 @@ pub mod snooze {
     /// Criteria specific to the `AlertPolicy`s that this `Snooze` applies to. The
     /// `Snooze` will suppress alerts that come from one of the `AlertPolicy`s
     /// whose names are supplied.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Criteria {
         /// The specific `AlertPolicy` names for the alert that should be snoozed.
@@ -29760,11 +31433,24 @@ pub mod snooze {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Criteria {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Criteria");
+            debug_struct.field("policies", &self.policies);
+            debug_struct.field("filter", &self.filter);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The message definition for creating a `Snooze`. Users must provide the body
 /// of the `Snooze` to be created but must omit the `Snooze` field, `name`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSnoozeRequest {
     /// Required. The
@@ -29935,9 +31621,22 @@ impl serde::ser::Serialize for CreateSnoozeRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSnoozeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSnoozeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("snooze", &self.snooze);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The message definition for listing `Snooze`s associated with the given
 /// `parent`, satisfying the optional `filter`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSnoozesRequest {
     /// Required. The
@@ -30180,9 +31879,24 @@ impl serde::ser::Serialize for ListSnoozesRequest {
     }
 }
 
+impl std::fmt::Debug for ListSnoozesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSnoozesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The results of a successful `ListSnoozes` call, containing the matching
 /// `Snooze`s.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSnoozesResponse {
     /// `Snooze`s matching this list call.
@@ -30354,9 +32068,22 @@ impl serde::ser::Serialize for ListSnoozesResponse {
     }
 }
 
+impl std::fmt::Debug for ListSnoozesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSnoozesResponse");
+        debug_struct.field("snoozes", &self.snoozes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The message definition for retrieving a `Snooze`. Users must specify the
 /// field, `name`, which identifies the `Snooze`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSnoozeRequest {
     /// Required. The ID of the `Snooze` to retrieve. The format is:
@@ -30489,6 +32216,18 @@ impl serde::ser::Serialize for GetSnoozeRequest {
     }
 }
 
+impl std::fmt::Debug for GetSnoozeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSnoozeRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The message definition for updating a `Snooze`. The field, `snooze.name`
 /// identifies the `Snooze` to be updated. The remainder of `snooze` gives the
 /// content the `Snooze` in question will be assigned.
@@ -30502,7 +32241,7 @@ impl serde::ser::Serialize for GetSnoozeRequest {
 ///   and `interval.end_time` can be updated.
 /// * start time is in the future: `display_name`, `interval.start_time` and
 ///   `interval.end_time` can be updated.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSnoozeRequest {
     /// Required. The `Snooze` to update. Must have the name field present.
@@ -30699,6 +32438,19 @@ impl serde::ser::Serialize for UpdateSnoozeRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSnoozeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSnoozeRequest");
+        debug_struct.field("snooze", &self.snooze);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The context of a span. This is attached to an
 /// [Exemplar][google.api.Distribution.Exemplar]
 /// in [Distribution][google.api.Distribution] values during aggregation.
@@ -30711,7 +32463,7 @@ impl serde::ser::Serialize for UpdateSnoozeRequest {
 ///
 /// [google.api.Distribution]: api::model::Distribution
 /// [google.api.Distribution.Exemplar]: api::model::distribution::Exemplar
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpanContext {
     /// The resource name of the span. The format is:
@@ -30851,9 +32603,21 @@ impl serde::ser::Serialize for SpanContext {
     }
 }
 
+impl std::fmt::Debug for SpanContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpanContext");
+        debug_struct.field("span_name", &self.span_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An internal checker allows Uptime checks to run on private/internal GCP
 /// resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct InternalChecker {
@@ -31119,6 +32883,23 @@ impl serde::ser::Serialize for InternalChecker {
     }
 }
 
+impl std::fmt::Debug for InternalChecker {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InternalChecker");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("gcp_zone", &self.gcp_zone);
+        debug_struct.field("peer_project_id", &self.peer_project_id);
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InternalChecker].
 pub mod internal_checker {
     #[allow(unused_imports)]
@@ -31268,7 +33049,7 @@ pub mod internal_checker {
 }
 
 /// Describes a Synthetic Monitor to be invoked by Uptime.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SyntheticMonitorTarget {
     /// Specifies a Synthetic Monitor's execution stack.
@@ -31449,13 +33230,25 @@ impl serde::ser::Serialize for SyntheticMonitorTarget {
     }
 }
 
+impl std::fmt::Debug for SyntheticMonitorTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SyntheticMonitorTarget");
+        debug_struct.field("target", &self.target);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SyntheticMonitorTarget].
 pub mod synthetic_monitor_target {
     #[allow(unused_imports)]
     use super::*;
 
     /// A Synthetic Monitor deployed to a Cloud Functions V2 instance.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudFunctionV2Target {
         /// Required. Fully qualified GCFv2 resource name
@@ -31628,6 +33421,19 @@ pub mod synthetic_monitor_target {
         }
     }
 
+    impl std::fmt::Debug for CloudFunctionV2Target {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CloudFunctionV2Target");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("cloud_run_revision", &self.cloud_run_revision);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Specifies a Synthetic Monitor's execution stack.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -31641,7 +33447,7 @@ pub mod synthetic_monitor_target {
 
 /// This message configures which resources and services to monitor for
 /// availability.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UptimeCheckConfig {
     /// Identifier. A unique resource name for this Uptime check configuration. The
@@ -32432,6 +34238,29 @@ impl serde::ser::Serialize for UptimeCheckConfig {
     }
 }
 
+impl std::fmt::Debug for UptimeCheckConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UptimeCheckConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("period", &self.period);
+        debug_struct.field("timeout", &self.timeout);
+        debug_struct.field("content_matchers", &self.content_matchers);
+        debug_struct.field("checker_type", &self.checker_type);
+        debug_struct.field("selected_regions", &self.selected_regions);
+        debug_struct.field("is_internal", &self.is_internal);
+        debug_struct.field("internal_checkers", &self.internal_checkers);
+        debug_struct.field("user_labels", &self.user_labels);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("check_request_type", &self.check_request_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [UptimeCheckConfig].
 pub mod uptime_check_config {
     #[allow(unused_imports)]
@@ -32439,7 +34268,7 @@ pub mod uptime_check_config {
 
     /// The resource submessage for group checks. It can be used instead of a
     /// monitored resource, when multiple resources are being monitored.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceGroup {
         /// The group of resources being monitored. Should be only the `[GROUP_ID]`,
@@ -32600,10 +34429,23 @@ pub mod uptime_check_config {
         }
     }
 
+    impl std::fmt::Debug for ResourceGroup {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResourceGroup");
+            debug_struct.field("group_id", &self.group_id);
+            debug_struct.field("resource_type", &self.resource_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Information involved in sending ICMP pings alongside public HTTP/TCP
     /// checks. For HTTP, the pings are performed for each part of the redirect
     /// chain.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PingConfig {
         /// Number of ICMP pings. A maximum of 3 ICMP pings is currently supported.
@@ -32755,8 +34597,20 @@ pub mod uptime_check_config {
         }
     }
 
+    impl std::fmt::Debug for PingConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PingConfig");
+            debug_struct.field("pings_count", &self.pings_count);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Information involved in an HTTP/HTTPS Uptime check request.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HttpCheck {
         /// The HTTP request method to use for the check. If set to
@@ -33429,6 +35283,34 @@ pub mod uptime_check_config {
         }
     }
 
+    impl std::fmt::Debug for HttpCheck {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("HttpCheck");
+            debug_struct.field("request_method", &self.request_method);
+            debug_struct.field("use_ssl", &self.use_ssl);
+            debug_struct.field("path", &self.path);
+            debug_struct.field("port", &self.port);
+            debug_struct.field("auth_info", &self.auth_info);
+            debug_struct.field("mask_headers", &self.mask_headers);
+            debug_struct.field("headers", &self.headers);
+            debug_struct.field("content_type", &self.content_type);
+            debug_struct.field("custom_content_type", &self.custom_content_type);
+            debug_struct.field("validate_ssl", &self.validate_ssl);
+            debug_struct.field("body", &self.body);
+            debug_struct.field(
+                "accepted_response_status_codes",
+                &self.accepted_response_status_codes,
+            );
+            debug_struct.field("ping_config", &self.ping_config);
+            debug_struct.field("auth_method", &self.auth_method);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [HttpCheck].
     pub mod http_check {
         #[allow(unused_imports)]
@@ -33438,7 +35320,7 @@ pub mod uptime_check_config {
         /// URL that requires a username and password. Currently, only
         /// [Basic HTTP authentication](https://tools.ietf.org/html/rfc7617) is
         /// supported in Uptime checks.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BasicAuthentication {
             /// The username to use when authenticating with the HTTP server.
@@ -33607,9 +35489,22 @@ pub mod uptime_check_config {
             }
         }
 
+        impl std::fmt::Debug for BasicAuthentication {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("BasicAuthentication");
+                debug_struct.field("username", &self.username);
+                debug_struct.field("password", &self.password);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A status to accept. Either a status code class like "2xx", or an integer
         /// status code like "200".
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ResponseStatusCode {
             /// Either a specific value or a class of status codes.
@@ -33866,6 +35761,18 @@ pub mod uptime_check_config {
             }
         }
 
+        impl std::fmt::Debug for ResponseStatusCode {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ResponseStatusCode");
+                debug_struct.field("status_code", &self.status_code);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [ResponseStatusCode].
         pub mod response_status_code {
             #[allow(unused_imports)]
@@ -34050,7 +35957,7 @@ pub mod uptime_check_config {
         /// [OAuth token](https://developers.google.com/identity/protocols/oauth2).
         /// The token will be generated for the Monitoring service agent service
         /// account.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ServiceAgentAuthentication {
 
@@ -34181,6 +36088,18 @@ pub mod uptime_check_config {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for ServiceAgentAuthentication {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ServiceAgentAuthentication");
+                debug_struct.field("r#type", &self.r#type);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -34610,7 +36529,7 @@ pub mod uptime_check_config {
     }
 
     /// Information required for a TCP Uptime check request.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TcpCheck {
         /// The TCP port on the server against which to run the check. Will be
@@ -34799,12 +36718,25 @@ pub mod uptime_check_config {
         }
     }
 
+    impl std::fmt::Debug for TcpCheck {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TcpCheck");
+            debug_struct.field("port", &self.port);
+            debug_struct.field("ping_config", &self.ping_config);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Optional. Used to perform content matching. This allows matching based on
     /// substrings and regular expressions, together with their negations. Only the
     /// first 4&nbsp;MB of an HTTP or HTTPS check's response (and the first
     /// 1&nbsp;MB of a TCP check's response) are examined for purposes of content
     /// matching.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ContentMatcher {
         /// String, regex or JSON content to match. Maximum 1024 bytes. An empty
@@ -35053,6 +36985,20 @@ pub mod uptime_check_config {
         }
     }
 
+    impl std::fmt::Debug for ContentMatcher {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ContentMatcher");
+            debug_struct.field("content", &self.content);
+            debug_struct.field("matcher", &self.matcher);
+            debug_struct.field("additional_matcher_info", &self.additional_matcher_info);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ContentMatcher].
     pub mod content_matcher {
         #[allow(unused_imports)]
@@ -35061,7 +37007,7 @@ pub mod uptime_check_config {
         /// Information needed to perform a JSONPath content match.
         /// Used for `ContentMatcherOption::MATCHES_JSON_PATH` and
         /// `ContentMatcherOption::NOT_MATCHES_JSON_PATH`.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct JsonPathMatcher {
 
@@ -35227,6 +37173,19 @@ pub mod uptime_check_config {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for JsonPathMatcher {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("JsonPathMatcher");
+                debug_struct.field("json_path", &self.json_path);
+                debug_struct.field("json_matcher", &self.json_matcher);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -35743,7 +37702,7 @@ pub mod uptime_check_config {
 
 /// Contains the region, location, and list of IP
 /// addresses where checkers in the location run from.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UptimeCheckIp {
     /// A broad region category in which the IP address is located.
@@ -35931,8 +37890,22 @@ impl serde::ser::Serialize for UptimeCheckIp {
     }
 }
 
+impl std::fmt::Debug for UptimeCheckIp {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UptimeCheckIp");
+        debug_struct.field("region", &self.region);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("ip_address", &self.ip_address);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `ListUptimeCheckConfigs` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUptimeCheckConfigsRequest {
     /// Required. The
@@ -36168,8 +38141,23 @@ impl serde::ser::Serialize for ListUptimeCheckConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListUptimeCheckConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUptimeCheckConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `ListUptimeCheckConfigs` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUptimeCheckConfigsResponse {
     /// The returned Uptime check configurations.
@@ -36393,8 +38381,22 @@ impl serde::ser::Serialize for ListUptimeCheckConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListUptimeCheckConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUptimeCheckConfigsResponse");
+        debug_struct.field("uptime_check_configs", &self.uptime_check_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `GetUptimeCheckConfig` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetUptimeCheckConfigRequest {
     /// Required. The Uptime check configuration to retrieve. The format is:
@@ -36527,8 +38529,20 @@ impl serde::ser::Serialize for GetUptimeCheckConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetUptimeCheckConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetUptimeCheckConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `CreateUptimeCheckConfig` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateUptimeCheckConfigRequest {
     /// Required. The
@@ -36700,8 +38714,21 @@ impl serde::ser::Serialize for CreateUptimeCheckConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateUptimeCheckConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateUptimeCheckConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("uptime_check_config", &self.uptime_check_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `UpdateUptimeCheckConfig` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateUptimeCheckConfigRequest {
     /// Optional. If present, only the listed fields in the current Uptime check
@@ -36892,8 +38919,21 @@ impl serde::ser::Serialize for UpdateUptimeCheckConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateUptimeCheckConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateUptimeCheckConfigRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("uptime_check_config", &self.uptime_check_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `DeleteUptimeCheckConfig` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteUptimeCheckConfigRequest {
     /// Required. The Uptime check configuration to delete. The format is:
@@ -37026,8 +39066,20 @@ impl serde::ser::Serialize for DeleteUptimeCheckConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteUptimeCheckConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteUptimeCheckConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `ListUptimeCheckIps` request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUptimeCheckIpsRequest {
     /// The maximum number of results to return in a single response. The server
@@ -37207,8 +39259,21 @@ impl serde::ser::Serialize for ListUptimeCheckIpsRequest {
     }
 }
 
+impl std::fmt::Debug for ListUptimeCheckIpsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUptimeCheckIpsRequest");
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol for the `ListUptimeCheckIps` response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUptimeCheckIpsResponse {
     /// The returned list of IP addresses (including region and location) that the
@@ -37383,6 +39448,19 @@ impl serde::ser::Serialize for ListUptimeCheckIpsResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ListUptimeCheckIpsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUptimeCheckIpsResponse");
+        debug_struct.field("uptime_check_ips", &self.uptime_check_ips);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

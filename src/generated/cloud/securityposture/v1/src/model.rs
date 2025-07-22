@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A rule used to express this policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyRule {
     /// A condition which determines whether this rule is used
@@ -386,6 +386,19 @@ impl serde::ser::Serialize for PolicyRule {
     }
 }
 
+impl std::fmt::Debug for PolicyRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PolicyRule");
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("kind", &self.kind);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PolicyRule].
 pub mod policy_rule {
     #[allow(unused_imports)]
@@ -408,7 +421,7 @@ pub mod policy_rule {
     ///
     /// The `supports_under` field of the associated `Constraint`  defines
     /// whether ancestry prefixes can be used.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StringValues {
         /// List of values allowed at this resource.
@@ -572,6 +585,19 @@ pub mod policy_rule {
         }
     }
 
+    impl std::fmt::Debug for StringValues {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StringValues");
+            debug_struct.field("allowed_values", &self.allowed_values);
+            debug_struct.field("denied_values", &self.denied_values);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Kind {
@@ -597,7 +623,7 @@ pub mod policy_rule {
 /// By creating a custom constraint, customers can apply policies of this
 /// custom constraint. *Creating a custom constraint itself does NOT apply any
 /// policy enforcement*.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomConstraint {
     /// Immutable. Name of the constraint. This is unique within the organization.
@@ -945,6 +971,25 @@ impl serde::ser::Serialize for CustomConstraint {
     }
 }
 
+impl std::fmt::Debug for CustomConstraint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomConstraint");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("resource_types", &self.resource_types);
+        debug_struct.field("method_types", &self.method_types);
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("action_type", &self.action_type);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CustomConstraint].
 pub mod custom_constraint {
     #[allow(unused_imports)]
@@ -1230,7 +1275,7 @@ pub mod custom_constraint {
 }
 
 /// Message for Org Policy Canned Constraint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrgPolicyConstraint {
     /// Required. Org Policy Canned Constraint id.
@@ -1391,8 +1436,21 @@ impl serde::ser::Serialize for OrgPolicyConstraint {
     }
 }
 
+impl std::fmt::Debug for OrgPolicyConstraint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OrgPolicyConstraint");
+        debug_struct.field("canned_constraint_id", &self.canned_constraint_id);
+        debug_struct.field("policy_rules", &self.policy_rules);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for Org Policy Custom Constraint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrgPolicyConstraintCustom {
     /// Required. Org Policy Custom Constraint.
@@ -1562,8 +1620,21 @@ impl serde::ser::Serialize for OrgPolicyConstraintCustom {
     }
 }
 
+impl std::fmt::Debug for OrgPolicyConstraintCustom {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OrgPolicyConstraintCustom");
+        debug_struct.field("custom_constraint", &self.custom_constraint);
+        debug_struct.field("policy_rules", &self.policy_rules);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -1896,9 +1967,28 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        debug_struct.field("error_message", &self.error_message);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Postures
 /// Definition of a Posture.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Posture {
     /// Required. Identifier. The name of this Posture resource, in the format of
@@ -2298,6 +2388,27 @@ impl serde::ser::Serialize for Posture {
     }
 }
 
+impl std::fmt::Debug for Posture {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Posture");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("revision_id", &self.revision_id);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("policy_sets", &self.policy_sets);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("reconciling", &self.reconciling);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Posture].
 pub mod posture {
     #[allow(unused_imports)]
@@ -2444,7 +2555,7 @@ pub mod posture {
 }
 
 /// PolicySet representation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicySet {
     /// Required. ID of the Policy set.
@@ -2625,8 +2736,22 @@ impl serde::ser::Serialize for PolicySet {
     }
 }
 
+impl std::fmt::Debug for PolicySet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PolicySet");
+        debug_struct.field("policy_set_id", &self.policy_set_id);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("policies", &self.policies);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Policy representation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
     /// Required. ID of the Policy that is user generated, immutable and unique
@@ -2848,13 +2973,28 @@ impl serde::ser::Serialize for Policy {
     }
 }
 
+impl std::fmt::Debug for Policy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Policy");
+        debug_struct.field("policy_id", &self.policy_id);
+        debug_struct.field("compliance_standards", &self.compliance_standards);
+        debug_struct.field("constraint", &self.constraint);
+        debug_struct.field("description", &self.description);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Policy].
 pub mod policy {
     #[allow(unused_imports)]
     use super::*;
 
     /// Mapping for a Policy to standard and control.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ComplianceStandard {
         /// Optional. The compliance standard that the Policy maps to, e.g.: CIS-2.0.
@@ -3009,10 +3149,23 @@ pub mod policy {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ComplianceStandard {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ComplianceStandard");
+            debug_struct.field("standard", &self.standard);
+            debug_struct.field("control", &self.control);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Representation of a Constraint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Constraint {
     pub implementation: std::option::Option<crate::model::constraint::Implementation>,
@@ -3373,6 +3526,18 @@ impl serde::ser::Serialize for Constraint {
     }
 }
 
+impl std::fmt::Debug for Constraint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Constraint");
+        debug_struct.field("implementation", &self.implementation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Constraint].
 pub mod constraint {
     #[allow(unused_imports)]
@@ -3395,7 +3560,7 @@ pub mod constraint {
 }
 
 /// Message for requesting list of Postures.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPosturesRequest {
     /// Required. Parent value for ListPosturesRequest.
@@ -3593,8 +3758,22 @@ impl serde::ser::Serialize for ListPosturesRequest {
     }
 }
 
+impl std::fmt::Debug for ListPosturesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPosturesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing Postures.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPosturesResponse {
     /// The list of Posture.
@@ -3792,8 +3971,22 @@ impl serde::ser::Serialize for ListPosturesResponse {
     }
 }
 
+impl std::fmt::Debug for ListPosturesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPosturesResponse");
+        debug_struct.field("postures", &self.postures);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of Posture revisions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPostureRevisionsRequest {
     /// Required. Name value for ListPostureRevisionsRequest.
@@ -3991,8 +4184,22 @@ impl serde::ser::Serialize for ListPostureRevisionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListPostureRevisionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPostureRevisionsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing PostureRevisions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPostureRevisionsResponse {
     /// The list of Posture revisions.
@@ -4163,8 +4370,21 @@ impl serde::ser::Serialize for ListPostureRevisionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListPostureRevisionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPostureRevisionsResponse");
+        debug_struct.field("revisions", &self.revisions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a Posture.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPostureRequest {
     /// Required. Name of the resource.
@@ -4318,8 +4538,21 @@ impl serde::ser::Serialize for GetPostureRequest {
     }
 }
 
+impl std::fmt::Debug for GetPostureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPostureRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("revision_id", &self.revision_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a Posture.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePostureRequest {
     /// Required. Value for parent.
@@ -4509,8 +4742,22 @@ impl serde::ser::Serialize for CreatePostureRequest {
     }
 }
 
+impl std::fmt::Debug for CreatePostureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePostureRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("posture_id", &self.posture_id);
+        debug_struct.field("posture", &self.posture);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a Posture.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePostureRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -4715,8 +4962,22 @@ impl serde::ser::Serialize for UpdatePostureRequest {
     }
 }
 
+impl std::fmt::Debug for UpdatePostureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePostureRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("posture", &self.posture);
+        debug_struct.field("revision_id", &self.revision_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a Posture.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePostureRequest {
     /// Required. Name of the resource.
@@ -4869,8 +5130,21 @@ impl serde::ser::Serialize for DeletePostureRequest {
     }
 }
 
+impl std::fmt::Debug for DeletePostureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePostureRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for extracting existing policies on a workload as a Posture.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExtractPostureRequest {
     /// Required. The parent resource name. The format of this value is as follows:
@@ -5056,9 +5330,23 @@ impl serde::ser::Serialize for ExtractPostureRequest {
     }
 }
 
+impl std::fmt::Debug for ExtractPostureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExtractPostureRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("posture_id", &self.posture_id);
+        debug_struct.field("workload", &self.workload);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ========================== PostureDeployments ==========================
 /// Message describing PostureDeployment resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostureDeployment {
     /// Required. The name of this PostureDeployment resource, in the format of
@@ -5582,6 +5870,34 @@ impl serde::ser::Serialize for PostureDeployment {
     }
 }
 
+impl std::fmt::Debug for PostureDeployment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PostureDeployment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("target_resource", &self.target_resource);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("posture_id", &self.posture_id);
+        debug_struct.field("posture_revision_id", &self.posture_revision_id);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("desired_posture_id", &self.desired_posture_id);
+        debug_struct.field(
+            "desired_posture_revision_id",
+            &self.desired_posture_revision_id,
+        );
+        debug_struct.field("failure_message", &self.failure_message);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PostureDeployment].
 pub mod posture_deployment {
     #[allow(unused_imports)]
@@ -5756,7 +6072,7 @@ pub mod posture_deployment {
 }
 
 /// Message for requesting list of PostureDeployments.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPostureDeploymentsRequest {
     /// Required. Parent value for ListPostureDeploymentsRequest.
@@ -5979,8 +6295,23 @@ impl serde::ser::Serialize for ListPostureDeploymentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListPostureDeploymentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPostureDeploymentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing PostureDeployments.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPostureDeploymentsResponse {
     /// The list of PostureDeployment.
@@ -6183,8 +6514,22 @@ impl serde::ser::Serialize for ListPostureDeploymentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListPostureDeploymentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPostureDeploymentsResponse");
+        debug_struct.field("posture_deployments", &self.posture_deployments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a PostureDeployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPostureDeploymentRequest {
     /// Required. Name of the resource.
@@ -6313,8 +6658,20 @@ impl serde::ser::Serialize for GetPostureDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for GetPostureDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPostureDeploymentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a PostureDeployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePostureDeploymentRequest {
     /// Required. Value for parent.
@@ -6510,8 +6867,22 @@ impl serde::ser::Serialize for CreatePostureDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for CreatePostureDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePostureDeploymentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("posture_deployment_id", &self.posture_deployment_id);
+        debug_struct.field("posture_deployment", &self.posture_deployment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a PostureDeployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePostureDeploymentRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -6693,8 +7064,21 @@ impl serde::ser::Serialize for UpdatePostureDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for UpdatePostureDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePostureDeploymentRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("posture_deployment", &self.posture_deployment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a PostureDeployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePostureDeploymentRequest {
     /// Required. Name of the resource.
@@ -6847,9 +7231,22 @@ impl serde::ser::Serialize for DeletePostureDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for DeletePostureDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePostureDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// PostureTemplates
 /// Message describing PostureTemplate object.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostureTemplate {
     /// Output only. Identifier. The name of the Posture template will be of the
@@ -7082,6 +7479,22 @@ impl serde::ser::Serialize for PostureTemplate {
     }
 }
 
+impl std::fmt::Debug for PostureTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PostureTemplate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("revision_id", &self.revision_id);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("policy_sets", &self.policy_sets);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PostureTemplate].
 pub mod posture_template {
     #[allow(unused_imports)]
@@ -7222,7 +7635,7 @@ pub mod posture_template {
 }
 
 /// Message for requesting list of Posture Templates.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPostureTemplatesRequest {
     /// Required. Parent value for ListPostureTemplatesRequest.
@@ -7445,8 +7858,23 @@ impl serde::ser::Serialize for ListPostureTemplatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListPostureTemplatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPostureTemplatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing PostureTemplates.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPostureTemplatesResponse {
     /// The list of PostureTemplate.
@@ -7622,8 +8050,21 @@ impl serde::ser::Serialize for ListPostureTemplatesResponse {
     }
 }
 
+impl std::fmt::Debug for ListPostureTemplatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPostureTemplatesResponse");
+        debug_struct.field("posture_templates", &self.posture_templates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a Posture Template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPostureTemplateRequest {
     /// Required. Name of the resource.
@@ -7778,8 +8219,21 @@ impl serde::ser::Serialize for GetPostureTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for GetPostureTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPostureTemplateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("revision_id", &self.revision_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for Security Health Analytics built-in detector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityHealthAnalyticsModule {
     /// Required. The name of the module eg: BIGQUERY_TABLE_CMEK_DISABLED.
@@ -7938,8 +8392,21 @@ impl serde::ser::Serialize for SecurityHealthAnalyticsModule {
     }
 }
 
+impl std::fmt::Debug for SecurityHealthAnalyticsModule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecurityHealthAnalyticsModule");
+        debug_struct.field("module_name", &self.module_name);
+        debug_struct.field("module_enablement_state", &self.module_enablement_state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for SHA Custom Module
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityHealthAnalyticsCustomModule {
     /// Output only. Immutable. The id of the custom module.
@@ -8163,10 +8630,25 @@ impl serde::ser::Serialize for SecurityHealthAnalyticsCustomModule {
     }
 }
 
+impl std::fmt::Debug for SecurityHealthAnalyticsCustomModule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecurityHealthAnalyticsCustomModule");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("module_enablement_state", &self.module_enablement_state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines the properties in a custom module configuration for Security
 /// Health Analytics. Use the custom module configuration to create custom
 /// detectors that generate custom findings for resources that you specify.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomConfig {
     /// Required. The CEL expression to evaluate to produce findings. When the
@@ -8461,6 +8943,23 @@ impl serde::ser::Serialize for CustomConfig {
     }
 }
 
+impl std::fmt::Debug for CustomConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomConfig");
+        debug_struct.field("predicate", &self.predicate);
+        debug_struct.field("custom_output", &self.custom_output);
+        debug_struct.field("resource_selector", &self.resource_selector);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("recommendation", &self.recommendation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CustomConfig].
 pub mod custom_config {
     #[allow(unused_imports)]
@@ -8470,7 +8969,7 @@ pub mod custom_config {
     /// return with each finding that is generated by the custom module. The custom
     /// source properties that are defined here are included in the finding JSON
     /// under `sourceProperties`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomOutputSpec {
         /// Optional. A list of custom output properties to add to the finding.
@@ -8605,13 +9104,25 @@ pub mod custom_config {
         }
     }
 
+    impl std::fmt::Debug for CustomOutputSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CustomOutputSpec");
+            debug_struct.field("properties", &self.properties);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [CustomOutputSpec].
     pub mod custom_output_spec {
         #[allow(unused_imports)]
         use super::*;
 
         /// An individual name-value pair that defines a custom source property.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Property {
             /// Required. Name of the property for the custom output.
@@ -8785,10 +9296,23 @@ pub mod custom_config {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for Property {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Property");
+                debug_struct.field("name", &self.name);
+                debug_struct.field("value_expression", &self.value_expression);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Resource for selecting resource type.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceSelector {
         /// Required. The resource types to run the detector on.
@@ -8921,6 +9445,18 @@ pub mod custom_config {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ResourceSelector {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResourceSelector");
+            debug_struct.field("resource_types", &self.resource_types);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 

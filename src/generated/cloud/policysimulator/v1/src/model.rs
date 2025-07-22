@@ -37,7 +37,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Information about the principal, resource, and permission to check.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessTuple {
     /// Required. The principal whose access you want to check, in the form of
@@ -235,11 +235,25 @@ impl serde::ser::Serialize for AccessTuple {
     }
 }
 
+impl std::fmt::Debug for AccessTuple {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessTuple");
+        debug_struct.field("principal", &self.principal);
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+        debug_struct.field("permission", &self.permission);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about how a specific IAM [Policy][google.iam.v1.Policy] contributed
 /// to the access check.
 ///
 /// [google.iam.v1.Policy]: iam_v1::model::Policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedPolicy {
     /// Indicates whether _this policy_ provides the specified permission to the
@@ -525,9 +539,25 @@ impl serde::ser::Serialize for ExplainedPolicy {
     }
 }
 
+impl std::fmt::Debug for ExplainedPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExplainedPolicy");
+        debug_struct.field("access", &self.access);
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+        debug_struct.field("policy", &self.policy);
+        debug_struct.field("binding_explanations", &self.binding_explanations);
+        debug_struct.field("relevance", &self.relevance);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about how a binding in a policy affects a principal's ability to use
 /// a permission.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BindingExplanation {
     /// Required. Indicates whether _this binding_ provides the specified
@@ -879,13 +909,31 @@ impl serde::ser::Serialize for BindingExplanation {
     }
 }
 
+impl std::fmt::Debug for BindingExplanation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BindingExplanation");
+        debug_struct.field("access", &self.access);
+        debug_struct.field("role", &self.role);
+        debug_struct.field("role_permission", &self.role_permission);
+        debug_struct.field("role_permission_relevance", &self.role_permission_relevance);
+        debug_struct.field("memberships", &self.memberships);
+        debug_struct.field("relevance", &self.relevance);
+        debug_struct.field("condition", &self.condition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BindingExplanation].
 pub mod binding_explanation {
     #[allow(unused_imports)]
     use super::*;
 
     /// Details about whether the binding includes the principal.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnnotatedMembership {
         /// Indicates whether the binding includes the principal.
@@ -1047,6 +1095,19 @@ pub mod binding_explanation {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for AnnotatedMembership {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnnotatedMembership");
+            debug_struct.field("membership", &self.membership);
+            debug_struct.field("relevance", &self.relevance);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -1364,7 +1425,7 @@ pub mod binding_explanation {
 /// [ListOrgPolicyViolations][] API call. There are potentially more
 /// [OrgPolicyViolations][] than could fit in an embedded field. Thus, the use of
 /// a child resource instead of a field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrgPolicyViolationsPreview {
     /// Output only. The resource name of the `OrgPolicyViolationsPreview`. It has
@@ -1725,6 +1786,24 @@ impl serde::ser::Serialize for OrgPolicyViolationsPreview {
     }
 }
 
+impl std::fmt::Debug for OrgPolicyViolationsPreview {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OrgPolicyViolationsPreview");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("overlay", &self.overlay);
+        debug_struct.field("violations_count", &self.violations_count);
+        debug_struct.field("resource_counts", &self.resource_counts);
+        debug_struct.field("custom_constraints", &self.custom_constraints);
+        debug_struct.field("create_time", &self.create_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OrgPolicyViolationsPreview].
 pub mod org_policy_violations_preview {
     #[allow(unused_imports)]
@@ -1732,7 +1811,7 @@ pub mod org_policy_violations_preview {
 
     /// A summary of the state of all resources scanned for compliance with the
     /// changed OrgPolicy.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceCounts {
         /// Output only. Number of resources checked for compliance.
@@ -2055,11 +2134,27 @@ pub mod org_policy_violations_preview {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ResourceCounts {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResourceCounts");
+            debug_struct.field("scanned", &self.scanned);
+            debug_struct.field("noncompliant", &self.noncompliant);
+            debug_struct.field("compliant", &self.compliant);
+            debug_struct.field("unenforced", &self.unenforced);
+            debug_struct.field("errors", &self.errors);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// OrgPolicyViolation is a resource representing a single resource violating a
 /// single OrgPolicy constraint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrgPolicyViolation {
     /// The name of the `OrgPolicyViolation`. Example:
@@ -2296,10 +2391,25 @@ impl serde::ser::Serialize for OrgPolicyViolation {
     }
 }
 
+impl std::fmt::Debug for OrgPolicyViolation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OrgPolicyViolation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("custom_constraint", &self.custom_constraint);
+        debug_struct.field("error", &self.error);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ResourceContext provides the context we know about a resource.
 /// It is similar in concept to google.cloud.asset.v1.Resource, but focuses
 /// on the information specifically used by Simulator.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceContext {
     /// The full name of the resource. Example:
@@ -2498,8 +2608,22 @@ impl serde::ser::Serialize for ResourceContext {
     }
 }
 
+impl std::fmt::Debug for ResourceContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceContext");
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("asset_type", &self.asset_type);
+        debug_struct.field("ancestors", &self.ancestors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The proposed changes to OrgPolicy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrgPolicyOverlay {
     /// Optional. The OrgPolicy changes to preview violations for.
@@ -2683,13 +2807,26 @@ impl serde::ser::Serialize for OrgPolicyOverlay {
     }
 }
 
+impl std::fmt::Debug for OrgPolicyOverlay {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OrgPolicyOverlay");
+        debug_struct.field("policies", &self.policies);
+        debug_struct.field("custom_constraints", &self.custom_constraints);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OrgPolicyOverlay].
 pub mod org_policy_overlay {
     #[allow(unused_imports)]
     use super::*;
 
     /// A change to an OrgPolicy.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PolicyOverlay {
         /// Optional. The parent of the policy we are attaching to.
@@ -2862,8 +2999,21 @@ pub mod org_policy_overlay {
         }
     }
 
+    impl std::fmt::Debug for PolicyOverlay {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PolicyOverlay");
+            debug_struct.field("policy_parent", &self.policy_parent);
+            debug_struct.field("policy", &self.policy);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A change to an OrgPolicy custom constraint.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomConstraintOverlay {
         /// Optional. Resource the constraint is attached to.
@@ -3039,11 +3189,24 @@ pub mod org_policy_overlay {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for CustomConstraintOverlay {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CustomConstraintOverlay");
+            debug_struct.field("custom_constraint_parent", &self.custom_constraint_parent);
+            debug_struct.field("custom_constraint", &self.custom_constraint);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// CreateOrgPolicyViolationsPreviewOperationMetadata is metadata about an
 /// OrgPolicyViolationsPreview generations operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateOrgPolicyViolationsPreviewOperationMetadata {
     /// Time when the request was received.
@@ -3380,11 +3543,28 @@ impl serde::ser::Serialize for CreateOrgPolicyViolationsPreviewOperationMetadata
     }
 }
 
+impl std::fmt::Debug for CreateOrgPolicyViolationsPreviewOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateOrgPolicyViolationsPreviewOperationMetadata");
+        debug_struct.field("request_time", &self.request_time);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("resources_found", &self.resources_found);
+        debug_struct.field("resources_scanned", &self.resources_scanned);
+        debug_struct.field("resources_pending", &self.resources_pending);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ListOrgPolicyViolationsPreviewsRequest is the request message for
 /// [OrgPolicyViolationsPreviewService.ListOrgPolicyViolationsPreviews][google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolationsPreviews].
 ///
 /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolationsPreviews]: crate::client::OrgPolicyViolationsPreviewService::list_org_policy_violations_previews
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrgPolicyViolationsPreviewsRequest {
     /// Required. The parent the violations are scoped to.
@@ -3592,11 +3772,25 @@ impl serde::ser::Serialize for ListOrgPolicyViolationsPreviewsRequest {
     }
 }
 
+impl std::fmt::Debug for ListOrgPolicyViolationsPreviewsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOrgPolicyViolationsPreviewsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ListOrgPolicyViolationsPreviewsResponse is the response message for
 /// [OrgPolicyViolationsPreviewService.ListOrgPolicyViolationsPreviews][google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolationsPreviews].
 ///
 /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolationsPreviews]: crate::client::OrgPolicyViolationsPreviewService::list_org_policy_violations_previews
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrgPolicyViolationsPreviewsResponse {
     /// The list of OrgPolicyViolationsPreview
@@ -3781,11 +3975,27 @@ impl serde::ser::Serialize for ListOrgPolicyViolationsPreviewsResponse {
     }
 }
 
+impl std::fmt::Debug for ListOrgPolicyViolationsPreviewsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOrgPolicyViolationsPreviewsResponse");
+        debug_struct.field(
+            "org_policy_violations_previews",
+            &self.org_policy_violations_previews,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GetOrgPolicyViolationsPreviewRequest is the request message for
 /// [OrgPolicyViolationsPreviewService.GetOrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.GetOrgPolicyViolationsPreview].
 ///
 /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.GetOrgPolicyViolationsPreview]: crate::client::OrgPolicyViolationsPreviewService::get_org_policy_violations_preview
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOrgPolicyViolationsPreviewRequest {
     /// Required. The name of the OrgPolicyViolationsPreview to get.
@@ -3914,11 +4124,23 @@ impl serde::ser::Serialize for GetOrgPolicyViolationsPreviewRequest {
     }
 }
 
+impl std::fmt::Debug for GetOrgPolicyViolationsPreviewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetOrgPolicyViolationsPreviewRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// CreateOrgPolicyViolationsPreviewRequest is the request message for
 /// [OrgPolicyViolationsPreviewService.CreateOrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.CreateOrgPolicyViolationsPreview].
 ///
 /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.CreateOrgPolicyViolationsPreview]: crate::client::OrgPolicyViolationsPreviewService::create_org_policy_violations_preview
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateOrgPolicyViolationsPreviewRequest {
     /// Required. The organization under which this
@@ -4144,11 +4366,31 @@ impl serde::ser::Serialize for CreateOrgPolicyViolationsPreviewRequest {
     }
 }
 
+impl std::fmt::Debug for CreateOrgPolicyViolationsPreviewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateOrgPolicyViolationsPreviewRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "org_policy_violations_preview",
+            &self.org_policy_violations_preview,
+        );
+        debug_struct.field(
+            "org_policy_violations_preview_id",
+            &self.org_policy_violations_preview_id,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ListOrgPolicyViolationsRequest is the request message for
 /// [OrgPolicyViolationsPreviewService.ListOrgPolicyViolations][google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolations].
 ///
 /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolations]: crate::client::OrgPolicyViolationsPreviewService::list_org_policy_violations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrgPolicyViolationsRequest {
     /// Required. The OrgPolicyViolationsPreview to get OrgPolicyViolations from.
@@ -4353,11 +4595,25 @@ impl serde::ser::Serialize for ListOrgPolicyViolationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListOrgPolicyViolationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOrgPolicyViolationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ListOrgPolicyViolationsResponse is the response message for
 /// [OrgPolicyViolationsPreviewService.ListOrgPolicyViolations][google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolations]
 ///
 /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreviewService.ListOrgPolicyViolations]: crate::client::OrgPolicyViolationsPreviewService::list_org_policy_violations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrgPolicyViolationsResponse {
     /// The list of OrgPolicyViolations
@@ -4534,8 +4790,21 @@ impl serde::ser::Serialize for ListOrgPolicyViolationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListOrgPolicyViolationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOrgPolicyViolationsResponse");
+        debug_struct.field("org_policy_violations", &self.org_policy_violations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A resource describing a `Replay`, or simulation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Replay {
     /// Output only. The resource name of the `Replay`, which has the following
@@ -4767,13 +5036,28 @@ impl serde::ser::Serialize for Replay {
     }
 }
 
+impl std::fmt::Debug for Replay {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Replay");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("results_summary", &self.results_summary);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Replay].
 pub mod replay {
     #[allow(unused_imports)]
     use super::*;
 
     /// Summary statistics about the replayed log entries.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResultsSummary {
         /// The total number of log entries replayed.
@@ -5131,6 +5415,23 @@ pub mod replay {
         }
     }
 
+    impl std::fmt::Debug for ResultsSummary {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResultsSummary");
+            debug_struct.field("log_count", &self.log_count);
+            debug_struct.field("unchanged_count", &self.unchanged_count);
+            debug_struct.field("difference_count", &self.difference_count);
+            debug_struct.field("error_count", &self.error_count);
+            debug_struct.field("oldest_date", &self.oldest_date);
+            debug_struct.field("newest_date", &self.newest_date);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The current state of the [Replay][google.cloud.policysimulator.v1.Replay].
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
@@ -5281,7 +5582,7 @@ pub mod replay {
 }
 
 /// The result of replaying a single access tuple against a simulated state.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplayResult {
     /// The resource name of the `ReplayResult`, in the following format:
@@ -5638,6 +5939,22 @@ impl serde::ser::Serialize for ReplayResult {
     }
 }
 
+impl std::fmt::Debug for ReplayResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplayResult");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("access_tuple", &self.access_tuple);
+        debug_struct.field("last_seen_date", &self.last_seen_date);
+        debug_struct.field("result", &self.result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReplayResult].
 pub mod replay_result {
     #[allow(unused_imports)]
@@ -5667,7 +5984,7 @@ pub mod replay_result {
 /// [Simulator.CreateReplay][google.cloud.policysimulator.v1.Simulator.CreateReplay].
 ///
 /// [google.cloud.policysimulator.v1.Simulator.CreateReplay]: crate::client::Simulator::create_replay
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReplayRequest {
     /// Required. The parent resource where this
@@ -5840,8 +6157,21 @@ impl serde::ser::Serialize for CreateReplayRequest {
     }
 }
 
+impl std::fmt::Debug for CreateReplayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateReplayRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("replay", &self.replay);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata about a Replay operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplayOperationMetadata {
     /// Time when the request was received.
@@ -5982,11 +6312,23 @@ impl serde::ser::Serialize for ReplayOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for ReplayOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplayOperationMetadata");
+        debug_struct.field("start_time", &self.start_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [Simulator.GetReplay][google.cloud.policysimulator.v1.Simulator.GetReplay].
 ///
 /// [google.cloud.policysimulator.v1.Simulator.GetReplay]: crate::client::Simulator::get_replay
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReplayRequest {
     /// Required. The name of the [Replay][google.cloud.policysimulator.v1.Replay]
@@ -6125,11 +6467,23 @@ impl serde::ser::Serialize for GetReplayRequest {
     }
 }
 
+impl std::fmt::Debug for GetReplayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetReplayRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [Simulator.ListReplayResults][google.cloud.policysimulator.v1.Simulator.ListReplayResults].
 ///
 /// [google.cloud.policysimulator.v1.Simulator.ListReplayResults]: crate::client::Simulator::list_replay_results
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReplayResultsRequest {
     /// Required. The [Replay][google.cloud.policysimulator.v1.Replay] whose
@@ -6348,11 +6702,25 @@ impl serde::ser::Serialize for ListReplayResultsRequest {
     }
 }
 
+impl std::fmt::Debug for ListReplayResultsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReplayResultsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [Simulator.ListReplayResults][google.cloud.policysimulator.v1.Simulator.ListReplayResults].
 ///
 /// [google.cloud.policysimulator.v1.Simulator.ListReplayResults]: crate::client::Simulator::list_replay_results
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReplayResultsResponse {
     /// The results of running a [Replay][google.cloud.policysimulator.v1.Replay].
@@ -6530,11 +6898,24 @@ impl serde::ser::Serialize for ListReplayResultsResponse {
     }
 }
 
+impl std::fmt::Debug for ListReplayResultsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReplayResultsResponse");
+        debug_struct.field("replay_results", &self.replay_results);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration used for a
 /// [Replay][google.cloud.policysimulator.v1.Replay].
 ///
 /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplayConfig {
     /// A mapping of the resources that you want to simulate policies for and the
@@ -6719,6 +7100,19 @@ impl serde::ser::Serialize for ReplayConfig {
     }
 }
 
+impl std::fmt::Debug for ReplayConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplayConfig");
+        debug_struct.field("policy_overlay", &self.policy_overlay);
+        debug_struct.field("log_source", &self.log_source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReplayConfig].
 pub mod replay_config {
     #[allow(unused_imports)]
@@ -6863,7 +7257,7 @@ pub mod replay_config {
 /// the current (baseline) policies and under the proposed (simulated) policies.
 /// This difference explains how a principal's access could change if the
 /// proposed policies were applied.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplayDiff {
     /// A summary and comparison of the principal's access under the current
@@ -7012,10 +7406,22 @@ impl serde::ser::Serialize for ReplayDiff {
     }
 }
 
+impl std::fmt::Debug for ReplayDiff {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplayDiff");
+        debug_struct.field("access_diff", &self.access_diff);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A summary and comparison of the principal's access under the current
 /// (baseline) policies and the proposed (simulated) policies for a single
 /// access tuple.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessStateDiff {
     /// The results of evaluating the access tuple under the current (baseline)
@@ -7234,6 +7640,20 @@ impl serde::ser::Serialize for AccessStateDiff {
     }
 }
 
+impl std::fmt::Debug for AccessStateDiff {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessStateDiff");
+        debug_struct.field("baseline", &self.baseline);
+        debug_struct.field("simulated", &self.simulated);
+        debug_struct.field("access_change", &self.access_change);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AccessStateDiff].
 pub mod access_state_diff {
     #[allow(unused_imports)]
@@ -7430,7 +7850,7 @@ pub mod access_state_diff {
 ///
 /// [google.cloud.policysimulator.v1.AccessState]: crate::model::AccessState
 /// [google.cloud.policysimulator.v1.ExplainedPolicy]: crate::model::ExplainedPolicy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedAccess {
     /// Whether the principal in the access tuple has permission to access the
@@ -7632,6 +8052,20 @@ impl serde::ser::Serialize for ExplainedAccess {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ExplainedAccess {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExplainedAccess");
+        debug_struct.field("access_state", &self.access_state);
+        debug_struct.field("policies", &self.policies);
+        debug_struct.field("errors", &self.errors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

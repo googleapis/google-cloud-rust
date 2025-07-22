@@ -36,7 +36,7 @@ extern crate wkt;
 
 /// A vertex represents a 2D point in the image.
 /// NOTE: the vertex coordinates are in the same scale as the original image.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Vertex {
     /// X coordinate.
@@ -225,10 +225,23 @@ impl serde::ser::Serialize for Vertex {
     }
 }
 
+impl std::fmt::Debug for Vertex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Vertex");
+        debug_struct.field("x", &self.x);
+        debug_struct.field("y", &self.y);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A vertex represents a 2D point in the image.
 /// NOTE: the normalized vertex coordinates are relative to the original image
 /// and range from 0 to 1.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedVertex {
     /// X coordinate.
@@ -417,8 +430,21 @@ impl serde::ser::Serialize for NormalizedVertex {
     }
 }
 
+impl std::fmt::Debug for NormalizedVertex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NormalizedVertex");
+        debug_struct.field("x", &self.x);
+        debug_struct.field("y", &self.y);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A bounding polygon for the detected image annotation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BoundingPoly {
     /// The bounding polygon vertices.
@@ -582,10 +608,23 @@ impl serde::ser::Serialize for BoundingPoly {
     }
 }
 
+impl std::fmt::Debug for BoundingPoly {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BoundingPoly");
+        debug_struct.field("vertices", &self.vertices);
+        debug_struct.field("normalized_vertices", &self.normalized_vertices);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A 3D position in the image, used primarily for Face detection landmarks.
 /// A valid Position must have both x and y coordinates.
 /// The position coordinates are in the same scale as the original image.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Position {
     /// X coordinate.
@@ -816,10 +855,24 @@ impl serde::ser::Serialize for Position {
     }
 }
 
+impl std::fmt::Debug for Position {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Position");
+        debug_struct.field("x", &self.x);
+        debug_struct.field("y", &self.y);
+        debug_struct.field("z", &self.z);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The type of Google Cloud Vision API detection to perform, and the maximum
 /// number of results to return for that type. Multiple `Feature` objects can
 /// be specified in the `features` list.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Feature {
     /// The feature type.
@@ -1016,6 +1069,20 @@ impl serde::ser::Serialize for Feature {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Feature {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Feature");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("model", &self.model);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -1233,7 +1300,7 @@ pub mod feature {
 }
 
 /// External image source (Google Cloud Storage or web URL image location).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageSource {
     /// **Use `image_uri` instead.**
@@ -1410,8 +1477,21 @@ impl serde::ser::Serialize for ImageSource {
     }
 }
 
+impl std::fmt::Debug for ImageSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageSource");
+        debug_struct.field("gcs_image_uri", &self.gcs_image_uri);
+        debug_struct.field("image_uri", &self.image_uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Client image to perform Google Cloud Vision API tasks over.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Image {
     /// Image content, represented as a stream of bytes.
@@ -1600,8 +1680,21 @@ impl serde::ser::Serialize for Image {
     }
 }
 
+impl std::fmt::Debug for Image {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Image");
+        debug_struct.field("content", &self.content);
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A face annotation object contains the results of face detection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FaceAnnotation {
     /// The bounding polygon around the face. The coordinates of the bounding box
@@ -2243,13 +2336,39 @@ impl serde::ser::Serialize for FaceAnnotation {
     }
 }
 
+impl std::fmt::Debug for FaceAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FaceAnnotation");
+        debug_struct.field("bounding_poly", &self.bounding_poly);
+        debug_struct.field("fd_bounding_poly", &self.fd_bounding_poly);
+        debug_struct.field("landmarks", &self.landmarks);
+        debug_struct.field("roll_angle", &self.roll_angle);
+        debug_struct.field("pan_angle", &self.pan_angle);
+        debug_struct.field("tilt_angle", &self.tilt_angle);
+        debug_struct.field("detection_confidence", &self.detection_confidence);
+        debug_struct.field("landmarking_confidence", &self.landmarking_confidence);
+        debug_struct.field("joy_likelihood", &self.joy_likelihood);
+        debug_struct.field("sorrow_likelihood", &self.sorrow_likelihood);
+        debug_struct.field("anger_likelihood", &self.anger_likelihood);
+        debug_struct.field("surprise_likelihood", &self.surprise_likelihood);
+        debug_struct.field("under_exposed_likelihood", &self.under_exposed_likelihood);
+        debug_struct.field("blurred_likelihood", &self.blurred_likelihood);
+        debug_struct.field("headwear_likelihood", &self.headwear_likelihood);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FaceAnnotation].
 pub mod face_annotation {
     #[allow(unused_imports)]
     use super::*;
 
     /// A face-specific landmark (for example, a face feature).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Landmark {
         /// Face landmark type.
@@ -2418,6 +2537,19 @@ pub mod face_annotation {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Landmark {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Landmark");
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("position", &self.position);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -2819,7 +2951,7 @@ pub mod face_annotation {
 }
 
 /// Detected entity location information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationInfo {
     /// lat/long location coordinates.
@@ -2960,8 +3092,20 @@ impl serde::ser::Serialize for LocationInfo {
     }
 }
 
+impl std::fmt::Debug for LocationInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationInfo");
+        debug_struct.field("lat_lng", &self.lat_lng);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A `Property` consists of a user-supplied name/value pair.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Property {
     /// Name of the property.
@@ -3157,8 +3301,22 @@ impl serde::ser::Serialize for Property {
     }
 }
 
+impl std::fmt::Debug for Property {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Property");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("value", &self.value);
+        debug_struct.field("uint64_value", &self.uint64_value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Set of detected entity features.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityAnnotation {
     /// Opaque entity ID. Some IDs may be available in
@@ -3570,8 +3728,28 @@ impl serde::ser::Serialize for EntityAnnotation {
     }
 }
 
+impl std::fmt::Debug for EntityAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityAnnotation");
+        debug_struct.field("mid", &self.mid);
+        debug_struct.field("locale", &self.locale);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("score", &self.score);
+        debug_struct.field("confidence", &self.confidence);
+        debug_struct.field("topicality", &self.topicality);
+        debug_struct.field("bounding_poly", &self.bounding_poly);
+        debug_struct.field("locations", &self.locations);
+        debug_struct.field("properties", &self.properties);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Set of detected objects with bounding boxes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocalizedObjectAnnotation {
     /// Object ID that should align with EntityAnnotation mid.
@@ -3829,10 +4007,26 @@ impl serde::ser::Serialize for LocalizedObjectAnnotation {
     }
 }
 
+impl std::fmt::Debug for LocalizedObjectAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocalizedObjectAnnotation");
+        debug_struct.field("mid", &self.mid);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("score", &self.score);
+        debug_struct.field("bounding_poly", &self.bounding_poly);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Set of features pertaining to the image, computed by computer vision
 /// methods over safe-search verticals (for example, adult, spoof, medical,
 /// violence).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SafeSearchAnnotation {
     /// Represents the adult content likelihood for the image. Adult content may
@@ -4066,8 +4260,24 @@ impl serde::ser::Serialize for SafeSearchAnnotation {
     }
 }
 
+impl std::fmt::Debug for SafeSearchAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SafeSearchAnnotation");
+        debug_struct.field("adult", &self.adult);
+        debug_struct.field("spoof", &self.spoof);
+        debug_struct.field("medical", &self.medical);
+        debug_struct.field("violence", &self.violence);
+        debug_struct.field("racy", &self.racy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Rectangle determined by min and max `LatLng` pairs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LatLongRect {
     /// Min lat/long pair.
@@ -4244,9 +4454,22 @@ impl serde::ser::Serialize for LatLongRect {
     }
 }
 
+impl std::fmt::Debug for LatLongRect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LatLongRect");
+        debug_struct.field("min_lat_lng", &self.min_lat_lng);
+        debug_struct.field("max_lat_lng", &self.max_lat_lng);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Color information consists of RGB channels, score, and the fraction of
 /// the image that the color occupies in the image.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ColorInfo {
     /// RGB components of the color.
@@ -4473,8 +4696,22 @@ impl serde::ser::Serialize for ColorInfo {
     }
 }
 
+impl std::fmt::Debug for ColorInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColorInfo");
+        debug_struct.field("color", &self.color);
+        debug_struct.field("score", &self.score);
+        debug_struct.field("pixel_fraction", &self.pixel_fraction);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Set of dominant colors and their corresponding scores.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DominantColorsAnnotation {
     /// RGB color values with their score and pixel fraction.
@@ -4606,8 +4843,20 @@ impl serde::ser::Serialize for DominantColorsAnnotation {
     }
 }
 
+impl std::fmt::Debug for DominantColorsAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DominantColorsAnnotation");
+        debug_struct.field("colors", &self.colors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Stores image properties, such as dominant colors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageProperties {
     /// If present, dominant colors completed successfully.
@@ -4748,8 +4997,20 @@ impl serde::ser::Serialize for ImageProperties {
     }
 }
 
+impl std::fmt::Debug for ImageProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageProperties");
+        debug_struct.field("dominant_colors", &self.dominant_colors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Single crop hint that is used to generate a new crop when serving an image.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CropHint {
     /// The bounding polygon for the crop region. The coordinates of the bounding
@@ -4978,8 +5239,22 @@ impl serde::ser::Serialize for CropHint {
     }
 }
 
+impl std::fmt::Debug for CropHint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CropHint");
+        debug_struct.field("bounding_poly", &self.bounding_poly);
+        debug_struct.field("confidence", &self.confidence);
+        debug_struct.field("importance_fraction", &self.importance_fraction);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Set of crop hints that are used to generate new crops when serving images.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CropHintsAnnotation {
     /// Crop hint results.
@@ -5112,8 +5387,20 @@ impl serde::ser::Serialize for CropHintsAnnotation {
     }
 }
 
+impl std::fmt::Debug for CropHintsAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CropHintsAnnotation");
+        debug_struct.field("crop_hints", &self.crop_hints);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parameters for crop hints annotation request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CropHintsParams {
     /// Aspect ratios in floats, representing the ratio of the width to the height
@@ -5277,8 +5564,20 @@ impl serde::ser::Serialize for CropHintsParams {
     }
 }
 
+impl std::fmt::Debug for CropHintsParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CropHintsParams");
+        debug_struct.field("aspect_ratios", &self.aspect_ratios);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parameters for web detection request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WebDetectionParams {
     /// This field has no effect on results.
@@ -5410,9 +5709,21 @@ impl serde::ser::Serialize for WebDetectionParams {
     }
 }
 
+impl std::fmt::Debug for WebDetectionParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WebDetectionParams");
+        debug_struct.field("include_geo_results", &self.include_geo_results);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parameters for text detections. This is used to control TEXT_DETECTION and
 /// DOCUMENT_TEXT_DETECTION features.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextDetectionParams {
     /// By default, Cloud Vision API only includes confidence score for
@@ -5589,8 +5900,24 @@ impl serde::ser::Serialize for TextDetectionParams {
     }
 }
 
+impl std::fmt::Debug for TextDetectionParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextDetectionParams");
+        debug_struct.field(
+            "enable_text_detection_confidence_score",
+            &self.enable_text_detection_confidence_score,
+        );
+        debug_struct.field("advanced_ocr_options", &self.advanced_ocr_options);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Image context and/or feature-specific parameters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageContext {
     /// Not used.
@@ -5911,9 +6238,26 @@ impl serde::ser::Serialize for ImageContext {
     }
 }
 
+impl std::fmt::Debug for ImageContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageContext");
+        debug_struct.field("lat_long_rect", &self.lat_long_rect);
+        debug_struct.field("language_hints", &self.language_hints);
+        debug_struct.field("crop_hints_params", &self.crop_hints_params);
+        debug_struct.field("product_search_params", &self.product_search_params);
+        debug_struct.field("web_detection_params", &self.web_detection_params);
+        debug_struct.field("text_detection_params", &self.text_detection_params);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for performing Google Cloud Vision API tasks over a user-provided
 /// image, with user-requested features, and with context information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateImageRequest {
     /// The image to be processed.
@@ -6116,9 +6460,23 @@ impl serde::ser::Serialize for AnnotateImageRequest {
     }
 }
 
+impl std::fmt::Debug for AnnotateImageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnnotateImageRequest");
+        debug_struct.field("image", &self.image);
+        debug_struct.field("features", &self.features);
+        debug_struct.field("image_context", &self.image_context);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// If an image was produced from a file (e.g. a PDF), this message gives
 /// information about the source of that image.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageAnnotationContext {
     /// The URI of the file used to produce the image.
@@ -6291,8 +6649,21 @@ impl serde::ser::Serialize for ImageAnnotationContext {
     }
 }
 
+impl std::fmt::Debug for ImageAnnotationContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageAnnotationContext");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("page_number", &self.page_number);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to an image annotation request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateImageResponse {
     /// If present, face detection has completed successfully.
@@ -6898,8 +7269,39 @@ impl serde::ser::Serialize for AnnotateImageResponse {
     }
 }
 
+impl std::fmt::Debug for AnnotateImageResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnnotateImageResponse");
+        debug_struct.field("face_annotations", &self.face_annotations);
+        debug_struct.field("landmark_annotations", &self.landmark_annotations);
+        debug_struct.field("logo_annotations", &self.logo_annotations);
+        debug_struct.field("label_annotations", &self.label_annotations);
+        debug_struct.field(
+            "localized_object_annotations",
+            &self.localized_object_annotations,
+        );
+        debug_struct.field("text_annotations", &self.text_annotations);
+        debug_struct.field("full_text_annotation", &self.full_text_annotation);
+        debug_struct.field("safe_search_annotation", &self.safe_search_annotation);
+        debug_struct.field(
+            "image_properties_annotation",
+            &self.image_properties_annotation,
+        );
+        debug_struct.field("crop_hints_annotation", &self.crop_hints_annotation);
+        debug_struct.field("web_detection", &self.web_detection);
+        debug_struct.field("product_search_results", &self.product_search_results);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("context", &self.context);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Multiple image annotation requests are batched into a single service call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchAnnotateImagesRequest {
     /// Required. Individual image annotation requests for this batch.
@@ -7110,8 +7512,22 @@ impl serde::ser::Serialize for BatchAnnotateImagesRequest {
     }
 }
 
+impl std::fmt::Debug for BatchAnnotateImagesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchAnnotateImagesRequest");
+        debug_struct.field("requests", &self.requests);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to a batch image annotation request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchAnnotateImagesResponse {
     /// Individual responses to image annotation requests within the batch.
@@ -7247,8 +7663,20 @@ impl serde::ser::Serialize for BatchAnnotateImagesResponse {
     }
 }
 
+impl std::fmt::Debug for BatchAnnotateImagesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchAnnotateImagesResponse");
+        debug_struct.field("responses", &self.responses);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to annotate one single file, e.g. a PDF, TIFF or GIF file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateFileRequest {
     /// Required. Information about the input file.
@@ -7517,9 +7945,24 @@ impl serde::ser::Serialize for AnnotateFileRequest {
     }
 }
 
+impl std::fmt::Debug for AnnotateFileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnnotateFileRequest");
+        debug_struct.field("input_config", &self.input_config);
+        debug_struct.field("features", &self.features);
+        debug_struct.field("image_context", &self.image_context);
+        debug_struct.field("pages", &self.pages);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to a single file annotation request. A file may contain one or more
 /// images, which individually have their own responses.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateFileResponse {
     /// Information about the file for which this response is generated.
@@ -7771,8 +8214,23 @@ impl serde::ser::Serialize for AnnotateFileResponse {
     }
 }
 
+impl std::fmt::Debug for AnnotateFileResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnnotateFileResponse");
+        debug_struct.field("input_config", &self.input_config);
+        debug_struct.field("responses", &self.responses);
+        debug_struct.field("total_pages", &self.total_pages);
+        debug_struct.field("error", &self.error);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A list of requests to annotate files using the BatchAnnotateFiles API.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchAnnotateFilesRequest {
     /// Required. The list of file annotation requests. Right now we support only
@@ -7984,8 +8442,22 @@ impl serde::ser::Serialize for BatchAnnotateFilesRequest {
     }
 }
 
+impl std::fmt::Debug for BatchAnnotateFilesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchAnnotateFilesRequest");
+        debug_struct.field("requests", &self.requests);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A list of file annotation responses.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchAnnotateFilesResponse {
     /// The list of file annotation responses, each response corresponding to each
@@ -8122,8 +8594,20 @@ impl serde::ser::Serialize for BatchAnnotateFilesResponse {
     }
 }
 
+impl std::fmt::Debug for BatchAnnotateFilesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchAnnotateFilesResponse");
+        debug_struct.field("responses", &self.responses);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An offline file annotation request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsyncAnnotateFileRequest {
     /// Required. Information about the input file.
@@ -8363,8 +8847,23 @@ impl serde::ser::Serialize for AsyncAnnotateFileRequest {
     }
 }
 
+impl std::fmt::Debug for AsyncAnnotateFileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncAnnotateFileRequest");
+        debug_struct.field("input_config", &self.input_config);
+        debug_struct.field("features", &self.features);
+        debug_struct.field("image_context", &self.image_context);
+        debug_struct.field("output_config", &self.output_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for a single offline file annotation request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsyncAnnotateFileResponse {
     /// The output location and metadata from AsyncAnnotateFileRequest.
@@ -8505,8 +9004,20 @@ impl serde::ser::Serialize for AsyncAnnotateFileResponse {
     }
 }
 
+impl std::fmt::Debug for AsyncAnnotateFileResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncAnnotateFileResponse");
+        debug_struct.field("output_config", &self.output_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for async image annotation for a list of images.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsyncBatchAnnotateImagesRequest {
     /// Required. Individual image annotation requests for this batch.
@@ -8753,8 +9264,23 @@ impl serde::ser::Serialize for AsyncBatchAnnotateImagesRequest {
     }
 }
 
+impl std::fmt::Debug for AsyncBatchAnnotateImagesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncBatchAnnotateImagesRequest");
+        debug_struct.field("requests", &self.requests);
+        debug_struct.field("output_config", &self.output_config);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to an async batch image annotation request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsyncBatchAnnotateImagesResponse {
     /// The output location and metadata from AsyncBatchAnnotateImagesRequest.
@@ -8895,9 +9421,21 @@ impl serde::ser::Serialize for AsyncBatchAnnotateImagesResponse {
     }
 }
 
+impl std::fmt::Debug for AsyncBatchAnnotateImagesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncBatchAnnotateImagesResponse");
+        debug_struct.field("output_config", &self.output_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Multiple async file annotation requests are batched into a single service
 /// call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsyncBatchAnnotateFilesRequest {
     /// Required. Individual async file annotation requests for this batch.
@@ -9108,8 +9646,22 @@ impl serde::ser::Serialize for AsyncBatchAnnotateFilesRequest {
     }
 }
 
+impl std::fmt::Debug for AsyncBatchAnnotateFilesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncBatchAnnotateFilesRequest");
+        debug_struct.field("requests", &self.requests);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to an async batch file annotation request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsyncBatchAnnotateFilesResponse {
     /// The list of file annotation responses, one for each request in
@@ -9246,8 +9798,20 @@ impl serde::ser::Serialize for AsyncBatchAnnotateFilesResponse {
     }
 }
 
+impl std::fmt::Debug for AsyncBatchAnnotateFilesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncBatchAnnotateFilesResponse");
+        debug_struct.field("responses", &self.responses);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The desired input location and metadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InputConfig {
     /// The Google Cloud Storage location to read the input from.
@@ -9461,8 +10025,22 @@ impl serde::ser::Serialize for InputConfig {
     }
 }
 
+impl std::fmt::Debug for InputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InputConfig");
+        debug_struct.field("gcs_source", &self.gcs_source);
+        debug_struct.field("content", &self.content);
+        debug_struct.field("mime_type", &self.mime_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The desired output location and metadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputConfig {
     /// The Google Cloud Storage location to write the output(s) to.
@@ -9657,8 +10235,21 @@ impl serde::ser::Serialize for OutputConfig {
     }
 }
 
+impl std::fmt::Debug for OutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputConfig");
+        debug_struct.field("gcs_destination", &self.gcs_destination);
+        debug_struct.field("batch_size", &self.batch_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Google Cloud Storage location where the input will be read from.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsSource {
     /// Google Cloud Storage URI for the input file. This must only be a
@@ -9788,8 +10379,20 @@ impl serde::ser::Serialize for GcsSource {
     }
 }
 
+impl std::fmt::Debug for GcsSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsSource");
+        debug_struct.field("uri", &self.uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Google Cloud Storage location where the output will be written to.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDestination {
     /// Google Cloud Storage URI prefix where the results will be stored. Results
@@ -9940,8 +10543,20 @@ impl serde::ser::Serialize for GcsDestination {
     }
 }
 
+impl std::fmt::Debug for GcsDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsDestination");
+        debug_struct.field("uri", &self.uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains metadata for the BatchAnnotateImages operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Current state of the batch operation.
@@ -10143,6 +10758,20 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
@@ -10296,7 +10925,7 @@ pub mod operation_metadata {
 }
 
 /// Parameters for a product search request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductSearchParams {
     /// The bounding polygon around the area of interest in the image.
@@ -10534,8 +11163,23 @@ impl serde::ser::Serialize for ProductSearchParams {
     }
 }
 
+impl std::fmt::Debug for ProductSearchParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProductSearchParams");
+        debug_struct.field("bounding_poly", &self.bounding_poly);
+        debug_struct.field("product_set", &self.product_set);
+        debug_struct.field("product_categories", &self.product_categories);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Results for a product search request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductSearchResults {
     /// Timestamp of the index which provided these results. Products added to the
@@ -10746,13 +11390,27 @@ impl serde::ser::Serialize for ProductSearchResults {
     }
 }
 
+impl std::fmt::Debug for ProductSearchResults {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProductSearchResults");
+        debug_struct.field("index_time", &self.index_time);
+        debug_struct.field("results", &self.results);
+        debug_struct.field("product_grouped_results", &self.product_grouped_results);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ProductSearchResults].
 pub mod product_search_results {
     #[allow(unused_imports)]
     use super::*;
 
     /// Information about a product.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Result {
         /// The Product.
@@ -10963,8 +11621,22 @@ pub mod product_search_results {
         }
     }
 
+    impl std::fmt::Debug for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Result");
+            debug_struct.field("product", &self.product);
+            debug_struct.field("score", &self.score);
+            debug_struct.field("image", &self.image);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Prediction for what the object in the bounding box is.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ObjectAnnotation {
         /// Object ID that should align with EntityAnnotation mid.
@@ -11192,9 +11864,24 @@ pub mod product_search_results {
         }
     }
 
+    impl std::fmt::Debug for ObjectAnnotation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ObjectAnnotation");
+            debug_struct.field("mid", &self.mid);
+            debug_struct.field("language_code", &self.language_code);
+            debug_struct.field("name", &self.name);
+            debug_struct.field("score", &self.score);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Information about the products similar to a single product in a query
     /// image.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GroupedResult {
         /// The bounding polygon around the product detected in the query image.
@@ -11404,10 +12091,24 @@ pub mod product_search_results {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for GroupedResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GroupedResult");
+            debug_struct.field("bounding_poly", &self.bounding_poly);
+            debug_struct.field("results", &self.results);
+            debug_struct.field("object_annotations", &self.object_annotations);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A Product contains ReferenceImages.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Product {
     /// The resource name of the product.
@@ -11668,13 +12369,29 @@ impl serde::ser::Serialize for Product {
     }
 }
 
+impl std::fmt::Debug for Product {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Product");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("product_category", &self.product_category);
+        debug_struct.field("product_labels", &self.product_labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Product].
 pub mod product {
     #[allow(unused_imports)]
     use super::*;
 
     /// A product label represented as a key-value pair.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KeyValue {
         /// The key of the label attached to the product. Cannot be empty and cannot
@@ -11831,12 +12548,25 @@ pub mod product {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for KeyValue {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("KeyValue");
+            debug_struct.field("key", &self.key);
+            debug_struct.field("value", &self.value);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A ProductSet contains Products. A ProductSet can contain a maximum of 1
 /// million reference images. If the limit is exceeded, periodic indexing will
 /// fail.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductSet {
     /// The resource name of the ProductSet.
@@ -12076,9 +12806,24 @@ impl serde::ser::Serialize for ProductSet {
     }
 }
 
+impl std::fmt::Debug for ProductSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProductSet");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("index_time", &self.index_time);
+        debug_struct.field("index_error", &self.index_error);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A `ReferenceImage` represents a product image and its associated metadata,
 /// such as bounding boxes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReferenceImage {
     /// The resource name of the reference image.
@@ -12273,8 +13018,22 @@ impl serde::ser::Serialize for ReferenceImage {
     }
 }
 
+impl std::fmt::Debug for ReferenceImage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReferenceImage");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("bounding_polys", &self.bounding_polys);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `CreateProduct` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProductRequest {
     /// Required. The project in which the Product should be created.
@@ -12469,8 +13228,22 @@ impl serde::ser::Serialize for CreateProductRequest {
     }
 }
 
+impl std::fmt::Debug for CreateProductRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateProductRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("product", &self.product);
+        debug_struct.field("product_id", &self.product_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `ListProducts` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProductsRequest {
     /// Required. The project OR ProductSet from which Products should be listed.
@@ -12670,8 +13443,22 @@ impl serde::ser::Serialize for ListProductsRequest {
     }
 }
 
+impl std::fmt::Debug for ListProductsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProductsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the `ListProducts` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProductsResponse {
     /// List of products.
@@ -12843,8 +13630,21 @@ impl serde::ser::Serialize for ListProductsResponse {
     }
 }
 
+impl std::fmt::Debug for ListProductsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProductsResponse");
+        debug_struct.field("products", &self.products);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `GetProduct` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProductRequest {
     /// Required. Resource name of the Product to get.
@@ -12976,8 +13776,20 @@ impl serde::ser::Serialize for GetProductRequest {
     }
 }
 
+impl std::fmt::Debug for GetProductRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProductRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `UpdateProduct` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProductRequest {
     /// Required. The Product resource which replaces the one on the server.
@@ -13160,8 +13972,21 @@ impl serde::ser::Serialize for UpdateProductRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateProductRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateProductRequest");
+        debug_struct.field("product", &self.product);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `DeleteProduct` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProductRequest {
     /// Required. Resource name of product to delete.
@@ -13293,8 +14118,20 @@ impl serde::ser::Serialize for DeleteProductRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteProductRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteProductRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `CreateProductSet` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProductSetRequest {
     /// Required. The project in which the ProductSet should be created.
@@ -13489,8 +14326,22 @@ impl serde::ser::Serialize for CreateProductSetRequest {
     }
 }
 
+impl std::fmt::Debug for CreateProductSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateProductSetRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("product_set", &self.product_set);
+        debug_struct.field("product_set_id", &self.product_set_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `ListProductSets` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProductSetsRequest {
     /// Required. The project from which ProductSets should be listed.
@@ -13689,8 +14540,22 @@ impl serde::ser::Serialize for ListProductSetsRequest {
     }
 }
 
+impl std::fmt::Debug for ListProductSetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProductSetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the `ListProductSets` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProductSetsResponse {
     /// List of ProductSets.
@@ -13863,8 +14728,21 @@ impl serde::ser::Serialize for ListProductSetsResponse {
     }
 }
 
+impl std::fmt::Debug for ListProductSetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProductSetsResponse");
+        debug_struct.field("product_sets", &self.product_sets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `GetProductSet` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProductSetRequest {
     /// Required. Resource name of the ProductSet to get.
@@ -13996,8 +14874,20 @@ impl serde::ser::Serialize for GetProductSetRequest {
     }
 }
 
+impl std::fmt::Debug for GetProductSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProductSetRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `UpdateProductSet` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProductSetRequest {
     /// Required. The ProductSet resource which replaces the one on the server.
@@ -14179,8 +15069,21 @@ impl serde::ser::Serialize for UpdateProductSetRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateProductSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateProductSetRequest");
+        debug_struct.field("product_set", &self.product_set);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `DeleteProductSet` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProductSetRequest {
     /// Required. Resource name of the ProductSet to delete.
@@ -14312,8 +15215,20 @@ impl serde::ser::Serialize for DeleteProductSetRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteProductSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteProductSetRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `CreateReferenceImage` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReferenceImageRequest {
     /// Required. Resource name of the product in which to create the reference
@@ -14515,8 +15430,22 @@ impl serde::ser::Serialize for CreateReferenceImageRequest {
     }
 }
 
+impl std::fmt::Debug for CreateReferenceImageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateReferenceImageRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("reference_image", &self.reference_image);
+        debug_struct.field("reference_image_id", &self.reference_image_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `ListReferenceImages` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReferenceImagesRequest {
     /// Required. Resource name of the product containing the reference images.
@@ -14719,8 +15648,22 @@ impl serde::ser::Serialize for ListReferenceImagesRequest {
     }
 }
 
+impl std::fmt::Debug for ListReferenceImagesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReferenceImagesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the `ListReferenceImages` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReferenceImagesResponse {
     /// The list of reference images.
@@ -14939,8 +15882,22 @@ impl serde::ser::Serialize for ListReferenceImagesResponse {
     }
 }
 
+impl std::fmt::Debug for ListReferenceImagesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReferenceImagesResponse");
+        debug_struct.field("reference_images", &self.reference_images);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `GetReferenceImage` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReferenceImageRequest {
     /// Required. The resource name of the ReferenceImage to get.
@@ -15072,8 +16029,20 @@ impl serde::ser::Serialize for GetReferenceImageRequest {
     }
 }
 
+impl std::fmt::Debug for GetReferenceImageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetReferenceImageRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `DeleteReferenceImage` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteReferenceImageRequest {
     /// Required. The resource name of the reference image to delete.
@@ -15205,8 +16174,20 @@ impl serde::ser::Serialize for DeleteReferenceImageRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteReferenceImageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteReferenceImageRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `AddProductToProductSet` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddProductToProductSetRequest {
     /// Required. The resource name for the ProductSet to modify.
@@ -15365,8 +16346,21 @@ impl serde::ser::Serialize for AddProductToProductSetRequest {
     }
 }
 
+impl std::fmt::Debug for AddProductToProductSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddProductToProductSetRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("product", &self.product);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `RemoveProductFromProductSet` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveProductFromProductSetRequest {
     /// Required. The resource name for the ProductSet to modify.
@@ -15526,8 +16520,21 @@ impl serde::ser::Serialize for RemoveProductFromProductSetRequest {
     }
 }
 
+impl std::fmt::Debug for RemoveProductFromProductSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveProductFromProductSetRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("product", &self.product);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `ListProductsInProductSet` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProductsInProductSetRequest {
     /// Required. The ProductSet resource for which to retrieve Products.
@@ -15727,8 +16734,22 @@ impl serde::ser::Serialize for ListProductsInProductSetRequest {
     }
 }
 
+impl std::fmt::Debug for ListProductsInProductSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProductsInProductSetRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the `ListProductsInProductSet` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProductsInProductSetResponse {
     /// The list of Products.
@@ -15900,9 +16921,22 @@ impl serde::ser::Serialize for ListProductsInProductSetResponse {
     }
 }
 
+impl std::fmt::Debug for ListProductsInProductSetResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProductsInProductSetResponse");
+        debug_struct.field("products", &self.products);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Google Cloud Storage location for a csv file which preserves a list of
 /// ImportProductSetRequests in each line.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportProductSetsGcsSource {
     /// The Google Cloud Storage URI of the input csv file.
@@ -16100,8 +17134,20 @@ impl serde::ser::Serialize for ImportProductSetsGcsSource {
     }
 }
 
+impl std::fmt::Debug for ImportProductSetsGcsSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportProductSetsGcsSource");
+        debug_struct.field("csv_file_uri", &self.csv_file_uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The input content for the `ImportProductSets` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportProductSetsInputConfig {
     /// The source of the input.
@@ -16283,6 +17329,18 @@ impl serde::ser::Serialize for ImportProductSetsInputConfig {
     }
 }
 
+impl std::fmt::Debug for ImportProductSetsInputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportProductSetsInputConfig");
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportProductSetsInputConfig].
 pub mod import_product_sets_input_config {
     #[allow(unused_imports)]
@@ -16299,7 +17357,7 @@ pub mod import_product_sets_input_config {
 }
 
 /// Request message for the `ImportProductSets` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportProductSetsRequest {
     /// Required. The project in which the ProductSets should be imported.
@@ -16466,6 +17524,19 @@ impl serde::ser::Serialize for ImportProductSetsRequest {
     }
 }
 
+impl std::fmt::Debug for ImportProductSetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportProductSetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("input_config", &self.input_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the `ImportProductSets` method.
 ///
 /// This message is returned by the
@@ -16475,7 +17546,7 @@ impl serde::ser::Serialize for ImportProductSetsRequest {
 /// field.
 ///
 /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportProductSetsResponse {
     /// The list of reference_images that are imported successfully.
@@ -16644,11 +17715,24 @@ impl serde::ser::Serialize for ImportProductSetsResponse {
     }
 }
 
+impl std::fmt::Debug for ImportProductSetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportProductSetsResponse");
+        debug_struct.field("reference_images", &self.reference_images);
+        debug_struct.field("statuses", &self.statuses);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for the batch operations such as the current state.
 ///
 /// This is included in the `metadata` field of the `Operation` returned by the
 /// `GetOperation` call of the `google::longrunning::Operations` service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchOperationMetadata {
     /// The current state of the batch operation.
@@ -16858,6 +17942,20 @@ impl serde::ser::Serialize for BatchOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for BatchOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchOperationMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("submit_time", &self.submit_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchOperationMetadata].
 pub mod batch_operation_metadata {
     #[allow(unused_imports)]
@@ -17014,7 +18112,7 @@ pub mod batch_operation_metadata {
 }
 
 /// Config to control which ProductSet contains the Products to be deleted.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductSetPurgeConfig {
     /// The ProductSet that contains the Products to delete. If a Product is a
@@ -17146,8 +18244,20 @@ impl serde::ser::Serialize for ProductSetPurgeConfig {
     }
 }
 
+impl std::fmt::Debug for ProductSetPurgeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProductSetPurgeConfig");
+        debug_struct.field("product_set_id", &self.product_set_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the `PurgeProducts` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeProductsRequest {
     /// Required. The project and location in which the Products should be deleted.
@@ -17429,6 +18539,20 @@ impl serde::ser::Serialize for PurgeProductsRequest {
     }
 }
 
+impl std::fmt::Debug for PurgeProductsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PurgeProductsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("force", &self.force);
+        debug_struct.field("target", &self.target);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PurgeProductsRequest].
 pub mod purge_products_request {
     #[allow(unused_imports)]
@@ -17456,7 +18580,7 @@ pub mod purge_products_request {
 /// message definition below for more detail.
 ///
 /// [google.cloud.vision.v1.TextAnnotation.TextProperty]: crate::model::text_annotation::TextProperty
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextAnnotation {
     /// List of pages detected by OCR.
@@ -17612,13 +18736,26 @@ impl serde::ser::Serialize for TextAnnotation {
     }
 }
 
+impl std::fmt::Debug for TextAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextAnnotation");
+        debug_struct.field("pages", &self.pages);
+        debug_struct.field("text", &self.text);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TextAnnotation].
 pub mod text_annotation {
     #[allow(unused_imports)]
     use super::*;
 
     /// Detected language for a structural component.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DetectedLanguage {
         /// The BCP-47 language code, such as "en-US" or "sr-Latn". For more
@@ -17799,8 +18936,21 @@ pub mod text_annotation {
         }
     }
 
+    impl std::fmt::Debug for DetectedLanguage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DetectedLanguage");
+            debug_struct.field("language_code", &self.language_code);
+            debug_struct.field("confidence", &self.confidence);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Detected start or end of a structural component.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DetectedBreak {
         /// Detected break type.
@@ -17961,6 +19111,19 @@ pub mod text_annotation {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for DetectedBreak {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DetectedBreak");
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("is_prefix", &self.is_prefix);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -18128,7 +19291,7 @@ pub mod text_annotation {
     }
 
     /// Additional information detected on the structural component.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextProperty {
         /// A list of detected languages together with confidence.
@@ -18306,10 +19469,23 @@ pub mod text_annotation {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for TextProperty {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TextProperty");
+            debug_struct.field("detected_languages", &self.detected_languages);
+            debug_struct.field("detected_break", &self.detected_break);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Detected page from OCR.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Page {
     /// Additional information detected on the page.
@@ -18606,8 +19782,24 @@ impl serde::ser::Serialize for Page {
     }
 }
 
+impl std::fmt::Debug for Page {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Page");
+        debug_struct.field("property", &self.property);
+        debug_struct.field("width", &self.width);
+        debug_struct.field("height", &self.height);
+        debug_struct.field("blocks", &self.blocks);
+        debug_struct.field("confidence", &self.confidence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Logical element on the page.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Block {
     /// Additional information detected for the block.
@@ -18907,6 +20099,22 @@ impl serde::ser::Serialize for Block {
     }
 }
 
+impl std::fmt::Debug for Block {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Block");
+        debug_struct.field("property", &self.property);
+        debug_struct.field("bounding_box", &self.bounding_box);
+        debug_struct.field("paragraphs", &self.paragraphs);
+        debug_struct.field("block_type", &self.block_type);
+        debug_struct.field("confidence", &self.confidence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Block].
 pub mod block {
     #[allow(unused_imports)]
@@ -19067,7 +20275,7 @@ pub mod block {
 }
 
 /// Structural unit of text representing a number of words in certain order.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Paragraph {
     /// Additional information detected for the paragraph.
@@ -19329,8 +20537,23 @@ impl serde::ser::Serialize for Paragraph {
     }
 }
 
+impl std::fmt::Debug for Paragraph {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Paragraph");
+        debug_struct.field("property", &self.property);
+        debug_struct.field("bounding_box", &self.bounding_box);
+        debug_struct.field("words", &self.words);
+        debug_struct.field("confidence", &self.confidence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A word representation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Word {
     /// Additional information detected for the word.
@@ -19593,8 +20816,23 @@ impl serde::ser::Serialize for Word {
     }
 }
 
+impl std::fmt::Debug for Word {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Word");
+        debug_struct.field("property", &self.property);
+        debug_struct.field("bounding_box", &self.bounding_box);
+        debug_struct.field("symbols", &self.symbols);
+        debug_struct.field("confidence", &self.confidence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single symbol representation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Symbol {
     /// Additional information detected for the symbol.
@@ -19853,8 +21091,23 @@ impl serde::ser::Serialize for Symbol {
     }
 }
 
+impl std::fmt::Debug for Symbol {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Symbol");
+        debug_struct.field("property", &self.property);
+        debug_struct.field("bounding_box", &self.bounding_box);
+        debug_struct.field("text", &self.text);
+        debug_struct.field("confidence", &self.confidence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Relevant information for the image from the Internet.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WebDetection {
     /// Deduced entities from similar images on the Internet.
@@ -20159,13 +21412,33 @@ impl serde::ser::Serialize for WebDetection {
     }
 }
 
+impl std::fmt::Debug for WebDetection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WebDetection");
+        debug_struct.field("web_entities", &self.web_entities);
+        debug_struct.field("full_matching_images", &self.full_matching_images);
+        debug_struct.field("partial_matching_images", &self.partial_matching_images);
+        debug_struct.field(
+            "pages_with_matching_images",
+            &self.pages_with_matching_images,
+        );
+        debug_struct.field("visually_similar_images", &self.visually_similar_images);
+        debug_struct.field("best_guess_labels", &self.best_guess_labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WebDetection].
 pub mod web_detection {
     #[allow(unused_imports)]
     use super::*;
 
     /// Entity deduced from similar images on the Internet.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WebEntity {
         /// Opaque entity ID.
@@ -20365,8 +21638,22 @@ pub mod web_detection {
         }
     }
 
+    impl std::fmt::Debug for WebEntity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("WebEntity");
+            debug_struct.field("entity_id", &self.entity_id);
+            debug_struct.field("score", &self.score);
+            debug_struct.field("description", &self.description);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Metadata for online images.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WebImage {
         /// The result image URL.
@@ -20540,8 +21827,21 @@ pub mod web_detection {
         }
     }
 
+    impl std::fmt::Debug for WebImage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("WebImage");
+            debug_struct.field("url", &self.url);
+            debug_struct.field("score", &self.score);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Metadata for web pages.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WebPage {
         /// The result web page URL.
@@ -20812,8 +22112,24 @@ pub mod web_detection {
         }
     }
 
+    impl std::fmt::Debug for WebPage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("WebPage");
+            debug_struct.field("url", &self.url);
+            debug_struct.field("score", &self.score);
+            debug_struct.field("page_title", &self.page_title);
+            debug_struct.field("full_matching_images", &self.full_matching_images);
+            debug_struct.field("partial_matching_images", &self.partial_matching_images);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Label to provide extra metadata for the web detection.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WebLabel {
         /// Label for extra metadata.
@@ -20972,6 +22288,19 @@ pub mod web_detection {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for WebLabel {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("WebLabel");
+            debug_struct.field("label", &self.label);
+            debug_struct.field("language_code", &self.language_code);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 }

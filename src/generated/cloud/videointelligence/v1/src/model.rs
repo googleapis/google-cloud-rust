@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Video annotation request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateVideoRequest {
     /// Input video location. Currently, only
@@ -342,8 +342,25 @@ impl serde::ser::Serialize for AnnotateVideoRequest {
     }
 }
 
+impl std::fmt::Debug for AnnotateVideoRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnnotateVideoRequest");
+        debug_struct.field("input_uri", &self.input_uri);
+        debug_struct.field("input_content", &self.input_content);
+        debug_struct.field("features", &self.features);
+        debug_struct.field("video_context", &self.video_context);
+        debug_struct.field("output_uri", &self.output_uri);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Video context and/or feature-specific parameters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoContext {
     /// Video segments to annotate. The segments may overlap and are not required
@@ -792,8 +809,37 @@ impl serde::ser::Serialize for VideoContext {
     }
 }
 
+impl std::fmt::Debug for VideoContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VideoContext");
+        debug_struct.field("segments", &self.segments);
+        debug_struct.field("label_detection_config", &self.label_detection_config);
+        debug_struct.field(
+            "shot_change_detection_config",
+            &self.shot_change_detection_config,
+        );
+        debug_struct.field(
+            "explicit_content_detection_config",
+            &self.explicit_content_detection_config,
+        );
+        debug_struct.field("face_detection_config", &self.face_detection_config);
+        debug_struct.field(
+            "speech_transcription_config",
+            &self.speech_transcription_config,
+        );
+        debug_struct.field("text_detection_config", &self.text_detection_config);
+        debug_struct.field("person_detection_config", &self.person_detection_config);
+        debug_struct.field("object_tracking_config", &self.object_tracking_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Config for LABEL_DETECTION.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelDetectionConfig {
     /// What labels should be detected with LABEL_DETECTION, in addition to
@@ -1091,8 +1137,30 @@ impl serde::ser::Serialize for LabelDetectionConfig {
     }
 }
 
+impl std::fmt::Debug for LabelDetectionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LabelDetectionConfig");
+        debug_struct.field("label_detection_mode", &self.label_detection_mode);
+        debug_struct.field("stationary_camera", &self.stationary_camera);
+        debug_struct.field("model", &self.model);
+        debug_struct.field(
+            "frame_confidence_threshold",
+            &self.frame_confidence_threshold,
+        );
+        debug_struct.field(
+            "video_confidence_threshold",
+            &self.video_confidence_threshold,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Config for SHOT_CHANGE_DETECTION.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShotChangeDetectionConfig {
     /// Model to use for shot change detection.
@@ -1223,8 +1291,20 @@ impl serde::ser::Serialize for ShotChangeDetectionConfig {
     }
 }
 
+impl std::fmt::Debug for ShotChangeDetectionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShotChangeDetectionConfig");
+        debug_struct.field("model", &self.model);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Config for OBJECT_TRACKING.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectTrackingConfig {
     /// Model to use for object tracking.
@@ -1355,8 +1435,20 @@ impl serde::ser::Serialize for ObjectTrackingConfig {
     }
 }
 
+impl std::fmt::Debug for ObjectTrackingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectTrackingConfig");
+        debug_struct.field("model", &self.model);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Config for FACE_DETECTION.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FaceDetectionConfig {
     /// Model to use for face detection.
@@ -1538,8 +1630,22 @@ impl serde::ser::Serialize for FaceDetectionConfig {
     }
 }
 
+impl std::fmt::Debug for FaceDetectionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FaceDetectionConfig");
+        debug_struct.field("model", &self.model);
+        debug_struct.field("include_bounding_boxes", &self.include_bounding_boxes);
+        debug_struct.field("include_attributes", &self.include_attributes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Config for PERSON_DETECTION.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PersonDetectionConfig {
     /// Whether bounding boxes are included in the person detection annotation
@@ -1724,8 +1830,22 @@ impl serde::ser::Serialize for PersonDetectionConfig {
     }
 }
 
+impl std::fmt::Debug for PersonDetectionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PersonDetectionConfig");
+        debug_struct.field("include_bounding_boxes", &self.include_bounding_boxes);
+        debug_struct.field("include_pose_landmarks", &self.include_pose_landmarks);
+        debug_struct.field("include_attributes", &self.include_attributes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Config for EXPLICIT_CONTENT_DETECTION.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplicitContentDetectionConfig {
     /// Model to use for explicit content detection.
@@ -1856,8 +1976,20 @@ impl serde::ser::Serialize for ExplicitContentDetectionConfig {
     }
 }
 
+impl std::fmt::Debug for ExplicitContentDetectionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExplicitContentDetectionConfig");
+        debug_struct.field("model", &self.model);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Config for TEXT_DETECTION.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextDetectionConfig {
     /// Language hint can be specified if the language to be detected is known a
@@ -2020,8 +2152,21 @@ impl serde::ser::Serialize for TextDetectionConfig {
     }
 }
 
+impl std::fmt::Debug for TextDetectionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextDetectionConfig");
+        debug_struct.field("language_hints", &self.language_hints);
+        debug_struct.field("model", &self.model);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Video segment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoSegment {
     /// Time-offset, relative to the beginning of the video,
@@ -2200,8 +2345,21 @@ impl serde::ser::Serialize for VideoSegment {
     }
 }
 
+impl std::fmt::Debug for VideoSegment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VideoSegment");
+        debug_struct.field("start_time_offset", &self.start_time_offset);
+        debug_struct.field("end_time_offset", &self.end_time_offset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Video segment level annotation results for label detection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelSegment {
     /// Video segment where a label was detected.
@@ -2383,8 +2541,21 @@ impl serde::ser::Serialize for LabelSegment {
     }
 }
 
+impl std::fmt::Debug for LabelSegment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LabelSegment");
+        debug_struct.field("segment", &self.segment);
+        debug_struct.field("confidence", &self.confidence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Video frame level annotation results for label detection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelFrame {
     /// Time-offset, relative to the beginning of the video, corresponding to the
@@ -2568,8 +2739,21 @@ impl serde::ser::Serialize for LabelFrame {
     }
 }
 
+impl std::fmt::Debug for LabelFrame {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LabelFrame");
+        debug_struct.field("time_offset", &self.time_offset);
+        debug_struct.field("confidence", &self.confidence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Detected entity from video analysis.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Entity {
     /// Opaque entity ID. Some IDs may be available in
@@ -2750,8 +2934,22 @@ impl serde::ser::Serialize for Entity {
     }
 }
 
+impl std::fmt::Debug for Entity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Entity");
+        debug_struct.field("entity_id", &self.entity_id);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("language_code", &self.language_code);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Label annotation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelAnnotation {
     /// Detected entity.
@@ -3000,8 +3198,24 @@ impl serde::ser::Serialize for LabelAnnotation {
     }
 }
 
+impl std::fmt::Debug for LabelAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LabelAnnotation");
+        debug_struct.field("entity", &self.entity);
+        debug_struct.field("category_entities", &self.category_entities);
+        debug_struct.field("segments", &self.segments);
+        debug_struct.field("frames", &self.frames);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Video frame level annotation results for explicit content.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplicitContentFrame {
     /// Time-offset, relative to the beginning of the video, corresponding to the
@@ -3171,10 +3385,23 @@ impl serde::ser::Serialize for ExplicitContentFrame {
     }
 }
 
+impl std::fmt::Debug for ExplicitContentFrame {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExplicitContentFrame");
+        debug_struct.field("time_offset", &self.time_offset);
+        debug_struct.field("pornography_likelihood", &self.pornography_likelihood);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Explicit content annotation (based on per-frame visual signals only).
 /// If no explicit content has been detected in a frame, no annotations are
 /// present for that frame.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplicitContentAnnotation {
     /// All video frames where explicit content was detected.
@@ -3334,10 +3561,23 @@ impl serde::ser::Serialize for ExplicitContentAnnotation {
     }
 }
 
+impl std::fmt::Debug for ExplicitContentAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExplicitContentAnnotation");
+        debug_struct.field("frames", &self.frames);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Normalized bounding box.
 /// The normalized vertex coordinates are relative to the original image.
 /// Range: [0, 1].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedBoundingBox {
     /// Left X coordinate.
@@ -3610,8 +3850,23 @@ impl serde::ser::Serialize for NormalizedBoundingBox {
     }
 }
 
+impl std::fmt::Debug for NormalizedBoundingBox {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NormalizedBoundingBox");
+        debug_struct.field("left", &self.left);
+        debug_struct.field("top", &self.top);
+        debug_struct.field("right", &self.right);
+        debug_struct.field("bottom", &self.bottom);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Face detection annotation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FaceDetectionAnnotation {
     /// The face tracks with attributes.
@@ -3809,8 +4064,22 @@ impl serde::ser::Serialize for FaceDetectionAnnotation {
     }
 }
 
+impl std::fmt::Debug for FaceDetectionAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FaceDetectionAnnotation");
+        debug_struct.field("tracks", &self.tracks);
+        debug_struct.field("thumbnail", &self.thumbnail);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Person detection annotation per video.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PersonDetectionAnnotation {
     /// The detected tracks of a person.
@@ -3966,8 +4235,21 @@ impl serde::ser::Serialize for PersonDetectionAnnotation {
     }
 }
 
+impl std::fmt::Debug for PersonDetectionAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PersonDetectionAnnotation");
+        debug_struct.field("tracks", &self.tracks);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Video segment level annotation results for face detection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FaceSegment {
     /// Video segment where a face was detected.
@@ -4107,8 +4389,20 @@ impl serde::ser::Serialize for FaceSegment {
     }
 }
 
+impl std::fmt::Debug for FaceSegment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FaceSegment");
+        debug_struct.field("segment", &self.segment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Deprecated. No effect.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct FaceFrame {
@@ -4289,8 +4583,21 @@ impl serde::ser::Serialize for FaceFrame {
     }
 }
 
+impl std::fmt::Debug for FaceFrame {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FaceFrame");
+        debug_struct.field("normalized_bounding_boxes", &self.normalized_bounding_boxes);
+        debug_struct.field("time_offset", &self.time_offset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Deprecated. No effect.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct FaceAnnotation {
@@ -4492,10 +4799,24 @@ impl serde::ser::Serialize for FaceAnnotation {
     }
 }
 
+impl std::fmt::Debug for FaceAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FaceAnnotation");
+        debug_struct.field("thumbnail", &self.thumbnail);
+        debug_struct.field("segments", &self.segments);
+        debug_struct.field("frames", &self.frames);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For tracking related features.
 /// An object at time_offset with attributes, and located with
 /// normalized_bounding_box.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimestampedObject {
     /// Normalized Bounding box in a frame, where the object is located.
@@ -4735,8 +5056,23 @@ impl serde::ser::Serialize for TimestampedObject {
     }
 }
 
+impl std::fmt::Debug for TimestampedObject {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimestampedObject");
+        debug_struct.field("normalized_bounding_box", &self.normalized_bounding_box);
+        debug_struct.field("time_offset", &self.time_offset);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("landmarks", &self.landmarks);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A track of an object instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Track {
     /// Video segment of a track.
@@ -4981,8 +5317,23 @@ impl serde::ser::Serialize for Track {
     }
 }
 
+impl std::fmt::Debug for Track {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Track");
+        debug_struct.field("segment", &self.segment);
+        debug_struct.field("timestamped_objects", &self.timestamped_objects);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("confidence", &self.confidence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A generic detected attribute represented by name in string format.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectedAttribute {
     /// The name of the attribute, for example, glasses, dark_glasses, mouth_open.
@@ -5179,9 +5530,23 @@ impl serde::ser::Serialize for DetectedAttribute {
     }
 }
 
+impl std::fmt::Debug for DetectedAttribute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetectedAttribute");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("confidence", &self.confidence);
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A generic detected landmark represented by name in string format and a 2D
 /// location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectedLandmark {
     /// The name of this landmark, for example, left_hand, right_shoulder.
@@ -5389,8 +5754,22 @@ impl serde::ser::Serialize for DetectedLandmark {
     }
 }
 
+impl std::fmt::Debug for DetectedLandmark {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetectedLandmark");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("point", &self.point);
+        debug_struct.field("confidence", &self.confidence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Annotation results for a single video.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoAnnotationResults {
     /// Video file location in
@@ -6092,10 +6471,53 @@ impl serde::ser::Serialize for VideoAnnotationResults {
     }
 }
 
+impl std::fmt::Debug for VideoAnnotationResults {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VideoAnnotationResults");
+        debug_struct.field("input_uri", &self.input_uri);
+        debug_struct.field("segment", &self.segment);
+        debug_struct.field("segment_label_annotations", &self.segment_label_annotations);
+        debug_struct.field(
+            "segment_presence_label_annotations",
+            &self.segment_presence_label_annotations,
+        );
+        debug_struct.field("shot_label_annotations", &self.shot_label_annotations);
+        debug_struct.field(
+            "shot_presence_label_annotations",
+            &self.shot_presence_label_annotations,
+        );
+        debug_struct.field("frame_label_annotations", &self.frame_label_annotations);
+        debug_struct.field("face_annotations", &self.face_annotations);
+        debug_struct.field(
+            "face_detection_annotations",
+            &self.face_detection_annotations,
+        );
+        debug_struct.field("shot_annotations", &self.shot_annotations);
+        debug_struct.field("explicit_annotation", &self.explicit_annotation);
+        debug_struct.field("speech_transcriptions", &self.speech_transcriptions);
+        debug_struct.field("text_annotations", &self.text_annotations);
+        debug_struct.field("object_annotations", &self.object_annotations);
+        debug_struct.field(
+            "logo_recognition_annotations",
+            &self.logo_recognition_annotations,
+        );
+        debug_struct.field(
+            "person_detection_annotations",
+            &self.person_detection_annotations,
+        );
+        debug_struct.field("error", &self.error);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Video annotation response. Included in the `response`
 /// field of the `Operation` returned by the `GetOperation`
 /// call of the `google::longrunning::Operations` service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateVideoResponse {
     /// Annotation results for all videos specified in `AnnotateVideoRequest`.
@@ -6232,8 +6654,20 @@ impl serde::ser::Serialize for AnnotateVideoResponse {
     }
 }
 
+impl std::fmt::Debug for AnnotateVideoResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnnotateVideoResponse");
+        debug_struct.field("annotation_results", &self.annotation_results);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Annotation progress for a single video.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoAnnotationProgress {
     /// Video file location in
@@ -6542,10 +6976,27 @@ impl serde::ser::Serialize for VideoAnnotationProgress {
     }
 }
 
+impl std::fmt::Debug for VideoAnnotationProgress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VideoAnnotationProgress");
+        debug_struct.field("input_uri", &self.input_uri);
+        debug_struct.field("progress_percent", &self.progress_percent);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("feature", &self.feature);
+        debug_struct.field("segment", &self.segment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Video annotation progress. Included in the `metadata`
 /// field of the `Operation` returned by the `GetOperation`
 /// call of the `google::longrunning::Operations` service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateVideoProgress {
     /// Progress metadata for all videos specified in `AnnotateVideoRequest`.
@@ -6682,8 +7133,20 @@ impl serde::ser::Serialize for AnnotateVideoProgress {
     }
 }
 
+impl std::fmt::Debug for AnnotateVideoProgress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnnotateVideoProgress");
+        debug_struct.field("annotation_progress", &self.annotation_progress);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Config for SPEECH_TRANSCRIPTION.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechTranscriptionConfig {
     /// Required. *Required* The language of the supplied audio as a
@@ -7127,9 +7590,35 @@ impl serde::ser::Serialize for SpeechTranscriptionConfig {
     }
 }
 
+impl std::fmt::Debug for SpeechTranscriptionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeechTranscriptionConfig");
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("max_alternatives", &self.max_alternatives);
+        debug_struct.field("filter_profanity", &self.filter_profanity);
+        debug_struct.field("speech_contexts", &self.speech_contexts);
+        debug_struct.field(
+            "enable_automatic_punctuation",
+            &self.enable_automatic_punctuation,
+        );
+        debug_struct.field("audio_tracks", &self.audio_tracks);
+        debug_struct.field(
+            "enable_speaker_diarization",
+            &self.enable_speaker_diarization,
+        );
+        debug_struct.field("diarization_speaker_count", &self.diarization_speaker_count);
+        debug_struct.field("enable_word_confidence", &self.enable_word_confidence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Provides "hints" to the speech recognizer to favor specific words and phrases
 /// in the results.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechContext {
     /// Optional. A list of strings containing words and phrases "hints" so that
@@ -7266,8 +7755,20 @@ impl serde::ser::Serialize for SpeechContext {
     }
 }
 
+impl std::fmt::Debug for SpeechContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeechContext");
+        debug_struct.field("phrases", &self.phrases);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A speech recognition result corresponding to a portion of the audio.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechTranscription {
     /// May contain one or more recognition hypotheses (up to the maximum specified
@@ -7433,8 +7934,21 @@ impl serde::ser::Serialize for SpeechTranscription {
     }
 }
 
+impl std::fmt::Debug for SpeechTranscription {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeechTranscription");
+        debug_struct.field("alternatives", &self.alternatives);
+        debug_struct.field("language_code", &self.language_code);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Alternative hypotheses (a.k.a. n-best list).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechRecognitionAlternative {
     /// Transcript text representing the words that the user spoke.
@@ -7639,10 +8153,24 @@ impl serde::ser::Serialize for SpeechRecognitionAlternative {
     }
 }
 
+impl std::fmt::Debug for SpeechRecognitionAlternative {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeechRecognitionAlternative");
+        debug_struct.field("transcript", &self.transcript);
+        debug_struct.field("confidence", &self.confidence);
+        debug_struct.field("words", &self.words);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Word-specific information for recognized words. Word information is only
 /// included in the response when certain request parameters are set, such
 /// as `enable_word_time_offsets`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WordInfo {
     /// Time offset relative to the beginning of the audio, and
@@ -7942,10 +8470,26 @@ impl serde::ser::Serialize for WordInfo {
     }
 }
 
+impl std::fmt::Debug for WordInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WordInfo");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("word", &self.word);
+        debug_struct.field("confidence", &self.confidence);
+        debug_struct.field("speaker_tag", &self.speaker_tag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A vertex represents a 2D point in the image.
 /// NOTE: the normalized vertex coordinates are relative to the original image
 /// and range from 0 to 1.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedVertex {
     /// X coordinate.
@@ -8134,6 +8678,19 @@ impl serde::ser::Serialize for NormalizedVertex {
     }
 }
 
+impl std::fmt::Debug for NormalizedVertex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NormalizedVertex");
+        debug_struct.field("x", &self.x);
+        debug_struct.field("y", &self.y);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Normalized bounding polygon for text (that might not be aligned with axis).
 /// Contains list of the corner points in clockwise order starting from
 /// top-left corner. For example, for a rectangular bounding box:
@@ -8151,7 +8708,7 @@ impl serde::ser::Serialize for NormalizedVertex {
 /// and the vertex order will still be (0, 1, 2, 3). Note that values can be less
 /// than 0, or greater than 1 due to trignometric calculations for location of
 /// the box.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedBoundingPoly {
     /// Normalized vertices of the bounding polygon.
@@ -8287,8 +8844,20 @@ impl serde::ser::Serialize for NormalizedBoundingPoly {
     }
 }
 
+impl std::fmt::Debug for NormalizedBoundingPoly {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NormalizedBoundingPoly");
+        debug_struct.field("vertices", &self.vertices);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Video segment level annotation results for text detection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextSegment {
     /// Video segment where a text snippet was detected.
@@ -8498,10 +9067,24 @@ impl serde::ser::Serialize for TextSegment {
     }
 }
 
+impl std::fmt::Debug for TextSegment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextSegment");
+        debug_struct.field("segment", &self.segment);
+        debug_struct.field("confidence", &self.confidence);
+        debug_struct.field("frames", &self.frames);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Video frame level annotation results for text annotation (OCR).
 /// Contains information regarding timestamp and bounding box locations for the
 /// frames containing detected OCR text snippets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextFrame {
     /// Bounding polygon of the detected text for this frame.
@@ -8678,10 +9261,23 @@ impl serde::ser::Serialize for TextFrame {
     }
 }
 
+impl std::fmt::Debug for TextFrame {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextFrame");
+        debug_struct.field("rotated_bounding_box", &self.rotated_bounding_box);
+        debug_struct.field("time_offset", &self.time_offset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Annotations related to one detected OCR text snippet. This will contain the
 /// corresponding text, confidence value, and frame level information for each
 /// detection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextAnnotation {
     /// The detected text.
@@ -8861,9 +9457,23 @@ impl serde::ser::Serialize for TextAnnotation {
     }
 }
 
+impl std::fmt::Debug for TextAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextAnnotation");
+        debug_struct.field("text", &self.text);
+        debug_struct.field("segments", &self.segments);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Video frame level annotations for object detection and tracking. This field
 /// stores per frame location, time offset, and confidence.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectTrackingFrame {
     /// The normalized bounding box location of this object track for the frame.
@@ -9040,8 +9650,21 @@ impl serde::ser::Serialize for ObjectTrackingFrame {
     }
 }
 
+impl std::fmt::Debug for ObjectTrackingFrame {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectTrackingFrame");
+        debug_struct.field("normalized_bounding_box", &self.normalized_bounding_box);
+        debug_struct.field("time_offset", &self.time_offset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Annotations corresponding to one tracked object.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectTrackingAnnotation {
     /// Entity to specify the object category that this track is labeled as.
@@ -9422,6 +10045,22 @@ impl serde::ser::Serialize for ObjectTrackingAnnotation {
     }
 }
 
+impl std::fmt::Debug for ObjectTrackingAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectTrackingAnnotation");
+        debug_struct.field("entity", &self.entity);
+        debug_struct.field("confidence", &self.confidence);
+        debug_struct.field("frames", &self.frames);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("track_info", &self.track_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ObjectTrackingAnnotation].
 pub mod object_tracking_annotation {
     #[allow(unused_imports)]
@@ -9446,7 +10085,7 @@ pub mod object_tracking_annotation {
 }
 
 /// Annotation corresponding to one detected, tracked and recognized logo class.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogoRecognitionAnnotation {
     /// Entity category information to specify the logo class that all the logo
@@ -9640,6 +10279,20 @@ impl serde::ser::Serialize for LogoRecognitionAnnotation {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LogoRecognitionAnnotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogoRecognitionAnnotation");
+        debug_struct.field("entity", &self.entity);
+        debug_struct.field("tracks", &self.tracks);
+        debug_struct.field("segments", &self.segments);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

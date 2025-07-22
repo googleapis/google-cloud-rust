@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Message describing ClientConnectorService object.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientConnectorService {
     /// Required. Name of resource. The name is ignored during creation.
@@ -367,6 +367,24 @@ impl serde::ser::Serialize for ClientConnectorService {
     }
 }
 
+impl std::fmt::Debug for ClientConnectorService {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClientConnectorService");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("ingress", &self.ingress);
+        debug_struct.field("egress", &self.egress);
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ClientConnectorService].
 pub mod client_connector_service {
     #[allow(unused_imports)]
@@ -374,7 +392,7 @@ pub mod client_connector_service {
 
     /// Settings of how to connect to the ClientGateway.
     /// One of the following options should be set.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Ingress {
         pub ingress_config:
@@ -561,13 +579,25 @@ pub mod client_connector_service {
         }
     }
 
+    impl std::fmt::Debug for Ingress {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Ingress");
+            debug_struct.field("ingress_config", &self.ingress_config);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Ingress].
     pub mod ingress {
         #[allow(unused_imports)]
         use super::*;
 
         /// The basic ingress config for ClientGateways.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Config {
             /// Required. Immutable. The transport protocol used between the client and
@@ -746,6 +776,19 @@ pub mod client_connector_service {
             }
         }
 
+        impl std::fmt::Debug for Config {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Config");
+                debug_struct.field("transport_protocol", &self.transport_protocol);
+                debug_struct.field("destination_routes", &self.destination_routes);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Config].
         pub mod config {
             #[allow(unused_imports)]
@@ -754,7 +797,7 @@ pub mod client_connector_service {
             /// The setting used to configure ClientGateways.
             /// It is adding routes to the client's routing table
             /// after the connection is established.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct DestinationRoute {
                 /// Required. The network address of the subnet
@@ -933,6 +976,19 @@ pub mod client_connector_service {
                 }
             }
 
+            impl std::fmt::Debug for DestinationRoute {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("DestinationRoute");
+                    debug_struct.field("address", &self.address);
+                    debug_struct.field("netmask", &self.netmask);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// The protocol used to connect to the server.
             ///
             /// # Working with unknown values
@@ -1072,7 +1128,7 @@ pub mod client_connector_service {
     }
 
     /// The details of the egress info. One of the following options should be set.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Egress {
         pub destination_type:
@@ -1262,13 +1318,25 @@ pub mod client_connector_service {
         }
     }
 
+    impl std::fmt::Debug for Egress {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Egress");
+            debug_struct.field("destination_type", &self.destination_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Egress].
     pub mod egress {
         #[allow(unused_imports)]
         use super::*;
 
         /// The peered VPC owned by the consumer project.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PeeredVpc {
             /// Required. The name of the peered VPC owned by the consumer project.
@@ -1406,6 +1474,18 @@ pub mod client_connector_service {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for PeeredVpc {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("PeeredVpc");
+                debug_struct.field("network_vpc", &self.network_vpc);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -1581,7 +1661,7 @@ pub mod client_connector_service {
 }
 
 /// Message for requesting list of ClientConnectorServices.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClientConnectorServicesRequest {
     /// Required. Parent value for ListClientConnectorServicesRequest.
@@ -1828,8 +1908,24 @@ impl serde::ser::Serialize for ListClientConnectorServicesRequest {
     }
 }
 
+impl std::fmt::Debug for ListClientConnectorServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClientConnectorServicesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing ClientConnectorServices.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClientConnectorServicesResponse {
     /// The list of ClientConnectorService.
@@ -2036,8 +2132,22 @@ impl serde::ser::Serialize for ListClientConnectorServicesResponse {
     }
 }
 
+impl std::fmt::Debug for ListClientConnectorServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClientConnectorServicesResponse");
+        debug_struct.field("client_connector_services", &self.client_connector_services);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a ClientConnectorService.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClientConnectorServiceRequest {
     /// Required. Name of the resource.
@@ -2166,8 +2276,20 @@ impl serde::ser::Serialize for GetClientConnectorServiceRequest {
     }
 }
 
+impl std::fmt::Debug for GetClientConnectorServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetClientConnectorServiceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a ClientConnectorService.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClientConnectorServiceRequest {
     /// Required. Value for parent.
@@ -2439,8 +2561,27 @@ impl serde::ser::Serialize for CreateClientConnectorServiceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateClientConnectorServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateClientConnectorServiceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "client_connector_service_id",
+            &self.client_connector_service_id,
+        );
+        debug_struct.field("client_connector_service", &self.client_connector_service);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a ClientConnectorService
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateClientConnectorServiceRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -2713,8 +2854,24 @@ impl serde::ser::Serialize for UpdateClientConnectorServiceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateClientConnectorServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateClientConnectorServiceRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("client_connector_service", &self.client_connector_service);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a ClientConnectorService.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClientConnectorServiceRequest {
     /// Required. Name of the resource.
@@ -2906,8 +3063,22 @@ impl serde::ser::Serialize for DeleteClientConnectorServiceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteClientConnectorServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteClientConnectorServiceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientConnectorServiceOperationMetadata {
     /// Output only. The time the operation was created.
@@ -3211,5 +3382,23 @@ impl serde::ser::Serialize for ClientConnectorServiceOperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ClientConnectorServiceOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClientConnectorServiceOperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

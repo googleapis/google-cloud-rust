@@ -32,7 +32,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Transcoding job resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Job {
     /// The resource name of the job.
@@ -720,6 +720,32 @@ impl serde::ser::Serialize for Job {
     }
 }
 
+impl std::fmt::Debug for Job {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Job");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("input_uri", &self.input_uri);
+        debug_struct.field("output_uri", &self.output_uri);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("ttl_after_completion_days", &self.ttl_after_completion_days);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("mode", &self.mode);
+        debug_struct.field("batch_mode_priority", &self.batch_mode_priority);
+        debug_struct.field("optimization", &self.optimization);
+        debug_struct.field("fill_content_gaps", &self.fill_content_gaps);
+        debug_struct.field("job_config", &self.job_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Job].
 pub mod job {
     #[allow(unused_imports)]
@@ -1157,7 +1183,7 @@ pub mod job {
 }
 
 /// Transcoding job template resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobTemplate {
     /// The resource name of the job template.
@@ -1359,8 +1385,22 @@ impl serde::ser::Serialize for JobTemplate {
     }
 }
 
+impl std::fmt::Debug for JobTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobTemplate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Job configuration
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobConfig {
     /// List of input assets stored in Cloud Storage.
@@ -1797,8 +1837,30 @@ impl serde::ser::Serialize for JobConfig {
     }
 }
 
+impl std::fmt::Debug for JobConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobConfig");
+        debug_struct.field("inputs", &self.inputs);
+        debug_struct.field("edit_list", &self.edit_list);
+        debug_struct.field("elementary_streams", &self.elementary_streams);
+        debug_struct.field("mux_streams", &self.mux_streams);
+        debug_struct.field("manifests", &self.manifests);
+        debug_struct.field("output", &self.output);
+        debug_struct.field("ad_breaks", &self.ad_breaks);
+        debug_struct.field("pubsub_destination", &self.pubsub_destination);
+        debug_struct.field("sprite_sheets", &self.sprite_sheets);
+        debug_struct.field("overlays", &self.overlays);
+        debug_struct.field("encryptions", &self.encryptions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Input asset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Input {
     /// A unique key for this input. Must be specified when using advanced
@@ -1995,8 +2057,22 @@ impl serde::ser::Serialize for Input {
     }
 }
 
+impl std::fmt::Debug for Input {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Input");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("preprocessing_config", &self.preprocessing_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Location of output file(s) in a Cloud Storage bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Output {
     /// URI for the output file(s). For example, `gs://my-bucket/outputs/`. Must be
@@ -2131,8 +2207,20 @@ impl serde::ser::Serialize for Output {
     }
 }
 
+impl std::fmt::Debug for Output {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Output");
+        debug_struct.field("uri", &self.uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Edit atom.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EditAtom {
     /// A unique key for this atom. Must be specified when using advanced
@@ -2368,8 +2456,23 @@ impl serde::ser::Serialize for EditAtom {
     }
 }
 
+impl std::fmt::Debug for EditAtom {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EditAtom");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("inputs", &self.inputs);
+        debug_struct.field("end_time_offset", &self.end_time_offset);
+        debug_struct.field("start_time_offset", &self.start_time_offset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Ad break.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdBreak {
     /// Start time in seconds for the ad break, relative to the output file
@@ -2511,10 +2614,22 @@ impl serde::ser::Serialize for AdBreak {
     }
 }
 
+impl std::fmt::Debug for AdBreak {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdBreak");
+        debug_struct.field("start_time_offset", &self.start_time_offset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encoding of an input file such as an audio, video, or text track.
 /// Elementary streams must be packaged before
 /// mapping and sharing between different output formats.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ElementaryStream {
     /// A unique key for this elementary stream.
@@ -2822,6 +2937,19 @@ impl serde::ser::Serialize for ElementaryStream {
     }
 }
 
+impl std::fmt::Debug for ElementaryStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ElementaryStream");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("elementary_stream", &self.elementary_stream);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ElementaryStream].
 pub mod elementary_stream {
     #[allow(unused_imports)]
@@ -2841,7 +2969,7 @@ pub mod elementary_stream {
 }
 
 /// Multiplexing settings for output stream.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MuxStream {
     /// A unique key for this multiplexed stream.
@@ -3210,13 +3338,31 @@ impl serde::ser::Serialize for MuxStream {
     }
 }
 
+impl std::fmt::Debug for MuxStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MuxStream");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("file_name", &self.file_name);
+        debug_struct.field("container", &self.container);
+        debug_struct.field("elementary_streams", &self.elementary_streams);
+        debug_struct.field("segment_settings", &self.segment_settings);
+        debug_struct.field("encryption_id", &self.encryption_id);
+        debug_struct.field("container_config", &self.container_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MuxStream].
 pub mod mux_stream {
     #[allow(unused_imports)]
     use super::*;
 
     /// `fmp4` container configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Fmp4Config {
         /// Optional. Specify the codec tag string that will be used in the media
@@ -3355,6 +3501,18 @@ pub mod mux_stream {
         }
     }
 
+    impl std::fmt::Debug for Fmp4Config {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Fmp4Config");
+            debug_struct.field("codec_tag", &self.codec_tag);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Specifies the container configuration.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3365,7 +3523,7 @@ pub mod mux_stream {
 }
 
 /// Manifest configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Manifest {
     /// The name of the generated file. The default is `manifest` with the
@@ -3631,13 +3789,28 @@ impl serde::ser::Serialize for Manifest {
     }
 }
 
+impl std::fmt::Debug for Manifest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Manifest");
+        debug_struct.field("file_name", &self.file_name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("mux_streams", &self.mux_streams);
+        debug_struct.field("manifest_config", &self.manifest_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Manifest].
 pub mod manifest {
     #[allow(unused_imports)]
     use super::*;
 
     /// `DASH` manifest configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DashConfig {
         /// The segment reference scheme for a `DASH` manifest. The default is
@@ -3779,6 +3952,18 @@ pub mod manifest {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for DashConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DashConfig");
+            debug_struct.field("segment_reference_scheme", &self.segment_reference_scheme);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -4095,7 +4280,7 @@ pub mod manifest {
 }
 
 /// A Pub/Sub destination.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PubsubDestination {
     /// The name of the Pub/Sub topic to publish job completion notification
@@ -4225,8 +4410,20 @@ impl serde::ser::Serialize for PubsubDestination {
     }
 }
 
+impl std::fmt::Debug for PubsubDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PubsubDestination");
+        debug_struct.field("topic", &self.topic);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Sprite sheet configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpriteSheet {
     /// Format type. The default is `jpeg`.
@@ -4847,6 +5044,27 @@ impl serde::ser::Serialize for SpriteSheet {
     }
 }
 
+impl std::fmt::Debug for SpriteSheet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpriteSheet");
+        debug_struct.field("format", &self.format);
+        debug_struct.field("file_prefix", &self.file_prefix);
+        debug_struct.field("sprite_width_pixels", &self.sprite_width_pixels);
+        debug_struct.field("sprite_height_pixels", &self.sprite_height_pixels);
+        debug_struct.field("column_count", &self.column_count);
+        debug_struct.field("row_count", &self.row_count);
+        debug_struct.field("start_time_offset", &self.start_time_offset);
+        debug_struct.field("end_time_offset", &self.end_time_offset);
+        debug_struct.field("quality", &self.quality);
+        debug_struct.field("extraction_strategy", &self.extraction_strategy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SpriteSheet].
 pub mod sprite_sheet {
     #[allow(unused_imports)]
@@ -4867,7 +5085,7 @@ pub mod sprite_sheet {
 }
 
 /// Overlay configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Overlay {
     /// Image overlay.
@@ -5040,13 +5258,26 @@ impl serde::ser::Serialize for Overlay {
     }
 }
 
+impl std::fmt::Debug for Overlay {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Overlay");
+        debug_struct.field("image", &self.image);
+        debug_struct.field("animations", &self.animations);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Overlay].
 pub mod overlay {
     #[allow(unused_imports)]
     use super::*;
 
     /// 2D normalized coordinates. Default: `{0.0, 0.0}`
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NormalizedCoordinate {
         /// Normalized x coordinate.
@@ -5238,8 +5469,21 @@ pub mod overlay {
         }
     }
 
+    impl std::fmt::Debug for NormalizedCoordinate {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NormalizedCoordinate");
+            debug_struct.field("x", &self.x);
+            debug_struct.field("y", &self.y);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Overlaid image.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Image {
         /// Required. URI of the image in Cloud Storage. For example,
@@ -5454,8 +5698,22 @@ pub mod overlay {
         }
     }
 
+    impl std::fmt::Debug for Image {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Image");
+            debug_struct.field("uri", &self.uri);
+            debug_struct.field("resolution", &self.resolution);
+            debug_struct.field("alpha", &self.alpha);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Display static overlay object.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnimationStatic {
         /// Normalized coordinates based on output video resolution. Valid
@@ -5639,8 +5897,21 @@ pub mod overlay {
         }
     }
 
+    impl std::fmt::Debug for AnimationStatic {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnimationStatic");
+            debug_struct.field("xy", &self.xy);
+            debug_struct.field("start_time_offset", &self.start_time_offset);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Display overlay object with fade animation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnimationFade {
         /// Required. Type of fade animation: `FADE_IN` or `FADE_OUT`.
@@ -5887,10 +6158,25 @@ pub mod overlay {
         }
     }
 
+    impl std::fmt::Debug for AnimationFade {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnimationFade");
+            debug_struct.field("fade_type", &self.fade_type);
+            debug_struct.field("xy", &self.xy);
+            debug_struct.field("start_time_offset", &self.start_time_offset);
+            debug_struct.field("end_time_offset", &self.end_time_offset);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// End previous overlay animation from the video. Without `AnimationEnd`, the
     /// overlay object will keep the state of previous animation until the end of
     /// the video.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnimationEnd {
         /// The time to end overlay object, in seconds. Default: 0
@@ -6034,8 +6320,20 @@ pub mod overlay {
         }
     }
 
+    impl std::fmt::Debug for AnimationEnd {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnimationEnd");
+            debug_struct.field("start_time_offset", &self.start_time_offset);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Animation types.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Animation {
         /// Animations can be static or fade, or they can end the previous animation.
@@ -6333,6 +6631,18 @@ pub mod overlay {
         }
     }
 
+    impl std::fmt::Debug for Animation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Animation");
+            debug_struct.field("animation_type", &self.animation_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Animation].
     pub mod animation {
         #[allow(unused_imports)]
@@ -6485,7 +6795,7 @@ pub mod overlay {
 }
 
 /// Preprocessing configurations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PreprocessingConfig {
     /// Color preprocessing configuration.
@@ -6840,6 +7150,24 @@ impl serde::ser::Serialize for PreprocessingConfig {
     }
 }
 
+impl std::fmt::Debug for PreprocessingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreprocessingConfig");
+        debug_struct.field("color", &self.color);
+        debug_struct.field("denoise", &self.denoise);
+        debug_struct.field("deblock", &self.deblock);
+        debug_struct.field("audio", &self.audio);
+        debug_struct.field("crop", &self.crop);
+        debug_struct.field("pad", &self.pad);
+        debug_struct.field("deinterlace", &self.deinterlace);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PreprocessingConfig].
 pub mod preprocessing_config {
     #[allow(unused_imports)]
@@ -6848,7 +7176,7 @@ pub mod preprocessing_config {
     /// Color preprocessing configuration.
     ///
     /// **Note:** This configuration is not supported.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Color {
         /// Control color saturation of the video. Enter a value between -1 and 1,
@@ -7090,10 +7418,24 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Color {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Color");
+            debug_struct.field("saturation", &self.saturation);
+            debug_struct.field("contrast", &self.contrast);
+            debug_struct.field("brightness", &self.brightness);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Denoise preprocessing configuration.
     ///
     /// **Note:** This configuration is not supported.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Denoise {
         /// Set strength of the denoise. Enter a value between 0 and 1. The higher
@@ -7273,10 +7615,23 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Denoise {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Denoise");
+            debug_struct.field("strength", &self.strength);
+            debug_struct.field("tune", &self.tune);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Deblock preprocessing configuration.
     ///
     /// **Note:** This configuration is not supported.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Deblock {
         /// Set strength of the deblocker. Enter a value between 0 and 1. The higher
@@ -7452,8 +7807,21 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Deblock {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Deblock");
+            debug_struct.field("strength", &self.strength);
+            debug_struct.field("enabled", &self.enabled);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Audio preprocessing configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Audio {
         /// Specify audio loudness normalization in loudness units relative to full
@@ -7667,9 +8035,23 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Audio {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Audio");
+            debug_struct.field("lufs", &self.lufs);
+            debug_struct.field("high_boost", &self.high_boost);
+            debug_struct.field("low_boost", &self.low_boost);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Video cropping configuration for the input video. The cropped input video
     /// is scaled to match the output resolution.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Crop {
         /// The number of pixels to crop from the top. The default is 0.
@@ -7953,9 +8335,24 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Crop {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Crop");
+            debug_struct.field("top_pixels", &self.top_pixels);
+            debug_struct.field("bottom_pixels", &self.bottom_pixels);
+            debug_struct.field("left_pixels", &self.left_pixels);
+            debug_struct.field("right_pixels", &self.right_pixels);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Pad filter configuration for the input video. The padded input video
     /// is scaled after padding with black to match the output resolution.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Pad {
         /// The number of pixels to add to the top. The default is 0.
@@ -8239,8 +8636,23 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Pad {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Pad");
+            debug_struct.field("top_pixels", &self.top_pixels);
+            debug_struct.field("bottom_pixels", &self.bottom_pixels);
+            debug_struct.field("left_pixels", &self.left_pixels);
+            debug_struct.field("right_pixels", &self.right_pixels);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Deinterlace configuration for input video.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Deinterlace {
         /// Specify the video deinterlacing filter. The default is `yadif`.
@@ -8491,13 +8903,25 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Deinterlace {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Deinterlace");
+            debug_struct.field("deinterlacing_filter", &self.deinterlacing_filter);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Deinterlace].
     pub mod deinterlace {
         #[allow(unused_imports)]
         use super::*;
 
         /// Yet Another Deinterlacing Filter Configuration.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct YadifConfig {
             /// Specifies the deinterlacing mode to adopt.
@@ -8737,8 +9161,26 @@ pub mod preprocessing_config {
             }
         }
 
+        impl std::fmt::Debug for YadifConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("YadifConfig");
+                debug_struct.field("mode", &self.mode);
+                debug_struct.field(
+                    "disable_spatial_interlacing",
+                    &self.disable_spatial_interlacing,
+                );
+                debug_struct.field("parity", &self.parity);
+                debug_struct.field("deinterlace_all_frames", &self.deinterlace_all_frames);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Bob Weaver Deinterlacing Filter Configuration.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BwdifConfig {
             /// Specifies the deinterlacing mode to adopt.
@@ -8940,6 +9382,20 @@ pub mod preprocessing_config {
             }
         }
 
+        impl std::fmt::Debug for BwdifConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("BwdifConfig");
+                debug_struct.field("mode", &self.mode);
+                debug_struct.field("parity", &self.parity);
+                debug_struct.field("deinterlace_all_frames", &self.deinterlace_all_frames);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Specify the video deinterlacing filter. The default is `yadif`.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -8953,7 +9409,7 @@ pub mod preprocessing_config {
 }
 
 /// Video stream resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoStream {
     /// Codec settings can be h264, h265, or vp9.
@@ -9243,13 +9699,25 @@ impl serde::ser::Serialize for VideoStream {
     }
 }
 
+impl std::fmt::Debug for VideoStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VideoStream");
+        debug_struct.field("codec_settings", &self.codec_settings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VideoStream].
 pub mod video_stream {
     #[allow(unused_imports)]
     use super::*;
 
     /// Convert the input video to a Standard Dynamic Range (SDR) video.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H264ColorFormatSDR {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9354,8 +9822,19 @@ pub mod video_stream {
         }
     }
 
+    impl std::fmt::Debug for H264ColorFormatSDR {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H264ColorFormatSDR");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Convert the input video to a Hybrid Log Gamma (HLG) video.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H264ColorFormatHLG {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9460,8 +9939,19 @@ pub mod video_stream {
         }
     }
 
+    impl std::fmt::Debug for H264ColorFormatHLG {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H264ColorFormatHLG");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// H264 codec settings.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H264CodecSettings {
         /// The width of the video in pixels. Must be an even integer.
@@ -10587,6 +11077,41 @@ pub mod video_stream {
         }
     }
 
+    impl std::fmt::Debug for H264CodecSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H264CodecSettings");
+            debug_struct.field("width_pixels", &self.width_pixels);
+            debug_struct.field("height_pixels", &self.height_pixels);
+            debug_struct.field("frame_rate", &self.frame_rate);
+            debug_struct.field(
+                "frame_rate_conversion_strategy",
+                &self.frame_rate_conversion_strategy,
+            );
+            debug_struct.field("bitrate_bps", &self.bitrate_bps);
+            debug_struct.field("pixel_format", &self.pixel_format);
+            debug_struct.field("rate_control_mode", &self.rate_control_mode);
+            debug_struct.field("crf_level", &self.crf_level);
+            debug_struct.field("allow_open_gop", &self.allow_open_gop);
+            debug_struct.field("enable_two_pass", &self.enable_two_pass);
+            debug_struct.field("vbv_size_bits", &self.vbv_size_bits);
+            debug_struct.field("vbv_fullness_bits", &self.vbv_fullness_bits);
+            debug_struct.field("entropy_coder", &self.entropy_coder);
+            debug_struct.field("b_pyramid", &self.b_pyramid);
+            debug_struct.field("b_frame_count", &self.b_frame_count);
+            debug_struct.field("aq_strength", &self.aq_strength);
+            debug_struct.field("profile", &self.profile);
+            debug_struct.field("tune", &self.tune);
+            debug_struct.field("preset", &self.preset);
+            debug_struct.field("gop_mode", &self.gop_mode);
+            debug_struct.field("color_format", &self.color_format);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [H264CodecSettings].
     pub mod h_264_codec_settings {
         #[allow(unused_imports)]
@@ -10619,7 +11144,7 @@ pub mod video_stream {
     }
 
     /// Convert the input video to a Standard Dynamic Range (SDR) video.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H265ColorFormatSDR {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10724,8 +11249,19 @@ pub mod video_stream {
         }
     }
 
+    impl std::fmt::Debug for H265ColorFormatSDR {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H265ColorFormatSDR");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Convert the input video to a Hybrid Log Gamma (HLG) video.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H265ColorFormatHLG {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10830,8 +11366,19 @@ pub mod video_stream {
         }
     }
 
+    impl std::fmt::Debug for H265ColorFormatHLG {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H265ColorFormatHLG");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Convert the input video to a High Dynamic Range 10 (HDR10) video.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H265ColorFormatHDR10 {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10936,8 +11483,19 @@ pub mod video_stream {
         }
     }
 
+    impl std::fmt::Debug for H265ColorFormatHDR10 {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H265ColorFormatHDR10");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// H265 codec settings.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H265CodecSettings {
         /// The width of the video in pixels. Must be an even integer.
@@ -12097,6 +12655,40 @@ pub mod video_stream {
         }
     }
 
+    impl std::fmt::Debug for H265CodecSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H265CodecSettings");
+            debug_struct.field("width_pixels", &self.width_pixels);
+            debug_struct.field("height_pixels", &self.height_pixels);
+            debug_struct.field("frame_rate", &self.frame_rate);
+            debug_struct.field(
+                "frame_rate_conversion_strategy",
+                &self.frame_rate_conversion_strategy,
+            );
+            debug_struct.field("bitrate_bps", &self.bitrate_bps);
+            debug_struct.field("pixel_format", &self.pixel_format);
+            debug_struct.field("rate_control_mode", &self.rate_control_mode);
+            debug_struct.field("crf_level", &self.crf_level);
+            debug_struct.field("allow_open_gop", &self.allow_open_gop);
+            debug_struct.field("enable_two_pass", &self.enable_two_pass);
+            debug_struct.field("vbv_size_bits", &self.vbv_size_bits);
+            debug_struct.field("vbv_fullness_bits", &self.vbv_fullness_bits);
+            debug_struct.field("b_pyramid", &self.b_pyramid);
+            debug_struct.field("b_frame_count", &self.b_frame_count);
+            debug_struct.field("aq_strength", &self.aq_strength);
+            debug_struct.field("profile", &self.profile);
+            debug_struct.field("tune", &self.tune);
+            debug_struct.field("preset", &self.preset);
+            debug_struct.field("gop_mode", &self.gop_mode);
+            debug_struct.field("color_format", &self.color_format);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [H265CodecSettings].
     pub mod h_265_codec_settings {
         #[allow(unused_imports)]
@@ -12131,7 +12723,7 @@ pub mod video_stream {
     }
 
     /// Convert the input video to a Standard Dynamic Range (SDR) video.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Vp9ColorFormatSDR {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12236,8 +12828,19 @@ pub mod video_stream {
         }
     }
 
+    impl std::fmt::Debug for Vp9ColorFormatSDR {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Vp9ColorFormatSDR");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Convert the input video to a Hybrid Log Gamma (HLG) video.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Vp9ColorFormatHLG {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12342,8 +12945,19 @@ pub mod video_stream {
         }
     }
 
+    impl std::fmt::Debug for Vp9ColorFormatHLG {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Vp9ColorFormatHLG");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// VP9 codec settings.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Vp9CodecSettings {
         /// The width of the video in pixels. Must be an even integer.
@@ -13108,6 +13722,31 @@ pub mod video_stream {
         }
     }
 
+    impl std::fmt::Debug for Vp9CodecSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Vp9CodecSettings");
+            debug_struct.field("width_pixels", &self.width_pixels);
+            debug_struct.field("height_pixels", &self.height_pixels);
+            debug_struct.field("frame_rate", &self.frame_rate);
+            debug_struct.field(
+                "frame_rate_conversion_strategy",
+                &self.frame_rate_conversion_strategy,
+            );
+            debug_struct.field("bitrate_bps", &self.bitrate_bps);
+            debug_struct.field("pixel_format", &self.pixel_format);
+            debug_struct.field("rate_control_mode", &self.rate_control_mode);
+            debug_struct.field("crf_level", &self.crf_level);
+            debug_struct.field("profile", &self.profile);
+            debug_struct.field("gop_mode", &self.gop_mode);
+            debug_struct.field("color_format", &self.color_format);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Vp9CodecSettings].
     pub mod vp_9_codec_settings {
         #[allow(unused_imports)]
@@ -13296,7 +13935,7 @@ pub mod video_stream {
 }
 
 /// Audio stream resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AudioStream {
     /// The codec for this audio stream. The default is `aac`.
@@ -13697,6 +14336,25 @@ impl serde::ser::Serialize for AudioStream {
     }
 }
 
+impl std::fmt::Debug for AudioStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AudioStream");
+        debug_struct.field("codec", &self.codec);
+        debug_struct.field("bitrate_bps", &self.bitrate_bps);
+        debug_struct.field("channel_count", &self.channel_count);
+        debug_struct.field("channel_layout", &self.channel_layout);
+        debug_struct.field("mapping", &self.mapping);
+        debug_struct.field("sample_rate_hertz", &self.sample_rate_hertz);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("display_name", &self.display_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AudioStream].
 pub mod audio_stream {
     #[allow(unused_imports)]
@@ -13709,7 +14367,7 @@ pub mod audio_stream {
     ///
     /// [google.cloud.video.transcoder.v1.EditAtom.inputs]: crate::model::EditAtom::inputs
     /// [google.cloud.video.transcoder.v1.JobConfig.edit_list]: crate::model::JobConfig::edit_list
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AudioMapping {
         /// Required. The
@@ -14051,10 +14709,27 @@ pub mod audio_stream {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AudioMapping {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AudioMapping");
+            debug_struct.field("atom_key", &self.atom_key);
+            debug_struct.field("input_key", &self.input_key);
+            debug_struct.field("input_track", &self.input_track);
+            debug_struct.field("input_channel", &self.input_channel);
+            debug_struct.field("output_channel", &self.output_channel);
+            debug_struct.field("gain_db", &self.gain_db);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Encoding of a text stream. For example, closed captions or subtitles.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextStream {
     /// The codec for this text stream. The default is `webvtt`.
@@ -14282,6 +14957,21 @@ impl serde::ser::Serialize for TextStream {
     }
 }
 
+impl std::fmt::Debug for TextStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextStream");
+        debug_struct.field("codec", &self.codec);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("mapping", &self.mapping);
+        debug_struct.field("display_name", &self.display_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TextStream].
 pub mod text_stream {
     #[allow(unused_imports)]
@@ -14294,7 +14984,7 @@ pub mod text_stream {
     ///
     /// [google.cloud.video.transcoder.v1.EditAtom.inputs]: crate::model::EditAtom::inputs
     /// [google.cloud.video.transcoder.v1.JobConfig.edit_list]: crate::model::JobConfig::edit_list
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextMapping {
         /// Required. The
@@ -14504,10 +15194,24 @@ pub mod text_stream {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for TextMapping {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TextMapping");
+            debug_struct.field("atom_key", &self.atom_key);
+            debug_struct.field("input_key", &self.input_key);
+            debug_struct.field("input_track", &self.input_track);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Segment settings for `ts`, `fmp4` and `vtt`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SegmentSettings {
     /// Duration of the segments in seconds. The default is `6.0s`. Note that
@@ -14676,8 +15380,21 @@ impl serde::ser::Serialize for SegmentSettings {
     }
 }
 
+impl std::fmt::Debug for SegmentSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SegmentSettings");
+        debug_struct.field("segment_duration", &self.segment_duration);
+        debug_struct.field("individual_segments", &self.individual_segments);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encryption settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Encryption {
     /// Required. Identifier for this set of encryption options.
@@ -15109,13 +15826,28 @@ impl serde::ser::Serialize for Encryption {
     }
 }
 
+impl std::fmt::Debug for Encryption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Encryption");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("drm_systems", &self.drm_systems);
+        debug_struct.field("encryption_mode", &self.encryption_mode);
+        debug_struct.field("secret_source", &self.secret_source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Encryption].
 pub mod encryption {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for AES-128 encryption.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Aes128Encryption {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15220,8 +15952,19 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Aes128Encryption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Aes128Encryption");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for SAMPLE-AES encryption.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SampleAesEncryption {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15326,8 +16069,19 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for SampleAesEncryption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SampleAesEncryption");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for MPEG Common Encryption (MPEG-CENC).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MpegCommonEncryption {
         /// Required. Specify the encryption scheme.
@@ -15464,8 +16218,20 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for MpegCommonEncryption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MpegCommonEncryption");
+            debug_struct.field("scheme", &self.scheme);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for secrets stored in Google Secret Manager.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SecretManagerSource {
         /// Required. The name of the Secret Version containing the encryption key in
@@ -15606,8 +16372,20 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for SecretManagerSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SecretManagerSource");
+            debug_struct.field("secret_version", &self.secret_version);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Widevine configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Widevine {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15712,8 +16490,19 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Widevine {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Widevine");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Fairplay configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Fairplay {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15818,8 +16607,19 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Fairplay {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Fairplay");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Playready configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Playready {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15924,8 +16724,19 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Playready {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Playready");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Clearkey configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Clearkey {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16030,8 +16841,19 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Clearkey {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Clearkey");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines configuration for DRM systems in use.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DrmSystems {
         /// Widevine configuration.
@@ -16279,6 +17101,21 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for DrmSystems {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DrmSystems");
+            debug_struct.field("widevine", &self.widevine);
+            debug_struct.field("fairplay", &self.fairplay);
+            debug_struct.field("playready", &self.playready);
+            debug_struct.field("clearkey", &self.clearkey);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Encryption mode can be either `aes` or `cenc`.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -16301,7 +17138,7 @@ pub mod encryption {
 }
 
 /// Request message for `TranscoderService.CreateJob`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateJobRequest {
     /// Required. The parent location to create and process this job.
@@ -16466,9 +17303,22 @@ impl serde::ser::Serialize for CreateJobRequest {
     }
 }
 
+impl std::fmt::Debug for CreateJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateJobRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("job", &self.job);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.ListJobs`.
 /// The parent location from which to retrieve the collection of jobs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsRequest {
     /// Required. Format: `projects/{project}/locations/{location}`
@@ -16717,8 +17567,24 @@ impl serde::ser::Serialize for ListJobsRequest {
     }
 }
 
+impl std::fmt::Debug for ListJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.GetJob`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobRequest {
     /// Required. The name of the job to retrieve.
@@ -16848,8 +17714,20 @@ impl serde::ser::Serialize for GetJobRequest {
     }
 }
 
+impl std::fmt::Debug for GetJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetJobRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.DeleteJob`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobRequest {
     /// Required. The name of the job to delete.
@@ -17005,8 +17883,21 @@ impl serde::ser::Serialize for DeleteJobRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteJobRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `TranscoderService.ListJobs`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsResponse {
     /// List of jobs in the specified region.
@@ -17204,8 +18095,22 @@ impl serde::ser::Serialize for ListJobsResponse {
     }
 }
 
+impl std::fmt::Debug for ListJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobsResponse");
+        debug_struct.field("jobs", &self.jobs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.CreateJobTemplate`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateJobTemplateRequest {
     /// Required. The parent location to create this job template.
@@ -17400,8 +18305,22 @@ impl serde::ser::Serialize for CreateJobTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateJobTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateJobTemplateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("job_template", &self.job_template);
+        debug_struct.field("job_template_id", &self.job_template_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.ListJobTemplates`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobTemplatesRequest {
     /// Required. The parent location from which to retrieve the collection of job
@@ -17651,8 +18570,24 @@ impl serde::ser::Serialize for ListJobTemplatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListJobTemplatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobTemplatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.GetJobTemplate`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobTemplateRequest {
     /// Required. The name of the job template to retrieve.
@@ -17783,8 +18718,20 @@ impl serde::ser::Serialize for GetJobTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for GetJobTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetJobTemplateRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.DeleteJobTemplate`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobTemplateRequest {
     /// Required. The name of the job template to delete.
@@ -17940,8 +18887,21 @@ impl serde::ser::Serialize for DeleteJobTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteJobTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteJobTemplateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `TranscoderService.ListJobTemplates`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobTemplatesResponse {
     /// List of job templates in the specified region.
@@ -18137,5 +19097,19 @@ impl serde::ser::Serialize for ListJobTemplatesResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ListJobTemplatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobTemplatesResponse");
+        debug_struct.field("job_templates", &self.job_templates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

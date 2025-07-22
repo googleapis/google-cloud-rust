@@ -31,7 +31,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Represents the input to API methods.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Document {
     /// Required. If the type is not set or is `TYPE_UNSPECIFIED`,
@@ -300,6 +300,20 @@ impl serde::ser::Serialize for Document {
     }
 }
 
+impl std::fmt::Debug for Document {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Document");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Document].
 pub mod document {
     #[allow(unused_imports)]
@@ -454,7 +468,7 @@ pub mod document {
 }
 
 /// Represents a sentence in the input document.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Sentence {
     /// The sentence text.
@@ -633,10 +647,23 @@ impl serde::ser::Serialize for Sentence {
     }
 }
 
+impl std::fmt::Debug for Sentence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Sentence");
+        debug_struct.field("text", &self.text);
+        debug_struct.field("sentiment", &self.sentiment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a phrase in the text that is a known entity, such as
 /// a person, an organization, or location. The API associates information, such
 /// as probability and mentions, with entities.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Entity {
     /// The representative name for the entity.
@@ -893,6 +920,22 @@ impl serde::ser::Serialize for Entity {
     }
 }
 
+impl std::fmt::Debug for Entity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Entity");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("mentions", &self.mentions);
+        debug_struct.field("sentiment", &self.sentiment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Entity].
 pub mod entity {
     #[allow(unused_imports)]
@@ -1139,7 +1182,7 @@ pub mod entity {
 
 /// Represents the feeling associated with the entire text or entities in
 /// the text.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Sentiment {
     /// A non-negative number in the [0, +inf) range, which represents
@@ -1331,9 +1374,22 @@ impl serde::ser::Serialize for Sentiment {
     }
 }
 
+impl std::fmt::Debug for Sentiment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Sentiment");
+        debug_struct.field("magnitude", &self.magnitude);
+        debug_struct.field("score", &self.score);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a mention for an entity in the text. Currently, proper noun
 /// mentions are supported.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityMention {
     /// The mention text.
@@ -1581,6 +1637,21 @@ impl serde::ser::Serialize for EntityMention {
     }
 }
 
+impl std::fmt::Debug for EntityMention {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityMention");
+        debug_struct.field("text", &self.text);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("sentiment", &self.sentiment);
+        debug_struct.field("probability", &self.probability);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EntityMention].
 pub mod entity_mention {
     #[allow(unused_imports)]
@@ -1720,7 +1791,7 @@ pub mod entity_mention {
 }
 
 /// Represents a text span in the input document.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextSpan {
     /// The content of the text span, which is a substring of the document.
@@ -1897,8 +1968,21 @@ impl serde::ser::Serialize for TextSpan {
     }
 }
 
+impl std::fmt::Debug for TextSpan {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextSpan");
+        debug_struct.field("content", &self.content);
+        debug_struct.field("begin_offset", &self.begin_offset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a category returned from the text classifier.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClassificationCategory {
     /// The name of the category representing the document.
@@ -2114,8 +2198,22 @@ impl serde::ser::Serialize for ClassificationCategory {
     }
 }
 
+impl std::fmt::Debug for ClassificationCategory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClassificationCategory");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("confidence", &self.confidence);
+        debug_struct.field("severity", &self.severity);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The sentiment analysis request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeSentimentRequest {
     /// Required. Input document.
@@ -2283,8 +2381,21 @@ impl serde::ser::Serialize for AnalyzeSentimentRequest {
     }
 }
 
+impl std::fmt::Debug for AnalyzeSentimentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeSentimentRequest");
+        debug_struct.field("document", &self.document);
+        debug_struct.field("encoding_type", &self.encoding_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The sentiment analysis response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeSentimentResponse {
     /// The overall sentiment of the input document.
@@ -2506,8 +2617,23 @@ impl serde::ser::Serialize for AnalyzeSentimentResponse {
     }
 }
 
+impl std::fmt::Debug for AnalyzeSentimentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeSentimentResponse");
+        debug_struct.field("document_sentiment", &self.document_sentiment);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("sentences", &self.sentences);
+        debug_struct.field("language_supported", &self.language_supported);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The entity analysis request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeEntitiesRequest {
     /// Required. Input document.
@@ -2675,8 +2801,21 @@ impl serde::ser::Serialize for AnalyzeEntitiesRequest {
     }
 }
 
+impl std::fmt::Debug for AnalyzeEntitiesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeEntitiesRequest");
+        debug_struct.field("document", &self.document);
+        debug_struct.field("encoding_type", &self.encoding_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The entity analysis response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeEntitiesResponse {
     /// The recognized entities in the input document.
@@ -2862,8 +3001,22 @@ impl serde::ser::Serialize for AnalyzeEntitiesResponse {
     }
 }
 
+impl std::fmt::Debug for AnalyzeEntitiesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeEntitiesResponse");
+        debug_struct.field("entities", &self.entities);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("language_supported", &self.language_supported);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The document classification request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClassifyTextRequest {
     /// Required. Input document.
@@ -3003,8 +3156,20 @@ impl serde::ser::Serialize for ClassifyTextRequest {
     }
 }
 
+impl std::fmt::Debug for ClassifyTextRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClassifyTextRequest");
+        debug_struct.field("document", &self.document);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The document classification response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClassifyTextResponse {
     /// Categories representing the input document.
@@ -3194,8 +3359,22 @@ impl serde::ser::Serialize for ClassifyTextResponse {
     }
 }
 
+impl std::fmt::Debug for ClassifyTextResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClassifyTextResponse");
+        debug_struct.field("categories", &self.categories);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("language_supported", &self.language_supported);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The document moderation request message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModerateTextRequest {
     /// Required. Input document.
@@ -3367,6 +3546,19 @@ impl serde::ser::Serialize for ModerateTextRequest {
     }
 }
 
+impl std::fmt::Debug for ModerateTextRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ModerateTextRequest");
+        debug_struct.field("document", &self.document);
+        debug_struct.field("model_version", &self.model_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ModerateTextRequest].
 pub mod moderate_text_request {
     #[allow(unused_imports)]
@@ -3510,7 +3702,7 @@ pub mod moderate_text_request {
 }
 
 /// The document moderation response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModerateTextResponse {
     /// Harmful and sensitive categories representing the input document.
@@ -3701,9 +3893,23 @@ impl serde::ser::Serialize for ModerateTextResponse {
     }
 }
 
+impl std::fmt::Debug for ModerateTextResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ModerateTextResponse");
+        debug_struct.field("moderation_categories", &self.moderation_categories);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("language_supported", &self.language_supported);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the text annotation API, which can perform multiple
 /// analysis types in one call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateTextRequest {
     /// Required. Input document.
@@ -3907,6 +4113,20 @@ impl serde::ser::Serialize for AnnotateTextRequest {
     }
 }
 
+impl std::fmt::Debug for AnnotateTextRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnnotateTextRequest");
+        debug_struct.field("document", &self.document);
+        debug_struct.field("features", &self.features);
+        debug_struct.field("encoding_type", &self.encoding_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AnnotateTextRequest].
 pub mod annotate_text_request {
     #[allow(unused_imports)]
@@ -3914,7 +4134,7 @@ pub mod annotate_text_request {
 
     /// All available features.
     /// Setting each one to true will enable that specific analysis for the input.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Features {
         /// Optional. Extract entities.
@@ -4128,10 +4348,28 @@ pub mod annotate_text_request {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Features {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Features");
+            debug_struct.field("extract_entities", &self.extract_entities);
+            debug_struct.field(
+                "extract_document_sentiment",
+                &self.extract_document_sentiment,
+            );
+            debug_struct.field("classify_text", &self.classify_text);
+            debug_struct.field("moderate_text", &self.moderate_text);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The text annotations response message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateTextResponse {
     /// Sentences in the input document. Populated if the user enables
@@ -4452,6 +4690,24 @@ impl serde::ser::Serialize for AnnotateTextResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AnnotateTextResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnnotateTextResponse");
+        debug_struct.field("sentences", &self.sentences);
+        debug_struct.field("entities", &self.entities);
+        debug_struct.field("document_sentiment", &self.document_sentiment);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("categories", &self.categories);
+        debug_struct.field("moderation_categories", &self.moderation_categories);
+        debug_struct.field("language_supported", &self.language_supported);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
