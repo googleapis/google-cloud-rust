@@ -16,6 +16,11 @@ variable "project" {
   type = string
 }
 
+variable "runner_project_id" {
+  description = "The project ID where the integration-test-runner service account lives."
+  type        = string
+}
+
 variable "service_account_id" {
   type = string
 }
@@ -33,6 +38,7 @@ resource "google_service_account" "service_account" {
 }
 
 data "google_service_account" "build_runner_service_account" {
+  project    = var.runner_project_id
   account_id = "integration-test-runner"
 }
 
@@ -75,6 +81,20 @@ resource "google_service_account_iam_member" "workload_identity_user" {
   service_account_id = google_service_account.service_account.name
   role               = "roles/iam.workloadIdentityUser"
   member             = "principal://iam.googleapis.com/${google_iam_workload_identity_pool.pool.name}/subject/${google_service_account.service_account.unique_id}"
+}
+
+resource "google_service_account" "impersonation_target" {
+  provider     = google.external_account_project
+  project      = var.project
+  account_id   = "impersonation-target"
+  display_name = "Impersonation Target Service Account"
+}
+
+resource "google_service_account_iam_member" "impersonation_token_creator" {
+  provider           = google.external_account_project
+  service_account_id = google_service_account.impersonation_target.name
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = "serviceAccount:${google_service_account.service_account.email}"
 }
 
 output "audience" {

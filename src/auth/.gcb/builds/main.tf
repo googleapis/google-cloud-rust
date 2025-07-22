@@ -51,6 +51,7 @@ module "api_key_test" {
 module "external_account_test" {
   source             = "./external_account_test"
   project            = var.external_account_project
+  runner_project_id  = var.project
   service_account_id = var.external_account_service_account_id
 }
 
