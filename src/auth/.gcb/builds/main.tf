@@ -49,10 +49,13 @@ module "api_key_test" {
 
 # Set up for the External Account integration test.
 module "external_account_test" {
-  source             = "./external_account_test"
-  project            = var.external_account_project
-  runner_project_id  = var.project
-  service_account_id = var.external_account_service_account_id
+  source                          = "./external_account_test"
+  project                         = var.external_account_project
+  runner_project_id               = var.project
+  service_account_id              = var.external_account_service_account_id
+  workload_identity_pool_id       = var.workload_identity_pool_id
+  impersonation_target_account_id = var.impersonation_target_account_id
+  build_runner_account_id         = var.build_runner_account_id
 }
 
 # Create the GCB resources, connection, triggers, etc.

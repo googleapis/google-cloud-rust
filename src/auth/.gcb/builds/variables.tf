@@ -35,4 +35,22 @@ variable "external_account_service_account_id" {
   default     = "testsa"
 }
 
+variable "workload_identity_pool_id" {
+  description = "The ID for the workload identity pool."
+  type        = string
+  default     = "external-account-pool"
+}
+
+variable "impersonation_target_account_id" {
+  description = "The account ID for the impersonation target service account."
+  type        = string
+  default     = "impersonation-target"
+}
+
+variable "build_runner_account_id" {
+  description = "The account ID for the integration test runner service account."
+  type        = string
+  default     = "integration-test-runner"
+}
+
 

@@ -25,6 +25,21 @@ variable "service_account_id" {
   type = string
 }
 
+variable "workload_identity_pool_id" {
+  description = "The ID for the workload identity pool."
+  type        = string
+}
+
+variable "impersonation_target_account_id" {
+  description = "The account ID for the impersonation target service account."
+  type        = string
+}
+
+variable "build_runner_account_id" {
+  description = "The account ID for the integration test runner service account."
+  type        = string
+}
+
 provider "google" {
   alias   = "external_account_project"
   project = var.project
@@ -39,7 +54,7 @@ resource "google_service_account" "service_account" {
 
 data "google_service_account" "build_runner_service_account" {
   project    = var.runner_project_id
-  account_id = "integration-test-runner"
+  account_id = var.build_runner_account_id
 }
 
 resource "google_project_iam_member" "token_creator" {
@@ -52,7 +67,7 @@ resource "google_project_iam_member" "token_creator" {
 resource "google_iam_workload_identity_pool" "pool" {
   provider                  = google.external_account_project
   project                   = var.project
-  workload_identity_pool_id = "external-account-pool"
+  workload_identity_pool_id = var.workload_identity_pool_id
   display_name              = "External Account Test Pool"
   description               = "For external account integration tests"
 }
@@ -61,7 +76,7 @@ resource "google_iam_workload_identity_pool_provider" "provider" {
   provider                           = google.external_account_project
   project                            = var.project
   workload_identity_pool_id          = google_iam_workload_identity_pool.pool.workload_identity_pool_id
-  workload_identity_pool_provider_id = "external-account-provider"
+  workload_identity_pool_provider_id = "${var.workload_identity_pool_id}-provider"
   display_name                       = "External Account Test Provider"
   description                        = "Trust Google as an OIDC provider"
 
@@ -86,7 +101,7 @@ resource "google_service_account_iam_member" "workload_identity_user" {
 resource "google_service_account" "impersonation_target" {
   provider     = google.external_account_project
   project      = var.project
-  account_id   = "impersonation-target"
+  account_id   = var.impersonation_target_account_id
   display_name = "Impersonation Target Service Account"
 }
 
