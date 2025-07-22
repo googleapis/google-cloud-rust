@@ -942,6 +942,24 @@ pub mod cluster_manager {
             self.0.request.flex_start = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [boot_disk][crate::model::UpdateNodePoolRequest::boot_disk].
+        pub fn set_boot_disk<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BootDisk>,
+        {
+            self.0.request.boot_disk = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [boot_disk][crate::model::UpdateNodePoolRequest::boot_disk].
+        pub fn set_or_clear_boot_disk<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BootDisk>,
+        {
+            self.0.request.boot_disk = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]

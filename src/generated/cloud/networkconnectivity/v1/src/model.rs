@@ -23234,6 +23234,2824 @@ impl serde::ser::Serialize for UpdateGroupRequest {
     }
 }
 
+/// The internal range resource for IPAM operations within a VPC network.
+/// Used to represent a private address range along with behavioral
+/// characteristics of that range (its usage and peering behavior).
+/// Networking resources can link to this range if they are created
+/// as belonging to it.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InternalRange {
+    /// Identifier. The name of an internal range.
+    /// Format:
+    /// projects/{project}/locations/{location}/internalRanges/{internal_range}
+    /// See: <https://google.aip.dev/122#fields-representing-resource-names>
+    pub name: std::string::String,
+
+    /// Time when the internal range was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Time when the internal range was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// User-defined labels.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. A description of this resource.
+    pub description: std::string::String,
+
+    /// Optional. The IP range that this internal range defines.
+    /// NOTE: IPv6 ranges are limited to usage=EXTERNAL_TO_VPC and
+    /// peering=FOR_SELF.
+    /// NOTE: For IPv6 Ranges this field is compulsory, i.e. the address range must
+    /// be specified explicitly.
+    pub ip_cidr_range: std::string::String,
+
+    /// Immutable. The URL or resource ID of the network in which to reserve the
+    /// internal range. The network cannot be deleted if there are any reserved
+    /// internal ranges referring to it. Legacy networks are not supported. For
+    /// example:
+    /// <https://www.googleapis.com/compute/v1/projects/{project}/locations/global/networks/{network}>
+    /// projects/{project}/locations/global/networks/{network}
+    /// {network}
+    pub network: std::string::String,
+
+    /// Optional. The type of usage set for this InternalRange.
+    pub usage: crate::model::internal_range::Usage,
+
+    /// Optional. The type of peering set for this internal range.
+    pub peering: crate::model::internal_range::Peering,
+
+    /// Optional. An alternate to ip_cidr_range. Can be set when trying to create
+    /// an IPv4 reservation that automatically finds a free range of the given
+    /// size. If both ip_cidr_range and prefix_length are set, there is an error if
+    /// the range sizes do not match. Can also be used during updates to change the
+    /// range size.
+    /// NOTE: For IPv6 this field only works if ip_cidr_range is set as well, and
+    /// both fields must match. In other words, with IPv6 this field only works as
+    /// a redundant parameter.
+    pub prefix_length: i32,
+
+    /// Optional. Can be set to narrow down or pick a different address space while
+    /// searching for a free range. If not set, defaults to the "10.0.0.0/8"
+    /// address space. This can be used to search in other rfc-1918 address
+    /// spaces like "172.16.0.0/12" and "192.168.0.0/16" or non-rfc-1918
+    /// address spaces used in the VPC.
+    pub target_cidr_range: std::vec::Vec<std::string::String>,
+
+    /// Output only. The list of resources that refer to this internal range.
+    /// Resources that use the internal range for their range allocation
+    /// are referred to as users of the range. Other resources mark themselves
+    /// as users while doing so by creating a reference to this internal range.
+    /// Having a user, based on this reference, prevents deletion of the
+    /// internal range referred to. Can be empty.
+    pub users: std::vec::Vec<std::string::String>,
+
+    /// Optional. Types of resources that are allowed to overlap with the current
+    /// internal range.
+    pub overlaps: std::vec::Vec<crate::model::internal_range::Overlap>,
+
+    /// Optional. Must be present if usage is set to FOR_MIGRATION.
+    pub migration: std::option::Option<crate::model::internal_range::Migration>,
+
+    /// Optional. Immutable ranges cannot have their fields modified, except for
+    /// labels and description.
+    pub immutable: bool,
+
+    /// Optional. Range auto-allocation options, may be set only when
+    /// auto-allocation is selected by not setting ip_cidr_range (and setting
+    /// prefix_length).
+    pub allocation_options: std::option::Option<crate::model::internal_range::AllocationOptions>,
+
+    /// Optional. ExcludeCidrRanges flag. Specifies a set of CIDR blocks that
+    /// allows exclusion of particular CIDR ranges from the auto-allocation
+    /// process, without having to reserve these blocks
+    pub exclude_cidr_ranges: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InternalRange {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::InternalRange::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::InternalRange::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::InternalRange::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::InternalRange::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::InternalRange::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::InternalRange::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::InternalRange::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [ip_cidr_range][crate::model::InternalRange::ip_cidr_range].
+    pub fn set_ip_cidr_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ip_cidr_range = v.into();
+        self
+    }
+
+    /// Sets the value of [network][crate::model::InternalRange::network].
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network = v.into();
+        self
+    }
+
+    /// Sets the value of [usage][crate::model::InternalRange::usage].
+    pub fn set_usage<T: std::convert::Into<crate::model::internal_range::Usage>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.usage = v.into();
+        self
+    }
+
+    /// Sets the value of [peering][crate::model::InternalRange::peering].
+    pub fn set_peering<T: std::convert::Into<crate::model::internal_range::Peering>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.peering = v.into();
+        self
+    }
+
+    /// Sets the value of [prefix_length][crate::model::InternalRange::prefix_length].
+    pub fn set_prefix_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.prefix_length = v.into();
+        self
+    }
+
+    /// Sets the value of [target_cidr_range][crate::model::InternalRange::target_cidr_range].
+    pub fn set_target_cidr_range<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.target_cidr_range = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [users][crate::model::InternalRange::users].
+    pub fn set_users<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.users = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [overlaps][crate::model::InternalRange::overlaps].
+    pub fn set_overlaps<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::internal_range::Overlap>,
+    {
+        use std::iter::Iterator;
+        self.overlaps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [migration][crate::model::InternalRange::migration].
+    pub fn set_migration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::internal_range::Migration>,
+    {
+        self.migration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [migration][crate::model::InternalRange::migration].
+    pub fn set_or_clear_migration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::internal_range::Migration>,
+    {
+        self.migration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [immutable][crate::model::InternalRange::immutable].
+    pub fn set_immutable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.immutable = v.into();
+        self
+    }
+
+    /// Sets the value of [allocation_options][crate::model::InternalRange::allocation_options].
+    pub fn set_allocation_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::internal_range::AllocationOptions>,
+    {
+        self.allocation_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [allocation_options][crate::model::InternalRange::allocation_options].
+    pub fn set_or_clear_allocation_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::internal_range::AllocationOptions>,
+    {
+        self.allocation_options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [exclude_cidr_ranges][crate::model::InternalRange::exclude_cidr_ranges].
+    pub fn set_exclude_cidr_ranges<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.exclude_cidr_ranges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for InternalRange {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.InternalRange"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for InternalRange {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __create_time,
+            __update_time,
+            __labels,
+            __description,
+            __ip_cidr_range,
+            __network,
+            __usage,
+            __peering,
+            __prefix_length,
+            __target_cidr_range,
+            __users,
+            __overlaps,
+            __migration,
+            __immutable,
+            __allocation_options,
+            __exclude_cidr_ranges,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for InternalRange")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "description" => Ok(__FieldTag::__description),
+                            "ipCidrRange" => Ok(__FieldTag::__ip_cidr_range),
+                            "ip_cidr_range" => Ok(__FieldTag::__ip_cidr_range),
+                            "network" => Ok(__FieldTag::__network),
+                            "usage" => Ok(__FieldTag::__usage),
+                            "peering" => Ok(__FieldTag::__peering),
+                            "prefixLength" => Ok(__FieldTag::__prefix_length),
+                            "prefix_length" => Ok(__FieldTag::__prefix_length),
+                            "targetCidrRange" => Ok(__FieldTag::__target_cidr_range),
+                            "target_cidr_range" => Ok(__FieldTag::__target_cidr_range),
+                            "users" => Ok(__FieldTag::__users),
+                            "overlaps" => Ok(__FieldTag::__overlaps),
+                            "migration" => Ok(__FieldTag::__migration),
+                            "immutable" => Ok(__FieldTag::__immutable),
+                            "allocationOptions" => Ok(__FieldTag::__allocation_options),
+                            "allocation_options" => Ok(__FieldTag::__allocation_options),
+                            "excludeCidrRanges" => Ok(__FieldTag::__exclude_cidr_ranges),
+                            "exclude_cidr_ranges" => Ok(__FieldTag::__exclude_cidr_ranges),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = InternalRange;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct InternalRange")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ip_cidr_range => {
+                            if !fields.insert(__FieldTag::__ip_cidr_range) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ip_cidr_range",
+                                ));
+                            }
+                            result.ip_cidr_range = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__network => {
+                            if !fields.insert(__FieldTag::__network) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for network",
+                                ));
+                            }
+                            result.network = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__usage => {
+                            if !fields.insert(__FieldTag::__usage) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for usage",
+                                ));
+                            }
+                            result.usage = map.next_value::<std::option::Option<crate::model::internal_range::Usage>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__peering => {
+                            if !fields.insert(__FieldTag::__peering) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for peering",
+                                ));
+                            }
+                            result.peering = map.next_value::<std::option::Option<crate::model::internal_range::Peering>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__prefix_length => {
+                            if !fields.insert(__FieldTag::__prefix_length) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for prefix_length",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.prefix_length =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__target_cidr_range => {
+                            if !fields.insert(__FieldTag::__target_cidr_range) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for target_cidr_range",
+                                ));
+                            }
+                            result.target_cidr_range = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__users => {
+                            if !fields.insert(__FieldTag::__users) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for users",
+                                ));
+                            }
+                            result.users = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__overlaps => {
+                            if !fields.insert(__FieldTag::__overlaps) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for overlaps",
+                                ));
+                            }
+                            result.overlaps = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::internal_range::Overlap>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__migration => {
+                            if !fields.insert(__FieldTag::__migration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for migration",
+                                ));
+                            }
+                            result.migration = map.next_value::<std::option::Option<crate::model::internal_range::Migration>>()?
+                                ;
+                        }
+                        __FieldTag::__immutable => {
+                            if !fields.insert(__FieldTag::__immutable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for immutable",
+                                ));
+                            }
+                            result.immutable = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__allocation_options => {
+                            if !fields.insert(__FieldTag::__allocation_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allocation_options",
+                                ));
+                            }
+                            result.allocation_options = map.next_value::<std::option::Option<
+                                crate::model::internal_range::AllocationOptions,
+                            >>()?;
+                        }
+                        __FieldTag::__exclude_cidr_ranges => {
+                            if !fields.insert(__FieldTag::__exclude_cidr_ranges) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for exclude_cidr_ranges",
+                                ));
+                            }
+                            result.exclude_cidr_ranges = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for InternalRange {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.ip_cidr_range.is_empty() {
+            state.serialize_entry("ipCidrRange", &self.ip_cidr_range)?;
+        }
+        if !self.network.is_empty() {
+            state.serialize_entry("network", &self.network)?;
+        }
+        if !wkt::internal::is_default(&self.usage) {
+            state.serialize_entry("usage", &self.usage)?;
+        }
+        if !wkt::internal::is_default(&self.peering) {
+            state.serialize_entry("peering", &self.peering)?;
+        }
+        if !wkt::internal::is_default(&self.prefix_length) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("prefixLength", &__With(&self.prefix_length))?;
+        }
+        if !self.target_cidr_range.is_empty() {
+            state.serialize_entry("targetCidrRange", &self.target_cidr_range)?;
+        }
+        if !self.users.is_empty() {
+            state.serialize_entry("users", &self.users)?;
+        }
+        if !self.overlaps.is_empty() {
+            state.serialize_entry("overlaps", &self.overlaps)?;
+        }
+        if self.migration.is_some() {
+            state.serialize_entry("migration", &self.migration)?;
+        }
+        if !wkt::internal::is_default(&self.immutable) {
+            state.serialize_entry("immutable", &self.immutable)?;
+        }
+        if self.allocation_options.is_some() {
+            state.serialize_entry("allocationOptions", &self.allocation_options)?;
+        }
+        if !self.exclude_cidr_ranges.is_empty() {
+            state.serialize_entry("excludeCidrRanges", &self.exclude_cidr_ranges)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Defines additional types related to [InternalRange].
+pub mod internal_range {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Specification for migration with source and target resource names.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Migration {
+        /// Immutable. Resource path as an URI of the source resource, for example a
+        /// subnet. The project for the source resource should match the project for
+        /// the InternalRange. An example:
+        /// /projects/{project}/regions/{region}/subnetworks/{subnet}
+        pub source: std::string::String,
+
+        /// Immutable. Resource path of the target resource. The target project can
+        /// be different, as in the cases when migrating to peer networks. For
+        /// example:
+        /// /projects/{project}/regions/{region}/subnetworks/{subnet}
+        pub target: std::string::String,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Migration {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [source][crate::model::internal_range::Migration::source].
+        pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.source = v.into();
+            self
+        }
+
+        /// Sets the value of [target][crate::model::internal_range::Migration::target].
+        pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.target = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Migration {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkconnectivity.v1.InternalRange.Migration"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Migration {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __source,
+                __target,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Migration")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "source" => Ok(__FieldTag::__source),
+                                "target" => Ok(__FieldTag::__target),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Migration;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Migration")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__source => {
+                                if !fields.insert(__FieldTag::__source) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for source",
+                                    ));
+                                }
+                                result.source = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__target => {
+                                if !fields.insert(__FieldTag::__target) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for target",
+                                    ));
+                                }
+                                result.target = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Migration {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.source.is_empty() {
+                state.serialize_entry("source", &self.source)?;
+            }
+            if !self.target.is_empty() {
+                state.serialize_entry("target", &self.target)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    /// Range auto-allocation options, to be optionally used when CIDR block is not
+    /// explicitly set.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AllocationOptions {
+        /// Optional. Allocation strategy Not setting this field when the allocation
+        /// is requested means an implementation defined strategy is used.
+        pub allocation_strategy: crate::model::internal_range::AllocationStrategy,
+
+        /// Optional. This field must be set only when allocation_strategy is set to
+        /// RANDOM_FIRST_N_AVAILABLE.
+        /// The value should be the maximum expected parallelism of range creation
+        /// requests issued to the same space of peered netwroks.
+        pub first_available_ranges_lookup_size: i32,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AllocationOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [allocation_strategy][crate::model::internal_range::AllocationOptions::allocation_strategy].
+        pub fn set_allocation_strategy<
+            T: std::convert::Into<crate::model::internal_range::AllocationStrategy>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.allocation_strategy = v.into();
+            self
+        }
+
+        /// Sets the value of [first_available_ranges_lookup_size][crate::model::internal_range::AllocationOptions::first_available_ranges_lookup_size].
+        pub fn set_first_available_ranges_lookup_size<T: std::convert::Into<i32>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.first_available_ranges_lookup_size = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AllocationOptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkconnectivity.v1.InternalRange.AllocationOptions"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for AllocationOptions {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __allocation_strategy,
+                __first_available_ranges_lookup_size,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for AllocationOptions")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "allocationStrategy" => Ok(__FieldTag::__allocation_strategy),
+                                "allocation_strategy" => Ok(__FieldTag::__allocation_strategy),
+                                "firstAvailableRangesLookupSize" => {
+                                    Ok(__FieldTag::__first_available_ranges_lookup_size)
+                                }
+                                "first_available_ranges_lookup_size" => {
+                                    Ok(__FieldTag::__first_available_ranges_lookup_size)
+                                }
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = AllocationOptions;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct AllocationOptions")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__allocation_strategy => {
+                                if !fields.insert(__FieldTag::__allocation_strategy) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for allocation_strategy",
+                                    ));
+                                }
+                                result.allocation_strategy = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::internal_range::AllocationStrategy,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__first_available_ranges_lookup_size => {
+                                if !fields.insert(__FieldTag::__first_available_ranges_lookup_size)
+                                {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for first_available_ranges_lookup_size",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.first_available_ranges_lookup_size =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for AllocationOptions {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.allocation_strategy) {
+                state.serialize_entry("allocationStrategy", &self.allocation_strategy)?;
+            }
+            if !wkt::internal::is_default(&self.first_available_ranges_lookup_size) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry(
+                    "firstAvailableRangesLookupSize",
+                    &__With(&self.first_available_ranges_lookup_size),
+                )?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    /// Possible usage of an internal range.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Usage {
+        /// Unspecified usage is allowed in calls which identify the resource by
+        /// other fields and do not need Usage set to complete. These are, i.e.:
+        /// GetInternalRange and DeleteInternalRange.
+        /// Usage needs to be specified explicitly in CreateInternalRange
+        /// or UpdateInternalRange calls.
+        Unspecified,
+        /// A VPC resource can use the reserved CIDR block by associating it with the
+        /// internal range resource if usage is set to FOR_VPC.
+        ForVpc,
+        /// Ranges created with EXTERNAL_TO_VPC cannot be associated with VPC
+        /// resources and are meant to block out address ranges for various use
+        /// cases, like for example, usage on-prem, with dynamic route announcements
+        /// via interconnect.
+        ExternalToVpc,
+        /// Ranges created FOR_MIGRATION can be used to lock a CIDR range between a
+        /// source and target subnet. If usage is set to FOR_MIGRATION, the peering
+        /// value has to be set to FOR_SELF or default to FOR_SELF when unset.
+        ForMigration,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Usage::value] or
+        /// [Usage::name].
+        UnknownValue(usage::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod usage {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Usage {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ForVpc => std::option::Option::Some(1),
+                Self::ExternalToVpc => std::option::Option::Some(2),
+                Self::ForMigration => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("USAGE_UNSPECIFIED"),
+                Self::ForVpc => std::option::Option::Some("FOR_VPC"),
+                Self::ExternalToVpc => std::option::Option::Some("EXTERNAL_TO_VPC"),
+                Self::ForMigration => std::option::Option::Some("FOR_MIGRATION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Usage {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Usage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Usage {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ForVpc,
+                2 => Self::ExternalToVpc,
+                3 => Self::ForMigration,
+                _ => Self::UnknownValue(usage::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Usage {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "USAGE_UNSPECIFIED" => Self::Unspecified,
+                "FOR_VPC" => Self::ForVpc,
+                "EXTERNAL_TO_VPC" => Self::ExternalToVpc,
+                "FOR_MIGRATION" => Self::ForMigration,
+                _ => Self::UnknownValue(usage::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Usage {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ForVpc => serializer.serialize_i32(1),
+                Self::ExternalToVpc => serializer.serialize_i32(2),
+                Self::ForMigration => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Usage {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Usage>::new(
+                ".google.cloud.networkconnectivity.v1.InternalRange.Usage",
+            ))
+        }
+    }
+
+    /// Peering type.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Peering {
+        /// If Peering is left unspecified in CreateInternalRange or
+        /// UpdateInternalRange, it will be defaulted to FOR_SELF.
+        Unspecified,
+        /// This is the default behavior and represents the case that this
+        /// internal range is intended to be used in the VPC in which it is created
+        /// and is accessible from its peers. This implies that peers or
+        /// peers-of-peers cannot use this range.
+        ForSelf,
+        /// This behavior can be set when the internal range is being reserved for
+        /// usage by peers. This means that no resource within the VPC in which
+        /// it is being created can use this to associate with a VPC resource, but
+        /// one of the peers can. This represents donating a range for peers to
+        /// use.
+        ForPeer,
+        /// This behavior can be set when the internal range is being reserved for
+        /// usage by the VPC in which it is created, but not shared with peers.
+        /// In a sense, it is local to the VPC. This can be used to create internal
+        /// ranges for various purposes like HTTP_INTERNAL_LOAD_BALANCER or for
+        /// Interconnect routes that are not shared with peers. This also implies
+        /// that peers cannot use this range in a way that is visible to this VPC,
+        /// but can re-use this range as long as it is NOT_SHARED from the peer VPC,
+        /// too.
+        NotShared,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Peering::value] or
+        /// [Peering::name].
+        UnknownValue(peering::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod peering {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Peering {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ForSelf => std::option::Option::Some(1),
+                Self::ForPeer => std::option::Option::Some(2),
+                Self::NotShared => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PEERING_UNSPECIFIED"),
+                Self::ForSelf => std::option::Option::Some("FOR_SELF"),
+                Self::ForPeer => std::option::Option::Some("FOR_PEER"),
+                Self::NotShared => std::option::Option::Some("NOT_SHARED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Peering {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Peering {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Peering {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ForSelf,
+                2 => Self::ForPeer,
+                3 => Self::NotShared,
+                _ => Self::UnknownValue(peering::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Peering {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PEERING_UNSPECIFIED" => Self::Unspecified,
+                "FOR_SELF" => Self::ForSelf,
+                "FOR_PEER" => Self::ForPeer,
+                "NOT_SHARED" => Self::NotShared,
+                _ => Self::UnknownValue(peering::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Peering {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ForSelf => serializer.serialize_i32(1),
+                Self::ForPeer => serializer.serialize_i32(2),
+                Self::NotShared => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Peering {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Peering>::new(
+                ".google.cloud.networkconnectivity.v1.InternalRange.Peering",
+            ))
+        }
+    }
+
+    /// Overlap specifications.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Overlap {
+        /// No overlap overrides.
+        Unspecified,
+        /// Allow creation of static routes more specific that the current
+        /// internal range.
+        RouteRange,
+        /// Allow creation of internal ranges that overlap with existing subnets.
+        ExistingSubnetRange,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Overlap::value] or
+        /// [Overlap::name].
+        UnknownValue(overlap::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod overlap {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Overlap {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RouteRange => std::option::Option::Some(1),
+                Self::ExistingSubnetRange => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("OVERLAP_UNSPECIFIED"),
+                Self::RouteRange => std::option::Option::Some("OVERLAP_ROUTE_RANGE"),
+                Self::ExistingSubnetRange => {
+                    std::option::Option::Some("OVERLAP_EXISTING_SUBNET_RANGE")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Overlap {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Overlap {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Overlap {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RouteRange,
+                2 => Self::ExistingSubnetRange,
+                _ => Self::UnknownValue(overlap::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Overlap {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "OVERLAP_UNSPECIFIED" => Self::Unspecified,
+                "OVERLAP_ROUTE_RANGE" => Self::RouteRange,
+                "OVERLAP_EXISTING_SUBNET_RANGE" => Self::ExistingSubnetRange,
+                _ => Self::UnknownValue(overlap::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Overlap {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RouteRange => serializer.serialize_i32(1),
+                Self::ExistingSubnetRange => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Overlap {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Overlap>::new(
+                ".google.cloud.networkconnectivity.v1.InternalRange.Overlap",
+            ))
+        }
+    }
+
+    /// Enumeration of range auto-allocation strategies
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AllocationStrategy {
+        /// Unspecified is the only valid option when the range is specified
+        /// explicitly by ip_cidr_range field. Otherwise unspefified means using the
+        /// default strategy.
+        Unspecified,
+        /// Random strategy, the legacy algorithm, used for backwards compatibility.
+        /// This allocation strategy remains efficient in the case of concurrent
+        /// allocation requests in the same peered network space and doesn't require
+        /// providing the level of concurrency in an explicit parameter, but it is
+        /// prone to fragmenting available address space.
+        Random,
+        /// Pick the first available address range. This strategy is deterministic
+        /// and the result is easy to predict.
+        FirstAvailable,
+        /// Pick an arbitrary range out of the first N available ones. The N will be
+        /// set in the first_available_ranges_lookup_size field. This strategy should
+        /// be used when concurrent allocation requests are made in the same space of
+        /// peered networks while the fragmentation of the addrress space is reduced.
+        RandomFirstNAvailable,
+        /// Pick the smallest but fitting available range. This deterministic
+        /// strategy minimizes fragmentation of the address space.
+        FirstSmallestFitting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AllocationStrategy::value] or
+        /// [AllocationStrategy::name].
+        UnknownValue(allocation_strategy::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod allocation_strategy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AllocationStrategy {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Random => std::option::Option::Some(1),
+                Self::FirstAvailable => std::option::Option::Some(2),
+                Self::RandomFirstNAvailable => std::option::Option::Some(3),
+                Self::FirstSmallestFitting => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ALLOCATION_STRATEGY_UNSPECIFIED"),
+                Self::Random => std::option::Option::Some("RANDOM"),
+                Self::FirstAvailable => std::option::Option::Some("FIRST_AVAILABLE"),
+                Self::RandomFirstNAvailable => {
+                    std::option::Option::Some("RANDOM_FIRST_N_AVAILABLE")
+                }
+                Self::FirstSmallestFitting => std::option::Option::Some("FIRST_SMALLEST_FITTING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AllocationStrategy {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AllocationStrategy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AllocationStrategy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Random,
+                2 => Self::FirstAvailable,
+                3 => Self::RandomFirstNAvailable,
+                4 => Self::FirstSmallestFitting,
+                _ => Self::UnknownValue(allocation_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AllocationStrategy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ALLOCATION_STRATEGY_UNSPECIFIED" => Self::Unspecified,
+                "RANDOM" => Self::Random,
+                "FIRST_AVAILABLE" => Self::FirstAvailable,
+                "RANDOM_FIRST_N_AVAILABLE" => Self::RandomFirstNAvailable,
+                "FIRST_SMALLEST_FITTING" => Self::FirstSmallestFitting,
+                _ => Self::UnknownValue(allocation_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AllocationStrategy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Random => serializer.serialize_i32(1),
+                Self::FirstAvailable => serializer.serialize_i32(2),
+                Self::RandomFirstNAvailable => serializer.serialize_i32(3),
+                Self::FirstSmallestFitting => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AllocationStrategy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AllocationStrategy>::new(
+                ".google.cloud.networkconnectivity.v1.InternalRange.AllocationStrategy",
+            ))
+        }
+    }
+}
+
+/// Request for InternalRangeService.ListInternalRanges
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListInternalRangesRequest {
+    /// Required. The parent resource's name.
+    pub parent: std::string::String,
+
+    /// The maximum number of results per page that should be returned.
+    pub page_size: i32,
+
+    /// The page token.
+    pub page_token: std::string::String,
+
+    /// A filter expression that filters the results listed in the response.
+    pub filter: std::string::String,
+
+    /// Sort the results by a certain order.
+    pub order_by: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListInternalRangesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListInternalRangesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListInternalRangesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListInternalRangesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListInternalRangesRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListInternalRangesRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListInternalRangesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ListInternalRangesRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListInternalRangesRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __filter,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListInternalRangesRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListInternalRangesRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListInternalRangesRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListInternalRangesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Response for InternalRange.ListInternalRanges
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListInternalRangesResponse {
+    /// Internal ranges to be returned.
+    pub internal_ranges: std::vec::Vec<crate::model::InternalRange>,
+
+    /// The next pagination token in the List response. It should be used as
+    /// page_token for the following request. An empty value means no more result.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListInternalRangesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [internal_ranges][crate::model::ListInternalRangesResponse::internal_ranges].
+    pub fn set_internal_ranges<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InternalRange>,
+    {
+        use std::iter::Iterator;
+        self.internal_ranges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInternalRangesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListInternalRangesResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListInternalRangesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.ListInternalRangesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListInternalRangesResponse {
+    type PageItem = crate::model::InternalRange;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.internal_ranges
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListInternalRangesResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __internal_ranges,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListInternalRangesResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "internalRanges" => Ok(__FieldTag::__internal_ranges),
+                            "internal_ranges" => Ok(__FieldTag::__internal_ranges),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListInternalRangesResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListInternalRangesResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__internal_ranges => {
+                            if !fields.insert(__FieldTag::__internal_ranges) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for internal_ranges",
+                                ));
+                            }
+                            result.internal_ranges = map.next_value::<std::option::Option<std::vec::Vec<crate::model::InternalRange>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListInternalRangesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.internal_ranges.is_empty() {
+            state.serialize_entry("internalRanges", &self.internal_ranges)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Request for InternalRangeService.GetInternalRange
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetInternalRangeRequest {
+    /// Required. Name of the InternalRange to get.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetInternalRangeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetInternalRangeRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetInternalRangeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.GetInternalRangeRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetInternalRangeRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetInternalRangeRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetInternalRangeRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetInternalRangeRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetInternalRangeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Request for InternalRangeService.CreateInternalRange
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateInternalRangeRequest {
+    /// Required. The parent resource's name of the internal range.
+    pub parent: std::string::String,
+
+    /// Optional. Resource ID
+    /// (i.e. 'foo' in '[...]/projects/p/locations/l/internalRanges/foo')
+    /// See <https://google.aip.dev/122#resource-id-segments>
+    /// Unique per location.
+    pub internal_range_id: std::string::String,
+
+    /// Required. Initial values for a new internal range
+    pub internal_range: std::option::Option<crate::model::InternalRange>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateInternalRangeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateInternalRangeRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [internal_range_id][crate::model::CreateInternalRangeRequest::internal_range_id].
+    pub fn set_internal_range_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.internal_range_id = v.into();
+        self
+    }
+
+    /// Sets the value of [internal_range][crate::model::CreateInternalRangeRequest::internal_range].
+    pub fn set_internal_range<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InternalRange>,
+    {
+        self.internal_range = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [internal_range][crate::model::CreateInternalRangeRequest::internal_range].
+    pub fn set_or_clear_internal_range<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InternalRange>,
+    {
+        self.internal_range = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateInternalRangeRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateInternalRangeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.CreateInternalRangeRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateInternalRangeRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __internal_range_id,
+            __internal_range,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateInternalRangeRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "internalRangeId" => Ok(__FieldTag::__internal_range_id),
+                            "internal_range_id" => Ok(__FieldTag::__internal_range_id),
+                            "internalRange" => Ok(__FieldTag::__internal_range),
+                            "internal_range" => Ok(__FieldTag::__internal_range),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateInternalRangeRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateInternalRangeRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__internal_range_id => {
+                            if !fields.insert(__FieldTag::__internal_range_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for internal_range_id",
+                                ));
+                            }
+                            result.internal_range_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__internal_range => {
+                            if !fields.insert(__FieldTag::__internal_range) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for internal_range",
+                                ));
+                            }
+                            result.internal_range = map
+                                .next_value::<std::option::Option<crate::model::InternalRange>>()?;
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateInternalRangeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.internal_range_id.is_empty() {
+            state.serialize_entry("internalRangeId", &self.internal_range_id)?;
+        }
+        if self.internal_range.is_some() {
+            state.serialize_entry("internalRange", &self.internal_range)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Request for InternalRangeService.UpdateInternalRange
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateInternalRangeRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// InternalRange resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. New values to be patched into the resource.
+    pub internal_range: std::option::Option<crate::model::InternalRange>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateInternalRangeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateInternalRangeRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateInternalRangeRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [internal_range][crate::model::UpdateInternalRangeRequest::internal_range].
+    pub fn set_internal_range<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InternalRange>,
+    {
+        self.internal_range = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [internal_range][crate::model::UpdateInternalRangeRequest::internal_range].
+    pub fn set_or_clear_internal_range<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InternalRange>,
+    {
+        self.internal_range = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateInternalRangeRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateInternalRangeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.UpdateInternalRangeRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateInternalRangeRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __update_mask,
+            __internal_range,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateInternalRangeRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            "internalRange" => Ok(__FieldTag::__internal_range),
+                            "internal_range" => Ok(__FieldTag::__internal_range),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateInternalRangeRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateInternalRangeRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::__internal_range => {
+                            if !fields.insert(__FieldTag::__internal_range) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for internal_range",
+                                ));
+                            }
+                            result.internal_range = map
+                                .next_value::<std::option::Option<crate::model::InternalRange>>()?;
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateInternalRangeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if self.internal_range.is_some() {
+            state.serialize_entry("internalRange", &self.internal_range)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Request for InternalRangeService.DeleteInternalRange
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteInternalRangeRequest {
+    /// Required. The name of the internal range to delete.
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteInternalRangeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteInternalRangeRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteInternalRangeRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteInternalRangeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkconnectivity.v1.DeleteInternalRangeRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteInternalRangeRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteInternalRangeRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteInternalRangeRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteInternalRangeRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteInternalRangeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Policy-based routes route L4 network traffic based on not just destination IP
 /// address, but also source IP address, protocol, and more. If a policy-based
 /// route conflicts with other types of routes, the policy-based route always

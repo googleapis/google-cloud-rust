@@ -829,6 +829,12 @@ pub struct Database {
     /// Output only. Information about the provenance of this database.
     pub source_info: std::option::Option<crate::model::database::SourceInfo>,
 
+    /// Optional. Input only. Immutable. Tag keys/values directly bound to this
+    /// resource. For example:
+    /// "123/environment": "production",
+    /// "123/costCenter": "marketing"
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
     /// Output only. Background: Free tier is the ability of a Firestore database
     /// to use a small amount of resources every day without being charged. Once
     /// usage exceeds the free tier limit further usage is charged.
@@ -1065,6 +1071,18 @@ impl Database {
         self
     }
 
+    /// Sets the value of [tags][crate::model::Database::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [free_tier][crate::model::Database::free_tier].
     pub fn set_free_tier<T>(mut self, v: T) -> Self
     where
@@ -1132,6 +1150,7 @@ impl<'de> serde::de::Deserialize<'de> for Database {
             __cmek_config,
             __previous_id,
             __source_info,
+            __tags,
             __free_tier,
             __etag,
             __database_edition,
@@ -1196,6 +1215,7 @@ impl<'de> serde::de::Deserialize<'de> for Database {
                             "previous_id" => Ok(__FieldTag::__previous_id),
                             "sourceInfo" => Ok(__FieldTag::__source_info),
                             "source_info" => Ok(__FieldTag::__source_info),
+                            "tags" => Ok(__FieldTag::__tags),
                             "freeTier" => Ok(__FieldTag::__free_tier),
                             "free_tier" => Ok(__FieldTag::__free_tier),
                             "etag" => Ok(__FieldTag::__etag),
@@ -1391,6 +1411,21 @@ impl<'de> serde::de::Deserialize<'de> for Database {
                             result.source_info = map.next_value::<std::option::Option<crate::model::database::SourceInfo>>()?
                                 ;
                         }
+                        __FieldTag::__tags => {
+                            if !fields.insert(__FieldTag::__tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tags",
+                                ));
+                            }
+                            result.tags = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__free_tier => {
                             if !fields.insert(__FieldTag::__free_tier) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -1496,6 +1531,9 @@ impl serde::ser::Serialize for Database {
         }
         if self.source_info.is_some() {
             state.serialize_entry("sourceInfo", &self.source_info)?;
+        }
+        if !self.tags.is_empty() {
+            state.serialize_entry("tags", &self.tags)?;
         }
         if self.free_tier.is_some() {
             state.serialize_entry("freeTier", &self.free_tier)?;
@@ -10801,6 +10839,12 @@ pub struct RestoreDatabaseRequest {
     /// [google.firestore.admin.v1.Database.EncryptionConfig.use_source_encryption]: crate::model::database::EncryptionConfig::encryption_type
     pub encryption_config: std::option::Option<crate::model::database::EncryptionConfig>,
 
+    /// Optional. Immutable. Tags to be bound to the restored database.
+    ///
+    /// The tags should be provided in the format of
+    /// `tagKeys/{tag_key_id} -> tagValues/{tag_value_id}`.
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10844,6 +10888,18 @@ impl RestoreDatabaseRequest {
         self.encryption_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [tags][crate::model::RestoreDatabaseRequest::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for RestoreDatabaseRequest {
@@ -10866,6 +10922,7 @@ impl<'de> serde::de::Deserialize<'de> for RestoreDatabaseRequest {
             __database_id,
             __backup,
             __encryption_config,
+            __tags,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10892,6 +10949,7 @@ impl<'de> serde::de::Deserialize<'de> for RestoreDatabaseRequest {
                             "backup" => Ok(__FieldTag::__backup),
                             "encryptionConfig" => Ok(__FieldTag::__encryption_config),
                             "encryption_config" => Ok(__FieldTag::__encryption_config),
+                            "tags" => Ok(__FieldTag::__tags),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -10956,6 +11014,21 @@ impl<'de> serde::de::Deserialize<'de> for RestoreDatabaseRequest {
                             result.encryption_config = map.next_value::<std::option::Option<crate::model::database::EncryptionConfig>>()?
                                 ;
                         }
+                        __FieldTag::__tags => {
+                            if !fields.insert(__FieldTag::__tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tags",
+                                ));
+                            }
+                            result.tags = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -10990,6 +11063,9 @@ impl serde::ser::Serialize for RestoreDatabaseRequest {
         }
         if self.encryption_config.is_some() {
             state.serialize_entry("encryptionConfig", &self.encryption_config)?;
+        }
+        if !self.tags.is_empty() {
+            state.serialize_entry("tags", &self.tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

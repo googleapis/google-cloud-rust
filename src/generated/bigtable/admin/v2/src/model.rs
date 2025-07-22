@@ -29993,6 +29993,54 @@ impl Type {
         self.kind = std::option::Option::Some(crate::model::r#type::Kind::MapType(v.into()));
         self
     }
+
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `ProtoType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn proto_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Proto>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::ProtoType(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [kind][crate::model::Type::kind]
+    /// to hold a `ProtoType`.
+    ///
+    /// Note that all the setters affecting `kind` are
+    /// mutually exclusive.
+    pub fn set_proto_type<T: std::convert::Into<std::boxed::Box<crate::model::r#type::Proto>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.kind = std::option::Option::Some(crate::model::r#type::Kind::ProtoType(v.into()));
+        self
+    }
+
+    /// The value of [kind][crate::model::Type::kind]
+    /// if it holds a `EnumType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn enum_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Enum>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::r#type::Kind::EnumType(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [kind][crate::model::Type::kind]
+    /// to hold a `EnumType`.
+    ///
+    /// Note that all the setters affecting `kind` are
+    /// mutually exclusive.
+    pub fn set_enum_type<T: std::convert::Into<std::boxed::Box<crate::model::r#type::Enum>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.kind = std::option::Option::Some(crate::model::r#type::Kind::EnumType(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for Type {
@@ -30023,6 +30071,8 @@ impl<'de> serde::de::Deserialize<'de> for Type {
             __struct_type,
             __array_type,
             __map_type,
+            __proto_type,
+            __enum_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -30067,6 +30117,10 @@ impl<'de> serde::de::Deserialize<'de> for Type {
                             "array_type" => Ok(__FieldTag::__array_type),
                             "mapType" => Ok(__FieldTag::__map_type),
                             "map_type" => Ok(__FieldTag::__map_type),
+                            "protoType" => Ok(__FieldTag::__proto_type),
+                            "proto_type" => Ok(__FieldTag::__proto_type),
+                            "enumType" => Ok(__FieldTag::__enum_type),
+                            "enum_type" => Ok(__FieldTag::__enum_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -30322,6 +30376,44 @@ impl<'de> serde::de::Deserialize<'de> for Type {
                                     .unwrap_or_default(),
                                 ));
                         }
+                        __FieldTag::__proto_type => {
+                            if !fields.insert(__FieldTag::__proto_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for proto_type",
+                                ));
+                            }
+                            if result.kind.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `kind`, a oneof with full ID .google.bigtable.admin.v2.Type.proto_type, latest field was protoType",
+                                ));
+                            }
+                            result.kind =
+                                std::option::Option::Some(crate::model::r#type::Kind::ProtoType(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::r#type::Proto>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ));
+                        }
+                        __FieldTag::__enum_type => {
+                            if !fields.insert(__FieldTag::__enum_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enum_type",
+                                ));
+                            }
+                            if result.kind.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `kind`, a oneof with full ID .google.bigtable.admin.v2.Type.enum_type, latest field was enumType",
+                                ));
+                            }
+                            result.kind =
+                                std::option::Option::Some(crate::model::r#type::Kind::EnumType(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::r#type::Enum>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ));
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -30380,6 +30472,12 @@ impl serde::ser::Serialize for Type {
         }
         if let Some(value) = self.map_type() {
             state.serialize_entry("mapType", value)?;
+        }
+        if let Some(value) = self.proto_type() {
+            state.serialize_entry("protoType", value)?;
+        }
+        if let Some(value) = self.enum_type() {
+            state.serialize_entry("enumType", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -34224,6 +34322,337 @@ pub mod r#type {
         }
     }
 
+    /// A protobuf message type.
+    /// Values of type `Proto` are stored in `Value.bytes_value`.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Proto {
+        /// The ID of the schema bundle that this proto is defined in.
+        pub schema_bundle_id: std::string::String,
+
+        /// The fully qualified name of the protobuf message, including package. In
+        /// the format of "foo.bar.Message".
+        pub message_name: std::string::String,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Proto {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [schema_bundle_id][crate::model::r#type::Proto::schema_bundle_id].
+        pub fn set_schema_bundle_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.schema_bundle_id = v.into();
+            self
+        }
+
+        /// Sets the value of [message_name][crate::model::r#type::Proto::message_name].
+        pub fn set_message_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.message_name = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Proto {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.bigtable.admin.v2.Type.Proto"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Proto {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __schema_bundle_id,
+                __message_name,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Proto")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "schemaBundleId" => Ok(__FieldTag::__schema_bundle_id),
+                                "schema_bundle_id" => Ok(__FieldTag::__schema_bundle_id),
+                                "messageName" => Ok(__FieldTag::__message_name),
+                                "message_name" => Ok(__FieldTag::__message_name),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Proto;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Proto")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__schema_bundle_id => {
+                                if !fields.insert(__FieldTag::__schema_bundle_id) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for schema_bundle_id",
+                                    ));
+                                }
+                                result.schema_bundle_id = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__message_name => {
+                                if !fields.insert(__FieldTag::__message_name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for message_name",
+                                    ));
+                                }
+                                result.message_name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Proto {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.schema_bundle_id.is_empty() {
+                state.serialize_entry("schemaBundleId", &self.schema_bundle_id)?;
+            }
+            if !self.message_name.is_empty() {
+                state.serialize_entry("messageName", &self.message_name)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    /// A protobuf enum type.
+    /// Values of type `Enum` are stored in `Value.int_value`.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Enum {
+        /// The ID of the schema bundle that this enum is defined in.
+        pub schema_bundle_id: std::string::String,
+
+        /// The fully qualified name of the protobuf enum message, including package.
+        /// In the format of "foo.bar.EnumMessage".
+        pub enum_name: std::string::String,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Enum {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [schema_bundle_id][crate::model::r#type::Enum::schema_bundle_id].
+        pub fn set_schema_bundle_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.schema_bundle_id = v.into();
+            self
+        }
+
+        /// Sets the value of [enum_name][crate::model::r#type::Enum::enum_name].
+        pub fn set_enum_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.enum_name = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Enum {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.bigtable.admin.v2.Type.Enum"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Enum {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __schema_bundle_id,
+                __enum_name,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Enum")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "schemaBundleId" => Ok(__FieldTag::__schema_bundle_id),
+                                "schema_bundle_id" => Ok(__FieldTag::__schema_bundle_id),
+                                "enumName" => Ok(__FieldTag::__enum_name),
+                                "enum_name" => Ok(__FieldTag::__enum_name),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Enum;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Enum")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__schema_bundle_id => {
+                                if !fields.insert(__FieldTag::__schema_bundle_id) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for schema_bundle_id",
+                                    ));
+                                }
+                                result.schema_bundle_id = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__enum_name => {
+                                if !fields.insert(__FieldTag::__enum_name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for enum_name",
+                                    ));
+                                }
+                                result.enum_name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Enum {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.schema_bundle_id.is_empty() {
+                state.serialize_entry("schemaBundleId", &self.schema_bundle_id)?;
+            }
+            if !self.enum_name.is_empty() {
+                state.serialize_entry("enumName", &self.enum_name)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// An ordered list of elements of a given type.
     /// Values of type `Array` are stored in `Value.array_value`.
     #[derive(Clone, Debug, Default, PartialEq)]
@@ -35489,6 +35918,10 @@ pub mod r#type {
         ArrayType(std::boxed::Box<crate::model::r#type::Array>),
         /// Map
         MapType(std::boxed::Box<crate::model::r#type::Map>),
+        /// Proto
+        ProtoType(std::boxed::Box<crate::model::r#type::Proto>),
+        /// Enum
+        EnumType(std::boxed::Box<crate::model::r#type::Enum>),
     }
 }
 

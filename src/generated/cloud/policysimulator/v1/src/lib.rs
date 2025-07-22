@@ -29,6 +29,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
+//! * [OrgPolicyViolationsPreviewService](client/struct.OrgPolicyViolationsPreviewService.html)
 //! * [Simulator](client/struct.Simulator.html)
 
 /// The messages and enums that are part of this client library.

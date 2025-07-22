@@ -52,6 +52,7 @@ pub struct LinuxNodeConfig {
     /// net.ipv4.tcp_rmem
     /// net.ipv4.tcp_wmem
     /// net.ipv4.tcp_tw_reuse
+    /// net.ipv4.tcp_max_orphans
     /// net.netfilter.nf_conntrack_max
     /// net.netfilter.nf_conntrack_buckets
     /// net.netfilter.nf_conntrack_tcp_timeout_close_wait
@@ -61,7 +62,22 @@ pub struct LinuxNodeConfig {
     /// kernel.shmmni
     /// kernel.shmmax
     /// kernel.shmall
+    /// fs.aio-max-nr
+    /// fs.file-max
+    /// fs.inotify.max_user_instances
+    /// fs.inotify.max_user_watches
+    /// fs.nr_open
+    /// vm.dirty_background_ratio
+    /// vm.dirty_expire_centisecs
+    /// vm.dirty_ratio
+    /// vm.dirty_writeback_centisecs
     /// vm.max_map_count
+    /// vm.overcommit_memory
+    /// vm.overcommit_ratio
+    /// vm.vfs_cache_pressure
+    /// vm.swappiness
+    /// vm.watermark_scale_factor
+    /// vm.min_free_kbytes
     pub sysctls: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// cgroup_mode specifies the cgroup mode to be used on the node.
@@ -69,6 +85,24 @@ pub struct LinuxNodeConfig {
 
     /// Optional. Amounts for 2M and 1G hugepages
     pub hugepages: std::option::Option<crate::model::linux_node_config::HugepagesConfig>,
+
+    /// Optional. Transparent hugepage support for anonymous memory can be entirely
+    /// disabled (mostly for debugging purposes) or only enabled inside
+    /// MADV_HUGEPAGE regions (to avoid the risk of consuming more memory
+    /// resources) or enabled system wide.
+    ///
+    /// See <https://docs.kernel.org/admin-guide/mm/transhuge.html>
+    /// for more details.
+    pub transparent_hugepage_enabled: crate::model::linux_node_config::TransparentHugepageEnabled,
+
+    /// Optional. Defines the transparent hugepage defrag configuration on the
+    /// node. VM hugepage allocation can be managed by either limiting
+    /// defragmentation for delayed allocation or skipping it entirely for
+    /// immediate allocation only.
+    ///
+    /// See <https://docs.kernel.org/admin-guide/mm/transhuge.html>
+    /// for more details.
+    pub transparent_hugepage_defrag: crate::model::linux_node_config::TransparentHugepageDefrag,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -116,6 +150,28 @@ impl LinuxNodeConfig {
         self.hugepages = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [transparent_hugepage_enabled][crate::model::LinuxNodeConfig::transparent_hugepage_enabled].
+    pub fn set_transparent_hugepage_enabled<
+        T: std::convert::Into<crate::model::linux_node_config::TransparentHugepageEnabled>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transparent_hugepage_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [transparent_hugepage_defrag][crate::model::LinuxNodeConfig::transparent_hugepage_defrag].
+    pub fn set_transparent_hugepage_defrag<
+        T: std::convert::Into<crate::model::linux_node_config::TransparentHugepageDefrag>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transparent_hugepage_defrag = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for LinuxNodeConfig {
@@ -137,6 +193,8 @@ impl<'de> serde::de::Deserialize<'de> for LinuxNodeConfig {
             __sysctls,
             __cgroup_mode,
             __hugepages,
+            __transparent_hugepage_enabled,
+            __transparent_hugepage_defrag,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -161,6 +219,18 @@ impl<'de> serde::de::Deserialize<'de> for LinuxNodeConfig {
                             "cgroupMode" => Ok(__FieldTag::__cgroup_mode),
                             "cgroup_mode" => Ok(__FieldTag::__cgroup_mode),
                             "hugepages" => Ok(__FieldTag::__hugepages),
+                            "transparentHugepageEnabled" => {
+                                Ok(__FieldTag::__transparent_hugepage_enabled)
+                            }
+                            "transparent_hugepage_enabled" => {
+                                Ok(__FieldTag::__transparent_hugepage_enabled)
+                            }
+                            "transparentHugepageDefrag" => {
+                                Ok(__FieldTag::__transparent_hugepage_defrag)
+                            }
+                            "transparent_hugepage_defrag" => {
+                                Ok(__FieldTag::__transparent_hugepage_defrag)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -223,6 +293,30 @@ impl<'de> serde::de::Deserialize<'de> for LinuxNodeConfig {
                                 crate::model::linux_node_config::HugepagesConfig,
                             >>()?;
                         }
+                        __FieldTag::__transparent_hugepage_enabled => {
+                            if !fields.insert(__FieldTag::__transparent_hugepage_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for transparent_hugepage_enabled",
+                                ));
+                            }
+                            result.transparent_hugepage_enabled = map
+                                .next_value::<std::option::Option<
+                                    crate::model::linux_node_config::TransparentHugepageEnabled,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__transparent_hugepage_defrag => {
+                            if !fields.insert(__FieldTag::__transparent_hugepage_defrag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for transparent_hugepage_defrag",
+                                ));
+                            }
+                            result.transparent_hugepage_defrag = map
+                                .next_value::<std::option::Option<
+                                    crate::model::linux_node_config::TransparentHugepageDefrag,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -254,6 +348,18 @@ impl serde::ser::Serialize for LinuxNodeConfig {
         }
         if self.hugepages.is_some() {
             state.serialize_entry("hugepages", &self.hugepages)?;
+        }
+        if !wkt::internal::is_default(&self.transparent_hugepage_enabled) {
+            state.serialize_entry(
+                "transparentHugepageEnabled",
+                &self.transparent_hugepage_enabled,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.transparent_hugepage_defrag) {
+            state.serialize_entry(
+                "transparentHugepageDefrag",
+                &self.transparent_hugepage_defrag,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -624,6 +730,321 @@ pub mod linux_node_config {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CgroupMode>::new(
                 ".google.container.v1.LinuxNodeConfig.CgroupMode",
             ))
+        }
+    }
+
+    /// Possible values for transparent hugepage enabled support.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TransparentHugepageEnabled {
+        /// Default value. GKE will not modify the kernel configuration.
+        Unspecified,
+        /// Transparent hugepage support for anonymous memory is enabled system wide.
+        Always,
+        /// Transparent hugepage support for anonymous memory is enabled inside
+        /// MADV_HUGEPAGE regions. This is the default kernel configuration.
+        Madvise,
+        /// Transparent hugepage support for anonymous memory is disabled.
+        Never,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TransparentHugepageEnabled::value] or
+        /// [TransparentHugepageEnabled::name].
+        UnknownValue(transparent_hugepage_enabled::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod transparent_hugepage_enabled {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl TransparentHugepageEnabled {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Always => std::option::Option::Some(1),
+                Self::Madvise => std::option::Option::Some(2),
+                Self::Never => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("TRANSPARENT_HUGEPAGE_ENABLED_UNSPECIFIED")
+                }
+                Self::Always => std::option::Option::Some("TRANSPARENT_HUGEPAGE_ENABLED_ALWAYS"),
+                Self::Madvise => std::option::Option::Some("TRANSPARENT_HUGEPAGE_ENABLED_MADVISE"),
+                Self::Never => std::option::Option::Some("TRANSPARENT_HUGEPAGE_ENABLED_NEVER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for TransparentHugepageEnabled {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TransparentHugepageEnabled {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TransparentHugepageEnabled {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Always,
+                2 => Self::Madvise,
+                3 => Self::Never,
+                _ => Self::UnknownValue(transparent_hugepage_enabled::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TransparentHugepageEnabled {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TRANSPARENT_HUGEPAGE_ENABLED_UNSPECIFIED" => Self::Unspecified,
+                "TRANSPARENT_HUGEPAGE_ENABLED_ALWAYS" => Self::Always,
+                "TRANSPARENT_HUGEPAGE_ENABLED_MADVISE" => Self::Madvise,
+                "TRANSPARENT_HUGEPAGE_ENABLED_NEVER" => Self::Never,
+                _ => Self::UnknownValue(transparent_hugepage_enabled::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TransparentHugepageEnabled {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Always => serializer.serialize_i32(1),
+                Self::Madvise => serializer.serialize_i32(2),
+                Self::Never => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TransparentHugepageEnabled {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<TransparentHugepageEnabled>::new(
+                    ".google.container.v1.LinuxNodeConfig.TransparentHugepageEnabled",
+                ),
+            )
+        }
+    }
+
+    /// Possible values for transparent hugepage defrag support.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TransparentHugepageDefrag {
+        /// Default value. GKE will not modify the kernel configuration.
+        Unspecified,
+        /// It means that an application requesting THP will stall on allocation
+        /// failure and directly reclaim pages and compact memory in an effort to
+        /// allocate a THP immediately.
+        Always,
+        /// It means that an application will wake kswapd in the background to
+        /// reclaim pages and wake kcompactd to compact memory so that THP is
+        /// available in the near future. It’s the responsibility of khugepaged to
+        /// then install the THP pages later.
+        Defer,
+        /// It means that an application will enter direct reclaim and compaction
+        /// like always, but only for regions that have used madvise(MADV_HUGEPAGE);
+        /// all other regions will wake kswapd in the background to reclaim pages and
+        /// wake kcompactd to compact memory so that THP is available in the near
+        /// future.
+        DeferWithMadvise,
+        /// It means that an application will enter direct reclaim like always but
+        /// only for regions that are have used madvise(MADV_HUGEPAGE). This is the
+        /// default kernel configuration.
+        Madvise,
+        /// It means that an application will never enter direct reclaim or
+        /// compaction.
+        Never,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TransparentHugepageDefrag::value] or
+        /// [TransparentHugepageDefrag::name].
+        UnknownValue(transparent_hugepage_defrag::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod transparent_hugepage_defrag {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl TransparentHugepageDefrag {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Always => std::option::Option::Some(1),
+                Self::Defer => std::option::Option::Some(2),
+                Self::DeferWithMadvise => std::option::Option::Some(3),
+                Self::Madvise => std::option::Option::Some(4),
+                Self::Never => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("TRANSPARENT_HUGEPAGE_DEFRAG_UNSPECIFIED")
+                }
+                Self::Always => std::option::Option::Some("TRANSPARENT_HUGEPAGE_DEFRAG_ALWAYS"),
+                Self::Defer => std::option::Option::Some("TRANSPARENT_HUGEPAGE_DEFRAG_DEFER"),
+                Self::DeferWithMadvise => {
+                    std::option::Option::Some("TRANSPARENT_HUGEPAGE_DEFRAG_DEFER_WITH_MADVISE")
+                }
+                Self::Madvise => std::option::Option::Some("TRANSPARENT_HUGEPAGE_DEFRAG_MADVISE"),
+                Self::Never => std::option::Option::Some("TRANSPARENT_HUGEPAGE_DEFRAG_NEVER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for TransparentHugepageDefrag {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TransparentHugepageDefrag {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TransparentHugepageDefrag {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Always,
+                2 => Self::Defer,
+                3 => Self::DeferWithMadvise,
+                4 => Self::Madvise,
+                5 => Self::Never,
+                _ => Self::UnknownValue(transparent_hugepage_defrag::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TransparentHugepageDefrag {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TRANSPARENT_HUGEPAGE_DEFRAG_UNSPECIFIED" => Self::Unspecified,
+                "TRANSPARENT_HUGEPAGE_DEFRAG_ALWAYS" => Self::Always,
+                "TRANSPARENT_HUGEPAGE_DEFRAG_DEFER" => Self::Defer,
+                "TRANSPARENT_HUGEPAGE_DEFRAG_DEFER_WITH_MADVISE" => Self::DeferWithMadvise,
+                "TRANSPARENT_HUGEPAGE_DEFRAG_MADVISE" => Self::Madvise,
+                "TRANSPARENT_HUGEPAGE_DEFRAG_NEVER" => Self::Never,
+                _ => Self::UnknownValue(transparent_hugepage_defrag::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TransparentHugepageDefrag {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Always => serializer.serialize_i32(1),
+                Self::Defer => serializer.serialize_i32(2),
+                Self::DeferWithMadvise => serializer.serialize_i32(3),
+                Self::Madvise => serializer.serialize_i32(4),
+                Self::Never => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TransparentHugepageDefrag {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<TransparentHugepageDefrag>::new(
+                    ".google.container.v1.LinuxNodeConfig.TransparentHugepageDefrag",
+                ),
+            )
         }
     }
 }
@@ -1044,6 +1465,45 @@ pub struct NodeKubeletConfig {
     /// for more details.
     pub allowed_unsafe_sysctls: std::vec::Vec<std::string::String>,
 
+    /// Optional. eviction_soft is a map of signal names to quantities that defines
+    /// soft eviction thresholds. Each signal is compared to its corresponding
+    /// threshold to determine if a pod eviction should occur.
+    pub eviction_soft: std::option::Option<crate::model::EvictionSignals>,
+
+    /// Optional. eviction_soft_grace_period is a map of signal names to quantities
+    /// that defines grace periods for each soft eviction signal. The grace period
+    /// is the amount of time that a pod must be under pressure before an eviction
+    /// occurs.
+    pub eviction_soft_grace_period: std::option::Option<crate::model::EvictionGracePeriod>,
+
+    /// Optional. eviction_minimum_reclaim is a map of signal names to quantities
+    /// that defines minimum reclaims, which describe the minimum amount of a given
+    /// resource the kubelet will reclaim when performing a pod eviction while that
+    /// resource is under pressure.
+    pub eviction_minimum_reclaim: std::option::Option<crate::model::EvictionMinimumReclaim>,
+
+    /// Optional. eviction_max_pod_grace_period_seconds is the maximum allowed
+    /// grace period (in seconds) to use when terminating pods in response to a
+    /// soft eviction threshold being met. This value effectively caps the Pod's
+    /// terminationGracePeriodSeconds value during soft evictions. Default: 0.
+    /// Range: [0, 300].
+    pub eviction_max_pod_grace_period_seconds: i32,
+
+    /// Optional. Defines the maximum number of image pulls in parallel.
+    /// The range is 2 to 5, inclusive.
+    /// The default value is 2 or 3 depending on the disk type.
+    ///
+    /// See
+    /// <https://kubernetes.io/docs/concepts/containers/images/#maximum-parallel-image-pulls>
+    /// for more details.
+    pub max_parallel_image_pulls: i32,
+
+    /// Optional. Defines whether to enable single process OOM killer.
+    /// If true, will prevent the memory.oom.group flag from being set for
+    /// container cgroups in cgroups v2. This causes processes in the container to
+    /// be OOM killed individually instead of as a group.
+    pub single_process_oom_kill: std::option::Option<bool>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1206,6 +1666,93 @@ impl NodeKubeletConfig {
         self.allowed_unsafe_sysctls = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [eviction_soft][crate::model::NodeKubeletConfig::eviction_soft].
+    pub fn set_eviction_soft<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EvictionSignals>,
+    {
+        self.eviction_soft = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [eviction_soft][crate::model::NodeKubeletConfig::eviction_soft].
+    pub fn set_or_clear_eviction_soft<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EvictionSignals>,
+    {
+        self.eviction_soft = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [eviction_soft_grace_period][crate::model::NodeKubeletConfig::eviction_soft_grace_period].
+    pub fn set_eviction_soft_grace_period<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EvictionGracePeriod>,
+    {
+        self.eviction_soft_grace_period = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [eviction_soft_grace_period][crate::model::NodeKubeletConfig::eviction_soft_grace_period].
+    pub fn set_or_clear_eviction_soft_grace_period<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EvictionGracePeriod>,
+    {
+        self.eviction_soft_grace_period = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [eviction_minimum_reclaim][crate::model::NodeKubeletConfig::eviction_minimum_reclaim].
+    pub fn set_eviction_minimum_reclaim<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EvictionMinimumReclaim>,
+    {
+        self.eviction_minimum_reclaim = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [eviction_minimum_reclaim][crate::model::NodeKubeletConfig::eviction_minimum_reclaim].
+    pub fn set_or_clear_eviction_minimum_reclaim<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EvictionMinimumReclaim>,
+    {
+        self.eviction_minimum_reclaim = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [eviction_max_pod_grace_period_seconds][crate::model::NodeKubeletConfig::eviction_max_pod_grace_period_seconds].
+    pub fn set_eviction_max_pod_grace_period_seconds<T: std::convert::Into<i32>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.eviction_max_pod_grace_period_seconds = v.into();
+        self
+    }
+
+    /// Sets the value of [max_parallel_image_pulls][crate::model::NodeKubeletConfig::max_parallel_image_pulls].
+    pub fn set_max_parallel_image_pulls<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_parallel_image_pulls = v.into();
+        self
+    }
+
+    /// Sets the value of [single_process_oom_kill][crate::model::NodeKubeletConfig::single_process_oom_kill].
+    pub fn set_single_process_oom_kill<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.single_process_oom_kill = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [single_process_oom_kill][crate::model::NodeKubeletConfig::single_process_oom_kill].
+    pub fn set_or_clear_single_process_oom_kill<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.single_process_oom_kill = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for NodeKubeletConfig {
@@ -1238,6 +1785,12 @@ impl<'de> serde::de::Deserialize<'de> for NodeKubeletConfig {
             __container_log_max_size,
             __container_log_max_files,
             __allowed_unsafe_sysctls,
+            __eviction_soft,
+            __eviction_soft_grace_period,
+            __eviction_minimum_reclaim,
+            __eviction_max_pod_grace_period_seconds,
+            __max_parallel_image_pulls,
+            __single_process_oom_kill,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1298,6 +1851,30 @@ impl<'de> serde::de::Deserialize<'de> for NodeKubeletConfig {
                             "container_log_max_files" => Ok(__FieldTag::__container_log_max_files),
                             "allowedUnsafeSysctls" => Ok(__FieldTag::__allowed_unsafe_sysctls),
                             "allowed_unsafe_sysctls" => Ok(__FieldTag::__allowed_unsafe_sysctls),
+                            "evictionSoft" => Ok(__FieldTag::__eviction_soft),
+                            "eviction_soft" => Ok(__FieldTag::__eviction_soft),
+                            "evictionSoftGracePeriod" => {
+                                Ok(__FieldTag::__eviction_soft_grace_period)
+                            }
+                            "eviction_soft_grace_period" => {
+                                Ok(__FieldTag::__eviction_soft_grace_period)
+                            }
+                            "evictionMinimumReclaim" => Ok(__FieldTag::__eviction_minimum_reclaim),
+                            "eviction_minimum_reclaim" => {
+                                Ok(__FieldTag::__eviction_minimum_reclaim)
+                            }
+                            "evictionMaxPodGracePeriodSeconds" => {
+                                Ok(__FieldTag::__eviction_max_pod_grace_period_seconds)
+                            }
+                            "eviction_max_pod_grace_period_seconds" => {
+                                Ok(__FieldTag::__eviction_max_pod_grace_period_seconds)
+                            }
+                            "maxParallelImagePulls" => Ok(__FieldTag::__max_parallel_image_pulls),
+                            "max_parallel_image_pulls" => {
+                                Ok(__FieldTag::__max_parallel_image_pulls)
+                            }
+                            "singleProcessOomKill" => Ok(__FieldTag::__single_process_oom_kill),
+                            "single_process_oom_kill" => Ok(__FieldTag::__single_process_oom_kill),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1499,6 +2076,83 @@ impl<'de> serde::de::Deserialize<'de> for NodeKubeletConfig {
                             }
                             result.allowed_unsafe_sysctls = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
+                        __FieldTag::__eviction_soft => {
+                            if !fields.insert(__FieldTag::__eviction_soft) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for eviction_soft",
+                                ));
+                            }
+                            result.eviction_soft = map
+                                .next_value::<std::option::Option<crate::model::EvictionSignals>>(
+                                )?;
+                        }
+                        __FieldTag::__eviction_soft_grace_period => {
+                            if !fields.insert(__FieldTag::__eviction_soft_grace_period) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for eviction_soft_grace_period",
+                                ));
+                            }
+                            result.eviction_soft_grace_period = map.next_value::<std::option::Option<crate::model::EvictionGracePeriod>>()?
+                                ;
+                        }
+                        __FieldTag::__eviction_minimum_reclaim => {
+                            if !fields.insert(__FieldTag::__eviction_minimum_reclaim) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for eviction_minimum_reclaim",
+                                ));
+                            }
+                            result.eviction_minimum_reclaim = map.next_value::<std::option::Option<crate::model::EvictionMinimumReclaim>>()?
+                                ;
+                        }
+                        __FieldTag::__eviction_max_pod_grace_period_seconds => {
+                            if !fields.insert(__FieldTag::__eviction_max_pod_grace_period_seconds) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for eviction_max_pod_grace_period_seconds",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.eviction_max_pod_grace_period_seconds =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__max_parallel_image_pulls => {
+                            if !fields.insert(__FieldTag::__max_parallel_image_pulls) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_parallel_image_pulls",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_parallel_image_pulls =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__single_process_oom_kill => {
+                            if !fields.insert(__FieldTag::__single_process_oom_kill) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for single_process_oom_kill",
+                                ));
+                            }
+                            result.single_process_oom_kill =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1611,6 +2265,48 @@ impl serde::ser::Serialize for NodeKubeletConfig {
         }
         if !self.allowed_unsafe_sysctls.is_empty() {
             state.serialize_entry("allowedUnsafeSysctls", &self.allowed_unsafe_sysctls)?;
+        }
+        if self.eviction_soft.is_some() {
+            state.serialize_entry("evictionSoft", &self.eviction_soft)?;
+        }
+        if self.eviction_soft_grace_period.is_some() {
+            state.serialize_entry("evictionSoftGracePeriod", &self.eviction_soft_grace_period)?;
+        }
+        if self.eviction_minimum_reclaim.is_some() {
+            state.serialize_entry("evictionMinimumReclaim", &self.eviction_minimum_reclaim)?;
+        }
+        if !wkt::internal::is_default(&self.eviction_max_pod_grace_period_seconds) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "evictionMaxPodGracePeriodSeconds",
+                &__With(&self.eviction_max_pod_grace_period_seconds),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.max_parallel_image_pulls) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "maxParallelImagePulls",
+                &__With(&self.max_parallel_image_pulls),
+            )?;
+        }
+        if self.single_process_oom_kill.is_some() {
+            state.serialize_entry("singleProcessOomKill", &self.single_process_oom_kill)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1943,6 +2639,881 @@ impl serde::ser::Serialize for MemoryManager {
     }
 }
 
+/// Eviction signals are the current state of a particular resource at a specific
+/// point in time. The kubelet uses eviction signals to make eviction decisions
+/// by comparing the signals to eviction thresholds, which are the minimum amount
+/// of the resource that should be available on the node.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EvictionSignals {
+    /// Optional. Memory available (i.e. capacity - workingSet), in bytes. Defines
+    /// the amount of "memory.available" signal in kubelet. Default is unset, if
+    /// not specified in the kubelet config. Format: positive number + unit, e.g.
+    /// 100Ki, 10Mi, 5Gi. Valid units are Ki, Mi, Gi. Must be >= 100Mi and <= 50%
+    /// of the node's memory. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub memory_available: std::string::String,
+
+    /// Optional. Amount of storage available on filesystem that kubelet uses for
+    /// volumes, daemon logs, etc. Defines the amount of "nodefs.available" signal
+    /// in kubelet. Default is unset, if not specified in the kubelet config. It
+    /// takses percentage value for now. Sample format: "30%". Must be >= 10% and
+    /// <= 50%. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub nodefs_available: std::string::String,
+
+    /// Optional. Amount of inodes available on filesystem that kubelet uses for
+    /// volumes, daemon logs, etc. Defines the amount of "nodefs.inodesFree" signal
+    /// in kubelet. Default is unset, if not specified in the kubelet config. Linux
+    /// only. It takses percentage value for now. Sample format: "30%". Must be >=
+    /// 5% and <= 50%. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub nodefs_inodes_free: std::string::String,
+
+    /// Optional. Amount of storage available on filesystem that container runtime
+    /// uses for storing images layers. If the container filesystem and image
+    /// filesystem are not separate, then imagefs can store both image layers and
+    /// writeable layers. Defines the amount of "imagefs.available" signal in
+    /// kubelet. Default is unset, if not specified in the kubelet config. It
+    /// takses percentage value for now. Sample format: "30%". Must be >= 15% and
+    /// <= 50%. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub imagefs_available: std::string::String,
+
+    /// Optional. Amount of inodes available on filesystem that container runtime
+    /// uses for storing images layers. Defines the amount of "imagefs.inodesFree"
+    /// signal in kubelet. Default is unset, if not specified in the kubelet
+    /// config. Linux only. It takses percentage value for now. Sample format:
+    /// "30%". Must be >= 5% and <= 50%. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub imagefs_inodes_free: std::string::String,
+
+    /// Optional. Amount of PID available for pod allocation. Defines the amount of
+    /// "pid.available" signal in kubelet. Default is unset, if not specified in
+    /// the kubelet config. It takses percentage value for now. Sample format:
+    /// "30%". Must be >= 10% and <= 50%. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub pid_available: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EvictionSignals {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [memory_available][crate::model::EvictionSignals::memory_available].
+    pub fn set_memory_available<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.memory_available = v.into();
+        self
+    }
+
+    /// Sets the value of [nodefs_available][crate::model::EvictionSignals::nodefs_available].
+    pub fn set_nodefs_available<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.nodefs_available = v.into();
+        self
+    }
+
+    /// Sets the value of [nodefs_inodes_free][crate::model::EvictionSignals::nodefs_inodes_free].
+    pub fn set_nodefs_inodes_free<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.nodefs_inodes_free = v.into();
+        self
+    }
+
+    /// Sets the value of [imagefs_available][crate::model::EvictionSignals::imagefs_available].
+    pub fn set_imagefs_available<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.imagefs_available = v.into();
+        self
+    }
+
+    /// Sets the value of [imagefs_inodes_free][crate::model::EvictionSignals::imagefs_inodes_free].
+    pub fn set_imagefs_inodes_free<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.imagefs_inodes_free = v.into();
+        self
+    }
+
+    /// Sets the value of [pid_available][crate::model::EvictionSignals::pid_available].
+    pub fn set_pid_available<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pid_available = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EvictionSignals {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.EvictionSignals"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for EvictionSignals {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __memory_available,
+            __nodefs_available,
+            __nodefs_inodes_free,
+            __imagefs_available,
+            __imagefs_inodes_free,
+            __pid_available,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EvictionSignals")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "memoryAvailable" => Ok(__FieldTag::__memory_available),
+                            "memory_available" => Ok(__FieldTag::__memory_available),
+                            "nodefsAvailable" => Ok(__FieldTag::__nodefs_available),
+                            "nodefs_available" => Ok(__FieldTag::__nodefs_available),
+                            "nodefsInodesFree" => Ok(__FieldTag::__nodefs_inodes_free),
+                            "nodefs_inodes_free" => Ok(__FieldTag::__nodefs_inodes_free),
+                            "imagefsAvailable" => Ok(__FieldTag::__imagefs_available),
+                            "imagefs_available" => Ok(__FieldTag::__imagefs_available),
+                            "imagefsInodesFree" => Ok(__FieldTag::__imagefs_inodes_free),
+                            "imagefs_inodes_free" => Ok(__FieldTag::__imagefs_inodes_free),
+                            "pidAvailable" => Ok(__FieldTag::__pid_available),
+                            "pid_available" => Ok(__FieldTag::__pid_available),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = EvictionSignals;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EvictionSignals")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__memory_available => {
+                            if !fields.insert(__FieldTag::__memory_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for memory_available",
+                                ));
+                            }
+                            result.memory_available = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__nodefs_available => {
+                            if !fields.insert(__FieldTag::__nodefs_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for nodefs_available",
+                                ));
+                            }
+                            result.nodefs_available = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__nodefs_inodes_free => {
+                            if !fields.insert(__FieldTag::__nodefs_inodes_free) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for nodefs_inodes_free",
+                                ));
+                            }
+                            result.nodefs_inodes_free = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__imagefs_available => {
+                            if !fields.insert(__FieldTag::__imagefs_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for imagefs_available",
+                                ));
+                            }
+                            result.imagefs_available = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__imagefs_inodes_free => {
+                            if !fields.insert(__FieldTag::__imagefs_inodes_free) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for imagefs_inodes_free",
+                                ));
+                            }
+                            result.imagefs_inodes_free = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__pid_available => {
+                            if !fields.insert(__FieldTag::__pid_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pid_available",
+                                ));
+                            }
+                            result.pid_available = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for EvictionSignals {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.memory_available.is_empty() {
+            state.serialize_entry("memoryAvailable", &self.memory_available)?;
+        }
+        if !self.nodefs_available.is_empty() {
+            state.serialize_entry("nodefsAvailable", &self.nodefs_available)?;
+        }
+        if !self.nodefs_inodes_free.is_empty() {
+            state.serialize_entry("nodefsInodesFree", &self.nodefs_inodes_free)?;
+        }
+        if !self.imagefs_available.is_empty() {
+            state.serialize_entry("imagefsAvailable", &self.imagefs_available)?;
+        }
+        if !self.imagefs_inodes_free.is_empty() {
+            state.serialize_entry("imagefsInodesFree", &self.imagefs_inodes_free)?;
+        }
+        if !self.pid_available.is_empty() {
+            state.serialize_entry("pidAvailable", &self.pid_available)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Eviction grace periods are grace periods for each eviction signal.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EvictionGracePeriod {
+    /// Optional. Grace period for eviction due to memory available signal. Sample
+    /// format: "10s". Must be >= 0. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub memory_available: std::string::String,
+
+    /// Optional. Grace period for eviction due to nodefs available signal. Sample
+    /// format: "10s". Must be >= 0. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub nodefs_available: std::string::String,
+
+    /// Optional. Grace period for eviction due to nodefs inodes free signal.
+    /// Sample format: "10s". Must be >= 0. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub nodefs_inodes_free: std::string::String,
+
+    /// Optional. Grace period for eviction due to imagefs available signal. Sample
+    /// format: "10s". Must be >= 0. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub imagefs_available: std::string::String,
+
+    /// Optional. Grace period for eviction due to imagefs inodes free signal.
+    /// Sample format: "10s". Must be >= 0. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub imagefs_inodes_free: std::string::String,
+
+    /// Optional. Grace period for eviction due to pid available signal. Sample
+    /// format: "10s". Must be >= 0. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub pid_available: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EvictionGracePeriod {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [memory_available][crate::model::EvictionGracePeriod::memory_available].
+    pub fn set_memory_available<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.memory_available = v.into();
+        self
+    }
+
+    /// Sets the value of [nodefs_available][crate::model::EvictionGracePeriod::nodefs_available].
+    pub fn set_nodefs_available<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.nodefs_available = v.into();
+        self
+    }
+
+    /// Sets the value of [nodefs_inodes_free][crate::model::EvictionGracePeriod::nodefs_inodes_free].
+    pub fn set_nodefs_inodes_free<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.nodefs_inodes_free = v.into();
+        self
+    }
+
+    /// Sets the value of [imagefs_available][crate::model::EvictionGracePeriod::imagefs_available].
+    pub fn set_imagefs_available<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.imagefs_available = v.into();
+        self
+    }
+
+    /// Sets the value of [imagefs_inodes_free][crate::model::EvictionGracePeriod::imagefs_inodes_free].
+    pub fn set_imagefs_inodes_free<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.imagefs_inodes_free = v.into();
+        self
+    }
+
+    /// Sets the value of [pid_available][crate::model::EvictionGracePeriod::pid_available].
+    pub fn set_pid_available<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pid_available = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EvictionGracePeriod {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.EvictionGracePeriod"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for EvictionGracePeriod {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __memory_available,
+            __nodefs_available,
+            __nodefs_inodes_free,
+            __imagefs_available,
+            __imagefs_inodes_free,
+            __pid_available,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EvictionGracePeriod")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "memoryAvailable" => Ok(__FieldTag::__memory_available),
+                            "memory_available" => Ok(__FieldTag::__memory_available),
+                            "nodefsAvailable" => Ok(__FieldTag::__nodefs_available),
+                            "nodefs_available" => Ok(__FieldTag::__nodefs_available),
+                            "nodefsInodesFree" => Ok(__FieldTag::__nodefs_inodes_free),
+                            "nodefs_inodes_free" => Ok(__FieldTag::__nodefs_inodes_free),
+                            "imagefsAvailable" => Ok(__FieldTag::__imagefs_available),
+                            "imagefs_available" => Ok(__FieldTag::__imagefs_available),
+                            "imagefsInodesFree" => Ok(__FieldTag::__imagefs_inodes_free),
+                            "imagefs_inodes_free" => Ok(__FieldTag::__imagefs_inodes_free),
+                            "pidAvailable" => Ok(__FieldTag::__pid_available),
+                            "pid_available" => Ok(__FieldTag::__pid_available),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = EvictionGracePeriod;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EvictionGracePeriod")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__memory_available => {
+                            if !fields.insert(__FieldTag::__memory_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for memory_available",
+                                ));
+                            }
+                            result.memory_available = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__nodefs_available => {
+                            if !fields.insert(__FieldTag::__nodefs_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for nodefs_available",
+                                ));
+                            }
+                            result.nodefs_available = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__nodefs_inodes_free => {
+                            if !fields.insert(__FieldTag::__nodefs_inodes_free) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for nodefs_inodes_free",
+                                ));
+                            }
+                            result.nodefs_inodes_free = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__imagefs_available => {
+                            if !fields.insert(__FieldTag::__imagefs_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for imagefs_available",
+                                ));
+                            }
+                            result.imagefs_available = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__imagefs_inodes_free => {
+                            if !fields.insert(__FieldTag::__imagefs_inodes_free) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for imagefs_inodes_free",
+                                ));
+                            }
+                            result.imagefs_inodes_free = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__pid_available => {
+                            if !fields.insert(__FieldTag::__pid_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pid_available",
+                                ));
+                            }
+                            result.pid_available = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for EvictionGracePeriod {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.memory_available.is_empty() {
+            state.serialize_entry("memoryAvailable", &self.memory_available)?;
+        }
+        if !self.nodefs_available.is_empty() {
+            state.serialize_entry("nodefsAvailable", &self.nodefs_available)?;
+        }
+        if !self.nodefs_inodes_free.is_empty() {
+            state.serialize_entry("nodefsInodesFree", &self.nodefs_inodes_free)?;
+        }
+        if !self.imagefs_available.is_empty() {
+            state.serialize_entry("imagefsAvailable", &self.imagefs_available)?;
+        }
+        if !self.imagefs_inodes_free.is_empty() {
+            state.serialize_entry("imagefsInodesFree", &self.imagefs_inodes_free)?;
+        }
+        if !self.pid_available.is_empty() {
+            state.serialize_entry("pidAvailable", &self.pid_available)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Eviction minimum reclaims are the resource amounts of minimum reclaims for
+/// each eviction signal.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EvictionMinimumReclaim {
+    /// Optional. Minimum reclaim for eviction due to memory available signal. Only
+    /// take percentage value for now. Sample format: "10%". Must be <=10%. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub memory_available: std::string::String,
+
+    /// Optional. Minimum reclaim for eviction due to nodefs available signal. Only
+    /// take percentage value for now. Sample format: "10%". Must be <=10%. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub nodefs_available: std::string::String,
+
+    /// Optional. Minimum reclaim for eviction due to nodefs inodes free signal.
+    /// Only take percentage value for now. Sample format: "10%". Must be <=10%.
+    /// See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub nodefs_inodes_free: std::string::String,
+
+    /// Optional. Minimum reclaim for eviction due to imagefs available signal.
+    /// Only take percentage value for now. Sample format: "10%". Must be <=10%.
+    /// See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub imagefs_available: std::string::String,
+
+    /// Optional. Minimum reclaim for eviction due to imagefs inodes free signal.
+    /// Only take percentage value for now. Sample format: "10%". Must be <=10%.
+    /// See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub imagefs_inodes_free: std::string::String,
+
+    /// Optional. Minimum reclaim for eviction due to pid available signal. Only
+    /// take percentage value for now. Sample format: "10%". Must be <=10%. See
+    /// <https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#eviction-signals>
+    pub pid_available: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EvictionMinimumReclaim {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [memory_available][crate::model::EvictionMinimumReclaim::memory_available].
+    pub fn set_memory_available<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.memory_available = v.into();
+        self
+    }
+
+    /// Sets the value of [nodefs_available][crate::model::EvictionMinimumReclaim::nodefs_available].
+    pub fn set_nodefs_available<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.nodefs_available = v.into();
+        self
+    }
+
+    /// Sets the value of [nodefs_inodes_free][crate::model::EvictionMinimumReclaim::nodefs_inodes_free].
+    pub fn set_nodefs_inodes_free<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.nodefs_inodes_free = v.into();
+        self
+    }
+
+    /// Sets the value of [imagefs_available][crate::model::EvictionMinimumReclaim::imagefs_available].
+    pub fn set_imagefs_available<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.imagefs_available = v.into();
+        self
+    }
+
+    /// Sets the value of [imagefs_inodes_free][crate::model::EvictionMinimumReclaim::imagefs_inodes_free].
+    pub fn set_imagefs_inodes_free<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.imagefs_inodes_free = v.into();
+        self
+    }
+
+    /// Sets the value of [pid_available][crate::model::EvictionMinimumReclaim::pid_available].
+    pub fn set_pid_available<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pid_available = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EvictionMinimumReclaim {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.EvictionMinimumReclaim"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for EvictionMinimumReclaim {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __memory_available,
+            __nodefs_available,
+            __nodefs_inodes_free,
+            __imagefs_available,
+            __imagefs_inodes_free,
+            __pid_available,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EvictionMinimumReclaim")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "memoryAvailable" => Ok(__FieldTag::__memory_available),
+                            "memory_available" => Ok(__FieldTag::__memory_available),
+                            "nodefsAvailable" => Ok(__FieldTag::__nodefs_available),
+                            "nodefs_available" => Ok(__FieldTag::__nodefs_available),
+                            "nodefsInodesFree" => Ok(__FieldTag::__nodefs_inodes_free),
+                            "nodefs_inodes_free" => Ok(__FieldTag::__nodefs_inodes_free),
+                            "imagefsAvailable" => Ok(__FieldTag::__imagefs_available),
+                            "imagefs_available" => Ok(__FieldTag::__imagefs_available),
+                            "imagefsInodesFree" => Ok(__FieldTag::__imagefs_inodes_free),
+                            "imagefs_inodes_free" => Ok(__FieldTag::__imagefs_inodes_free),
+                            "pidAvailable" => Ok(__FieldTag::__pid_available),
+                            "pid_available" => Ok(__FieldTag::__pid_available),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = EvictionMinimumReclaim;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EvictionMinimumReclaim")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__memory_available => {
+                            if !fields.insert(__FieldTag::__memory_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for memory_available",
+                                ));
+                            }
+                            result.memory_available = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__nodefs_available => {
+                            if !fields.insert(__FieldTag::__nodefs_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for nodefs_available",
+                                ));
+                            }
+                            result.nodefs_available = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__nodefs_inodes_free => {
+                            if !fields.insert(__FieldTag::__nodefs_inodes_free) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for nodefs_inodes_free",
+                                ));
+                            }
+                            result.nodefs_inodes_free = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__imagefs_available => {
+                            if !fields.insert(__FieldTag::__imagefs_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for imagefs_available",
+                                ));
+                            }
+                            result.imagefs_available = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__imagefs_inodes_free => {
+                            if !fields.insert(__FieldTag::__imagefs_inodes_free) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for imagefs_inodes_free",
+                                ));
+                            }
+                            result.imagefs_inodes_free = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__pid_available => {
+                            if !fields.insert(__FieldTag::__pid_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pid_available",
+                                ));
+                            }
+                            result.pid_available = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for EvictionMinimumReclaim {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.memory_available.is_empty() {
+            state.serialize_entry("memoryAvailable", &self.memory_available)?;
+        }
+        if !self.nodefs_available.is_empty() {
+            state.serialize_entry("nodefsAvailable", &self.nodefs_available)?;
+        }
+        if !self.nodefs_inodes_free.is_empty() {
+            state.serialize_entry("nodefsInodesFree", &self.nodefs_inodes_free)?;
+        }
+        if !self.imagefs_available.is_empty() {
+            state.serialize_entry("imagefsAvailable", &self.imagefs_available)?;
+        }
+        if !self.imagefs_inodes_free.is_empty() {
+            state.serialize_entry("imagefsInodesFree", &self.imagefs_inodes_free)?;
+        }
+        if !self.pid_available.is_empty() {
+            state.serialize_entry("pidAvailable", &self.pid_available)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Parameters that describe the nodes in a cluster.
 ///
 /// GKE Autopilot clusters do not
@@ -2024,8 +3595,8 @@ pub struct NodeConfig {
 
     /// The image type to use for this node. Note that for a given image type,
     /// the latest version of it will be used. Please see
-    /// <https://cloud.google.com/kubernetes-engine/docs/concepts/node-images> for
-    /// available image types.
+    /// <https://cloud.google.com/kubernetes-engine/docs/concepts/node-images>
+    /// for available image types.
     pub image_type: std::string::String,
 
     /// The map of Kubernetes labels (key/value pairs) to be applied to each node.
@@ -2053,13 +3624,14 @@ pub struct NodeConfig {
     pub tags: std::vec::Vec<std::string::String>,
 
     /// Whether the nodes are created as preemptible VM instances. See:
-    /// <https://cloud.google.com/compute/docs/instances/preemptible> for more
-    /// information about preemptible VM instances.
+    /// <https://cloud.google.com/compute/docs/instances/preemptible>
+    /// for more information about preemptible VM instances.
     pub preemptible: bool,
 
     /// A list of hardware accelerators to be attached to each node.
-    /// See <https://cloud.google.com/compute/docs/gpus> for more information about
-    /// support for GPUs.
+    /// See
+    /// <https://cloud.google.com/compute/docs/gpus>
+    /// for more information about support for GPUs.
     pub accelerators: std::vec::Vec<crate::model::AcceleratorConfig>,
 
     /// Type of the disk attached to each node (e.g. 'pd-standard', 'pd-ssd' or
@@ -2195,6 +3767,9 @@ pub struct NodeConfig {
 
     /// Flex Start flag for enabling Flex Start VM.
     pub flex_start: std::option::Option<bool>,
+
+    /// The boot disk configuration for the node pool.
+    pub boot_disk: std::option::Option<crate::model::BootDisk>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2796,6 +4371,24 @@ impl NodeConfig {
         self.flex_start = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [boot_disk][crate::model::NodeConfig::boot_disk].
+    pub fn set_boot_disk<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BootDisk>,
+    {
+        self.boot_disk = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [boot_disk][crate::model::NodeConfig::boot_disk].
+    pub fn set_or_clear_boot_disk<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BootDisk>,
+    {
+        self.boot_disk = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for NodeConfig {
@@ -2858,6 +4451,7 @@ impl<'de> serde::de::Deserialize<'de> for NodeConfig {
             __local_ssd_encryption_mode,
             __effective_cgroup_mode,
             __flex_start,
+            __boot_disk,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2984,6 +4578,8 @@ impl<'de> serde::de::Deserialize<'de> for NodeConfig {
                             "effective_cgroup_mode" => Ok(__FieldTag::__effective_cgroup_mode),
                             "flexStart" => Ok(__FieldTag::__flex_start),
                             "flex_start" => Ok(__FieldTag::__flex_start),
+                            "bootDisk" => Ok(__FieldTag::__boot_disk),
+                            "boot_disk" => Ok(__FieldTag::__boot_disk),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3470,6 +5066,15 @@ impl<'de> serde::de::Deserialize<'de> for NodeConfig {
                             }
                             result.flex_start = map.next_value::<std::option::Option<bool>>()?;
                         }
+                        __FieldTag::__boot_disk => {
+                            if !fields.insert(__FieldTag::__boot_disk) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for boot_disk",
+                                ));
+                            }
+                            result.boot_disk =
+                                map.next_value::<std::option::Option<crate::model::BootDisk>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3651,6 +5256,9 @@ impl serde::ser::Serialize for NodeConfig {
         }
         if self.flex_start.is_some() {
             state.serialize_entry("flexStart", &self.flex_start)?;
+        }
+        if self.boot_disk.is_some() {
+            state.serialize_entry("bootDisk", &self.boot_disk)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4207,7 +5815,7 @@ pub mod advanced_machine_features {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Level of PMU access
+    /// Level of PMU access.
     ///
     /// # Working with unknown values
     ///
@@ -4433,6 +6041,13 @@ pub struct NodeNetworkConfig {
     /// Usage=numNodes*numZones*podIPsPerNode.
     pub pod_ipv4_range_utilization: f64,
 
+    /// Output only. The subnetwork path for the node pool.
+    /// Format: projects/{project}/regions/{region}/subnetworks/{subnetwork}
+    /// If the cluster is associated with multiple subnetworks, the subnetwork for
+    /// the node pool is picked based on the IP utilization during node pool
+    /// creation and is immutable.
+    pub subnetwork: std::string::String,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4546,6 +6161,12 @@ impl NodeNetworkConfig {
         self.pod_ipv4_range_utilization = v.into();
         self
     }
+
+    /// Sets the value of [subnetwork][crate::model::NodeNetworkConfig::subnetwork].
+    pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.subnetwork = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for NodeNetworkConfig {
@@ -4573,6 +6194,7 @@ impl<'de> serde::de::Deserialize<'de> for NodeNetworkConfig {
             __additional_node_network_configs,
             __additional_pod_network_configs,
             __pod_ipv4_range_utilization,
+            __subnetwork,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4631,6 +6253,7 @@ impl<'de> serde::de::Deserialize<'de> for NodeNetworkConfig {
                             "pod_ipv4_range_utilization" => {
                                 Ok(__FieldTag::__pod_ipv4_range_utilization)
                             }
+                            "subnetwork" => Ok(__FieldTag::__subnetwork),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4759,6 +6382,16 @@ impl<'de> serde::de::Deserialize<'de> for NodeNetworkConfig {
                             result.pod_ipv4_range_utilization =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
                         }
+                        __FieldTag::__subnetwork => {
+                            if !fields.insert(__FieldTag::__subnetwork) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for subnetwork",
+                                ));
+                            }
+                            result.subnetwork = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4829,6 +6462,9 @@ impl serde::ser::Serialize for NodeNetworkConfig {
                 "podIpv4RangeUtilization",
                 &__With(&self.pod_ipv4_range_utilization),
             )?;
+        }
+        if !self.subnetwork.is_empty() {
+            state.serialize_entry("subnetwork", &self.subnetwork)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -6403,6 +8039,11 @@ pub struct SoleTenantConfig {
     /// NodeAffinities used to match to a shared sole tenant node group.
     pub node_affinities: std::vec::Vec<crate::model::sole_tenant_config::NodeAffinity>,
 
+    /// Optional. The minimum number of virtual CPUs this instance will consume
+    /// when running on a sole-tenant node. This field can only be set if the node
+    /// pool is created in a shared sole-tenant node group.
+    pub min_node_cpus: std::option::Option<i32>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6419,6 +8060,24 @@ impl SoleTenantConfig {
     {
         use std::iter::Iterator;
         self.node_affinities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [min_node_cpus][crate::model::SoleTenantConfig::min_node_cpus].
+    pub fn set_min_node_cpus<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.min_node_cpus = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [min_node_cpus][crate::model::SoleTenantConfig::min_node_cpus].
+    pub fn set_or_clear_min_node_cpus<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.min_node_cpus = v.map(|x| x.into());
         self
     }
 }
@@ -6440,6 +8099,7 @@ impl<'de> serde::de::Deserialize<'de> for SoleTenantConfig {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __node_affinities,
+            __min_node_cpus,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6462,6 +8122,8 @@ impl<'de> serde::de::Deserialize<'de> for SoleTenantConfig {
                         match value {
                             "nodeAffinities" => Ok(__FieldTag::__node_affinities),
                             "node_affinities" => Ok(__FieldTag::__node_affinities),
+                            "minNodeCpus" => Ok(__FieldTag::__min_node_cpus),
+                            "min_node_cpus" => Ok(__FieldTag::__min_node_cpus),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6499,6 +8161,25 @@ impl<'de> serde::de::Deserialize<'de> for SoleTenantConfig {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__min_node_cpus => {
+                            if !fields.insert(__FieldTag::__min_node_cpus) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for min_node_cpus",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.min_node_cpus = map.next_value::<__With>()?.0;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6524,6 +8205,20 @@ impl serde::ser::Serialize for SoleTenantConfig {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.node_affinities.is_empty() {
             state.serialize_entry("nodeAffinities", &self.node_affinities)?;
+        }
+        if self.min_node_cpus.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("minNodeCpus", &__With(&self.min_node_cpus))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -7439,7 +9134,8 @@ pub mod containerd_config {
             use super::*;
 
             /// GCPSecretManagerCertificateConfig configures a secret from
-            /// [Google Secret Manager](https://cloud.google.com/secret-manager).
+            /// [Google Secret
+            /// Manager](https://cloud.google.com/secret-manager).
             #[derive(Clone, Debug, Default, PartialEq)]
             #[non_exhaustive]
             pub struct GCPSecretManagerCertificateConfig {
@@ -8987,6 +10683,9 @@ pub struct AddonsConfig {
     pub high_scale_checkpointing_config:
         std::option::Option<crate::model::HighScaleCheckpointingConfig>,
 
+    /// Configuration for the Lustre CSI driver.
+    pub lustre_csi_driver_config: std::option::Option<crate::model::LustreCsiDriverConfig>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9278,6 +10977,24 @@ impl AddonsConfig {
         self.high_scale_checkpointing_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [lustre_csi_driver_config][crate::model::AddonsConfig::lustre_csi_driver_config].
+    pub fn set_lustre_csi_driver_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LustreCsiDriverConfig>,
+    {
+        self.lustre_csi_driver_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lustre_csi_driver_config][crate::model::AddonsConfig::lustre_csi_driver_config].
+    pub fn set_or_clear_lustre_csi_driver_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LustreCsiDriverConfig>,
+    {
+        self.lustre_csi_driver_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for AddonsConfig {
@@ -9311,6 +11028,7 @@ impl<'de> serde::de::Deserialize<'de> for AddonsConfig {
             __parallelstore_csi_driver_config,
             __ray_operator_config,
             __high_scale_checkpointing_config,
+            __lustre_csi_driver_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9384,6 +11102,10 @@ impl<'de> serde::de::Deserialize<'de> for AddonsConfig {
                             }
                             "high_scale_checkpointing_config" => {
                                 Ok(__FieldTag::__high_scale_checkpointing_config)
+                            }
+                            "lustreCsiDriverConfig" => Ok(__FieldTag::__lustre_csi_driver_config),
+                            "lustre_csi_driver_config" => {
+                                Ok(__FieldTag::__lustre_csi_driver_config)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -9552,6 +11274,15 @@ impl<'de> serde::de::Deserialize<'de> for AddonsConfig {
                             result.high_scale_checkpointing_config = map.next_value::<std::option::Option<crate::model::HighScaleCheckpointingConfig>>()?
                                 ;
                         }
+                        __FieldTag::__lustre_csi_driver_config => {
+                            if !fields.insert(__FieldTag::__lustre_csi_driver_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for lustre_csi_driver_config",
+                                ));
+                            }
+                            result.lustre_csi_driver_config = map.next_value::<std::option::Option<crate::model::LustreCsiDriverConfig>>()?
+                                ;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -9631,6 +11362,9 @@ impl serde::ser::Serialize for AddonsConfig {
                 "highScaleCheckpointingConfig",
                 &self.high_scale_checkpointing_config,
             )?;
+        }
+        if self.lustre_csi_driver_config.is_some() {
+            state.serialize_entry("lustreCsiDriverConfig", &self.lustre_csi_driver_config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -12067,6 +13801,164 @@ impl serde::ser::Serialize for HighScaleCheckpointingConfig {
     }
 }
 
+/// Configuration for the Lustre CSI driver.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct LustreCsiDriverConfig {
+    /// Whether the Lustre CSI driver is enabled for this cluster.
+    pub enabled: bool,
+
+    /// If set to true, the Lustre CSI driver will install Lustre kernel modules
+    /// using port 6988.
+    pub enable_legacy_lustre_port: bool,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl LustreCsiDriverConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::LustreCsiDriverConfig::enabled].
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_legacy_lustre_port][crate::model::LustreCsiDriverConfig::enable_legacy_lustre_port].
+    pub fn set_enable_legacy_lustre_port<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_legacy_lustre_port = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for LustreCsiDriverConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.LustreCsiDriverConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for LustreCsiDriverConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __enabled,
+            __enable_legacy_lustre_port,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for LustreCsiDriverConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "enabled" => Ok(__FieldTag::__enabled),
+                            "enableLegacyLustrePort" => Ok(__FieldTag::__enable_legacy_lustre_port),
+                            "enable_legacy_lustre_port" => {
+                                Ok(__FieldTag::__enable_legacy_lustre_port)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = LustreCsiDriverConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct LustreCsiDriverConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__enabled => {
+                            if !fields.insert(__FieldTag::__enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enabled",
+                                ));
+                            }
+                            result.enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__enable_legacy_lustre_port => {
+                            if !fields.insert(__FieldTag::__enable_legacy_lustre_port) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_legacy_lustre_port",
+                                ));
+                            }
+                            result.enable_legacy_lustre_port = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for LustreCsiDriverConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enabled) {
+            state.serialize_entry("enabled", &self.enabled)?;
+        }
+        if !wkt::internal::is_default(&self.enable_legacy_lustre_port) {
+            state.serialize_entry("enableLegacyLustrePort", &self.enable_legacy_lustre_port)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Configuration options for the Ray Operator add-on.
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
@@ -13999,6 +15891,16 @@ pub struct IPAllocationPolicy {
     /// Usage=numNodes*numZones*podIPsPerNode.
     pub default_pod_ipv4_range_utilization: f64,
 
+    /// Output only. The additional IP ranges that are added to the cluster.
+    /// These IP ranges can be used by new node pools to allocate node and pod IPs
+    /// automatically.
+    /// Each AdditionalIPRangesConfig corresponds to a single subnetwork.
+    /// Once a range is removed it will not show up in IPAllocationPolicy.
+    pub additional_ip_ranges_configs: std::vec::Vec<crate::model::AdditionalIPRangesConfig>,
+
+    /// Optional. AutoIpamConfig contains all information related to Auto IPAM
+    pub auto_ipam_config: std::option::Option<crate::model::AutoIpamConfig>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14193,6 +16095,35 @@ impl IPAllocationPolicy {
         self.default_pod_ipv4_range_utilization = v.into();
         self
     }
+
+    /// Sets the value of [additional_ip_ranges_configs][crate::model::IPAllocationPolicy::additional_ip_ranges_configs].
+    pub fn set_additional_ip_ranges_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AdditionalIPRangesConfig>,
+    {
+        use std::iter::Iterator;
+        self.additional_ip_ranges_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [auto_ipam_config][crate::model::IPAllocationPolicy::auto_ipam_config].
+    pub fn set_auto_ipam_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoIpamConfig>,
+    {
+        self.auto_ipam_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_ipam_config][crate::model::IPAllocationPolicy::auto_ipam_config].
+    pub fn set_or_clear_auto_ipam_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoIpamConfig>,
+    {
+        self.auto_ipam_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for IPAllocationPolicy {
@@ -14231,6 +16162,8 @@ impl<'de> serde::de::Deserialize<'de> for IPAllocationPolicy {
             __services_ipv6_cidr_block,
             __additional_pod_ranges_config,
             __default_pod_ipv4_range_utilization,
+            __additional_ip_ranges_configs,
+            __auto_ipam_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -14315,6 +16248,14 @@ impl<'de> serde::de::Deserialize<'de> for IPAllocationPolicy {
                             "default_pod_ipv4_range_utilization" => {
                                 Ok(__FieldTag::__default_pod_ipv4_range_utilization)
                             }
+                            "additionalIpRangesConfigs" => {
+                                Ok(__FieldTag::__additional_ip_ranges_configs)
+                            }
+                            "additional_ip_ranges_configs" => {
+                                Ok(__FieldTag::__additional_ip_ranges_configs)
+                            }
+                            "autoIpamConfig" => Ok(__FieldTag::__auto_ipam_config),
+                            "auto_ipam_config" => Ok(__FieldTag::__auto_ipam_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -14548,6 +16489,28 @@ impl<'de> serde::de::Deserialize<'de> for IPAllocationPolicy {
                             result.default_pod_ipv4_range_utilization =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
                         }
+                        __FieldTag::__additional_ip_ranges_configs => {
+                            if !fields.insert(__FieldTag::__additional_ip_ranges_configs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for additional_ip_ranges_configs",
+                                ));
+                            }
+                            result.additional_ip_ranges_configs = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::AdditionalIPRangesConfig>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__auto_ipam_config => {
+                            if !fields.insert(__FieldTag::__auto_ipam_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for auto_ipam_config",
+                                ));
+                            }
+                            result.auto_ipam_config = map
+                                .next_value::<std::option::Option<crate::model::AutoIpamConfig>>(
+                                )?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -14655,6 +16618,15 @@ impl serde::ser::Serialize for IPAllocationPolicy {
                 &__With(&self.default_pod_ipv4_range_utilization),
             )?;
         }
+        if !self.additional_ip_ranges_configs.is_empty() {
+            state.serialize_entry(
+                "additionalIpRangesConfigs",
+                &self.additional_ip_ranges_configs,
+            )?;
+        }
+        if self.auto_ipam_config.is_some() {
+            state.serialize_entry("autoIpamConfig", &self.auto_ipam_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -14681,7 +16653,8 @@ pub struct Cluster {
     pub description: std::string::String,
 
     /// The number of nodes to create in this cluster. You must ensure that your
-    /// Compute Engine [resource quota](https://cloud.google.com/compute/quotas)
+    /// Compute Engine [resource
+    /// quota](https://cloud.google.com/compute/quotas)
     /// is sufficient for this number of instances. You must also have available
     /// firewall and routes quota.
     /// For requests, this field should only be used in lieu of a
@@ -14756,8 +16729,8 @@ pub struct Cluster {
     pub addons_config: std::option::Option<crate::model::AddonsConfig>,
 
     /// The name of the Google Compute Engine
-    /// [subnetwork](https://cloud.google.com/compute/docs/subnetworks) to which
-    /// the cluster is connected.
+    /// [subnetwork](https://cloud.google.com/compute/docs/subnetworks)
+    /// to which the cluster is connected.
     pub subnetwork: std::string::String,
 
     /// The node pools associated with this cluster.
@@ -14766,8 +16739,8 @@ pub struct Cluster {
     pub node_pools: std::vec::Vec<crate::model::NodePool>,
 
     /// The list of Google Compute Engine
-    /// [zones](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster's nodes should be located.
+    /// [zones](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster's nodes should be located.
     ///
     /// This field provides a default value if
     /// [NodePool.Locations](https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters.nodePools#NodePool.FIELDS.locations)
@@ -14887,8 +16860,9 @@ pub struct Cluster {
     pub self_link: std::string::String,
 
     /// Output only. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field is deprecated, use location instead.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field is deprecated, use location
+    /// instead.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -15051,6 +17025,9 @@ pub struct Cluster {
     /// RBACBindingConfig allows user to restrict ClusterRoleBindings an
     /// RoleBindings that can be created.
     pub rbac_binding_config: std::option::Option<crate::model::RBACBindingConfig>,
+
+    /// Configuration for GKE auto upgrades.
+    pub gke_auto_upgrade_config: std::option::Option<crate::model::GkeAutoUpgradeConfig>,
 
     /// Configuration for limiting anonymous access to all endpoints except the
     /// health checks.
@@ -16101,6 +18078,24 @@ impl Cluster {
         self
     }
 
+    /// Sets the value of [gke_auto_upgrade_config][crate::model::Cluster::gke_auto_upgrade_config].
+    pub fn set_gke_auto_upgrade_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GkeAutoUpgradeConfig>,
+    {
+        self.gke_auto_upgrade_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gke_auto_upgrade_config][crate::model::Cluster::gke_auto_upgrade_config].
+    pub fn set_or_clear_gke_auto_upgrade_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GkeAutoUpgradeConfig>,
+    {
+        self.gke_auto_upgrade_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [anonymous_authentication_config][crate::model::Cluster::anonymous_authentication_config].
     pub fn set_anonymous_authentication_config<T>(mut self, v: T) -> Self
     where
@@ -16215,6 +18210,7 @@ impl<'de> serde::de::Deserialize<'de> for Cluster {
             __satisfies_pzi,
             __user_managed_keys_config,
             __rbac_binding_config,
+            __gke_auto_upgrade_config,
             __anonymous_authentication_config,
             Unknown(std::string::String),
         }
@@ -16407,6 +18403,8 @@ impl<'de> serde::de::Deserialize<'de> for Cluster {
                             }
                             "rbacBindingConfig" => Ok(__FieldTag::__rbac_binding_config),
                             "rbac_binding_config" => Ok(__FieldTag::__rbac_binding_config),
+                            "gkeAutoUpgradeConfig" => Ok(__FieldTag::__gke_auto_upgrade_config),
+                            "gke_auto_upgrade_config" => Ok(__FieldTag::__gke_auto_upgrade_config),
                             "anonymousAuthenticationConfig" => {
                                 Ok(__FieldTag::__anonymous_authentication_config)
                             }
@@ -17196,6 +19194,15 @@ impl<'de> serde::de::Deserialize<'de> for Cluster {
                                 .next_value::<std::option::Option<crate::model::RBACBindingConfig>>(
                                 )?;
                         }
+                        __FieldTag::__gke_auto_upgrade_config => {
+                            if !fields.insert(__FieldTag::__gke_auto_upgrade_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gke_auto_upgrade_config",
+                                ));
+                            }
+                            result.gke_auto_upgrade_config = map.next_value::<std::option::Option<crate::model::GkeAutoUpgradeConfig>>()?
+                                ;
+                        }
                         __FieldTag::__anonymous_authentication_config => {
                             if !fields.insert(__FieldTag::__anonymous_authentication_config) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -17502,6 +19509,9 @@ impl serde::ser::Serialize for Cluster {
         }
         if self.rbac_binding_config.is_some() {
             state.serialize_entry("rbacBindingConfig", &self.rbac_binding_config)?;
+        }
+        if self.gke_auto_upgrade_config.is_some() {
+            state.serialize_entry("gkeAutoUpgradeConfig", &self.gke_auto_upgrade_config)?;
         }
         if self.anonymous_authentication_config.is_some() {
             state.serialize_entry(
@@ -18263,12 +20273,24 @@ impl serde::ser::Serialize for UserManagedKeysConfig {
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnonymousAuthenticationConfig {
+    /// Defines the mode of limiting anonymous access in the cluster.
+    pub mode: crate::model::anonymous_authentication_config::Mode,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnonymousAuthenticationConfig {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [mode][crate::model::AnonymousAuthenticationConfig::mode].
+    pub fn set_mode<T: std::convert::Into<crate::model::anonymous_authentication_config::Mode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mode = v.into();
+        self
     }
 }
 
@@ -18288,6 +20310,7 @@ impl<'de> serde::de::Deserialize<'de> for AnonymousAuthenticationConfig {
         #[doc(hidden)]
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
+            __mode,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -18307,7 +20330,10 @@ impl<'de> serde::de::Deserialize<'de> for AnonymousAuthenticationConfig {
                     {
                         use std::result::Result::Ok;
                         use std::string::ToString;
-                        Ok(__FieldTag::Unknown(value.to_string()))
+                        match value {
+                            "mode" => Ok(__FieldTag::__mode),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
                     }
                 }
                 deserializer.deserialize_identifier(Visitor)
@@ -18326,10 +20352,23 @@ impl<'de> serde::de::Deserialize<'de> for AnonymousAuthenticationConfig {
                 #[allow(unused_imports)]
                 use serde::de::Error;
                 use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::__mode => {
+                            if !fields.insert(__FieldTag::__mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mode",
+                                ));
+                            }
+                            result.mode = map
+                                .next_value::<std::option::Option<
+                                    crate::model::anonymous_authentication_config::Mode,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -18353,12 +20392,154 @@ impl serde::ser::Serialize for AnonymousAuthenticationConfig {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.mode) {
+            state.serialize_entry("mode", &self.mode)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
             }
         }
         state.end()
+    }
+}
+
+/// Defines additional types related to [AnonymousAuthenticationConfig].
+pub mod anonymous_authentication_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Mode defines the mode of anonymous authentication
+    /// allowed in the cluster.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mode {
+        /// Default value not specified.
+        Unspecified,
+        /// Anonymous authentication is allowed for all endpoints.
+        Enabled,
+        /// Anonymous authentication is allowed for only health check endpoints.
+        Limited,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mode::value] or
+        /// [Mode::name].
+        UnknownValue(mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Mode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Limited => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Limited => std::option::Option::Some("LIMITED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Limited,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Mode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODE_UNSPECIFIED" => Self::Unspecified,
+                "ENABLED" => Self::Enabled,
+                "LIMITED" => Self::Limited,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Limited => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                ".google.container.v1.AnonymousAuthenticationConfig.Mode",
+            ))
+        }
     }
 }
 
@@ -20151,8 +22332,8 @@ pub struct ClusterUpdate {
     pub desired_node_pool_autoscaling: std::option::Option<crate::model::NodePoolAutoscaling>,
 
     /// The desired list of Google Compute Engine
-    /// [zones](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster's nodes should be located.
+    /// [zones](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster's nodes should be located.
     ///
     /// This list must always include the cluster's primary zone.
     ///
@@ -20380,14 +22561,29 @@ pub struct ClusterUpdate {
         std::option::Option<crate::model::NodeKubeletConfig>,
 
     /// The Custom keys configuration for the cluster.
+    ///
+    /// This field is deprecated.
+    /// Use
+    /// [ClusterUpdate.desired_user_managed_keys_config][google.container.v1.ClusterUpdate.desired_user_managed_keys_config]
+    /// instead.
+    ///
+    /// [google.container.v1.ClusterUpdate.desired_user_managed_keys_config]: crate::model::ClusterUpdate::desired_user_managed_keys_config
+    #[deprecated]
     pub user_managed_keys_config: std::option::Option<crate::model::UserManagedKeysConfig>,
 
     /// RBACBindingConfig allows user to restrict ClusterRoleBindings an
     /// RoleBindings that can be created.
     pub desired_rbac_binding_config: std::option::Option<crate::model::RBACBindingConfig>,
 
+    /// The desired config for additional subnetworks attached to the cluster.
+    pub desired_additional_ip_ranges_config:
+        std::option::Option<crate::model::DesiredAdditionalIPRangesConfig>,
+
     /// The desired enterprise configuration for the cluster.
     pub desired_enterprise_config: std::option::Option<crate::model::DesiredEnterpriseConfig>,
+
+    /// AutoIpamConfig contains all information related to Auto IPAM
+    pub desired_auto_ipam_config: std::option::Option<crate::model::AutoIpamConfig>,
 
     /// Enable/Disable L4 LB VPC firewall reconciliation for the cluster.
     pub desired_disable_l4_lb_firewall_reconciliation: std::option::Option<bool>,
@@ -20399,10 +22595,16 @@ pub struct ClusterUpdate {
     pub desired_node_pool_auto_config_linux_node_config:
         std::option::Option<crate::model::LinuxNodeConfig>,
 
+    /// The desired user managed keys config for the cluster.
+    pub desired_user_managed_keys_config: std::option::Option<crate::model::UserManagedKeysConfig>,
+
     /// Configuration for limiting anonymous access to all endpoints except the
     /// health checks.
     pub desired_anonymous_authentication_config:
         std::option::Option<crate::model::AnonymousAuthenticationConfig>,
+
+    /// Configuration for GKE auto upgrade.
+    pub gke_auto_upgrade_config: std::option::Option<crate::model::GkeAutoUpgradeConfig>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -21507,6 +23709,7 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [user_managed_keys_config][crate::model::ClusterUpdate::user_managed_keys_config].
+    #[deprecated]
     pub fn set_user_managed_keys_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserManagedKeysConfig>,
@@ -21516,6 +23719,7 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [user_managed_keys_config][crate::model::ClusterUpdate::user_managed_keys_config].
+    #[deprecated]
     pub fn set_or_clear_user_managed_keys_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserManagedKeysConfig>,
@@ -21542,6 +23746,27 @@ impl ClusterUpdate {
         self
     }
 
+    /// Sets the value of [desired_additional_ip_ranges_config][crate::model::ClusterUpdate::desired_additional_ip_ranges_config].
+    pub fn set_desired_additional_ip_ranges_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DesiredAdditionalIPRangesConfig>,
+    {
+        self.desired_additional_ip_ranges_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_additional_ip_ranges_config][crate::model::ClusterUpdate::desired_additional_ip_ranges_config].
+    pub fn set_or_clear_desired_additional_ip_ranges_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::DesiredAdditionalIPRangesConfig>,
+    {
+        self.desired_additional_ip_ranges_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [desired_enterprise_config][crate::model::ClusterUpdate::desired_enterprise_config].
     pub fn set_desired_enterprise_config<T>(mut self, v: T) -> Self
     where
@@ -21557,6 +23782,24 @@ impl ClusterUpdate {
         T: std::convert::Into<crate::model::DesiredEnterpriseConfig>,
     {
         self.desired_enterprise_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [desired_auto_ipam_config][crate::model::ClusterUpdate::desired_auto_ipam_config].
+    pub fn set_desired_auto_ipam_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoIpamConfig>,
+    {
+        self.desired_auto_ipam_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_auto_ipam_config][crate::model::ClusterUpdate::desired_auto_ipam_config].
+    pub fn set_or_clear_desired_auto_ipam_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoIpamConfig>,
+    {
+        self.desired_auto_ipam_config = v.map(|x| x.into());
         self
     }
 
@@ -21602,6 +23845,27 @@ impl ClusterUpdate {
         self
     }
 
+    /// Sets the value of [desired_user_managed_keys_config][crate::model::ClusterUpdate::desired_user_managed_keys_config].
+    pub fn set_desired_user_managed_keys_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UserManagedKeysConfig>,
+    {
+        self.desired_user_managed_keys_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_user_managed_keys_config][crate::model::ClusterUpdate::desired_user_managed_keys_config].
+    pub fn set_or_clear_desired_user_managed_keys_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::UserManagedKeysConfig>,
+    {
+        self.desired_user_managed_keys_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [desired_anonymous_authentication_config][crate::model::ClusterUpdate::desired_anonymous_authentication_config].
     pub fn set_desired_anonymous_authentication_config<T>(mut self, v: T) -> Self
     where
@@ -21620,6 +23884,24 @@ impl ClusterUpdate {
         T: std::convert::Into<crate::model::AnonymousAuthenticationConfig>,
     {
         self.desired_anonymous_authentication_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [gke_auto_upgrade_config][crate::model::ClusterUpdate::gke_auto_upgrade_config].
+    pub fn set_gke_auto_upgrade_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GkeAutoUpgradeConfig>,
+    {
+        self.gke_auto_upgrade_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gke_auto_upgrade_config][crate::model::ClusterUpdate::gke_auto_upgrade_config].
+    pub fn set_or_clear_gke_auto_upgrade_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GkeAutoUpgradeConfig>,
+    {
+        self.gke_auto_upgrade_config = v.map(|x| x.into());
         self
     }
 }
@@ -21703,10 +23985,14 @@ impl<'de> serde::de::Deserialize<'de> for ClusterUpdate {
             __desired_node_pool_auto_config_kubelet_config,
             __user_managed_keys_config,
             __desired_rbac_binding_config,
+            __desired_additional_ip_ranges_config,
             __desired_enterprise_config,
+            __desired_auto_ipam_config,
             __desired_disable_l4_lb_firewall_reconciliation,
             __desired_node_pool_auto_config_linux_node_config,
+            __desired_user_managed_keys_config,
             __desired_anonymous_authentication_config,
+            __gke_auto_upgrade_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -22030,11 +24316,21 @@ impl<'de> serde::de::Deserialize<'de> for ClusterUpdate {
                             "desired_rbac_binding_config" => {
                                 Ok(__FieldTag::__desired_rbac_binding_config)
                             }
+                            "desiredAdditionalIpRangesConfig" => {
+                                Ok(__FieldTag::__desired_additional_ip_ranges_config)
+                            }
+                            "desired_additional_ip_ranges_config" => {
+                                Ok(__FieldTag::__desired_additional_ip_ranges_config)
+                            }
                             "desiredEnterpriseConfig" => {
                                 Ok(__FieldTag::__desired_enterprise_config)
                             }
                             "desired_enterprise_config" => {
                                 Ok(__FieldTag::__desired_enterprise_config)
+                            }
+                            "desiredAutoIpamConfig" => Ok(__FieldTag::__desired_auto_ipam_config),
+                            "desired_auto_ipam_config" => {
+                                Ok(__FieldTag::__desired_auto_ipam_config)
                             }
                             "desiredDisableL4LbFirewallReconciliation" => {
                                 Ok(__FieldTag::__desired_disable_l4_lb_firewall_reconciliation)
@@ -22048,12 +24344,20 @@ impl<'de> serde::de::Deserialize<'de> for ClusterUpdate {
                             "desired_node_pool_auto_config_linux_node_config" => {
                                 Ok(__FieldTag::__desired_node_pool_auto_config_linux_node_config)
                             }
+                            "desiredUserManagedKeysConfig" => {
+                                Ok(__FieldTag::__desired_user_managed_keys_config)
+                            }
+                            "desired_user_managed_keys_config" => {
+                                Ok(__FieldTag::__desired_user_managed_keys_config)
+                            }
                             "desiredAnonymousAuthenticationConfig" => {
                                 Ok(__FieldTag::__desired_anonymous_authentication_config)
                             }
                             "desired_anonymous_authentication_config" => {
                                 Ok(__FieldTag::__desired_anonymous_authentication_config)
                             }
+                            "gkeAutoUpgradeConfig" => Ok(__FieldTag::__gke_auto_upgrade_config),
+                            "gke_auto_upgrade_config" => Ok(__FieldTag::__gke_auto_upgrade_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -22688,6 +24992,17 @@ impl<'de> serde::de::Deserialize<'de> for ClusterUpdate {
                                 .next_value::<std::option::Option<crate::model::RBACBindingConfig>>(
                                 )?;
                         }
+                        __FieldTag::__desired_additional_ip_ranges_config => {
+                            if !fields.insert(__FieldTag::__desired_additional_ip_ranges_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for desired_additional_ip_ranges_config",
+                                ));
+                            }
+                            result.desired_additional_ip_ranges_config = map
+                                .next_value::<std::option::Option<
+                                    crate::model::DesiredAdditionalIPRangesConfig,
+                                >>()?;
+                        }
                         __FieldTag::__desired_enterprise_config => {
                             if !fields.insert(__FieldTag::__desired_enterprise_config) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -22696,6 +25011,16 @@ impl<'de> serde::de::Deserialize<'de> for ClusterUpdate {
                             }
                             result.desired_enterprise_config = map.next_value::<std::option::Option<crate::model::DesiredEnterpriseConfig>>()?
                                 ;
+                        }
+                        __FieldTag::__desired_auto_ipam_config => {
+                            if !fields.insert(__FieldTag::__desired_auto_ipam_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for desired_auto_ipam_config",
+                                ));
+                            }
+                            result.desired_auto_ipam_config = map
+                                .next_value::<std::option::Option<crate::model::AutoIpamConfig>>(
+                                )?;
                         }
                         __FieldTag::__desired_disable_l4_lb_firewall_reconciliation => {
                             if !fields
@@ -22719,6 +25044,15 @@ impl<'de> serde::de::Deserialize<'de> for ClusterUpdate {
                             result.desired_node_pool_auto_config_linux_node_config = map.next_value::<std::option::Option<crate::model::LinuxNodeConfig>>()?
                                 ;
                         }
+                        __FieldTag::__desired_user_managed_keys_config => {
+                            if !fields.insert(__FieldTag::__desired_user_managed_keys_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for desired_user_managed_keys_config",
+                                ));
+                            }
+                            result.desired_user_managed_keys_config = map.next_value::<std::option::Option<crate::model::UserManagedKeysConfig>>()?
+                                ;
+                        }
                         __FieldTag::__desired_anonymous_authentication_config => {
                             if !fields.insert(__FieldTag::__desired_anonymous_authentication_config)
                             {
@@ -22730,6 +25064,15 @@ impl<'de> serde::de::Deserialize<'de> for ClusterUpdate {
                                 map.next_value::<std::option::Option<
                                     crate::model::AnonymousAuthenticationConfig,
                                 >>()?;
+                        }
+                        __FieldTag::__gke_auto_upgrade_config => {
+                            if !fields.insert(__FieldTag::__gke_auto_upgrade_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gke_auto_upgrade_config",
+                                ));
+                            }
+                            result.gke_auto_upgrade_config = map.next_value::<std::option::Option<crate::model::GkeAutoUpgradeConfig>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -23063,8 +25406,17 @@ impl serde::ser::Serialize for ClusterUpdate {
                 &self.desired_rbac_binding_config,
             )?;
         }
+        if self.desired_additional_ip_ranges_config.is_some() {
+            state.serialize_entry(
+                "desiredAdditionalIpRangesConfig",
+                &self.desired_additional_ip_ranges_config,
+            )?;
+        }
         if self.desired_enterprise_config.is_some() {
             state.serialize_entry("desiredEnterpriseConfig", &self.desired_enterprise_config)?;
+        }
+        if self.desired_auto_ipam_config.is_some() {
+            state.serialize_entry("desiredAutoIpamConfig", &self.desired_auto_ipam_config)?;
         }
         if self.desired_disable_l4_lb_firewall_reconciliation.is_some() {
             state.serialize_entry(
@@ -23081,11 +25433,20 @@ impl serde::ser::Serialize for ClusterUpdate {
                 &self.desired_node_pool_auto_config_linux_node_config,
             )?;
         }
+        if self.desired_user_managed_keys_config.is_some() {
+            state.serialize_entry(
+                "desiredUserManagedKeysConfig",
+                &self.desired_user_managed_keys_config,
+            )?;
+        }
         if self.desired_anonymous_authentication_config.is_some() {
             state.serialize_entry(
                 "desiredAnonymousAuthenticationConfig",
                 &self.desired_anonymous_authentication_config,
             )?;
+        }
+        if self.gke_auto_upgrade_config.is_some() {
+            state.serialize_entry("gkeAutoUpgradeConfig", &self.gke_auto_upgrade_config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -23250,6 +25611,421 @@ impl serde::ser::Serialize for AdditionalPodRangesConfig {
         if !self.pod_range_info.is_empty() {
             state.serialize_entry("podRangeInfo", &self.pod_range_info)?;
         }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// AdditionalIPRangesConfig is the configuration for individual additional
+/// subnetwork attached to the cluster
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AdditionalIPRangesConfig {
+    /// Name of the subnetwork. This can be the full path of the subnetwork or
+    /// just the name.
+    /// Example1: my-subnet
+    /// Example2: projects/gke-project/regions/us-central1/subnetworks/my-subnet
+    pub subnetwork: std::string::String,
+
+    /// List of secondary ranges names within this subnetwork that can be used for
+    /// pod IPs.
+    /// Example1: gke-pod-range1
+    /// Example2: gke-pod-range1,gke-pod-range2
+    pub pod_ipv4_range_names: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AdditionalIPRangesConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [subnetwork][crate::model::AdditionalIPRangesConfig::subnetwork].
+    pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.subnetwork = v.into();
+        self
+    }
+
+    /// Sets the value of [pod_ipv4_range_names][crate::model::AdditionalIPRangesConfig::pod_ipv4_range_names].
+    pub fn set_pod_ipv4_range_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.pod_ipv4_range_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AdditionalIPRangesConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.AdditionalIPRangesConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AdditionalIPRangesConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __subnetwork,
+            __pod_ipv4_range_names,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AdditionalIPRangesConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "subnetwork" => Ok(__FieldTag::__subnetwork),
+                            "podIpv4RangeNames" => Ok(__FieldTag::__pod_ipv4_range_names),
+                            "pod_ipv4_range_names" => Ok(__FieldTag::__pod_ipv4_range_names),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AdditionalIPRangesConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AdditionalIPRangesConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__subnetwork => {
+                            if !fields.insert(__FieldTag::__subnetwork) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for subnetwork",
+                                ));
+                            }
+                            result.subnetwork = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__pod_ipv4_range_names => {
+                            if !fields.insert(__FieldTag::__pod_ipv4_range_names) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pod_ipv4_range_names",
+                                ));
+                            }
+                            result.pod_ipv4_range_names = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AdditionalIPRangesConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.subnetwork.is_empty() {
+            state.serialize_entry("subnetwork", &self.subnetwork)?;
+        }
+        if !self.pod_ipv4_range_names.is_empty() {
+            state.serialize_entry("podIpv4RangeNames", &self.pod_ipv4_range_names)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// DesiredAdditionalIPRangesConfig is a wrapper used for cluster update
+/// operation and contains multiple AdditionalIPRangesConfigs.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DesiredAdditionalIPRangesConfig {
+    /// List of additional IP ranges configs where each AdditionalIPRangesConfig
+    /// corresponds to one subnetwork's IP ranges
+    pub additional_ip_ranges_configs: std::vec::Vec<crate::model::AdditionalIPRangesConfig>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DesiredAdditionalIPRangesConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [additional_ip_ranges_configs][crate::model::DesiredAdditionalIPRangesConfig::additional_ip_ranges_configs].
+    pub fn set_additional_ip_ranges_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AdditionalIPRangesConfig>,
+    {
+        use std::iter::Iterator;
+        self.additional_ip_ranges_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DesiredAdditionalIPRangesConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.DesiredAdditionalIPRangesConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DesiredAdditionalIPRangesConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __additional_ip_ranges_configs,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DesiredAdditionalIPRangesConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "additionalIpRangesConfigs" => {
+                                Ok(__FieldTag::__additional_ip_ranges_configs)
+                            }
+                            "additional_ip_ranges_configs" => {
+                                Ok(__FieldTag::__additional_ip_ranges_configs)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DesiredAdditionalIPRangesConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DesiredAdditionalIPRangesConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__additional_ip_ranges_configs => {
+                            if !fields.insert(__FieldTag::__additional_ip_ranges_configs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for additional_ip_ranges_configs",
+                                ));
+                            }
+                            result.additional_ip_ranges_configs = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::AdditionalIPRangesConfig>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DesiredAdditionalIPRangesConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.additional_ip_ranges_configs.is_empty() {
+            state.serialize_entry(
+                "additionalIpRangesConfigs",
+                &self.additional_ip_ranges_configs,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// AutoIpamConfig contains all information related to Auto IPAM
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AutoIpamConfig {
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AutoIpamConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for AutoIpamConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.AutoIpamConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AutoIpamConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AutoIpamConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        Ok(__FieldTag::Unknown(value.to_string()))
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AutoIpamConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AutoIpamConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AutoIpamConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -23577,8 +26353,9 @@ pub struct Operation {
     pub name: std::string::String,
 
     /// Output only. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// operation is taking place. This field is deprecated, use location instead.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the operation is taking place. This field is deprecated, use
+    /// location instead.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -25216,9 +27993,9 @@ pub struct CreateClusterRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the parent
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the parent field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -25441,9 +28218,9 @@ pub struct GetClusterRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -25658,9 +28435,9 @@ pub struct UpdateClusterRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -25910,9 +28687,9 @@ pub struct UpdateNodePoolRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -25940,8 +28717,8 @@ pub struct UpdateNodePoolRequest {
     pub node_version: std::string::String,
 
     /// Required. The desired image type for the node pool. Please see
-    /// <https://cloud.google.com/kubernetes-engine/docs/concepts/node-images> for
-    /// available image types.
+    /// <https://cloud.google.com/kubernetes-engine/docs/concepts/node-images>
+    /// for available image types.
     pub image_type: std::string::String,
 
     /// The name (project, location, cluster, node pool) of the node pool to
@@ -25950,10 +28727,10 @@ pub struct UpdateNodePoolRequest {
     pub name: std::string::String,
 
     /// The desired list of Google Compute Engine
-    /// [zones](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// node pool's nodes should be located. Changing the locations for a node pool
-    /// will result in nodes being either created or removed from the node pool,
-    /// depending on whether locations are being added or removed.
+    /// [zones](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the node pool's nodes should be located. Changing the locations
+    /// for a node pool will result in nodes being either created or removed from
+    /// the node pool, depending on whether locations are being added or removed.
     pub locations: std::vec::Vec<std::string::String>,
 
     /// The desired workload metadata config for the node pool.
@@ -26015,14 +28792,15 @@ pub struct UpdateNodePoolRequest {
     pub windows_node_config: std::option::Option<crate::model::WindowsNodeConfig>,
 
     /// A list of hardware accelerators to be attached to each node.
-    /// See <https://cloud.google.com/compute/docs/gpus> for more information about
-    /// support for GPUs.
+    /// See
+    /// <https://cloud.google.com/compute/docs/gpus>
+    /// for more information about support for GPUs.
     pub accelerators: std::vec::Vec<crate::model::AcceleratorConfig>,
 
     /// Optional. The desired [Google Compute Engine machine
-    /// type](https://cloud.google.com/compute/docs/machine-types) for nodes in the
-    /// node pool. Initiates an upgrade operation that migrates the nodes in the
-    /// node pool to the specified machine type.
+    /// type](https://cloud.google.com/compute/docs/machine-types)
+    /// for nodes in the node pool. Initiates an upgrade operation that migrates
+    /// the nodes in the node pool to the specified machine type.
     pub machine_type: std::string::String,
 
     /// Optional. The desired disk type (e.g. 'pd-standard', 'pd-ssd' or
@@ -26060,6 +28838,11 @@ pub struct UpdateNodePoolRequest {
 
     /// Flex Start flag for enabling Flex Start VM.
     pub flex_start: std::option::Option<bool>,
+
+    /// The desired boot disk config for nodes in the node pool.
+    /// Initiates an upgrade operation that migrates the nodes in the
+    /// node pool to the specified boot disk config.
+    pub boot_disk: std::option::Option<crate::model::BootDisk>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -26531,6 +29314,24 @@ impl UpdateNodePoolRequest {
         self.flex_start = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [boot_disk][crate::model::UpdateNodePoolRequest::boot_disk].
+    pub fn set_boot_disk<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BootDisk>,
+    {
+        self.boot_disk = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [boot_disk][crate::model::UpdateNodePoolRequest::boot_disk].
+    pub fn set_or_clear_boot_disk<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BootDisk>,
+    {
+        self.boot_disk = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for UpdateNodePoolRequest {
@@ -26583,6 +29384,7 @@ impl<'de> serde::de::Deserialize<'de> for UpdateNodePoolRequest {
             __storage_pools,
             __max_run_duration,
             __flex_start,
+            __boot_disk,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -26664,6 +29466,8 @@ impl<'de> serde::de::Deserialize<'de> for UpdateNodePoolRequest {
                             "max_run_duration" => Ok(__FieldTag::__max_run_duration),
                             "flexStart" => Ok(__FieldTag::__flex_start),
                             "flex_start" => Ok(__FieldTag::__flex_start),
+                            "bootDisk" => Ok(__FieldTag::__boot_disk),
+                            "boot_disk" => Ok(__FieldTag::__boot_disk),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -27024,6 +29828,15 @@ impl<'de> serde::de::Deserialize<'de> for UpdateNodePoolRequest {
                             }
                             result.flex_start = map.next_value::<std::option::Option<bool>>()?;
                         }
+                        __FieldTag::__boot_disk => {
+                            if !fields.insert(__FieldTag::__boot_disk) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for boot_disk",
+                                ));
+                            }
+                            result.boot_disk =
+                                map.next_value::<std::option::Option<crate::model::BootDisk>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -27158,6 +29971,9 @@ impl serde::ser::Serialize for UpdateNodePoolRequest {
         if self.flex_start.is_some() {
             state.serialize_entry("flexStart", &self.flex_start)?;
         }
+        if self.boot_disk.is_some() {
+            state.serialize_entry("bootDisk", &self.boot_disk)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -27178,9 +29994,9 @@ pub struct SetNodePoolAutoscalingRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -27459,9 +30275,9 @@ pub struct SetLoggingServiceRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -27711,9 +30527,9 @@ pub struct SetMonitoringServiceRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -27966,9 +30782,9 @@ pub struct SetAddonsConfigRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -28220,9 +31036,9 @@ pub struct SetLocationsRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -28232,10 +31048,10 @@ pub struct SetLocationsRequest {
     pub cluster_id: std::string::String,
 
     /// Required. The desired list of Google Compute Engine
-    /// [zones](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster's nodes should be located. Changing the locations a cluster is in
-    /// will result in nodes being either created or removed from the cluster,
-    /// depending on whether locations are being added or removed.
+    /// [zones](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster's nodes should be located. Changing the locations a
+    /// cluster is in will result in nodes being either created or removed from the
+    /// cluster, depending on whether locations are being added or removed.
     ///
     /// This list must always include the cluster's primary zone.
     pub locations: std::vec::Vec<std::string::String>,
@@ -28470,9 +31286,9 @@ pub struct UpdateMasterRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -28721,9 +31537,9 @@ pub struct SetMasterAuthRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -29150,9 +31966,9 @@ pub struct DeleteClusterRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -29367,9 +32183,9 @@ pub struct ListClustersRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides, or "-" for all zones. This field has been deprecated and
-    /// replaced by the parent field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides, or "-" for all zones. This field has been
+    /// deprecated and replaced by the parent field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -29720,9 +32536,9 @@ pub struct GetOperationRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -29937,9 +32753,9 @@ pub struct ListOperationsRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) to return
-    /// operations for, or `-` for all zones. This field has been deprecated and
-    /// replaced by the parent field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// to return operations for, or `-` for all zones. This field has been
+    /// deprecated and replaced by the parent field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -30127,9 +32943,9 @@ pub struct CancelOperationRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// operation resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the operation resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -30506,9 +33322,9 @@ pub struct GetServerConfigRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) to return
-    /// operations for. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// to return operations for. This field has been deprecated and replaced by
+    /// the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -31200,9 +34016,9 @@ pub struct CreateNodePoolRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the parent
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the parent field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -31454,9 +34270,9 @@ pub struct DeleteNodePoolRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -31700,9 +34516,9 @@ pub struct ListNodePoolsRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the parent
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the parent field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -31917,9 +34733,9 @@ pub struct GetNodePoolRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -32724,14 +35540,15 @@ pub struct NodePool {
     pub config: std::option::Option<crate::model::NodeConfig>,
 
     /// The initial node count for the pool. You must ensure that your
-    /// Compute Engine [resource quota](https://cloud.google.com/compute/quotas)
+    /// Compute Engine [resource
+    /// quota](https://cloud.google.com/compute/quotas)
     /// is sufficient for this number of instances. You must also have available
     /// firewall and routes quota.
     pub initial_node_count: i32,
 
     /// The list of Google Compute Engine
-    /// [zones](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// NodePool's nodes should be located.
+    /// [zones](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the NodePool's nodes should be located.
     ///
     /// If this value is unspecified during node pool creation, the
     /// [Cluster.Locations](https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters#Cluster.FIELDS.locations)
@@ -37033,9 +39850,9 @@ pub struct SetNodePoolManagementRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -37315,9 +40132,9 @@ pub struct SetNodePoolSizeRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -37739,9 +40556,9 @@ pub struct RollbackNodePoolUpgradeRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -38157,9 +40974,12 @@ pub struct ClusterAutoscaling {
         std::option::Option<crate::model::AutoprovisioningNodePoolDefaults>,
 
     /// The list of Google Compute Engine
-    /// [zones](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// NodePool's nodes can be created by NAP.
+    /// [zones](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the NodePool's nodes can be created by NAP.
     pub autoprovisioning_locations: std::vec::Vec<std::string::String>,
+
+    /// Default compute class is a configuration for default compute class.
+    pub default_compute_class_config: std::option::Option<crate::model::DefaultComputeClassConfig>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -38228,6 +41048,24 @@ impl ClusterAutoscaling {
         self.autoprovisioning_locations = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [default_compute_class_config][crate::model::ClusterAutoscaling::default_compute_class_config].
+    pub fn set_default_compute_class_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DefaultComputeClassConfig>,
+    {
+        self.default_compute_class_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [default_compute_class_config][crate::model::ClusterAutoscaling::default_compute_class_config].
+    pub fn set_or_clear_default_compute_class_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DefaultComputeClassConfig>,
+    {
+        self.default_compute_class_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for ClusterAutoscaling {
@@ -38251,6 +41089,7 @@ impl<'de> serde::de::Deserialize<'de> for ClusterAutoscaling {
             __autoscaling_profile,
             __autoprovisioning_node_pool_defaults,
             __autoprovisioning_locations,
+            __default_compute_class_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -38292,6 +41131,12 @@ impl<'de> serde::de::Deserialize<'de> for ClusterAutoscaling {
                             }
                             "autoprovisioning_locations" => {
                                 Ok(__FieldTag::__autoprovisioning_locations)
+                            }
+                            "defaultComputeClassConfig" => {
+                                Ok(__FieldTag::__default_compute_class_config)
+                            }
+                            "default_compute_class_config" => {
+                                Ok(__FieldTag::__default_compute_class_config)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -38367,6 +41212,15 @@ impl<'de> serde::de::Deserialize<'de> for ClusterAutoscaling {
                             }
                             result.autoprovisioning_locations = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
+                        __FieldTag::__default_compute_class_config => {
+                            if !fields.insert(__FieldTag::__default_compute_class_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for default_compute_class_config",
+                                ));
+                            }
+                            result.default_compute_class_config = map.next_value::<std::option::Option<crate::model::DefaultComputeClassConfig>>()?
+                                ;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -38412,6 +41266,12 @@ impl serde::ser::Serialize for ClusterAutoscaling {
             state.serialize_entry(
                 "autoprovisioningLocations",
                 &self.autoprovisioning_locations,
+            )?;
+        }
+        if self.default_compute_class_config.is_some() {
+            state.serialize_entry(
+                "defaultComputeClassConfig",
+                &self.default_compute_class_config,
             )?;
         }
         if !self._unknown_fields.is_empty() {
@@ -38616,8 +41476,8 @@ pub struct AutoprovisioningNodePoolDefaults {
     pub boot_disk_kms_key: std::string::String,
 
     /// The image type to use for NAP created node. Please see
-    /// <https://cloud.google.com/kubernetes-engine/docs/concepts/node-images> for
-    /// available image types.
+    /// <https://cloud.google.com/kubernetes-engine/docs/concepts/node-images>
+    /// for available image types.
     pub image_type: std::string::String,
 
     /// DEPRECATED. Use NodePoolAutoConfig.NodeKubeletConfig instead.
@@ -39268,6 +42128,137 @@ impl serde::ser::Serialize for ResourceLimit {
     }
 }
 
+/// DefaultComputeClassConfig defines default compute class
+/// configuration.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DefaultComputeClassConfig {
+    /// Enables default compute class.
+    pub enabled: bool,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DefaultComputeClassConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::DefaultComputeClassConfig::enabled].
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DefaultComputeClassConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.DefaultComputeClassConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DefaultComputeClassConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __enabled,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DefaultComputeClassConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "enabled" => Ok(__FieldTag::__enabled),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DefaultComputeClassConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DefaultComputeClassConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__enabled => {
+                            if !fields.insert(__FieldTag::__enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enabled",
+                                ));
+                            }
+                            result.enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DefaultComputeClassConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.enabled) {
+            state.serialize_entry("enabled", &self.enabled)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// NodePoolAutoscaling contains information required by cluster autoscaler to
 /// adjust the size of the node pool to the current cluster usage.
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -39792,9 +42783,9 @@ pub struct SetLabelsRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -40079,9 +43070,9 @@ pub struct SetLegacyAbacRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -40321,9 +43312,9 @@ pub struct StartIPRotationRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -40563,9 +43554,9 @@ pub struct CompleteIPRotationRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -41977,9 +44968,9 @@ pub struct SetNetworkPolicyRequest {
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides. This field has been deprecated and replaced by the name
-    /// field.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides. This field has been deprecated and replaced
+    /// by the name field.
     #[deprecated]
     pub zone: std::string::String,
 
@@ -42228,8 +45219,8 @@ pub struct SetMaintenancePolicyRequest {
     pub project_id: std::string::String,
 
     /// Required. The name of the Google Compute Engine
-    /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
-    /// cluster resides.
+    /// [zone](https://cloud.google.com/compute/docs/zones#available)
+    /// in which the cluster resides.
     pub zone: std::string::String,
 
     /// Required. The name of the cluster to update.
@@ -42692,6 +45683,9 @@ pub mod status_condition {
         CaExpiring,
         /// Node service account is missing permissions.
         NodeServiceAccountMissingPermissions,
+        /// Cloud KMS key version used for etcd level encryption has been destroyed.
+        /// This is a permanent error.
+        CloudKmsKeyDestroyed,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Code::value] or
@@ -42722,6 +45716,7 @@ pub mod status_condition {
                 Self::CloudKmsKeyError => std::option::Option::Some(7),
                 Self::CaExpiring => std::option::Option::Some(9),
                 Self::NodeServiceAccountMissingPermissions => std::option::Option::Some(10),
+                Self::CloudKmsKeyDestroyed => std::option::Option::Some(11),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -42744,6 +45739,7 @@ pub mod status_condition {
                 Self::NodeServiceAccountMissingPermissions => {
                     std::option::Option::Some("NODE_SERVICE_ACCOUNT_MISSING_PERMISSIONS")
                 }
+                Self::CloudKmsKeyDestroyed => std::option::Option::Some("CLOUD_KMS_KEY_DESTROYED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -42773,6 +45769,7 @@ pub mod status_condition {
                 7 => Self::CloudKmsKeyError,
                 9 => Self::CaExpiring,
                 10 => Self::NodeServiceAccountMissingPermissions,
+                11 => Self::CloudKmsKeyDestroyed,
                 _ => Self::UnknownValue(code::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -42794,6 +45791,7 @@ pub mod status_condition {
                 "NODE_SERVICE_ACCOUNT_MISSING_PERMISSIONS" => {
                     Self::NodeServiceAccountMissingPermissions
                 }
+                "CLOUD_KMS_KEY_DESTROYED" => Self::CloudKmsKeyDestroyed,
                 _ => Self::UnknownValue(code::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -42815,6 +45813,7 @@ pub mod status_condition {
                 Self::CloudKmsKeyError => serializer.serialize_i32(7),
                 Self::CaExpiring => serializer.serialize_i32(9),
                 Self::NodeServiceAccountMissingPermissions => serializer.serialize_i32(10),
+                Self::CloudKmsKeyDestroyed => serializer.serialize_i32(11),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -42843,8 +45842,8 @@ pub struct NetworkConfig {
     pub network: std::string::String,
 
     /// Output only. The relative name of the Google Compute Engine
-    /// [subnetwork](https://cloud.google.com/compute/docs/vpc) to which the
-    /// cluster is connected. Example:
+    /// [subnetwork](https://cloud.google.com/compute/docs/vpc)
+    /// to which the cluster is connected. Example:
     /// projects/my-project/regions/us-central1/subnetworks/my-subnet
     pub subnetwork: std::string::String,
 
@@ -58360,6 +61359,272 @@ impl serde::ser::Serialize for SecretManagerConfig {
     }
 }
 
+/// BootDisk specifies the boot disk configuration for nodepools.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BootDisk {
+    /// Disk type of the boot disk.
+    /// (i.e. Hyperdisk-Balanced, PD-Balanced, etc.)
+    pub disk_type: std::string::String,
+
+    /// Disk size in GB. Replaces NodeConfig.disk_size_gb
+    pub size_gb: i64,
+
+    /// For Hyperdisk-Balanced only, the provisioned IOPS config value.
+    pub provisioned_iops: i64,
+
+    /// For Hyperdisk-Balanced only, the provisioned throughput config value.
+    pub provisioned_throughput: i64,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BootDisk {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [disk_type][crate::model::BootDisk::disk_type].
+    pub fn set_disk_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.disk_type = v.into();
+        self
+    }
+
+    /// Sets the value of [size_gb][crate::model::BootDisk::size_gb].
+    pub fn set_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.size_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [provisioned_iops][crate::model::BootDisk::provisioned_iops].
+    pub fn set_provisioned_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.provisioned_iops = v.into();
+        self
+    }
+
+    /// Sets the value of [provisioned_throughput][crate::model::BootDisk::provisioned_throughput].
+    pub fn set_provisioned_throughput<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.provisioned_throughput = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BootDisk {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.BootDisk"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for BootDisk {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __disk_type,
+            __size_gb,
+            __provisioned_iops,
+            __provisioned_throughput,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BootDisk")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "diskType" => Ok(__FieldTag::__disk_type),
+                            "disk_type" => Ok(__FieldTag::__disk_type),
+                            "sizeGb" => Ok(__FieldTag::__size_gb),
+                            "size_gb" => Ok(__FieldTag::__size_gb),
+                            "provisionedIops" => Ok(__FieldTag::__provisioned_iops),
+                            "provisioned_iops" => Ok(__FieldTag::__provisioned_iops),
+                            "provisionedThroughput" => Ok(__FieldTag::__provisioned_throughput),
+                            "provisioned_throughput" => Ok(__FieldTag::__provisioned_throughput),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = BootDisk;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BootDisk")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__disk_type => {
+                            if !fields.insert(__FieldTag::__disk_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for disk_type",
+                                ));
+                            }
+                            result.disk_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__size_gb => {
+                            if !fields.insert(__FieldTag::__size_gb) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for size_gb",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.size_gb = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__provisioned_iops => {
+                            if !fields.insert(__FieldTag::__provisioned_iops) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for provisioned_iops",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.provisioned_iops =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__provisioned_throughput => {
+                            if !fields.insert(__FieldTag::__provisioned_throughput) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for provisioned_throughput",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.provisioned_throughput =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for BootDisk {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.disk_type.is_empty() {
+            state.serialize_entry("diskType", &self.disk_type)?;
+        }
+        if !wkt::internal::is_default(&self.size_gb) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("sizeGb", &__With(&self.size_gb))?;
+        }
+        if !wkt::internal::is_default(&self.provisioned_iops) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("provisionedIops", &__With(&self.provisioned_iops))?;
+        }
+        if !wkt::internal::is_default(&self.provisioned_throughput) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "provisionedThroughput",
+                &__With(&self.provisioned_throughput),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// SecondaryBootDisk represents a persistent disk attached to a node
 /// with special configurations based on its mode.
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -60996,6 +64261,280 @@ pub mod node_pool_upgrade_info {
                     ".google.container.v1.NodePoolUpgradeInfo.AutoUpgradePausedReason",
                 ),
             )
+        }
+    }
+}
+
+/// GkeAutoUpgradeConfig is the configuration for GKE auto upgrades.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GkeAutoUpgradeConfig {
+    /// PatchMode specifies how auto upgrade patch builds should be
+    /// selected.
+    pub patch_mode: crate::model::gke_auto_upgrade_config::PatchMode,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GkeAutoUpgradeConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [patch_mode][crate::model::GkeAutoUpgradeConfig::patch_mode].
+    pub fn set_patch_mode<
+        T: std::convert::Into<crate::model::gke_auto_upgrade_config::PatchMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.patch_mode = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GkeAutoUpgradeConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.GkeAutoUpgradeConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GkeAutoUpgradeConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __patch_mode,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GkeAutoUpgradeConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "patchMode" => Ok(__FieldTag::__patch_mode),
+                            "patch_mode" => Ok(__FieldTag::__patch_mode),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GkeAutoUpgradeConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GkeAutoUpgradeConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__patch_mode => {
+                            if !fields.insert(__FieldTag::__patch_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for patch_mode",
+                                ));
+                            }
+                            result.patch_mode = map
+                                .next_value::<std::option::Option<
+                                    crate::model::gke_auto_upgrade_config::PatchMode,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GkeAutoUpgradeConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.patch_mode) {
+            state.serialize_entry("patchMode", &self.patch_mode)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Defines additional types related to [GkeAutoUpgradeConfig].
+pub mod gke_auto_upgrade_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// PatchMode specifies how auto upgrade patch builds should be
+    /// selected.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PatchMode {
+        /// PATCH_MODE_UNSPECIFIED defaults to using the upgrade target from the
+        /// channel's patch upgrade targets as the upgrade target for the
+        /// version.
+        Unspecified,
+        /// ACCELERATED denotes that the latest patch build in the channel should be
+        /// used as the upgrade target for the version.
+        Accelerated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PatchMode::value] or
+        /// [PatchMode::name].
+        UnknownValue(patch_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod patch_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl PatchMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Accelerated => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PATCH_MODE_UNSPECIFIED"),
+                Self::Accelerated => std::option::Option::Some("ACCELERATED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for PatchMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PatchMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PatchMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Accelerated,
+                _ => Self::UnknownValue(patch_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PatchMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PATCH_MODE_UNSPECIFIED" => Self::Unspecified,
+                "ACCELERATED" => Self::Accelerated,
+                _ => Self::UnknownValue(patch_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PatchMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Accelerated => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PatchMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PatchMode>::new(
+                ".google.container.v1.GkeAutoUpgradeConfig.PatchMode",
+            ))
         }
     }
 }
