@@ -234,7 +234,8 @@ mod tests {
     fn test_empty_unknown_fields(input: Value) -> Result {
         let got = serde_json::from_value::<MessageWithString>(input.clone())?;
         let unknown_fields = serde_json::from_value::<
-            serde_json::Map<std::string::String, serde_json::Value>,>(input)?;
+            serde_json::Map<std::string::String, serde_json::Value>,
+        >(input)?;
         if unknown_fields.is_empty() {
             assert!(!format!("{got:?}").contains("_unknown_fields"));
             return Ok(());
