@@ -164,7 +164,9 @@ struct InProgressUpload {
     /// The last PUT request may be smaller. This must be a multiple of 256KiB
     /// and greater than 0.
     target_size: usize,
-    /// The expected size for the full object.
+    /// The expected size [minimum, maximum) for the full object.
+    ///
+    /// If the maximum is `None` the maximum size is not known.
     hint: (u64, Option<u64>),
     /// The upload session URL.
     ///
@@ -305,12 +307,12 @@ impl InProgressUpload {
 
     fn handle_partial(&mut self, persisted_size: u64) -> Result<()> {
         let consumed = match (self.offset, self.buffer_size as u64, persisted_size) {
-            (o, _, p) if p < o => Err(ProgressError::UnexpectedRewind {
+            (o, _, p) if p < o => Err(UploadError::UnexpectedRewind {
                 offset: o,
                 persisted: p,
             }),
             (o, n, p) if p <= o + n => Ok((p - o) as usize),
-            (o, n, p) => Err(ProgressError::TooMuchProgress {
+            (o, n, p) => Err(UploadError::TooMuchProgress {
                 sent: o + n,
                 persisted: p,
             }),
@@ -344,12 +346,21 @@ impl InProgressUpload {
     }
 }
 
+/// An unrecoverable problem in the upload protocol.
+///
+/// These errors indicate a bug in the resumable upload protocol implementation,
+/// either in the service or the client library. Neither are expected to be
+/// common, but neither are impossible. It seems safer to return an error rather
+/// than panic, as the invariants involve different machines and the write
+/// protocol.
 #[derive(Error, Debug)]
-enum ProgressError {
+#[non_exhaustive]
+enum UploadError {
     #[error(
         "the service previously persisted {offset} bytes, but now reports only {persisted} as persisted"
     )]
     UnexpectedRewind { offset: u64, persisted: u64 },
+
     #[error("the service reports {persisted} bytes as persisted, but we only sent {sent} bytes")]
     TooMuchProgress { sent: u64, persisted: u64 },
 }
@@ -590,10 +601,10 @@ mod tests {
         assert!(err.is_serialization(), "{err:?}");
         let source = err
             .source()
-            .and_then(|e| e.downcast_ref::<ProgressError>())
+            .and_then(|e| e.downcast_ref::<UploadError>())
             .expect("source should be a ProgressError");
         assert!(
-            matches!(source, ProgressError::TooMuchProgress { sent, persisted } if *sent == 2 * LEN as u64 && *persisted == 4 * LEN as u64 ),
+            matches!(source, UploadError::TooMuchProgress { sent, persisted } if *sent == 2 * LEN as u64 && *persisted == 4 * LEN as u64 ),
             "{source:?}"
         );
         Ok(())
@@ -616,10 +627,10 @@ mod tests {
         assert!(err.is_serialization(), "{err:?}");
         let source = err
             .source()
-            .and_then(|e| e.downcast_ref::<ProgressError>())
+            .and_then(|e| e.downcast_ref::<UploadError>())
             .expect("source should be a ProgressError");
         assert!(
-            matches!(source, ProgressError::UnexpectedRewind { offset, persisted } if *offset == 2 * LEN as u64 && *persisted == LEN as u64 ),
+            matches!(source, UploadError::UnexpectedRewind { offset, persisted } if *offset == 2 * LEN as u64 && *persisted == LEN as u64 ),
             "{source:?}"
         );
         Ok(())

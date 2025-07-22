@@ -25,7 +25,10 @@
 //! Resumable uploads can be used for artitrarily large uploads (up to the
 //! service limit), but we need to perform some amount of buffering. Recall that
 //! resumable uploads consist of a POST request to create the resumable upload
-//! session, followed by a number of PUT requests with the data. If the POST
+//! session, followed by a number of PUT requests with the data.
+//! The POST request may fail. We use the normal retry loop to handle the
+//! failure.
+//!
 //! The PUT requests may fail, in which case the client library need to resend
 //! any portion of the data not persisted by the service.
 //!
