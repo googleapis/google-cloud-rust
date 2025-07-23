@@ -671,6 +671,7 @@ pub(crate) fn apply_customer_supplied_encryption_headers(
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use gax::retry_result::RetryResult;
     use std::{sync::Arc, time::Duration};
     use test_case::test_case;
 
@@ -740,5 +741,34 @@ pub(crate) mod tests {
         assert_eq!(params.encryption_key_bytes, key);
         assert_eq!(params.encryption_key_sha256_bytes, key_sha256);
         Ok(())
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub RetryThrottler {}
+
+        impl gax::retry_throttler::RetryThrottler for RetryThrottler {
+            fn throttle_retry_attempt(&self) -> bool;
+            fn on_retry_failure(&mut self, flow: &RetryResult);
+            fn on_success(&mut self);
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub RetryPolicy {}
+
+        impl gax::retry_policy::RetryPolicy for RetryPolicy {
+            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: gax::error::Error) -> RetryResult;
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub BackoffPolicy {}
+
+        impl gax::backoff_policy::BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> std::time::Duration;
+        }
     }
 }

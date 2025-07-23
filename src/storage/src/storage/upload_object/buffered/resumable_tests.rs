@@ -105,11 +105,10 @@
 //!
 //! [Seek]: crate::upload_source::Seek
 
-use super::super::client::tests::{create_key_helper, test_builder};
 use super::upload_source::{BytesSource, tests::UnknownSize};
-use super::*;
-use crate::storage::upload_object::tests::{
-    MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler,
+use super::{KeyAes256, RESUMABLE_UPLOAD_QUANTUM};
+use crate::storage::client::tests::{
+    MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler, create_key_helper, test_builder,
 };
 use gax::retry_policy::RetryPolicyExt;
 use gax::retry_result::RetryResult;
