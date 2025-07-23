@@ -26,8 +26,8 @@ operations.
 
 ## Quickstart
 
-This guide will help show you how to create a Cloud Storage bucket, upload an
-object to this bucket, and then read the object back.
+This guide will show you how to create a Cloud Storage bucket, upload an object
+to this bucket, and then read the object back.
 
 ### Prerequisites
 
@@ -100,6 +100,10 @@ this guide:
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/storage/quickstart.rs:cleanup}}
 ```
+
+## Next Steps
+
+- [Push data on object uploads](storage/queue.md)
 
 ## Full program
 

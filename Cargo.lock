@@ -6962,6 +6962,7 @@ name = "user-guide-samples"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "bytes",
  "crc32c",
  "futures",
  "google-cloud-aiplatform-v1",

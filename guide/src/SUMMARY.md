@@ -22,6 +22,7 @@ limitations under the License.
 - [How to initialize a client](initialize_a_client.md)
 - [Generate text using the Vertex AI Gemini API](generate_text_using_the_vertex_ai_gemini_api.md)
 - [Using Google Cloud Storage](storage.md)
+  - [Push data on object uploads](storage/queue.md)
 - [Configuring retry policies](configuring_retry_policies.md)
 - [Error handling](error_handling.md)
 - [Examine error details](examine_error_details.md)
