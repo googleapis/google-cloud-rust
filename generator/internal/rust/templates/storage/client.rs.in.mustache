@@ -30,26 +30,26 @@ impl StorageControl {
     pub fn builder() -> ClientBuilder {
         gax::client_builder::internal::new_builder(client_builder::Factory)
     }
-{{#Codec.Storage.Services}}
-{{#Methods}}
+    {{#Codec.Storage.Services}}
+    {{#Methods}}
 
-{{> ../common/client_method_preamble}}
+    {{> ../common/client_method_preamble}}
     pub fn {{Codec.Name}}(&self) -> crate::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
     {
         self.storage.{{Codec.Name}}()
     }
-{{/Methods}}
-{{/Codec.Storage.Services}}
-{{#Codec.Control.Services}}
-{{#Methods}}
+    {{/Methods}}
+    {{/Codec.Storage.Services}}
+    {{#Codec.Control.Services}}
+    {{#Methods}}
 
-{{> ../common/client_method_preamble}}
+    {{> ../common/client_method_preamble}}
     pub fn {{Codec.Name}}(&self) -> crate::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
     {
         self.control.{{Codec.Name}}()
     }
-{{/Methods}}
-{{/Codec.Control.Services}}
+    {{/Methods}}
+    {{/Codec.Control.Services}}
 
     /// Creates a new client from the provided stub.
     ///
