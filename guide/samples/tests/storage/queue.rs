@@ -17,9 +17,9 @@
 use google_cloud_storage::upload_source::StreamingSource;
 // ANCHOR_END: impl-streaming-source
 // ANCHOR: wrapper-struct
-use tokio::sync::mpsc;
+use tokio::sync::mpsc::{self, Receiver};
 #[derive(Debug)]
-struct QueueSource(mpsc::Receiver<bytes::Bytes>);
+struct QueueSource(Receiver<bytes::Bytes>);
 // ANCHOR_END: wrapper-struct
 // ANCHOR: impl-streaming-source
 impl StreamingSource for QueueSource {
@@ -51,9 +51,11 @@ pub async fn queue(bucket_name: &str, object_name: &str) -> anyhow::Result<()> {
     // ANCHOR_END: create-task
 
     // ANCHOR: send-data
-    for i in 0..1000 {
-        let line = format!("{i:032} lines on the wall, take one down");
-        sender.send(bytes::Bytes::from_owner(line)).await?;
+    for _ in 0..1000 {
+        let line = "I will not write funny examples in class\n";
+        sender
+            .send(bytes::Bytes::from_static(line.as_bytes()))
+            .await?;
     }
     // ANCHOR_END: send-data
     // ANCHOR: close
