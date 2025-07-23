@@ -37,7 +37,7 @@ pub mod storage {
             let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
             let response = super::queue::queue(&bucket.name, "test-only").await;
             // Ignore cleanup errors.
-            let _ = integration_tests::cleanup_bucket(control, bucket.name).await;
+            let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
             response
         }
     }
