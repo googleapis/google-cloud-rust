@@ -38,7 +38,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request message to get Google Workspace add-ons authorization information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAuthorizationRequest {
     /// Required. Name of the project for which to get the Google Workspace add-ons
@@ -170,8 +170,20 @@ impl serde::ser::Serialize for GetAuthorizationRequest {
     }
 }
 
+impl std::fmt::Debug for GetAuthorizationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAuthorizationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The authorization information used when invoking deployment endpoints.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Authorization {
     /// The canonical full name of this resource.
@@ -356,8 +368,22 @@ impl serde::ser::Serialize for Authorization {
     }
 }
 
+impl std::fmt::Debug for Authorization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Authorization");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("service_account_email", &self.service_account_email);
+        debug_struct.field("oauth_client_id", &self.oauth_client_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to create a deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDeploymentRequest {
     /// Required. Name of the project in which to create the deployment.
@@ -549,8 +575,22 @@ impl serde::ser::Serialize for CreateDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDeploymentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("deployment_id", &self.deployment_id);
+        debug_struct.field("deployment", &self.deployment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to create or replace a deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceDeploymentRequest {
     /// Required. The deployment to create or replace.
@@ -690,8 +730,20 @@ impl serde::ser::Serialize for ReplaceDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for ReplaceDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplaceDeploymentRequest");
+        debug_struct.field("deployment", &self.deployment);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to get a deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDeploymentRequest {
     /// Required. The full resource name of the deployment to get.
@@ -822,8 +874,20 @@ impl serde::ser::Serialize for GetDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for GetDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDeploymentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to list deployments for a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeploymentsRequest {
     /// Required. Name of the project in which to create the deployment.
@@ -1029,8 +1093,22 @@ impl serde::ser::Serialize for ListDeploymentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDeploymentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeploymentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message to list deployments.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeploymentsResponse {
     /// The list of deployments for the given project.
@@ -1202,8 +1280,21 @@ impl serde::ser::Serialize for ListDeploymentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDeploymentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeploymentsResponse");
+        debug_struct.field("deployments", &self.deployments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to delete a deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDeploymentRequest {
     /// Required. The full resource name of the deployment to delete.
@@ -1359,8 +1450,21 @@ impl serde::ser::Serialize for DeleteDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to install a developer mode deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstallDeploymentRequest {
     /// Required. The full resource name of the deployment to install.
@@ -1491,8 +1595,20 @@ impl serde::ser::Serialize for InstallDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for InstallDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstallDeploymentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to uninstall a developer mode deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UninstallDeploymentRequest {
     /// Required. The full resource name of the deployment to install.
@@ -1623,8 +1739,20 @@ impl serde::ser::Serialize for UninstallDeploymentRequest {
     }
 }
 
+impl std::fmt::Debug for UninstallDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UninstallDeploymentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to get the install status of a developer mode deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstallStatusRequest {
     /// Required. The full resource name of the deployment.
@@ -1755,8 +1883,20 @@ impl serde::ser::Serialize for GetInstallStatusRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstallStatusRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstallStatusRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Developer mode install status of a deployment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstallStatus {
     /// The canonical full resource name of the deployment install status.
@@ -1922,8 +2062,21 @@ impl serde::ser::Serialize for InstallStatus {
     }
 }
 
+impl std::fmt::Debug for InstallStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstallStatus");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("installed", &self.installed);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Google Workspace add-on deployment
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Deployment {
     /// The deployment resource name.
@@ -2144,8 +2297,23 @@ impl serde::ser::Serialize for Deployment {
     }
 }
 
+impl std::fmt::Debug for Deployment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Deployment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("oauth_scopes", &self.oauth_scopes);
+        debug_struct.field("add_ons", &self.add_ons);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Google Workspace add-on configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddOns {
     /// Configuration that is common across all Google Workspace add-ons.
@@ -2537,5 +2705,24 @@ impl serde::ser::Serialize for AddOns {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AddOns {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddOns");
+        debug_struct.field("common", &self.common);
+        debug_struct.field("gmail", &self.gmail);
+        debug_struct.field("drive", &self.drive);
+        debug_struct.field("calendar", &self.calendar);
+        debug_struct.field("docs", &self.docs);
+        debug_struct.field("sheets", &self.sheets);
+        debug_struct.field("slides", &self.slides);
+        debug_struct.field("http_options", &self.http_options);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// ResourceBundle represent a collection of kubernetes configuration resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceBundle {
     /// Identifier. Name of the `ResourceBundle`. Format is
@@ -296,8 +296,24 @@ impl serde::ser::Serialize for ResourceBundle {
     }
 }
 
+impl std::fmt::Debug for ResourceBundle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceBundle");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of ResourceBundles.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceBundlesRequest {
     /// Required. Parent value for ListResourceBundlesRequest.
@@ -544,8 +560,24 @@ impl serde::ser::Serialize for ListResourceBundlesRequest {
     }
 }
 
+impl std::fmt::Debug for ListResourceBundlesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListResourceBundlesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing ResourceBundles.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceBundlesResponse {
     /// The list of ResourceBundle.
@@ -748,8 +780,22 @@ impl serde::ser::Serialize for ListResourceBundlesResponse {
     }
 }
 
+impl std::fmt::Debug for ListResourceBundlesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListResourceBundlesResponse");
+        debug_struct.field("resource_bundles", &self.resource_bundles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a ResourceBundle.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetResourceBundleRequest {
     /// Required. Name of the resource.
@@ -878,8 +924,20 @@ impl serde::ser::Serialize for GetResourceBundleRequest {
     }
 }
 
+impl std::fmt::Debug for GetResourceBundleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetResourceBundleRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a ResourceBundle.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateResourceBundleRequest {
     /// Required. Value for parent.
@@ -1112,8 +1170,23 @@ impl serde::ser::Serialize for CreateResourceBundleRequest {
     }
 }
 
+impl std::fmt::Debug for CreateResourceBundleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateResourceBundleRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("resource_bundle_id", &self.resource_bundle_id);
+        debug_struct.field("resource_bundle", &self.resource_bundle);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a ResourceBundle
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateResourceBundleRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -1332,8 +1405,22 @@ impl serde::ser::Serialize for UpdateResourceBundleRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateResourceBundleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateResourceBundleRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("resource_bundle", &self.resource_bundle);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a ResourceBundle
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteResourceBundleRequest {
     /// Required. Name of the resource
@@ -1525,11 +1612,25 @@ impl serde::ser::Serialize for DeleteResourceBundleRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteResourceBundleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteResourceBundleRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A `FleetPackage` resource in the Config Delivery API.
 ///
 /// A `FleetPackage` defines a package through which kubernetes
 /// configuration is deployed to a fleet of kubernetes clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FleetPackage {
     /// Identifier. Name of the `FleetPackage`. Format is
@@ -2031,13 +2132,38 @@ impl serde::ser::Serialize for FleetPackage {
     }
 }
 
+impl std::fmt::Debug for FleetPackage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FleetPackage");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("resource_bundle_selector", &self.resource_bundle_selector);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("rollout_strategy", &self.rollout_strategy);
+        debug_struct.field("variant_selector", &self.variant_selector);
+        debug_struct.field("info", &self.info);
+        debug_struct.field(
+            "deletion_propagation_policy",
+            &self.deletion_propagation_policy,
+        );
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FleetPackage].
 pub mod fleet_package {
     #[allow(unused_imports)]
     use super::*;
 
     /// Information specifying the source of kubernetes configuration to deploy.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceBundleSelector {
         /// source can be a directly pushed `ResourceBundle` or
@@ -2284,6 +2410,18 @@ pub mod fleet_package {
         }
     }
 
+    impl std::fmt::Debug for ResourceBundleSelector {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResourceBundleSelector");
+            debug_struct.field("source", &self.source);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ResourceBundleSelector].
     pub mod resource_bundle_selector {
         #[allow(unused_imports)]
@@ -2305,7 +2443,7 @@ pub mod fleet_package {
 
     /// ResourceBundleTag contains the information to refer to a release for a
     /// `ResourceBundle`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceBundleTag {
         /// Required. Name of the `ResourceBundle`.
@@ -2463,9 +2601,22 @@ pub mod fleet_package {
         }
     }
 
+    impl std::fmt::Debug for ResourceBundleTag {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResourceBundleTag");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("tag", &self.tag);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// CloudBuildRepository contains information about fetching Kubernetes
     /// configuration from a `CloudBuildRepository`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudBuildRepository {
         /// Required. Name of the cloud build repository.
@@ -2754,6 +2905,22 @@ pub mod fleet_package {
         }
     }
 
+    impl std::fmt::Debug for CloudBuildRepository {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CloudBuildRepository");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("path", &self.path);
+            debug_struct.field("tag", &self.tag);
+            debug_struct.field("service_account", &self.service_account);
+            debug_struct.field("variants", &self.variants);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [CloudBuildRepository].
     pub mod cloud_build_repository {
         #[allow(unused_imports)]
@@ -2771,7 +2938,7 @@ pub mod fleet_package {
     }
 
     /// The target defines different ways to target set of kubernetes clusters.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Target {
         /// target for the fleet package.
@@ -2949,6 +3116,18 @@ pub mod fleet_package {
         }
     }
 
+    impl std::fmt::Debug for Target {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Target");
+            debug_struct.field("target", &self.target);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Target].
     pub mod target {
         #[allow(unused_imports)]
@@ -2965,7 +3144,7 @@ pub mod fleet_package {
 
     /// VariantSelector contains information for selecting a variant in
     /// `ResourceBundle` to deploy to a target cluster.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VariantSelector {
         /// strategy for selecting a variant.
@@ -3145,6 +3324,18 @@ pub mod fleet_package {
         }
     }
 
+    impl std::fmt::Debug for VariantSelector {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VariantSelector");
+            debug_struct.field("strategy", &self.strategy);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [VariantSelector].
     pub mod variant_selector {
         #[allow(unused_imports)]
@@ -3307,7 +3498,7 @@ pub mod fleet_package {
 
 /// FleetPackageInfo represents the status of the `FleetPackage` across all the
 /// target clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FleetPackageInfo {
     /// Optional. The active rollout, if any. Format is
@@ -3524,6 +3715,21 @@ impl serde::ser::Serialize for FleetPackageInfo {
     }
 }
 
+impl std::fmt::Debug for FleetPackageInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FleetPackageInfo");
+        debug_struct.field("active_rollout", &self.active_rollout);
+        debug_struct.field("last_completed_rollout", &self.last_completed_rollout);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("errors", &self.errors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FleetPackageInfo].
 pub mod fleet_package_info {
     #[allow(unused_imports)]
@@ -3678,7 +3884,7 @@ pub mod fleet_package_info {
 
 /// Information representing an error encountered during rolling out
 /// configurations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FleetPackageError {
     /// Optional. A description of the error.
@@ -3808,8 +4014,20 @@ impl serde::ser::Serialize for FleetPackageError {
     }
 }
 
+impl std::fmt::Debug for FleetPackageError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FleetPackageError");
+        debug_struct.field("error_message", &self.error_message);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ClusterInfo represents status of a resource bundle rollout for a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterInfo {
     /// Output only. gkehub membership of target cluster
@@ -4168,6 +4386,25 @@ impl serde::ser::Serialize for ClusterInfo {
     }
 }
 
+impl std::fmt::Debug for ClusterInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClusterInfo");
+        debug_struct.field("membership", &self.membership);
+        debug_struct.field("desired", &self.desired);
+        debug_struct.field("initial", &self.initial);
+        debug_struct.field("current", &self.current);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("messages", &self.messages);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ClusterInfo].
 pub mod cluster_info {
     #[allow(unused_imports)]
@@ -4357,7 +4594,7 @@ pub mod cluster_info {
 
 /// ResourceBundleDeploymentInfo represents the status of a resource bundle
 /// deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceBundleDeploymentInfo {
     /// Output only. Refers to a `ResourceBundle` release.
@@ -4596,6 +4833,22 @@ impl serde::ser::Serialize for ResourceBundleDeploymentInfo {
     }
 }
 
+impl std::fmt::Debug for ResourceBundleDeploymentInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceBundleDeploymentInfo");
+        debug_struct.field("release", &self.release);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("variant", &self.variant);
+        debug_struct.field("sync_state", &self.sync_state);
+        debug_struct.field("messages", &self.messages);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ResourceBundleDeploymentInfo].
 pub mod resource_bundle_deployment_info {
     #[allow(unused_imports)]
@@ -4777,7 +5030,7 @@ pub mod resource_bundle_deployment_info {
 }
 
 /// The fleet where the `FleetPackage` should be deployed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Fleet {
     /// Required. The host project for the GKE fleet. Format is
@@ -4943,6 +5196,19 @@ impl serde::ser::Serialize for Fleet {
     }
 }
 
+impl std::fmt::Debug for Fleet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Fleet");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("selector", &self.selector);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Fleet].
 pub mod fleet {
     #[allow(unused_imports)]
@@ -4950,7 +5216,7 @@ pub mod fleet {
 
     /// A label selector is a label query over a set of resources. An empty label
     /// selector matches all objects.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LabelSelector {
         /// Optional. match_labels is a map of {key,value} pairs. Each {key,value}
@@ -5095,10 +5361,22 @@ pub mod fleet {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for LabelSelector {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LabelSelector");
+            debug_struct.field("match_labels", &self.match_labels);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// AllAtOnceStrategy causes all clusters to be updated concurrently.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllAtOnceStrategy {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5200,9 +5478,20 @@ impl serde::ser::Serialize for AllAtOnceStrategy {
     }
 }
 
+impl std::fmt::Debug for AllAtOnceStrategy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AllAtOnceStrategy");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// RollingStrategy causes a specified number of clusters to be updated
 /// concurrently until all clusters are updated.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollingStrategy {
     /// Optional. Maximum number of clusters to update the resource bundle on
@@ -5352,9 +5641,21 @@ impl serde::ser::Serialize for RollingStrategy {
     }
 }
 
+impl std::fmt::Debug for RollingStrategy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RollingStrategy");
+        debug_struct.field("max_concurrent", &self.max_concurrent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// RolloutStrategy defines different ways to rollout a resource bundle across
 /// a set of clusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutStrategy {
     /// strategy defines how updates to a resource bundle should be rolled out
@@ -5583,6 +5884,18 @@ impl serde::ser::Serialize for RolloutStrategy {
     }
 }
 
+impl std::fmt::Debug for RolloutStrategy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutStrategy");
+        debug_struct.field("strategy", &self.strategy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RolloutStrategy].
 pub mod rollout_strategy {
     #[allow(unused_imports)]
@@ -5604,7 +5917,7 @@ pub mod rollout_strategy {
 /// RolloutStrategyInfo represents the status of execution of different types of
 /// rollout strategies. Only the field corresponding to the rollout strategy
 /// specified at the rollout resource will be populated.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutStrategyInfo {
     /// strategy represents result of applying one of the rollout strategies.
@@ -5841,6 +6154,18 @@ impl serde::ser::Serialize for RolloutStrategyInfo {
     }
 }
 
+impl std::fmt::Debug for RolloutStrategyInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutStrategyInfo");
+        debug_struct.field("strategy", &self.strategy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RolloutStrategyInfo].
 pub mod rollout_strategy_info {
     #[allow(unused_imports)]
@@ -5861,7 +6186,7 @@ pub mod rollout_strategy_info {
 
 /// AllAtOnceStrategyInfo represents the status of execution of AllAtOnce rollout
 /// strategy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllAtOnceStrategyInfo {
     /// Unordered list. resource bundle's deployment status for all targeted
@@ -5994,9 +6319,21 @@ impl serde::ser::Serialize for AllAtOnceStrategyInfo {
     }
 }
 
+impl std::fmt::Debug for AllAtOnceStrategyInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AllAtOnceStrategyInfo");
+        debug_struct.field("clusters", &self.clusters);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// RollingStrategyInfo represents the status of execution of Rolling rollout
 /// strategy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollingStrategyInfo {
     /// Unordered list. resource bundle's deployment status for all targeted
@@ -6129,8 +6466,20 @@ impl serde::ser::Serialize for RollingStrategyInfo {
     }
 }
 
+impl std::fmt::Debug for RollingStrategyInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RollingStrategyInfo");
+        debug_struct.field("clusters", &self.clusters);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of FleetPackage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFleetPackagesRequest {
     /// Required. Parent value for ListFleetPackagesRequest.
@@ -6377,8 +6726,24 @@ impl serde::ser::Serialize for ListFleetPackagesRequest {
     }
 }
 
+impl std::fmt::Debug for ListFleetPackagesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFleetPackagesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing FleetPackage
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFleetPackagesResponse {
     /// The list of FleetPackage
@@ -6577,8 +6942,22 @@ impl serde::ser::Serialize for ListFleetPackagesResponse {
     }
 }
 
+impl std::fmt::Debug for ListFleetPackagesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFleetPackagesResponse");
+        debug_struct.field("fleet_packages", &self.fleet_packages);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a FleetPackage
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFleetPackageRequest {
     /// Required. Name of the resource
@@ -6707,8 +7086,20 @@ impl serde::ser::Serialize for GetFleetPackageRequest {
     }
 }
 
+impl std::fmt::Debug for GetFleetPackageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFleetPackageRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a FleetPackage
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFleetPackageRequest {
     /// Required. Value for parent.
@@ -6940,8 +7331,23 @@ impl serde::ser::Serialize for CreateFleetPackageRequest {
     }
 }
 
+impl std::fmt::Debug for CreateFleetPackageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateFleetPackageRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("fleet_package_id", &self.fleet_package_id);
+        debug_struct.field("fleet_package", &self.fleet_package);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a FleetPackage
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFleetPackageRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -7159,8 +7565,22 @@ impl serde::ser::Serialize for UpdateFleetPackageRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateFleetPackageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFleetPackageRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("fleet_package", &self.fleet_package);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a FleetPackage
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFleetPackageRequest {
     /// Required. Name of the resource
@@ -7378,8 +7798,23 @@ impl serde::ser::Serialize for DeleteFleetPackageRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteFleetPackageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFleetPackageRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -7687,8 +8122,26 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `Release` represents a versioned release containing kubernetes manifests.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Release {
     /// Identifier. Name of the Release. Format is
@@ -8046,6 +8499,25 @@ impl serde::ser::Serialize for Release {
     }
 }
 
+impl std::fmt::Debug for Release {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Release");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("lifecycle", &self.lifecycle);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("publish_time", &self.publish_time);
+        debug_struct.field("info", &self.info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Release].
 pub mod release {
     #[allow(unused_imports)]
@@ -8187,7 +8659,7 @@ pub mod release {
 }
 
 /// Variant represents the content of a `ResourceBundle` variant.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Variant {
     /// Optional. labels to represent any metadata associated with the variant.
@@ -8452,8 +8924,24 @@ impl serde::ser::Serialize for Variant {
     }
 }
 
+impl std::fmt::Debug for Variant {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Variant");
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("resources", &self.resources);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of Variants.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVariantsRequest {
     /// Required. Parent value for ListVariantsRequest.
@@ -8700,8 +9188,24 @@ impl serde::ser::Serialize for ListVariantsRequest {
     }
 }
 
+impl std::fmt::Debug for ListVariantsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVariantsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing Variants
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVariantsResponse {
     /// The list of Variants
@@ -8899,8 +9403,22 @@ impl serde::ser::Serialize for ListVariantsResponse {
     }
 }
 
+impl std::fmt::Debug for ListVariantsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVariantsResponse");
+        debug_struct.field("variants", &self.variants);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a Variant
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVariantRequest {
     /// Required. Name of the resource
@@ -9029,8 +9547,20 @@ impl serde::ser::Serialize for GetVariantRequest {
     }
 }
 
+impl std::fmt::Debug for GetVariantRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVariantRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a Variant
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVariantRequest {
     /// Required. Value for parent.
@@ -9256,8 +9786,23 @@ impl serde::ser::Serialize for CreateVariantRequest {
     }
 }
 
+impl std::fmt::Debug for CreateVariantRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVariantRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("variant_id", &self.variant_id);
+        debug_struct.field("variant", &self.variant);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a Variant
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVariantRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -9474,8 +10019,22 @@ impl serde::ser::Serialize for UpdateVariantRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateVariantRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateVariantRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("variant", &self.variant);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a Variant
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVariantRequest {
     /// Required. Name of the resource
@@ -9641,9 +10200,22 @@ impl serde::ser::Serialize for DeleteVariantRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteVariantRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteVariantRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ReleaseInfo contains extra information about the `ResourceBundle` release
 /// e.g., link to an artifact registry OCI image.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReleaseInfo {
     /// Output only. path to the oci image the service uploads to on a `Release`
@@ -9812,8 +10384,21 @@ impl serde::ser::Serialize for ReleaseInfo {
     }
 }
 
+impl std::fmt::Debug for ReleaseInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReleaseInfo");
+        debug_struct.field("oci_image_path", &self.oci_image_path);
+        debug_struct.field("variant_oci_image_paths", &self.variant_oci_image_paths);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of Releases.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReleasesRequest {
     /// Required. Parent value for ListReleasesRequest.
@@ -10060,8 +10645,24 @@ impl serde::ser::Serialize for ListReleasesRequest {
     }
 }
 
+impl std::fmt::Debug for ListReleasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReleasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing Releases
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReleasesResponse {
     /// The list of Releases
@@ -10259,8 +10860,22 @@ impl serde::ser::Serialize for ListReleasesResponse {
     }
 }
 
+impl std::fmt::Debug for ListReleasesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListReleasesResponse");
+        debug_struct.field("releases", &self.releases);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a Release
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReleaseRequest {
     /// Required. Name of the resource
@@ -10389,8 +11004,20 @@ impl serde::ser::Serialize for GetReleaseRequest {
     }
 }
 
+impl std::fmt::Debug for GetReleaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetReleaseRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a Release
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReleaseRequest {
     /// Required. Value for parent.
@@ -10618,8 +11245,23 @@ impl serde::ser::Serialize for CreateReleaseRequest {
     }
 }
 
+impl std::fmt::Debug for CreateReleaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateReleaseRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("release_id", &self.release_id);
+        debug_struct.field("release", &self.release);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a Release
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateReleaseRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -10836,8 +11478,22 @@ impl serde::ser::Serialize for UpdateReleaseRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateReleaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateReleaseRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("release", &self.release);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a Release
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteReleaseRequest {
     /// Required. Name of the resource
@@ -11029,8 +11685,22 @@ impl serde::ser::Serialize for DeleteReleaseRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteReleaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteReleaseRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of Rollouts
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRolloutsRequest {
     /// Required. Parent value for ListRolloutsRequest
@@ -11277,8 +11947,24 @@ impl serde::ser::Serialize for ListRolloutsRequest {
     }
 }
 
+impl std::fmt::Debug for ListRolloutsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRolloutsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing Rollouts
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRolloutsResponse {
     /// The list of Rollouts
@@ -11476,8 +12162,22 @@ impl serde::ser::Serialize for ListRolloutsResponse {
     }
 }
 
+impl std::fmt::Debug for ListRolloutsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRolloutsResponse");
+        debug_struct.field("rollouts", &self.rollouts);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a Rollout
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRolloutRequest {
     /// Required. Name of the resource
@@ -11606,9 +12306,21 @@ impl serde::ser::Serialize for GetRolloutRequest {
     }
 }
 
+impl std::fmt::Debug for GetRolloutRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRolloutRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// RolloutInfo represents the state of the `FleetPackage` at all the
 /// clusters the rollout is targeting.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutInfo {
     /// Output only. state contains the overall status of the Rollout.
@@ -11872,6 +12584,22 @@ impl serde::ser::Serialize for RolloutInfo {
     }
 }
 
+impl std::fmt::Debug for RolloutInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutInfo");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("message", &self.message);
+        debug_struct.field("rollout_strategy_info", &self.rollout_strategy_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RolloutInfo].
 pub mod rollout_info {
     #[allow(unused_imports)]
@@ -12049,7 +12777,7 @@ pub mod rollout_info {
 /// across a fleet. This is a system generated resource and will be read only for
 /// end-users. It will be primarily used by the service to process the changes in
 /// the `FleetPackage` and other changes in the environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rollout {
     /// Identifier. Name of the Rollout. Format is
@@ -12382,8 +13110,29 @@ impl serde::ser::Serialize for Rollout {
     }
 }
 
+impl std::fmt::Debug for Rollout {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Rollout");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("release", &self.release);
+        debug_struct.field("rollout_strategy", &self.rollout_strategy);
+        debug_struct.field("info", &self.info);
+        debug_struct.field(
+            "deletion_propagation_policy",
+            &self.deletion_propagation_policy,
+        );
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for suspending a rollout.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SuspendRolloutRequest {
     /// Required. Name of the Rollout.
@@ -12536,8 +13285,21 @@ impl serde::ser::Serialize for SuspendRolloutRequest {
     }
 }
 
+impl std::fmt::Debug for SuspendRolloutRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SuspendRolloutRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("reason", &self.reason);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for resuming a rollout.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeRolloutRequest {
     /// Required. Name of the Rollout.
@@ -12690,8 +13452,21 @@ impl serde::ser::Serialize for ResumeRolloutRequest {
     }
 }
 
+impl std::fmt::Debug for ResumeRolloutRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeRolloutRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("reason", &self.reason);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for aborting a rollout.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AbortRolloutRequest {
     /// Required. Name of the Rollout.
@@ -12841,6 +13616,19 @@ impl serde::ser::Serialize for AbortRolloutRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AbortRolloutRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AbortRolloutRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("reason", &self.reason);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

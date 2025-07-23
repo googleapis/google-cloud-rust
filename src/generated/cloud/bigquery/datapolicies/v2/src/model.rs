@@ -32,7 +32,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request message for the CreateDataPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDataPolicyRequest {
     /// Required. Resource name of the project that the data policy will belong to.
@@ -226,8 +226,22 @@ impl serde::ser::Serialize for CreateDataPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDataPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDataPolicyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("data_policy_id", &self.data_policy_id);
+        debug_struct.field("data_policy", &self.data_policy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the UpdateDataPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDataPolicyRequest {
     /// Required. Update the data policy's metadata.
@@ -438,8 +452,22 @@ impl serde::ser::Serialize for UpdateDataPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDataPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDataPolicyRequest");
+        debug_struct.field("data_policy", &self.data_policy);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the AddGrantees method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddGranteesRequest {
     /// Required. Resource name of this data policy, in the format of
@@ -607,8 +635,21 @@ impl serde::ser::Serialize for AddGranteesRequest {
     }
 }
 
+impl std::fmt::Debug for AddGranteesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddGranteesRequest");
+        debug_struct.field("data_policy", &self.data_policy);
+        debug_struct.field("grantees", &self.grantees);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the RemoveGrantees method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveGranteesRequest {
     /// Required. Resource name of this data policy, in the format of
@@ -776,8 +817,21 @@ impl serde::ser::Serialize for RemoveGranteesRequest {
     }
 }
 
+impl std::fmt::Debug for RemoveGranteesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveGranteesRequest");
+        debug_struct.field("data_policy", &self.data_policy);
+        debug_struct.field("grantees", &self.grantees);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the DeleteDataPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDataPolicyRequest {
     /// Required. Resource name of the data policy to delete. Format is
@@ -907,8 +961,20 @@ impl serde::ser::Serialize for DeleteDataPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDataPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDataPolicyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the GetDataPolicy method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDataPolicyRequest {
     /// Required. Resource name of the requested data policy. Format is
@@ -1038,8 +1104,20 @@ impl serde::ser::Serialize for GetDataPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetDataPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDataPolicyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for the ListDataPolicies method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataPoliciesRequest {
     /// Required. Resource name of the project for which to list data policies.
@@ -1270,8 +1348,23 @@ impl serde::ser::Serialize for ListDataPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListDataPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the ListDataPolicies method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataPoliciesResponse {
     /// Data policies that belong to the requested project.
@@ -1444,8 +1537,21 @@ impl serde::ser::Serialize for ListDataPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListDataPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataPoliciesResponse");
+        debug_struct.field("data_policies", &self.data_policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the label-policy binding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataPolicy {
     /// Identifier. Resource name of this data policy, in the format of
@@ -1828,6 +1934,25 @@ impl serde::ser::Serialize for DataPolicy {
     }
 }
 
+impl std::fmt::Debug for DataPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data_policy_id", &self.data_policy_id);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("data_policy_type", &self.data_policy_type);
+        debug_struct.field("policy_tag", &self.policy_tag);
+        debug_struct.field("grantees", &self.grantees);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("policy", &self.policy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataPolicy].
 pub mod data_policy {
     #[allow(unused_imports)]
@@ -2120,7 +2245,7 @@ pub mod data_policy {
 }
 
 /// The policy used to specify data masking rule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataMaskingPolicy {
     /// A masking expression to bind to the data masking rule.
@@ -2345,6 +2470,18 @@ impl serde::ser::Serialize for DataMaskingPolicy {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DataMaskingPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataMaskingPolicy");
+        debug_struct.field("masking_expression", &self.masking_expression);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

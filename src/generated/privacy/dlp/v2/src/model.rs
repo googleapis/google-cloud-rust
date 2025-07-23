@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// List of excluded infoTypes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExcludeInfoTypes {
     /// InfoType list in ExclusionRule rule drops a finding when it overlaps or
@@ -173,11 +173,23 @@ impl serde::ser::Serialize for ExcludeInfoTypes {
     }
 }
 
+impl std::fmt::Debug for ExcludeInfoTypes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExcludeInfoTypes");
+        debug_struct.field("info_types", &self.info_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The rule to exclude findings based on a hotword. For record inspection of
 /// tables, column names are considered hotwords. An example of this is to
 /// exclude a finding if it belongs to a BigQuery column that matches a specific
 /// pattern.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExcludeByHotword {
     /// Regular expression pattern defining what qualifies as a hotword.
@@ -357,9 +369,22 @@ impl serde::ser::Serialize for ExcludeByHotword {
     }
 }
 
+impl std::fmt::Debug for ExcludeByHotword {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExcludeByHotword");
+        debug_struct.field("hotword_regex", &self.hotword_regex);
+        debug_struct.field("proximity", &self.proximity);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The rule that specifies conditions when findings of infoTypes specified in
 /// `InspectionRuleSet` are removed from results.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExclusionRule {
     /// How the rule is applied, see MatchingType documentation for details.
@@ -729,6 +754,19 @@ impl serde::ser::Serialize for ExclusionRule {
     }
 }
 
+impl std::fmt::Debug for ExclusionRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExclusionRule");
+        debug_struct.field("matching_type", &self.matching_type);
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExclusionRule].
 pub mod exclusion_rule {
     #[allow(unused_imports)]
@@ -752,7 +790,7 @@ pub mod exclusion_rule {
 
 /// A single inspection rule to be applied to infoTypes, specified in
 /// `InspectionRuleSet`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InspectionRule {
     /// Inspection rule types.
@@ -985,6 +1023,18 @@ impl serde::ser::Serialize for InspectionRule {
     }
 }
 
+impl std::fmt::Debug for InspectionRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InspectionRule");
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InspectionRule].
 pub mod inspection_rule {
     #[allow(unused_imports)]
@@ -1003,7 +1053,7 @@ pub mod inspection_rule {
 
 /// Rule set for modifying a set of infoTypes to alter behavior under certain
 /// circumstances, depending on the specific details of the rules within the set.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InspectionRuleSet {
     /// List of infoTypes this rule set is applied to.
@@ -1167,10 +1217,23 @@ impl serde::ser::Serialize for InspectionRuleSet {
     }
 }
 
+impl std::fmt::Debug for InspectionRuleSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InspectionRuleSet");
+        debug_struct.field("info_types", &self.info_types);
+        debug_struct.field("rules", &self.rules);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration description of the scanning process.
 /// When used with redactContent only info_types and min_likelihood are currently
 /// used.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InspectConfig {
     /// Restricts what info_types to look for. The values must correspond to
@@ -1596,6 +1659,29 @@ impl serde::ser::Serialize for InspectConfig {
     }
 }
 
+impl std::fmt::Debug for InspectConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InspectConfig");
+        debug_struct.field("info_types", &self.info_types);
+        debug_struct.field("min_likelihood", &self.min_likelihood);
+        debug_struct.field(
+            "min_likelihood_per_info_type",
+            &self.min_likelihood_per_info_type,
+        );
+        debug_struct.field("limits", &self.limits);
+        debug_struct.field("include_quote", &self.include_quote);
+        debug_struct.field("exclude_info_types", &self.exclude_info_types);
+        debug_struct.field("custom_info_types", &self.custom_info_types);
+        debug_struct.field("content_options", &self.content_options);
+        debug_struct.field("rule_set", &self.rule_set);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InspectConfig].
 pub mod inspect_config {
     #[allow(unused_imports)]
@@ -1606,7 +1692,7 @@ pub mod inspect_config {
     /// request. For example, use this if you want to lower the precision for
     /// PERSON_NAME without lowering the precision for the other infotypes in the
     /// request.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InfoTypeLikelihood {
         /// Type of information the likelihood threshold applies to. Only one
@@ -1781,6 +1867,19 @@ pub mod inspect_config {
         }
     }
 
+    impl std::fmt::Debug for InfoTypeLikelihood {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InfoTypeLikelihood");
+            debug_struct.field("info_type", &self.info_type);
+            debug_struct.field("min_likelihood", &self.min_likelihood);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration to control the number of findings returned for inspection.
     /// This is not used for de-identification or data profiling.
     ///
@@ -1791,7 +1890,7 @@ pub mod inspect_config {
     /// requests. Otherwise, Cloud DLP returns an error.
     ///
     /// [google.privacy.dlp.v2.DlpService.RedactImage]: crate::client::DlpService::redact_image
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FindingLimits {
         /// Max number of findings that are returned for each item scanned.
@@ -2052,6 +2151,23 @@ pub mod inspect_config {
         }
     }
 
+    impl std::fmt::Debug for FindingLimits {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FindingLimits");
+            debug_struct.field("max_findings_per_item", &self.max_findings_per_item);
+            debug_struct.field("max_findings_per_request", &self.max_findings_per_request);
+            debug_struct.field(
+                "max_findings_per_info_type",
+                &self.max_findings_per_info_type,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [FindingLimits].
     pub mod finding_limits {
         #[allow(unused_imports)]
@@ -2059,7 +2175,7 @@ pub mod inspect_config {
 
         /// Max findings configuration per infoType, per content item or long
         /// running DlpJob.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct InfoTypeLimit {
             /// Type of information the findings limit applies to. Only one limit per
@@ -2260,11 +2376,24 @@ pub mod inspect_config {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for InfoTypeLimit {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("InfoTypeLimit");
+                debug_struct.field("info_type", &self.info_type);
+                debug_struct.field("max_findings", &self.max_findings);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 }
 
 /// Container for bytes to inspect or redact.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ByteContentItem {
     /// The type of data stored in the bytes string. Default will be TEXT_UTF8.
@@ -2433,6 +2562,19 @@ impl serde::ser::Serialize for ByteContentItem {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ByteContentItem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ByteContentItem");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("data", &self.data);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -2685,7 +2827,7 @@ pub mod byte_content_item {
 }
 
 /// Type of content to inspect.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContentItem {
     /// Data of the item either in the byte array or UTF-8 string form, or table.
@@ -2956,6 +3098,18 @@ impl serde::ser::Serialize for ContentItem {
     }
 }
 
+impl std::fmt::Debug for ContentItem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContentItem");
+        debug_struct.field("data_item", &self.data_item);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ContentItem].
 pub mod content_item {
     #[allow(unused_imports)]
@@ -2979,7 +3133,7 @@ pub mod content_item {
 /// Structured content to inspect. Up to 50,000 `Value`s per request allowed. See
 /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-structured-text#inspecting_a_table>
 /// to learn more.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Table {
     /// Headers of the table.
@@ -3138,13 +3292,26 @@ impl serde::ser::Serialize for Table {
     }
 }
 
+impl std::fmt::Debug for Table {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Table");
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field("rows", &self.rows);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Table].
 pub mod table {
     #[allow(unused_imports)]
     use super::*;
 
     /// Values of the row.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Row {
         /// Individual cells.
@@ -3278,10 +3445,22 @@ pub mod table {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Row {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Row");
+            debug_struct.field("values", &self.values);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// All the findings for a single scanned item.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InspectResult {
     /// List of findings for an item.
@@ -3443,8 +3622,21 @@ impl serde::ser::Serialize for InspectResult {
     }
 }
 
+impl std::fmt::Debug for InspectResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InspectResult");
+        debug_struct.field("findings", &self.findings);
+        debug_struct.field("findings_truncated", &self.findings_truncated);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a piece of potentially sensitive content.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Finding {
     /// Resource name in format
@@ -3957,8 +4149,32 @@ impl serde::ser::Serialize for Finding {
     }
 }
 
+impl std::fmt::Debug for Finding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Finding");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("quote", &self.quote);
+        debug_struct.field("info_type", &self.info_type);
+        debug_struct.field("likelihood", &self.likelihood);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("quote_info", &self.quote_info);
+        debug_struct.field("resource_name", &self.resource_name);
+        debug_struct.field("trigger_name", &self.trigger_name);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("job_create_time", &self.job_create_time);
+        debug_struct.field("job_name", &self.job_name);
+        debug_struct.field("finding_id", &self.finding_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the location of the finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Location {
     /// Zero-based byte offsets delimiting the finding.
@@ -4209,9 +4425,24 @@ impl serde::ser::Serialize for Location {
     }
 }
 
+impl std::fmt::Debug for Location {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Location");
+        debug_struct.field("byte_range", &self.byte_range);
+        debug_struct.field("codepoint_range", &self.codepoint_range);
+        debug_struct.field("content_locations", &self.content_locations);
+        debug_struct.field("container", &self.container);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Precise location of the finding within a document, record, image, or metadata
 /// container.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContentLocation {
     /// Name of the container where the finding is located.
@@ -4667,6 +4898,21 @@ impl serde::ser::Serialize for ContentLocation {
     }
 }
 
+impl std::fmt::Debug for ContentLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContentLocation");
+        debug_struct.field("container_name", &self.container_name);
+        debug_struct.field("container_timestamp", &self.container_timestamp);
+        debug_struct.field("container_version", &self.container_version);
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ContentLocation].
 pub mod content_location {
     #[allow(unused_imports)]
@@ -4688,7 +4934,7 @@ pub mod content_location {
 }
 
 /// Metadata Location
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetadataLocation {
     /// Type of metadata containing the finding.
@@ -4891,6 +5137,19 @@ impl serde::ser::Serialize for MetadataLocation {
     }
 }
 
+impl std::fmt::Debug for MetadataLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetadataLocation");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("label", &self.label);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MetadataLocation].
 pub mod metadata_location {
     #[allow(unused_imports)]
@@ -4907,7 +5166,7 @@ pub mod metadata_location {
 }
 
 /// Storage metadata label to indicate which metadata entry contains findings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageMetadataLabel {
     /// Label name.
@@ -5036,8 +5295,20 @@ impl serde::ser::Serialize for StorageMetadataLabel {
     }
 }
 
+impl std::fmt::Debug for StorageMetadataLabel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StorageMetadataLabel");
+        debug_struct.field("key", &self.key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Location of a finding within a document.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentLocation {
     /// Offset of the line, from the beginning of the file, where the finding
@@ -5186,8 +5457,20 @@ impl serde::ser::Serialize for DocumentLocation {
     }
 }
 
+impl std::fmt::Debug for DocumentLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DocumentLocation");
+        debug_struct.field("file_offset", &self.file_offset);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Location of a finding within a row or record.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecordLocation {
     /// Key of the finding.
@@ -5400,8 +5683,22 @@ impl serde::ser::Serialize for RecordLocation {
     }
 }
 
+impl std::fmt::Debug for RecordLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecordLocation");
+        debug_struct.field("record_key", &self.record_key);
+        debug_struct.field("field_id", &self.field_id);
+        debug_struct.field("table_location", &self.table_location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Location of a finding within a table.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableLocation {
     /// The zero-based index of the row where the finding is located. Only
@@ -5554,9 +5851,21 @@ impl serde::ser::Serialize for TableLocation {
     }
 }
 
+impl std::fmt::Debug for TableLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableLocation");
+        debug_struct.field("row_index", &self.row_index);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a container that may contain DLP findings.
 /// Examples of a container include a file, table, or database record.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Container {
     /// Container type, for example BigQuery or Cloud Storage.
@@ -5866,8 +6175,26 @@ impl serde::ser::Serialize for Container {
     }
 }
 
+impl std::fmt::Debug for Container {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Container");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("full_path", &self.full_path);
+        debug_struct.field("root_path", &self.root_path);
+        debug_struct.field("relative_path", &self.relative_path);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Generic half-open interval [start, end)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Range {
     /// Index of the first character of the range (inclusive).
@@ -6056,8 +6383,21 @@ impl serde::ser::Serialize for Range {
     }
 }
 
+impl std::fmt::Debug for Range {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Range");
+        debug_struct.field("start", &self.start);
+        debug_struct.field("end", &self.end);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Location of the finding within an image.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageLocation {
     /// Bounding boxes locating the pixels within the image containing the finding.
@@ -6190,8 +6530,20 @@ impl serde::ser::Serialize for ImageLocation {
     }
 }
 
+impl std::fmt::Debug for ImageLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageLocation");
+        debug_struct.field("bounding_boxes", &self.bounding_boxes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Bounding box encompassing detected text within an image.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BoundingBox {
     /// Top coordinate of the bounding box. (0,0) is upper left.
@@ -6464,9 +6816,24 @@ impl serde::ser::Serialize for BoundingBox {
     }
 }
 
+impl std::fmt::Debug for BoundingBox {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BoundingBox");
+        debug_struct.field("top", &self.top);
+        debug_struct.field("left", &self.left);
+        debug_struct.field("width", &self.width);
+        debug_struct.field("height", &self.height);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to search for potentially sensitive info in an image and redact it
 /// by covering it with a colored rectangle.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RedactImageRequest {
     /// Parent resource name.
@@ -6771,13 +7138,30 @@ impl serde::ser::Serialize for RedactImageRequest {
     }
 }
 
+impl std::fmt::Debug for RedactImageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RedactImageRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("location_id", &self.location_id);
+        debug_struct.field("inspect_config", &self.inspect_config);
+        debug_struct.field("image_redaction_configs", &self.image_redaction_configs);
+        debug_struct.field("include_findings", &self.include_findings);
+        debug_struct.field("byte_item", &self.byte_item);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RedactImageRequest].
 pub mod redact_image_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for determining how redaction of images should occur.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ImageRedactionConfig {
         /// The color to use when redacting content from an image. If not specified,
@@ -7045,6 +7429,19 @@ pub mod redact_image_request {
         }
     }
 
+    impl std::fmt::Debug for ImageRedactionConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ImageRedactionConfig");
+            debug_struct.field("redaction_color", &self.redaction_color);
+            debug_struct.field("target", &self.target);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ImageRedactionConfig].
     pub mod image_redaction_config {
         #[allow(unused_imports)]
@@ -7067,7 +7464,7 @@ pub mod redact_image_request {
 }
 
 /// Represents a color in the RGB color space.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Color {
     /// The amount of red in the color as a value in the interval [0, 1].
@@ -7298,8 +7695,22 @@ impl serde::ser::Serialize for Color {
     }
 }
 
+impl std::fmt::Debug for Color {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Color");
+        debug_struct.field("red", &self.red);
+        debug_struct.field("green", &self.green);
+        debug_struct.field("blue", &self.blue);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Results of redacting an image.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RedactImageResponse {
     /// The redacted image. The type will be the same as the original image.
@@ -7511,8 +7922,22 @@ impl serde::ser::Serialize for RedactImageResponse {
     }
 }
 
+impl std::fmt::Debug for RedactImageResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RedactImageResponse");
+        debug_struct.field("redacted_image", &self.redacted_image);
+        debug_struct.field("extracted_text", &self.extracted_text);
+        debug_struct.field("inspect_result", &self.inspect_result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to de-identify a ContentItem.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeidentifyContentRequest {
     /// Parent resource name.
@@ -7872,8 +8297,26 @@ impl serde::ser::Serialize for DeidentifyContentRequest {
     }
 }
 
+impl std::fmt::Debug for DeidentifyContentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeidentifyContentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("deidentify_config", &self.deidentify_config);
+        debug_struct.field("inspect_config", &self.inspect_config);
+        debug_struct.field("item", &self.item);
+        debug_struct.field("inspect_template_name", &self.inspect_template_name);
+        debug_struct.field("deidentify_template_name", &self.deidentify_template_name);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Results of de-identifying a ContentItem.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeidentifyContentResponse {
     /// The de-identified item.
@@ -8048,8 +8491,21 @@ impl serde::ser::Serialize for DeidentifyContentResponse {
     }
 }
 
+impl std::fmt::Debug for DeidentifyContentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeidentifyContentResponse");
+        debug_struct.field("item", &self.item);
+        debug_struct.field("overview", &self.overview);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to re-identify an item.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReidentifyContentRequest {
     /// Required. Parent resource name.
@@ -8405,8 +8861,26 @@ impl serde::ser::Serialize for ReidentifyContentRequest {
     }
 }
 
+impl std::fmt::Debug for ReidentifyContentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReidentifyContentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("reidentify_config", &self.reidentify_config);
+        debug_struct.field("inspect_config", &self.inspect_config);
+        debug_struct.field("item", &self.item);
+        debug_struct.field("inspect_template_name", &self.inspect_template_name);
+        debug_struct.field("reidentify_template_name", &self.reidentify_template_name);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Results of re-identifying an item.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReidentifyContentResponse {
     /// The re-identified item.
@@ -8581,8 +9055,21 @@ impl serde::ser::Serialize for ReidentifyContentResponse {
     }
 }
 
+impl std::fmt::Debug for ReidentifyContentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReidentifyContentResponse");
+        debug_struct.field("item", &self.item);
+        debug_struct.field("overview", &self.overview);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to search for potentially sensitive info in a ContentItem.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InspectContentRequest {
     /// Parent resource name.
@@ -8857,8 +9344,24 @@ impl serde::ser::Serialize for InspectContentRequest {
     }
 }
 
+impl std::fmt::Debug for InspectContentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InspectContentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("inspect_config", &self.inspect_config);
+        debug_struct.field("item", &self.item);
+        debug_struct.field("inspect_template_name", &self.inspect_template_name);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Results of inspecting an item.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InspectContentResponse {
     /// The findings.
@@ -8998,8 +9501,20 @@ impl serde::ser::Serialize for InspectContentResponse {
     }
 }
 
+impl std::fmt::Debug for InspectContentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InspectContentResponse");
+        debug_struct.field("result", &self.result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Cloud repository for storing output.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputStorageConfig {
     /// Schema used for writing the findings for Inspect jobs. This field is only
@@ -9212,6 +9727,19 @@ impl serde::ser::Serialize for OutputStorageConfig {
     }
 }
 
+impl std::fmt::Debug for OutputStorageConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputStorageConfig");
+        debug_struct.field("output_schema", &self.output_schema);
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OutputStorageConfig].
 pub mod output_storage_config {
     #[allow(unused_imports)]
@@ -9395,7 +9923,7 @@ pub mod output_storage_config {
 }
 
 /// Statistics regarding a specific InfoType.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InfoTypeStats {
     /// The type of finding this stat is for.
@@ -9578,8 +10106,21 @@ impl serde::ser::Serialize for InfoTypeStats {
     }
 }
 
+impl std::fmt::Debug for InfoTypeStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InfoTypeStats");
+        debug_struct.field("info_type", &self.info_type);
+        debug_struct.field("count", &self.count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The results of an inspect DataSource job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InspectDataSourceDetails {
     /// The configuration used for this job.
@@ -9758,13 +10299,26 @@ impl serde::ser::Serialize for InspectDataSourceDetails {
     }
 }
 
+impl std::fmt::Debug for InspectDataSourceDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InspectDataSourceDetails");
+        debug_struct.field("requested_options", &self.requested_options);
+        debug_struct.field("result", &self.result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InspectDataSourceDetails].
 pub mod inspect_data_source_details {
     #[allow(unused_imports)]
     use super::*;
 
     /// Snapshot of the inspection configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RequestedOptions {
         /// If run with an InspectTemplate, a snapshot of its state at the time of
@@ -9953,8 +10507,21 @@ pub mod inspect_data_source_details {
         }
     }
 
+    impl std::fmt::Debug for RequestedOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RequestedOptions");
+            debug_struct.field("snapshot_inspect_template", &self.snapshot_inspect_template);
+            debug_struct.field("job_config", &self.job_config);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// All result fields mentioned below are updated while the job is processing.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Result {
         /// Total size in bytes that were processed.
@@ -10264,11 +10831,27 @@ pub mod inspect_data_source_details {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Result");
+            debug_struct.field("processed_bytes", &self.processed_bytes);
+            debug_struct.field("total_estimated_bytes", &self.total_estimated_bytes);
+            debug_struct.field("info_type_stats", &self.info_type_stats);
+            debug_struct.field("num_rows_processed", &self.num_rows_processed);
+            debug_struct.field("hybrid_stats", &self.hybrid_stats);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The schema of data to be saved to the BigQuery table when the
 /// `DataProfileAction` is enabled.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProfileBigQueryRowSchema {
     /// Data profile type.
@@ -10560,6 +11143,18 @@ impl serde::ser::Serialize for DataProfileBigQueryRowSchema {
     }
 }
 
+impl std::fmt::Debug for DataProfileBigQueryRowSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProfileBigQueryRowSchema");
+        debug_struct.field("data_profile", &self.data_profile);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataProfileBigQueryRowSchema].
 pub mod data_profile_big_query_row_schema {
     #[allow(unused_imports)]
@@ -10579,7 +11174,7 @@ pub mod data_profile_big_query_row_schema {
 }
 
 /// Statistics related to processing hybrid inspect requests.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HybridInspectStatistics {
     /// The number of hybrid inspection requests processed within this job.
@@ -10821,10 +11416,24 @@ impl serde::ser::Serialize for HybridInspectStatistics {
     }
 }
 
+impl std::fmt::Debug for HybridInspectStatistics {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HybridInspectStatistics");
+        debug_struct.field("processed_count", &self.processed_count);
+        debug_struct.field("aborted_count", &self.aborted_count);
+        debug_struct.field("pending_count", &self.pending_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The results of an [Action][google.privacy.dlp.v2.Action].
 ///
 /// [google.privacy.dlp.v2.Action]: crate::model::Action
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ActionDetails {
     /// Summary of what occurred in the actions.
@@ -11004,6 +11613,18 @@ impl serde::ser::Serialize for ActionDetails {
     }
 }
 
+impl std::fmt::Debug for ActionDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ActionDetails");
+        debug_struct.field("details", &self.details);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ActionDetails].
 pub mod action_details {
     #[allow(unused_imports)]
@@ -11019,7 +11640,7 @@ pub mod action_details {
 }
 
 /// Summary of what was modified during a transformation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeidentifyDataSourceStats {
     /// Total size in bytes that were transformed in some way.
@@ -11263,11 +11884,28 @@ impl serde::ser::Serialize for DeidentifyDataSourceStats {
     }
 }
 
+impl std::fmt::Debug for DeidentifyDataSourceStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeidentifyDataSourceStats");
+        debug_struct.field("transformed_bytes", &self.transformed_bytes);
+        debug_struct.field("transformation_count", &self.transformation_count);
+        debug_struct.field(
+            "transformation_error_count",
+            &self.transformation_error_count,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The results of a [Deidentify][google.privacy.dlp.v2.Action.Deidentify] action
 /// from an inspect job.
 ///
 /// [google.privacy.dlp.v2.Action.Deidentify]: crate::model::action::Deidentify
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeidentifyDataSourceDetails {
     /// De-identification config used for the request.
@@ -11450,13 +12088,26 @@ impl serde::ser::Serialize for DeidentifyDataSourceDetails {
     }
 }
 
+impl std::fmt::Debug for DeidentifyDataSourceDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeidentifyDataSourceDetails");
+        debug_struct.field("requested_options", &self.requested_options);
+        debug_struct.field("deidentify_stats", &self.deidentify_stats);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DeidentifyDataSourceDetails].
 pub mod deidentify_data_source_details {
     #[allow(unused_imports)]
     use super::*;
 
     /// De-identification options.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RequestedDeidentifyOptions {
         /// Snapshot of the state of the `DeidentifyTemplate` from the
@@ -11710,10 +12361,33 @@ pub mod deidentify_data_source_details {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for RequestedDeidentifyOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RequestedDeidentifyOptions");
+            debug_struct.field(
+                "snapshot_deidentify_template",
+                &self.snapshot_deidentify_template,
+            );
+            debug_struct.field(
+                "snapshot_structured_deidentify_template",
+                &self.snapshot_structured_deidentify_template,
+            );
+            debug_struct.field(
+                "snapshot_image_redact_template",
+                &self.snapshot_image_redact_template,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// InfoType description.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InfoTypeDescription {
     /// Internal name of the infoType.
@@ -12079,9 +12753,29 @@ impl serde::ser::Serialize for InfoTypeDescription {
     }
 }
 
+impl std::fmt::Debug for InfoTypeDescription {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InfoTypeDescription");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("supported_by", &self.supported_by);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("example", &self.example);
+        debug_struct.field("versions", &self.versions);
+        debug_struct.field("categories", &self.categories);
+        debug_struct.field("sensitivity_score", &self.sensitivity_score);
+        debug_struct.field("specific_info_types", &self.specific_info_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Classification of infoTypes to organize them according to geographic
 /// location, industry, and data type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InfoTypeCategory {
     /// Categories of infotypes.
@@ -12374,6 +13068,18 @@ impl serde::ser::Serialize for InfoTypeCategory {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for InfoTypeCategory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InfoTypeCategory");
+        debug_struct.field("category", &self.category);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -13193,7 +13899,7 @@ pub mod info_type_category {
 }
 
 /// Details about each available version for an infotype.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VersionDescription {
     /// Name of the version
@@ -13346,8 +14052,21 @@ impl serde::ser::Serialize for VersionDescription {
     }
 }
 
+impl std::fmt::Debug for VersionDescription {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VersionDescription");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("description", &self.description);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the list of infoTypes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInfoTypesRequest {
     /// The parent resource name.
@@ -13559,8 +14278,23 @@ impl serde::ser::Serialize for ListInfoTypesRequest {
     }
 }
 
+impl std::fmt::Debug for ListInfoTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInfoTypesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to the ListInfoTypes request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInfoTypesResponse {
     /// Set of sensitive infoTypes.
@@ -13697,10 +14431,22 @@ impl serde::ser::Serialize for ListInfoTypesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInfoTypesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInfoTypesResponse");
+        debug_struct.field("info_types", &self.info_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for a risk analysis job. See
 /// <https://cloud.google.com/sensitive-data-protection/docs/concepts-risk-analysis>
 /// to learn more.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RiskAnalysisJobConfig {
     /// Privacy metric to compute.
@@ -13905,8 +14651,22 @@ impl serde::ser::Serialize for RiskAnalysisJobConfig {
     }
 }
 
+impl std::fmt::Debug for RiskAnalysisJobConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RiskAnalysisJobConfig");
+        debug_struct.field("privacy_metric", &self.privacy_metric);
+        debug_struct.field("source_table", &self.source_table);
+        debug_struct.field("actions", &self.actions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A column with a semantic tag attached.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuasiId {
     /// Required. Identifies the column.
@@ -14202,6 +14962,19 @@ impl serde::ser::Serialize for QuasiId {
     }
 }
 
+impl std::fmt::Debug for QuasiId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuasiId");
+        debug_struct.field("field", &self.field);
+        debug_struct.field("tag", &self.tag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QuasiId].
 pub mod quasi_id {
     #[allow(unused_imports)]
@@ -14236,7 +15009,7 @@ pub mod quasi_id {
 /// If a tuple is present in the data but not in the auxiliary table, the
 /// corresponding relative frequency is assumed to be zero (and thus, the
 /// tuple is highly reidentifiable).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StatisticalTable {
     /// Required. Auxiliary table location.
@@ -14447,6 +15220,20 @@ impl serde::ser::Serialize for StatisticalTable {
     }
 }
 
+impl std::fmt::Debug for StatisticalTable {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StatisticalTable");
+        debug_struct.field("table", &self.table);
+        debug_struct.field("quasi_ids", &self.quasi_ids);
+        debug_struct.field("relative_frequency", &self.relative_frequency);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StatisticalTable].
 pub mod statistical_table {
     #[allow(unused_imports)]
@@ -14454,7 +15241,7 @@ pub mod statistical_table {
 
     /// A quasi-identifier column has a custom_tag, used to know which column
     /// in the data corresponds to which column in the statistical model.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QuasiIdentifierField {
         /// Identifies the column.
@@ -14623,10 +15410,23 @@ pub mod statistical_table {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for QuasiIdentifierField {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QuasiIdentifierField");
+            debug_struct.field("field", &self.field);
+            debug_struct.field("custom_tag", &self.custom_tag);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Privacy metric to compute for reidentification risk analysis.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivacyMetric {
     /// Types of analysis.
@@ -15112,6 +15912,18 @@ impl serde::ser::Serialize for PrivacyMetric {
     }
 }
 
+impl std::fmt::Debug for PrivacyMetric {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrivacyMetric");
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PrivacyMetric].
 pub mod privacy_metric {
     #[allow(unused_imports)]
@@ -15119,7 +15931,7 @@ pub mod privacy_metric {
 
     /// Compute numerical stats over an individual column, including
     /// min, max, and quantiles.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NumericalStatsConfig {
         /// Field to compute numerical stats on. Supported types are
@@ -15263,9 +16075,21 @@ pub mod privacy_metric {
         }
     }
 
+    impl std::fmt::Debug for NumericalStatsConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NumericalStatsConfig");
+            debug_struct.field("field", &self.field);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Compute numerical stats over an individual column, including
     /// number of distinct values and value count distribution.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CategoricalStatsConfig {
         /// Field to compute categorical stats on. All column types are
@@ -15411,8 +16235,20 @@ pub mod privacy_metric {
         }
     }
 
+    impl std::fmt::Debug for CategoricalStatsConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CategoricalStatsConfig");
+            debug_struct.field("field", &self.field);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// k-anonymity metric, used for analysis of reidentification risk.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KAnonymityConfig {
         /// Set of fields to compute k-anonymity over. When multiple fields are
@@ -15597,8 +16433,21 @@ pub mod privacy_metric {
         }
     }
 
+    impl std::fmt::Debug for KAnonymityConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("KAnonymityConfig");
+            debug_struct.field("quasi_ids", &self.quasi_ids);
+            debug_struct.field("entity_id", &self.entity_id);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// l-diversity metric, used for analysis of reidentification risk.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LDiversityConfig {
         /// Set of quasi-identifiers indicating how equivalence classes are
@@ -15772,13 +16621,26 @@ pub mod privacy_metric {
         }
     }
 
+    impl std::fmt::Debug for LDiversityConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LDiversityConfig");
+            debug_struct.field("quasi_ids", &self.quasi_ids);
+            debug_struct.field("sensitive_attribute", &self.sensitive_attribute);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Reidentifiability metric. This corresponds to a risk model similar to what
     /// is called "journalist risk" in the literature, except the attack dataset is
     /// statistically modeled instead of being perfectly known. This can be done
     /// using publicly available data (like the US Census), or using a custom
     /// statistical model (indicated as one or several BigQuery tables), or by
     /// extrapolating from the distribution of values in the input dataset.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KMapEstimationConfig {
         /// Required. Fields considered to be quasi-identifiers. No two columns can
@@ -15978,13 +16840,27 @@ pub mod privacy_metric {
         }
     }
 
+    impl std::fmt::Debug for KMapEstimationConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("KMapEstimationConfig");
+            debug_struct.field("quasi_ids", &self.quasi_ids);
+            debug_struct.field("region_code", &self.region_code);
+            debug_struct.field("auxiliary_tables", &self.auxiliary_tables);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [KMapEstimationConfig].
     pub mod k_map_estimation_config {
         #[allow(unused_imports)]
         use super::*;
 
         /// A column with a semantic tag attached.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct TaggedField {
             /// Required. Identifies the column.
@@ -16314,6 +17190,19 @@ pub mod privacy_metric {
             }
         }
 
+        impl std::fmt::Debug for TaggedField {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("TaggedField");
+                debug_struct.field("field", &self.field);
+                debug_struct.field("tag", &self.tag);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [TaggedField].
         pub mod tagged_field {
             #[allow(unused_imports)]
@@ -16348,7 +17237,7 @@ pub mod privacy_metric {
         /// If a tuple is present in the data but not in the auxiliary table, the
         /// corresponding relative frequency is assumed to be zero (and thus, the
         /// tuple is highly reidentifiable).
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AuxiliaryTable {
 
@@ -16565,6 +17454,20 @@ pub mod privacy_metric {
             }
         }
 
+        impl std::fmt::Debug for AuxiliaryTable {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("AuxiliaryTable");
+                debug_struct.field("table", &self.table);
+                debug_struct.field("quasi_ids", &self.quasi_ids);
+                debug_struct.field("relative_frequency", &self.relative_frequency);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [AuxiliaryTable].
         pub mod auxiliary_table {
             #[allow(unused_imports)]
@@ -16572,7 +17475,7 @@ pub mod privacy_metric {
 
             /// A quasi-identifier column has a custom_tag, used to know which column
             /// in the data corresponds to which column in the statistical model.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct QuasiIdField {
                 /// Identifies the column.
@@ -16756,6 +17659,19 @@ pub mod privacy_metric {
                     state.end()
                 }
             }
+
+            impl std::fmt::Debug for QuasiIdField {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("QuasiIdField");
+                    debug_struct.field("field", &self.field);
+                    debug_struct.field("custom_tag", &self.custom_tag);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
         }
     }
 
@@ -16763,7 +17679,7 @@ pub mod privacy_metric {
     /// figure out that one given individual appears in a de-identified dataset.
     /// Similarly to the k-map metric, we cannot compute δ-presence exactly without
     /// knowing the attack dataset, so we use a statistical model instead.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DeltaPresenceEstimationConfig {
         /// Required. Fields considered to be quasi-identifiers. No two fields can
@@ -16961,6 +17877,20 @@ pub mod privacy_metric {
         }
     }
 
+    impl std::fmt::Debug for DeltaPresenceEstimationConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DeltaPresenceEstimationConfig");
+            debug_struct.field("quasi_ids", &self.quasi_ids);
+            debug_struct.field("region_code", &self.region_code);
+            debug_struct.field("auxiliary_tables", &self.auxiliary_tables);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Types of analysis.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -16985,7 +17915,7 @@ pub mod privacy_metric {
 }
 
 /// Result of a risk analysis operation request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeDataSourceRiskDetails {
     /// Privacy metric to compute.
@@ -17597,13 +18527,28 @@ impl serde::ser::Serialize for AnalyzeDataSourceRiskDetails {
     }
 }
 
+impl std::fmt::Debug for AnalyzeDataSourceRiskDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnalyzeDataSourceRiskDetails");
+        debug_struct.field("requested_privacy_metric", &self.requested_privacy_metric);
+        debug_struct.field("requested_source_table", &self.requested_source_table);
+        debug_struct.field("requested_options", &self.requested_options);
+        debug_struct.field("result", &self.result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AnalyzeDataSourceRiskDetails].
 pub mod analyze_data_source_risk_details {
     #[allow(unused_imports)]
     use super::*;
 
     /// Result of the numerical stats computation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NumericalStatsResult {
         /// Minimum value appearing in the column.
@@ -17812,8 +18757,22 @@ pub mod analyze_data_source_risk_details {
         }
     }
 
+    impl std::fmt::Debug for NumericalStatsResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NumericalStatsResult");
+            debug_struct.field("min_value", &self.min_value);
+            debug_struct.field("max_value", &self.max_value);
+            debug_struct.field("quantile_values", &self.quantile_values);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Result of the categorical stats computation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CategoricalStatsResult {
 
@@ -17957,13 +18916,28 @@ pub mod analyze_data_source_risk_details {
         }
     }
 
+    impl std::fmt::Debug for CategoricalStatsResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CategoricalStatsResult");
+            debug_struct.field(
+                "value_frequency_histogram_buckets",
+                &self.value_frequency_histogram_buckets,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [CategoricalStatsResult].
     pub mod categorical_stats_result {
         #[allow(unused_imports)]
         use super::*;
 
         /// Histogram of value frequencies in the column.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CategoricalStatsHistogramBucket {
             /// Lower bound on the value frequency of the values in this bucket.
@@ -18325,10 +19299,32 @@ pub mod analyze_data_source_risk_details {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for CategoricalStatsHistogramBucket {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("CategoricalStatsHistogramBucket");
+                debug_struct.field(
+                    "value_frequency_lower_bound",
+                    &self.value_frequency_lower_bound,
+                );
+                debug_struct.field(
+                    "value_frequency_upper_bound",
+                    &self.value_frequency_upper_bound,
+                );
+                debug_struct.field("bucket_size", &self.bucket_size);
+                debug_struct.field("bucket_values", &self.bucket_values);
+                debug_struct.field("bucket_value_count", &self.bucket_value_count);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Result of the k-anonymity computation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KAnonymityResult {
 
@@ -18473,13 +19469,28 @@ pub mod analyze_data_source_risk_details {
         }
     }
 
+    impl std::fmt::Debug for KAnonymityResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("KAnonymityResult");
+            debug_struct.field(
+                "equivalence_class_histogram_buckets",
+                &self.equivalence_class_histogram_buckets,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [KAnonymityResult].
     pub mod k_anonymity_result {
         #[allow(unused_imports)]
         use super::*;
 
         /// The set of columns' values that share the same ldiversity value
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct KAnonymityEquivalenceClass {
             /// Set of values defining the equivalence class. One value per
@@ -18679,8 +19690,21 @@ pub mod analyze_data_source_risk_details {
             }
         }
 
+        impl std::fmt::Debug for KAnonymityEquivalenceClass {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("KAnonymityEquivalenceClass");
+                debug_struct.field("quasi_ids_values", &self.quasi_ids_values);
+                debug_struct.field("equivalence_class_size", &self.equivalence_class_size);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Histogram of k-anonymity equivalence classes.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct KAnonymityHistogramBucket {
 
@@ -19042,10 +20066,32 @@ pub mod analyze_data_source_risk_details {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for KAnonymityHistogramBucket {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("KAnonymityHistogramBucket");
+                debug_struct.field(
+                    "equivalence_class_size_lower_bound",
+                    &self.equivalence_class_size_lower_bound,
+                );
+                debug_struct.field(
+                    "equivalence_class_size_upper_bound",
+                    &self.equivalence_class_size_upper_bound,
+                );
+                debug_struct.field("bucket_size", &self.bucket_size);
+                debug_struct.field("bucket_values", &self.bucket_values);
+                debug_struct.field("bucket_value_count", &self.bucket_value_count);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Result of the l-diversity computation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LDiversityResult {
 
@@ -19192,13 +20238,28 @@ pub mod analyze_data_source_risk_details {
         }
     }
 
+    impl std::fmt::Debug for LDiversityResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LDiversityResult");
+            debug_struct.field(
+                "sensitive_value_frequency_histogram_buckets",
+                &self.sensitive_value_frequency_histogram_buckets,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [LDiversityResult].
     pub mod l_diversity_result {
         #[allow(unused_imports)]
         use super::*;
 
         /// The set of columns' values that share the same ldiversity value.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct LDiversityEquivalenceClass {
             /// Quasi-identifier values defining the k-anonymity equivalence
@@ -19491,8 +20552,26 @@ pub mod analyze_data_source_risk_details {
             }
         }
 
+        impl std::fmt::Debug for LDiversityEquivalenceClass {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("LDiversityEquivalenceClass");
+                debug_struct.field("quasi_ids_values", &self.quasi_ids_values);
+                debug_struct.field("equivalence_class_size", &self.equivalence_class_size);
+                debug_struct.field(
+                    "num_distinct_sensitive_values",
+                    &self.num_distinct_sensitive_values,
+                );
+                debug_struct.field("top_sensitive_values", &self.top_sensitive_values);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Histogram of l-diversity equivalence class sensitive value frequencies.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct LDiversityHistogramBucket {
 
@@ -19856,11 +20935,33 @@ pub mod analyze_data_source_risk_details {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for LDiversityHistogramBucket {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("LDiversityHistogramBucket");
+                debug_struct.field(
+                    "sensitive_value_frequency_lower_bound",
+                    &self.sensitive_value_frequency_lower_bound,
+                );
+                debug_struct.field(
+                    "sensitive_value_frequency_upper_bound",
+                    &self.sensitive_value_frequency_upper_bound,
+                );
+                debug_struct.field("bucket_size", &self.bucket_size);
+                debug_struct.field("bucket_values", &self.bucket_values);
+                debug_struct.field("bucket_value_count", &self.bucket_value_count);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Result of the reidentifiability analysis. Note that these results are an
     /// estimation, not exact values.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KMapEstimationResult {
 
@@ -20009,13 +21110,28 @@ pub mod analyze_data_source_risk_details {
         }
     }
 
+    impl std::fmt::Debug for KMapEstimationResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("KMapEstimationResult");
+            debug_struct.field(
+                "k_map_estimation_histogram",
+                &self.k_map_estimation_histogram,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [KMapEstimationResult].
     pub mod k_map_estimation_result {
         #[allow(unused_imports)]
         use super::*;
 
         /// A tuple of values for the quasi-identifier columns.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct KMapEstimationQuasiIdValues {
             /// The quasi-identifier values.
@@ -20208,6 +21324,19 @@ pub mod analyze_data_source_risk_details {
             }
         }
 
+        impl std::fmt::Debug for KMapEstimationQuasiIdValues {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("KMapEstimationQuasiIdValues");
+                debug_struct.field("quasi_ids_values", &self.quasi_ids_values);
+                debug_struct.field("estimated_anonymity", &self.estimated_anonymity);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A KMapEstimationHistogramBucket message with the following values:
         /// min_anonymity: 3
         /// max_anonymity: 5
@@ -20216,7 +21345,7 @@ pub mod analyze_data_source_risk_details {
         /// to 3, 4 or 5 people in the overlying population. An important particular
         /// case is when min_anonymity = max_anonymity = 1: the frequency field then
         /// corresponds to the number of uniquely identifiable records.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct KMapEstimationHistogramBucket {
 
@@ -20555,11 +21684,27 @@ pub mod analyze_data_source_risk_details {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for KMapEstimationHistogramBucket {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("KMapEstimationHistogramBucket");
+                debug_struct.field("min_anonymity", &self.min_anonymity);
+                debug_struct.field("max_anonymity", &self.max_anonymity);
+                debug_struct.field("bucket_size", &self.bucket_size);
+                debug_struct.field("bucket_values", &self.bucket_values);
+                debug_struct.field("bucket_value_count", &self.bucket_value_count);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Result of the δ-presence computation. Note that these results are an
     /// estimation, not exact values.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DeltaPresenceEstimationResult {
 
@@ -20711,13 +21856,28 @@ pub mod analyze_data_source_risk_details {
         }
     }
 
+    impl std::fmt::Debug for DeltaPresenceEstimationResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DeltaPresenceEstimationResult");
+            debug_struct.field(
+                "delta_presence_estimation_histogram",
+                &self.delta_presence_estimation_histogram,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [DeltaPresenceEstimationResult].
     pub mod delta_presence_estimation_result {
         #[allow(unused_imports)]
         use super::*;
 
         /// A tuple of values for the quasi-identifier columns.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DeltaPresenceEstimationQuasiIdValues {
             /// The quasi-identifier values.
@@ -20923,6 +22083,19 @@ pub mod analyze_data_source_risk_details {
             }
         }
 
+        impl std::fmt::Debug for DeltaPresenceEstimationQuasiIdValues {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("DeltaPresenceEstimationQuasiIdValues");
+                debug_struct.field("quasi_ids_values", &self.quasi_ids_values);
+                debug_struct.field("estimated_probability", &self.estimated_probability);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// A DeltaPresenceEstimationHistogramBucket message with the following
         /// values:
         /// min_probability: 0.1
@@ -20932,7 +22105,7 @@ pub mod analyze_data_source_risk_details {
         /// important particular case is when min_probability = max_probability = 1:
         /// then, every individual who shares this quasi-identifier combination is in
         /// the dataset.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DeltaPresenceEstimationHistogramBucket {
 
@@ -21272,10 +22445,26 @@ pub mod analyze_data_source_risk_details {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for DeltaPresenceEstimationHistogramBucket {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("DeltaPresenceEstimationHistogramBucket");
+                debug_struct.field("min_probability", &self.min_probability);
+                debug_struct.field("max_probability", &self.max_probability);
+                debug_struct.field("bucket_size", &self.bucket_size);
+                debug_struct.field("bucket_values", &self.bucket_values);
+                debug_struct.field("bucket_value_count", &self.bucket_value_count);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Risk analysis options.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RequestedRiskAnalysisOptions {
         /// The job config for the risk job.
@@ -21419,6 +22608,18 @@ pub mod analyze_data_source_risk_details {
         }
     }
 
+    impl std::fmt::Debug for RequestedRiskAnalysisOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RequestedRiskAnalysisOptions");
+            debug_struct.field("job_config", &self.job_config);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Values associated with this metric.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -21453,7 +22654,7 @@ pub mod analyze_data_source_risk_details {
 }
 
 /// A value of a field, including its frequency.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValueFrequency {
     /// A value contained in the field in question.
@@ -21635,13 +22836,26 @@ impl serde::ser::Serialize for ValueFrequency {
     }
 }
 
+impl std::fmt::Debug for ValueFrequency {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValueFrequency");
+        debug_struct.field("value", &self.value);
+        debug_struct.field("count", &self.count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Set of primitive values supported by the system.
 /// Note that for the purposes of inspection or transformation, the number
 /// of bytes considered to comprise a 'Value' is based on its representation
 /// as a UTF-8 encoded string. For example, if 'integer_value' is set to
 /// 123456789, the number of bytes would be counted as 9, even though an
 /// int64 only holds up to 8 bytes of data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Value {
     /// Value types
@@ -22173,6 +23387,18 @@ impl serde::ser::Serialize for Value {
     }
 }
 
+impl std::fmt::Debug for Value {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Value");
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Value].
 pub mod value {
     #[allow(unused_imports)]
@@ -22202,7 +23428,7 @@ pub mod value {
 }
 
 /// Message for infoType-dependent details parsed from quote.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuoteInfo {
     /// Object representation of the quote.
@@ -22375,6 +23601,18 @@ impl serde::ser::Serialize for QuoteInfo {
     }
 }
 
+impl std::fmt::Debug for QuoteInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuoteInfo");
+        debug_struct.field("parsed_quote", &self.parsed_quote);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QuoteInfo].
 pub mod quote_info {
     #[allow(unused_imports)]
@@ -22391,7 +23629,7 @@ pub mod quote_info {
 
 /// Message for a date time object.
 /// e.g. 2018-01-01, 5th August.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DateTime {
     /// One or more of the following must be set.
@@ -22628,13 +23866,28 @@ impl serde::ser::Serialize for DateTime {
     }
 }
 
+impl std::fmt::Debug for DateTime {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DateTime");
+        debug_struct.field("date", &self.date);
+        debug_struct.field("day_of_week", &self.day_of_week);
+        debug_struct.field("time", &self.time);
+        debug_struct.field("time_zone", &self.time_zone);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DateTime].
 pub mod date_time {
     #[allow(unused_imports)]
     use super::*;
 
     /// Time zone of the date time object.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TimeZone {
         /// Set only if the offset can be determined. Positive for time ahead of UTC.
@@ -22786,10 +24039,22 @@ pub mod date_time {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for TimeZone {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TimeZone");
+            debug_struct.field("offset_minutes", &self.offset_minutes);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The configuration that controls how the data will change.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeidentifyConfig {
     /// Mode for handling transformation errors. If left unspecified, the default
@@ -23128,6 +24393,22 @@ impl serde::ser::Serialize for DeidentifyConfig {
     }
 }
 
+impl std::fmt::Debug for DeidentifyConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeidentifyConfig");
+        debug_struct.field(
+            "transformation_error_handling",
+            &self.transformation_error_handling,
+        );
+        debug_struct.field("transformation", &self.transformation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DeidentifyConfig].
 pub mod deidentify_config {
     #[allow(unused_imports)]
@@ -23150,7 +24431,7 @@ pub mod deidentify_config {
 }
 
 /// A type of transformation that is applied over images.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageTransformations {
     /// List of transforms to make.
@@ -23288,13 +24569,25 @@ impl serde::ser::Serialize for ImageTransformations {
     }
 }
 
+impl std::fmt::Debug for ImageTransformations {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageTransformations");
+        debug_struct.field("transforms", &self.transforms);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImageTransformations].
 pub mod image_transformations {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for determining how redaction of images should occur.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ImageTransformation {
         /// The color to use when redacting content from an image. If not
@@ -23643,13 +24936,26 @@ pub mod image_transformations {
         }
     }
 
+    impl std::fmt::Debug for ImageTransformation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ImageTransformation");
+            debug_struct.field("redaction_color", &self.redaction_color);
+            debug_struct.field("target", &self.target);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ImageTransformation].
     pub mod image_transformation {
         #[allow(unused_imports)]
         use super::*;
 
         /// Apply transformation to the selected info_types.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SelectedInfoTypes {
             /// Required. InfoTypes to apply the transformation to. Required. Provided
@@ -23795,8 +25101,20 @@ pub mod image_transformations {
             }
         }
 
+        impl std::fmt::Debug for SelectedInfoTypes {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("SelectedInfoTypes");
+                debug_struct.field("info_types", &self.info_types);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Apply transformation to all findings.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AllInfoTypes {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -23904,8 +25222,19 @@ pub mod image_transformations {
             }
         }
 
+        impl std::fmt::Debug for AllInfoTypes {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("AllInfoTypes");
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Apply to all text.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AllText {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -24013,6 +25342,17 @@ pub mod image_transformations {
             }
         }
 
+        impl std::fmt::Debug for AllText {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("AllText");
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Part of the image to transform.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -24048,7 +25388,7 @@ pub mod image_transformations {
 /// Information about any incompatible transformations, and how they were
 /// handled, is returned in the response as part of the
 /// `TransformationOverviews`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransformationErrorHandling {
     /// How transformation errors should be handled.
@@ -24293,13 +25633,25 @@ impl serde::ser::Serialize for TransformationErrorHandling {
     }
 }
 
+impl std::fmt::Debug for TransformationErrorHandling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransformationErrorHandling");
+        debug_struct.field("mode", &self.mode);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransformationErrorHandling].
 pub mod transformation_error_handling {
     #[allow(unused_imports)]
     use super::*;
 
     /// Throw an error and fail the request when a transformation error occurs.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ThrowError {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -24404,11 +25756,22 @@ pub mod transformation_error_handling {
         }
     }
 
+    impl std::fmt::Debug for ThrowError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ThrowError");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Skips the data without modifying it if the requested transformation would
     /// cause an error. For example, if a `DateShift` transformation were applied
     /// an an IP address, this mode would leave the IP address unchanged in the
     /// response.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LeaveUntransformed {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -24513,6 +25876,17 @@ pub mod transformation_error_handling {
         }
     }
 
+    impl std::fmt::Debug for LeaveUntransformed {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LeaveUntransformed");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// How transformation errors should be handled.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -24527,7 +25901,7 @@ pub mod transformation_error_handling {
 }
 
 /// A rule for transforming a value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrimitiveTransformation {
     /// Type of transformation.
@@ -25339,6 +26713,18 @@ impl serde::ser::Serialize for PrimitiveTransformation {
     }
 }
 
+impl std::fmt::Debug for PrimitiveTransformation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrimitiveTransformation");
+        debug_struct.field("transformation", &self.transformation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PrimitiveTransformation].
 pub mod primitive_transformation {
     #[allow(unused_imports)]
@@ -25378,7 +26764,7 @@ pub mod primitive_transformation {
 
 /// For use with `Date`, `Timestamp`, and `TimeOfDay`, extract or preserve a
 /// portion of the value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimePartConfig {
     /// The part of the time to keep.
@@ -25506,6 +26892,18 @@ impl serde::ser::Serialize for TimePartConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for TimePartConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimePartConfig");
+        debug_struct.field("part_to_extract", &self.part_to_extract);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -25683,7 +27081,7 @@ pub mod time_part_config {
 /// Currently, only string and integer values can be hashed.
 /// See <https://cloud.google.com/sensitive-data-protection/docs/pseudonymization>
 /// to learn more.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CryptoHashConfig {
     /// The key used by the hash function.
@@ -25824,10 +27222,22 @@ impl serde::ser::Serialize for CryptoHashConfig {
     }
 }
 
+impl std::fmt::Debug for CryptoHashConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CryptoHashConfig");
+        debug_struct.field("crypto_key", &self.crypto_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Pseudonymization method that generates deterministic encryption for the given
 /// input. Outputs a base64 encoded representation of the encrypted output.
 /// Uses AES-SIV based on the RFC <https://tools.ietf.org/html/rfc5297>.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CryptoDeterministicConfig {
     /// The key used by the encryption function. For deterministic encryption
@@ -26089,8 +27499,22 @@ impl serde::ser::Serialize for CryptoDeterministicConfig {
     }
 }
 
+impl std::fmt::Debug for CryptoDeterministicConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CryptoDeterministicConfig");
+        debug_struct.field("crypto_key", &self.crypto_key);
+        debug_struct.field("surrogate_info_type", &self.surrogate_info_type);
+        debug_struct.field("context", &self.context);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Replace each input value with a given `Value`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceValueConfig {
     /// Value to replace it with.
@@ -26231,8 +27655,20 @@ impl serde::ser::Serialize for ReplaceValueConfig {
     }
 }
 
+impl std::fmt::Debug for ReplaceValueConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplaceValueConfig");
+        debug_struct.field("new_value", &self.new_value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Replace each input value with a value randomly selected from the dictionary.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceDictionaryConfig {
     /// Type of dictionary.
@@ -26415,6 +27851,18 @@ impl serde::ser::Serialize for ReplaceDictionaryConfig {
     }
 }
 
+impl std::fmt::Debug for ReplaceDictionaryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplaceDictionaryConfig");
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReplaceDictionaryConfig].
 pub mod replace_dictionary_config {
     #[allow(unused_imports)]
@@ -26432,7 +27880,7 @@ pub mod replace_dictionary_config {
 }
 
 /// Replace each matching finding with the name of the info_type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceWithInfoTypeConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -26534,10 +27982,21 @@ impl serde::ser::Serialize for ReplaceWithInfoTypeConfig {
     }
 }
 
+impl std::fmt::Debug for ReplaceWithInfoTypeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplaceWithInfoTypeConfig");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Redact a given value. For example, if used with an `InfoTypeTransformation`
 /// transforming PHONE_NUMBER, and input 'My phone number is 206-555-0123', the
 /// output would be 'My phone number is '.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RedactConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -26639,9 +28098,20 @@ impl serde::ser::Serialize for RedactConfig {
     }
 }
 
+impl std::fmt::Debug for RedactConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RedactConfig");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Characters to skip when doing deidentification of a value. These will be left
 /// alone and skipped.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CharsToIgnore {
     /// Type of characters to skip.
@@ -26877,6 +28347,18 @@ impl serde::ser::Serialize for CharsToIgnore {
     }
 }
 
+impl std::fmt::Debug for CharsToIgnore {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CharsToIgnore");
+        debug_struct.field("characters", &self.characters);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CharsToIgnore].
 pub mod chars_to_ignore {
     #[allow(unused_imports)]
@@ -27055,7 +28537,7 @@ pub mod chars_to_ignore {
 /// de-identifying structured data we'll attempt to preserve the original data's
 /// type. (This allows you to take a long like 123 and modify it to a string like
 /// **3.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CharacterMaskConfig {
     /// Character to use to mask the sensitive values&mdash;for example, `*` for an
@@ -27311,6 +28793,21 @@ impl serde::ser::Serialize for CharacterMaskConfig {
     }
 }
 
+impl std::fmt::Debug for CharacterMaskConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CharacterMaskConfig");
+        debug_struct.field("masking_character", &self.masking_character);
+        debug_struct.field("number_to_mask", &self.number_to_mask);
+        debug_struct.field("reverse_order", &self.reverse_order);
+        debug_struct.field("characters_to_ignore", &self.characters_to_ignore);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Buckets values based on fixed size ranges. The
 /// Bucketing transformation can provide all of this functionality,
 /// but requires more configuration. This message is provided as a convenience to
@@ -27329,7 +28826,7 @@ impl serde::ser::Serialize for CharacterMaskConfig {
 /// See
 /// <https://cloud.google.com/sensitive-data-protection/docs/concepts-bucketing> to
 /// learn more.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FixedSizeBucketingConfig {
     /// Required. Lower bound value of buckets. All values less than `lower_bound`
@@ -27556,6 +29053,20 @@ impl serde::ser::Serialize for FixedSizeBucketingConfig {
     }
 }
 
+impl std::fmt::Debug for FixedSizeBucketingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FixedSizeBucketingConfig");
+        debug_struct.field("lower_bound", &self.lower_bound);
+        debug_struct.field("upper_bound", &self.upper_bound);
+        debug_struct.field("bucket_size", &self.bucket_size);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Generalization function that buckets values based on ranges. The ranges and
 /// replacement values are dynamically provided by the user for custom behavior,
 /// such as 1-30 -> LOW, 31-65 -> MEDIUM, 66-100 -> HIGH.
@@ -27568,7 +29079,7 @@ impl serde::ser::Serialize for FixedSizeBucketingConfig {
 /// See
 /// <https://cloud.google.com/sensitive-data-protection/docs/concepts-bucketing> to
 /// learn more.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BucketingConfig {
     /// Set of buckets. Ranges must be non-overlapping.
@@ -27704,13 +29215,25 @@ impl serde::ser::Serialize for BucketingConfig {
     }
 }
 
+impl std::fmt::Debug for BucketingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BucketingConfig");
+        debug_struct.field("buckets", &self.buckets);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BucketingConfig].
 pub mod bucketing_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Bucket is represented as a range, along with replacement values.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Bucket {
         /// Lower bound of the range, inclusive. Type should be the same as max if
@@ -27924,6 +29447,20 @@ pub mod bucketing_config {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Bucket {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Bucket");
+            debug_struct.field("min", &self.min);
+            debug_struct.field("max", &self.max);
+            debug_struct.field("replacement_value", &self.replacement_value);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Replaces an identifier with a surrogate using Format Preserving Encryption
@@ -27940,7 +29477,7 @@ pub mod bucketing_config {
 /// Note: We recommend using  CryptoDeterministicConfig for all use cases which
 /// do not require preserving the input alphabet space and size, plus warrant
 /// referential integrity. FPE incurs significant latency costs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CryptoReplaceFfxFpeConfig {
     /// Required. The key used by the encryption algorithm.
@@ -28385,6 +29922,21 @@ impl serde::ser::Serialize for CryptoReplaceFfxFpeConfig {
     }
 }
 
+impl std::fmt::Debug for CryptoReplaceFfxFpeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CryptoReplaceFfxFpeConfig");
+        debug_struct.field("crypto_key", &self.crypto_key);
+        debug_struct.field("context", &self.context);
+        debug_struct.field("surrogate_info_type", &self.surrogate_info_type);
+        debug_struct.field("alphabet", &self.alphabet);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CryptoReplaceFfxFpeConfig].
 pub mod crypto_replace_ffx_fpe_config {
     #[allow(unused_imports)]
@@ -28571,7 +30123,7 @@ pub mod crypto_replace_ffx_fpe_config {
 /// When using Cloud KMS to wrap or unwrap a DEK, be sure to set an appropriate
 /// IAM policy on the KEK to ensure an attacker cannot
 /// unwrap the DEK.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CryptoKey {
     /// Sources of crypto keys.
@@ -28856,6 +30408,18 @@ impl serde::ser::Serialize for CryptoKey {
     }
 }
 
+impl std::fmt::Debug for CryptoKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CryptoKey");
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CryptoKey].
 pub mod crypto_key {
     #[allow(unused_imports)]
@@ -28876,7 +30440,7 @@ pub mod crypto_key {
 
 /// Use this to have a random data crypto key generated.
 /// It will be discarded after the request finishes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransientCryptoKey {
     /// Required. Name of the key.
@@ -29010,9 +30574,21 @@ impl serde::ser::Serialize for TransientCryptoKey {
     }
 }
 
+impl std::fmt::Debug for TransientCryptoKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransientCryptoKey");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Using raw keys is prone to security risks due to accidentally
 /// leaking the key. Choose another type of key if possible.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnwrappedCryptoKey {
     /// Required. A 128/192/256 bit key.
@@ -29159,6 +30735,18 @@ impl serde::ser::Serialize for UnwrappedCryptoKey {
     }
 }
 
+impl std::fmt::Debug for UnwrappedCryptoKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UnwrappedCryptoKey");
+        debug_struct.field("key", &self.key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Include to use an existing data crypto key wrapped by KMS.
 /// The wrapped key must be a 128-, 192-, or 256-bit key.
 /// Authorization requires the following IAM permissions when sending a request
@@ -29170,7 +30758,7 @@ impl serde::ser::Serialize for UnwrappedCryptoKey {
 ///
 /// Note: When you use Cloud KMS for cryptographic operations,
 /// [charges apply](https://cloud.google.com/kms/pricing).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KmsWrappedCryptoKey {
     /// Required. The wrapped data crypto key.
@@ -29343,11 +30931,24 @@ impl serde::ser::Serialize for KmsWrappedCryptoKey {
     }
 }
 
+impl std::fmt::Debug for KmsWrappedCryptoKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KmsWrappedCryptoKey");
+        debug_struct.field("wrapped_key", &self.wrapped_key);
+        debug_struct.field("crypto_key_name", &self.crypto_key_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Shifts dates by random number of days, with option to be consistent for the
 /// same context. See
 /// <https://cloud.google.com/sensitive-data-protection/docs/concepts-date-shifting>
 /// to learn more.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DateShiftConfig {
     /// Required. Range of shift in days. Actual shift will be selected at random
@@ -29651,6 +31252,21 @@ impl serde::ser::Serialize for DateShiftConfig {
     }
 }
 
+impl std::fmt::Debug for DateShiftConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DateShiftConfig");
+        debug_struct.field("upper_bound_days", &self.upper_bound_days);
+        debug_struct.field("lower_bound_days", &self.lower_bound_days);
+        debug_struct.field("context", &self.context);
+        debug_struct.field("method", &self.method);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DateShiftConfig].
 pub mod date_shift_config {
     #[allow(unused_imports)]
@@ -29672,7 +31288,7 @@ pub mod date_shift_config {
 /// apply various `PrimitiveTransformation`s to each finding, where the
 /// transformation is applied to only values that were identified as a specific
 /// info_type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InfoTypeTransformations {
     /// Required. Transformation for each infoType. Cannot specify more than one
@@ -29806,6 +31422,18 @@ impl serde::ser::Serialize for InfoTypeTransformations {
     }
 }
 
+impl std::fmt::Debug for InfoTypeTransformations {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InfoTypeTransformations");
+        debug_struct.field("transformations", &self.transformations);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InfoTypeTransformations].
 pub mod info_type_transformations {
     #[allow(unused_imports)]
@@ -29813,7 +31441,7 @@ pub mod info_type_transformations {
 
     /// A transformation to apply to text that is identified as a specific
     /// info_type.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InfoTypeTransformation {
         /// InfoTypes to apply the transformation to. An empty list will cause
@@ -29990,10 +31618,23 @@ pub mod info_type_transformations {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for InfoTypeTransformation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InfoTypeTransformation");
+            debug_struct.field("info_types", &self.info_types);
+            debug_struct.field("primitive_transformation", &self.primitive_transformation);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The transformation to apply to the field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldTransformation {
     /// Required. Input field(s) to apply the transformation to.
@@ -30305,6 +31946,20 @@ impl serde::ser::Serialize for FieldTransformation {
     }
 }
 
+impl std::fmt::Debug for FieldTransformation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FieldTransformation");
+        debug_struct.field("fields", &self.fields);
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("transformation", &self.transformation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FieldTransformation].
 pub mod field_transformation {
     #[allow(unused_imports)]
@@ -30324,7 +31979,7 @@ pub mod field_transformation {
 
 /// A type of transformation that is applied over structured data such as a
 /// table.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecordTransformations {
     /// Transform the record by applying various field transformations.
@@ -30494,9 +32149,22 @@ impl serde::ser::Serialize for RecordTransformations {
     }
 }
 
+impl std::fmt::Debug for RecordTransformations {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecordTransformations");
+        debug_struct.field("field_transformations", &self.field_transformations);
+        debug_struct.field("record_suppressions", &self.record_suppressions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration to suppress records whose suppression conditions evaluate to
 /// true.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecordSuppression {
     /// A condition that when it evaluates to true will result in the record being
@@ -30638,9 +32306,21 @@ impl serde::ser::Serialize for RecordSuppression {
     }
 }
 
+impl std::fmt::Debug for RecordSuppression {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecordSuppression");
+        debug_struct.field("condition", &self.condition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A condition for determining whether a transformation should be applied to
 /// a field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecordCondition {
     /// An expression.
@@ -30782,6 +32462,18 @@ impl serde::ser::Serialize for RecordCondition {
     }
 }
 
+impl std::fmt::Debug for RecordCondition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecordCondition");
+        debug_struct.field("expressions", &self.expressions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RecordCondition].
 pub mod record_condition {
     #[allow(unused_imports)]
@@ -30806,7 +32498,7 @@ pub mod record_condition {
     ///
     /// If we fail to compare do to type mismatch, a warning will be given and
     /// the condition will evaluate to false.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Condition {
         /// Required. Field within the record this condition is evaluated against.
@@ -31009,8 +32701,22 @@ pub mod record_condition {
         }
     }
 
+    impl std::fmt::Debug for Condition {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Condition");
+            debug_struct.field("field", &self.field);
+            debug_struct.field("operator", &self.operator);
+            debug_struct.field("value", &self.value);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A collection of conditions.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Conditions {
         /// A collection of conditions.
@@ -31149,8 +32855,20 @@ pub mod record_condition {
         }
     }
 
+    impl std::fmt::Debug for Conditions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Conditions");
+            debug_struct.field("conditions", &self.conditions);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// An expression, consisting of an operator and conditions.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Expressions {
         /// The operator to apply to the result of conditions. Default and currently
@@ -31366,6 +33084,19 @@ pub mod record_condition {
         }
     }
 
+    impl std::fmt::Debug for Expressions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Expressions");
+            debug_struct.field("logical_operator", &self.logical_operator);
+            debug_struct.field("r#type", &self.r#type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Expressions].
     pub mod expressions {
         #[allow(unused_imports)]
@@ -31510,7 +33241,7 @@ pub mod record_condition {
 }
 
 /// Overview of the modifications that occurred.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransformationOverview {
     /// Total size in bytes that were transformed in some way.
@@ -31693,10 +33424,23 @@ impl serde::ser::Serialize for TransformationOverview {
     }
 }
 
+impl std::fmt::Debug for TransformationOverview {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransformationOverview");
+        debug_struct.field("transformed_bytes", &self.transformed_bytes);
+        debug_struct.field("transformation_summaries", &self.transformation_summaries);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Summary of a single transformation.
 /// Only one of 'transformation', 'field_transformation', or 'record_suppress'
 /// will be set.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransformationSummary {
     /// Set if the transformation was limited to a specific InfoType.
@@ -32055,6 +33799,24 @@ impl serde::ser::Serialize for TransformationSummary {
     }
 }
 
+impl std::fmt::Debug for TransformationSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransformationSummary");
+        debug_struct.field("info_type", &self.info_type);
+        debug_struct.field("field", &self.field);
+        debug_struct.field("transformation", &self.transformation);
+        debug_struct.field("field_transformations", &self.field_transformations);
+        debug_struct.field("record_suppress", &self.record_suppress);
+        debug_struct.field("results", &self.results);
+        debug_struct.field("transformed_bytes", &self.transformed_bytes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransformationSummary].
 pub mod transformation_summary {
     #[allow(unused_imports)]
@@ -32062,7 +33824,7 @@ pub mod transformation_summary {
 
     /// A collection that informs the user the number of times a particular
     /// `TransformationResultCode` and error details occurred.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SummaryResult {
         /// Number of transformations counted by this result.
@@ -32264,6 +34026,20 @@ pub mod transformation_summary {
         }
     }
 
+    impl std::fmt::Debug for SummaryResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SummaryResult");
+            debug_struct.field("count", &self.count);
+            debug_struct.field("code", &self.code);
+            debug_struct.field("details", &self.details);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Possible outcomes of transformations.
     ///
     /// # Working with unknown values
@@ -32403,7 +34179,7 @@ pub mod transformation_summary {
 
 /// A flattened description of a `PrimitiveTransformation` or
 /// `RecordSuppression`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransformationDescription {
     /// The transformation type.
@@ -32629,11 +34405,26 @@ impl serde::ser::Serialize for TransformationDescription {
     }
 }
 
+impl std::fmt::Debug for TransformationDescription {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransformationDescription");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("info_type", &self.info_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about a single transformation. This object contains a description of
 /// the transformation, information about whether the transformation was
 /// successfully applied, and the precise location where the transformation
 /// occurred. These details are stored in a user-specified BigQuery table.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransformationDetails {
     /// The name of the job that completed the transformation.
@@ -32944,8 +34735,25 @@ impl serde::ser::Serialize for TransformationDetails {
     }
 }
 
+impl std::fmt::Debug for TransformationDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransformationDetails");
+        debug_struct.field("resource_name", &self.resource_name);
+        debug_struct.field("container_name", &self.container_name);
+        debug_struct.field("transformation", &self.transformation);
+        debug_struct.field("status_details", &self.status_details);
+        debug_struct.field("transformed_bytes", &self.transformed_bytes);
+        debug_struct.field("transformation_location", &self.transformation_location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the location of a transformation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransformationLocation {
     /// Information about the functionality of the container where this finding
@@ -33200,6 +35008,19 @@ impl serde::ser::Serialize for TransformationLocation {
     }
 }
 
+impl std::fmt::Debug for TransformationLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransformationLocation");
+        debug_struct.field("container_type", &self.container_type);
+        debug_struct.field("location_type", &self.location_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransformationLocation].
 pub mod transformation_location {
     #[allow(unused_imports)]
@@ -33221,7 +35042,7 @@ pub mod transformation_location {
 }
 
 /// The field in a record to transform.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecordTransformation {
     /// For record transformations, provide a field.
@@ -33426,8 +35247,22 @@ impl serde::ser::Serialize for RecordTransformation {
     }
 }
 
+impl std::fmt::Debug for RecordTransformation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecordTransformation");
+        debug_struct.field("field_id", &self.field_id);
+        debug_struct.field("container_timestamp", &self.container_timestamp);
+        debug_struct.field("container_version", &self.container_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The outcome of a transformation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransformationResultStatus {
     /// Transformation result status type, this will be either SUCCESS, or it will
@@ -33600,8 +35435,21 @@ impl serde::ser::Serialize for TransformationResultStatus {
     }
 }
 
+impl std::fmt::Debug for TransformationResultStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransformationResultStatus");
+        debug_struct.field("result_status_type", &self.result_status_type);
+        debug_struct.field("details", &self.details);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Config for storing transformation details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransformationDetailsStorageConfig {
     /// Location to store the transformation summary.
@@ -33778,6 +35626,18 @@ impl serde::ser::Serialize for TransformationDetailsStorageConfig {
     }
 }
 
+impl std::fmt::Debug for TransformationDetailsStorageConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransformationDetailsStorageConfig");
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransformationDetailsStorageConfig].
 pub mod transformation_details_storage_config {
     #[allow(unused_imports)]
@@ -33798,7 +35658,7 @@ pub mod transformation_details_storage_config {
 }
 
 /// Schedule for inspect job triggers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Schedule {
     /// Type of schedule.
@@ -33977,6 +35837,18 @@ impl serde::ser::Serialize for Schedule {
     }
 }
 
+impl std::fmt::Debug for Schedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Schedule");
+        debug_struct.field("option", &self.option);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Schedule].
 pub mod schedule {
     #[allow(unused_imports)]
@@ -34000,7 +35872,7 @@ pub mod schedule {
 
 /// Job trigger option for hybrid jobs. Jobs must be manually created
 /// and finished.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Manual {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -34102,12 +35974,23 @@ impl serde::ser::Serialize for Manual {
     }
 }
 
+impl std::fmt::Debug for Manual {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Manual");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The inspectTemplate contains a configuration (set of types of sensitive data
 /// to be detected) to be used anywhere you otherwise would normally specify
 /// InspectConfig. See
 /// <https://cloud.google.com/sensitive-data-protection/docs/concepts-templates> to
 /// learn more.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InspectTemplate {
     /// Output only. The template name.
@@ -34397,11 +36280,28 @@ impl serde::ser::Serialize for InspectTemplate {
     }
 }
 
+impl std::fmt::Debug for InspectTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InspectTemplate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("inspect_config", &self.inspect_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// DeidentifyTemplates contains instructions on how to de-identify content.
 /// See
 /// <https://cloud.google.com/sensitive-data-protection/docs/concepts-templates> to
 /// learn more.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeidentifyTemplate {
     /// Output only. The template name.
@@ -34692,9 +36592,26 @@ impl serde::ser::Serialize for DeidentifyTemplate {
     }
 }
 
+impl std::fmt::Debug for DeidentifyTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeidentifyTemplate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("deidentify_config", &self.deidentify_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details information about an error encountered during job execution or
 /// the results of an unsuccessful activation of the JobTrigger.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Error {
     /// Detailed error codes and messages.
@@ -34890,6 +36807,20 @@ impl serde::ser::Serialize for Error {
     }
 }
 
+impl std::fmt::Debug for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Error");
+        debug_struct.field("details", &self.details);
+        debug_struct.field("timestamps", &self.timestamps);
+        debug_struct.field("extra_info", &self.extra_info);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Error].
 pub mod error {
     #[allow(unused_imports)]
@@ -35036,7 +36967,7 @@ pub mod error {
 /// See
 /// <https://cloud.google.com/sensitive-data-protection/docs/concepts-job-triggers>
 /// to learn more.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobTrigger {
     /// Unique resource name for the triggeredJob, assigned by the service when the
@@ -35481,13 +37412,34 @@ impl serde::ser::Serialize for JobTrigger {
     }
 }
 
+impl std::fmt::Debug for JobTrigger {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobTrigger");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("triggers", &self.triggers);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("last_run_time", &self.last_run_time);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("job", &self.job);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [JobTrigger].
 pub mod job_trigger {
     #[allow(unused_imports)]
     use super::*;
 
     /// What event needs to occur for a new job to be started.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Trigger {
         /// What event needs to occur for a new job to be started.
@@ -35718,6 +37670,18 @@ pub mod job_trigger {
         }
     }
 
+    impl std::fmt::Debug for Trigger {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Trigger");
+            debug_struct.field("trigger", &self.trigger);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Trigger].
     pub mod trigger {
         #[allow(unused_imports)]
@@ -35888,7 +37852,7 @@ pub mod job_trigger {
 /// A task to execute on the completion of a job.
 /// See <https://cloud.google.com/sensitive-data-protection/docs/concepts-actions>
 /// to learn more.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Action {
     /// Extra events to execute after the job has finished.
@@ -36406,6 +38370,18 @@ impl serde::ser::Serialize for Action {
     }
 }
 
+impl std::fmt::Debug for Action {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Action");
+        debug_struct.field("action", &self.action);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Action].
 pub mod action {
     #[allow(unused_imports)]
@@ -36415,7 +38391,7 @@ pub mod action {
     /// OutputStorageConfig. Only a single instance of this action can be
     /// specified.
     /// Compatible with: Inspect, Risk
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SaveFindings {
         /// Location to store findings outside of DLP.
@@ -36559,12 +38535,24 @@ pub mod action {
         }
     }
 
+    impl std::fmt::Debug for SaveFindings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SaveFindings");
+            debug_struct.field("output_config", &self.output_config);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Publish a message into a given Pub/Sub topic when DlpJob has completed. The
     /// message contains a single field, `DlpJobName`, which is equal to the
     /// finished job's
     /// [`DlpJob.name`](https://cloud.google.com/sensitive-data-protection/docs/reference/rest/v2/projects.dlpJobs#DlpJob).
     /// Compatible with: Inspect, Risk
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PublishToPubSub {
         /// Cloud Pub/Sub topic to send notifications to. The topic must have given
@@ -36699,6 +38687,18 @@ pub mod action {
         }
     }
 
+    impl std::fmt::Debug for PublishToPubSub {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PublishToPubSub");
+            debug_struct.field("topic", &self.topic);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Publish the result summary of a DlpJob to [Security Command
     /// Center](https://cloud.google.com/security-command-center). This action is
     /// available for only projects that belong to an organization. This action
@@ -36707,7 +38707,7 @@ pub mod action {
     /// [service-specific policies for Security Command
     /// Center](https://cloud.google.com/terms/service-terms). Only a single
     /// instance of this action can be specified. Compatible with: Inspect
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PublishSummaryToCscc {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -36812,6 +38812,17 @@ pub mod action {
         }
     }
 
+    impl std::fmt::Debug for PublishSummaryToCscc {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PublishSummaryToCscc");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Publish findings of a DlpJob to Data Catalog. In Data Catalog, tag
     /// templates are applied to the resource that Cloud DLP scanned. Data
     /// Catalog tag templates are stored in the same project and region where the
@@ -36832,7 +38843,7 @@ pub mod action {
     /// Compatible with: Inspect
     ///
     /// [google.privacy.dlp.v2.InfoType]: crate::model::InfoType
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PublishFindingsToCloudDataCatalog {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -36938,13 +38949,24 @@ pub mod action {
         }
     }
 
+    impl std::fmt::Debug for PublishFindingsToCloudDataCatalog {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PublishFindingsToCloudDataCatalog");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Create a de-identified copy of a storage bucket. Only compatible
     /// with Cloud Storage buckets.
     ///
     /// A TransformationDetail will be created for each transformation.
     ///
     /// Compatible with: Inspection of Cloud Storage
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Deidentify {
         /// User specified deidentify templates and configs for structured,
@@ -37307,6 +39329,24 @@ pub mod action {
         }
     }
 
+    impl std::fmt::Debug for Deidentify {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Deidentify");
+            debug_struct.field("transformation_config", &self.transformation_config);
+            debug_struct.field(
+                "transformation_details_storage_config",
+                &self.transformation_details_storage_config,
+            );
+            debug_struct.field("file_types_to_transform", &self.file_types_to_transform);
+            debug_struct.field("output", &self.output);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Deidentify].
     pub mod deidentify {
         #[allow(unused_imports)]
@@ -37330,7 +39370,7 @@ pub mod action {
     /// Sends an email when the job completes. The email goes to IAM project owners
     /// and technical [Essential
     /// Contacts](https://cloud.google.com/resource-manager/docs/managing-notification-contacts).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct JobNotificationEmails {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -37435,11 +39475,22 @@ pub mod action {
         }
     }
 
+    impl std::fmt::Debug for JobNotificationEmails {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("JobNotificationEmails");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Enable Stackdriver metric dlp.googleapis.com/finding_count. This
     /// will publish a metric to stack driver on each infotype requested and
     /// how many findings were found for it. CustomDetectors will be bucketed
     /// as 'Custom' under the Stackdriver label 'info_type'.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PublishToStackdriver {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -37544,6 +39595,17 @@ pub mod action {
         }
     }
 
+    impl std::fmt::Debug for PublishToStackdriver {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PublishToStackdriver");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Extra events to execute after the job has finished.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -37572,7 +39634,7 @@ pub mod action {
 /// User specified templates and configs for how to deidentify structured,
 /// unstructures, and image files. User must provide either a unstructured
 /// deidentify template or at least one redact image config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransformationConfig {
     /// De-identify template.
@@ -37782,8 +39844,25 @@ impl serde::ser::Serialize for TransformationConfig {
     }
 }
 
+impl std::fmt::Debug for TransformationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransformationConfig");
+        debug_struct.field("deidentify_template", &self.deidentify_template);
+        debug_struct.field(
+            "structured_deidentify_template",
+            &self.structured_deidentify_template,
+        );
+        debug_struct.field("image_redact_template", &self.image_redact_template);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateInspectTemplate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInspectTemplateRequest {
     /// Required. Parent resource name.
@@ -38023,8 +40102,23 @@ impl serde::ser::Serialize for CreateInspectTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateInspectTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInspectTemplateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("inspect_template", &self.inspect_template);
+        debug_struct.field("template_id", &self.template_id);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateInspectTemplate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInspectTemplateRequest {
     /// Required. Resource name of organization and inspectTemplate to be updated,
@@ -38228,8 +40322,22 @@ impl serde::ser::Serialize for UpdateInspectTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateInspectTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInspectTemplateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("inspect_template", &self.inspect_template);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetInspectTemplate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInspectTemplateRequest {
     /// Required. Resource name of the organization and inspectTemplate to be read,
@@ -38360,8 +40468,20 @@ impl serde::ser::Serialize for GetInspectTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for GetInspectTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInspectTemplateRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListInspectTemplates.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInspectTemplatesRequest {
     /// Required. Parent resource name.
@@ -38643,8 +40763,24 @@ impl serde::ser::Serialize for ListInspectTemplatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListInspectTemplatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInspectTemplatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListInspectTemplates.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInspectTemplatesResponse {
     /// List of inspectTemplates, up to page_size in ListInspectTemplatesRequest.
@@ -38821,8 +40957,21 @@ impl serde::ser::Serialize for ListInspectTemplatesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInspectTemplatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInspectTemplatesResponse");
+        debug_struct.field("inspect_templates", &self.inspect_templates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteInspectTemplate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInspectTemplateRequest {
     /// Required. Resource name of the organization and inspectTemplate to be
@@ -38953,8 +41102,20 @@ impl serde::ser::Serialize for DeleteInspectTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInspectTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInspectTemplateRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateJobTrigger.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateJobTriggerRequest {
     /// Required. Parent resource name.
@@ -39189,8 +41350,23 @@ impl serde::ser::Serialize for CreateJobTriggerRequest {
     }
 }
 
+impl std::fmt::Debug for CreateJobTriggerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateJobTriggerRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("job_trigger", &self.job_trigger);
+        debug_struct.field("trigger_id", &self.trigger_id);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ActivateJobTrigger.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ActivateJobTriggerRequest {
     /// Required. Resource name of the trigger to activate, for example
@@ -39320,8 +41496,20 @@ impl serde::ser::Serialize for ActivateJobTriggerRequest {
     }
 }
 
+impl std::fmt::Debug for ActivateJobTriggerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ActivateJobTriggerRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateJobTrigger.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateJobTriggerRequest {
     /// Required. Resource name of the project and the triggeredJob, for example
@@ -39523,8 +41711,22 @@ impl serde::ser::Serialize for UpdateJobTriggerRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateJobTriggerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateJobTriggerRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("job_trigger", &self.job_trigger);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetJobTrigger.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobTriggerRequest {
     /// Required. Resource name of the project and the triggeredJob, for example
@@ -39654,8 +41856,20 @@ impl serde::ser::Serialize for GetJobTriggerRequest {
     }
 }
 
+impl std::fmt::Debug for GetJobTriggerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetJobTriggerRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateDiscoveryConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDiscoveryConfigRequest {
     /// Required. Parent resource name.
@@ -39865,8 +42079,22 @@ impl serde::ser::Serialize for CreateDiscoveryConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDiscoveryConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDiscoveryConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("discovery_config", &self.discovery_config);
+        debug_struct.field("config_id", &self.config_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateDiscoveryConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDiscoveryConfigRequest {
     /// Required. Resource name of the project and the configuration, for example
@@ -40069,8 +42297,22 @@ impl serde::ser::Serialize for UpdateDiscoveryConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDiscoveryConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDiscoveryConfigRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("discovery_config", &self.discovery_config);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetDiscoveryConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDiscoveryConfigRequest {
     /// Required. Resource name of the project and the configuration, for example
@@ -40200,8 +42442,20 @@ impl serde::ser::Serialize for GetDiscoveryConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetDiscoveryConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDiscoveryConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListDiscoveryConfigs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDiscoveryConfigsRequest {
     /// Required. Parent resource name.
@@ -40447,8 +42701,23 @@ impl serde::ser::Serialize for ListDiscoveryConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDiscoveryConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDiscoveryConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListDiscoveryConfigs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDiscoveryConfigsResponse {
     /// List of configs, up to page_size in ListDiscoveryConfigsRequest.
@@ -40625,8 +42894,21 @@ impl serde::ser::Serialize for ListDiscoveryConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDiscoveryConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDiscoveryConfigsResponse");
+        debug_struct.field("discovery_configs", &self.discovery_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteDiscoveryConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDiscoveryConfigRequest {
     /// Required. Resource name of the project and the config, for example
@@ -40756,10 +43038,22 @@ impl serde::ser::Serialize for DeleteDiscoveryConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDiscoveryConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDiscoveryConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateDlpJobRequest. Used to initiate long running
 /// jobs such as calculating risk metrics or inspecting Google Cloud
 /// Storage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDlpJobRequest {
     /// Required. Parent resource name.
@@ -41088,6 +43382,21 @@ impl serde::ser::Serialize for CreateDlpJobRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDlpJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDlpJobRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("job_id", &self.job_id);
+        debug_struct.field("location_id", &self.location_id);
+        debug_struct.field("job", &self.job);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CreateDlpJobRequest].
 pub mod create_dlp_job_request {
     #[allow(unused_imports)]
@@ -41106,7 +43415,7 @@ pub mod create_dlp_job_request {
 }
 
 /// Request message for ListJobTriggers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobTriggersRequest {
     /// Required. Parent resource name.
@@ -41457,8 +43766,26 @@ impl serde::ser::Serialize for ListJobTriggersRequest {
     }
 }
 
+impl std::fmt::Debug for ListJobTriggersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobTriggersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListJobTriggers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobTriggersResponse {
     /// List of triggeredJobs, up to page_size in ListJobTriggersRequest.
@@ -41631,8 +43958,21 @@ impl serde::ser::Serialize for ListJobTriggersResponse {
     }
 }
 
+impl std::fmt::Debug for ListJobTriggersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobTriggersResponse");
+        debug_struct.field("job_triggers", &self.job_triggers);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteJobTrigger.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobTriggerRequest {
     /// Required. Resource name of the project and the triggeredJob, for example
@@ -41762,8 +44102,20 @@ impl serde::ser::Serialize for DeleteJobTriggerRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteJobTriggerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteJobTriggerRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Controls what and how to inspect for findings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InspectJobConfig {
     /// The data to scan.
@@ -41997,8 +44349,23 @@ impl serde::ser::Serialize for InspectJobConfig {
     }
 }
 
+impl std::fmt::Debug for InspectJobConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InspectJobConfig");
+        debug_struct.field("storage_config", &self.storage_config);
+        debug_struct.field("inspect_config", &self.inspect_config);
+        debug_struct.field("inspect_template_name", &self.inspect_template_name);
+        debug_struct.field("actions", &self.actions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A task to execute when a data profile has been generated.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProfileAction {
     /// Type of action to execute when a profile is generated.
@@ -42483,6 +44850,18 @@ impl serde::ser::Serialize for DataProfileAction {
     }
 }
 
+impl std::fmt::Debug for DataProfileAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProfileAction");
+        debug_struct.field("action", &self.action);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataProfileAction].
 pub mod data_profile_action {
     #[allow(unused_imports)]
@@ -42490,7 +44869,7 @@ pub mod data_profile_action {
 
     /// If set, the detailed data profiles will be persisted to the location
     /// of your choice whenever updated.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Export {
         /// Store all profiles to BigQuery.
@@ -42705,10 +45084,23 @@ pub mod data_profile_action {
         }
     }
 
+    impl std::fmt::Debug for Export {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Export");
+            debug_struct.field("profile_table", &self.profile_table);
+            debug_struct.field("sample_findings_table", &self.sample_findings_table);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Send a Pub/Sub message into the given Pub/Sub topic to connect other
     /// systems to data profile generation. The message payload data will
     /// be the byte serialization of `DataProfilePubSubMessage`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PubSubNotification {
         /// Cloud Pub/Sub topic to send notifications to.
@@ -42942,6 +45334,21 @@ pub mod data_profile_action {
         }
     }
 
+    impl std::fmt::Debug for PubSubNotification {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PubSubNotification");
+            debug_struct.field("topic", &self.topic);
+            debug_struct.field("event", &self.event);
+            debug_struct.field("pubsub_condition", &self.pubsub_condition);
+            debug_struct.field("detail_of_message", &self.detail_of_message);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [PubSubNotification].
     pub mod pub_sub_notification {
         #[allow(unused_imports)]
@@ -43091,7 +45498,7 @@ pub mod data_profile_action {
     }
 
     /// Message expressing intention to publish to Google Security Operations.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PublishToChronicle {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -43196,9 +45603,20 @@ pub mod data_profile_action {
         }
     }
 
+    impl std::fmt::Debug for PublishToChronicle {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PublishToChronicle");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// If set, a summary finding will be created or updated in Security Command
     /// Center for each profile.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PublishToSecurityCommandCenter {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -43303,10 +45721,21 @@ pub mod data_profile_action {
         }
     }
 
+    impl std::fmt::Debug for PublishToSecurityCommandCenter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PublishToSecurityCommandCenter");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Create Dataplex Catalog aspects for profiled resources with the aspect type
     /// Sensitive Data Protection Profile. To learn more about aspects, see
     /// <https://cloud.google.com/sensitive-data-protection/docs/add-aspects>.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PublishToDataplexCatalog {
         /// Whether creating a Dataplex Catalog aspect for a profiled resource should
@@ -43445,13 +45874,25 @@ pub mod data_profile_action {
         }
     }
 
+    impl std::fmt::Debug for PublishToDataplexCatalog {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PublishToDataplexCatalog");
+            debug_struct.field("lower_data_risk_to_low", &self.lower_data_risk_to_low);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// If set, attaches the [tags]
     /// (<https://cloud.google.com/resource-manager/docs/tags/tags-overview>)
     /// provided to profiled resources. Tags support [access
     /// control](https://cloud.google.com/iam/docs/tags-access-control). You can
     /// conditionally grant or deny access to a resource based on whether the
     /// resource has a specific tag.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TagResources {
         /// The tags to associate with different conditions.
@@ -43664,6 +46105,23 @@ pub mod data_profile_action {
         }
     }
 
+    impl std::fmt::Debug for TagResources {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TagResources");
+            debug_struct.field("tag_conditions", &self.tag_conditions);
+            debug_struct.field(
+                "profile_generations_to_tag",
+                &self.profile_generations_to_tag,
+            );
+            debug_struct.field("lower_data_risk_to_low", &self.lower_data_risk_to_low);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [TagResources].
     pub mod tag_resources {
         #[allow(unused_imports)]
@@ -43671,7 +46129,7 @@ pub mod data_profile_action {
 
         /// The tag to attach to profiles matching the condition. At most one
         /// `TagCondition` can be specified per sensitivity level.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct TagCondition {
             /// The tag value to attach to resources.
@@ -43901,6 +46359,19 @@ pub mod data_profile_action {
             }
         }
 
+        impl std::fmt::Debug for TagCondition {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("TagCondition");
+                debug_struct.field("tag", &self.tag);
+                debug_struct.field("r#type", &self.r#type);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [TagCondition].
         pub mod tag_condition {
             #[allow(unused_imports)]
@@ -43917,7 +46388,7 @@ pub mod data_profile_action {
         }
 
         /// A value of a tag.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct TagValue {
             /// The format of the tag value.
@@ -44103,6 +46574,18 @@ pub mod data_profile_action {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for TagValue {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("TagValue");
+                debug_struct.field("format", &self.format);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -44300,7 +46783,7 @@ pub mod data_profile_action {
 
 /// Details about a piece of potentially sensitive information that was detected
 /// when the data resource was profiled.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProfileFinding {
     /// The content that was found. Even if the content is not textual, it
@@ -44725,8 +47208,32 @@ impl serde::ser::Serialize for DataProfileFinding {
     }
 }
 
+impl std::fmt::Debug for DataProfileFinding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProfileFinding");
+        debug_struct.field("quote", &self.quote);
+        debug_struct.field("infotype", &self.infotype);
+        debug_struct.field("quote_info", &self.quote_info);
+        debug_struct.field(
+            "data_profile_resource_name",
+            &self.data_profile_resource_name,
+        );
+        debug_struct.field("finding_id", &self.finding_id);
+        debug_struct.field("timestamp", &self.timestamp);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("resource_visibility", &self.resource_visibility);
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+        debug_struct.field("data_source_type", &self.data_source_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Location of a data profile finding within a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProfileFindingLocation {
     /// Name of the container where the finding is located.
@@ -44944,6 +47451,19 @@ impl serde::ser::Serialize for DataProfileFindingLocation {
     }
 }
 
+impl std::fmt::Debug for DataProfileFindingLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProfileFindingLocation");
+        debug_struct.field("container_name", &self.container_name);
+        debug_struct.field("location_extra_details", &self.location_extra_details);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataProfileFindingLocation].
 pub mod data_profile_finding_location {
     #[allow(unused_imports)]
@@ -44964,7 +47484,7 @@ pub mod data_profile_finding_location {
 }
 
 /// Location of a finding within a resource that produces a table data profile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProfileFindingRecordLocation {
     /// Field ID of the column containing the finding.
@@ -45104,6 +47624,18 @@ impl serde::ser::Serialize for DataProfileFindingRecordLocation {
     }
 }
 
+impl std::fmt::Debug for DataProfileFindingRecordLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProfileFindingRecordLocation");
+        debug_struct.field("field", &self.field);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for setting up a job to scan resources for profile generation.
 /// Only one data profile configuration may exist per organization, folder,
 /// or project.
@@ -45111,7 +47643,7 @@ impl serde::ser::Serialize for DataProfileFindingRecordLocation {
 /// The generated data profiles are retained according to the
 /// [data retention policy]
 /// (<https://cloud.google.com/sensitive-data-protection/docs/data-profiles#retention>).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProfileJobConfig {
     /// The data to scan.
@@ -45402,12 +47934,31 @@ impl serde::ser::Serialize for DataProfileJobConfig {
     }
 }
 
+impl std::fmt::Debug for DataProfileJobConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProfileJobConfig");
+        debug_struct.field("location", &self.location);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field(
+            "other_cloud_starting_location",
+            &self.other_cloud_starting_location,
+        );
+        debug_struct.field("inspect_templates", &self.inspect_templates);
+        debug_struct.field("data_profile_actions", &self.data_profile_actions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A pattern to match against one or more tables, datasets, or projects that
 /// contain BigQuery tables. At least one pattern must be specified.
 /// Regular expressions use RE2
 /// [syntax](https://github.com/google/re2/wiki/Syntax); a guide can be found
 /// under the google/re2 repository on GitHub.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryRegex {
     /// For organizations, if unset, will match all projects. Has no effect
@@ -45594,9 +48145,23 @@ impl serde::ser::Serialize for BigQueryRegex {
     }
 }
 
+impl std::fmt::Debug for BigQueryRegex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryRegex");
+        debug_struct.field("project_id_regex", &self.project_id_regex);
+        debug_struct.field("dataset_id_regex", &self.dataset_id_regex);
+        debug_struct.field("table_id_regex", &self.table_id_regex);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A collection of regular expressions to determine what tables to match
 /// against.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryRegexes {
     /// A single BigQuery regular expression pattern to match against one or more
@@ -45729,8 +48294,20 @@ impl serde::ser::Serialize for BigQueryRegexes {
     }
 }
 
+impl std::fmt::Debug for BigQueryRegexes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryRegexes");
+        debug_struct.field("patterns", &self.patterns);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The types of BigQuery tables supported by Cloud DLP.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryTableTypes {
     /// A set of BigQuery table types.
@@ -45866,8 +48443,20 @@ impl serde::ser::Serialize for BigQueryTableTypes {
     }
 }
 
+impl std::fmt::Debug for BigQueryTableTypes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryTableTypes");
+        debug_struct.field("types", &self.types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Do not profile the tables.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Disabled {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -45969,8 +48558,19 @@ impl serde::ser::Serialize for Disabled {
     }
 }
 
+impl std::fmt::Debug for Disabled {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Disabled");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The data that will be profiled.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProfileLocation {
     /// The location to be scanned.
@@ -46228,6 +48828,18 @@ impl serde::ser::Serialize for DataProfileLocation {
     }
 }
 
+impl std::fmt::Debug for DataProfileLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProfileLocation");
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataProfileLocation].
 pub mod data_profile_location {
     #[allow(unused_imports)]
@@ -46251,7 +48863,7 @@ pub mod data_profile_location {
 /// The generated data profiles are retained according to the
 /// [data retention policy]
 /// (<https://cloud.google.com/sensitive-data-protection/docs/data-profiles#retention>).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryConfig {
     /// Unique resource name for the DiscoveryConfig, assigned by the service when
@@ -46798,13 +49410,40 @@ impl serde::ser::Serialize for DiscoveryConfig {
     }
 }
 
+impl std::fmt::Debug for DiscoveryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("org_config", &self.org_config);
+        debug_struct.field(
+            "other_cloud_starting_location",
+            &self.other_cloud_starting_location,
+        );
+        debug_struct.field("inspect_templates", &self.inspect_templates);
+        debug_struct.field("actions", &self.actions);
+        debug_struct.field("targets", &self.targets);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("last_run_time", &self.last_run_time);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("processing_location", &self.processing_location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiscoveryConfig].
 pub mod discovery_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Project and scan location information. Only set when the parent is an org.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OrgConfig {
         /// The data to scan: folder, org, or project
@@ -46976,6 +49615,19 @@ pub mod discovery_config {
         }
     }
 
+    impl std::fmt::Debug for OrgConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("OrgConfig");
+            debug_struct.field("location", &self.location);
+            debug_struct.field("project_id", &self.project_id);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Whether the discovery config is currently active. New options may be added
     /// at a later time.
     ///
@@ -47111,7 +49763,7 @@ pub mod discovery_config {
 }
 
 /// Target used to match against for Discovery.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryTarget {
     /// A target to match against for Discovery.
@@ -47581,6 +50233,18 @@ impl serde::ser::Serialize for DiscoveryTarget {
     }
 }
 
+impl std::fmt::Debug for DiscoveryTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryTarget");
+        debug_struct.field("target", &self.target);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiscoveryTarget].
 pub mod discovery_target {
     #[allow(unused_imports)]
@@ -47619,7 +50283,7 @@ pub mod discovery_target {
 }
 
 /// Target used to match against for discovery with BigQuery tables
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryDiscoveryTarget {
     /// Required. The tables the discovery cadence applies to. The first target
@@ -47927,6 +50591,20 @@ impl serde::ser::Serialize for BigQueryDiscoveryTarget {
     }
 }
 
+impl std::fmt::Debug for BigQueryDiscoveryTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryDiscoveryTarget");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("frequency", &self.frequency);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BigQueryDiscoveryTarget].
 pub mod big_query_discovery_target {
     #[allow(unused_imports)]
@@ -47950,7 +50628,7 @@ pub mod big_query_discovery_target {
 /// Determines what tables will have profiles generated within an organization
 /// or project. Includes the ability to filter by regular expression patterns
 /// on project ID, dataset ID, and table ID.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryBigQueryFilter {
     /// Whether the filter applies to a specific set of tables or all other tables
@@ -48249,6 +50927,18 @@ impl serde::ser::Serialize for DiscoveryBigQueryFilter {
     }
 }
 
+impl std::fmt::Debug for DiscoveryBigQueryFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryBigQueryFilter");
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiscoveryBigQueryFilter].
 pub mod discovery_big_query_filter {
     #[allow(unused_imports)]
@@ -48257,7 +50947,7 @@ pub mod discovery_big_query_filter {
     /// Catch-all for all other tables not specified by other filters. Should
     /// always be last, except for single-table configurations, which will only
     /// have a TableReference target.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AllOtherBigQueryTables {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -48362,6 +51052,17 @@ pub mod discovery_big_query_filter {
         }
     }
 
+    impl std::fmt::Debug for AllOtherBigQueryTables {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AllOtherBigQueryTables");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Whether the filter applies to a specific set of tables or all other tables
     /// within the location being profiled. The first filter to match will be
     /// applied, regardless of the condition. If none is set, will default to
@@ -48389,7 +51090,7 @@ pub mod discovery_big_query_filter {
 }
 
 /// Specifies a collection of BigQuery tables. Used for Discovery.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryTableCollection {
     /// Maximum of 100 entries.
@@ -48570,6 +51271,18 @@ impl serde::ser::Serialize for BigQueryTableCollection {
     }
 }
 
+impl std::fmt::Debug for BigQueryTableCollection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryTableCollection");
+        debug_struct.field("pattern", &self.pattern);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BigQueryTableCollection].
 pub mod big_query_table_collection {
     #[allow(unused_imports)]
@@ -48590,7 +51303,7 @@ pub mod big_query_table_collection {
 /// Additionally, minimum conditions with an OR relationship that must be met
 /// before Cloud DLP scans a table can be set (like a minimum row count or a
 /// minimum table age).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryBigQueryConditions {
     /// BigQuery table must have been created after this date. Used to avoid
@@ -48898,6 +51611,20 @@ impl serde::ser::Serialize for DiscoveryBigQueryConditions {
     }
 }
 
+impl std::fmt::Debug for DiscoveryBigQueryConditions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryBigQueryConditions");
+        debug_struct.field("created_after", &self.created_after);
+        debug_struct.field("or_conditions", &self.or_conditions);
+        debug_struct.field("included_types", &self.included_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiscoveryBigQueryConditions].
 pub mod discovery_big_query_conditions {
     #[allow(unused_imports)]
@@ -48905,7 +51632,7 @@ pub mod discovery_big_query_conditions {
 
     /// There is an OR relationship between these attributes. They are used to
     /// determine if a table should be scanned or not in Discovery.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OrConditions {
         /// Minimum number of rows that should be present before Cloud DLP
@@ -49095,6 +51822,19 @@ pub mod discovery_big_query_conditions {
         }
     }
 
+    impl std::fmt::Debug for OrConditions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("OrConditions");
+            debug_struct.field("min_row_count", &self.min_row_count);
+            debug_struct.field("min_age", &self.min_age);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The type of BigQuery tables to scan. If nothing is set the default
     /// behavior is to scan only tables of type TABLE and to give errors
     /// for all unsupported tables.
@@ -49112,7 +51852,7 @@ pub mod discovery_big_query_conditions {
 /// frequently it should occur.
 /// New tables are scanned as quickly as possible depending on system
 /// capacity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryGenerationCadence {
     /// Governs when to update data profiles when a schema is modified.
@@ -49373,8 +52113,26 @@ impl serde::ser::Serialize for DiscoveryGenerationCadence {
     }
 }
 
+impl std::fmt::Debug for DiscoveryGenerationCadence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryGenerationCadence");
+        debug_struct.field("schema_modified_cadence", &self.schema_modified_cadence);
+        debug_struct.field("table_modified_cadence", &self.table_modified_cadence);
+        debug_struct.field(
+            "inspect_template_modified_cadence",
+            &self.inspect_template_modified_cadence,
+        );
+        debug_struct.field("refresh_frequency", &self.refresh_frequency);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The cadence at which to update data profiles when a table is modified.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryTableModifiedCadence {
     /// The type of events to consider when deciding if the table has been
@@ -49538,8 +52296,21 @@ impl serde::ser::Serialize for DiscoveryTableModifiedCadence {
     }
 }
 
+impl std::fmt::Debug for DiscoveryTableModifiedCadence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryTableModifiedCadence");
+        debug_struct.field("types", &self.types);
+        debug_struct.field("frequency", &self.frequency);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The cadence at which to update data profiles when a schema is modified.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoverySchemaModifiedCadence {
     /// The type of events to consider when deciding if the table's schema
@@ -49703,9 +52474,22 @@ impl serde::ser::Serialize for DiscoverySchemaModifiedCadence {
     }
 }
 
+impl std::fmt::Debug for DiscoverySchemaModifiedCadence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoverySchemaModifiedCadence");
+        debug_struct.field("types", &self.types);
+        debug_struct.field("frequency", &self.frequency);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The cadence at which to update data profiles when the inspection rules
 /// defined by the `InspectTemplate` change.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryInspectTemplateModifiedCadence {
     /// How frequently data profiles can be updated when the template is modified.
@@ -49837,8 +52621,20 @@ impl serde::ser::Serialize for DiscoveryInspectTemplateModifiedCadence {
     }
 }
 
+impl std::fmt::Debug for DiscoveryInspectTemplateModifiedCadence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryInspectTemplateModifiedCadence");
+        debug_struct.field("frequency", &self.frequency);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Target used to match against for discovery with Cloud SQL tables.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlDiscoveryTarget {
     /// Required. The tables the discovery cadence applies to. The first target
@@ -50141,6 +52937,20 @@ impl serde::ser::Serialize for CloudSqlDiscoveryTarget {
     }
 }
 
+impl std::fmt::Debug for CloudSqlDiscoveryTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlDiscoveryTarget");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("cadence", &self.cadence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CloudSqlDiscoveryTarget].
 pub mod cloud_sql_discovery_target {
     #[allow(unused_imports)]
@@ -50162,7 +52972,7 @@ pub mod cloud_sql_discovery_target {
 /// Determines what tables will have profiles generated within an organization
 /// or project. Includes the ability to filter by regular expression patterns
 /// on project ID, location, instance, database, and database resource name.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryCloudSqlFilter {
     /// Whether the filter applies to a specific set of database resources or all
@@ -50460,6 +53270,18 @@ impl serde::ser::Serialize for DiscoveryCloudSqlFilter {
     }
 }
 
+impl std::fmt::Debug for DiscoveryCloudSqlFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryCloudSqlFilter");
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiscoveryCloudSqlFilter].
 pub mod discovery_cloud_sql_filter {
     #[allow(unused_imports)]
@@ -50487,7 +53309,7 @@ pub mod discovery_cloud_sql_filter {
 
 /// Match database resources using regex filters. Examples of database
 /// resources are tables, views, and stored procedures.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseResourceCollection {
     /// The first filter containing a pattern that matches a database resource will
@@ -50670,6 +53492,18 @@ impl serde::ser::Serialize for DatabaseResourceCollection {
     }
 }
 
+impl std::fmt::Debug for DatabaseResourceCollection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseResourceCollection");
+        debug_struct.field("pattern", &self.pattern);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DatabaseResourceCollection].
 pub mod database_resource_collection {
     #[allow(unused_imports)]
@@ -50687,7 +53521,7 @@ pub mod database_resource_collection {
 
 /// A collection of regular expressions to determine what database resources to
 /// match against.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseResourceRegexes {
     /// A group of regular expression patterns to match against one or more
@@ -50826,11 +53660,23 @@ impl serde::ser::Serialize for DatabaseResourceRegexes {
     }
 }
 
+impl std::fmt::Debug for DatabaseResourceRegexes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseResourceRegexes");
+        debug_struct.field("patterns", &self.patterns);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A pattern to match against one or more database resources. At least one
 /// pattern must be specified. Regular expressions use RE2
 /// [syntax](https://github.com/google/re2/wiki/Syntax); a guide can be found
 /// under the google/re2 repository on GitHub.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseResourceRegex {
     /// For organizations, if unset, will match all projects. Has no effect
@@ -51052,8 +53898,26 @@ impl serde::ser::Serialize for DatabaseResourceRegex {
     }
 }
 
+impl std::fmt::Debug for DatabaseResourceRegex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseResourceRegex");
+        debug_struct.field("project_id_regex", &self.project_id_regex);
+        debug_struct.field("instance_regex", &self.instance_regex);
+        debug_struct.field("database_regex", &self.database_regex);
+        debug_struct.field(
+            "database_resource_name_regex",
+            &self.database_resource_name_regex,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Match database resources not covered by any other filter.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllOtherDatabaseResources {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -51155,8 +54019,19 @@ impl serde::ser::Serialize for AllOtherDatabaseResources {
     }
 }
 
+impl std::fmt::Debug for AllOtherDatabaseResources {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AllOtherDatabaseResources");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identifies a single database resource, like a table within a database.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseResourceReference {
     /// Required. If within a project-level config, then this must match the
@@ -51365,9 +54240,24 @@ impl serde::ser::Serialize for DatabaseResourceReference {
     }
 }
 
+impl std::fmt::Debug for DatabaseResourceReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseResourceReference");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("database_resource", &self.database_resource);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Requirements that must be true before a table is profiled for the
 /// first time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryCloudSqlConditions {
     /// Optional. Database engines that should be profiled.
@@ -51528,6 +54418,19 @@ impl serde::ser::Serialize for DiscoveryCloudSqlConditions {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DiscoveryCloudSqlConditions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryCloudSqlConditions");
+        debug_struct.field("database_engines", &self.database_engines);
+        debug_struct.field("types", &self.types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -51817,7 +54720,7 @@ pub mod discovery_cloud_sql_conditions {
 /// How often existing tables should have their profiles refreshed.
 /// New tables are scanned as quickly as possible depending on system
 /// capacity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryCloudSqlGenerationCadence {
     /// When to reprofile if the schema has changed.
@@ -52046,13 +54949,30 @@ impl serde::ser::Serialize for DiscoveryCloudSqlGenerationCadence {
     }
 }
 
+impl std::fmt::Debug for DiscoveryCloudSqlGenerationCadence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryCloudSqlGenerationCadence");
+        debug_struct.field("schema_modified_cadence", &self.schema_modified_cadence);
+        debug_struct.field("refresh_frequency", &self.refresh_frequency);
+        debug_struct.field(
+            "inspect_template_modified_cadence",
+            &self.inspect_template_modified_cadence,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiscoveryCloudSqlGenerationCadence].
 pub mod discovery_cloud_sql_generation_cadence {
     #[allow(unused_imports)]
     use super::*;
 
     /// How frequently to modify the profile when the table's schema is modified.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SchemaModifiedCadence {
 
@@ -52219,6 +55139,19 @@ pub mod discovery_cloud_sql_generation_cadence {
         }
     }
 
+    impl std::fmt::Debug for SchemaModifiedCadence {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SchemaModifiedCadence");
+            debug_struct.field("types", &self.types);
+            debug_struct.field("frequency", &self.frequency);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [SchemaModifiedCadence].
     pub mod schema_modified_cadence {
         #[allow(unused_imports)]
@@ -52374,7 +55307,7 @@ pub mod discovery_cloud_sql_generation_cadence {
 ///
 /// Credentials and secrets discovered will be reported as vulnerabilities to
 /// Security Command Center.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretsDiscoveryTarget {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -52476,8 +55409,19 @@ impl serde::ser::Serialize for SecretsDiscoveryTarget {
     }
 }
 
+impl std::fmt::Debug for SecretsDiscoveryTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecretsDiscoveryTarget");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Target used to match against for discovery with Cloud Storage buckets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageDiscoveryTarget {
     /// Required. The buckets the generation_cadence applies to. The first target
@@ -52782,6 +55726,20 @@ impl serde::ser::Serialize for CloudStorageDiscoveryTarget {
     }
 }
 
+impl std::fmt::Debug for CloudStorageDiscoveryTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudStorageDiscoveryTarget");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("cadence", &self.cadence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CloudStorageDiscoveryTarget].
 pub mod cloud_storage_discovery_target {
     #[allow(unused_imports)]
@@ -52803,7 +55761,7 @@ pub mod cloud_storage_discovery_target {
 /// Determines which buckets will have profiles generated within an organization
 /// or project. Includes the ability to filter by regular expression patterns
 /// on project ID and bucket name.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryCloudStorageFilter {
     /// Whether the filter applies to a specific set of buckets or all
@@ -53101,6 +56059,18 @@ impl serde::ser::Serialize for DiscoveryCloudStorageFilter {
     }
 }
 
+impl std::fmt::Debug for DiscoveryCloudStorageFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryCloudStorageFilter");
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiscoveryCloudStorageFilter].
 pub mod discovery_cloud_storage_filter {
     #[allow(unused_imports)]
@@ -53129,7 +56099,7 @@ pub mod discovery_cloud_storage_filter {
 }
 
 /// Match file stores (e.g. buckets) using filters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileStoreCollection {
     /// The first filter containing a pattern that matches a file store will be
@@ -53310,6 +56280,18 @@ impl serde::ser::Serialize for FileStoreCollection {
     }
 }
 
+impl std::fmt::Debug for FileStoreCollection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileStoreCollection");
+        debug_struct.field("pattern", &self.pattern);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FileStoreCollection].
 pub mod file_store_collection {
     #[allow(unused_imports)]
@@ -53328,7 +56310,7 @@ pub mod file_store_collection {
 
 /// A collection of regular expressions to determine what file store to match
 /// against.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileStoreRegexes {
     /// Required. The group of regular expression patterns to match against one or
@@ -53466,8 +56448,20 @@ impl serde::ser::Serialize for FileStoreRegexes {
     }
 }
 
+impl std::fmt::Debug for FileStoreRegexes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileStoreRegexes");
+        debug_struct.field("patterns", &self.patterns);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A pattern to match against one or more file stores.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileStoreRegex {
     /// The type of resource regex to use.
@@ -53647,6 +56641,18 @@ impl serde::ser::Serialize for FileStoreRegex {
     }
 }
 
+impl std::fmt::Debug for FileStoreRegex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileStoreRegex");
+        debug_struct.field("resource_regex", &self.resource_regex);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FileStoreRegex].
 pub mod file_store_regex {
     #[allow(unused_imports)]
@@ -53665,7 +56671,7 @@ pub mod file_store_regex {
 /// pattern must be specified. Regular expressions use RE2
 /// [syntax](https://github.com/google/re2/wiki/Syntax); a guide can be found
 /// under the google/re2 repository on GitHub.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageRegex {
     /// Optional. For organizations, if unset, will match all projects.
@@ -53828,8 +56834,21 @@ impl serde::ser::Serialize for CloudStorageRegex {
     }
 }
 
+impl std::fmt::Debug for CloudStorageRegex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudStorageRegex");
+        debug_struct.field("project_id_regex", &self.project_id_regex);
+        debug_struct.field("bucket_name_regex", &self.bucket_name_regex);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identifies a single Cloud Storage bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageResourceReference {
     /// Required. The bucket to scan.
@@ -53985,10 +57004,23 @@ impl serde::ser::Serialize for CloudStorageResourceReference {
     }
 }
 
+impl std::fmt::Debug for CloudStorageResourceReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudStorageResourceReference");
+        debug_struct.field("bucket_name", &self.bucket_name);
+        debug_struct.field("project_id", &self.project_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// How often existing buckets should have their profiles refreshed.
 /// New buckets are scanned as quickly as possible depending on system
 /// capacity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryCloudStorageGenerationCadence {
     /// Optional. Data changes in Cloud Storage can't trigger reprofiling. If you
@@ -54175,10 +57207,26 @@ impl serde::ser::Serialize for DiscoveryCloudStorageGenerationCadence {
     }
 }
 
+impl std::fmt::Debug for DiscoveryCloudStorageGenerationCadence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryCloudStorageGenerationCadence");
+        debug_struct.field("refresh_frequency", &self.refresh_frequency);
+        debug_struct.field(
+            "inspect_template_modified_cadence",
+            &self.inspect_template_modified_cadence,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Requirements that must be true before a Cloud Storage bucket or object is
 /// scanned in discovery for the first time. There is an AND relationship between
 /// the top-level attributes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryCloudStorageConditions {
     /// Required. Only objects with the specified attributes will be scanned. If an
@@ -54357,6 +57405,25 @@ impl serde::ser::Serialize for DiscoveryCloudStorageConditions {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DiscoveryCloudStorageConditions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryCloudStorageConditions");
+        debug_struct.field(
+            "included_object_attributes",
+            &self.included_object_attributes,
+        );
+        debug_struct.field(
+            "included_bucket_attributes",
+            &self.included_bucket_attributes,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -54697,7 +57764,7 @@ pub mod discovery_cloud_storage_conditions {
 /// Requirements that must be true before a file store is scanned in discovery
 /// for the first time. There is an AND relationship between the top-level
 /// attributes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryFileStoreConditions {
     /// Optional. File store must have been created after this date. Used to avoid
@@ -54954,6 +58021,20 @@ impl serde::ser::Serialize for DiscoveryFileStoreConditions {
     }
 }
 
+impl std::fmt::Debug for DiscoveryFileStoreConditions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryFileStoreConditions");
+        debug_struct.field("created_after", &self.created_after);
+        debug_struct.field("min_age", &self.min_age);
+        debug_struct.field("conditions", &self.conditions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiscoveryFileStoreConditions].
 pub mod discovery_file_store_conditions {
     #[allow(unused_imports)]
@@ -54972,7 +58053,7 @@ pub mod discovery_file_store_conditions {
 /// An [AWS connector in Security Command Center
 /// (Enterprise](https://cloud.google.com/security-command-center/docs/connect-scc-to-aws)
 /// is required to use this feature.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OtherCloudDiscoveryTarget {
     /// Required. The type of data profiles generated by this discovery target.
@@ -55319,6 +58400,21 @@ impl serde::ser::Serialize for OtherCloudDiscoveryTarget {
     }
 }
 
+impl std::fmt::Debug for OtherCloudDiscoveryTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OtherCloudDiscoveryTarget");
+        debug_struct.field("data_source_type", &self.data_source_type);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("cadence", &self.cadence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OtherCloudDiscoveryTarget].
 pub mod other_cloud_discovery_target {
     #[allow(unused_imports)]
@@ -55339,7 +58435,7 @@ pub mod other_cloud_discovery_target {
 
 /// Determines which resources from the other cloud will have profiles generated.
 /// Includes the ability to filter by resource names.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryOtherCloudFilter {
     /// Whether the filter applies to a specific set of resources or all
@@ -55634,6 +58730,18 @@ impl serde::ser::Serialize for DiscoveryOtherCloudFilter {
     }
 }
 
+impl std::fmt::Debug for DiscoveryOtherCloudFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryOtherCloudFilter");
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiscoveryOtherCloudFilter].
 pub mod discovery_other_cloud_filter {
     #[allow(unused_imports)]
@@ -55659,7 +58767,7 @@ pub mod discovery_other_cloud_filter {
 }
 
 /// Match resources using regex filters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OtherCloudResourceCollection {
     /// The first filter containing a pattern that matches a resource will be used.
@@ -55838,6 +58946,18 @@ impl serde::ser::Serialize for OtherCloudResourceCollection {
     }
 }
 
+impl std::fmt::Debug for OtherCloudResourceCollection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OtherCloudResourceCollection");
+        debug_struct.field("pattern", &self.pattern);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OtherCloudResourceCollection].
 pub mod other_cloud_resource_collection {
     #[allow(unused_imports)]
@@ -55854,7 +58974,7 @@ pub mod other_cloud_resource_collection {
 
 /// A collection of regular expressions to determine what resources to match
 /// against.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OtherCloudResourceRegexes {
     /// A group of regular expression patterns to match against one or more
@@ -55993,11 +59113,23 @@ impl serde::ser::Serialize for OtherCloudResourceRegexes {
     }
 }
 
+impl std::fmt::Debug for OtherCloudResourceRegexes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OtherCloudResourceRegexes");
+        debug_struct.field("patterns", &self.patterns);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A pattern to match against one or more resources. At least one pattern must
 /// be specified. Regular expressions use RE2
 /// [syntax](https://github.com/google/re2/wiki/Syntax); a guide can be found
 /// under the google/re2 repository on GitHub.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OtherCloudResourceRegex {
     /// The type of resource regex to use.
@@ -56177,6 +59309,18 @@ impl serde::ser::Serialize for OtherCloudResourceRegex {
     }
 }
 
+impl std::fmt::Debug for OtherCloudResourceRegex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OtherCloudResourceRegex");
+        debug_struct.field("resource_regex", &self.resource_regex);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OtherCloudResourceRegex].
 pub mod other_cloud_resource_regex {
     #[allow(unused_imports)]
@@ -56192,7 +59336,7 @@ pub mod other_cloud_resource_regex {
 }
 
 /// AWS account regex.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsAccountRegex {
     /// Optional. Regex to test the AWS account ID against.
@@ -56326,8 +59470,20 @@ impl serde::ser::Serialize for AwsAccountRegex {
     }
 }
 
+impl std::fmt::Debug for AwsAccountRegex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsAccountRegex");
+        debug_struct.field("account_id_regex", &self.account_id_regex);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Amazon S3 bucket regex.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AmazonS3BucketRegex {
     /// The AWS account regex.
@@ -56498,8 +59654,21 @@ impl serde::ser::Serialize for AmazonS3BucketRegex {
     }
 }
 
+impl std::fmt::Debug for AmazonS3BucketRegex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AmazonS3BucketRegex");
+        debug_struct.field("aws_account_regex", &self.aws_account_regex);
+        debug_struct.field("bucket_name_regex", &self.bucket_name_regex);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identifies a single resource, like a single Amazon S3 bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OtherCloudSingleResourceReference {
     /// The resource to scan.
@@ -56679,6 +59848,18 @@ impl serde::ser::Serialize for OtherCloudSingleResourceReference {
     }
 }
 
+impl std::fmt::Debug for OtherCloudSingleResourceReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OtherCloudSingleResourceReference");
+        debug_struct.field("resource", &self.resource);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OtherCloudSingleResourceReference].
 pub mod other_cloud_single_resource_reference {
     #[allow(unused_imports)]
@@ -56694,7 +59875,7 @@ pub mod other_cloud_single_resource_reference {
 }
 
 /// AWS account.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsAccount {
     /// Required. AWS account ID.
@@ -56824,8 +60005,20 @@ impl serde::ser::Serialize for AwsAccount {
     }
 }
 
+impl std::fmt::Debug for AwsAccount {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsAccount");
+        debug_struct.field("account_id", &self.account_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Amazon S3 bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AmazonS3Bucket {
     /// The AWS account.
@@ -56991,9 +60184,22 @@ impl serde::ser::Serialize for AmazonS3Bucket {
     }
 }
 
+impl std::fmt::Debug for AmazonS3Bucket {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AmazonS3Bucket");
+        debug_struct.field("aws_account", &self.aws_account);
+        debug_struct.field("bucket_name", &self.bucket_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Requirements that must be true before a resource is profiled for the first
 /// time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryOtherCloudConditions {
     /// Minimum age a resource must be before Cloud DLP can profile it. Value must
@@ -57213,6 +60419,19 @@ impl serde::ser::Serialize for DiscoveryOtherCloudConditions {
     }
 }
 
+impl std::fmt::Debug for DiscoveryOtherCloudConditions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryOtherCloudConditions");
+        debug_struct.field("min_age", &self.min_age);
+        debug_struct.field("conditions", &self.conditions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiscoveryOtherCloudConditions].
 pub mod discovery_other_cloud_conditions {
     #[allow(unused_imports)]
@@ -57228,7 +60447,7 @@ pub mod discovery_other_cloud_conditions {
 }
 
 /// Amazon S3 bucket conditions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AmazonS3BucketConditions {
     /// Optional. Bucket types that should be profiled.
@@ -57395,6 +60614,19 @@ impl serde::ser::Serialize for AmazonS3BucketConditions {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AmazonS3BucketConditions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AmazonS3BucketConditions");
+        debug_struct.field("bucket_types", &self.bucket_types);
+        debug_struct.field("object_storage_classes", &self.object_storage_classes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -57698,7 +60930,7 @@ pub mod amazon_s_3_bucket_conditions {
 /// How often existing resources should have their profiles refreshed.
 /// New resources are scanned as quickly as possible depending on system
 /// capacity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryOtherCloudGenerationCadence {
     /// Optional. Frequency to update profiles regardless of whether the underlying
@@ -57883,9 +61115,25 @@ impl serde::ser::Serialize for DiscoveryOtherCloudGenerationCadence {
     }
 }
 
+impl std::fmt::Debug for DiscoveryOtherCloudGenerationCadence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryOtherCloudGenerationCadence");
+        debug_struct.field("refresh_frequency", &self.refresh_frequency);
+        debug_struct.field(
+            "inspect_template_modified_cadence",
+            &self.inspect_template_modified_cadence,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The location to begin a discovery scan. Denotes an organization ID or folder
 /// ID within an organization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryStartingLocation {
     /// The location to be scanned.
@@ -58145,6 +61393,18 @@ impl serde::ser::Serialize for DiscoveryStartingLocation {
     }
 }
 
+impl std::fmt::Debug for DiscoveryStartingLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryStartingLocation");
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiscoveryStartingLocation].
 pub mod discovery_starting_location {
     #[allow(unused_imports)]
@@ -58162,7 +61422,7 @@ pub mod discovery_starting_location {
 }
 
 /// The other cloud starting location for discovery.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OtherCloudDiscoveryStartingLocation {
     /// The other cloud starting location for discovery.
@@ -58343,13 +61603,25 @@ impl serde::ser::Serialize for OtherCloudDiscoveryStartingLocation {
     }
 }
 
+impl std::fmt::Debug for OtherCloudDiscoveryStartingLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OtherCloudDiscoveryStartingLocation");
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OtherCloudDiscoveryStartingLocation].
 pub mod other_cloud_discovery_starting_location {
     #[allow(unused_imports)]
     use super::*;
 
     /// The AWS starting location for discovery.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AwsDiscoveryStartingLocation {
 
@@ -58571,6 +61843,18 @@ pub mod other_cloud_discovery_starting_location {
         }
     }
 
+    impl std::fmt::Debug for AwsDiscoveryStartingLocation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AwsDiscoveryStartingLocation");
+            debug_struct.field("scope", &self.scope);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [AwsDiscoveryStartingLocation].
     pub mod aws_discovery_starting_location {
         #[allow(unused_imports)]
@@ -58605,7 +61889,7 @@ pub mod other_cloud_discovery_starting_location {
 }
 
 /// Match discovery resources not covered by any other filter.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllOtherResources {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -58707,8 +61991,19 @@ impl serde::ser::Serialize for AllOtherResources {
     }
 }
 
+impl std::fmt::Debug for AllOtherResources {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AllOtherResources");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Target used to match against for discovery with Vertex AI datasets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VertexDatasetDiscoveryTarget {
     /// Required. The datasets the discovery cadence applies to. The first target
@@ -59014,6 +62309,20 @@ impl serde::ser::Serialize for VertexDatasetDiscoveryTarget {
     }
 }
 
+impl std::fmt::Debug for VertexDatasetDiscoveryTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VertexDatasetDiscoveryTarget");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("cadence", &self.cadence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VertexDatasetDiscoveryTarget].
 pub mod vertex_dataset_discovery_target {
     #[allow(unused_imports)]
@@ -59035,7 +62344,7 @@ pub mod vertex_dataset_discovery_target {
 /// Determines what datasets will have profiles generated within an organization
 /// or project. Includes the ability to filter by regular expression patterns
 /// on project ID or dataset regex.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryVertexDatasetFilter {
     /// Whether the filter applies to a specific set of datasets or all
@@ -59331,6 +62640,18 @@ impl serde::ser::Serialize for DiscoveryVertexDatasetFilter {
     }
 }
 
+impl std::fmt::Debug for DiscoveryVertexDatasetFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryVertexDatasetFilter");
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiscoveryVertexDatasetFilter].
 pub mod discovery_vertex_dataset_filter {
     #[allow(unused_imports)]
@@ -59359,7 +62680,7 @@ pub mod discovery_vertex_dataset_filter {
 }
 
 /// Match dataset resources using regex filters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VertexDatasetCollection {
     /// The pattern used to filter dataset resources.
@@ -59536,6 +62857,18 @@ impl serde::ser::Serialize for VertexDatasetCollection {
     }
 }
 
+impl std::fmt::Debug for VertexDatasetCollection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VertexDatasetCollection");
+        debug_struct.field("pattern", &self.pattern);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VertexDatasetCollection].
 pub mod vertex_dataset_collection {
     #[allow(unused_imports)]
@@ -59552,7 +62885,7 @@ pub mod vertex_dataset_collection {
 
 /// A collection of regular expressions to determine what datasets to match
 /// against.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VertexDatasetRegexes {
     /// Required. The group of regular expression patterns to match against one or
@@ -59690,8 +63023,20 @@ impl serde::ser::Serialize for VertexDatasetRegexes {
     }
 }
 
+impl std::fmt::Debug for VertexDatasetRegexes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VertexDatasetRegexes");
+        debug_struct.field("patterns", &self.patterns);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A pattern to match against one or more dataset resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VertexDatasetRegex {
     /// For organizations, if unset, will match all projects. Has no effect
@@ -59825,8 +63170,20 @@ impl serde::ser::Serialize for VertexDatasetRegex {
     }
 }
 
+impl std::fmt::Debug for VertexDatasetRegex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VertexDatasetRegex");
+        debug_struct.field("project_id_regex", &self.project_id_regex);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identifies a single Vertex AI dataset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VertexDatasetResourceReference {
     /// Required. The name of the dataset resource. If set within a project-level
@@ -59960,9 +63317,21 @@ impl serde::ser::Serialize for VertexDatasetResourceReference {
     }
 }
 
+impl std::fmt::Debug for VertexDatasetResourceReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VertexDatasetResourceReference");
+        debug_struct.field("dataset_resource_name", &self.dataset_resource_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Requirements that must be true before a dataset is profiled for the
 /// first time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryVertexDatasetConditions {
     /// Vertex AI dataset must have been created after this date. Used to avoid
@@ -60141,10 +63510,23 @@ impl serde::ser::Serialize for DiscoveryVertexDatasetConditions {
     }
 }
 
+impl std::fmt::Debug for DiscoveryVertexDatasetConditions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryVertexDatasetConditions");
+        debug_struct.field("created_after", &self.created_after);
+        debug_struct.field("min_age", &self.min_age);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// How often existing datasets should have their profiles refreshed.
 /// New datasets are scanned as quickly as possible depending on system
 /// capacity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryVertexDatasetGenerationCadence {
     /// If you set this field, profiles are refreshed at this
@@ -60332,8 +63714,24 @@ impl serde::ser::Serialize for DiscoveryVertexDatasetGenerationCadence {
     }
 }
 
+impl std::fmt::Debug for DiscoveryVertexDatasetGenerationCadence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveryVertexDatasetGenerationCadence");
+        debug_struct.field("refresh_frequency", &self.refresh_frequency);
+        debug_struct.field(
+            "inspect_template_modified_cadence",
+            &self.inspect_template_modified_cadence,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Combines all of the information about a DLP job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DlpJob {
     /// The server-assigned name.
@@ -60869,6 +64267,28 @@ impl serde::ser::Serialize for DlpJob {
     }
 }
 
+impl std::fmt::Debug for DlpJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DlpJob");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("last_modified", &self.last_modified);
+        debug_struct.field("job_trigger_name", &self.job_trigger_name);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("action_details", &self.action_details);
+        debug_struct.field("details", &self.details);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DlpJob].
 pub mod dlp_job {
     #[allow(unused_imports)]
@@ -61053,7 +64473,7 @@ pub mod dlp_job {
 /// [GetDlpJob][google.privacy.dlp.v2.DlpService.GetDlpJob].
 ///
 /// [google.privacy.dlp.v2.DlpService.GetDlpJob]: crate::client::DlpService::get_dlp_job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDlpJobRequest {
     /// Required. The name of the DlpJob resource.
@@ -61182,8 +64602,20 @@ impl serde::ser::Serialize for GetDlpJobRequest {
     }
 }
 
+impl std::fmt::Debug for GetDlpJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDlpJobRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for listing DLP jobs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDlpJobsRequest {
     /// Required. Parent resource name.
@@ -61534,8 +64966,26 @@ impl serde::ser::Serialize for ListDlpJobsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDlpJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDlpJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for listing DLP jobs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDlpJobsResponse {
     /// A list of DlpJobs that matches the specified filter in the request.
@@ -61706,8 +65156,21 @@ impl serde::ser::Serialize for ListDlpJobsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDlpJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDlpJobsResponse");
+        debug_struct.field("jobs", &self.jobs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for canceling a DLP job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelDlpJobRequest {
     /// Required. The name of the DlpJob resource to be cancelled.
@@ -61836,8 +65299,20 @@ impl serde::ser::Serialize for CancelDlpJobRequest {
     }
 }
 
+impl std::fmt::Debug for CancelDlpJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelDlpJobRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for finishing a DLP hybrid job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FinishDlpJobRequest {
     /// Required. The name of the DlpJob resource to be finished.
@@ -61966,8 +65441,20 @@ impl serde::ser::Serialize for FinishDlpJobRequest {
     }
 }
 
+impl std::fmt::Debug for FinishDlpJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FinishDlpJobRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for deleting a DLP job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDlpJobRequest {
     /// Required. The name of the DlpJob resource to be deleted.
@@ -62096,8 +65583,20 @@ impl serde::ser::Serialize for DeleteDlpJobRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDlpJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDlpJobRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateDeidentifyTemplate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDeidentifyTemplateRequest {
     /// Required. Parent resource name.
@@ -62336,8 +65835,23 @@ impl serde::ser::Serialize for CreateDeidentifyTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDeidentifyTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDeidentifyTemplateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("deidentify_template", &self.deidentify_template);
+        debug_struct.field("template_id", &self.template_id);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateDeidentifyTemplate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDeidentifyTemplateRequest {
     /// Required. Resource name of organization and deidentify template to be
@@ -62541,8 +66055,22 @@ impl serde::ser::Serialize for UpdateDeidentifyTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDeidentifyTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDeidentifyTemplateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("deidentify_template", &self.deidentify_template);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetDeidentifyTemplate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDeidentifyTemplateRequest {
     /// Required. Resource name of the organization and deidentify template to be
@@ -62673,8 +66201,20 @@ impl serde::ser::Serialize for GetDeidentifyTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for GetDeidentifyTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDeidentifyTemplateRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListDeidentifyTemplates.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeidentifyTemplatesRequest {
     /// Required. Parent resource name.
@@ -62956,8 +66496,24 @@ impl serde::ser::Serialize for ListDeidentifyTemplatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListDeidentifyTemplatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeidentifyTemplatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListDeidentifyTemplates.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeidentifyTemplatesResponse {
     /// List of deidentify templates, up to page_size in
@@ -63135,8 +66691,21 @@ impl serde::ser::Serialize for ListDeidentifyTemplatesResponse {
     }
 }
 
+impl std::fmt::Debug for ListDeidentifyTemplatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeidentifyTemplatesResponse");
+        debug_struct.field("deidentify_templates", &self.deidentify_templates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteDeidentifyTemplate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDeidentifyTemplateRequest {
     /// Required. Resource name of the organization and deidentify template to be
@@ -63268,13 +66837,25 @@ impl serde::ser::Serialize for DeleteDeidentifyTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDeidentifyTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDeidentifyTemplateRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for a custom dictionary created from a data source of any size
 /// up to the maximum size defined in the
 /// [limits](https://cloud.google.com/sensitive-data-protection/limits) page. The
 /// artifacts of dictionary creation are stored in the specified Cloud Storage
 /// location. Consider using `CustomInfoType.Dictionary` for smaller dictionaries
 /// that satisfy the size requirements.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LargeCustomDictionaryConfig {
     /// Location to store dictionary artifacts in Cloud Storage. These files
@@ -63551,6 +67132,19 @@ impl serde::ser::Serialize for LargeCustomDictionaryConfig {
     }
 }
 
+impl std::fmt::Debug for LargeCustomDictionaryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LargeCustomDictionaryConfig");
+        debug_struct.field("output_path", &self.output_path);
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LargeCustomDictionaryConfig].
 pub mod large_custom_dictionary_config {
     #[allow(unused_imports)]
@@ -63568,7 +67162,7 @@ pub mod large_custom_dictionary_config {
 }
 
 /// Summary statistics of a custom dictionary.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LargeCustomDictionaryStats {
     /// Approximate number of distinct phrases in the dictionary.
@@ -63717,10 +67311,22 @@ impl serde::ser::Serialize for LargeCustomDictionaryStats {
     }
 }
 
+impl std::fmt::Debug for LargeCustomDictionaryStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LargeCustomDictionaryStats");
+        debug_struct.field("approx_num_phrases", &self.approx_num_phrases);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for stored infoTypes. All fields and subfield are provided
 /// by the user. For more information, see
 /// <https://cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes>.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StoredInfoTypeConfig {
     /// Display name of the StoredInfoType (max 256 characters).
@@ -64060,6 +67666,20 @@ impl serde::ser::Serialize for StoredInfoTypeConfig {
     }
 }
 
+impl std::fmt::Debug for StoredInfoTypeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StoredInfoTypeConfig");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StoredInfoTypeConfig].
 pub mod stored_info_type_config {
     #[allow(unused_imports)]
@@ -64079,7 +67699,7 @@ pub mod stored_info_type_config {
 }
 
 /// Statistics for a StoredInfoType.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StoredInfoTypeStats {
     /// Stat types
@@ -64259,6 +67879,18 @@ impl serde::ser::Serialize for StoredInfoTypeStats {
     }
 }
 
+impl std::fmt::Debug for StoredInfoTypeStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StoredInfoTypeStats");
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StoredInfoTypeStats].
 pub mod stored_info_type_stats {
     #[allow(unused_imports)]
@@ -64275,7 +67907,7 @@ pub mod stored_info_type_stats {
 
 /// Version of a StoredInfoType, including the configuration used to build it,
 /// create timestamp, and current state.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StoredInfoTypeVersion {
     /// StoredInfoType configuration.
@@ -64552,9 +68184,25 @@ impl serde::ser::Serialize for StoredInfoTypeVersion {
     }
 }
 
+impl std::fmt::Debug for StoredInfoTypeVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StoredInfoTypeVersion");
+        debug_struct.field("config", &self.config);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("stats", &self.stats);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// StoredInfoType resource message that contains information about the current
 /// version and any pending updates.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StoredInfoType {
     /// Resource name.
@@ -64752,8 +68400,22 @@ impl serde::ser::Serialize for StoredInfoType {
     }
 }
 
+impl std::fmt::Debug for StoredInfoType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StoredInfoType");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("current_version", &self.current_version);
+        debug_struct.field("pending_versions", &self.pending_versions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateStoredInfoType.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateStoredInfoTypeRequest {
     /// Required. Parent resource name.
@@ -64994,8 +68656,23 @@ impl serde::ser::Serialize for CreateStoredInfoTypeRequest {
     }
 }
 
+impl std::fmt::Debug for CreateStoredInfoTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateStoredInfoTypeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("stored_info_type_id", &self.stored_info_type_id);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateStoredInfoType.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateStoredInfoTypeRequest {
     /// Required. Resource name of organization and storedInfoType to be updated,
@@ -65199,8 +68876,22 @@ impl serde::ser::Serialize for UpdateStoredInfoTypeRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateStoredInfoTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateStoredInfoTypeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetStoredInfoType.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetStoredInfoTypeRequest {
     /// Required. Resource name of the organization and storedInfoType to be read,
@@ -65331,8 +69022,20 @@ impl serde::ser::Serialize for GetStoredInfoTypeRequest {
     }
 }
 
+impl std::fmt::Debug for GetStoredInfoTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetStoredInfoTypeRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListStoredInfoTypes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListStoredInfoTypesRequest {
     /// Required. Parent resource name.
@@ -65611,8 +69314,24 @@ impl serde::ser::Serialize for ListStoredInfoTypesRequest {
     }
 }
 
+impl std::fmt::Debug for ListStoredInfoTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListStoredInfoTypesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("location_id", &self.location_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListStoredInfoTypes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListStoredInfoTypesResponse {
     /// List of storedInfoTypes, up to page_size in ListStoredInfoTypesRequest.
@@ -65789,8 +69508,21 @@ impl serde::ser::Serialize for ListStoredInfoTypesResponse {
     }
 }
 
+impl std::fmt::Debug for ListStoredInfoTypesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListStoredInfoTypesResponse");
+        debug_struct.field("stored_info_types", &self.stored_info_types);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteStoredInfoType.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteStoredInfoTypeRequest {
     /// Required. Resource name of the organization and storedInfoType to be
@@ -65921,8 +69653,20 @@ impl serde::ser::Serialize for DeleteStoredInfoTypeRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteStoredInfoTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteStoredInfoTypeRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to search for potentially sensitive info in a custom location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HybridInspectJobTriggerRequest {
     /// Required. Resource name of the trigger to execute a hybrid inspect on, for
@@ -66089,8 +69833,21 @@ impl serde::ser::Serialize for HybridInspectJobTriggerRequest {
     }
 }
 
+impl std::fmt::Debug for HybridInspectJobTriggerRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HybridInspectJobTriggerRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("hybrid_item", &self.hybrid_item);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to search for potentially sensitive info in a custom location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HybridInspectDlpJobRequest {
     /// Required. Resource name of the job to execute a hybrid inspect on, for
@@ -66257,9 +70014,22 @@ impl serde::ser::Serialize for HybridInspectDlpJobRequest {
     }
 }
 
+impl std::fmt::Debug for HybridInspectDlpJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HybridInspectDlpJobRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("hybrid_item", &self.hybrid_item);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An individual hybrid item to inspect. Will be stored temporarily during
 /// processing.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HybridContentItem {
     /// The item to inspect.
@@ -66435,8 +70205,21 @@ impl serde::ser::Serialize for HybridContentItem {
     }
 }
 
+impl std::fmt::Debug for HybridContentItem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HybridContentItem");
+        debug_struct.field("item", &self.item);
+        debug_struct.field("finding_details", &self.finding_details);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Populate to associate additional data with each finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HybridFindingDetails {
     /// Details about the container where the content being inspected is from.
@@ -66759,8 +70542,24 @@ impl serde::ser::Serialize for HybridFindingDetails {
     }
 }
 
+impl std::fmt::Debug for HybridFindingDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HybridFindingDetails");
+        debug_struct.field("container_details", &self.container_details);
+        debug_struct.field("file_offset", &self.file_offset);
+        debug_struct.field("row_offset", &self.row_offset);
+        debug_struct.field("table_options", &self.table_options);
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Quota exceeded errors will be thrown once quota has been met.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HybridInspectResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -66862,8 +70661,19 @@ impl serde::ser::Serialize for HybridInspectResponse {
     }
 }
 
+impl std::fmt::Debug for HybridInspectResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HybridInspectResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to list the profiles generated for a given organization or project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProjectDataProfilesRequest {
     /// Required. organizations/{org_id}/locations/{loc_id}
@@ -67146,8 +70956,24 @@ impl serde::ser::Serialize for ListProjectDataProfilesRequest {
     }
 }
 
+impl std::fmt::Debug for ListProjectDataProfilesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProjectDataProfilesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List of profiles generated for a given organization or project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProjectDataProfilesResponse {
     /// List of data profiles.
@@ -67323,8 +71149,21 @@ impl serde::ser::Serialize for ListProjectDataProfilesResponse {
     }
 }
 
+impl std::fmt::Debug for ListProjectDataProfilesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProjectDataProfilesResponse");
+        debug_struct.field("project_data_profiles", &self.project_data_profiles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to list the profiles generated for a given organization or project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTableDataProfilesRequest {
     /// Required. Resource name of the organization or project, for
@@ -67620,8 +71459,24 @@ impl serde::ser::Serialize for ListTableDataProfilesRequest {
     }
 }
 
+impl std::fmt::Debug for ListTableDataProfilesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTableDataProfilesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List of profiles generated for a given organization or project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTableDataProfilesResponse {
     /// List of data profiles.
@@ -67797,8 +71652,21 @@ impl serde::ser::Serialize for ListTableDataProfilesResponse {
     }
 }
 
+impl std::fmt::Debug for ListTableDataProfilesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTableDataProfilesResponse");
+        debug_struct.field("table_data_profiles", &self.table_data_profiles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to list the profiles generated for a given organization or project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListColumnDataProfilesRequest {
     /// Required. Resource name of the organization or project, for
@@ -68095,8 +71963,24 @@ impl serde::ser::Serialize for ListColumnDataProfilesRequest {
     }
 }
 
+impl std::fmt::Debug for ListColumnDataProfilesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListColumnDataProfilesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List of profiles generated for a given organization or project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListColumnDataProfilesResponse {
     /// List of data profiles.
@@ -68272,9 +72156,22 @@ impl serde::ser::Serialize for ListColumnDataProfilesResponse {
     }
 }
 
+impl std::fmt::Debug for ListColumnDataProfilesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListColumnDataProfilesResponse");
+        debug_struct.field("column_data_profiles", &self.column_data_profiles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Score is a summary of all elements in the data profile.
 /// A higher number means more risk.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataRiskLevel {
     /// The score applied to the resource.
@@ -68405,6 +72302,18 @@ impl serde::ser::Serialize for DataRiskLevel {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DataRiskLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataRiskLevel");
+        debug_struct.field("score", &self.score);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -68568,7 +72477,7 @@ pub mod data_risk_level {
 
 /// An aggregated profile for this project, based on the resources profiled
 /// within it.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProjectDataProfile {
     /// The resource name of the profile.
@@ -68967,8 +72876,30 @@ impl serde::ser::Serialize for ProjectDataProfile {
     }
 }
 
+impl std::fmt::Debug for ProjectDataProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProjectDataProfile");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("profile_last_generated", &self.profile_last_generated);
+        debug_struct.field("sensitivity_score", &self.sensitivity_score);
+        debug_struct.field("data_risk_level", &self.data_risk_level);
+        debug_struct.field("profile_status", &self.profile_status);
+        debug_struct.field("table_data_profile_count", &self.table_data_profile_count);
+        debug_struct.field(
+            "file_store_data_profile_count",
+            &self.file_store_data_profile_count,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Snapshot of the configurations used to generate the profile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProfileConfigSnapshot {
     /// A copy of the inspection config used to generate this profile. This
@@ -69264,8 +73195,27 @@ impl serde::ser::Serialize for DataProfileConfigSnapshot {
     }
 }
 
+impl std::fmt::Debug for DataProfileConfigSnapshot {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProfileConfigSnapshot");
+        debug_struct.field("inspect_config", &self.inspect_config);
+        debug_struct.field("data_profile_job", &self.data_profile_job);
+        debug_struct.field("discovery_config", &self.discovery_config);
+        debug_struct.field("inspect_template_name", &self.inspect_template_name);
+        debug_struct.field(
+            "inspect_template_modified_time",
+            &self.inspect_template_modified_time,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The profile for a scanned table.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableDataProfile {
     /// The name of the profile.
@@ -70337,6 +74287,46 @@ impl serde::ser::Serialize for TableDataProfile {
     }
 }
 
+impl std::fmt::Debug for TableDataProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableDataProfile");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data_source_type", &self.data_source_type);
+        debug_struct.field("project_data_profile", &self.project_data_profile);
+        debug_struct.field("dataset_project_id", &self.dataset_project_id);
+        debug_struct.field("dataset_location", &self.dataset_location);
+        debug_struct.field("dataset_id", &self.dataset_id);
+        debug_struct.field("table_id", &self.table_id);
+        debug_struct.field("full_resource", &self.full_resource);
+        debug_struct.field("profile_status", &self.profile_status);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("sensitivity_score", &self.sensitivity_score);
+        debug_struct.field("data_risk_level", &self.data_risk_level);
+        debug_struct.field("predicted_info_types", &self.predicted_info_types);
+        debug_struct.field("other_info_types", &self.other_info_types);
+        debug_struct.field("config_snapshot", &self.config_snapshot);
+        debug_struct.field("last_modified_time", &self.last_modified_time);
+        debug_struct.field("expiration_time", &self.expiration_time);
+        debug_struct.field("scanned_column_count", &self.scanned_column_count);
+        debug_struct.field("failed_column_count", &self.failed_column_count);
+        debug_struct.field("table_size_bytes", &self.table_size_bytes);
+        debug_struct.field("row_count", &self.row_count);
+        debug_struct.field("encryption_status", &self.encryption_status);
+        debug_struct.field("resource_visibility", &self.resource_visibility);
+        debug_struct.field("profile_last_generated", &self.profile_last_generated);
+        debug_struct.field("resource_labels", &self.resource_labels);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("sample_findings_table", &self.sample_findings_table);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("related_resources", &self.related_resources);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TableDataProfile].
 pub mod table_data_profile {
     #[allow(unused_imports)]
@@ -70479,7 +74469,7 @@ pub mod table_data_profile {
 }
 
 /// Success or errors for the profile generation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProfileStatus {
     /// Profiling status code and optional message. The `status.code` value is 0
@@ -70655,8 +74645,21 @@ impl serde::ser::Serialize for ProfileStatus {
     }
 }
 
+impl std::fmt::Debug for ProfileStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProfileStatus");
+        debug_struct.field("status", &self.status);
+        debug_struct.field("timestamp", &self.timestamp);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The infoType details for this column.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InfoTypeSummary {
     /// The infoType.
@@ -70843,8 +74846,21 @@ impl serde::ser::Serialize for InfoTypeSummary {
     }
 }
 
+impl std::fmt::Debug for InfoTypeSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InfoTypeSummary");
+        debug_struct.field("info_type", &self.info_type);
+        debug_struct.field("estimated_prevalence", &self.estimated_prevalence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Infotype details for other infoTypes found within a column.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OtherInfoTypeSummary {
     /// The other infoType.
@@ -71056,8 +75072,22 @@ impl serde::ser::Serialize for OtherInfoTypeSummary {
     }
 }
 
+impl std::fmt::Debug for OtherInfoTypeSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OtherInfoTypeSummary");
+        debug_struct.field("info_type", &self.info_type);
+        debug_struct.field("estimated_prevalence", &self.estimated_prevalence);
+        debug_struct.field("excluded_from_analysis", &self.excluded_from_analysis);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The profile for a scanned column within a table.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ColumnDataProfile {
     /// The name of the profile.
@@ -71791,6 +75821,40 @@ impl serde::ser::Serialize for ColumnDataProfile {
     }
 }
 
+impl std::fmt::Debug for ColumnDataProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnDataProfile");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("profile_status", &self.profile_status);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("profile_last_generated", &self.profile_last_generated);
+        debug_struct.field("table_data_profile", &self.table_data_profile);
+        debug_struct.field("table_full_resource", &self.table_full_resource);
+        debug_struct.field("dataset_project_id", &self.dataset_project_id);
+        debug_struct.field("dataset_location", &self.dataset_location);
+        debug_struct.field("dataset_id", &self.dataset_id);
+        debug_struct.field("table_id", &self.table_id);
+        debug_struct.field("column", &self.column);
+        debug_struct.field("sensitivity_score", &self.sensitivity_score);
+        debug_struct.field("data_risk_level", &self.data_risk_level);
+        debug_struct.field("column_info_type", &self.column_info_type);
+        debug_struct.field("other_matches", &self.other_matches);
+        debug_struct.field("estimated_null_percentage", &self.estimated_null_percentage);
+        debug_struct.field(
+            "estimated_uniqueness_score",
+            &self.estimated_uniqueness_score,
+        );
+        debug_struct.field("free_text_score", &self.free_text_score);
+        debug_struct.field("column_type", &self.column_type);
+        debug_struct.field("policy_state", &self.policy_state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ColumnDataProfile].
 pub mod column_data_profile {
     #[allow(unused_imports)]
@@ -72306,7 +76370,7 @@ pub mod column_data_profile {
 ///
 /// * Cloud Storage: maps 1:1 with a bucket.
 /// * Amazon S3: maps 1:1 with a bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileStoreDataProfile {
     /// The name of the profile.
@@ -73256,6 +77320,46 @@ impl serde::ser::Serialize for FileStoreDataProfile {
     }
 }
 
+impl std::fmt::Debug for FileStoreDataProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileStoreDataProfile");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data_source_type", &self.data_source_type);
+        debug_struct.field("project_data_profile", &self.project_data_profile);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("file_store_location", &self.file_store_location);
+        debug_struct.field("data_storage_locations", &self.data_storage_locations);
+        debug_struct.field("location_type", &self.location_type);
+        debug_struct.field("file_store_path", &self.file_store_path);
+        debug_struct.field("full_resource", &self.full_resource);
+        debug_struct.field("config_snapshot", &self.config_snapshot);
+        debug_struct.field("profile_status", &self.profile_status);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("profile_last_generated", &self.profile_last_generated);
+        debug_struct.field("resource_visibility", &self.resource_visibility);
+        debug_struct.field("sensitivity_score", &self.sensitivity_score);
+        debug_struct.field("data_risk_level", &self.data_risk_level);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("last_modified_time", &self.last_modified_time);
+        debug_struct.field("file_cluster_summaries", &self.file_cluster_summaries);
+        debug_struct.field("resource_attributes", &self.resource_attributes);
+        debug_struct.field("resource_labels", &self.resource_labels);
+        debug_struct.field(
+            "file_store_info_type_summaries",
+            &self.file_store_info_type_summaries,
+        );
+        debug_struct.field("sample_findings_table", &self.sample_findings_table);
+        debug_struct.field("file_store_is_empty", &self.file_store_is_empty);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("related_resources", &self.related_resources);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FileStoreDataProfile].
 pub mod file_store_data_profile {
     #[allow(unused_imports)]
@@ -73398,7 +77502,7 @@ pub mod file_store_data_profile {
 }
 
 /// A tag associated with a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Tag {
     /// The namespaced name for the tag value to attach to Google Cloud resources.
@@ -73584,12 +77688,26 @@ impl serde::ser::Serialize for Tag {
     }
 }
 
+impl std::fmt::Debug for Tag {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Tag");
+        debug_struct.field("namespaced_tag_value", &self.namespaced_tag_value);
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A related resource.
 /// Examples:
 ///
 /// * The source BigQuery table for a Vertex AI dataset.
 /// * The source Cloud Storage bucket for a Vertex AI dataset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RelatedResource {
     /// The full resource name of the related resource.
@@ -73719,8 +77837,20 @@ impl serde::ser::Serialize for RelatedResource {
     }
 }
 
+impl std::fmt::Debug for RelatedResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelatedResource");
+        debug_struct.field("full_resource", &self.full_resource);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information regarding the discovered InfoType.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileStoreInfoTypeSummary {
     /// The InfoType seen.
@@ -73861,8 +77991,20 @@ impl serde::ser::Serialize for FileStoreInfoTypeSummary {
     }
 }
 
+impl std::fmt::Debug for FileStoreInfoTypeSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileStoreInfoTypeSummary");
+        debug_struct.field("info_type", &self.info_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information regarding the discovered file extension.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileExtensionInfo {
     /// The file extension if set. (aka .pdf, .jpg, .txt)
@@ -73992,8 +78134,20 @@ impl serde::ser::Serialize for FileExtensionInfo {
     }
 }
 
+impl std::fmt::Debug for FileExtensionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileExtensionInfo");
+        debug_struct.field("file_extension", &self.file_extension);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The file cluster summary.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileClusterSummary {
     /// The file cluster type.
@@ -74371,8 +78525,30 @@ impl serde::ser::Serialize for FileClusterSummary {
     }
 }
 
+impl std::fmt::Debug for FileClusterSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileClusterSummary");
+        debug_struct.field("file_cluster_type", &self.file_cluster_type);
+        debug_struct.field(
+            "file_store_info_type_summaries",
+            &self.file_store_info_type_summaries,
+        );
+        debug_struct.field("sensitivity_score", &self.sensitivity_score);
+        debug_struct.field("data_risk_level", &self.data_risk_level);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("file_extensions_scanned", &self.file_extensions_scanned);
+        debug_struct.field("file_extensions_seen", &self.file_extensions_seen);
+        debug_struct.field("no_files_exist", &self.no_files_exist);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to get a project data profile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProjectDataProfileRequest {
     /// Required. Resource name, for example
@@ -74502,8 +78678,20 @@ impl serde::ser::Serialize for GetProjectDataProfileRequest {
     }
 }
 
+impl std::fmt::Debug for GetProjectDataProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProjectDataProfileRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to get a file store data profile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFileStoreDataProfileRequest {
     /// Required. Resource name, for example
@@ -74633,9 +78821,21 @@ impl serde::ser::Serialize for GetFileStoreDataProfileRequest {
     }
 }
 
+impl std::fmt::Debug for GetFileStoreDataProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFileStoreDataProfileRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to list the file store profiles generated for a given organization or
 /// project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFileStoreDataProfilesRequest {
     /// Required. Resource name of the organization or project, for
@@ -74935,9 +79135,25 @@ impl serde::ser::Serialize for ListFileStoreDataProfilesRequest {
     }
 }
 
+impl std::fmt::Debug for ListFileStoreDataProfilesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFileStoreDataProfilesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List of file store data profiles generated for a given organization or
 /// project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFileStoreDataProfilesResponse {
     /// List of data profiles.
@@ -75115,8 +79331,21 @@ impl serde::ser::Serialize for ListFileStoreDataProfilesResponse {
     }
 }
 
+impl std::fmt::Debug for ListFileStoreDataProfilesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFileStoreDataProfilesResponse");
+        debug_struct.field("file_store_data_profiles", &self.file_store_data_profiles);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteFileStoreProfile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFileStoreDataProfileRequest {
     /// Required. Resource name of the file store data profile.
@@ -75245,8 +79474,20 @@ impl serde::ser::Serialize for DeleteFileStoreDataProfileRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteFileStoreDataProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFileStoreDataProfileRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to get a table data profile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTableDataProfileRequest {
     /// Required. Resource name, for example
@@ -75376,8 +79617,20 @@ impl serde::ser::Serialize for GetTableDataProfileRequest {
     }
 }
 
+impl std::fmt::Debug for GetTableDataProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTableDataProfileRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to get a column data profile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetColumnDataProfileRequest {
     /// Required. Resource name, for example
@@ -75507,8 +79760,20 @@ impl serde::ser::Serialize for GetColumnDataProfileRequest {
     }
 }
 
+impl std::fmt::Debug for GetColumnDataProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetColumnDataProfileRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A condition for determining whether a Pub/Sub should be triggered.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProfilePubSubCondition {
     /// An expression.
@@ -75650,13 +79915,25 @@ impl serde::ser::Serialize for DataProfilePubSubCondition {
     }
 }
 
+impl std::fmt::Debug for DataProfilePubSubCondition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProfilePubSubCondition");
+        debug_struct.field("expressions", &self.expressions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataProfilePubSubCondition].
 pub mod data_profile_pub_sub_condition {
     #[allow(unused_imports)]
     use super::*;
 
     /// A condition consisting of a value.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PubSubCondition {
         /// The value for the condition to trigger.
@@ -75903,6 +80180,18 @@ pub mod data_profile_pub_sub_condition {
         }
     }
 
+    impl std::fmt::Debug for PubSubCondition {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PubSubCondition");
+            debug_struct.field("value", &self.value);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [PubSubCondition].
     pub mod pub_sub_condition {
         #[allow(unused_imports)]
@@ -75922,7 +80211,7 @@ pub mod data_profile_pub_sub_condition {
     }
 
     /// An expression, consisting of an operator and conditions.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PubSubExpressions {
 
@@ -76078,6 +80367,19 @@ pub mod data_profile_pub_sub_condition {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for PubSubExpressions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PubSubExpressions");
+            debug_struct.field("logical_operator", &self.logical_operator);
+            debug_struct.field("conditions", &self.conditions);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -76359,7 +80661,7 @@ pub mod data_profile_pub_sub_condition {
 /// Pub/Sub topic message for a DataProfileAction.PubSubNotification event.
 /// To receive a message of protocol buffer schema type, convert the message data
 /// to an object of this proto class.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProfilePubSubMessage {
     /// If `DetailLevel` is `TABLE_PROFILE` this will be fully populated.
@@ -76569,8 +80871,22 @@ impl serde::ser::Serialize for DataProfilePubSubMessage {
     }
 }
 
+impl std::fmt::Debug for DataProfilePubSubMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProfilePubSubMessage");
+        debug_struct.field("profile", &self.profile);
+        debug_struct.field("file_store_profile", &self.file_store_profile);
+        debug_struct.field("event", &self.event);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateConnection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectionRequest {
     /// Required. Parent resource name.
@@ -76742,8 +81058,21 @@ impl serde::ser::Serialize for CreateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateConnectionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("connection", &self.connection);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetConnection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectionRequest {
     /// Required. Resource name in the format:
@@ -76873,8 +81202,20 @@ impl serde::ser::Serialize for GetConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for GetConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConnectionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListConnections.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionsRequest {
     /// Required. Resource name of the organization or project, for
@@ -77098,8 +81439,23 @@ impl serde::ser::Serialize for ListConnectionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for SearchConnections.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchConnectionsRequest {
     /// Required. Resource name of the organization or project with a wildcard
@@ -77323,8 +81679,23 @@ impl serde::ser::Serialize for SearchConnectionsRequest {
     }
 }
 
+impl std::fmt::Debug for SearchConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListConnections.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionsResponse {
     /// List of connections.
@@ -77496,8 +81867,21 @@ impl serde::ser::Serialize for ListConnectionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectionsResponse");
+        debug_struct.field("connections", &self.connections);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for SearchConnections.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchConnectionsResponse {
     /// List of connections that match the search query. Note that only a subset
@@ -77671,8 +82055,21 @@ impl serde::ser::Serialize for SearchConnectionsResponse {
     }
 }
 
+impl std::fmt::Debug for SearchConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchConnectionsResponse");
+        debug_struct.field("connections", &self.connections);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateConnection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConnectionRequest {
     /// Required. Resource name in the format:
@@ -77873,8 +82270,22 @@ impl serde::ser::Serialize for UpdateConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateConnectionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("connection", &self.connection);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteConnection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectionRequest {
     /// Required. Resource name of the Connection to be deleted, in the format:
@@ -78004,9 +82415,21 @@ impl serde::ser::Serialize for DeleteConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteConnectionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A data connection to allow the DLP API to profile data in locations that
 /// require additional configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connection {
     /// Output only. Name of the connection:
@@ -78260,6 +82683,21 @@ impl serde::ser::Serialize for Connection {
     }
 }
 
+impl std::fmt::Debug for Connection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Connection");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("properties", &self.properties);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Connection].
 pub mod connection {
     #[allow(unused_imports)]
@@ -78278,7 +82716,7 @@ pub mod connection {
 /// stored in a Secret Manager resource.
 /// Note: Secret Manager [charges
 /// apply](https://cloud.google.com/secret-manager/pricing).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretManagerCredential {
     /// Required. The username.
@@ -78443,11 +82881,27 @@ impl serde::ser::Serialize for SecretManagerCredential {
     }
 }
 
+impl std::fmt::Debug for SecretManagerCredential {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecretManagerCredential");
+        debug_struct.field("username", &self.username);
+        debug_struct.field(
+            "password_secret_version_name",
+            &self.password_secret_version_name,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Use IAM authentication to connect. This requires the Cloud SQL IAM feature
 /// to be enabled on the instance, which is not the default for Cloud SQL.
 /// See <https://cloud.google.com/sql/docs/postgres/authentication> and
 /// <https://cloud.google.com/sql/docs/mysql/authentication>.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlIamCredential {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -78549,8 +83003,19 @@ impl serde::ser::Serialize for CloudSqlIamCredential {
     }
 }
 
+impl std::fmt::Debug for CloudSqlIamCredential {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlIamCredential");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Cloud SQL connection properties.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlProperties {
     /// Optional. Immutable. The Cloud SQL instance for which the connection is
@@ -78900,6 +83365,21 @@ impl serde::ser::Serialize for CloudSqlProperties {
     }
 }
 
+impl std::fmt::Debug for CloudSqlProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlProperties");
+        debug_struct.field("connection_name", &self.connection_name);
+        debug_struct.field("max_connections", &self.max_connections);
+        debug_struct.field("database_engine", &self.database_engine);
+        debug_struct.field("credential", &self.credential);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CloudSqlProperties].
 pub mod cloud_sql_properties {
     #[allow(unused_imports)]
@@ -79050,7 +83530,7 @@ pub mod cloud_sql_properties {
 }
 
 /// Request message for DeleteTableProfile.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTableDataProfileRequest {
     /// Required. Resource name of the table data profile.
@@ -79179,8 +83659,20 @@ impl serde::ser::Serialize for DeleteTableDataProfileRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTableDataProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTableDataProfileRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message used to identify the type of resource being profiled.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataSourceType {
     /// Output only. An identifying string to the type of resource being profiled.
@@ -79316,8 +83808,20 @@ impl serde::ser::Serialize for DataSourceType {
     }
 }
 
+impl std::fmt::Debug for DataSourceType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataSourceType");
+        debug_struct.field("data_source", &self.data_source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message used to identify file cluster type being profiled.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileClusterType {
     /// File cluster type.
@@ -79489,6 +83993,18 @@ impl serde::ser::Serialize for FileClusterType {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for FileClusterType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileClusterType");
+        debug_struct.field("file_cluster_type", &self.file_cluster_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -79698,7 +84214,7 @@ pub mod file_cluster_type {
 /// Configure processing location for discovery and inspection. For example,
 /// image OCR is only provided in limited regions but configuring
 /// ProcessingLocation will redirect OCR to a location where OCR is provided.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessingLocation {
     /// Image processing will fall back using this configuration.
@@ -79841,6 +84357,18 @@ impl serde::ser::Serialize for ProcessingLocation {
     }
 }
 
+impl std::fmt::Debug for ProcessingLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProcessingLocation");
+        debug_struct.field("image_fallback_location", &self.image_fallback_location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ProcessingLocation].
 pub mod processing_location {
     #[allow(unused_imports)]
@@ -79848,7 +84376,7 @@ pub mod processing_location {
 
     /// Processing will happen in a multi-region that contains the current region
     /// if available.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MultiRegionProcessing {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -79953,8 +84481,19 @@ pub mod processing_location {
         }
     }
 
+    impl std::fmt::Debug for MultiRegionProcessing {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MultiRegionProcessing");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Processing will happen in the global region.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GlobalProcessing {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -80059,9 +84598,20 @@ pub mod processing_location {
         }
     }
 
+    impl std::fmt::Debug for GlobalProcessing {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GlobalProcessing");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configure image processing to fall back to the configured processing option
     /// below if unavailable in the request location.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ImageFallbackLocation {
         /// Processing will happen in a multi-region that contains the current region
@@ -80251,12 +84801,25 @@ pub mod processing_location {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ImageFallbackLocation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ImageFallbackLocation");
+            debug_struct.field("multi_region_processing", &self.multi_region_processing);
+            debug_struct.field("global_processing", &self.global_processing);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Collection of findings saved to a Cloud Storage bucket. This is used as the
 /// proto schema for textproto files created when specifying a cloud storage
 /// path to save inspection findings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SaveToGcsFindingsOutput {
     /// List of findings.
@@ -80388,8 +84951,20 @@ impl serde::ser::Serialize for SaveToGcsFindingsOutput {
     }
 }
 
+impl std::fmt::Debug for SaveToGcsFindingsOutput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SaveToGcsFindingsOutput");
+        debug_struct.field("findings", &self.findings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Type of information detected by the API.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InfoType {
     /// Name of the information type. Either a name of your choosing when
@@ -80586,9 +85161,23 @@ impl serde::ser::Serialize for InfoType {
     }
 }
 
+impl std::fmt::Debug for InfoType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InfoType");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("sensitivity_score", &self.sensitivity_score);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Score is calculated from of all elements in the data profile.
 /// A higher level means the data is more sensitive.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SensitivityScore {
     /// The sensitivity score applied to the resource.
@@ -80721,6 +85310,18 @@ impl serde::ser::Serialize for SensitivityScore {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for SensitivityScore {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SensitivityScore");
+        debug_struct.field("score", &self.score);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -80886,7 +85487,7 @@ pub mod sensitivity_score {
 }
 
 /// A reference to a StoredInfoType to use with scanning.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StoredType {
     /// Resource name of the requested `StoredInfoType`, for example
@@ -81054,9 +85655,22 @@ impl serde::ser::Serialize for StoredType {
     }
 }
 
+impl std::fmt::Debug for StoredType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StoredType");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Custom information type provided by the user. Used to find domain-specific
 /// sensitive information configurable to the data in question.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomInfoType {
     /// CustomInfoType can either be a new infoType, or an extension of built-in
@@ -81570,6 +86184,23 @@ impl serde::ser::Serialize for CustomInfoType {
     }
 }
 
+impl std::fmt::Debug for CustomInfoType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomInfoType");
+        debug_struct.field("info_type", &self.info_type);
+        debug_struct.field("likelihood", &self.likelihood);
+        debug_struct.field("detection_rules", &self.detection_rules);
+        debug_struct.field("exclusion_type", &self.exclusion_type);
+        debug_struct.field("sensitivity_score", &self.sensitivity_score);
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CustomInfoType].
 pub mod custom_info_type {
     #[allow(unused_imports)]
@@ -81598,7 +86229,7 @@ pub mod custom_info_type {
     /// contains details about the size limits of dictionaries. For dictionaries
     /// that do not fit within these constraints, consider using
     /// `LargeCustomDictionaryConfig` in the `StoredInfoType` API.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Dictionary {
         /// The potential places the data can be read from.
@@ -81839,13 +86470,25 @@ pub mod custom_info_type {
         }
     }
 
+    impl std::fmt::Debug for Dictionary {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Dictionary");
+            debug_struct.field("source", &self.source);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Dictionary].
     pub mod dictionary {
         #[allow(unused_imports)]
         use super::*;
 
         /// Message defining a list of words or phrases to search for in the data.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct WordList {
             /// Words or phrases defining the dictionary. The dictionary must contain
@@ -81985,6 +86628,18 @@ pub mod custom_info_type {
             }
         }
 
+        impl std::fmt::Debug for WordList {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("WordList");
+                debug_struct.field("words", &self.words);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The potential places the data can be read from.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -81998,7 +86653,7 @@ pub mod custom_info_type {
     }
 
     /// Message defining a custom regular expression.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Regex {
         /// Pattern defining the regular expression. Its syntax
@@ -82189,6 +86844,19 @@ pub mod custom_info_type {
         }
     }
 
+    impl std::fmt::Debug for Regex {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Regex");
+            debug_struct.field("pattern", &self.pattern);
+            debug_struct.field("group_indexes", &self.group_indexes);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Message for detecting output from deidentification transformations
     /// such as
     /// [`CryptoReplaceFfxFpeConfig`](https://cloud.google.com/sensitive-data-protection/docs/reference/rest/v2/organizations.deidentifyTemplates#cryptoreplaceffxfpeconfig).
@@ -82197,7 +86865,7 @@ pub mod custom_info_type {
     /// output. This should be used in conjunction with a field on the
     /// transformation such as `surrogate_info_type`. This CustomInfoType does
     /// not support the use of `detection_rules`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SurrogateType {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -82302,11 +86970,22 @@ pub mod custom_info_type {
         }
     }
 
+    impl std::fmt::Debug for SurrogateType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SurrogateType");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Deprecated; use `InspectionRuleSet` instead. Rule for modifying a
     /// `CustomInfoType` to alter behavior under certain circumstances, depending
     /// on the specific details of the rule. Not supported for the `surrogate_type`
     /// custom infoType.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DetectionRule {
         /// Type of hotword rule.
@@ -82492,6 +87171,18 @@ pub mod custom_info_type {
         }
     }
 
+    impl std::fmt::Debug for DetectionRule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DetectionRule");
+            debug_struct.field("r#type", &self.r#type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [DetectionRule].
     pub mod detection_rule {
         #[allow(unused_imports)]
@@ -82499,7 +87190,7 @@ pub mod custom_info_type {
 
         /// Message for specifying a window around a finding to apply a detection
         /// rule.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Proximity {
             /// Number of characters before the finding to consider. For tabular data,
@@ -82712,9 +87403,22 @@ pub mod custom_info_type {
             }
         }
 
+        impl std::fmt::Debug for Proximity {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Proximity");
+                debug_struct.field("window_before", &self.window_before);
+                debug_struct.field("window_after", &self.window_after);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Message for specifying an adjustment to the likelihood of a finding as
         /// part of a detection rule.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct LikelihoodAdjustment {
             /// How the likelihood will be modified.
@@ -82970,6 +87674,18 @@ pub mod custom_info_type {
             }
         }
 
+        impl std::fmt::Debug for LikelihoodAdjustment {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("LikelihoodAdjustment");
+                debug_struct.field("adjustment", &self.adjustment);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [LikelihoodAdjustment].
         pub mod likelihood_adjustment {
             #[allow(unused_imports)]
@@ -82995,7 +87711,7 @@ pub mod custom_info_type {
 
         /// The rule that adjusts the likelihood of findings within a certain
         /// proximity of hotwords.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct HotwordRule {
             /// Regular expression pattern defining what qualifies as a hotword.
@@ -83249,6 +87965,20 @@ pub mod custom_info_type {
             }
         }
 
+        impl std::fmt::Debug for HotwordRule {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("HotwordRule");
+                debug_struct.field("hotword_regex", &self.hotword_regex);
+                debug_struct.field("proximity", &self.proximity);
+                debug_struct.field("likelihood_adjustment", &self.likelihood_adjustment);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Type of hotword rule.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -83404,7 +88134,7 @@ pub mod custom_info_type {
 }
 
 /// General identifier of a data field in a storage service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldId {
     /// Name describing the field.
@@ -83533,13 +88263,25 @@ impl serde::ser::Serialize for FieldId {
     }
 }
 
+impl std::fmt::Debug for FieldId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FieldId");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Datastore partition ID.
 /// A partition ID identifies a grouping of entities. The grouping is always
 /// by project and namespace, however the namespace ID may be empty.
 ///
 /// A partition ID contains several dimensions:
 /// project ID and namespace ID.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PartitionId {
     /// The ID of the project to which the entities belong.
@@ -83694,8 +88436,21 @@ impl serde::ser::Serialize for PartitionId {
     }
 }
 
+impl std::fmt::Debug for PartitionId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartitionId");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("namespace_id", &self.namespace_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A representation of a Datastore kind.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KindExpression {
     /// The name of the kind.
@@ -83824,8 +88579,20 @@ impl serde::ser::Serialize for KindExpression {
     }
 }
 
+impl std::fmt::Debug for KindExpression {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KindExpression");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options defining a data set within Google Cloud Datastore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatastoreOptions {
     /// A partition ID identifies a grouping of entities. The grouping is always
@@ -84003,6 +88770,19 @@ impl serde::ser::Serialize for DatastoreOptions {
     }
 }
 
+impl std::fmt::Debug for DatastoreOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatastoreOptions");
+        debug_struct.field("partition_id", &self.partition_id);
+        debug_struct.field("kind", &self.kind);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message representing a set of files in a Cloud Storage bucket. Regular
 /// expressions are used to allow fine-grained control over which files in the
 /// bucket to include.
@@ -84035,7 +88815,7 @@ impl serde::ser::Serialize for DatastoreOptions {
 /// * `{bucket_name: "mybucket", include_regex: ["directory/[^/]+"]}` will
 ///   include all files directly under `gs://mybucket/directory/`, without matching
 ///   across `/`
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageRegexFileSet {
     /// The name of a Cloud Storage bucket. Required.
@@ -84235,9 +89015,23 @@ impl serde::ser::Serialize for CloudStorageRegexFileSet {
     }
 }
 
+impl std::fmt::Debug for CloudStorageRegexFileSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudStorageRegexFileSet");
+        debug_struct.field("bucket_name", &self.bucket_name);
+        debug_struct.field("include_regex", &self.include_regex);
+        debug_struct.field("exclude_regex", &self.exclude_regex);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options defining a file or a set of files within a Cloud Storage
 /// bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageOptions {
     /// The set of one or more files to scan.
@@ -84600,13 +89394,33 @@ impl serde::ser::Serialize for CloudStorageOptions {
     }
 }
 
+impl std::fmt::Debug for CloudStorageOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudStorageOptions");
+        debug_struct.field("file_set", &self.file_set);
+        debug_struct.field("bytes_limit_per_file", &self.bytes_limit_per_file);
+        debug_struct.field(
+            "bytes_limit_per_file_percent",
+            &self.bytes_limit_per_file_percent,
+        );
+        debug_struct.field("file_types", &self.file_types);
+        debug_struct.field("sample_method", &self.sample_method);
+        debug_struct.field("files_limit_percent", &self.files_limit_percent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CloudStorageOptions].
 pub mod cloud_storage_options {
     #[allow(unused_imports)]
     use super::*;
 
     /// Set of files to scan.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FileSet {
         /// The Cloud Storage url of the file(s) to scan, in the format
@@ -84784,6 +89598,19 @@ pub mod cloud_storage_options {
         }
     }
 
+    impl std::fmt::Debug for FileSet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FileSet");
+            debug_struct.field("url", &self.url);
+            debug_struct.field("regex_file_set", &self.regex_file_set);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// How to sample bytes if not all bytes are scanned. Meaningful only when used
     /// in conjunction with bytes_limit_per_file. If not specified, scanning would
     /// start from the top.
@@ -84921,7 +89748,7 @@ pub mod cloud_storage_options {
 }
 
 /// Message representing a set of files in Cloud Storage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageFileSet {
     /// The url, in the format `gs://<bucket>/<path>`. Trailing wildcard in the
@@ -85051,8 +89878,20 @@ impl serde::ser::Serialize for CloudStorageFileSet {
     }
 }
 
+impl std::fmt::Debug for CloudStorageFileSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudStorageFileSet");
+        debug_struct.field("url", &self.url);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message representing a single file or path in Cloud Storage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStoragePath {
     /// A URL representing a file or path (no wildcards) in Cloud Storage.
@@ -85182,8 +90021,20 @@ impl serde::ser::Serialize for CloudStoragePath {
     }
 }
 
+impl std::fmt::Debug for CloudStoragePath {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudStoragePath");
+        debug_struct.field("path", &self.path);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options defining BigQuery table and row identifiers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryOptions {
     /// Complete BigQuery table reference.
@@ -85550,6 +90401,24 @@ impl serde::ser::Serialize for BigQueryOptions {
     }
 }
 
+impl std::fmt::Debug for BigQueryOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryOptions");
+        debug_struct.field("table_reference", &self.table_reference);
+        debug_struct.field("identifying_fields", &self.identifying_fields);
+        debug_struct.field("rows_limit", &self.rows_limit);
+        debug_struct.field("rows_limit_percent", &self.rows_limit_percent);
+        debug_struct.field("sample_method", &self.sample_method);
+        debug_struct.field("excluded_fields", &self.excluded_fields);
+        debug_struct.field("included_fields", &self.included_fields);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BigQueryOptions].
 pub mod big_query_options {
     #[allow(unused_imports)]
@@ -85693,7 +90562,7 @@ pub mod big_query_options {
 }
 
 /// Shared message indicating Cloud storage type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageConfig {
     /// Configuration of the timespan of the items to include in scanning.
@@ -86078,6 +90947,19 @@ impl serde::ser::Serialize for StorageConfig {
     }
 }
 
+impl std::fmt::Debug for StorageConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StorageConfig");
+        debug_struct.field("timespan_config", &self.timespan_config);
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StorageConfig].
 pub mod storage_config {
     #[allow(unused_imports)]
@@ -86085,7 +90967,7 @@ pub mod storage_config {
 
     /// Configuration of the timespan of the items to include in scanning.
     /// Currently only supported when inspecting Cloud Storage and BigQuery.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TimespanConfig {
         /// Exclude files, tables, or rows older than this value.
@@ -86387,6 +91269,24 @@ pub mod storage_config {
         }
     }
 
+    impl std::fmt::Debug for TimespanConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TimespanConfig");
+            debug_struct.field("start_time", &self.start_time);
+            debug_struct.field("end_time", &self.end_time);
+            debug_struct.field("timestamp_field", &self.timestamp_field);
+            debug_struct.field(
+                "enable_auto_population_of_timespan_config",
+                &self.enable_auto_population_of_timespan_config,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Type of storage system to inspect.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -86404,7 +91304,7 @@ pub mod storage_config {
 
 /// Configuration to control jobs where the content being inspected is outside
 /// of Google Cloud Platform.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HybridOptions {
     /// A short description of where the data is coming from. Will be stored once
@@ -86661,8 +91561,26 @@ impl serde::ser::Serialize for HybridOptions {
     }
 }
 
+impl std::fmt::Debug for HybridOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HybridOptions");
+        debug_struct.field("description", &self.description);
+        debug_struct.field(
+            "required_finding_label_keys",
+            &self.required_finding_label_keys,
+        );
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("table_options", &self.table_options);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Row key for identifying a record in BigQuery table.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryKey {
     /// Complete BigQuery table reference.
@@ -86850,8 +91768,21 @@ impl serde::ser::Serialize for BigQueryKey {
     }
 }
 
+impl std::fmt::Debug for BigQueryKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryKey");
+        debug_struct.field("table_reference", &self.table_reference);
+        debug_struct.field("row_number", &self.row_number);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Record key for a finding in Cloud Datastore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatastoreKey {
     /// Datastore entity key.
@@ -86992,11 +91923,23 @@ impl serde::ser::Serialize for DatastoreKey {
     }
 }
 
+impl std::fmt::Debug for DatastoreKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatastoreKey");
+        debug_struct.field("entity_key", &self.entity_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A unique identifier for a Datastore entity.
 /// If a key's partition ID or any of its path kinds or names are
 /// reserved/read-only, the key is reserved/read-only.
 /// A reserved/read-only key is forbidden in certain documented contexts.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Key {
     /// Entities are partitioned into subsets, currently identified by a project
@@ -87178,6 +92121,19 @@ impl serde::ser::Serialize for Key {
     }
 }
 
+impl std::fmt::Debug for Key {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Key");
+        debug_struct.field("partition_id", &self.partition_id);
+        debug_struct.field("path", &self.path);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Key].
 pub mod key {
     #[allow(unused_imports)]
@@ -87187,7 +92143,7 @@ pub mod key {
     ///
     /// If either name or ID is set, the element is complete.
     /// If neither is set, the element is incomplete.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PathElement {
         /// The kind of the entity.
@@ -87449,6 +92405,19 @@ pub mod key {
         }
     }
 
+    impl std::fmt::Debug for PathElement {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PathElement");
+            debug_struct.field("kind", &self.kind);
+            debug_struct.field("id_type", &self.id_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [PathElement].
     pub mod path_element {
         #[allow(unused_imports)]
@@ -87472,7 +92441,7 @@ pub mod key {
 }
 
 /// Message for a unique key indicating a record that contains a finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecordKey {
     /// Values of identifying columns in the given row. Order of values matches
@@ -87727,6 +92696,19 @@ impl serde::ser::Serialize for RecordKey {
     }
 }
 
+impl std::fmt::Debug for RecordKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecordKey");
+        debug_struct.field("id_values", &self.id_values);
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RecordKey].
 pub mod record_key {
     #[allow(unused_imports)]
@@ -87748,7 +92730,7 @@ pub mod record_key {
 /// a table is often referenced with a string in the format of:
 /// `<project_id>:<dataset_id>.<table_id>` or
 /// `<project_id>.<dataset_id>.<table_id>`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryTable {
     /// The Google Cloud project ID of the project containing the table.
@@ -87929,9 +92911,23 @@ impl serde::ser::Serialize for BigQueryTable {
     }
 }
 
+impl std::fmt::Debug for BigQueryTable {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryTable");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("dataset_id", &self.dataset_id);
+        debug_struct.field("table_id", &self.table_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message defining the location of a BigQuery table with the projectId inferred
 /// from the parent project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableReference {
     /// Dataset ID of the table.
@@ -88113,8 +93109,22 @@ impl serde::ser::Serialize for TableReference {
     }
 }
 
+impl std::fmt::Debug for TableReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableReference");
+        debug_struct.field("dataset_id", &self.dataset_id);
+        debug_struct.field("table_id", &self.table_id);
+        debug_struct.field("project_id", &self.project_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message defining a field of a BigQuery table.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryField {
     /// Source table of the field.
@@ -88289,12 +93299,25 @@ impl serde::ser::Serialize for BigQueryField {
     }
 }
 
+impl std::fmt::Debug for BigQueryField {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryField");
+        debug_struct.field("table", &self.table);
+        debug_struct.field("field", &self.field);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An entity in a dataset is a field or set of fields that correspond to a
 /// single person. For example, in medical records the `EntityId` might be a
 /// patient identifier, or for financial records it might be an account
 /// identifier. This message is used when generalizations or analysis must take
 /// into account that multiple rows correspond to the same entity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityId {
     /// Composite key indicating which field contains the entity identifier.
@@ -88434,8 +93457,20 @@ impl serde::ser::Serialize for EntityId {
     }
 }
 
+impl std::fmt::Debug for EntityId {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityId");
+        debug_struct.field("field", &self.field);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Instructions regarding the table content being inspected.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableOptions {
     /// The columns that are the primary keys for table objects included in
@@ -88568,6 +93603,18 @@ impl serde::ser::Serialize for TableOptions {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for TableOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableOptions");
+        debug_struct.field("identifying_fields", &self.identifying_fields);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

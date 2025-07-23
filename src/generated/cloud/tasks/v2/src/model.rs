@@ -37,7 +37,7 @@ extern crate wkt;
 /// [ListQueues][google.cloud.tasks.v2.CloudTasks.ListQueues].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.ListQueues]: crate::client::CloudTasks::list_queues
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQueuesRequest {
     /// Required. The location name.
@@ -291,11 +291,26 @@ impl serde::ser::Serialize for ListQueuesRequest {
     }
 }
 
+impl std::fmt::Debug for ListQueuesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListQueuesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ListQueues][google.cloud.tasks.v2.CloudTasks.ListQueues].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.ListQueues]: crate::client::CloudTasks::list_queues
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQueuesResponse {
     /// The list of queues.
@@ -477,10 +492,23 @@ impl serde::ser::Serialize for ListQueuesResponse {
     }
 }
 
+impl std::fmt::Debug for ListQueuesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListQueuesResponse");
+        debug_struct.field("queues", &self.queues);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for [GetQueue][google.cloud.tasks.v2.CloudTasks.GetQueue].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.GetQueue]: crate::client::CloudTasks::get_queue
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetQueueRequest {
     /// Required. The resource name of the queue. For example:
@@ -610,11 +638,23 @@ impl serde::ser::Serialize for GetQueueRequest {
     }
 }
 
+impl std::fmt::Debug for GetQueueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetQueueRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateQueue][google.cloud.tasks.v2.CloudTasks.CreateQueue].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.CreateQueue]: crate::client::CloudTasks::create_queue
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateQueueRequest {
     /// Required. The location name in which the queue will be created.
@@ -788,11 +828,24 @@ impl serde::ser::Serialize for CreateQueueRequest {
     }
 }
 
+impl std::fmt::Debug for CreateQueueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateQueueRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("queue", &self.queue);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdateQueue][google.cloud.tasks.v2.CloudTasks.UpdateQueue].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.UpdateQueue]: crate::client::CloudTasks::update_queue
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateQueueRequest {
     /// Required. The queue to create or update.
@@ -978,11 +1031,24 @@ impl serde::ser::Serialize for UpdateQueueRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateQueueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateQueueRequest");
+        debug_struct.field("queue", &self.queue);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DeleteQueue][google.cloud.tasks.v2.CloudTasks.DeleteQueue].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.DeleteQueue]: crate::client::CloudTasks::delete_queue
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteQueueRequest {
     /// Required. The queue name. For example:
@@ -1112,11 +1178,23 @@ impl serde::ser::Serialize for DeleteQueueRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteQueueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteQueueRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [PurgeQueue][google.cloud.tasks.v2.CloudTasks.PurgeQueue].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.PurgeQueue]: crate::client::CloudTasks::purge_queue
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeQueueRequest {
     /// Required. The queue name. For example:
@@ -1246,11 +1324,23 @@ impl serde::ser::Serialize for PurgeQueueRequest {
     }
 }
 
+impl std::fmt::Debug for PurgeQueueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PurgeQueueRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [PauseQueue][google.cloud.tasks.v2.CloudTasks.PauseQueue].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.PauseQueue]: crate::client::CloudTasks::pause_queue
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseQueueRequest {
     /// Required. The queue name. For example:
@@ -1380,11 +1470,23 @@ impl serde::ser::Serialize for PauseQueueRequest {
     }
 }
 
+impl std::fmt::Debug for PauseQueueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PauseQueueRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ResumeQueue][google.cloud.tasks.v2.CloudTasks.ResumeQueue].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.ResumeQueue]: crate::client::CloudTasks::resume_queue
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeQueueRequest {
     /// Required. The queue name. For example:
@@ -1514,11 +1616,23 @@ impl serde::ser::Serialize for ResumeQueueRequest {
     }
 }
 
+impl std::fmt::Debug for ResumeQueueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeQueueRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for listing tasks using
 /// [ListTasks][google.cloud.tasks.v2.CloudTasks.ListTasks].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.ListTasks]: crate::client::CloudTasks::list_tasks
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTasksRequest {
     /// Required. The queue name. For example:
@@ -1779,11 +1893,26 @@ impl serde::ser::Serialize for ListTasksRequest {
     }
 }
 
+impl std::fmt::Debug for ListTasksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTasksRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("response_view", &self.response_view);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for listing tasks using
 /// [ListTasks][google.cloud.tasks.v2.CloudTasks.ListTasks].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.ListTasks]: crate::client::CloudTasks::list_tasks
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTasksResponse {
     /// The list of tasks.
@@ -1963,11 +2092,24 @@ impl serde::ser::Serialize for ListTasksResponse {
     }
 }
 
+impl std::fmt::Debug for ListTasksResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTasksResponse");
+        debug_struct.field("tasks", &self.tasks);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for getting a task using
 /// [GetTask][google.cloud.tasks.v2.CloudTasks.GetTask].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.GetTask]: crate::client::CloudTasks::get_task
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTaskRequest {
     /// Required. The task name. For example:
@@ -2140,11 +2282,24 @@ impl serde::ser::Serialize for GetTaskRequest {
     }
 }
 
+impl std::fmt::Debug for GetTaskRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTaskRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("response_view", &self.response_view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateTask][google.cloud.tasks.v2.CloudTasks.CreateTask].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.CreateTask]: crate::client::CloudTasks::create_task
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTaskRequest {
     /// Required. The queue name. For example:
@@ -2390,11 +2545,25 @@ impl serde::ser::Serialize for CreateTaskRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTaskRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTaskRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("task", &self.task);
+        debug_struct.field("response_view", &self.response_view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for deleting a task using
 /// [DeleteTask][google.cloud.tasks.v2.CloudTasks.DeleteTask].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.DeleteTask]: crate::client::CloudTasks::delete_task
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTaskRequest {
     /// Required. The task name. For example:
@@ -2524,11 +2693,23 @@ impl serde::ser::Serialize for DeleteTaskRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTaskRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTaskRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for forcing a task to run now using
 /// [RunTask][google.cloud.tasks.v2.CloudTasks.RunTask].
 ///
 /// [google.cloud.tasks.v2.CloudTasks.RunTask]: crate::client::CloudTasks::run_task
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunTaskRequest {
     /// Required. The task name. For example:
@@ -2701,10 +2882,23 @@ impl serde::ser::Serialize for RunTaskRequest {
     }
 }
 
+impl std::fmt::Debug for RunTaskRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunTaskRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("response_view", &self.response_view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A queue is a container of related tasks. Queues are configured to manage
 /// how those tasks are dispatched. Configurable properties include rate limits,
 /// retry options, queue types, and others.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Queue {
     /// Caller-specified and required in
@@ -3151,6 +3345,30 @@ impl serde::ser::Serialize for Queue {
     }
 }
 
+impl std::fmt::Debug for Queue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Queue");
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "app_engine_routing_override",
+            &self.app_engine_routing_override,
+        );
+        debug_struct.field("rate_limits", &self.rate_limits);
+        debug_struct.field("retry_config", &self.retry_config);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("purge_time", &self.purge_time);
+        debug_struct.field(
+            "stackdriver_logging_config",
+            &self.stackdriver_logging_config,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Queue].
 pub mod queue {
     #[allow(unused_imports)]
@@ -3331,7 +3549,7 @@ pub mod queue {
 ///
 /// [google.cloud.tasks.v2.CloudTasks.RunTask]: crate::client::CloudTasks::run_task
 /// [google.cloud.tasks.v2.RateLimits]: crate::model::RateLimits
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RateLimits {
     /// The maximum rate at which tasks are dispatched from this queue.
@@ -3635,10 +3853,24 @@ impl serde::ser::Serialize for RateLimits {
     }
 }
 
+impl std::fmt::Debug for RateLimits {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RateLimits");
+        debug_struct.field("max_dispatches_per_second", &self.max_dispatches_per_second);
+        debug_struct.field("max_burst_size", &self.max_burst_size);
+        debug_struct.field("max_concurrent_dispatches", &self.max_concurrent_dispatches);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Retry config.
 ///
 /// These settings determine when a failed task attempt is retried.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryConfig {
     /// Number of attempts per task.
@@ -4036,9 +4268,25 @@ impl serde::ser::Serialize for RetryConfig {
     }
 }
 
+impl std::fmt::Debug for RetryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetryConfig");
+        debug_struct.field("max_attempts", &self.max_attempts);
+        debug_struct.field("max_retry_duration", &self.max_retry_duration);
+        debug_struct.field("min_backoff", &self.min_backoff);
+        debug_struct.field("max_backoff", &self.max_backoff);
+        debug_struct.field("max_doublings", &self.max_doublings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration options for writing logs to
 /// [Stackdriver Logging](https://cloud.google.com/logging/docs/).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StackdriverLoggingConfig {
     /// Specifies the fraction of operations to write to
@@ -4190,6 +4438,18 @@ impl serde::ser::Serialize for StackdriverLoggingConfig {
     }
 }
 
+impl std::fmt::Debug for StackdriverLoggingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StackdriverLoggingConfig");
+        debug_struct.field("sampling_ratio", &self.sampling_ratio);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// HTTP request.
 ///
 /// The task will be pushed to the worker as an HTTP request. If the worker
@@ -4227,7 +4487,7 @@ impl serde::ser::Serialize for StackdriverLoggingConfig {
 /// [google.cloud.tasks.v2.Queue.rate_limits]: crate::model::Queue::rate_limits
 /// [google.cloud.tasks.v2.Queue.retry_config]: crate::model::Queue::retry_config
 /// [google.cloud.tasks.v2.Queue.state]: crate::model::Queue::state
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRequest {
     /// Required. The full url path that the request will be sent to.
@@ -4637,6 +4897,22 @@ impl serde::ser::Serialize for HttpRequest {
     }
 }
 
+impl std::fmt::Debug for HttpRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpRequest");
+        debug_struct.field("url", &self.url);
+        debug_struct.field("http_method", &self.http_method);
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field("body", &self.body);
+        debug_struct.field("authorization_header", &self.authorization_header);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [HttpRequest].
 pub mod http_request {
     #[allow(unused_imports)]
@@ -4744,7 +5020,7 @@ pub mod http_request {
 /// [google.cloud.tasks.v2.Queue.app_engine_routing_override]: crate::model::Queue::app_engine_routing_override
 /// [google.cloud.tasks.v2.Queue.retry_config]: crate::model::Queue::retry_config
 /// [google.cloud.tasks.v2.Task.dispatch_deadline]: crate::model::Task::dispatch_deadline
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppEngineHttpRequest {
     /// The HTTP method to use for the request. The default is POST.
@@ -5089,6 +5365,22 @@ impl serde::ser::Serialize for AppEngineHttpRequest {
     }
 }
 
+impl std::fmt::Debug for AppEngineHttpRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppEngineHttpRequest");
+        debug_struct.field("http_method", &self.http_method);
+        debug_struct.field("app_engine_routing", &self.app_engine_routing);
+        debug_struct.field("relative_uri", &self.relative_uri);
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field("body", &self.body);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// App Engine Routing.
 ///
 /// Defines routing characteristics specific to App Engine - service, version,
@@ -5112,7 +5404,7 @@ impl serde::ser::Serialize for AppEngineHttpRequest {
 /// `<https://www.googleapis.com/auth/cloud-platform>`
 ///
 /// [google.cloud.tasks.v2.AppEngineRouting]: crate::model::AppEngineRouting
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppEngineRouting {
     /// App service.
@@ -5382,11 +5674,26 @@ impl serde::ser::Serialize for AppEngineRouting {
     }
 }
 
+impl std::fmt::Debug for AppEngineRouting {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppEngineRouting");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("host", &self.host);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains information needed for generating an
 /// [OAuth token](https://developers.google.com/identity/protocols/OAuth2).
 /// This type of authorization should generally only be used when calling Google
 /// APIs hosted on *.googleapis.com.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OAuthToken {
     /// [Service account email](https://cloud.google.com/iam/docs/service-accounts)
@@ -5549,13 +5856,26 @@ impl serde::ser::Serialize for OAuthToken {
     }
 }
 
+impl std::fmt::Debug for OAuthToken {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OAuthToken");
+        debug_struct.field("service_account_email", &self.service_account_email);
+        debug_struct.field("scope", &self.scope);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains information needed for generating an
 /// [OpenID Connect
 /// token](https://developers.google.com/identity/protocols/OpenIDConnect).
 /// This type of authorization can be used for many scenarios, including
 /// calling Cloud Run, or endpoints where you intend to validate the token
 /// yourself.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OidcToken {
     /// [Service account email](https://cloud.google.com/iam/docs/service-accounts)
@@ -5717,8 +6037,21 @@ impl serde::ser::Serialize for OidcToken {
     }
 }
 
+impl std::fmt::Debug for OidcToken {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OidcToken");
+        debug_struct.field("service_account_email", &self.service_account_email);
+        debug_struct.field("audience", &self.audience);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A unit of scheduled work.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Task {
     /// Optionally caller-specified in
@@ -6341,6 +6674,27 @@ impl serde::ser::Serialize for Task {
     }
 }
 
+impl std::fmt::Debug for Task {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Task");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("schedule_time", &self.schedule_time);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("dispatch_deadline", &self.dispatch_deadline);
+        debug_struct.field("dispatch_count", &self.dispatch_count);
+        debug_struct.field("response_count", &self.response_count);
+        debug_struct.field("first_attempt", &self.first_attempt);
+        debug_struct.field("last_attempt", &self.last_attempt);
+        debug_struct.field("view", &self.view);
+        debug_struct.field("message_type", &self.message_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Task].
 pub mod task {
     #[allow(unused_imports)]
@@ -6525,7 +6879,7 @@ pub mod task {
 }
 
 /// The status of a task attempt.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Attempt {
     /// Output only. The time that this attempt was scheduled.
@@ -6780,6 +7134,21 @@ impl serde::ser::Serialize for Attempt {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Attempt {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Attempt");
+        debug_struct.field("schedule_time", &self.schedule_time);
+        debug_struct.field("dispatch_time", &self.dispatch_time);
+        debug_struct.field("response_time", &self.response_time);
+        debug_struct.field("response_status", &self.response_status);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

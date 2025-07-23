@@ -36,7 +36,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A request to list all `AccessPolicies` for a container.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessPoliciesRequest {
     /// Required. Resource name for the container to list AccessPolicy instances
@@ -238,8 +238,22 @@ impl serde::ser::Serialize for ListAccessPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListAccessPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAccessPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to `ListAccessPoliciesRequest`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessPoliciesResponse {
     /// List of the AccessPolicy instances.
@@ -412,8 +426,21 @@ impl serde::ser::Serialize for ListAccessPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListAccessPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAccessPoliciesResponse");
+        debug_struct.field("access_policies", &self.access_policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get a particular `AccessPolicy`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAccessPolicyRequest {
     /// Required. Resource name for the access policy to get.
@@ -544,8 +571,20 @@ impl serde::ser::Serialize for GetAccessPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetAccessPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAccessPolicyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to update an `AccessPolicy`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAccessPolicyRequest {
     /// Required. The updated AccessPolicy.
@@ -721,8 +760,21 @@ impl serde::ser::Serialize for UpdateAccessPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAccessPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAccessPolicyRequest");
+        debug_struct.field("policy", &self.policy);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete an `AccessPolicy`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAccessPolicyRequest {
     /// Required. Resource name for the access policy to delete.
@@ -853,8 +905,20 @@ impl serde::ser::Serialize for DeleteAccessPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAccessPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAccessPolicyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list all `AccessLevels` in an `AccessPolicy`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessLevelsRequest {
     /// Required. Resource name for the access policy to list [Access Levels]
@@ -1089,8 +1153,23 @@ impl serde::ser::Serialize for ListAccessLevelsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAccessLevelsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAccessLevelsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("access_level_format", &self.access_level_format);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to `ListAccessLevelsRequest`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessLevelsResponse {
     /// List of the [Access Level]
@@ -1264,8 +1343,21 @@ impl serde::ser::Serialize for ListAccessLevelsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAccessLevelsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAccessLevelsResponse");
+        debug_struct.field("access_levels", &self.access_levels);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get a particular `AccessLevel`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAccessLevelRequest {
     /// Required. Resource name for the [Access Level]
@@ -1433,8 +1525,21 @@ impl serde::ser::Serialize for GetAccessLevelRequest {
     }
 }
 
+impl std::fmt::Debug for GetAccessLevelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAccessLevelRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("access_level_format", &self.access_level_format);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to create an `AccessLevel`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAccessLevelRequest {
     /// Required. Resource name for the access policy which owns this [Access
@@ -1606,8 +1711,21 @@ impl serde::ser::Serialize for CreateAccessLevelRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAccessLevelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAccessLevelRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("access_level", &self.access_level);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to update an `AccessLevel`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAccessLevelRequest {
     /// Required. The updated [Access Level]
@@ -1788,8 +1906,21 @@ impl serde::ser::Serialize for UpdateAccessLevelRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAccessLevelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAccessLevelRequest");
+        debug_struct.field("access_level", &self.access_level);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete an `AccessLevel`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAccessLevelRequest {
     /// Required. Resource name for the [Access Level]
@@ -1922,9 +2053,21 @@ impl serde::ser::Serialize for DeleteAccessLevelRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAccessLevelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAccessLevelRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to replace all existing Access Levels in an Access Policy with
 /// the Access Levels provided. This is done atomically.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceAccessLevelsRequest {
     /// Required. Resource name for the access policy which owns these
@@ -2120,9 +2263,23 @@ impl serde::ser::Serialize for ReplaceAccessLevelsRequest {
     }
 }
 
+impl std::fmt::Debug for ReplaceAccessLevelsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplaceAccessLevelsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("access_levels", &self.access_levels);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to ReplaceAccessLevelsRequest. This will be put inside of
 /// Operation.response field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceAccessLevelsResponse {
     /// List of the [Access Level]
@@ -2256,8 +2413,20 @@ impl serde::ser::Serialize for ReplaceAccessLevelsResponse {
     }
 }
 
+impl std::fmt::Debug for ReplaceAccessLevelsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplaceAccessLevelsResponse");
+        debug_struct.field("access_levels", &self.access_levels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list all `ServicePerimeters` in an `AccessPolicy`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicePerimetersRequest {
     /// Required. Resource name for the access policy to list [Service Perimeters]
@@ -2462,8 +2631,22 @@ impl serde::ser::Serialize for ListServicePerimetersRequest {
     }
 }
 
+impl std::fmt::Debug for ListServicePerimetersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicePerimetersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to `ListServicePerimetersRequest`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicePerimetersResponse {
     /// List of the [Service Perimeter]
@@ -2641,8 +2824,21 @@ impl serde::ser::Serialize for ListServicePerimetersResponse {
     }
 }
 
+impl std::fmt::Debug for ListServicePerimetersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicePerimetersResponse");
+        debug_struct.field("service_perimeters", &self.service_perimeters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get a particular `ServicePerimeter`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServicePerimeterRequest {
     /// Required. Resource name for the [Service Perimeter]
@@ -2775,8 +2971,20 @@ impl serde::ser::Serialize for GetServicePerimeterRequest {
     }
 }
 
+impl std::fmt::Debug for GetServicePerimeterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServicePerimeterRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to create a `ServicePerimeter`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServicePerimeterRequest {
     /// Required. Resource name for the access policy which owns this [Service
@@ -2949,8 +3157,21 @@ impl serde::ser::Serialize for CreateServicePerimeterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServicePerimeterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServicePerimeterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("service_perimeter", &self.service_perimeter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to update a `ServicePerimeter`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServicePerimeterRequest {
     /// Required. The updated `ServicePerimeter`. Syntactic correctness of the
@@ -3129,8 +3350,21 @@ impl serde::ser::Serialize for UpdateServicePerimeterRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServicePerimeterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServicePerimeterRequest");
+        debug_struct.field("service_perimeter", &self.service_perimeter);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete a `ServicePerimeter`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServicePerimeterRequest {
     /// Required. Resource name for the [Service Perimeter]
@@ -3263,9 +3497,21 @@ impl serde::ser::Serialize for DeleteServicePerimeterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServicePerimeterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServicePerimeterRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to replace all existing Service Perimeters in an Access Policy
 /// with the Service Perimeters provided. This is done atomically.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceServicePerimetersRequest {
     /// Required. Resource name for the access policy which owns these
@@ -3465,9 +3711,23 @@ impl serde::ser::Serialize for ReplaceServicePerimetersRequest {
     }
 }
 
+impl std::fmt::Debug for ReplaceServicePerimetersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplaceServicePerimetersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("service_perimeters", &self.service_perimeters);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to ReplaceServicePerimetersRequest. This will be put inside of
 /// Operation.response field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceServicePerimetersResponse {
     /// List of the [Service Perimeter]
@@ -3605,12 +3865,24 @@ impl serde::ser::Serialize for ReplaceServicePerimetersResponse {
     }
 }
 
+impl std::fmt::Debug for ReplaceServicePerimetersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplaceServicePerimetersResponse");
+        debug_struct.field("service_perimeters", &self.service_perimeters);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to commit dry-run specs in all [Service Perimeters]
 /// [google.identity.accesscontextmanager.v1.ServicePerimeter] belonging to
 /// an [Access Policy][google.identity.accesscontextmanager.v1.AccessPolicy].
 ///
 /// [google.identity.accesscontextmanager.v1.AccessPolicy]: crate::model::AccessPolicy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitServicePerimetersRequest {
     /// Required. Resource name for the parent [Access Policy]
@@ -3775,9 +4047,22 @@ impl serde::ser::Serialize for CommitServicePerimetersRequest {
     }
 }
 
+impl std::fmt::Debug for CommitServicePerimetersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommitServicePerimetersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to CommitServicePerimetersRequest. This will be put inside of
 /// Operation.response field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitServicePerimetersResponse {
     /// List of all the [Service Perimeter]
@@ -3917,9 +4202,21 @@ impl serde::ser::Serialize for CommitServicePerimetersResponse {
     }
 }
 
+impl std::fmt::Debug for CommitServicePerimetersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommitServicePerimetersResponse");
+        debug_struct.field("service_perimeters", &self.service_perimeters);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request of [ListGcpUserAccessBindings]
 /// [google.identity.accesscontextmanager.v1.AccessContextManager.ListGcpUserAccessBindings].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGcpUserAccessBindingsRequest {
     /// Required. Example: "organizations/256"
@@ -4120,9 +4417,23 @@ impl serde::ser::Serialize for ListGcpUserAccessBindingsRequest {
     }
 }
 
+impl std::fmt::Debug for ListGcpUserAccessBindingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGcpUserAccessBindingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of [ListGcpUserAccessBindings]
 /// [google.identity.accesscontextmanager.v1.AccessContextManager.ListGcpUserAccessBindings].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGcpUserAccessBindingsResponse {
     /// [GcpUserAccessBinding]
@@ -4301,9 +4612,22 @@ impl serde::ser::Serialize for ListGcpUserAccessBindingsResponse {
     }
 }
 
+impl std::fmt::Debug for ListGcpUserAccessBindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGcpUserAccessBindingsResponse");
+        debug_struct.field("gcp_user_access_bindings", &self.gcp_user_access_bindings);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request of [GetGcpUserAccessBinding]
 /// [google.identity.accesscontextmanager.v1.AccessContextManager.GetGcpUserAccessBinding].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGcpUserAccessBindingRequest {
     /// Required. Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
@@ -4432,9 +4756,21 @@ impl serde::ser::Serialize for GetGcpUserAccessBindingRequest {
     }
 }
 
+impl std::fmt::Debug for GetGcpUserAccessBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGcpUserAccessBindingRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request of [CreateGcpUserAccessBinding]
 /// [google.identity.accesscontextmanager.v1.AccessContextManager.CreateGcpUserAccessBinding].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGcpUserAccessBindingRequest {
     /// Required. Example: "organizations/256"
@@ -4600,9 +4936,22 @@ impl serde::ser::Serialize for CreateGcpUserAccessBindingRequest {
     }
 }
 
+impl std::fmt::Debug for CreateGcpUserAccessBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGcpUserAccessBindingRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("gcp_user_access_binding", &self.gcp_user_access_binding);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request of [UpdateGcpUserAccessBinding]
 /// [google.identity.accesscontextmanager.v1.AccessContextManager.UpdateGcpUserAccessBinding].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGcpUserAccessBindingRequest {
     /// Required. [GcpUserAccessBinding]
@@ -4785,9 +5134,22 @@ impl serde::ser::Serialize for UpdateGcpUserAccessBindingRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateGcpUserAccessBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGcpUserAccessBindingRequest");
+        debug_struct.field("gcp_user_access_binding", &self.gcp_user_access_binding);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request of [DeleteGcpUserAccessBinding]
 /// [google.identity.accesscontextmanager.v1.AccessContextManager.DeleteGcpUserAccessBinding].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGcpUserAccessBindingRequest {
     /// Required. Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
@@ -4916,10 +5278,22 @@ impl serde::ser::Serialize for DeleteGcpUserAccessBindingRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteGcpUserAccessBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGcpUserAccessBindingRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Currently, a completed operation means nothing. In the future, this metadata
 /// and a completed operation may indicate that the binding has taken effect and
 /// is affecting access decisions for all users.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcpUserAccessBindingOperationMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5022,8 +5396,19 @@ impl serde::ser::Serialize for GcpUserAccessBindingOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for GcpUserAccessBindingOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcpUserAccessBindingOperationMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata of Access Context Manager's Long Running Operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessContextManagerOperationMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5126,10 +5511,21 @@ impl serde::ser::Serialize for AccessContextManagerOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for AccessContextManagerOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessContextManagerOperationMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An `AccessLevel` is a label that can be applied to requests to Google Cloud
 /// services, along with a list of requirements necessary for the label to be
 /// applied.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessLevel {
     /// Required. Resource name for the Access Level. The `short_name` component
@@ -5496,6 +5892,23 @@ impl serde::ser::Serialize for AccessLevel {
     }
 }
 
+impl std::fmt::Debug for AccessLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessLevel");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("level", &self.level);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AccessLevel].
 pub mod access_level {
     #[allow(unused_imports)]
@@ -5513,7 +5926,7 @@ pub mod access_level {
 }
 
 /// `BasicLevel` is an `AccessLevel` using a set of recommended features.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BasicLevel {
     /// Required. A list of requirements for the `AccessLevel` to be granted.
@@ -5681,6 +6094,19 @@ impl serde::ser::Serialize for BasicLevel {
     }
 }
 
+impl std::fmt::Debug for BasicLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BasicLevel");
+        debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("combining_function", &self.combining_function);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BasicLevel].
 pub mod basic_level {
     #[allow(unused_imports)]
@@ -5817,7 +6243,7 @@ pub mod basic_level {
 /// of the listed subnetworks AND 2) the originating device complies with the
 /// listed device policy AND 3) all listed access levels are granted AND 4) the
 /// request was sent at a time allowed by the DateTimeRestriction.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Condition {
     /// CIDR block IP subnetwork specification. May be IPv4 or IPv6. Note that for
@@ -6112,10 +6538,27 @@ impl serde::ser::Serialize for Condition {
     }
 }
 
+impl std::fmt::Debug for Condition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Condition");
+        debug_struct.field("ip_subnetworks", &self.ip_subnetworks);
+        debug_struct.field("device_policy", &self.device_policy);
+        debug_struct.field("required_access_levels", &self.required_access_levels);
+        debug_struct.field("negate", &self.negate);
+        debug_struct.field("members", &self.members);
+        debug_struct.field("regions", &self.regions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `CustomLevel` is an `AccessLevel` using the Cloud Common Expression Language
 /// to represent the necessary conditions for the level to apply to a request.
 /// See CEL spec at: <https://github.com/google/cel-spec>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomLevel {
     /// Required. A Cloud CEL expression evaluating to a boolean.
@@ -6255,6 +6698,18 @@ impl serde::ser::Serialize for CustomLevel {
     }
 }
 
+impl std::fmt::Debug for CustomLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomLevel");
+        debug_struct.field("expr", &self.expr);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `DevicePolicy` specifies device specific restrictions necessary to acquire a
 /// given access level. A `DevicePolicy` specifies requirements for requests from
 /// devices to be granted access levels, it does not do any enforcement on the
@@ -6264,7 +6719,7 @@ impl serde::ser::Serialize for CustomLevel {
 /// DESKTOP_LINUX, encryption_status: ENCRYPTED}, then the DevicePolicy will be
 /// true for requests originating from encrypted Linux desktops and encrypted
 /// Windows desktops.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DevicePolicy {
     /// Whether or not screenlock is required for the DevicePolicy to be true.
@@ -6558,8 +7013,31 @@ impl serde::ser::Serialize for DevicePolicy {
     }
 }
 
+impl std::fmt::Debug for DevicePolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DevicePolicy");
+        debug_struct.field("require_screenlock", &self.require_screenlock);
+        debug_struct.field(
+            "allowed_encryption_statuses",
+            &self.allowed_encryption_statuses,
+        );
+        debug_struct.field("os_constraints", &self.os_constraints);
+        debug_struct.field(
+            "allowed_device_management_levels",
+            &self.allowed_device_management_levels,
+        );
+        debug_struct.field("require_admin_approval", &self.require_admin_approval);
+        debug_struct.field("require_corp_owned", &self.require_corp_owned);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A restriction on the OS type and version of devices making requests.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OsConstraint {
     /// Required. The allowed OS type.
@@ -6749,12 +7227,29 @@ impl serde::ser::Serialize for OsConstraint {
     }
 }
 
+impl std::fmt::Debug for OsConstraint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OsConstraint");
+        debug_struct.field("os_type", &self.os_type);
+        debug_struct.field("minimum_version", &self.minimum_version);
+        debug_struct.field(
+            "require_verified_chrome_os",
+            &self.require_verified_chrome_os,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `AccessPolicy` is a container for `AccessLevels` (which define the necessary
 /// attributes to use Google Cloud services) and `ServicePerimeters` (which
 /// define regions of services able to freely pass data within a perimeter). An
 /// access policy is globally visible within an organization, and the
 /// restrictions it specifies apply to all projects within an organization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessPolicy {
     /// Output only. Resource name of the `AccessPolicy`. Format:
@@ -7074,9 +7569,27 @@ impl serde::ser::Serialize for AccessPolicy {
     }
 }
 
+impl std::fmt::Debug for AccessPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("scopes", &self.scopes);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Restricts access to Cloud Console and Google Cloud APIs for a set of users
 /// using Context-Aware Access.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcpUserAccessBinding {
     /// Immutable. Assigned by the server during creation. The last segment has an arbitrary
@@ -7271,6 +7784,20 @@ impl serde::ser::Serialize for GcpUserAccessBinding {
     }
 }
 
+impl std::fmt::Debug for GcpUserAccessBinding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcpUserAccessBinding");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("group_key", &self.group_key);
+        debug_struct.field("access_levels", &self.access_levels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `ServicePerimeter` describes a set of Google Cloud resources which can freely
 /// import and export data amongst themselves, but not export outside of the
 /// `ServicePerimeter`. If a request with a source within this `ServicePerimeter`
@@ -7281,7 +7808,7 @@ impl serde::ser::Serialize for GcpUserAccessBinding {
 /// Service Perimeter Bridges can contain only Google Cloud projects as members,
 /// a single Google Cloud project may belong to multiple Service Perimeter
 /// Bridges.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServicePerimeter {
     /// Required. Resource name for the ServicePerimeter.  The `short_name`
@@ -7682,6 +8209,26 @@ impl serde::ser::Serialize for ServicePerimeter {
     }
 }
 
+impl std::fmt::Debug for ServicePerimeter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServicePerimeter");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("perimeter_type", &self.perimeter_type);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("spec", &self.spec);
+        debug_struct.field("use_explicit_dry_run_spec", &self.use_explicit_dry_run_spec);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServicePerimeter].
 pub mod service_perimeter {
     #[allow(unused_imports)]
@@ -7829,7 +8376,7 @@ pub mod service_perimeter {
 
 /// `ServicePerimeterConfig` specifies a set of Google Cloud resources that
 /// describe specific Service Perimeter configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServicePerimeterConfig {
     /// A list of Google Cloud resources that are inside of the service perimeter.
@@ -8148,6 +8695,23 @@ impl serde::ser::Serialize for ServicePerimeterConfig {
     }
 }
 
+impl std::fmt::Debug for ServicePerimeterConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServicePerimeterConfig");
+        debug_struct.field("resources", &self.resources);
+        debug_struct.field("access_levels", &self.access_levels);
+        debug_struct.field("restricted_services", &self.restricted_services);
+        debug_struct.field("vpc_accessible_services", &self.vpc_accessible_services);
+        debug_struct.field("ingress_policies", &self.ingress_policies);
+        debug_struct.field("egress_policies", &self.egress_policies);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServicePerimeterConfig].
 pub mod service_perimeter_config {
     #[allow(unused_imports)]
@@ -8155,7 +8719,7 @@ pub mod service_perimeter_config {
 
     /// Specifies how APIs are allowed to communicate within the Service
     /// Perimeter.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VpcAccessibleServices {
         /// Whether to restrict API calls within the Service Perimeter to the list of
@@ -8320,9 +8884,22 @@ pub mod service_perimeter_config {
         }
     }
 
+    impl std::fmt::Debug for VpcAccessibleServices {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VpcAccessibleServices");
+            debug_struct.field("enable_restriction", &self.enable_restriction);
+            debug_struct.field("allowed_services", &self.allowed_services);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// An allowed method or permission of a service specified in [ApiOperation]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.ApiOperation].
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MethodSelector {
         /// The API method name or Cloud IAM permission name to allow.
@@ -8546,6 +9123,18 @@ pub mod service_perimeter_config {
         }
     }
 
+    impl std::fmt::Debug for MethodSelector {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MethodSelector");
+            debug_struct.field("kind", &self.kind);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [MethodSelector].
     pub mod method_selector {
         #[allow(unused_imports)]
@@ -8569,7 +9158,7 @@ pub mod service_perimeter_config {
     }
 
     /// Identification for an API Operation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ApiOperation {
         /// The name of the API whose methods or permissions the [IngressPolicy]
@@ -8750,10 +9339,23 @@ pub mod service_perimeter_config {
         }
     }
 
+    impl std::fmt::Debug for ApiOperation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ApiOperation");
+            debug_struct.field("service_name", &self.service_name);
+            debug_struct.field("method_selectors", &self.method_selectors);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The source that [IngressPolicy]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
     /// authorizes access from.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IngressSource {
         /// Allowed ingress source. It can be one of [AccessLevel]
@@ -8985,6 +9587,18 @@ pub mod service_perimeter_config {
         }
     }
 
+    impl std::fmt::Debug for IngressSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IngressSource");
+            debug_struct.field("source", &self.source);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [IngressSource].
     pub mod ingress_source {
         #[allow(unused_imports)]
@@ -9031,7 +9645,7 @@ pub mod service_perimeter_config {
     /// matches a request. Conditions are based on information about the source of
     /// the request. The request must satisfy what is defined in `sources` AND
     /// identity related fields in order to match.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IngressFrom {
         /// Sources that this [IngressPolicy]
@@ -9237,6 +9851,20 @@ pub mod service_perimeter_config {
         }
     }
 
+    impl std::fmt::Debug for IngressFrom {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IngressFrom");
+            debug_struct.field("sources", &self.sources);
+            debug_struct.field("identities", &self.identities);
+            debug_struct.field("identity_type", &self.identity_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines the conditions under which an [IngressPolicy]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
     /// matches a request. Conditions are based on information about the
@@ -9245,7 +9873,7 @@ pub mod service_perimeter_config {
     /// intended to be performed on the target resource of the request. The request
     /// must satisfy what is defined in `operations` AND `resources` in order to
     /// match.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IngressTo {
         /// A list of [ApiOperations]
@@ -9426,6 +10054,19 @@ pub mod service_perimeter_config {
         }
     }
 
+    impl std::fmt::Debug for IngressTo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IngressTo");
+            debug_struct.field("operations", &self.operations);
+            debug_struct.field("resources", &self.resources);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Policy for ingress into [ServicePerimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter].
     ///
@@ -9446,7 +10087,7 @@ pub mod service_perimeter_config {
     ///
     /// Individual ingress policies can be limited by restricting which
     /// services and/or actions they match using the `ingress_to` field.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IngressPolicy {
         /// Defines the conditions on the source of a request causing this
@@ -9635,6 +10276,19 @@ pub mod service_perimeter_config {
         }
     }
 
+    impl std::fmt::Debug for IngressPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IngressPolicy");
+            debug_struct.field("ingress_from", &self.ingress_from);
+            debug_struct.field("ingress_to", &self.ingress_to);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines the conditions under which an [EgressPolicy]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressPolicy]
     /// matches a request. Conditions based on information about the source of the
@@ -9646,7 +10300,7 @@ pub mod service_perimeter_config {
     /// an [IngressPolicy]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
     /// which allows access in order for this request to succeed.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EgressFrom {
         /// A list of identities that are allowed access through this [EgressPolicy].
@@ -9817,6 +10471,19 @@ pub mod service_perimeter_config {
         }
     }
 
+    impl std::fmt::Debug for EgressFrom {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EgressFrom");
+            debug_struct.field("identities", &self.identities);
+            debug_struct.field("identity_type", &self.identity_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines the conditions under which an [EgressPolicy]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressPolicy]
     /// matches a request. Conditions are based on information about the
@@ -9832,7 +10499,7 @@ pub mod service_perimeter_config {
     /// which allows access in order for this request to succeed. The request must
     /// match `operations` AND `resources` fields in order to be allowed egress out
     /// of the perimeter.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EgressTo {
         /// A list of resources, currently only projects in the form
@@ -10045,6 +10712,20 @@ pub mod service_perimeter_config {
         }
     }
 
+    impl std::fmt::Debug for EgressTo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EgressTo");
+            debug_struct.field("resources", &self.resources);
+            debug_struct.field("operations", &self.operations);
+            debug_struct.field("external_resources", &self.external_resources);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Policy for egress from perimeter.
     ///
     /// [EgressPolicies]
@@ -10073,7 +10754,7 @@ pub mod service_perimeter_config {
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressFrom]
     /// and [EgressTo]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressTo].
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EgressPolicy {
         /// Defines conditions on the source of a request causing this [EgressPolicy]
@@ -10258,6 +10939,19 @@ pub mod service_perimeter_config {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for EgressPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EgressPolicy");
+            debug_struct.field("egress_from", &self.egress_from);
+            debug_struct.field("egress_to", &self.egress_to);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 

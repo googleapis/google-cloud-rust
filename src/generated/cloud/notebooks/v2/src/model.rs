@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Defines flags that are used to run the diagnostic tool
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnosticConfig {
     /// Required. User Cloud Storage bucket location (REQUIRED).
@@ -290,8 +290,30 @@ impl serde::ser::Serialize for DiagnosticConfig {
     }
 }
 
+impl std::fmt::Debug for DiagnosticConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiagnosticConfig");
+        debug_struct.field("gcs_bucket", &self.gcs_bucket);
+        debug_struct.field("relative_path", &self.relative_path);
+        debug_struct.field("enable_repair_flag", &self.enable_repair_flag);
+        debug_struct.field(
+            "enable_packet_capture_flag",
+            &self.enable_packet_capture_flag,
+        );
+        debug_struct.field(
+            "enable_copy_home_files_flag",
+            &self.enable_copy_home_files_flag,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The definition of an Event for a managed / semi-managed notebook instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Event {
     /// Optional. Event report time.
@@ -492,6 +514,20 @@ impl serde::ser::Serialize for Event {
     }
 }
 
+impl std::fmt::Debug for Event {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Event");
+        debug_struct.field("report_time", &self.report_time);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("details", &self.details);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Event].
 pub mod event {
     #[allow(unused_imports)]
@@ -660,7 +696,7 @@ pub mod event {
 }
 
 /// The definition of a network interface resource attached to a VM.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkInterface {
     /// Optional. The name of the VPC that this VM instance is in.
@@ -844,6 +880,20 @@ impl serde::ser::Serialize for NetworkInterface {
     }
 }
 
+impl std::fmt::Debug for NetworkInterface {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkInterface");
+        debug_struct.field("network", &self.network);
+        debug_struct.field("subnet", &self.subnet);
+        debug_struct.field("nic_type", &self.nic_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NetworkInterface].
 pub mod network_interface {
     #[allow(unused_imports)]
@@ -985,7 +1035,7 @@ pub mod network_interface {
 
 /// Definition of a custom Compute Engine virtual machine image for starting a
 /// notebook instance with the environment installed directly on the VM.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VmImage {
     /// Required. The name of the Google Cloud project that this VM image belongs
@@ -1216,6 +1266,19 @@ impl serde::ser::Serialize for VmImage {
     }
 }
 
+impl std::fmt::Debug for VmImage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VmImage");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("image", &self.image);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VmImage].
 pub mod vm_image {
     #[allow(unused_imports)]
@@ -1235,7 +1298,7 @@ pub mod vm_image {
 
 /// Definition of a container image for starting a notebook instance with the
 /// environment installed in a container.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContainerImage {
     /// Required. The path to the container image repository. For example:
@@ -1390,13 +1453,26 @@ impl serde::ser::Serialize for ContainerImage {
     }
 }
 
+impl std::fmt::Debug for ContainerImage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContainerImage");
+        debug_struct.field("repository", &self.repository);
+        debug_struct.field("tag", &self.tag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An accelerator configuration for a VM instance
 /// Definition of a hardware accelerator. Note that there is no check on `type`
 /// and `core_count` combinations. TPUs are not supported.
 /// See [GPUs on Compute
 /// Engine](https://cloud.google.com/compute/docs/gpus/#gpus-list) to find a
 /// valid combination.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcceleratorConfig {
     /// Optional. Type of this accelerator.
@@ -1570,6 +1646,19 @@ impl serde::ser::Serialize for AcceleratorConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AcceleratorConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcceleratorConfig");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("core_count", &self.core_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -1772,7 +1861,7 @@ pub mod accelerator_config {
 /// See [Images using supported Shielded VM
 /// features](https://cloud.google.com/compute/docs/instances/modifying-shielded-vm).
 /// Not all combinations are valid.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShieldedInstanceConfig {
     /// Optional. Defines whether the VM instance has Secure Boot enabled.
@@ -1969,8 +2058,25 @@ impl serde::ser::Serialize for ShieldedInstanceConfig {
     }
 }
 
+impl std::fmt::Debug for ShieldedInstanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShieldedInstanceConfig");
+        debug_struct.field("enable_secure_boot", &self.enable_secure_boot);
+        debug_struct.field("enable_vtpm", &self.enable_vtpm);
+        debug_struct.field(
+            "enable_integrity_monitoring",
+            &self.enable_integrity_monitoring,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A GPU driver configuration
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GPUDriverConfig {
     /// Optional. Whether the end user authorizes Google Cloud to install GPU
@@ -2132,8 +2238,21 @@ impl serde::ser::Serialize for GPUDriverConfig {
     }
 }
 
+impl std::fmt::Debug for GPUDriverConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GPUDriverConfig");
+        debug_struct.field("enable_gpu_driver", &self.enable_gpu_driver);
+        debug_struct.field("custom_gpu_driver_path", &self.custom_gpu_driver_path);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An instance-attached disk resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataDisk {
     /// Optional. The size of the disk in GB attached to this VM instance, up to a
@@ -2365,8 +2484,23 @@ impl serde::ser::Serialize for DataDisk {
     }
 }
 
+impl std::fmt::Debug for DataDisk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataDisk");
+        debug_struct.field("disk_size_gb", &self.disk_size_gb);
+        debug_struct.field("disk_type", &self.disk_type);
+        debug_struct.field("disk_encryption", &self.disk_encryption);
+        debug_struct.field("kms_key", &self.kms_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The definition of a boot disk.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BootDisk {
     /// Optional. The size of the boot disk in GB attached to this instance, up to
@@ -2599,8 +2733,23 @@ impl serde::ser::Serialize for BootDisk {
     }
 }
 
+impl std::fmt::Debug for BootDisk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BootDisk");
+        debug_struct.field("disk_size_gb", &self.disk_size_gb);
+        debug_struct.field("disk_type", &self.disk_type);
+        debug_struct.field("disk_encryption", &self.disk_encryption);
+        debug_struct.field("kms_key", &self.kms_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A service account that acts as an identity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceAccount {
     /// Optional. Email address of the service account.
@@ -2757,9 +2906,22 @@ impl serde::ser::Serialize for ServiceAccount {
     }
 }
 
+impl std::fmt::Debug for ServiceAccount {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceAccount");
+        debug_struct.field("email", &self.email);
+        debug_struct.field("scopes", &self.scopes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The definition of how to configure a VM instance outside of Resources and
 /// Identity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GceSetup {
     /// Optional. The machine type of the VM instance.
@@ -3369,6 +3531,30 @@ impl serde::ser::Serialize for GceSetup {
     }
 }
 
+impl std::fmt::Debug for GceSetup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GceSetup");
+        debug_struct.field("machine_type", &self.machine_type);
+        debug_struct.field("accelerator_configs", &self.accelerator_configs);
+        debug_struct.field("service_accounts", &self.service_accounts);
+        debug_struct.field("boot_disk", &self.boot_disk);
+        debug_struct.field("data_disks", &self.data_disks);
+        debug_struct.field("shielded_instance_config", &self.shielded_instance_config);
+        debug_struct.field("network_interfaces", &self.network_interfaces);
+        debug_struct.field("disable_public_ip", &self.disable_public_ip);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("enable_ip_forwarding", &self.enable_ip_forwarding);
+        debug_struct.field("gpu_driver_config", &self.gpu_driver_config);
+        debug_struct.field("image", &self.image);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GceSetup].
 pub mod gce_setup {
     #[allow(unused_imports)]
@@ -3386,7 +3572,7 @@ pub mod gce_setup {
 }
 
 /// The entry of VM image upgrade history.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpgradeHistoryEntry {
     /// Optional. The snapshot of the boot disk of this notebook instance before
@@ -3729,6 +3915,26 @@ impl serde::ser::Serialize for UpgradeHistoryEntry {
     }
 }
 
+impl std::fmt::Debug for UpgradeHistoryEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpgradeHistoryEntry");
+        debug_struct.field("snapshot", &self.snapshot);
+        debug_struct.field("vm_image", &self.vm_image);
+        debug_struct.field("container_image", &self.container_image);
+        debug_struct.field("framework", &self.framework);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("target_version", &self.target_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [UpgradeHistoryEntry].
 pub mod upgrade_history_entry {
     #[allow(unused_imports)]
@@ -4007,7 +4213,7 @@ pub mod upgrade_history_entry {
 }
 
 /// The definition of a notebook instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
     /// Output only. The name of this notebook instance. Format:
@@ -4577,6 +4783,31 @@ impl serde::ser::Serialize for Instance {
     }
 }
 
+impl std::fmt::Debug for Instance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instance");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("proxy_uri", &self.proxy_uri);
+        debug_struct.field("instance_owners", &self.instance_owners);
+        debug_struct.field("creator", &self.creator);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("upgrade_history", &self.upgrade_history);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("health_state", &self.health_state);
+        debug_struct.field("health_info", &self.health_info);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("disable_proxy_access", &self.disable_proxy_access);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("infrastructure", &self.infrastructure);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
@@ -4593,7 +4824,7 @@ pub mod instance {
 }
 
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The time the operation was created.
@@ -4923,8 +5154,27 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        debug_struct.field("endpoint", &self.endpoint);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for listing notebook instances.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
     /// Required. Format:
@@ -5173,8 +5423,24 @@ impl serde::ser::Serialize for ListInstancesRequest {
     }
 }
 
+impl std::fmt::Debug for ListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for listing notebook instances.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
     /// A list of returned instances.
@@ -5375,8 +5641,22 @@ impl serde::ser::Serialize for ListInstancesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesResponse");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for getting a notebook instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
     /// Required. Format:
@@ -5506,8 +5786,20 @@ impl serde::ser::Serialize for GetInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for creating a notebook instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
     /// Required. Format:
@@ -5722,8 +6014,23 @@ impl serde::ser::Serialize for CreateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstanceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for updating a notebook instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
     /// Required. A representation of an instance.
@@ -5924,8 +6231,22 @@ impl serde::ser::Serialize for UpdateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstanceRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for deleting a notebook instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
     /// Required. Format:
@@ -6080,8 +6401,21 @@ impl serde::ser::Serialize for DeleteInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for starting a notebook instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartInstanceRequest {
     /// Required. Format:
@@ -6211,8 +6545,20 @@ impl serde::ser::Serialize for StartInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for StartInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for stopping a notebook instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopInstanceRequest {
     /// Required. Format:
@@ -6342,8 +6688,20 @@ impl serde::ser::Serialize for StopInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for StopInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for resetting a notebook instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetInstanceRequest {
     /// Required. Format:
@@ -6473,8 +6831,20 @@ impl serde::ser::Serialize for ResetInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for ResetInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for checking if a notebook instance is upgradeable.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckInstanceUpgradabilityRequest {
     /// Required. Format:
@@ -6608,8 +6978,20 @@ impl serde::ser::Serialize for CheckInstanceUpgradabilityRequest {
     }
 }
 
+impl std::fmt::Debug for CheckInstanceUpgradabilityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckInstanceUpgradabilityRequest");
+        debug_struct.field("notebook_instance", &self.notebook_instance);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for checking if a notebook instance is upgradeable.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckInstanceUpgradabilityResponse {
     /// If an instance is upgradeable.
@@ -6816,8 +7198,23 @@ impl serde::ser::Serialize for CheckInstanceUpgradabilityResponse {
     }
 }
 
+impl std::fmt::Debug for CheckInstanceUpgradabilityResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckInstanceUpgradabilityResponse");
+        debug_struct.field("upgradeable", &self.upgradeable);
+        debug_struct.field("upgrade_version", &self.upgrade_version);
+        debug_struct.field("upgrade_info", &self.upgrade_info);
+        debug_struct.field("upgrade_image", &self.upgrade_image);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for upgrading a notebook instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpgradeInstanceRequest {
     /// Required. Format:
@@ -6947,8 +7344,20 @@ impl serde::ser::Serialize for UpgradeInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for UpgradeInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpgradeInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for rollbacking a notebook instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollbackInstanceRequest {
     /// Required. Format:
@@ -7129,8 +7538,22 @@ impl serde::ser::Serialize for RollbackInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for RollbackInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RollbackInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("target_snapshot", &self.target_snapshot);
+        debug_struct.field("revision_id", &self.revision_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for creating a notebook instance diagnostic file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnoseInstanceRequest {
     /// Required. Format:
@@ -7338,6 +7761,20 @@ impl serde::ser::Serialize for DiagnoseInstanceRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DiagnoseInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiagnoseInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("diagnostic_config", &self.diagnostic_config);
+        debug_struct.field("timeout_minutes", &self.timeout_minutes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

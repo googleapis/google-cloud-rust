@@ -36,7 +36,7 @@ extern crate wkt;
 
 /// Details of the Autonomous Database resource.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/AutonomousDatabase/>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutonomousDatabase {
     /// Identifier. The name of the Autonomous Database resource in the following
@@ -425,8 +425,29 @@ impl serde::ser::Serialize for AutonomousDatabase {
     }
 }
 
+impl std::fmt::Debug for AutonomousDatabase {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutonomousDatabase");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("entitlement_id", &self.entitlement_id);
+        debug_struct.field("admin_password", &self.admin_password);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("cidr", &self.cidr);
+        debug_struct.field("create_time", &self.create_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The properties of an Autonomous Database.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutonomousDatabaseProperties {
     /// Output only. OCID of the Autonomous Database.
@@ -2568,6 +2589,119 @@ impl serde::ser::Serialize for AutonomousDatabaseProperties {
     }
 }
 
+impl std::fmt::Debug for AutonomousDatabaseProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutonomousDatabaseProperties");
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("compute_count", &self.compute_count);
+        debug_struct.field("cpu_core_count", &self.cpu_core_count);
+        debug_struct.field("data_storage_size_tb", &self.data_storage_size_tb);
+        debug_struct.field("data_storage_size_gb", &self.data_storage_size_gb);
+        debug_struct.field("db_workload", &self.db_workload);
+        debug_struct.field("db_edition", &self.db_edition);
+        debug_struct.field("character_set", &self.character_set);
+        debug_struct.field("n_character_set", &self.n_character_set);
+        debug_struct.field("private_endpoint_ip", &self.private_endpoint_ip);
+        debug_struct.field("private_endpoint_label", &self.private_endpoint_label);
+        debug_struct.field("db_version", &self.db_version);
+        debug_struct.field("is_auto_scaling_enabled", &self.is_auto_scaling_enabled);
+        debug_struct.field(
+            "is_storage_auto_scaling_enabled",
+            &self.is_storage_auto_scaling_enabled,
+        );
+        debug_struct.field("license_type", &self.license_type);
+        debug_struct.field("customer_contacts", &self.customer_contacts);
+        debug_struct.field("secret_id", &self.secret_id);
+        debug_struct.field("vault_id", &self.vault_id);
+        debug_struct.field("maintenance_schedule_type", &self.maintenance_schedule_type);
+        debug_struct.field("mtls_connection_required", &self.mtls_connection_required);
+        debug_struct.field(
+            "backup_retention_period_days",
+            &self.backup_retention_period_days,
+        );
+        debug_struct.field(
+            "actual_used_data_storage_size_tb",
+            &self.actual_used_data_storage_size_tb,
+        );
+        debug_struct.field("allocated_storage_size_tb", &self.allocated_storage_size_tb);
+        debug_struct.field("apex_details", &self.apex_details);
+        debug_struct.field(
+            "are_primary_allowlisted_ips_used",
+            &self.are_primary_allowlisted_ips_used,
+        );
+        debug_struct.field("lifecycle_details", &self.lifecycle_details);
+        debug_struct.field("state", &self.state);
+        debug_struct.field(
+            "autonomous_container_database_id",
+            &self.autonomous_container_database_id,
+        );
+        debug_struct.field(
+            "available_upgrade_versions",
+            &self.available_upgrade_versions,
+        );
+        debug_struct.field("connection_strings", &self.connection_strings);
+        debug_struct.field("connection_urls", &self.connection_urls);
+        debug_struct.field(
+            "failed_data_recovery_duration",
+            &self.failed_data_recovery_duration,
+        );
+        debug_struct.field("memory_table_gbs", &self.memory_table_gbs);
+        debug_struct.field(
+            "is_local_data_guard_enabled",
+            &self.is_local_data_guard_enabled,
+        );
+        debug_struct.field(
+            "local_adg_auto_failover_max_data_loss_limit",
+            &self.local_adg_auto_failover_max_data_loss_limit,
+        );
+        debug_struct.field("local_standby_db", &self.local_standby_db);
+        debug_struct.field(
+            "memory_per_oracle_compute_unit_gbs",
+            &self.memory_per_oracle_compute_unit_gbs,
+        );
+        debug_struct.field(
+            "local_disaster_recovery_type",
+            &self.local_disaster_recovery_type,
+        );
+        debug_struct.field("data_safe_state", &self.data_safe_state);
+        debug_struct.field("database_management_state", &self.database_management_state);
+        debug_struct.field("open_mode", &self.open_mode);
+        debug_struct.field("operations_insights_state", &self.operations_insights_state);
+        debug_struct.field("peer_db_ids", &self.peer_db_ids);
+        debug_struct.field("permission_level", &self.permission_level);
+        debug_struct.field("private_endpoint", &self.private_endpoint);
+        debug_struct.field("refreshable_mode", &self.refreshable_mode);
+        debug_struct.field("refreshable_state", &self.refreshable_state);
+        debug_struct.field("role", &self.role);
+        debug_struct.field(
+            "scheduled_operation_details",
+            &self.scheduled_operation_details,
+        );
+        debug_struct.field("sql_web_developer_url", &self.sql_web_developer_url);
+        debug_struct.field("supported_clone_regions", &self.supported_clone_regions);
+        debug_struct.field(
+            "used_data_storage_size_tbs",
+            &self.used_data_storage_size_tbs,
+        );
+        debug_struct.field("oci_url", &self.oci_url);
+        debug_struct.field(
+            "total_auto_backup_storage_size_gbs",
+            &self.total_auto_backup_storage_size_gbs,
+        );
+        debug_struct.field(
+            "next_long_term_backup_time",
+            &self.next_long_term_backup_time,
+        );
+        debug_struct.field("maintenance_begin_time", &self.maintenance_begin_time);
+        debug_struct.field("maintenance_end_time", &self.maintenance_end_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AutonomousDatabaseProperties].
 pub mod autonomous_database_properties {
     #[allow(unused_imports)]
@@ -4104,7 +4238,7 @@ pub mod autonomous_database_properties {
 
 /// Oracle APEX Application Development.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/datatypes/AutonomousDatabaseApex>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutonomousDatabaseApex {
     /// Output only. The Oracle APEX Application Development version.
@@ -4259,9 +4393,22 @@ impl serde::ser::Serialize for AutonomousDatabaseApex {
     }
 }
 
+impl std::fmt::Debug for AutonomousDatabaseApex {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutonomousDatabaseApex");
+        debug_struct.field("apex_version", &self.apex_version);
+        debug_struct.field("ords_version", &self.ords_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The connection string used to connect to the Autonomous Database.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/datatypes/AutonomousDatabaseConnectionStrings>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutonomousDatabaseConnectionStrings {
     /// Output only. Returns all connection strings that can be used to connect to
@@ -4536,9 +4683,26 @@ impl serde::ser::Serialize for AutonomousDatabaseConnectionStrings {
     }
 }
 
+impl std::fmt::Debug for AutonomousDatabaseConnectionStrings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutonomousDatabaseConnectionStrings");
+        debug_struct.field("all_connection_strings", &self.all_connection_strings);
+        debug_struct.field("dedicated", &self.dedicated);
+        debug_struct.field("high", &self.high);
+        debug_struct.field("low", &self.low);
+        debug_struct.field("medium", &self.medium);
+        debug_struct.field("profiles", &self.profiles);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The connection string profile to allow clients to group.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/datatypes/DatabaseConnectionStringProfile>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseConnectionStringProfile {
     /// Output only. The current consumer group being used by the connection.
@@ -4904,6 +5068,26 @@ impl serde::ser::Serialize for DatabaseConnectionStringProfile {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DatabaseConnectionStringProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseConnectionStringProfile");
+        debug_struct.field("consumer_group", &self.consumer_group);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("host_format", &self.host_format);
+        debug_struct.field("is_regional", &self.is_regional);
+        debug_struct.field("protocol", &self.protocol);
+        debug_struct.field("session_mode", &self.session_mode);
+        debug_struct.field("syntax_format", &self.syntax_format);
+        debug_struct.field("tls_authentication", &self.tls_authentication);
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -5735,7 +5919,7 @@ pub mod database_connection_string_profile {
 
 /// A list of all connection strings that can be used to connect to the
 /// Autonomous Database.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllConnectionStrings {
     /// Output only. The database service provides the highest level of resources
@@ -5915,10 +6099,24 @@ impl serde::ser::Serialize for AllConnectionStrings {
     }
 }
 
+impl std::fmt::Debug for AllConnectionStrings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AllConnectionStrings");
+        debug_struct.field("high", &self.high);
+        debug_struct.field("low", &self.low);
+        debug_struct.field("medium", &self.medium);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The URLs for accessing Oracle Application Express (APEX) and SQL Developer
 /// Web with a browser from a Compute instance.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/datatypes/AutonomousDatabaseConnectionUrls>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutonomousDatabaseConnectionUrls {
     /// Output only. Oracle Application Express (APEX) URL.
@@ -6254,9 +6452,34 @@ impl serde::ser::Serialize for AutonomousDatabaseConnectionUrls {
     }
 }
 
+impl std::fmt::Debug for AutonomousDatabaseConnectionUrls {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutonomousDatabaseConnectionUrls");
+        debug_struct.field("apex_uri", &self.apex_uri);
+        debug_struct.field("database_transforms_uri", &self.database_transforms_uri);
+        debug_struct.field("graph_studio_uri", &self.graph_studio_uri);
+        debug_struct.field(
+            "machine_learning_notebook_uri",
+            &self.machine_learning_notebook_uri,
+        );
+        debug_struct.field(
+            "machine_learning_user_management_uri",
+            &self.machine_learning_user_management_uri,
+        );
+        debug_struct.field("mongo_db_uri", &self.mongo_db_uri);
+        debug_struct.field("ords_uri", &self.ords_uri);
+        debug_struct.field("sql_dev_web_uri", &self.sql_dev_web_uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Autonomous Data Guard standby database details.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/datatypes/AutonomousDatabaseStandbySummary>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutonomousDatabaseStandbySummary {
     /// Output only. The amount of time, in seconds, that the data of the standby
@@ -6542,9 +6765,31 @@ impl serde::ser::Serialize for AutonomousDatabaseStandbySummary {
     }
 }
 
+impl std::fmt::Debug for AutonomousDatabaseStandbySummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutonomousDatabaseStandbySummary");
+        debug_struct.field("lag_time_duration", &self.lag_time_duration);
+        debug_struct.field("lifecycle_details", &self.lifecycle_details);
+        debug_struct.field("state", &self.state);
+        debug_struct.field(
+            "data_guard_role_changed_time",
+            &self.data_guard_role_changed_time,
+        );
+        debug_struct.field(
+            "disaster_recovery_role_changed_time",
+            &self.disaster_recovery_role_changed_time,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details of scheduled operation.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/datatypes/ScheduledOperationDetails>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScheduledOperationDetails {
     /// Output only. Day of week.
@@ -6746,9 +6991,23 @@ impl serde::ser::Serialize for ScheduledOperationDetails {
     }
 }
 
+impl std::fmt::Debug for ScheduledOperationDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScheduledOperationDetails");
+        debug_struct.field("day_of_week", &self.day_of_week);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("stop_time", &self.stop_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details of the Autonomous Database character set resource.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/AutonomousDatabaseCharacterSets/>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutonomousDatabaseCharacterSet {
     /// Identifier. The name of the Autonomous Database Character Set resource in
@@ -6933,6 +7192,20 @@ impl serde::ser::Serialize for AutonomousDatabaseCharacterSet {
     }
 }
 
+impl std::fmt::Debug for AutonomousDatabaseCharacterSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutonomousDatabaseCharacterSet");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("character_set_type", &self.character_set_type);
+        debug_struct.field("character_set", &self.character_set);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AutonomousDatabaseCharacterSet].
 pub mod autonomous_database_character_set {
     #[allow(unused_imports)]
@@ -7073,7 +7346,7 @@ pub mod autonomous_database_character_set {
 
 /// Details of the Autonomous Database Backup resource.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/AutonomousDatabaseBackup/>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutonomousDatabaseBackup {
     /// Identifier. The name of the Autonomous Database Backup resource with the
@@ -7331,8 +7604,24 @@ impl serde::ser::Serialize for AutonomousDatabaseBackup {
     }
 }
 
+impl std::fmt::Debug for AutonomousDatabaseBackup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutonomousDatabaseBackup");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("autonomous_database", &self.autonomous_database);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Properties of the Autonomous Database Backup resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutonomousDatabaseBackupProperties {
     /// Output only. OCID of the Autonomous Database backup.
@@ -8055,6 +8344,37 @@ impl serde::ser::Serialize for AutonomousDatabaseBackupProperties {
     }
 }
 
+impl std::fmt::Debug for AutonomousDatabaseBackupProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutonomousDatabaseBackupProperties");
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("retention_period_days", &self.retention_period_days);
+        debug_struct.field("compartment_id", &self.compartment_id);
+        debug_struct.field("database_size_tb", &self.database_size_tb);
+        debug_struct.field("db_version", &self.db_version);
+        debug_struct.field("is_long_term_backup", &self.is_long_term_backup);
+        debug_struct.field("is_automatic_backup", &self.is_automatic_backup);
+        debug_struct.field("is_restorable", &self.is_restorable);
+        debug_struct.field("key_store_id", &self.key_store_id);
+        debug_struct.field("key_store_wallet", &self.key_store_wallet);
+        debug_struct.field("kms_key_id", &self.kms_key_id);
+        debug_struct.field("kms_key_version_id", &self.kms_key_version_id);
+        debug_struct.field("lifecycle_details", &self.lifecycle_details);
+        debug_struct.field("lifecycle_state", &self.lifecycle_state);
+        debug_struct.field("size_tb", &self.size_tb);
+        debug_struct.field("available_till_time", &self.available_till_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("vault_id", &self.vault_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AutonomousDatabaseBackupProperties].
 pub mod autonomous_database_backup_properties {
     #[allow(unused_imports)]
@@ -8362,7 +8682,7 @@ pub mod autonomous_database_backup_properties {
 
 /// Details of the Autonomous Database version.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/AutonomousDbVersionSummary/>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutonomousDbVersion {
     /// Identifier. The name of the Autonomous Database Version resource with the
@@ -8571,9 +8891,24 @@ impl serde::ser::Serialize for AutonomousDbVersion {
     }
 }
 
+impl std::fmt::Debug for AutonomousDbVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutonomousDbVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("db_workload", &self.db_workload);
+        debug_struct.field("workload_uri", &self.workload_uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The CustomerContact reference as defined by Oracle.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/datatypes/CustomerContact>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomerContact {
     /// Required. The email address used by Oracle to send notifications regarding
@@ -8703,9 +9038,21 @@ impl serde::ser::Serialize for CustomerContact {
     }
 }
 
+impl std::fmt::Debug for CustomerContact {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomerContact");
+        debug_struct.field("email", &self.email);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details of the database node resource.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/DbNode/>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DbNode {
     /// Identifier. The name of the database node resource in the following format:
@@ -8871,8 +9218,21 @@ impl serde::ser::Serialize for DbNode {
     }
 }
 
+impl std::fmt::Debug for DbNode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbNode");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("properties", &self.properties);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Various properties and settings associated with Db node.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DbNodeProperties {
     /// Output only. OCID of database node.
@@ -9253,6 +9613,25 @@ impl serde::ser::Serialize for DbNodeProperties {
     }
 }
 
+impl std::fmt::Debug for DbNodeProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbNodeProperties");
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("ocpu_count", &self.ocpu_count);
+        debug_struct.field("memory_size_gb", &self.memory_size_gb);
+        debug_struct.field("db_node_storage_size_gb", &self.db_node_storage_size_gb);
+        debug_struct.field("db_server_ocid", &self.db_server_ocid);
+        debug_struct.field("hostname", &self.hostname);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("total_cpu_core_count", &self.total_cpu_core_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DbNodeProperties].
 pub mod db_node_properties {
     #[allow(unused_imports)]
@@ -9442,7 +9821,7 @@ pub mod db_node_properties {
 
 /// Details of the database server resource.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/DbServer/>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DbServer {
     /// Identifier. The name of the database server resource with the format:
@@ -9632,8 +10011,22 @@ impl serde::ser::Serialize for DbServer {
     }
 }
 
+impl std::fmt::Debug for DbServer {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbServer");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("properties", &self.properties);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Various properties and settings associated with Exadata database server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DbServerProperties {
     /// Output only. OCID of database server.
@@ -10131,6 +10524,30 @@ impl serde::ser::Serialize for DbServerProperties {
     }
 }
 
+impl std::fmt::Debug for DbServerProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbServerProperties");
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("ocpu_count", &self.ocpu_count);
+        debug_struct.field("max_ocpu_count", &self.max_ocpu_count);
+        debug_struct.field("memory_size_gb", &self.memory_size_gb);
+        debug_struct.field("max_memory_size_gb", &self.max_memory_size_gb);
+        debug_struct.field("db_node_storage_size_gb", &self.db_node_storage_size_gb);
+        debug_struct.field(
+            "max_db_node_storage_size_gb",
+            &self.max_db_node_storage_size_gb,
+        );
+        debug_struct.field("vm_count", &self.vm_count);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("db_node_ids", &self.db_node_ids);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DbServerProperties].
 pub mod db_server_properties {
     #[allow(unused_imports)]
@@ -10292,7 +10709,7 @@ pub mod db_server_properties {
 
 /// Details of the Database System Shapes resource.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/DbSystemShapeSummary/>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DbSystemShape {
     /// Identifier. The name of the Database System Shape resource with the format:
@@ -10915,8 +11332,40 @@ impl serde::ser::Serialize for DbSystemShape {
     }
 }
 
+impl std::fmt::Debug for DbSystemShape {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DbSystemShape");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("shape", &self.shape);
+        debug_struct.field("min_node_count", &self.min_node_count);
+        debug_struct.field("max_node_count", &self.max_node_count);
+        debug_struct.field("min_storage_count", &self.min_storage_count);
+        debug_struct.field("max_storage_count", &self.max_storage_count);
+        debug_struct.field(
+            "available_core_count_per_node",
+            &self.available_core_count_per_node,
+        );
+        debug_struct.field(
+            "available_memory_per_node_gb",
+            &self.available_memory_per_node_gb,
+        );
+        debug_struct.field("available_data_storage_tb", &self.available_data_storage_tb);
+        debug_struct.field("min_core_count_per_node", &self.min_core_count_per_node);
+        debug_struct.field("min_memory_per_node_gb", &self.min_memory_per_node_gb);
+        debug_struct.field(
+            "min_db_node_storage_per_node_gb",
+            &self.min_db_node_storage_per_node_gb,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details of the Entitlement resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Entitlement {
     /// Identifier. The name of the Entitlement resource with the format:
@@ -11132,6 +11581,21 @@ impl serde::ser::Serialize for Entitlement {
     }
 }
 
+impl std::fmt::Debug for Entitlement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Entitlement");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("cloud_account_details", &self.cloud_account_details);
+        debug_struct.field("entitlement_id", &self.entitlement_id);
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Entitlement].
 pub mod entitlement {
     #[allow(unused_imports)]
@@ -11294,7 +11758,7 @@ pub mod entitlement {
 }
 
 /// Details of the OCI Cloud Account.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudAccountDetails {
     /// Output only. OCI account name.
@@ -11528,9 +11992,24 @@ impl serde::ser::Serialize for CloudAccountDetails {
     }
 }
 
+impl std::fmt::Debug for CloudAccountDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudAccountDetails");
+        debug_struct.field("cloud_account", &self.cloud_account);
+        debug_struct.field("cloud_account_home_region", &self.cloud_account_home_region);
+        debug_struct.field("link_existing_account_uri", &self.link_existing_account_uri);
+        debug_struct.field("account_creation_uri", &self.account_creation_uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents CloudExadataInfrastructure resource.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/CloudExadataInfrastructure/>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudExadataInfrastructure {
     /// Identifier. The name of the Exadata Infrastructure resource with the
@@ -11844,8 +12323,26 @@ impl serde::ser::Serialize for CloudExadataInfrastructure {
     }
 }
 
+impl std::fmt::Debug for CloudExadataInfrastructure {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudExadataInfrastructure");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("gcp_oracle_zone", &self.gcp_oracle_zone);
+        debug_struct.field("entitlement_id", &self.entitlement_id);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("create_time", &self.create_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Various properties of Exadata Infrastructure.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudExadataInfrastructureProperties {
     /// Output only. OCID of created infra.
@@ -13005,6 +13502,53 @@ impl serde::ser::Serialize for CloudExadataInfrastructureProperties {
     }
 }
 
+impl std::fmt::Debug for CloudExadataInfrastructureProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudExadataInfrastructureProperties");
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("compute_count", &self.compute_count);
+        debug_struct.field("storage_count", &self.storage_count);
+        debug_struct.field("total_storage_size_gb", &self.total_storage_size_gb);
+        debug_struct.field("available_storage_size_gb", &self.available_storage_size_gb);
+        debug_struct.field("maintenance_window", &self.maintenance_window);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("shape", &self.shape);
+        debug_struct.field("oci_url", &self.oci_url);
+        debug_struct.field("cpu_count", &self.cpu_count);
+        debug_struct.field("max_cpu_count", &self.max_cpu_count);
+        debug_struct.field("memory_size_gb", &self.memory_size_gb);
+        debug_struct.field("max_memory_gb", &self.max_memory_gb);
+        debug_struct.field("db_node_storage_size_gb", &self.db_node_storage_size_gb);
+        debug_struct.field(
+            "max_db_node_storage_size_gb",
+            &self.max_db_node_storage_size_gb,
+        );
+        debug_struct.field("data_storage_size_tb", &self.data_storage_size_tb);
+        debug_struct.field("max_data_storage_tb", &self.max_data_storage_tb);
+        debug_struct.field("activated_storage_count", &self.activated_storage_count);
+        debug_struct.field("additional_storage_count", &self.additional_storage_count);
+        debug_struct.field("db_server_version", &self.db_server_version);
+        debug_struct.field("storage_server_version", &self.storage_server_version);
+        debug_struct.field("next_maintenance_run_id", &self.next_maintenance_run_id);
+        debug_struct.field("next_maintenance_run_time", &self.next_maintenance_run_time);
+        debug_struct.field(
+            "next_security_maintenance_run_time",
+            &self.next_security_maintenance_run_time,
+        );
+        debug_struct.field("customer_contacts", &self.customer_contacts);
+        debug_struct.field(
+            "monthly_storage_server_version",
+            &self.monthly_storage_server_version,
+        );
+        debug_struct.field("monthly_db_server_version", &self.monthly_db_server_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CloudExadataInfrastructureProperties].
 pub mod cloud_exadata_infrastructure_properties {
     #[allow(unused_imports)]
@@ -13180,7 +13724,7 @@ pub mod cloud_exadata_infrastructure_properties {
 
 /// Maintenance window as defined by Oracle.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/datatypes/MaintenanceWindow>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenanceWindow {
     /// Optional. The maintenance window scheduling preference.
@@ -13655,6 +14199,32 @@ impl serde::ser::Serialize for MaintenanceWindow {
     }
 }
 
+impl std::fmt::Debug for MaintenanceWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaintenanceWindow");
+        debug_struct.field("preference", &self.preference);
+        debug_struct.field("months", &self.months);
+        debug_struct.field("weeks_of_month", &self.weeks_of_month);
+        debug_struct.field("days_of_week", &self.days_of_week);
+        debug_struct.field("hours_of_day", &self.hours_of_day);
+        debug_struct.field("lead_time_week", &self.lead_time_week);
+        debug_struct.field("patching_mode", &self.patching_mode);
+        debug_struct.field(
+            "custom_action_timeout_mins",
+            &self.custom_action_timeout_mins,
+        );
+        debug_struct.field(
+            "is_custom_action_timeout_enabled",
+            &self.is_custom_action_timeout_enabled,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MaintenanceWindow].
 pub mod maintenance_window {
     #[allow(unused_imports)]
@@ -13932,7 +14502,7 @@ pub mod maintenance_window {
 
 /// Details of the Oracle Grid Infrastructure (GI) version resource.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/GiVersionSummary/>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GiVersion {
     /// Identifier. The name of the Oracle Grid Infrastructure (GI) version
@@ -14087,10 +14657,23 @@ impl serde::ser::Serialize for GiVersion {
     }
 }
 
+impl std::fmt::Debug for GiVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GiVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for a given [Location][google.cloud.location.Location].
 ///
 /// [google.cloud.location.Location]: location::model::Location
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     /// Output only. Google Cloud Platform Oracle zones in a location.
@@ -14223,8 +14806,20 @@ impl serde::ser::Serialize for LocationMetadata {
     }
 }
 
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+        debug_struct.field("gcp_oracle_zones", &self.gcp_oracle_zones);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `CloudExadataInfrastructures.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudExadataInfrastructuresRequest {
     /// Required. The parent value for CloudExadataInfrastructure in the following
@@ -14425,8 +15020,22 @@ impl serde::ser::Serialize for ListCloudExadataInfrastructuresRequest {
     }
 }
 
+impl std::fmt::Debug for ListCloudExadataInfrastructuresRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCloudExadataInfrastructuresRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for `CloudExadataInfrastructures.list`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudExadataInfrastructuresResponse {
     /// The list of Exadata Infrastructures.
@@ -14610,8 +15219,24 @@ impl serde::ser::Serialize for ListCloudExadataInfrastructuresResponse {
     }
 }
 
+impl std::fmt::Debug for ListCloudExadataInfrastructuresResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCloudExadataInfrastructuresResponse");
+        debug_struct.field(
+            "cloud_exadata_infrastructures",
+            &self.cloud_exadata_infrastructures,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `CloudExadataInfrastructure.Get`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCloudExadataInfrastructureRequest {
     /// Required. The name of the Cloud Exadata Infrastructure in the following
@@ -14742,8 +15367,20 @@ impl serde::ser::Serialize for GetCloudExadataInfrastructureRequest {
     }
 }
 
+impl std::fmt::Debug for GetCloudExadataInfrastructureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCloudExadataInfrastructureRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `CloudExadataInfrastructure.Create`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCloudExadataInfrastructureRequest {
     /// Required. The parent value for CloudExadataInfrastructure in the following
@@ -14987,8 +15624,29 @@ impl serde::ser::Serialize for CreateCloudExadataInfrastructureRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCloudExadataInfrastructureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCloudExadataInfrastructureRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "cloud_exadata_infrastructure_id",
+            &self.cloud_exadata_infrastructure_id,
+        );
+        debug_struct.field(
+            "cloud_exadata_infrastructure",
+            &self.cloud_exadata_infrastructure,
+        );
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `CloudExadataInfrastructure.Delete`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCloudExadataInfrastructureRequest {
     /// Required. The name of the Cloud Exadata Infrastructure in the following
@@ -15178,8 +15836,22 @@ impl serde::ser::Serialize for DeleteCloudExadataInfrastructureRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCloudExadataInfrastructureRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCloudExadataInfrastructureRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `CloudVmCluster.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudVmClustersRequest {
     /// Required. The name of the parent in the following format:
@@ -15403,8 +16075,23 @@ impl serde::ser::Serialize for ListCloudVmClustersRequest {
     }
 }
 
+impl std::fmt::Debug for ListCloudVmClustersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCloudVmClustersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for `CloudVmCluster.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCloudVmClustersResponse {
     /// The list of VM Clusters.
@@ -15580,8 +16267,21 @@ impl serde::ser::Serialize for ListCloudVmClustersResponse {
     }
 }
 
+impl std::fmt::Debug for ListCloudVmClustersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCloudVmClustersResponse");
+        debug_struct.field("cloud_vm_clusters", &self.cloud_vm_clusters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `CloudVmCluster.Get`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCloudVmClusterRequest {
     /// Required. The name of the Cloud VM Cluster in the following format:
@@ -15711,8 +16411,20 @@ impl serde::ser::Serialize for GetCloudVmClusterRequest {
     }
 }
 
+impl std::fmt::Debug for GetCloudVmClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCloudVmClusterRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `CloudVmCluster.Create`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCloudVmClusterRequest {
     /// Required. The name of the parent in the following format:
@@ -15942,8 +16654,23 @@ impl serde::ser::Serialize for CreateCloudVmClusterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCloudVmClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCloudVmClusterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("cloud_vm_cluster_id", &self.cloud_vm_cluster_id);
+        debug_struct.field("cloud_vm_cluster", &self.cloud_vm_cluster);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `CloudVmCluster.Delete`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCloudVmClusterRequest {
     /// Required. The name of the Cloud VM Cluster in the following format:
@@ -16131,8 +16858,22 @@ impl serde::ser::Serialize for DeleteCloudVmClusterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCloudVmClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCloudVmClusterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `Entitlement.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEntitlementsRequest {
     /// Required. The parent value for the entitlement in the following format:
@@ -16332,8 +17073,22 @@ impl serde::ser::Serialize for ListEntitlementsRequest {
     }
 }
 
+impl std::fmt::Debug for ListEntitlementsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEntitlementsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for `Entitlement.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEntitlementsResponse {
     /// The list of Entitlements
@@ -16504,8 +17259,21 @@ impl serde::ser::Serialize for ListEntitlementsResponse {
     }
 }
 
+impl std::fmt::Debug for ListEntitlementsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEntitlementsResponse");
+        debug_struct.field("entitlements", &self.entitlements);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `DbServer.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDbServersRequest {
     /// Required. The parent value for database server in the following format:
@@ -16705,8 +17473,22 @@ impl serde::ser::Serialize for ListDbServersRequest {
     }
 }
 
+impl std::fmt::Debug for ListDbServersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDbServersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for `DbServer.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDbServersResponse {
     /// The list of database servers.
@@ -16878,8 +17660,21 @@ impl serde::ser::Serialize for ListDbServersResponse {
     }
 }
 
+impl std::fmt::Debug for ListDbServersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDbServersResponse");
+        debug_struct.field("db_servers", &self.db_servers);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `DbNode.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDbNodesRequest {
     /// Required. The parent value for database node in the following format:
@@ -17079,8 +17874,22 @@ impl serde::ser::Serialize for ListDbNodesRequest {
     }
 }
 
+impl std::fmt::Debug for ListDbNodesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDbNodesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for `DbNode.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDbNodesResponse {
     /// The list of DB Nodes
@@ -17252,8 +18061,21 @@ impl serde::ser::Serialize for ListDbNodesResponse {
     }
 }
 
+impl std::fmt::Debug for ListDbNodesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDbNodesResponse");
+        debug_struct.field("db_nodes", &self.db_nodes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `GiVersion.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGiVersionsRequest {
     /// Required. The parent value for Grid Infrastructure Version in the following
@@ -17454,8 +18276,22 @@ impl serde::ser::Serialize for ListGiVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListGiVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGiVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for `GiVersion.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGiVersionsResponse {
     /// The list of Oracle Grid Infrastructure (GI) versions.
@@ -17627,8 +18463,21 @@ impl serde::ser::Serialize for ListGiVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListGiVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGiVersionsResponse");
+        debug_struct.field("gi_versions", &self.gi_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `DbSystemShape.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDbSystemShapesRequest {
     /// Required. The parent value for Database System Shapes in the following
@@ -17828,8 +18677,22 @@ impl serde::ser::Serialize for ListDbSystemShapesRequest {
     }
 }
 
+impl std::fmt::Debug for ListDbSystemShapesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDbSystemShapesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for `DbSystemShape.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDbSystemShapesResponse {
     /// The list of Database System shapes.
@@ -18001,8 +18864,21 @@ impl serde::ser::Serialize for ListDbSystemShapesResponse {
     }
 }
 
+impl std::fmt::Debug for ListDbSystemShapesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDbSystemShapesResponse");
+        debug_struct.field("db_system_shapes", &self.db_system_shapes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -18353,8 +19229,27 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        debug_struct.field("percent_complete", &self.percent_complete);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `AutonomousDatabase.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutonomousDatabasesRequest {
     /// Required. The parent value for the Autonomous Database in the following
@@ -18603,8 +19498,24 @@ impl serde::ser::Serialize for ListAutonomousDatabasesRequest {
     }
 }
 
+impl std::fmt::Debug for ListAutonomousDatabasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAutonomousDatabasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for `AutonomousDatabase.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutonomousDatabasesResponse {
     /// The list of Autonomous Databases.
@@ -18780,8 +19691,21 @@ impl serde::ser::Serialize for ListAutonomousDatabasesResponse {
     }
 }
 
+impl std::fmt::Debug for ListAutonomousDatabasesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAutonomousDatabasesResponse");
+        debug_struct.field("autonomous_databases", &self.autonomous_databases);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `AutonomousDatabase.Get`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAutonomousDatabaseRequest {
     /// Required. The name of the Autonomous Database in the following format:
@@ -18911,8 +19835,20 @@ impl serde::ser::Serialize for GetAutonomousDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for GetAutonomousDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAutonomousDatabaseRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `AutonomousDatabase.Create`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAutonomousDatabaseRequest {
     /// Required. The name of the parent in the following format:
@@ -19141,8 +20077,23 @@ impl serde::ser::Serialize for CreateAutonomousDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAutonomousDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAutonomousDatabaseRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("autonomous_database_id", &self.autonomous_database_id);
+        debug_struct.field("autonomous_database", &self.autonomous_database);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `AutonomousDatabase.Delete`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAutonomousDatabaseRequest {
     /// Required. The name of the resource in the following format:
@@ -19304,8 +20255,21 @@ impl serde::ser::Serialize for DeleteAutonomousDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAutonomousDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAutonomousDatabaseRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `AutonomousDatabase.Restore`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreAutonomousDatabaseRequest {
     /// Required. The name of the Autonomous Database in the following format:
@@ -19471,8 +20435,21 @@ impl serde::ser::Serialize for RestoreAutonomousDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for RestoreAutonomousDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreAutonomousDatabaseRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("restore_time", &self.restore_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `AutonomousDatabase.Stop`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopAutonomousDatabaseRequest {
     /// Required. The name of the Autonomous Database in the following format:
@@ -19602,8 +20579,20 @@ impl serde::ser::Serialize for StopAutonomousDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for StopAutonomousDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopAutonomousDatabaseRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `AutonomousDatabase.Start`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartAutonomousDatabaseRequest {
     /// Required. The name of the Autonomous Database in the following format:
@@ -19733,8 +20722,20 @@ impl serde::ser::Serialize for StartAutonomousDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for StartAutonomousDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartAutonomousDatabaseRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `AutonomousDatabase.Restart`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestartAutonomousDatabaseRequest {
     /// Required. The name of the Autonomous Database in the following format:
@@ -19864,8 +20865,20 @@ impl serde::ser::Serialize for RestartAutonomousDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for RestartAutonomousDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestartAutonomousDatabaseRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `AutonomousDatabase.GenerateWallet`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAutonomousDatabaseWalletRequest {
     /// Required. The name of the Autonomous Database in the following format:
@@ -20072,8 +21085,23 @@ impl serde::ser::Serialize for GenerateAutonomousDatabaseWalletRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateAutonomousDatabaseWalletRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAutonomousDatabaseWalletRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("is_regional", &self.is_regional);
+        debug_struct.field("password", &self.password);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for `AutonomousDatabase.GenerateWallet`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAutonomousDatabaseWalletResponse {
     /// Output only. The base64 encoded wallet files.
@@ -20223,8 +21251,20 @@ impl serde::ser::Serialize for GenerateAutonomousDatabaseWalletResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateAutonomousDatabaseWalletResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAutonomousDatabaseWalletResponse");
+        debug_struct.field("archive_content", &self.archive_content);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `AutonomousDbVersion.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutonomousDbVersionsRequest {
     /// Required. The parent value for the Autonomous Database in the following
@@ -20424,8 +21464,22 @@ impl serde::ser::Serialize for ListAutonomousDbVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAutonomousDbVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAutonomousDbVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for `AutonomousDbVersion.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutonomousDbVersionsResponse {
     /// The list of Autonomous Database versions.
@@ -20601,8 +21655,21 @@ impl serde::ser::Serialize for ListAutonomousDbVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAutonomousDbVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAutonomousDbVersionsResponse");
+        debug_struct.field("autonomous_db_versions", &self.autonomous_db_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `AutonomousDatabaseCharacterSet.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutonomousDatabaseCharacterSetsRequest {
     /// Required. The parent value for the Autonomous Database in the following
@@ -20831,8 +21898,23 @@ impl serde::ser::Serialize for ListAutonomousDatabaseCharacterSetsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAutonomousDatabaseCharacterSetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAutonomousDatabaseCharacterSetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for `AutonomousDatabaseCharacterSet.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutonomousDatabaseCharacterSetsResponse {
     /// The list of Autonomous Database Character Sets.
@@ -21018,8 +22100,24 @@ impl serde::ser::Serialize for ListAutonomousDatabaseCharacterSetsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAutonomousDatabaseCharacterSetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAutonomousDatabaseCharacterSetsResponse");
+        debug_struct.field(
+            "autonomous_database_character_sets",
+            &self.autonomous_database_character_sets,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for `AutonomousDatabaseBackup.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutonomousDatabaseBackupsRequest {
     /// Required. The parent value for ListAutonomousDatabaseBackups in the
@@ -21249,8 +22347,23 @@ impl serde::ser::Serialize for ListAutonomousDatabaseBackupsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAutonomousDatabaseBackupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAutonomousDatabaseBackupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for `AutonomousDatabaseBackup.List`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutonomousDatabaseBackupsResponse {
     /// The list of Autonomous Database Backups.
@@ -21434,9 +22547,25 @@ impl serde::ser::Serialize for ListAutonomousDatabaseBackupsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAutonomousDatabaseBackupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAutonomousDatabaseBackupsResponse");
+        debug_struct.field(
+            "autonomous_database_backups",
+            &self.autonomous_database_backups,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details of the Cloud VM Cluster resource.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/CloudVmCluster/>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudVmCluster {
     /// Identifier. The name of the VM Cluster resource with the format:
@@ -21830,8 +22959,29 @@ impl serde::ser::Serialize for CloudVmCluster {
     }
 }
 
+impl std::fmt::Debug for CloudVmCluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudVmCluster");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("exadata_infrastructure", &self.exadata_infrastructure);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("gcp_oracle_zone", &self.gcp_oracle_zone);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("cidr", &self.cidr);
+        debug_struct.field("backup_subnet_cidr", &self.backup_subnet_cidr);
+        debug_struct.field("network", &self.network);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Various properties and settings associated with Exadata VM cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudVmClusterProperties {
     /// Output only. Oracle Cloud Infrastructure ID of VM Cluster.
@@ -22980,6 +24130,55 @@ impl serde::ser::Serialize for CloudVmClusterProperties {
     }
 }
 
+impl std::fmt::Debug for CloudVmClusterProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudVmClusterProperties");
+        debug_struct.field("ocid", &self.ocid);
+        debug_struct.field("license_type", &self.license_type);
+        debug_struct.field("gi_version", &self.gi_version);
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field("ssh_public_keys", &self.ssh_public_keys);
+        debug_struct.field("node_count", &self.node_count);
+        debug_struct.field("shape", &self.shape);
+        debug_struct.field("ocpu_count", &self.ocpu_count);
+        debug_struct.field("memory_size_gb", &self.memory_size_gb);
+        debug_struct.field("db_node_storage_size_gb", &self.db_node_storage_size_gb);
+        debug_struct.field("storage_size_gb", &self.storage_size_gb);
+        debug_struct.field("data_storage_size_tb", &self.data_storage_size_tb);
+        debug_struct.field("disk_redundancy", &self.disk_redundancy);
+        debug_struct.field("sparse_diskgroup_enabled", &self.sparse_diskgroup_enabled);
+        debug_struct.field("local_backup_enabled", &self.local_backup_enabled);
+        debug_struct.field("hostname_prefix", &self.hostname_prefix);
+        debug_struct.field(
+            "diagnostics_data_collection_options",
+            &self.diagnostics_data_collection_options,
+        );
+        debug_struct.field("state", &self.state);
+        debug_struct.field("scan_listener_port_tcp", &self.scan_listener_port_tcp);
+        debug_struct.field(
+            "scan_listener_port_tcp_ssl",
+            &self.scan_listener_port_tcp_ssl,
+        );
+        debug_struct.field("domain", &self.domain);
+        debug_struct.field("scan_dns", &self.scan_dns);
+        debug_struct.field("hostname", &self.hostname);
+        debug_struct.field("cpu_core_count", &self.cpu_core_count);
+        debug_struct.field("system_version", &self.system_version);
+        debug_struct.field("scan_ip_ids", &self.scan_ip_ids);
+        debug_struct.field("scan_dns_record_id", &self.scan_dns_record_id);
+        debug_struct.field("oci_url", &self.oci_url);
+        debug_struct.field("db_server_ocids", &self.db_server_ocids);
+        debug_struct.field("compartment_id", &self.compartment_id);
+        debug_struct.field("dns_listener_ip", &self.dns_listener_ip);
+        debug_struct.field("cluster_name", &self.cluster_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CloudVmClusterProperties].
 pub mod cloud_vm_cluster_properties {
     #[allow(unused_imports)]
@@ -23418,7 +24617,7 @@ pub mod cloud_vm_cluster_properties {
 }
 
 /// Data collection options for diagnostics.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataCollectionOptions {
     /// Optional. Indicates whether diagnostic collection is enabled for the VM
@@ -23605,6 +24804,23 @@ impl serde::ser::Serialize for DataCollectionOptions {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DataCollectionOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataCollectionOptions");
+        debug_struct.field(
+            "diagnostics_events_enabled",
+            &self.diagnostics_events_enabled,
+        );
+        debug_struct.field("health_monitoring_enabled", &self.health_monitoring_enabled);
+        debug_struct.field("incident_logs_enabled", &self.incident_logs_enabled);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

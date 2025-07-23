@@ -27,7 +27,7 @@ use crate as wkt;
 /// sometimes simply referred to as "APIs" in other contexts, such as the name of
 /// this message itself. See <https://cloud.google.com/apis/design/glossary> for
 /// detailed terminology.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Api {
     /// The fully qualified name of this interface, including package name
@@ -349,8 +349,26 @@ impl serde::ser::Serialize for Api {
     }
 }
 
+impl std::fmt::Debug for Api {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Api");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("methods", &self.methods);
+        debug_struct.field("options", &self.options);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("source_context", &self.source_context);
+        debug_struct.field("mixins", &self.mixins);
+        debug_struct.field("syntax", &self.syntax);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Method represents a method of an API interface.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Method {
     /// The simple name of this method.
@@ -638,6 +656,24 @@ impl serde::ser::Serialize for Method {
     }
 }
 
+impl std::fmt::Debug for Method {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Method");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_type_url", &self.request_type_url);
+        debug_struct.field("request_streaming", &self.request_streaming);
+        debug_struct.field("response_type_url", &self.response_type_url);
+        debug_struct.field("response_streaming", &self.response_streaming);
+        debug_struct.field("options", &self.options);
+        debug_struct.field("syntax", &self.syntax);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Declares an API Interface to be included in this interface. The including
 /// interface must redeclare all the methods from the included interface, but
 /// documentation and options are inherited as follows:
@@ -729,7 +765,7 @@ impl serde::ser::Serialize for Method {
 /// ```
 ///
 /// [root]: wkt::Mixin::root
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Mixin {
     /// The fully qualified name of the interface which is included.
@@ -883,9 +919,22 @@ impl serde::ser::Serialize for Mixin {
     }
 }
 
+impl std::fmt::Debug for Mixin {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Mixin");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("root", &self.root);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The protocol compiler can output a FileDescriptorSet containing the .proto
 /// files it parses.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileDescriptorSet {
     pub file: std::vec::Vec<crate::FileDescriptorProto>,
@@ -1016,8 +1065,20 @@ impl serde::ser::Serialize for FileDescriptorSet {
     }
 }
 
+impl std::fmt::Debug for FileDescriptorSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileDescriptorSet");
+        debug_struct.field("file", &self.file);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a complete .proto file.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileDescriptorProto {
     pub name: std::string::String,
@@ -1539,8 +1600,32 @@ impl serde::ser::Serialize for FileDescriptorProto {
     }
 }
 
+impl std::fmt::Debug for FileDescriptorProto {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileDescriptorProto");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("package", &self.package);
+        debug_struct.field("dependency", &self.dependency);
+        debug_struct.field("public_dependency", &self.public_dependency);
+        debug_struct.field("weak_dependency", &self.weak_dependency);
+        debug_struct.field("message_type", &self.message_type);
+        debug_struct.field("enum_type", &self.enum_type);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("extension", &self.extension);
+        debug_struct.field("options", &self.options);
+        debug_struct.field("source_code_info", &self.source_code_info);
+        debug_struct.field("syntax", &self.syntax);
+        debug_struct.field("edition", &self.edition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a message type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DescriptorProto {
     pub name: std::string::String,
@@ -1926,12 +2011,33 @@ impl serde::ser::Serialize for DescriptorProto {
     }
 }
 
+impl std::fmt::Debug for DescriptorProto {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DescriptorProto");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("field", &self.field);
+        debug_struct.field("extension", &self.extension);
+        debug_struct.field("nested_type", &self.nested_type);
+        debug_struct.field("enum_type", &self.enum_type);
+        debug_struct.field("extension_range", &self.extension_range);
+        debug_struct.field("oneof_decl", &self.oneof_decl);
+        debug_struct.field("options", &self.options);
+        debug_struct.field("reserved_range", &self.reserved_range);
+        debug_struct.field("reserved_name", &self.reserved_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DescriptorProto].
 pub mod descriptor_proto {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExtensionRange {
         pub start: i32,
@@ -2155,10 +2261,24 @@ pub mod descriptor_proto {
         }
     }
 
+    impl std::fmt::Debug for ExtensionRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ExtensionRange");
+            debug_struct.field("start", &self.start);
+            debug_struct.field("end", &self.end);
+            debug_struct.field("options", &self.options);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Range of reserved tag numbers. Reserved tag numbers may not be used by
     /// fields or extension ranges in the same message. Reserved ranges may
     /// not overlap.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReservedRange {
         pub start: i32,
@@ -2347,9 +2467,22 @@ pub mod descriptor_proto {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ReservedRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ReservedRange");
+            debug_struct.field("start", &self.start);
+            debug_struct.field("end", &self.end);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExtensionRangeOptions {
     /// The parser stores options it doesn't recognize here. See above.
@@ -2583,12 +2716,27 @@ impl serde::ser::Serialize for ExtensionRangeOptions {
     }
 }
 
+impl std::fmt::Debug for ExtensionRangeOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExtensionRangeOptions");
+        debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
+        debug_struct.field("declaration", &self.declaration);
+        debug_struct.field("features", &self.features);
+        debug_struct.field("verification", &self.verification);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExtensionRangeOptions].
 pub mod extension_range_options {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Declaration {
         /// The extension number declared within the extension range.
@@ -2841,6 +2989,22 @@ pub mod extension_range_options {
         }
     }
 
+    impl std::fmt::Debug for Declaration {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Declaration");
+            debug_struct.field("number", &self.number);
+            debug_struct.field("full_name", &self.full_name);
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("reserved", &self.reserved);
+            debug_struct.field("repeated", &self.repeated);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The verification state of the extension range.
     ///
     /// # Working with unknown values
@@ -2967,7 +3131,7 @@ pub mod extension_range_options {
 }
 
 /// Describes a field within a message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldDescriptorProto {
     pub name: std::string::String,
@@ -3419,6 +3583,28 @@ impl serde::ser::Serialize for FieldDescriptorProto {
     }
 }
 
+impl std::fmt::Debug for FieldDescriptorProto {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FieldDescriptorProto");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("number", &self.number);
+        debug_struct.field("label", &self.label);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("type_name", &self.type_name);
+        debug_struct.field("extendee", &self.extendee);
+        debug_struct.field("default_value", &self.default_value);
+        debug_struct.field("oneof_index", &self.oneof_index);
+        debug_struct.field("json_name", &self.json_name);
+        debug_struct.field("options", &self.options);
+        debug_struct.field("proto3_optional", &self.proto3_optional);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FieldDescriptorProto].
 pub mod field_descriptor_proto {
     #[allow(unused_imports)]
@@ -3788,7 +3974,7 @@ pub mod field_descriptor_proto {
 }
 
 /// Describes a oneof.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OneofDescriptorProto {
     pub name: std::string::String,
@@ -3950,8 +4136,21 @@ impl serde::ser::Serialize for OneofDescriptorProto {
     }
 }
 
+impl std::fmt::Debug for OneofDescriptorProto {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OneofDescriptorProto");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("options", &self.options);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes an enum type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumDescriptorProto {
     pub name: std::string::String,
@@ -4206,6 +4405,22 @@ impl serde::ser::Serialize for EnumDescriptorProto {
     }
 }
 
+impl std::fmt::Debug for EnumDescriptorProto {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnumDescriptorProto");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("value", &self.value);
+        debug_struct.field("options", &self.options);
+        debug_struct.field("reserved_range", &self.reserved_range);
+        debug_struct.field("reserved_name", &self.reserved_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EnumDescriptorProto].
 pub mod enum_descriptor_proto {
     #[allow(unused_imports)]
@@ -4217,7 +4432,7 @@ pub mod enum_descriptor_proto {
     /// Note that this is distinct from DescriptorProto.ReservedRange in that it
     /// is inclusive such that it can appropriately represent the entire int32
     /// domain.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EnumReservedRange {
         pub start: i32,
@@ -4406,10 +4621,23 @@ pub mod enum_descriptor_proto {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for EnumReservedRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EnumReservedRange");
+            debug_struct.field("start", &self.start);
+            debug_struct.field("end", &self.end);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Describes a value within an enum.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumValueDescriptorProto {
     pub name: std::string::String,
@@ -4612,8 +4840,22 @@ impl serde::ser::Serialize for EnumValueDescriptorProto {
     }
 }
 
+impl std::fmt::Debug for EnumValueDescriptorProto {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnumValueDescriptorProto");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("number", &self.number);
+        debug_struct.field("options", &self.options);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceDescriptorProto {
     pub name: std::string::String,
@@ -4805,8 +5047,22 @@ impl serde::ser::Serialize for ServiceDescriptorProto {
     }
 }
 
+impl std::fmt::Debug for ServiceDescriptorProto {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceDescriptorProto");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("method", &self.method);
+        debug_struct.field("options", &self.options);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes a method of a service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MethodDescriptorProto {
     pub name: std::string::String,
@@ -5068,7 +5324,24 @@ impl serde::ser::Serialize for MethodDescriptorProto {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for MethodDescriptorProto {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MethodDescriptorProto");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("input_type", &self.input_type);
+        debug_struct.field("output_type", &self.output_type);
+        debug_struct.field("options", &self.options);
+        debug_struct.field("client_streaming", &self.client_streaming);
+        debug_struct.field("server_streaming", &self.server_streaming);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileOptions {
     /// Sets the Java package where classes generated from this .proto will be
@@ -5783,6 +6056,41 @@ impl serde::ser::Serialize for FileOptions {
     }
 }
 
+impl std::fmt::Debug for FileOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileOptions");
+        debug_struct.field("java_package", &self.java_package);
+        debug_struct.field("java_outer_classname", &self.java_outer_classname);
+        debug_struct.field("java_multiple_files", &self.java_multiple_files);
+        debug_struct.field(
+            "java_generate_equals_and_hash",
+            &self.java_generate_equals_and_hash,
+        );
+        debug_struct.field("java_string_check_utf8", &self.java_string_check_utf8);
+        debug_struct.field("optimize_for", &self.optimize_for);
+        debug_struct.field("go_package", &self.go_package);
+        debug_struct.field("cc_generic_services", &self.cc_generic_services);
+        debug_struct.field("java_generic_services", &self.java_generic_services);
+        debug_struct.field("py_generic_services", &self.py_generic_services);
+        debug_struct.field("deprecated", &self.deprecated);
+        debug_struct.field("cc_enable_arenas", &self.cc_enable_arenas);
+        debug_struct.field("objc_class_prefix", &self.objc_class_prefix);
+        debug_struct.field("csharp_namespace", &self.csharp_namespace);
+        debug_struct.field("swift_prefix", &self.swift_prefix);
+        debug_struct.field("php_class_prefix", &self.php_class_prefix);
+        debug_struct.field("php_namespace", &self.php_namespace);
+        debug_struct.field("php_metadata_namespace", &self.php_metadata_namespace);
+        debug_struct.field("ruby_package", &self.ruby_package);
+        debug_struct.field("features", &self.features);
+        debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FileOptions].
 pub mod file_options {
     #[allow(unused_imports)]
@@ -5919,7 +6227,7 @@ pub mod file_options {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageOptions {
     /// Set true to use the old proto1 MessageSet wire format for extensions.
@@ -6285,7 +6593,31 @@ impl serde::ser::Serialize for MessageOptions {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for MessageOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MessageOptions");
+        debug_struct.field("message_set_wire_format", &self.message_set_wire_format);
+        debug_struct.field(
+            "no_standard_descriptor_accessor",
+            &self.no_standard_descriptor_accessor,
+        );
+        debug_struct.field("deprecated", &self.deprecated);
+        debug_struct.field("map_entry", &self.map_entry);
+        debug_struct.field(
+            "deprecated_legacy_json_field_conflicts",
+            &self.deprecated_legacy_json_field_conflicts,
+        );
+        debug_struct.field("features", &self.features);
+        debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldOptions {
     /// NOTE: ctype is deprecated. Use `features.(pb.cpp).string_type` instead.
@@ -6816,12 +7148,37 @@ impl serde::ser::Serialize for FieldOptions {
     }
 }
 
+impl std::fmt::Debug for FieldOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FieldOptions");
+        debug_struct.field("ctype", &self.ctype);
+        debug_struct.field("packed", &self.packed);
+        debug_struct.field("jstype", &self.jstype);
+        debug_struct.field("lazy", &self.lazy);
+        debug_struct.field("unverified_lazy", &self.unverified_lazy);
+        debug_struct.field("deprecated", &self.deprecated);
+        debug_struct.field("weak", &self.weak);
+        debug_struct.field("debug_redact", &self.debug_redact);
+        debug_struct.field("retention", &self.retention);
+        debug_struct.field("targets", &self.targets);
+        debug_struct.field("edition_defaults", &self.edition_defaults);
+        debug_struct.field("features", &self.features);
+        debug_struct.field("feature_support", &self.feature_support);
+        debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FieldOptions].
 pub mod field_options {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EditionDefault {
         pub edition: crate::Edition,
@@ -6975,8 +7332,21 @@ pub mod field_options {
         }
     }
 
+    impl std::fmt::Debug for EditionDefault {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EditionDefault");
+            debug_struct.field("edition", &self.edition);
+            debug_struct.field("value", &self.value);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Information about the support window of a feature.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FeatureSupport {
         /// The edition that this feature was first available in.  In editions
@@ -7196,6 +7566,21 @@ pub mod field_options {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for FeatureSupport {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FeatureSupport");
+            debug_struct.field("edition_introduced", &self.edition_introduced);
+            debug_struct.field("edition_deprecated", &self.edition_deprecated);
+            debug_struct.field("deprecation_warning", &self.deprecation_warning);
+            debug_struct.field("edition_removed", &self.edition_removed);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -7770,7 +8155,7 @@ pub mod field_options {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OneofOptions {
     /// Any features defined in the specific edition.
@@ -7938,7 +8323,20 @@ impl serde::ser::Serialize for OneofOptions {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for OneofOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OneofOptions");
+        debug_struct.field("features", &self.features);
+        debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumOptions {
     /// Set this option to true to allow mapping different tag names to the same
@@ -8202,7 +8600,26 @@ impl serde::ser::Serialize for EnumOptions {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for EnumOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnumOptions");
+        debug_struct.field("allow_alias", &self.allow_alias);
+        debug_struct.field("deprecated", &self.deprecated);
+        debug_struct.field(
+            "deprecated_legacy_json_field_conflicts",
+            &self.deprecated_legacy_json_field_conflicts,
+        );
+        debug_struct.field("features", &self.features);
+        debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumValueOptions {
     /// Is this enum value deprecated?
@@ -8460,7 +8877,23 @@ impl serde::ser::Serialize for EnumValueOptions {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for EnumValueOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnumValueOptions");
+        debug_struct.field("deprecated", &self.deprecated);
+        debug_struct.field("features", &self.features);
+        debug_struct.field("debug_redact", &self.debug_redact);
+        debug_struct.field("feature_support", &self.feature_support);
+        debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceOptions {
     /// Any features defined in the specific edition.
@@ -8655,7 +9088,21 @@ impl serde::ser::Serialize for ServiceOptions {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for ServiceOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceOptions");
+        debug_struct.field("features", &self.features);
+        debug_struct.field("deprecated", &self.deprecated);
+        debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MethodOptions {
     /// Is this method deprecated?
@@ -8875,6 +9322,21 @@ impl serde::ser::Serialize for MethodOptions {
     }
 }
 
+impl std::fmt::Debug for MethodOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MethodOptions");
+        debug_struct.field("deprecated", &self.deprecated);
+        debug_struct.field("idempotency_level", &self.idempotency_level);
+        debug_struct.field("features", &self.features);
+        debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MethodOptions].
 pub mod method_options {
     #[allow(unused_imports)]
@@ -9018,7 +9480,7 @@ pub mod method_options {
 /// options protos in descriptor objects (e.g. returned by Descriptor::options(),
 /// or produced by Descriptor::CopyTo()) will never have UninterpretedOptions
 /// in them.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UninterpretedOption {
     pub name: std::vec::Vec<crate::uninterpreted_option::NamePart>,
@@ -9376,6 +9838,24 @@ impl serde::ser::Serialize for UninterpretedOption {
     }
 }
 
+impl std::fmt::Debug for UninterpretedOption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UninterpretedOption");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("identifier_value", &self.identifier_value);
+        debug_struct.field("positive_int_value", &self.positive_int_value);
+        debug_struct.field("negative_int_value", &self.negative_int_value);
+        debug_struct.field("double_value", &self.double_value);
+        debug_struct.field("string_value", &self.string_value);
+        debug_struct.field("aggregate_value", &self.aggregate_value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [UninterpretedOption].
 pub mod uninterpreted_option {
     #[allow(unused_imports)]
@@ -9386,7 +9866,7 @@ pub mod uninterpreted_option {
     /// extension (denoted with parentheses in options specs in .proto files).
     /// E.g.,{ ["foo", false], ["bar.baz", true], ["moo", false] } represents
     /// "foo.(bar.baz).moo".
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NamePart {
         pub name_part: std::string::String,
@@ -9541,6 +10021,19 @@ pub mod uninterpreted_option {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for NamePart {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NamePart");
+            debug_struct.field("name_part", &self.name_part);
+            debug_struct.field("is_extension", &self.is_extension);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// TODO Enums in C++ gencode (and potentially other languages) are
@@ -9549,7 +10042,7 @@ pub mod uninterpreted_option {
 /// readability, but leave us very open to this scenario.  A future feature will
 /// be designed and implemented to handle this, hopefully before we ever hit a
 /// conflict here.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureSet {
     pub field_presence: crate::feature_set::FieldPresence,
@@ -9808,6 +10301,23 @@ impl serde::ser::Serialize for FeatureSet {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for FeatureSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FeatureSet");
+        debug_struct.field("field_presence", &self.field_presence);
+        debug_struct.field("enum_type", &self.enum_type);
+        debug_struct.field("repeated_field_encoding", &self.repeated_field_encoding);
+        debug_struct.field("utf8_validation", &self.utf8_validation);
+        debug_struct.field("message_encoding", &self.message_encoding);
+        debug_struct.field("json_format", &self.json_format);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -10595,7 +11105,7 @@ pub mod feature_set {
 /// messages are generated from FeatureSet extensions and can be used to seed
 /// feature resolution. The resolution with this object becomes a simple search
 /// for the closest matching edition, followed by proto merges.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureSetDefaults {
     pub defaults: std::vec::Vec<crate::feature_set_defaults::FeatureSetEditionDefault>,
@@ -10784,6 +11294,20 @@ impl serde::ser::Serialize for FeatureSetDefaults {
     }
 }
 
+impl std::fmt::Debug for FeatureSetDefaults {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FeatureSetDefaults");
+        debug_struct.field("defaults", &self.defaults);
+        debug_struct.field("minimum_edition", &self.minimum_edition);
+        debug_struct.field("maximum_edition", &self.maximum_edition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FeatureSetDefaults].
 pub mod feature_set_defaults {
     #[allow(unused_imports)]
@@ -10793,7 +11317,7 @@ pub mod feature_set_defaults {
     /// defaults. Not all editions may be contained here.  For a given edition,
     /// the defaults at the closest matching edition ordered at or before it should
     /// be used.  This field must be in strict ascending order by edition.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FeatureSetEditionDefault {
         pub edition: crate::Edition,
@@ -10995,11 +11519,25 @@ pub mod feature_set_defaults {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for FeatureSetEditionDefault {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FeatureSetEditionDefault");
+            debug_struct.field("edition", &self.edition);
+            debug_struct.field("overridable_features", &self.overridable_features);
+            debug_struct.field("fixed_features", &self.fixed_features);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Encapsulates information about the original source file from which a
 /// FileDescriptorProto was generated.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceCodeInfo {
     /// A Location identifies a piece of source code in a .proto file which
@@ -11178,12 +11716,24 @@ impl serde::ser::Serialize for SourceCodeInfo {
     }
 }
 
+impl std::fmt::Debug for SourceCodeInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceCodeInfo");
+        debug_struct.field("location", &self.location);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SourceCodeInfo].
 pub mod source_code_info {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Location {
         /// Identifies which part of the FileDescriptorProto was defined at this
@@ -11558,12 +12108,28 @@ pub mod source_code_info {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Location {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Location");
+            debug_struct.field("path", &self.path);
+            debug_struct.field("span", &self.span);
+            debug_struct.field("leading_comments", &self.leading_comments);
+            debug_struct.field("trailing_comments", &self.trailing_comments);
+            debug_struct.field("leading_detached_comments", &self.leading_detached_comments);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Describes the relationship between generated code and its original source
 /// file. A GeneratedCodeInfo message is associated with only one generated
 /// source file, but may contain references to different source .proto files.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GeneratedCodeInfo {
     /// An Annotation connects some span of text in generated code to an element
@@ -11700,12 +12266,24 @@ impl serde::ser::Serialize for GeneratedCodeInfo {
     }
 }
 
+impl std::fmt::Debug for GeneratedCodeInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GeneratedCodeInfo");
+        debug_struct.field("annotation", &self.annotation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GeneratedCodeInfo].
 pub mod generated_code_info {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Annotation {
         /// Identifies the element in the original source .proto file. This field
@@ -12010,6 +12588,22 @@ pub mod generated_code_info {
         }
     }
 
+    impl std::fmt::Debug for Annotation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Annotation");
+            debug_struct.field("path", &self.path);
+            debug_struct.field("source_file", &self.source_file);
+            debug_struct.field("begin", &self.begin);
+            debug_struct.field("end", &self.end);
+            debug_struct.field("semantic", &self.semantic);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Annotation].
     pub mod annotation {
         #[allow(unused_imports)]
@@ -12155,7 +12749,7 @@ pub mod generated_code_info {
 
 /// `SourceContext` represents information about the source of a
 /// protobuf element, like the file in which it is defined.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceContext {
     /// The path-qualified name of the .proto file that contained the associated
@@ -12286,8 +12880,20 @@ impl serde::ser::Serialize for SourceContext {
     }
 }
 
+impl std::fmt::Debug for SourceContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceContext");
+        debug_struct.field("file_name", &self.file_name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A protocol buffer message type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Type {
     /// The fully qualified message name.
@@ -12585,8 +13191,26 @@ impl serde::ser::Serialize for Type {
     }
 }
 
+impl std::fmt::Debug for Type {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Type");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("fields", &self.fields);
+        debug_struct.field("oneofs", &self.oneofs);
+        debug_struct.field("options", &self.options);
+        debug_struct.field("source_context", &self.source_context);
+        debug_struct.field("syntax", &self.syntax);
+        debug_struct.field("edition", &self.edition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single field of a message type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Field {
     /// The field type.
@@ -12981,6 +13605,27 @@ impl serde::ser::Serialize for Field {
     }
 }
 
+impl std::fmt::Debug for Field {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Field");
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("cardinality", &self.cardinality);
+        debug_struct.field("number", &self.number);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("type_url", &self.type_url);
+        debug_struct.field("oneof_index", &self.oneof_index);
+        debug_struct.field("packed", &self.packed);
+        debug_struct.field("options", &self.options);
+        debug_struct.field("json_name", &self.json_name);
+        debug_struct.field("default_value", &self.default_value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Field].
 pub mod field {
     #[allow(unused_imports)]
@@ -13371,7 +14016,7 @@ pub mod field {
 }
 
 /// Enum type definition.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Enum {
     /// Enum type name.
@@ -13643,8 +14288,25 @@ impl serde::ser::Serialize for Enum {
     }
 }
 
+impl std::fmt::Debug for Enum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Enum");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("enumvalue", &self.enumvalue);
+        debug_struct.field("options", &self.options);
+        debug_struct.field("source_context", &self.source_context);
+        debug_struct.field("syntax", &self.syntax);
+        debug_struct.field("edition", &self.edition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Enum value definition.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumValue {
     /// Enum value name.
@@ -13844,9 +14506,23 @@ impl serde::ser::Serialize for EnumValue {
     }
 }
 
+impl std::fmt::Debug for EnumValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnumValue");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("number", &self.number);
+        debug_struct.field("options", &self.options);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A protocol buffer option, which can be attached to a message, field,
 /// enumeration, etc.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Option {
     /// The option's name. For protobuf built-in options (options defined in
@@ -14012,6 +14688,19 @@ impl serde::ser::Serialize for Option {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Option {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Option");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

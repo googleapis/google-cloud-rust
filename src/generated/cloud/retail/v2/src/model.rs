@@ -37,7 +37,7 @@ extern crate wkt;
 
 /// Configures what level the product should be uploaded with regards to
 /// how users will be send events and how predictions will be made.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductLevelConfig {
     /// The type of [Product][google.cloud.retail.v2.Product]s allowed to be
@@ -258,9 +258,25 @@ impl serde::ser::Serialize for ProductLevelConfig {
     }
 }
 
+impl std::fmt::Debug for ProductLevelConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProductLevelConfig");
+        debug_struct.field("ingestion_product_type", &self.ingestion_product_type);
+        debug_struct.field(
+            "merchant_center_product_id_field",
+            &self.merchant_center_product_id_field,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Catalog level attribute config for an attribute. For example, if customers
 /// want to enable/disable facet for a specific attribute.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CatalogAttribute {
     /// Required. Attribute name.
@@ -728,6 +744,26 @@ impl serde::ser::Serialize for CatalogAttribute {
     }
 }
 
+impl std::fmt::Debug for CatalogAttribute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CatalogAttribute");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("in_use", &self.in_use);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("indexable_option", &self.indexable_option);
+        debug_struct.field("dynamic_facetable_option", &self.dynamic_facetable_option);
+        debug_struct.field("searchable_option", &self.searchable_option);
+        debug_struct.field("exact_searchable_option", &self.exact_searchable_option);
+        debug_struct.field("retrievable_option", &self.retrievable_option);
+        debug_struct.field("facet_config", &self.facet_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CatalogAttribute].
 pub mod catalog_attribute {
     #[allow(unused_imports)]
@@ -735,7 +771,7 @@ pub mod catalog_attribute {
 
     /// Possible options for the facet that corresponds to the current attribute
     /// config.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FacetConfig {
         /// If you don't set the facet
@@ -1036,6 +1072,22 @@ pub mod catalog_attribute {
         }
     }
 
+    impl std::fmt::Debug for FacetConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FacetConfig");
+            debug_struct.field("facet_intervals", &self.facet_intervals);
+            debug_struct.field("ignored_facet_values", &self.ignored_facet_values);
+            debug_struct.field("merged_facet_values", &self.merged_facet_values);
+            debug_struct.field("merged_facet", &self.merged_facet);
+            debug_struct.field("rerank_config", &self.rerank_config);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [FacetConfig].
     pub mod facet_config {
         #[allow(unused_imports)]
@@ -1050,7 +1102,7 @@ pub mod catalog_attribute {
         /// [google.cloud.retail.v2.SearchResponse.Facet]: crate::model::search_response::Facet
         /// [google.cloud.retail.v2.SearchResponse.Facet.key]: crate::model::search_response::Facet::key
         /// [google.cloud.retail.v2.SearchResponse.Facet.values]: crate::model::search_response::Facet::values
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct IgnoredFacetValues {
             /// List of facet values to ignore for the following time range. The facet
@@ -1274,13 +1326,27 @@ pub mod catalog_attribute {
             }
         }
 
+        impl std::fmt::Debug for IgnoredFacetValues {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("IgnoredFacetValues");
+                debug_struct.field("values", &self.values);
+                debug_struct.field("start_time", &self.start_time);
+                debug_struct.field("end_time", &self.end_time);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Replaces a set of textual facet values by the same (possibly different)
         /// merged facet value. Each facet value should appear at most once as a
         /// value per [CatalogAttribute][google.cloud.retail.v2.CatalogAttribute].
         /// This feature is available only for textual custom attributes.
         ///
         /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MergedFacetValue {
             /// All the facet values that are replaces by the same
@@ -1454,6 +1520,19 @@ pub mod catalog_attribute {
             }
         }
 
+        impl std::fmt::Debug for MergedFacetValue {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("MergedFacetValue");
+                debug_struct.field("values", &self.values);
+                debug_struct.field("merged_value", &self.merged_value);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The current facet key (i.e. attribute config) maps into the
         /// [merged_facet_key][google.cloud.retail.v2.CatalogAttribute.FacetConfig.MergedFacet.merged_facet_key].
         /// A facet key can have at most one child. The current facet key and the
@@ -1461,7 +1540,7 @@ pub mod catalog_attribute {
         /// numerical custom attributes (same type).
         ///
         /// [google.cloud.retail.v2.CatalogAttribute.FacetConfig.MergedFacet.merged_facet_key]: crate::model::catalog_attribute::facet_config::MergedFacet::merged_facet_key
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MergedFacet {
             /// The merged facet key should be a valid facet key that is different than
@@ -1607,6 +1686,18 @@ pub mod catalog_attribute {
             }
         }
 
+        impl std::fmt::Debug for MergedFacet {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("MergedFacet");
+                debug_struct.field("merged_facet_key", &self.merged_facet_key);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Options to rerank based on facet values engaged by the user for the
         /// current key. That key needs to be a custom textual key and facetable.
         /// To use this control, you also need to pass all the facet keys engaged by
@@ -1615,7 +1706,7 @@ pub mod catalog_attribute {
         /// rerank on, this control won't be effective. Moreover, to obtain better
         /// results, the facet values that you want to rerank on should be close to
         /// English (ideally made of words, underscores, and spaces).
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct RerankConfig {
             /// If set to true, then we also rerank the dynamic facets based on the
@@ -1783,6 +1874,19 @@ pub mod catalog_attribute {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for RerankConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("RerankConfig");
+                debug_struct.field("rerank_facet", &self.rerank_facet);
+                debug_struct.field("facet_values", &self.facet_values);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
     }
@@ -2598,7 +2702,7 @@ pub mod catalog_attribute {
 }
 
 /// Catalog level attribute config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttributesConfig {
     /// Required. Immutable. The fully qualified resource name of the attribute
@@ -2803,9 +2907,23 @@ impl serde::ser::Serialize for AttributesConfig {
     }
 }
 
+impl std::fmt::Debug for AttributesConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttributesConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("catalog_attributes", &self.catalog_attributes);
+        debug_struct.field("attribute_config_level", &self.attribute_config_level);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Catalog level autocomplete config for customers to customize autocomplete
 /// feature's settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompletionConfig {
     /// Required. Immutable. Fully qualified name
@@ -3323,8 +3441,39 @@ impl serde::ser::Serialize for CompletionConfig {
     }
 }
 
+impl std::fmt::Debug for CompletionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompletionConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("matching_order", &self.matching_order);
+        debug_struct.field("max_suggestions", &self.max_suggestions);
+        debug_struct.field("min_prefix_length", &self.min_prefix_length);
+        debug_struct.field("auto_learning", &self.auto_learning);
+        debug_struct.field("suggestions_input_config", &self.suggestions_input_config);
+        debug_struct.field(
+            "last_suggestions_import_operation",
+            &self.last_suggestions_import_operation,
+        );
+        debug_struct.field("denylist_input_config", &self.denylist_input_config);
+        debug_struct.field(
+            "last_denylist_import_operation",
+            &self.last_denylist_import_operation,
+        );
+        debug_struct.field("allowlist_input_config", &self.allowlist_input_config);
+        debug_struct.field(
+            "last_allowlist_import_operation",
+            &self.last_allowlist_import_operation,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The catalog configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Catalog {
     /// Required. Immutable. The fully qualified resource name of the catalog.
@@ -3517,12 +3666,26 @@ impl serde::ser::Serialize for Catalog {
     }
 }
 
+impl std::fmt::Debug for Catalog {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Catalog");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("product_level_config", &self.product_level_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [CatalogService.ListCatalogs][google.cloud.retail.v2.CatalogService.ListCatalogs]
 /// method.
 ///
 /// [google.cloud.retail.v2.CatalogService.ListCatalogs]: crate::client::CatalogService::list_catalogs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCatalogsRequest {
     /// Required. The account resource name with an associated location.
@@ -3744,12 +3907,26 @@ impl serde::ser::Serialize for ListCatalogsRequest {
     }
 }
 
+impl std::fmt::Debug for ListCatalogsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCatalogsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [CatalogService.ListCatalogs][google.cloud.retail.v2.CatalogService.ListCatalogs]
 /// method.
 ///
 /// [google.cloud.retail.v2.CatalogService.ListCatalogs]: crate::client::CatalogService::list_catalogs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCatalogsResponse {
     /// All the customer's [Catalog][google.cloud.retail.v2.Catalog]s.
@@ -3927,12 +4104,25 @@ impl serde::ser::Serialize for ListCatalogsResponse {
     }
 }
 
+impl std::fmt::Debug for ListCatalogsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCatalogsResponse");
+        debug_struct.field("catalogs", &self.catalogs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [CatalogService.UpdateCatalog][google.cloud.retail.v2.CatalogService.UpdateCatalog]
 /// method.
 ///
 /// [google.cloud.retail.v2.CatalogService.UpdateCatalog]: crate::client::CatalogService::update_catalog
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCatalogRequest {
     /// Required. The [Catalog][google.cloud.retail.v2.Catalog] to update.
@@ -4123,8 +4313,21 @@ impl serde::ser::Serialize for UpdateCatalogRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCatalogRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCatalogRequest");
+        debug_struct.field("catalog", &self.catalog);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to set a specified branch as new default_branch.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetDefaultBranchRequest {
     /// Full resource name of the catalog, such as
@@ -4347,8 +4550,23 @@ impl serde::ser::Serialize for SetDefaultBranchRequest {
     }
 }
 
+impl std::fmt::Debug for SetDefaultBranchRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetDefaultBranchRequest");
+        debug_struct.field("catalog", &self.catalog);
+        debug_struct.field("branch_id", &self.branch_id);
+        debug_struct.field("note", &self.note);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to show which branch is currently the default branch.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDefaultBranchRequest {
     /// The parent catalog resource name, such as
@@ -4478,11 +4696,23 @@ impl serde::ser::Serialize for GetDefaultBranchRequest {
     }
 }
 
+impl std::fmt::Debug for GetDefaultBranchRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDefaultBranchRequest");
+        debug_struct.field("catalog", &self.catalog);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message of
 /// [CatalogService.GetDefaultBranch][google.cloud.retail.v2.CatalogService.GetDefaultBranch].
 ///
 /// [google.cloud.retail.v2.CatalogService.GetDefaultBranch]: crate::client::CatalogService::get_default_branch
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDefaultBranchResponse {
     /// Full resource name of the branch id currently set as default branch.
@@ -4675,12 +4905,26 @@ impl serde::ser::Serialize for GetDefaultBranchResponse {
     }
 }
 
+impl std::fmt::Debug for GetDefaultBranchResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDefaultBranchResponse");
+        debug_struct.field("branch", &self.branch);
+        debug_struct.field("set_time", &self.set_time);
+        debug_struct.field("note", &self.note);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [CatalogService.GetCompletionConfig][google.cloud.retail.v2.CatalogService.GetCompletionConfig]
 /// method.
 ///
 /// [google.cloud.retail.v2.CatalogService.GetCompletionConfig]: crate::client::CatalogService::get_completion_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCompletionConfigRequest {
     /// Required. Full CompletionConfig resource name. Format:
@@ -4810,12 +5054,24 @@ impl serde::ser::Serialize for GetCompletionConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetCompletionConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCompletionConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [CatalogService.UpdateCompletionConfig][google.cloud.retail.v2.CatalogService.UpdateCompletionConfig]
 /// method.
 ///
 /// [google.cloud.retail.v2.CatalogService.UpdateCompletionConfig]: crate::client::CatalogService::update_completion_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCompletionConfigRequest {
     /// Required. The [CompletionConfig][google.cloud.retail.v2.CompletionConfig]
@@ -5018,12 +5274,25 @@ impl serde::ser::Serialize for UpdateCompletionConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCompletionConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCompletionConfigRequest");
+        debug_struct.field("completion_config", &self.completion_config);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [CatalogService.GetAttributesConfig][google.cloud.retail.v2.CatalogService.GetAttributesConfig]
 /// method.
 ///
 /// [google.cloud.retail.v2.CatalogService.GetAttributesConfig]: crate::client::CatalogService::get_attributes_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAttributesConfigRequest {
     /// Required. Full AttributesConfig resource name. Format:
@@ -5153,12 +5422,24 @@ impl serde::ser::Serialize for GetAttributesConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetAttributesConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAttributesConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [CatalogService.UpdateAttributesConfig][google.cloud.retail.v2.CatalogService.UpdateAttributesConfig]
 /// method.
 ///
 /// [google.cloud.retail.v2.CatalogService.UpdateAttributesConfig]: crate::client::CatalogService::update_attributes_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAttributesConfigRequest {
     /// Required. The [AttributesConfig][google.cloud.retail.v2.AttributesConfig]
@@ -5348,12 +5629,25 @@ impl serde::ser::Serialize for UpdateAttributesConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAttributesConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAttributesConfigRequest");
+        debug_struct.field("attributes_config", &self.attributes_config);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [CatalogService.AddCatalogAttribute][google.cloud.retail.v2.CatalogService.AddCatalogAttribute]
 /// method.
 ///
 /// [google.cloud.retail.v2.CatalogService.AddCatalogAttribute]: crate::client::CatalogService::add_catalog_attribute
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddCatalogAttributeRequest {
     /// Required. Full AttributesConfig resource name. Format:
@@ -5527,12 +5821,25 @@ impl serde::ser::Serialize for AddCatalogAttributeRequest {
     }
 }
 
+impl std::fmt::Debug for AddCatalogAttributeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddCatalogAttributeRequest");
+        debug_struct.field("attributes_config", &self.attributes_config);
+        debug_struct.field("catalog_attribute", &self.catalog_attribute);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [CatalogService.RemoveCatalogAttribute][google.cloud.retail.v2.CatalogService.RemoveCatalogAttribute]
 /// method.
 ///
 /// [google.cloud.retail.v2.CatalogService.RemoveCatalogAttribute]: crate::client::CatalogService::remove_catalog_attribute
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveCatalogAttributeRequest {
     /// Required. Full AttributesConfig resource name. Format:
@@ -5693,12 +6000,25 @@ impl serde::ser::Serialize for RemoveCatalogAttributeRequest {
     }
 }
 
+impl std::fmt::Debug for RemoveCatalogAttributeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveCatalogAttributeRequest");
+        debug_struct.field("attributes_config", &self.attributes_config);
+        debug_struct.field("key", &self.key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [CatalogService.ReplaceCatalogAttribute][google.cloud.retail.v2.CatalogService.ReplaceCatalogAttribute]
 /// method.
 ///
 /// [google.cloud.retail.v2.CatalogService.ReplaceCatalogAttribute]: crate::client::CatalogService::replace_catalog_attribute
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceCatalogAttributeRequest {
     /// Required. Full AttributesConfig resource name. Format:
@@ -5917,13 +6237,27 @@ impl serde::ser::Serialize for ReplaceCatalogAttributeRequest {
     }
 }
 
+impl std::fmt::Debug for ReplaceCatalogAttributeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplaceCatalogAttributeRequest");
+        debug_struct.field("attributes_config", &self.attributes_config);
+        debug_struct.field("catalog_attribute", &self.catalog_attribute);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata that is used to define a condition that triggers an action.
 /// A valid condition must specify at least one of 'query_terms' or
 /// 'products_filter'. If multiple fields are specified, the condition is met if
 /// all the fields are satisfied e.g. if a set of query terms and product_filter
 /// are set, then only items matching the product_filter for requests with a
 /// query matching the query terms wil get boosted.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Condition {
     /// A list (up to 10 entries) of terms to match the query on. If not
@@ -6129,13 +6463,27 @@ impl serde::ser::Serialize for Condition {
     }
 }
 
+impl std::fmt::Debug for Condition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Condition");
+        debug_struct.field("query_terms", &self.query_terms);
+        debug_struct.field("active_time_range", &self.active_time_range);
+        debug_struct.field("page_categories", &self.page_categories);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Condition].
 pub mod condition {
     #[allow(unused_imports)]
     use super::*;
 
     /// Query terms that we want to match on.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QueryTerm {
         /// The value of the term to match on.
@@ -6297,9 +6645,22 @@ pub mod condition {
         }
     }
 
+    impl std::fmt::Debug for QueryTerm {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QueryTerm");
+            debug_struct.field("value", &self.value);
+            debug_struct.field("full_match", &self.full_match);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Used for time-dependent conditions.
     /// Example: Want to have rule applied for week long sale.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TimeRange {
         /// Start of time range. Range is inclusive.
@@ -6478,6 +6839,19 @@ pub mod condition {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for TimeRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TimeRange");
+            debug_struct.field("start_time", &self.start_time);
+            debug_struct.field("end_time", &self.end_time);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A rule is a condition-action pair
@@ -6489,7 +6863,7 @@ pub mod condition {
 ///
 /// [google.cloud.retail.v2.Control]: crate::model::Control
 /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rule {
     /// Required. The condition that triggers the rule.
@@ -7244,13 +7618,26 @@ impl serde::ser::Serialize for Rule {
     }
 }
 
+impl std::fmt::Debug for Rule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Rule");
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("action", &self.action);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Rule].
 pub mod rule {
     #[allow(unused_imports)]
     use super::*;
 
     /// A boost action to apply to results matching condition specified above.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BoostAction {
         /// Strength of the condition boost, which must be in [-1, 1]. Negative
@@ -7459,6 +7846,19 @@ pub mod rule {
         }
     }
 
+    impl std::fmt::Debug for BoostAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BoostAction");
+            debug_struct.field("boost", &self.boost);
+            debug_struct.field("products_filter", &self.products_filter);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// * Rule Condition:
     ///
     ///   - No
@@ -7478,7 +7878,7 @@ pub mod rule {
     ///
     ///
     /// [google.cloud.retail.v2.Condition.query_terms]: crate::model::Condition::query_terms
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FilterAction {
         /// A filter to apply on the matching condition results. Supported features:
@@ -7625,6 +8025,18 @@ pub mod rule {
         }
     }
 
+    impl std::fmt::Debug for FilterAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FilterAction");
+            debug_struct.field("filter", &self.filter);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Redirects a shopper to a specific page.
     ///
     /// * Rule Condition:
@@ -7634,7 +8046,7 @@ pub mod rule {
     /// * Action Result: Redirects shopper to provided uri.
     ///
     /// [google.cloud.retail.v2.Condition.query_terms]: crate::model::Condition::query_terms
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RedirectAction {
         /// URL must have length equal or less than 2000 characters.
@@ -7770,12 +8182,24 @@ pub mod rule {
         }
     }
 
+    impl std::fmt::Debug for RedirectAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RedirectAction");
+            debug_struct.field("redirect_uri", &self.redirect_uri);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Creates a set of terms that will be treated as synonyms of each other.
     /// Example: synonyms of "sneakers" and "shoes":
     ///
     /// * "sneakers" will use a synonym of "shoes".
     /// * "shoes" will use a synonym of "sneakers".
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TwowaySynonymsAction {
         /// Defines a set of synonyms.
@@ -7912,12 +8336,24 @@ pub mod rule {
         }
     }
 
+    impl std::fmt::Debug for TwowaySynonymsAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TwowaySynonymsAction");
+            debug_struct.field("synonyms", &self.synonyms);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Maps a set of terms to a set of synonyms.
     /// Set of synonyms will be treated as synonyms of each query term only.
     /// `query_terms` will not be treated as synonyms of each other.
     /// Example: "sneakers" will use a synonym of "shoes".
     /// "shoes" will not use a synonym of "sneakers".
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OnewaySynonymsAction {
         /// Terms from the search query.
@@ -8113,10 +8549,24 @@ pub mod rule {
         }
     }
 
+    impl std::fmt::Debug for OnewaySynonymsAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("OnewaySynonymsAction");
+            debug_struct.field("query_terms", &self.query_terms);
+            debug_struct.field("synonyms", &self.synonyms);
+            debug_struct.field("oneway_terms", &self.oneway_terms);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Prevents `query_term` from being associated with specified terms during
     /// search.
     /// Example: Don't associate "gShoe" and "cheap".
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DoNotAssociateAction {
         /// Terms from the search query.
@@ -8312,10 +8762,24 @@ pub mod rule {
         }
     }
 
+    impl std::fmt::Debug for DoNotAssociateAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DoNotAssociateAction");
+            debug_struct.field("query_terms", &self.query_terms);
+            debug_struct.field("do_not_associate_terms", &self.do_not_associate_terms);
+            debug_struct.field("terms", &self.terms);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Replaces a term in the query. Multiple replacement candidates can be
     /// specified. All `query_terms` will be replaced with the replacement term.
     /// Example: Replace "gShoe" with "google shoe".
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReplacementAction {
         /// Terms from the search query.
@@ -8505,9 +8969,23 @@ pub mod rule {
         }
     }
 
+    impl std::fmt::Debug for ReplacementAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ReplacementAction");
+            debug_struct.field("query_terms", &self.query_terms);
+            debug_struct.field("replacement_term", &self.replacement_term);
+            debug_struct.field("term", &self.term);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Prevents a term in the query from being used in search.
     /// Example: Don't search for "shoddy".
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IgnoreAction {
         /// Terms to ignore in the search query.
@@ -8643,6 +9121,18 @@ pub mod rule {
         }
     }
 
+    impl std::fmt::Debug for IgnoreAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IgnoreAction");
+            debug_struct.field("ignore_terms", &self.ignore_terms);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Force returns an attribute/facet in the request around a certain position
     /// or above.
     ///
@@ -8676,7 +9166,7 @@ pub mod rule {
     /// [google.cloud.retail.v2.Condition.query_terms]: crate::model::Condition::query_terms
     /// [google.cloud.retail.v2.Rule.ForceReturnFacetAction.FacetPositionAdjustment.attribute_name]: crate::model::rule::force_return_facet_action::FacetPositionAdjustment::attribute_name
     /// [google.cloud.retail.v2.Rule.ForceReturnFacetAction.FacetPositionAdjustment.position]: crate::model::rule::force_return_facet_action::FacetPositionAdjustment::position
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ForceReturnFacetAction {
         /// Each instance corresponds to a force return attribute for the given
@@ -8823,6 +9313,21 @@ pub mod rule {
         }
     }
 
+    impl std::fmt::Debug for ForceReturnFacetAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ForceReturnFacetAction");
+            debug_struct.field(
+                "facet_position_adjustments",
+                &self.facet_position_adjustments,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ForceReturnFacetAction].
     pub mod force_return_facet_action {
         #[allow(unused_imports)]
@@ -8830,7 +9335,7 @@ pub mod rule {
 
         /// Each facet position adjustment consists of a single attribute name (i.e.
         /// facet key) along with a specified position.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FacetPositionAdjustment {
             /// The attribute name to force return as a facet. Each attribute name
@@ -9021,6 +9526,19 @@ pub mod rule {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for FacetPositionAdjustment {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("FacetPositionAdjustment");
+                debug_struct.field("attribute_name", &self.attribute_name);
+                debug_struct.field("position", &self.position);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Removes an attribute/facet in the request if is present.
@@ -9045,7 +9563,7 @@ pub mod rule {
     ///
     /// [google.cloud.retail.v2.Condition.page_categories]: crate::model::Condition::page_categories
     /// [google.cloud.retail.v2.Condition.query_terms]: crate::model::Condition::query_terms
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RemoveFacetAction {
         /// The attribute names (i.e. facet keys) to remove from the dynamic facets
@@ -9184,6 +9702,18 @@ pub mod rule {
         }
     }
 
+    impl std::fmt::Debug for RemoveFacetAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RemoveFacetAction");
+            debug_struct.field("attribute_names", &self.attribute_names);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Pins one or more specified products to a specific position in the
     /// results.
     ///
@@ -9214,7 +9744,7 @@ pub mod rule {
     ///
     /// [google.cloud.retail.v2.Condition.page_categories]: crate::model::Condition::page_categories
     /// [google.cloud.retail.v2.Condition.query_terms]: crate::model::Condition::query_terms
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PinAction {
         /// Required. A map of positions to product_ids.
@@ -9398,6 +9928,18 @@ pub mod rule {
         }
     }
 
+    impl std::fmt::Debug for PinAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PinAction");
+            debug_struct.field("pin_map", &self.pin_map);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// An action must be provided.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -9433,7 +9975,7 @@ pub mod rule {
 /// whom it's sold.
 ///
 /// [google.cloud.retail.v2.Product]: crate::model::Product
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Audience {
     /// The genders of the audience. Strongly encouraged to use the standard
@@ -9616,10 +10158,23 @@ impl serde::ser::Serialize for Audience {
     }
 }
 
+impl std::fmt::Debug for Audience {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Audience");
+        debug_struct.field("genders", &self.genders);
+        debug_struct.field("age_groups", &self.age_groups);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The color information of a [Product][google.cloud.retail.v2.Product].
 ///
 /// [google.cloud.retail.v2.Product]: crate::model::Product
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ColorInfo {
     /// The standard color families. Strongly recommended to use the following
@@ -9806,11 +10361,24 @@ impl serde::ser::Serialize for ColorInfo {
     }
 }
 
+impl std::fmt::Debug for ColorInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColorInfo");
+        debug_struct.field("color_families", &self.color_families);
+        debug_struct.field("colors", &self.colors);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A custom attribute that is not explicitly modeled in
 /// [Product][google.cloud.retail.v2.Product].
 ///
 /// [google.cloud.retail.v2.Product]: crate::model::Product
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomAttribute {
     /// The textual values of this custom attribute. For example, `["yellow",
@@ -10129,9 +10697,24 @@ impl serde::ser::Serialize for CustomAttribute {
     }
 }
 
+impl std::fmt::Debug for CustomAttribute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomAttribute");
+        debug_struct.field("text", &self.text);
+        debug_struct.field("numbers", &self.numbers);
+        debug_struct.field("searchable", &self.searchable);
+        debug_struct.field("indexable", &self.indexable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Fulfillment information, such as the store IDs for in-store pickup or region
 /// IDs for different shipping methods.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FulfillmentInfo {
     /// The fulfillment type, including commonly used types (such as pickup in
@@ -10316,6 +10899,19 @@ impl serde::ser::Serialize for FulfillmentInfo {
     }
 }
 
+impl std::fmt::Debug for FulfillmentInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FulfillmentInfo");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("place_ids", &self.place_ids);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// [Product][google.cloud.retail.v2.Product] image. Recommendations AI and
 /// Retail Search use product images to improve prediction and search results.
 /// Product images can be returned in results, and are shown in prediction or
@@ -10323,7 +10919,7 @@ impl serde::ser::Serialize for FulfillmentInfo {
 /// and avoid using images with size too small.
 ///
 /// [google.cloud.retail.v2.Product]: crate::model::Product
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Image {
     /// Required. URI of the image.
@@ -10549,8 +11145,22 @@ impl serde::ser::Serialize for Image {
     }
 }
 
+impl std::fmt::Debug for Image {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Image");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("height", &self.height);
+        debug_struct.field("width", &self.width);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A floating point interval.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Interval {
     /// The lower bound of the interval. If neither of the min fields are set, then
@@ -10947,6 +11557,19 @@ impl serde::ser::Serialize for Interval {
     }
 }
 
+impl std::fmt::Debug for Interval {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Interval");
+        debug_struct.field("min", &self.min);
+        debug_struct.field("max", &self.max);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Interval].
 pub mod interval {
     #[allow(unused_imports)]
@@ -10984,7 +11607,7 @@ pub mod interval {
 /// The price information of a [Product][google.cloud.retail.v2.Product].
 ///
 /// [google.cloud.retail.v2.Product]: crate::model::Product
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PriceInfo {
     /// The 3-letter currency code defined in [ISO
@@ -11433,6 +12056,24 @@ impl serde::ser::Serialize for PriceInfo {
     }
 }
 
+impl std::fmt::Debug for PriceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PriceInfo");
+        debug_struct.field("currency_code", &self.currency_code);
+        debug_struct.field("price", &self.price);
+        debug_struct.field("original_price", &self.original_price);
+        debug_struct.field("cost", &self.cost);
+        debug_struct.field("price_effective_time", &self.price_effective_time);
+        debug_struct.field("price_expire_time", &self.price_expire_time);
+        debug_struct.field("price_range", &self.price_range);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PriceInfo].
 pub mod price_info {
     #[allow(unused_imports)]
@@ -11446,7 +12087,7 @@ pub mod price_info {
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     /// [google.cloud.retail.v2.Product.Type.VARIANT]: crate::model::product::Type::Variant
     /// [google.cloud.retail.v2.Product.primary_product_id]: crate::model::Product::primary_product_id
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PriceRange {
         /// The inclusive
@@ -11642,12 +12283,25 @@ pub mod price_info {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for PriceRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PriceRange");
+            debug_struct.field("price", &self.price);
+            debug_struct.field("original_price", &self.original_price);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The rating of a [Product][google.cloud.retail.v2.Product].
 ///
 /// [google.cloud.retail.v2.Product]: crate::model::Product
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rating {
     /// The total number of ratings. This value is independent of the value of
@@ -11912,8 +12566,22 @@ impl serde::ser::Serialize for Rating {
     }
 }
 
+impl std::fmt::Debug for Rating {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Rating");
+        debug_struct.field("rating_count", &self.rating_count);
+        debug_struct.field("average_rating", &self.average_rating);
+        debug_struct.field("rating_histogram", &self.rating_histogram);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information of an end user.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserInfo {
     /// Highly recommended for logged-in users. Unique identifier for logged-in
@@ -12171,9 +12839,24 @@ impl serde::ser::Serialize for UserInfo {
     }
 }
 
+impl std::fmt::Debug for UserInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserInfo");
+        debug_struct.field("user_id", &self.user_id);
+        debug_struct.field("ip_address", &self.ip_address);
+        debug_struct.field("user_agent", &self.user_agent);
+        debug_struct.field("direct_user_request", &self.direct_user_request);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The inventory information at a place (e.g. a store) identified
 /// by a place ID.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocalInventory {
     /// Optional. The place ID for the current set of inventory information.
@@ -12443,9 +13126,24 @@ impl serde::ser::Serialize for LocalInventory {
     }
 }
 
+impl std::fmt::Debug for LocalInventory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocalInventory");
+        debug_struct.field("place_id", &self.place_id);
+        debug_struct.field("price_info", &self.price_info);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("fulfillment_types", &self.fulfillment_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for pinning to be returned in the response.
 /// This is used for distinguishing between applied vs dropped pins.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PinControlMetadata {
     /// Map of all matched pins, keyed by pin position.
@@ -12686,13 +13384,26 @@ impl serde::ser::Serialize for PinControlMetadata {
     }
 }
 
+impl std::fmt::Debug for PinControlMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PinControlMetadata");
+        debug_struct.field("all_matched_pins", &self.all_matched_pins);
+        debug_struct.field("dropped_pins", &self.dropped_pins);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PinControlMetadata].
 pub mod pin_control_metadata {
     #[allow(unused_imports)]
     use super::*;
 
     /// List of product ids which have associated pins.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProductPins {
         /// List of product ids which have associated pins.
@@ -12827,10 +13538,22 @@ pub mod pin_control_metadata {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ProductPins {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ProductPins");
+            debug_struct.field("product_id", &self.product_id);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A list of string values.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StringList {
     /// String values.
@@ -12962,8 +13685,20 @@ impl serde::ser::Serialize for StringList {
     }
 }
 
+impl std::fmt::Debug for StringList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StringList");
+        debug_struct.field("values", &self.values);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A message with a list of double values.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DoubleList {
     /// The list of double values.
@@ -13120,8 +13855,20 @@ impl serde::ser::Serialize for DoubleList {
     }
 }
 
+impl std::fmt::Debug for DoubleList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DoubleList");
+        debug_struct.field("values", &self.values);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Autocomplete parameters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompleteQueryRequest {
     /// Required. Catalog for which the completion is performed.
@@ -13548,8 +14295,31 @@ impl serde::ser::Serialize for CompleteQueryRequest {
     }
 }
 
+impl std::fmt::Debug for CompleteQueryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompleteQueryRequest");
+        debug_struct.field("catalog", &self.catalog);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("visitor_id", &self.visitor_id);
+        debug_struct.field("language_codes", &self.language_codes);
+        debug_struct.field("device_type", &self.device_type);
+        debug_struct.field("dataset", &self.dataset);
+        debug_struct.field("max_suggestions", &self.max_suggestions);
+        debug_struct.field(
+            "enable_attribute_suggestions",
+            &self.enable_attribute_suggestions,
+        );
+        debug_struct.field("entity", &self.entity);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the autocomplete query.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompleteQueryResponse {
     /// Results of the matching suggestions. The result list is ordered and the
@@ -13831,13 +14601,28 @@ impl serde::ser::Serialize for CompleteQueryResponse {
     }
 }
 
+impl std::fmt::Debug for CompleteQueryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompleteQueryResponse");
+        debug_struct.field("completion_results", &self.completion_results);
+        debug_struct.field("attribution_token", &self.attribution_token);
+        debug_struct.field("recent_search_results", &self.recent_search_results);
+        debug_struct.field("attribute_results", &self.attribute_results);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CompleteQueryResponse].
 pub mod complete_query_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Resource that represents completion results.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CompletionResult {
         /// The suggestion for the query.
@@ -14016,8 +14801,21 @@ pub mod complete_query_response {
         }
     }
 
+    impl std::fmt::Debug for CompletionResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CompletionResult");
+            debug_struct.field("suggestion", &self.suggestion);
+            debug_struct.field("attributes", &self.attributes);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Deprecated: Recent search of this user.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     #[deprecated]
     pub struct RecentSearchResult {
@@ -14154,8 +14952,20 @@ pub mod complete_query_response {
         }
     }
 
+    impl std::fmt::Debug for RecentSearchResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RecentSearchResult");
+            debug_struct.field("recent_search", &self.recent_search);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Resource that represents attribute results.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AttributeResult {
         /// The list of suggestions for the attribute.
@@ -14289,6 +15099,18 @@ pub mod complete_query_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AttributeResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AttributeResult");
+            debug_struct.field("suggestions", &self.suggestions);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Configures dynamic metadata that can be linked to a
@@ -14296,7 +15118,7 @@ pub mod complete_query_response {
 /// recommendation results at serving time.
 ///
 /// [google.cloud.retail.v2.ServingConfig]: crate::model::ServingConfig
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Control {
     /// Immutable. Fully qualified name
@@ -14646,6 +15468,26 @@ impl serde::ser::Serialize for Control {
     }
 }
 
+impl std::fmt::Debug for Control {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Control");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field(
+            "associated_serving_config_ids",
+            &self.associated_serving_config_ids,
+        );
+        debug_struct.field("solution_types", &self.solution_types);
+        debug_struct.field("search_solution_use_case", &self.search_solution_use_case);
+        debug_struct.field("control", &self.control);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Control].
 pub mod control {
     #[allow(unused_imports)]
@@ -14667,7 +15509,7 @@ pub mod control {
 }
 
 /// Request for CreateControl method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateControlRequest {
     /// Required. Full resource name of parent catalog. Format:
@@ -14861,8 +15703,22 @@ impl serde::ser::Serialize for CreateControlRequest {
     }
 }
 
+impl std::fmt::Debug for CreateControlRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateControlRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("control", &self.control);
+        debug_struct.field("control_id", &self.control_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateControl method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateControlRequest {
     /// Required. The Control to update.
@@ -15047,8 +15903,21 @@ impl serde::ser::Serialize for UpdateControlRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateControlRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateControlRequest");
+        debug_struct.field("control", &self.control);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteControl method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteControlRequest {
     /// Required. The resource name of the Control to delete. Format:
@@ -15178,8 +16047,20 @@ impl serde::ser::Serialize for DeleteControlRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteControlRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteControlRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetControl method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetControlRequest {
     /// Required. The resource name of the Control to get. Format:
@@ -15309,8 +16190,20 @@ impl serde::ser::Serialize for GetControlRequest {
     }
 }
 
+impl std::fmt::Debug for GetControlRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetControlRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListControls method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListControlsRequest {
     /// Required. The catalog resource name. Format:
@@ -15541,8 +16434,23 @@ impl serde::ser::Serialize for ListControlsRequest {
     }
 }
 
+impl std::fmt::Debug for ListControlsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListControlsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListControls method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListControlsResponse {
     /// All the Controls for a given catalog.
@@ -15713,8 +16621,21 @@ impl serde::ser::Serialize for ListControlsResponse {
     }
 }
 
+impl std::fmt::Debug for ListControlsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListControlsResponse");
+        debug_struct.field("controls", &self.controls);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The output configuration setting.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputConfig {
     /// The configuration of destination for holding output data.
@@ -15957,13 +16878,25 @@ impl serde::ser::Serialize for OutputConfig {
     }
 }
 
+impl std::fmt::Debug for OutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputConfig");
+        debug_struct.field("destination", &self.destination);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OutputConfig].
 pub mod output_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// The Google Cloud Storage output destination configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GcsDestination {
         /// Required. The output uri prefix for saving output data to json files.
@@ -16105,8 +17038,20 @@ pub mod output_config {
         }
     }
 
+    impl std::fmt::Debug for GcsDestination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GcsDestination");
+            debug_struct.field("output_uri_prefix", &self.output_uri_prefix);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The BigQuery output destination configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BigQueryDestination {
         /// Required. The ID of a BigQuery Dataset.
@@ -16295,6 +17240,20 @@ pub mod output_config {
         }
     }
 
+    impl std::fmt::Debug for BigQueryDestination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BigQueryDestination");
+            debug_struct.field("dataset_id", &self.dataset_id);
+            debug_struct.field("table_id_prefix", &self.table_id_prefix);
+            debug_struct.field("table_type", &self.table_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The configuration of destination for holding output data.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -16307,7 +17266,7 @@ pub mod output_config {
 }
 
 /// Configuration of destination for Export related errors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportErrorsConfig {
     /// Required. Errors destination.
@@ -16478,6 +17437,18 @@ impl serde::ser::Serialize for ExportErrorsConfig {
     }
 }
 
+impl std::fmt::Debug for ExportErrorsConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportErrorsConfig");
+        debug_struct.field("destination", &self.destination);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportErrorsConfig].
 pub mod export_errors_config {
     #[allow(unused_imports)]
@@ -16496,7 +17467,7 @@ pub mod export_errors_config {
 }
 
 /// Request message for the `ExportAnalyticsMetrics` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportAnalyticsMetricsRequest {
     /// Required. Full resource name of the parent catalog.
@@ -16702,9 +17673,23 @@ impl serde::ser::Serialize for ExportAnalyticsMetricsRequest {
     }
 }
 
+impl std::fmt::Debug for ExportAnalyticsMetricsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportAnalyticsMetricsRequest");
+        debug_struct.field("catalog", &self.catalog);
+        debug_struct.field("output_config", &self.output_config);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the progress of the Export operation. This is
 /// returned by the google.longrunning.Operation.metadata field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportMetadata {
     /// Operation create time.
@@ -16882,10 +17867,23 @@ impl serde::ser::Serialize for ExportMetadata {
     }
 }
 
+impl std::fmt::Debug for ExportMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the ExportAnalyticsMetricsRequest. If the long running
 /// operation was successful, then this message is returned by the
 /// google.longrunning.Operations.response field if the operation was successful.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportAnalyticsMetricsResponse {
     /// A sample of errors encountered while processing the request.
@@ -17090,9 +18088,23 @@ impl serde::ser::Serialize for ExportAnalyticsMetricsResponse {
     }
 }
 
+impl std::fmt::Debug for ExportAnalyticsMetricsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportAnalyticsMetricsResponse");
+        debug_struct.field("error_samples", &self.error_samples);
+        debug_struct.field("errors_config", &self.errors_config);
+        debug_struct.field("output_result", &self.output_result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Output result that stores the information about where the exported data is
 /// stored.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputResult {
     /// The BigQuery location where the result is stored.
@@ -17261,8 +18273,21 @@ impl serde::ser::Serialize for OutputResult {
     }
 }
 
+impl std::fmt::Debug for OutputResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputResult");
+        debug_struct.field("bigquery_result", &self.bigquery_result);
+        debug_struct.field("gcs_result", &self.gcs_result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A BigQuery output result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryOutputResult {
     /// The ID of a BigQuery Dataset.
@@ -17417,8 +18442,21 @@ impl serde::ser::Serialize for BigQueryOutputResult {
     }
 }
 
+impl std::fmt::Debug for BigQueryOutputResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryOutputResult");
+        debug_struct.field("dataset_id", &self.dataset_id);
+        debug_struct.field("table_id", &self.table_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Gcs output result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsOutputResult {
     /// The uri of Gcs output
@@ -17548,8 +18586,20 @@ impl serde::ser::Serialize for GcsOutputResult {
     }
 }
 
+impl std::fmt::Debug for GcsOutputResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsOutputResult");
+        debug_struct.field("output_uri", &self.output_uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for overall generative question feature state.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerativeQuestionsFeatureConfig {
     /// Required. Resource name of the affected catalog.
@@ -17751,8 +18801,22 @@ impl serde::ser::Serialize for GenerativeQuestionsFeatureConfig {
     }
 }
 
+impl std::fmt::Debug for GenerativeQuestionsFeatureConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerativeQuestionsFeatureConfig");
+        debug_struct.field("catalog", &self.catalog);
+        debug_struct.field("feature_enabled", &self.feature_enabled);
+        debug_struct.field("minimum_products", &self.minimum_products);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for a single generated question.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerativeQuestionConfig {
     /// Required. Resource name of the catalog.
@@ -18056,8 +19120,26 @@ impl serde::ser::Serialize for GenerativeQuestionConfig {
     }
 }
 
+impl std::fmt::Debug for GenerativeQuestionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerativeQuestionConfig");
+        debug_struct.field("catalog", &self.catalog);
+        debug_struct.field("facet", &self.facet);
+        debug_struct.field("generated_question", &self.generated_question);
+        debug_struct.field("final_question", &self.final_question);
+        debug_struct.field("example_values", &self.example_values);
+        debug_struct.field("frequency", &self.frequency);
+        debug_struct.field("allowed_in_conversation", &self.allowed_in_conversation);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateGenerativeQuestionsFeatureConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGenerativeQuestionsFeatureConfigRequest {
     /// Required. The configuration managing the feature state.
@@ -18253,8 +19335,24 @@ impl serde::ser::Serialize for UpdateGenerativeQuestionsFeatureConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateGenerativeQuestionsFeatureConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGenerativeQuestionsFeatureConfigRequest");
+        debug_struct.field(
+            "generative_questions_feature_config",
+            &self.generative_questions_feature_config,
+        );
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetGenerativeQuestionsFeatureConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGenerativeQuestionsFeatureConfigRequest {
     /// Required. Resource name of the parent catalog.
@@ -18386,8 +19484,20 @@ impl serde::ser::Serialize for GetGenerativeQuestionsFeatureConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetGenerativeQuestionsFeatureConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGenerativeQuestionsFeatureConfigRequest");
+        debug_struct.field("catalog", &self.catalog);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListQuestions method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGenerativeQuestionConfigsRequest {
     /// Required. Resource name of the parent catalog.
@@ -18517,8 +19627,20 @@ impl serde::ser::Serialize for ListGenerativeQuestionConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListGenerativeQuestionConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGenerativeQuestionConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListQuestions method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGenerativeQuestionConfigsResponse {
     /// All the questions for a given catalog.
@@ -18663,8 +19785,23 @@ impl serde::ser::Serialize for ListGenerativeQuestionConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListGenerativeQuestionConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGenerativeQuestionConfigsResponse");
+        debug_struct.field(
+            "generative_question_configs",
+            &self.generative_question_configs,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateGenerativeQuestionConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGenerativeQuestionConfigRequest {
     /// Required. The question to update.
@@ -18855,8 +19992,24 @@ impl serde::ser::Serialize for UpdateGenerativeQuestionConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateGenerativeQuestionConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGenerativeQuestionConfigRequest");
+        debug_struct.field(
+            "generative_question_config",
+            &self.generative_question_config,
+        );
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for BatchUpdateGenerativeQuestionConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchUpdateGenerativeQuestionConfigsRequest {
     /// Optional. Resource name of the parent catalog.
@@ -19021,8 +20174,21 @@ impl serde::ser::Serialize for BatchUpdateGenerativeQuestionConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for BatchUpdateGenerativeQuestionConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchUpdateGenerativeQuestionConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("requests", &self.requests);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Aggregated response for UpdateGenerativeQuestionConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchUpdateGenerativeQuestionConfigsResponse {
     /// Optional. The updates question configs.
@@ -19168,8 +20334,23 @@ impl serde::ser::Serialize for BatchUpdateGenerativeQuestionConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for BatchUpdateGenerativeQuestionConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchUpdateGenerativeQuestionConfigsResponse");
+        debug_struct.field(
+            "generative_question_configs",
+            &self.generative_question_configs,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Google Cloud Storage location for input content.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsSource {
     /// Required. Google Cloud Storage URIs to input files. URI can be up to
@@ -19365,8 +20546,21 @@ impl serde::ser::Serialize for GcsSource {
     }
 }
 
+impl std::fmt::Debug for GcsSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsSource");
+        debug_struct.field("input_uris", &self.input_uris);
+        debug_struct.field("data_schema", &self.data_schema);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// BigQuery source import data from.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQuerySource {
     /// The project ID (can be project # or ID) that the BigQuery source is in with
@@ -19704,6 +20898,23 @@ impl serde::ser::Serialize for BigQuerySource {
     }
 }
 
+impl std::fmt::Debug for BigQuerySource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQuerySource");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("dataset_id", &self.dataset_id);
+        debug_struct.field("table_id", &self.table_id);
+        debug_struct.field("gcs_staging_dir", &self.gcs_staging_dir);
+        debug_struct.field("data_schema", &self.data_schema);
+        debug_struct.field("partition", &self.partition);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BigQuerySource].
 pub mod big_query_source {
     #[allow(unused_imports)]
@@ -19720,7 +20931,7 @@ pub mod big_query_source {
 }
 
 /// The inline source for the input config for ImportProducts method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductInlineSource {
     /// Required. A list of products to update/create. Each product must have a
@@ -19856,8 +21067,20 @@ impl serde::ser::Serialize for ProductInlineSource {
     }
 }
 
+impl std::fmt::Debug for ProductInlineSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProductInlineSource");
+        debug_struct.field("products", &self.products);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The inline source for the input config for ImportUserEvents method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserEventInlineSource {
     /// Required. A list of user events to import. Recommended max of 10k items.
@@ -19990,8 +21213,20 @@ impl serde::ser::Serialize for UserEventInlineSource {
     }
 }
 
+impl std::fmt::Debug for UserEventInlineSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserEventInlineSource");
+        debug_struct.field("user_events", &self.user_events);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration of destination for Import related errors.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportErrorsConfig {
     /// Required. Errors destination.
@@ -20162,6 +21397,18 @@ impl serde::ser::Serialize for ImportErrorsConfig {
     }
 }
 
+impl std::fmt::Debug for ImportErrorsConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportErrorsConfig");
+        debug_struct.field("destination", &self.destination);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportErrorsConfig].
 pub mod import_errors_config {
     #[allow(unused_imports)]
@@ -20180,7 +21427,7 @@ pub mod import_errors_config {
 }
 
 /// Request message for Import methods.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportProductsRequest {
     /// Required.
@@ -20537,6 +21784,24 @@ impl serde::ser::Serialize for ImportProductsRequest {
     }
 }
 
+impl std::fmt::Debug for ImportProductsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportProductsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("input_config", &self.input_config);
+        debug_struct.field("errors_config", &self.errors_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("reconciliation_mode", &self.reconciliation_mode);
+        debug_struct.field("notification_pubsub_topic", &self.notification_pubsub_topic);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportProductsRequest].
 pub mod import_products_request {
     #[allow(unused_imports)]
@@ -20678,7 +21943,7 @@ pub mod import_products_request {
 }
 
 /// Request message for the ImportUserEvents request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportUserEventsRequest {
     /// Required. `projects/1234/locations/global/catalogs/default_catalog`
@@ -20880,8 +22145,22 @@ impl serde::ser::Serialize for ImportUserEventsRequest {
     }
 }
 
+impl std::fmt::Debug for ImportUserEventsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportUserEventsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("input_config", &self.input_config);
+        debug_struct.field("errors_config", &self.errors_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ImportCompletionData methods.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportCompletionDataRequest {
     /// Required. The catalog which the suggestions dataset belongs to.
@@ -21086,8 +22365,22 @@ impl serde::ser::Serialize for ImportCompletionDataRequest {
     }
 }
 
+impl std::fmt::Debug for ImportCompletionDataRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportCompletionDataRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("input_config", &self.input_config);
+        debug_struct.field("notification_pubsub_topic", &self.notification_pubsub_topic);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The input config source for products.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductInputConfig {
     /// Required. The source of the input.
@@ -21379,6 +22672,18 @@ impl serde::ser::Serialize for ProductInputConfig {
     }
 }
 
+impl std::fmt::Debug for ProductInputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProductInputConfig");
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ProductInputConfig].
 pub mod product_input_config {
     #[allow(unused_imports)]
@@ -21398,7 +22703,7 @@ pub mod product_input_config {
 }
 
 /// The input config source for user events.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserEventInputConfig {
     /// The source of the input.
@@ -21689,6 +22994,18 @@ impl serde::ser::Serialize for UserEventInputConfig {
     }
 }
 
+impl std::fmt::Debug for UserEventInputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserEventInputConfig");
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [UserEventInputConfig].
 pub mod user_event_input_config {
     #[allow(unused_imports)]
@@ -21708,7 +23025,7 @@ pub mod user_event_input_config {
 }
 
 /// The input config source for completion data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompletionDataInputConfig {
     /// The source of the input.
@@ -21898,6 +23215,18 @@ impl serde::ser::Serialize for CompletionDataInputConfig {
     }
 }
 
+impl std::fmt::Debug for CompletionDataInputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompletionDataInputConfig");
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CompletionDataInputConfig].
 pub mod completion_data_input_config {
     #[allow(unused_imports)]
@@ -21928,7 +23257,7 @@ pub mod completion_data_input_config {
 
 /// Metadata related to the progress of the Import operation. This is
 /// returned by the google.longrunning.Operation.metadata field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportMetadata {
     /// Operation create time.
@@ -22259,13 +23588,30 @@ impl serde::ser::Serialize for ImportMetadata {
     }
 }
 
+impl std::fmt::Debug for ImportMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("success_count", &self.success_count);
+        debug_struct.field("failure_count", &self.failure_count);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("notification_pubsub_topic", &self.notification_pubsub_topic);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the
 /// [ImportProductsRequest][google.cloud.retail.v2.ImportProductsRequest]. If the
 /// long running operation is done, then this message is returned by the
 /// google.longrunning.Operations.response field if the operation was successful.
 ///
 /// [google.cloud.retail.v2.ImportProductsRequest]: crate::model::ImportProductsRequest
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportProductsResponse {
     /// A sample of errors encountered while processing the request.
@@ -22434,10 +23780,23 @@ impl serde::ser::Serialize for ImportProductsResponse {
     }
 }
 
+impl std::fmt::Debug for ImportProductsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportProductsResponse");
+        debug_struct.field("error_samples", &self.error_samples);
+        debug_struct.field("errors_config", &self.errors_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the ImportUserEventsRequest. If the long running
 /// operation was successful, then this message is returned by the
 /// google.longrunning.Operations.response field if the operation was successful.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportUserEventsResponse {
     /// A sample of errors encountered while processing the request.
@@ -22643,9 +24002,23 @@ impl serde::ser::Serialize for ImportUserEventsResponse {
     }
 }
 
+impl std::fmt::Debug for ImportUserEventsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportUserEventsResponse");
+        debug_struct.field("error_samples", &self.error_samples);
+        debug_struct.field("errors_config", &self.errors_config);
+        debug_struct.field("import_summary", &self.import_summary);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A summary of import result. The UserEventImportSummary summarizes
 /// the import status for user events.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserEventImportSummary {
     /// Count of user events imported with complete existing catalog information.
@@ -22839,13 +24212,26 @@ impl serde::ser::Serialize for UserEventImportSummary {
     }
 }
 
+impl std::fmt::Debug for UserEventImportSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserEventImportSummary");
+        debug_struct.field("joined_events_count", &self.joined_events_count);
+        debug_struct.field("unjoined_events_count", &self.unjoined_events_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the
 /// [ImportCompletionDataRequest][google.cloud.retail.v2.ImportCompletionDataRequest].
 /// If the long running operation is done, this message is returned by the
 /// google.longrunning.Operations.response field if the operation is successful.
 ///
 /// [google.cloud.retail.v2.ImportCompletionDataRequest]: crate::model::ImportCompletionDataRequest
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportCompletionDataResponse {
     /// A sample of errors encountered while processing the request.
@@ -22978,6 +24364,18 @@ impl serde::ser::Serialize for ImportCompletionDataResponse {
     }
 }
 
+impl std::fmt::Debug for ImportCompletionDataResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportCompletionDataResponse");
+        debug_struct.field("error_samples", &self.error_samples);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata that describes the training and serving parameters of a
 /// [Model][google.cloud.retail.v2.Model]. A
 /// [Model][google.cloud.retail.v2.Model] can be associated with a
@@ -22986,7 +24384,7 @@ impl serde::ser::Serialize for ImportCompletionDataResponse {
 ///
 /// [google.cloud.retail.v2.Model]: crate::model::Model
 /// [google.cloud.retail.v2.ServingConfig]: crate::model::ServingConfig
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Model {
     /// Required. The fully qualified resource name of the model.
@@ -23611,6 +25009,32 @@ impl serde::ser::Serialize for Model {
     }
 }
 
+impl std::fmt::Debug for Model {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Model");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("training_state", &self.training_state);
+        debug_struct.field("serving_state", &self.serving_state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("optimization_objective", &self.optimization_objective);
+        debug_struct.field("periodic_tuning_state", &self.periodic_tuning_state);
+        debug_struct.field("last_tune_time", &self.last_tune_time);
+        debug_struct.field("tuning_operation", &self.tuning_operation);
+        debug_struct.field("data_state", &self.data_state);
+        debug_struct.field("filtering_option", &self.filtering_option);
+        debug_struct.field("serving_config_lists", &self.serving_config_lists);
+        debug_struct.field("model_features_config", &self.model_features_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Model].
 pub mod model {
     #[allow(unused_imports)]
@@ -23618,7 +25042,7 @@ pub mod model {
 
     /// Represents an ordered combination of valid serving configs, which
     /// can be used for `PAGE_OPTIMIZATION` recommendations.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ServingConfigList {
         /// Optional. A set of valid serving configs that may be used for
@@ -23755,8 +25179,20 @@ pub mod model {
         }
     }
 
+    impl std::fmt::Debug for ServingConfigList {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ServingConfigList");
+            debug_struct.field("serving_config_ids", &self.serving_config_ids);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Additional configs for the frequently-bought-together model type.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FrequentlyBoughtTogetherFeaturesConfig {
         /// Optional. Specifies the context of the model when it is used in predict
@@ -23903,8 +25339,20 @@ pub mod model {
         }
     }
 
+    impl std::fmt::Debug for FrequentlyBoughtTogetherFeaturesConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FrequentlyBoughtTogetherFeaturesConfig");
+            debug_struct.field("context_products_type", &self.context_products_type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Additional model features config.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ModelFeaturesConfig {
         pub type_dedicated_config:
@@ -24093,6 +25541,18 @@ pub mod model {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ModelFeaturesConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ModelFeaturesConfig");
+            debug_struct.field("type_dedicated_config", &self.type_dedicated_config);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -24811,7 +26271,7 @@ pub mod model {
 }
 
 /// Request for creating a model.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateModelRequest {
     /// Required. The parent resource under which to create the model. Format:
@@ -25005,8 +26465,22 @@ impl serde::ser::Serialize for CreateModelRequest {
     }
 }
 
+impl std::fmt::Debug for CreateModelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateModelRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("model", &self.model);
+        debug_struct.field("dry_run", &self.dry_run);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for updating an existing model.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateModelRequest {
     /// Required. The body of the updated [Model][google.cloud.retail.v2.Model].
@@ -25185,8 +26659,21 @@ impl serde::ser::Serialize for UpdateModelRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateModelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateModelRequest");
+        debug_struct.field("model", &self.model);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for getting a model.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetModelRequest {
     /// Required. The resource name of the [Model][google.cloud.retail.v2.Model] to
@@ -25319,8 +26806,20 @@ impl serde::ser::Serialize for GetModelRequest {
     }
 }
 
+impl std::fmt::Debug for GetModelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetModelRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for pausing training of a model.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseModelRequest {
     /// Required. The name of the model to pause.
@@ -25451,8 +26950,20 @@ impl serde::ser::Serialize for PauseModelRequest {
     }
 }
 
+impl std::fmt::Debug for PauseModelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PauseModelRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for resuming training of a model.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeModelRequest {
     /// Required. The name of the model to resume.
@@ -25583,8 +27094,20 @@ impl serde::ser::Serialize for ResumeModelRequest {
     }
 }
 
+impl std::fmt::Debug for ResumeModelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeModelRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for listing models associated with a resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListModelsRequest {
     /// Required. The parent for which to list models.
@@ -25785,8 +27308,22 @@ impl serde::ser::Serialize for ListModelsRequest {
     }
 }
 
+impl std::fmt::Debug for ListModelsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListModelsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for deleting a model.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteModelRequest {
     /// Required. The resource name of the [Model][google.cloud.retail.v2.Model] to
@@ -25919,8 +27456,20 @@ impl serde::ser::Serialize for DeleteModelRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteModelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteModelRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response to a ListModelRequest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListModelsResponse {
     /// List of Models.
@@ -26091,9 +27640,22 @@ impl serde::ser::Serialize for ListModelsResponse {
     }
 }
 
+impl std::fmt::Debug for ListModelsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListModelsResponse");
+        debug_struct.field("models", &self.models);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to manually start a tuning process now (instead of waiting for
 /// the periodically scheduled tuning to happen).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TuneModelRequest {
     /// Required. The resource name of the model to tune.
@@ -26224,8 +27786,20 @@ impl serde::ser::Serialize for TuneModelRequest {
     }
 }
 
+impl std::fmt::Debug for TuneModelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TuneModelRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata associated with a create operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateModelMetadata {
     /// The resource name of the model that this create applies to.
@@ -26356,8 +27930,20 @@ impl serde::ser::Serialize for CreateModelMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateModelMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateModelMetadata");
+        debug_struct.field("model", &self.model);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata associated with a tune operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TuneModelMetadata {
     /// The resource name of the model that this tune applies to.
@@ -26488,8 +28074,20 @@ impl serde::ser::Serialize for TuneModelMetadata {
     }
 }
 
+impl std::fmt::Debug for TuneModelMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TuneModelMetadata");
+        debug_struct.field("model", &self.model);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response associated with a tune operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TuneModelResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -26591,8 +28189,19 @@ impl serde::ser::Serialize for TuneModelResponse {
     }
 }
 
+impl std::fmt::Debug for TuneModelResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TuneModelResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for Predict method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PredictRequest {
     /// Required. Full resource name of the format:
@@ -27059,8 +28668,27 @@ impl serde::ser::Serialize for PredictRequest {
     }
 }
 
+impl std::fmt::Debug for PredictRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PredictRequest");
+        debug_struct.field("placement", &self.placement);
+        debug_struct.field("user_event", &self.user_event);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("params", &self.params);
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for predict method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PredictResponse {
     /// A list of recommended products. The order represents the ranking (from the
@@ -27283,13 +28911,28 @@ impl serde::ser::Serialize for PredictResponse {
     }
 }
 
+impl std::fmt::Debug for PredictResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PredictResponse");
+        debug_struct.field("results", &self.results);
+        debug_struct.field("attribution_token", &self.attribution_token);
+        debug_struct.field("missing_ids", &self.missing_ids);
+        debug_struct.field("validate_only", &self.validate_only);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PredictResponse].
 pub mod predict_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// PredictionResult represents the recommendation prediction results.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PredictionResult {
         /// ID of the recommended product
@@ -27459,11 +29102,24 @@ pub mod predict_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for PredictionResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PredictionResult");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("metadata", &self.metadata);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Product captures all metadata information of items to be recommended or
 /// searched.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Product {
     /// Immutable. Full resource name of the product, such as
@@ -29045,6 +30701,50 @@ impl serde::ser::Serialize for Product {
     }
 }
 
+impl std::fmt::Debug for Product {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Product");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("primary_product_id", &self.primary_product_id);
+        debug_struct.field("collection_member_ids", &self.collection_member_ids);
+        debug_struct.field("gtin", &self.gtin);
+        debug_struct.field("categories", &self.categories);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("brands", &self.brands);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("price_info", &self.price_info);
+        debug_struct.field("rating", &self.rating);
+        debug_struct.field("available_time", &self.available_time);
+        debug_struct.field("availability", &self.availability);
+        debug_struct.field("available_quantity", &self.available_quantity);
+        debug_struct.field("fulfillment_info", &self.fulfillment_info);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("images", &self.images);
+        debug_struct.field("audience", &self.audience);
+        debug_struct.field("color_info", &self.color_info);
+        debug_struct.field("sizes", &self.sizes);
+        debug_struct.field("materials", &self.materials);
+        debug_struct.field("patterns", &self.patterns);
+        debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("promotions", &self.promotions);
+        debug_struct.field("publish_time", &self.publish_time);
+        debug_struct.field("retrievable_fields", &self.retrievable_fields);
+        debug_struct.field("variants", &self.variants);
+        debug_struct.field("local_inventories", &self.local_inventories);
+        debug_struct.field("expiration", &self.expiration);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Product].
 pub mod product {
     #[allow(unused_imports)]
@@ -29452,7 +31152,7 @@ pub mod product {
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.CreateProduct]: crate::client::ProductService::create_product
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProductRequest {
     /// Required. The parent catalog resource name, such as
@@ -29662,12 +31362,26 @@ impl serde::ser::Serialize for CreateProductRequest {
     }
 }
 
+impl std::fmt::Debug for CreateProductRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateProductRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("product", &self.product);
+        debug_struct.field("product_id", &self.product_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ProductService.GetProduct][google.cloud.retail.v2.ProductService.GetProduct]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.GetProduct]: crate::client::ProductService::get_product
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProductRequest {
     /// Required. Full resource name of [Product][google.cloud.retail.v2.Product],
@@ -29807,12 +31521,24 @@ impl serde::ser::Serialize for GetProductRequest {
     }
 }
 
+impl std::fmt::Debug for GetProductRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProductRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ProductService.UpdateProduct][google.cloud.retail.v2.ProductService.UpdateProduct]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.UpdateProduct]: crate::client::ProductService::update_product
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProductRequest {
     /// Required. The product to update/create.
@@ -30042,12 +31768,26 @@ impl serde::ser::Serialize for UpdateProductRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateProductRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateProductRequest");
+        debug_struct.field("product", &self.product);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ProductService.DeleteProduct][google.cloud.retail.v2.ProductService.DeleteProduct]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.DeleteProduct]: crate::client::ProductService::delete_product
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProductRequest {
     /// Required. Full resource name of [Product][google.cloud.retail.v2.Product],
@@ -30201,12 +31941,24 @@ impl serde::ser::Serialize for DeleteProductRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteProductRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteProductRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ProductService.ListProducts][google.cloud.retail.v2.ProductService.ListProducts]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.ListProducts]: crate::client::ProductService::list_products
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProductsRequest {
     /// Required. The parent branch resource name, such as
@@ -30548,12 +32300,28 @@ impl serde::ser::Serialize for ListProductsRequest {
     }
 }
 
+impl std::fmt::Debug for ListProductsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProductsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("read_mask", &self.read_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ProductService.ListProducts][google.cloud.retail.v2.ProductService.ListProducts]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.ListProducts]: crate::client::ProductService::list_products
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProductsResponse {
     /// The [Product][google.cloud.retail.v2.Product]s.
@@ -30731,12 +32499,25 @@ impl serde::ser::Serialize for ListProductsResponse {
     }
 }
 
+impl std::fmt::Debug for ListProductsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProductsResponse");
+        debug_struct.field("products", &self.products);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ProductService.SetInventory][google.cloud.retail.v2.ProductService.SetInventory]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.SetInventory]: crate::client::ProductService::set_inventory
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetInventoryRequest {
     /// Required. The inventory information to update. The allowable fields to
@@ -31060,13 +32841,28 @@ impl serde::ser::Serialize for SetInventoryRequest {
     }
 }
 
+impl std::fmt::Debug for SetInventoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetInventoryRequest");
+        debug_struct.field("inventory", &self.inventory);
+        debug_struct.field("set_mask", &self.set_mask);
+        debug_struct.field("set_time", &self.set_time);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the progress of the SetInventory operation.
 /// Currently empty because there is no meaningful metadata populated from the
 /// [ProductService.SetInventory][google.cloud.retail.v2.ProductService.SetInventory]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.SetInventory]: crate::client::ProductService::set_inventory
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetInventoryMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -31168,13 +32964,24 @@ impl serde::ser::Serialize for SetInventoryMetadata {
     }
 }
 
+impl std::fmt::Debug for SetInventoryMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetInventoryMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the SetInventoryRequest.  Currently empty because
 /// there is no meaningful response populated from the
 /// [ProductService.SetInventory][google.cloud.retail.v2.ProductService.SetInventory]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.SetInventory]: crate::client::ProductService::set_inventory
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetInventoryResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -31276,12 +33083,23 @@ impl serde::ser::Serialize for SetInventoryResponse {
     }
 }
 
+impl std::fmt::Debug for SetInventoryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetInventoryResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ProductService.AddFulfillmentPlaces][google.cloud.retail.v2.ProductService.AddFulfillmentPlaces]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.AddFulfillmentPlaces]: crate::client::ProductService::add_fulfillment_places
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddFulfillmentPlacesRequest {
     /// Required. Full resource name of [Product][google.cloud.retail.v2.Product],
@@ -31577,13 +33395,29 @@ impl serde::ser::Serialize for AddFulfillmentPlacesRequest {
     }
 }
 
+impl std::fmt::Debug for AddFulfillmentPlacesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddFulfillmentPlacesRequest");
+        debug_struct.field("product", &self.product);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("place_ids", &self.place_ids);
+        debug_struct.field("add_time", &self.add_time);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the progress of the AddFulfillmentPlaces operation.
 /// Currently empty because there is no meaningful metadata populated from the
 /// [ProductService.AddFulfillmentPlaces][google.cloud.retail.v2.ProductService.AddFulfillmentPlaces]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.AddFulfillmentPlaces]: crate::client::ProductService::add_fulfillment_places
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddFulfillmentPlacesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -31685,13 +33519,24 @@ impl serde::ser::Serialize for AddFulfillmentPlacesMetadata {
     }
 }
 
+impl std::fmt::Debug for AddFulfillmentPlacesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddFulfillmentPlacesMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the AddFulfillmentPlacesRequest.  Currently empty because
 /// there is no meaningful response populated from the
 /// [ProductService.AddFulfillmentPlaces][google.cloud.retail.v2.ProductService.AddFulfillmentPlaces]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.AddFulfillmentPlaces]: crate::client::ProductService::add_fulfillment_places
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddFulfillmentPlacesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -31793,12 +33638,23 @@ impl serde::ser::Serialize for AddFulfillmentPlacesResponse {
     }
 }
 
+impl std::fmt::Debug for AddFulfillmentPlacesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddFulfillmentPlacesResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ProductService.AddLocalInventories][google.cloud.retail.v2.ProductService.AddLocalInventories]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.AddLocalInventories]: crate::client::ProductService::add_local_inventories
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddLocalInventoriesRequest {
     /// Required. Full resource name of [Product][google.cloud.retail.v2.Product],
@@ -32090,13 +33946,29 @@ impl serde::ser::Serialize for AddLocalInventoriesRequest {
     }
 }
 
+impl std::fmt::Debug for AddLocalInventoriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddLocalInventoriesRequest");
+        debug_struct.field("product", &self.product);
+        debug_struct.field("local_inventories", &self.local_inventories);
+        debug_struct.field("add_mask", &self.add_mask);
+        debug_struct.field("add_time", &self.add_time);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the progress of the AddLocalInventories operation.
 /// Currently empty because there is no meaningful metadata populated from the
 /// [ProductService.AddLocalInventories][google.cloud.retail.v2.ProductService.AddLocalInventories]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.AddLocalInventories]: crate::client::ProductService::add_local_inventories
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddLocalInventoriesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -32198,6 +34070,17 @@ impl serde::ser::Serialize for AddLocalInventoriesMetadata {
     }
 }
 
+impl std::fmt::Debug for AddLocalInventoriesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddLocalInventoriesMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the
 /// [ProductService.AddLocalInventories][google.cloud.retail.v2.ProductService.AddLocalInventories]
 /// API.  Currently empty because there is no meaningful response populated from
@@ -32206,7 +34089,7 @@ impl serde::ser::Serialize for AddLocalInventoriesMetadata {
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.AddLocalInventories]: crate::client::ProductService::add_local_inventories
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddLocalInventoriesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -32308,12 +34191,23 @@ impl serde::ser::Serialize for AddLocalInventoriesResponse {
     }
 }
 
+impl std::fmt::Debug for AddLocalInventoriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddLocalInventoriesResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ProductService.RemoveLocalInventories][google.cloud.retail.v2.ProductService.RemoveLocalInventories]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.RemoveLocalInventories]: crate::client::ProductService::remove_local_inventories
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveLocalInventoriesRequest {
     /// Required. Full resource name of [Product][google.cloud.retail.v2.Product],
@@ -32549,13 +34443,28 @@ impl serde::ser::Serialize for RemoveLocalInventoriesRequest {
     }
 }
 
+impl std::fmt::Debug for RemoveLocalInventoriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveLocalInventoriesRequest");
+        debug_struct.field("product", &self.product);
+        debug_struct.field("place_ids", &self.place_ids);
+        debug_struct.field("remove_time", &self.remove_time);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the progress of the RemoveLocalInventories operation.
 /// Currently empty because there is no meaningful metadata populated from the
 /// [ProductService.RemoveLocalInventories][google.cloud.retail.v2.ProductService.RemoveLocalInventories]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.RemoveLocalInventories]: crate::client::ProductService::remove_local_inventories
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveLocalInventoriesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -32657,6 +34566,17 @@ impl serde::ser::Serialize for RemoveLocalInventoriesMetadata {
     }
 }
 
+impl std::fmt::Debug for RemoveLocalInventoriesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveLocalInventoriesMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the
 /// [ProductService.RemoveLocalInventories][google.cloud.retail.v2.ProductService.RemoveLocalInventories]
 /// API.  Currently empty because there is no meaningful response populated from
@@ -32665,7 +34585,7 @@ impl serde::ser::Serialize for RemoveLocalInventoriesMetadata {
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.RemoveLocalInventories]: crate::client::ProductService::remove_local_inventories
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveLocalInventoriesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -32767,12 +34687,23 @@ impl serde::ser::Serialize for RemoveLocalInventoriesResponse {
     }
 }
 
+impl std::fmt::Debug for RemoveLocalInventoriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveLocalInventoriesResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ProductService.RemoveFulfillmentPlaces][google.cloud.retail.v2.ProductService.RemoveFulfillmentPlaces]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.RemoveFulfillmentPlaces]: crate::client::ProductService::remove_fulfillment_places
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveFulfillmentPlacesRequest {
     /// Required. Full resource name of [Product][google.cloud.retail.v2.Product],
@@ -33063,13 +34994,29 @@ impl serde::ser::Serialize for RemoveFulfillmentPlacesRequest {
     }
 }
 
+impl std::fmt::Debug for RemoveFulfillmentPlacesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveFulfillmentPlacesRequest");
+        debug_struct.field("product", &self.product);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("place_ids", &self.place_ids);
+        debug_struct.field("remove_time", &self.remove_time);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the progress of the RemoveFulfillmentPlaces operation.
 /// Currently empty because there is no meaningful metadata populated from the
 /// [ProductService.RemoveFulfillmentPlaces][google.cloud.retail.v2.ProductService.RemoveFulfillmentPlaces]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.RemoveFulfillmentPlaces]: crate::client::ProductService::remove_fulfillment_places
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveFulfillmentPlacesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -33171,13 +35118,24 @@ impl serde::ser::Serialize for RemoveFulfillmentPlacesMetadata {
     }
 }
 
+impl std::fmt::Debug for RemoveFulfillmentPlacesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveFulfillmentPlacesMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the RemoveFulfillmentPlacesRequest. Currently empty because there
 /// is no meaningful response populated from the
 /// [ProductService.RemoveFulfillmentPlaces][google.cloud.retail.v2.ProductService.RemoveFulfillmentPlaces]
 /// method.
 ///
 /// [google.cloud.retail.v2.ProductService.RemoveFulfillmentPlaces]: crate::client::ProductService::remove_fulfillment_places
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveFulfillmentPlacesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -33279,8 +35237,19 @@ impl serde::ser::Serialize for RemoveFulfillmentPlacesResponse {
     }
 }
 
+impl std::fmt::Debug for RemoveFulfillmentPlacesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveFulfillmentPlacesResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Promotion information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Promotion {
     /// ID of the promotion. For example, "free gift".
@@ -33418,9 +35387,21 @@ impl serde::ser::Serialize for Promotion {
     }
 }
 
+impl std::fmt::Debug for Promotion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Promotion");
+        debug_struct.field("promotion_id", &self.promotion_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the progress of the Purge operation.
 /// This will be returned by the google.longrunning.Operation.metadata field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -33522,9 +35503,20 @@ impl serde::ser::Serialize for PurgeMetadata {
     }
 }
 
+impl std::fmt::Debug for PurgeMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PurgeMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata related to the progress of the PurgeProducts operation.
 /// This will be returned by the google.longrunning.Operation.metadata field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeProductsMetadata {
     /// Operation create time.
@@ -33790,8 +35782,23 @@ impl serde::ser::Serialize for PurgeProductsMetadata {
     }
 }
 
+impl std::fmt::Debug for PurgeProductsMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PurgeProductsMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("success_count", &self.success_count);
+        debug_struct.field("failure_count", &self.failure_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for PurgeProducts method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeProductsRequest {
     /// Required. The resource name of the branch under which the products are
@@ -34014,10 +36021,24 @@ impl serde::ser::Serialize for PurgeProductsRequest {
     }
 }
 
+impl std::fmt::Debug for PurgeProductsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PurgeProductsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the PurgeProductsRequest. If the long running operation is
 /// successfully done, then this message is returned by the
 /// google.longrunning.Operations.response field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeProductsResponse {
     /// The total count of products purged as a result of the operation.
@@ -34195,8 +36216,21 @@ impl serde::ser::Serialize for PurgeProductsResponse {
     }
 }
 
+impl std::fmt::Debug for PurgeProductsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PurgeProductsResponse");
+        debug_struct.field("purge_count", &self.purge_count);
+        debug_struct.field("purge_sample", &self.purge_sample);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for PurgeUserEvents method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeUserEventsRequest {
     /// Required. The resource name of the catalog under which the events are
@@ -34401,10 +36435,24 @@ impl serde::ser::Serialize for PurgeUserEventsRequest {
     }
 }
 
+impl std::fmt::Debug for PurgeUserEventsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PurgeUserEventsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of the PurgeUserEventsRequest. If the long running operation is
 /// successfully done, then this message is returned by the
 /// google.longrunning.Operations.response field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurgeUserEventsResponse {
     /// The total count of events purged as a result of the operation.
@@ -34553,10 +36601,22 @@ impl serde::ser::Serialize for PurgeUserEventsResponse {
     }
 }
 
+impl std::fmt::Debug for PurgeUserEventsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PurgeUserEventsResponse");
+        debug_struct.field("purged_events_count", &self.purged_events_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Product attribute which structured by an attribute name and value. This
 /// structure is used in conversational search filters and answers. For example,
 /// if we have `name=color` and `value=red`, this means that the color is `red`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductAttributeValue {
     /// The attribute name.
@@ -34709,8 +36769,21 @@ impl serde::ser::Serialize for ProductAttributeValue {
     }
 }
 
+impl std::fmt::Debug for ProductAttributeValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProductAttributeValue");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("value", &self.value);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Product attribute name and numeric interval.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductAttributeInterval {
     /// The attribute name (e.g. "length")
@@ -34874,10 +36947,23 @@ impl serde::ser::Serialize for ProductAttributeInterval {
     }
 }
 
+impl std::fmt::Debug for ProductAttributeInterval {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProductAttributeInterval");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("interval", &self.interval);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// This field specifies the tile information including an attribute key,
 /// attribute value. More fields will be added in the future, eg: product id
 /// or product counts, etc.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Tile {
     /// The representative product id for this tile.
@@ -35151,6 +37237,19 @@ impl serde::ser::Serialize for Tile {
     }
 }
 
+impl std::fmt::Debug for Tile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Tile");
+        debug_struct.field("representative_product_id", &self.representative_product_id);
+        debug_struct.field("product_attribute", &self.product_attribute);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Tile].
 pub mod tile {
     #[allow(unused_imports)]
@@ -35171,7 +37270,7 @@ pub mod tile {
 /// [SearchService.Search][google.cloud.retail.v2.SearchService.Search] method.
 ///
 /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchRequest {
     /// Required. The resource name of the Retail Search serving config, such as
@@ -36414,13 +38513,55 @@ impl serde::ser::Serialize for SearchRequest {
     }
 }
 
+impl std::fmt::Debug for SearchRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchRequest");
+        debug_struct.field("placement", &self.placement);
+        debug_struct.field("branch", &self.branch);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("visitor_id", &self.visitor_id);
+        debug_struct.field("user_info", &self.user_info);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("offset", &self.offset);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("canonical_filter", &self.canonical_filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("facet_specs", &self.facet_specs);
+        debug_struct.field("dynamic_facet_spec", &self.dynamic_facet_spec);
+        debug_struct.field("boost_spec", &self.boost_spec);
+        debug_struct.field("query_expansion_spec", &self.query_expansion_spec);
+        debug_struct.field("variant_rollup_keys", &self.variant_rollup_keys);
+        debug_struct.field("page_categories", &self.page_categories);
+        debug_struct.field("search_mode", &self.search_mode);
+        debug_struct.field("personalization_spec", &self.personalization_spec);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("spell_correction_spec", &self.spell_correction_spec);
+        debug_struct.field("entity", &self.entity);
+        debug_struct.field(
+            "conversational_search_spec",
+            &self.conversational_search_spec,
+        );
+        debug_struct.field("tile_navigation_spec", &self.tile_navigation_spec);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("region_code", &self.region_code);
+        debug_struct.field("place_id", &self.place_id);
+        debug_struct.field("user_attributes", &self.user_attributes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SearchRequest].
 pub mod search_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// A facet specification to perform faceted search.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FacetSpec {
         /// Required. The facet key specification.
@@ -36724,13 +38865,28 @@ pub mod search_request {
         }
     }
 
+    impl std::fmt::Debug for FacetSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FacetSpec");
+            debug_struct.field("facet_key", &self.facet_key);
+            debug_struct.field("limit", &self.limit);
+            debug_struct.field("excluded_filter_keys", &self.excluded_filter_keys);
+            debug_struct.field("enable_dynamic_position", &self.enable_dynamic_position);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [FacetSpec].
     pub mod facet_spec {
         #[allow(unused_imports)]
         use super::*;
 
         /// Specifies how a facet is computed.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FacetKey {
             /// Required. Supported textual and numerical facet keys in
@@ -37239,10 +39395,30 @@ pub mod search_request {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for FacetKey {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("FacetKey");
+                debug_struct.field("key", &self.key);
+                debug_struct.field("intervals", &self.intervals);
+                debug_struct.field("restricted_values", &self.restricted_values);
+                debug_struct.field("prefixes", &self.prefixes);
+                debug_struct.field("contains", &self.contains);
+                debug_struct.field("case_insensitive", &self.case_insensitive);
+                debug_struct.field("order_by", &self.order_by);
+                debug_struct.field("query", &self.query);
+                debug_struct.field("return_min_max", &self.return_min_max);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// The specifications of dynamically generated facets.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DynamicFacetSpec {
         /// Mode of the DynamicFacet feature.
@@ -37383,6 +39559,18 @@ pub mod search_request {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for DynamicFacetSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DynamicFacetSpec");
+            debug_struct.field("mode", &self.mode);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -37528,7 +39716,7 @@ pub mod search_request {
     }
 
     /// Boost specification to boost certain items.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BoostSpec {
         /// Condition boost specifications. If a product matches multiple conditions
@@ -37719,13 +39907,29 @@ pub mod search_request {
         }
     }
 
+    impl std::fmt::Debug for BoostSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BoostSpec");
+            debug_struct.field("condition_boost_specs", &self.condition_boost_specs);
+            debug_struct.field(
+                "skip_boost_spec_validation",
+                &self.skip_boost_spec_validation,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [BoostSpec].
     pub mod boost_spec {
         #[allow(unused_imports)]
         use super::*;
 
         /// Boost applies to products which match a condition.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ConditionBoostSpec {
             /// An expression which specifies a boost condition. The syntax and
@@ -37939,11 +40143,24 @@ pub mod search_request {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for ConditionBoostSpec {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ConditionBoostSpec");
+                debug_struct.field("condition", &self.condition);
+                debug_struct.field("boost", &self.boost);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Specification to determine under which conditions query expansion should
     /// occur.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QueryExpansionSpec {
         /// The condition under which query expansion should occur. Default to
@@ -38111,6 +40328,19 @@ pub mod search_request {
         }
     }
 
+    impl std::fmt::Debug for QueryExpansionSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QueryExpansionSpec");
+            debug_struct.field("condition", &self.condition);
+            debug_struct.field("pin_unexpanded_results", &self.pin_unexpanded_results);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [QueryExpansionSpec].
     pub mod query_expansion_spec {
         #[allow(unused_imports)]
@@ -38261,7 +40491,7 @@ pub mod search_request {
     }
 
     /// The specification for personalization.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PersonalizationSpec {
         /// Defaults to
@@ -38400,6 +40630,18 @@ pub mod search_request {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for PersonalizationSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PersonalizationSpec");
+            debug_struct.field("mode", &self.mode);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -38549,7 +40791,7 @@ pub mod search_request {
     }
 
     /// The specification for query spell correction.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SpellCorrectionSpec {
         /// The mode under which spell correction should take effect to
@@ -38689,6 +40931,18 @@ pub mod search_request {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for SpellCorrectionSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SpellCorrectionSpec");
+            debug_struct.field("mode", &self.mode);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -38845,7 +41099,7 @@ pub mod search_request {
 
     /// This field specifies all conversational related parameters addition to
     /// traditional retail search.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConversationalSearchSpec {
         /// This field specifies whether the customer would like to do conversational
@@ -39066,6 +41320,23 @@ pub mod search_request {
         }
     }
 
+    impl std::fmt::Debug for ConversationalSearchSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConversationalSearchSpec");
+            debug_struct.field(
+                "followup_conversation_requested",
+                &self.followup_conversation_requested,
+            );
+            debug_struct.field("conversation_id", &self.conversation_id);
+            debug_struct.field("user_answer", &self.user_answer);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ConversationalSearchSpec].
     pub mod conversational_search_spec {
         #[allow(unused_imports)]
@@ -39074,7 +41345,7 @@ pub mod search_request {
         /// This field specifies the current user answer during the conversational
         /// search. This can be either user selected from suggested answers or user
         /// input plain text.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct UserAnswer {
             /// This field specifies the type of user answer.
@@ -39307,6 +41578,18 @@ pub mod search_request {
             }
         }
 
+        impl std::fmt::Debug for UserAnswer {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("UserAnswer");
+                debug_struct.field("r#type", &self.r#type);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [UserAnswer].
         pub mod user_answer {
             #[allow(unused_imports)]
@@ -39314,7 +41597,7 @@ pub mod search_request {
 
             /// This field specifies the selected answers during the conversational
             /// search.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct SelectedAnswer {
                 /// This field is deprecated and should not be set.
@@ -39526,6 +41809,19 @@ pub mod search_request {
                 }
             }
 
+            impl std::fmt::Debug for SelectedAnswer {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("SelectedAnswer");
+                    debug_struct.field("product_attribute_values", &self.product_attribute_values);
+                    debug_struct.field("product_attribute_value", &self.product_attribute_value);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// This field specifies the type of user answer.
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -39542,7 +41838,7 @@ pub mod search_request {
     }
 
     /// This field specifies tile navigation related parameters.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TileNavigationSpec {
         /// This field specifies whether the customer would like to request tile
@@ -39716,6 +42012,19 @@ pub mod search_request {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for TileNavigationSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TileNavigationSpec");
+            debug_struct.field("tile_navigation_requested", &self.tile_navigation_requested);
+            debug_struct.field("applied_tiles", &self.applied_tiles);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -39895,7 +42204,7 @@ pub mod search_request {
 /// [SearchService.Search][google.cloud.retail.v2.SearchService.Search] method.
 ///
 /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchResponse {
     /// A list of matched items. The order represents the ranking.
@@ -40514,13 +42823,44 @@ impl serde::ser::Serialize for SearchResponse {
     }
 }
 
+impl std::fmt::Debug for SearchResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchResponse");
+        debug_struct.field("results", &self.results);
+        debug_struct.field("facets", &self.facets);
+        debug_struct.field("total_size", &self.total_size);
+        debug_struct.field("corrected_query", &self.corrected_query);
+        debug_struct.field("attribution_token", &self.attribution_token);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("query_expansion_info", &self.query_expansion_info);
+        debug_struct.field("redirect_uri", &self.redirect_uri);
+        debug_struct.field("applied_controls", &self.applied_controls);
+        debug_struct.field("pin_control_metadata", &self.pin_control_metadata);
+        debug_struct.field(
+            "invalid_condition_boost_specs",
+            &self.invalid_condition_boost_specs,
+        );
+        debug_struct.field("experiment_info", &self.experiment_info);
+        debug_struct.field(
+            "conversational_search_result",
+            &self.conversational_search_result,
+        );
+        debug_struct.field("tile_navigation_result", &self.tile_navigation_result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SearchResponse].
 pub mod search_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents the search results.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SearchResult {
         /// [Product.id][google.cloud.retail.v2.Product.id] of the searched
@@ -40972,8 +43312,26 @@ pub mod search_response {
         }
     }
 
+    impl std::fmt::Debug for SearchResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SearchResult");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("product", &self.product);
+            debug_struct.field("matching_variant_count", &self.matching_variant_count);
+            debug_struct.field("matching_variant_fields", &self.matching_variant_fields);
+            debug_struct.field("variant_rollup_values", &self.variant_rollup_values);
+            debug_struct.field("personal_labels", &self.personal_labels);
+            debug_struct.field("model_scores", &self.model_scores);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A facet result.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Facet {
         /// The key for this facet. E.g., "colorFamilies" or "price" or
@@ -41164,13 +43522,27 @@ pub mod search_response {
         }
     }
 
+    impl std::fmt::Debug for Facet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Facet");
+            debug_struct.field("key", &self.key);
+            debug_struct.field("values", &self.values);
+            debug_struct.field("dynamic_facet", &self.dynamic_facet);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Facet].
     pub mod facet {
         #[allow(unused_imports)]
         use super::*;
 
         /// A facet value which contains value names and their count.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FacetValue {
             /// Number of items that have this facet value.
@@ -41568,6 +43940,21 @@ pub mod search_response {
             }
         }
 
+        impl std::fmt::Debug for FacetValue {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("FacetValue");
+                debug_struct.field("count", &self.count);
+                debug_struct.field("min_value", &self.min_value);
+                debug_struct.field("max_value", &self.max_value);
+                debug_struct.field("facet_value", &self.facet_value);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [FacetValue].
         pub mod facet_value {
             #[allow(unused_imports)]
@@ -41587,7 +43974,7 @@ pub mod search_response {
 
     /// Information describing query expansion including whether expansion has
     /// occurred.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QueryExpansionInfo {
         /// Bool describing whether query expansion has occurred.
@@ -41769,9 +44156,22 @@ pub mod search_response {
         }
     }
 
+    impl std::fmt::Debug for QueryExpansionInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QueryExpansionInfo");
+            debug_struct.field("expanded_query", &self.expanded_query);
+            debug_struct.field("pinned_result_count", &self.pinned_result_count);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// This field specifies all related information that is needed on client
     /// side for UI rendering of conversational retail search.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConversationalSearchResult {
         /// Conversation UUID. This field will be stored in client side storage to
@@ -42095,13 +44495,30 @@ pub mod search_response {
         }
     }
 
+    impl std::fmt::Debug for ConversationalSearchResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConversationalSearchResult");
+            debug_struct.field("conversation_id", &self.conversation_id);
+            debug_struct.field("refined_query", &self.refined_query);
+            debug_struct.field("additional_filters", &self.additional_filters);
+            debug_struct.field("followup_question", &self.followup_question);
+            debug_struct.field("suggested_answers", &self.suggested_answers);
+            debug_struct.field("additional_filter", &self.additional_filter);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ConversationalSearchResult].
     pub mod conversational_search_result {
         #[allow(unused_imports)]
         use super::*;
 
         /// Suggested answers to the follow-up question.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SuggestedAnswer {
             /// Product attribute value, including an attribute key and an
@@ -42261,8 +44678,20 @@ pub mod search_response {
             }
         }
 
+        impl std::fmt::Debug for SuggestedAnswer {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("SuggestedAnswer");
+                debug_struct.field("product_attribute_value", &self.product_attribute_value);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Additional filter that client side need to apply.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AdditionalFilter {
             /// Product attribute value, including an attribute key and an
@@ -42421,11 +44850,23 @@ pub mod search_response {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for AdditionalFilter {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("AdditionalFilter");
+                debug_struct.field("product_attribute_value", &self.product_attribute_value);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// This field specifies all related information for tile navigation that will
     /// be used in client side.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TileNavigationResult {
         /// The current tiles that are used for tile navigation, sorted by
@@ -42560,10 +45001,22 @@ pub mod search_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for TileNavigationResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TileNavigationResult");
+            debug_struct.field("tiles", &self.tiles);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Metadata for active A/B testing experiment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExperimentInfo {
     /// The fully qualified resource name of the experiment that provides the
@@ -42771,13 +45224,26 @@ impl serde::ser::Serialize for ExperimentInfo {
     }
 }
 
+impl std::fmt::Debug for ExperimentInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExperimentInfo");
+        debug_struct.field("experiment", &self.experiment);
+        debug_struct.field("experiment_metadata", &self.experiment_metadata);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExperimentInfo].
 pub mod experiment_info {
     #[allow(unused_imports)]
     use super::*;
 
     /// Metadata for active serving config A/B tests.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ServingConfigExperiment {
         /// The fully qualified resource name of the original
@@ -42958,6 +45424,19 @@ pub mod experiment_info {
         }
     }
 
+    impl std::fmt::Debug for ServingConfigExperiment {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ServingConfigExperiment");
+            debug_struct.field("original_serving_config", &self.original_serving_config);
+            debug_struct.field("experiment_serving_config", &self.experiment_serving_config);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Information associated with the specific experiment entity being recorded.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -42974,7 +45453,7 @@ pub mod experiment_info {
 
 /// Configures metadata that is used to generate serving time results (e.g.
 /// search results or recommendation predictions).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServingConfig {
     /// Immutable. Fully qualified name
@@ -43886,6 +46365,49 @@ impl serde::ser::Serialize for ServingConfig {
     }
 }
 
+impl std::fmt::Debug for ServingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServingConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("model_id", &self.model_id);
+        debug_struct.field("price_reranking_level", &self.price_reranking_level);
+        debug_struct.field("facet_control_ids", &self.facet_control_ids);
+        debug_struct.field("dynamic_facet_spec", &self.dynamic_facet_spec);
+        debug_struct.field("boost_control_ids", &self.boost_control_ids);
+        debug_struct.field("filter_control_ids", &self.filter_control_ids);
+        debug_struct.field("redirect_control_ids", &self.redirect_control_ids);
+        debug_struct.field(
+            "twoway_synonyms_control_ids",
+            &self.twoway_synonyms_control_ids,
+        );
+        debug_struct.field(
+            "oneway_synonyms_control_ids",
+            &self.oneway_synonyms_control_ids,
+        );
+        debug_struct.field(
+            "do_not_associate_control_ids",
+            &self.do_not_associate_control_ids,
+        );
+        debug_struct.field("replacement_control_ids", &self.replacement_control_ids);
+        debug_struct.field("ignore_control_ids", &self.ignore_control_ids);
+        debug_struct.field("diversity_level", &self.diversity_level);
+        debug_struct.field("diversity_type", &self.diversity_type);
+        debug_struct.field(
+            "enable_category_filter_level",
+            &self.enable_category_filter_level,
+        );
+        debug_struct.field("ignore_recs_denylist", &self.ignore_recs_denylist);
+        debug_struct.field("personalization_spec", &self.personalization_spec);
+        debug_struct.field("solution_types", &self.solution_types);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServingConfig].
 pub mod serving_config {
     #[allow(unused_imports)]
@@ -44025,7 +46547,7 @@ pub mod serving_config {
 }
 
 /// Request for CreateServingConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServingConfigRequest {
     /// Required. Full resource name of parent. Format:
@@ -44223,8 +46745,22 @@ impl serde::ser::Serialize for CreateServingConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServingConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServingConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("serving_config", &self.serving_config);
+        debug_struct.field("serving_config_id", &self.serving_config_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateServingConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServingConfigRequest {
     /// Required. The ServingConfig to update.
@@ -44410,8 +46946,21 @@ impl serde::ser::Serialize for UpdateServingConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServingConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServingConfigRequest");
+        debug_struct.field("serving_config", &self.serving_config);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteServingConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServingConfigRequest {
     /// Required. The resource name of the ServingConfig to delete. Format:
@@ -44541,8 +47090,20 @@ impl serde::ser::Serialize for DeleteServingConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServingConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServingConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetServingConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServingConfigRequest {
     /// Required. The resource name of the ServingConfig to get. Format:
@@ -44672,8 +47233,20 @@ impl serde::ser::Serialize for GetServingConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetServingConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServingConfigRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListServingConfigs method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServingConfigsRequest {
     /// Required. The catalog resource name. Format:
@@ -44874,8 +47447,22 @@ impl serde::ser::Serialize for ListServingConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListServingConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServingConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListServingConfigs method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServingConfigsResponse {
     /// All the ServingConfigs for a given catalog.
@@ -45047,8 +47634,21 @@ impl serde::ser::Serialize for ListServingConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListServingConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServingConfigsResponse");
+        debug_struct.field("serving_configs", &self.serving_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for AddControl method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddControlRequest {
     /// Required. The source ServingConfig resource name . Format:
@@ -45205,8 +47805,21 @@ impl serde::ser::Serialize for AddControlRequest {
     }
 }
 
+impl std::fmt::Debug for AddControlRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddControlRequest");
+        debug_struct.field("serving_config", &self.serving_config);
+        debug_struct.field("control_id", &self.control_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for RemoveControl method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveControlRequest {
     /// Required. The source ServingConfig resource name . Format:
@@ -45363,9 +47976,22 @@ impl serde::ser::Serialize for RemoveControlRequest {
     }
 }
 
+impl std::fmt::Debug for RemoveControlRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveControlRequest");
+        debug_struct.field("serving_config", &self.serving_config);
+        debug_struct.field("control_id", &self.control_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// UserEvent captures all metadata information Retail API needs to know about
 /// how end users interact with customers' website.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserEvent {
     /// Required. User event type. Allowed values are:
@@ -46276,8 +48902,40 @@ impl serde::ser::Serialize for UserEvent {
     }
 }
 
+impl std::fmt::Debug for UserEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserEvent");
+        debug_struct.field("event_type", &self.event_type);
+        debug_struct.field("visitor_id", &self.visitor_id);
+        debug_struct.field("session_id", &self.session_id);
+        debug_struct.field("event_time", &self.event_time);
+        debug_struct.field("experiment_ids", &self.experiment_ids);
+        debug_struct.field("attribution_token", &self.attribution_token);
+        debug_struct.field("product_details", &self.product_details);
+        debug_struct.field("completion_detail", &self.completion_detail);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("cart_id", &self.cart_id);
+        debug_struct.field("purchase_transaction", &self.purchase_transaction);
+        debug_struct.field("search_query", &self.search_query);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("offset", &self.offset);
+        debug_struct.field("page_categories", &self.page_categories);
+        debug_struct.field("user_info", &self.user_info);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("referrer_uri", &self.referrer_uri);
+        debug_struct.field("page_view_id", &self.page_view_id);
+        debug_struct.field("entity", &self.entity);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Detailed product information associated with a user event.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProductDetail {
     /// Required. [Product][google.cloud.retail.v2.Product] information.
@@ -46497,9 +49155,22 @@ impl serde::ser::Serialize for ProductDetail {
     }
 }
 
+impl std::fmt::Debug for ProductDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProductDetail");
+        debug_struct.field("product", &self.product);
+        debug_struct.field("quantity", &self.quantity);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Detailed completion information including completion attribution token and
 /// clicked completion info.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompletionDetail {
     /// Completion attribution token in
@@ -46721,8 +49392,25 @@ impl serde::ser::Serialize for CompletionDetail {
     }
 }
 
+impl std::fmt::Debug for CompletionDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompletionDetail");
+        debug_struct.field(
+            "completion_attribution_token",
+            &self.completion_attribution_token,
+        );
+        debug_struct.field("selected_suggestion", &self.selected_suggestion);
+        debug_struct.field("selected_position", &self.selected_position);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A transaction represents the entire purchase transaction.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PurchaseTransaction {
     /// The transaction ID with a length limit of 128 characters.
@@ -47015,8 +49703,24 @@ impl serde::ser::Serialize for PurchaseTransaction {
     }
 }
 
+impl std::fmt::Debug for PurchaseTransaction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PurchaseTransaction");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("revenue", &self.revenue);
+        debug_struct.field("tax", &self.tax);
+        debug_struct.field("cost", &self.cost);
+        debug_struct.field("currency_code", &self.currency_code);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for WriteUserEvent method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteUserEventRequest {
     /// Required. The parent catalog resource name, such as
@@ -47210,8 +49914,22 @@ impl serde::ser::Serialize for WriteUserEventRequest {
     }
 }
 
+impl std::fmt::Debug for WriteUserEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WriteUserEventRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("user_event", &self.user_event);
+        debug_struct.field("write_async", &self.write_async);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CollectUserEvent method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CollectUserEventRequest {
     /// Required. The parent catalog name, such as
@@ -47535,6 +50253,23 @@ impl serde::ser::Serialize for CollectUserEventRequest {
     }
 }
 
+impl std::fmt::Debug for CollectUserEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CollectUserEventRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("user_event", &self.user_event);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("ets", &self.ets);
+        debug_struct.field("raw_json", &self.raw_json);
+        debug_struct.field("conversion_rule", &self.conversion_rule);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CollectUserEventRequest].
 pub mod collect_user_event_request {
     #[allow(unused_imports)]
@@ -47552,7 +50287,7 @@ pub mod collect_user_event_request {
 }
 
 /// Request message for RejoinUserEvents method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RejoinUserEventsRequest {
     /// Required. The parent catalog resource name, such as
@@ -47717,6 +50452,19 @@ impl serde::ser::Serialize for RejoinUserEventsRequest {
     }
 }
 
+impl std::fmt::Debug for RejoinUserEventsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RejoinUserEventsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("user_event_rejoin_scope", &self.user_event_rejoin_scope);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RejoinUserEventsRequest].
 pub mod rejoin_user_events_request {
     #[allow(unused_imports)]
@@ -47865,7 +50613,7 @@ pub mod rejoin_user_events_request {
 }
 
 /// Response message for `RejoinUserEvents` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RejoinUserEventsResponse {
     /// Number of user events that were joined with latest product catalog.
@@ -48021,8 +50769,23 @@ impl serde::ser::Serialize for RejoinUserEventsResponse {
     }
 }
 
+impl std::fmt::Debug for RejoinUserEventsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RejoinUserEventsResponse");
+        debug_struct.field(
+            "rejoined_user_events_count",
+            &self.rejoined_user_events_count,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for `RejoinUserEvents` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RejoinUserEventsMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -48121,6 +50884,17 @@ impl serde::ser::Serialize for RejoinUserEventsMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for RejoinUserEventsMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RejoinUserEventsMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

@@ -18,7 +18,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 /// Request message for DeleteBucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBucketRequest {
     /// Required. Name of a bucket to delete.
@@ -272,8 +272,25 @@ impl serde::ser::Serialize for DeleteBucketRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBucketRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBucketRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetBucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBucketRequest {
     /// Required. Name of a bucket.
@@ -566,8 +583,26 @@ impl serde::ser::Serialize for GetBucketRequest {
     }
 }
 
+impl std::fmt::Debug for GetBucketRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBucketRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field("read_mask", &self.read_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateBucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBucketRequest {
     /// Required. The project to which this bucket will belong. This field must
@@ -855,8 +890,28 @@ impl serde::ser::Serialize for CreateBucketRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBucketRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBucketRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("bucket_id", &self.bucket_id);
+        debug_struct.field("predefined_acl", &self.predefined_acl);
+        debug_struct.field(
+            "predefined_default_object_acl",
+            &self.predefined_default_object_acl,
+        );
+        debug_struct.field("enable_object_retention", &self.enable_object_retention);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListBuckets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBucketsRequest {
     /// Required. The project whose buckets we are listing.
@@ -1121,8 +1176,24 @@ impl serde::ser::Serialize for ListBucketsRequest {
     }
 }
 
+impl std::fmt::Debug for ListBucketsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBucketsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("prefix", &self.prefix);
+        debug_struct.field("read_mask", &self.read_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The result of a call to Buckets.ListBuckets
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBucketsResponse {
     /// The list of items.
@@ -1294,8 +1365,21 @@ impl serde::ser::Serialize for ListBucketsResponse {
     }
 }
 
+impl std::fmt::Debug for ListBucketsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBucketsResponse");
+        debug_struct.field("buckets", &self.buckets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for LockBucketRetentionPolicyRequest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LockBucketRetentionPolicyRequest {
     /// Required. Name of a bucket.
@@ -1472,8 +1556,21 @@ impl serde::ser::Serialize for LockBucketRetentionPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for LockBucketRetentionPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LockBucketRetentionPolicyRequest");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateBucket method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBucketRequest {
     /// Required. The bucket to update.
@@ -1847,8 +1944,31 @@ impl serde::ser::Serialize for UpdateBucketRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateBucketRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBucketRequest");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field("predefined_acl", &self.predefined_acl);
+        debug_struct.field(
+            "predefined_default_object_acl",
+            &self.predefined_default_object_acl,
+        );
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ComposeObject.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComposeObjectRequest {
     /// Required. Properties of the resulting object.
@@ -2287,13 +2407,38 @@ impl serde::ser::Serialize for ComposeObjectRequest {
     }
 }
 
+impl std::fmt::Debug for ComposeObjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ComposeObjectRequest");
+        debug_struct.field("destination", &self.destination);
+        debug_struct.field("source_objects", &self.source_objects);
+        debug_struct.field(
+            "destination_predefined_acl",
+            &self.destination_predefined_acl,
+        );
+        debug_struct.field("if_generation_match", &self.if_generation_match);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field("kms_key", &self.kms_key);
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
+        debug_struct.field("object_checksums", &self.object_checksums);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ComposeObjectRequest].
 pub mod compose_object_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Description of a source object for a composition request.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SourceObject {
         /// Required. The source object's name. All source objects must reside in the
@@ -2511,13 +2656,27 @@ pub mod compose_object_request {
         }
     }
 
+    impl std::fmt::Debug for SourceObject {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SourceObject");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("generation", &self.generation);
+            debug_struct.field("object_preconditions", &self.object_preconditions);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [SourceObject].
     pub mod source_object {
         #[allow(unused_imports)]
         use super::*;
 
         /// Preconditions for a source object of a composition request.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ObjectPreconditions {
             /// Only perform the composition if the generation of the source object
@@ -2692,12 +2851,24 @@ pub mod compose_object_request {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for ObjectPreconditions {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ObjectPreconditions");
+                debug_struct.field("if_generation_match", &self.if_generation_match);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 }
 
 /// Message for deleting an object.
 /// `bucket` and `object` **must** be set.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteObjectRequest {
     /// Required. Name of the bucket in which the object resides.
@@ -3187,9 +3358,34 @@ impl serde::ser::Serialize for DeleteObjectRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteObjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteObjectRequest");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("object", &self.object);
+        debug_struct.field("generation", &self.generation);
+        debug_struct.field("if_generation_match", &self.if_generation_match);
+        debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for restoring an object.
 /// `bucket`, `object`, and `generation` **must** be set.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreObjectRequest {
     /// Required. Name of the bucket in which the object resides.
@@ -3743,8 +3939,35 @@ impl serde::ser::Serialize for RestoreObjectRequest {
     }
 }
 
+impl std::fmt::Debug for RestoreObjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreObjectRequest");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("object", &self.object);
+        debug_struct.field("generation", &self.generation);
+        debug_struct.field("restore_token", &self.restore_token);
+        debug_struct.field("if_generation_match", &self.if_generation_match);
+        debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field("copy_source_acl", &self.copy_source_acl);
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ReadObject.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub(crate) struct ReadObjectRequest {
     /// Required. The name of the bucket containing the object to read.
@@ -4374,8 +4597,36 @@ impl serde::ser::Serialize for ReadObjectRequest {
     }
 }
 
+impl std::fmt::Debug for ReadObjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReadObjectRequest");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("object", &self.object);
+        debug_struct.field("generation", &self.generation);
+        debug_struct.field("read_offset", &self.read_offset);
+        debug_struct.field("read_limit", &self.read_limit);
+        debug_struct.field("if_generation_match", &self.if_generation_match);
+        debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
+        debug_struct.field("read_mask", &self.read_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetObject.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetObjectRequest {
     /// Required. Name of the bucket in which the object resides.
@@ -4967,8 +5218,36 @@ impl serde::ser::Serialize for GetObjectRequest {
     }
 }
 
+impl std::fmt::Debug for GetObjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetObjectRequest");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("object", &self.object);
+        debug_struct.field("generation", &self.generation);
+        debug_struct.field("soft_deleted", &self.soft_deleted);
+        debug_struct.field("if_generation_match", &self.if_generation_match);
+        debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
+        debug_struct.field("read_mask", &self.read_mask);
+        debug_struct.field("restore_token", &self.restore_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes an attempt to insert an object, possibly over multiple requests.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub(crate) struct WriteObjectSpec {
     /// Required. Destination object, including its name and its metadata.
@@ -5481,8 +5760,30 @@ impl serde::ser::Serialize for WriteObjectSpec {
     }
 }
 
+impl std::fmt::Debug for WriteObjectSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WriteObjectSpec");
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("predefined_acl", &self.predefined_acl);
+        debug_struct.field("if_generation_match", &self.if_generation_match);
+        debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field("object_size", &self.object_size);
+        debug_struct.field("appendable", &self.appendable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListObjects.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListObjectsRequest {
     /// Required. Name of the bucket in which to look for objects.
@@ -6008,6 +6309,37 @@ impl serde::ser::Serialize for ListObjectsRequest {
     }
 }
 
+impl std::fmt::Debug for ListObjectsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListObjectsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("delimiter", &self.delimiter);
+        debug_struct.field(
+            "include_trailing_delimiter",
+            &self.include_trailing_delimiter,
+        );
+        debug_struct.field("prefix", &self.prefix);
+        debug_struct.field("versions", &self.versions);
+        debug_struct.field("read_mask", &self.read_mask);
+        debug_struct.field("lexicographic_start", &self.lexicographic_start);
+        debug_struct.field("lexicographic_end", &self.lexicographic_end);
+        debug_struct.field("soft_deleted", &self.soft_deleted);
+        debug_struct.field(
+            "include_folders_as_prefixes",
+            &self.include_folders_as_prefixes,
+        );
+        debug_struct.field("match_glob", &self.match_glob);
+        debug_struct.field("filter", &self.filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for RewriteObject.
 /// If the source object is encrypted using a Customer-Supplied Encryption Key
 /// the key information must be provided in the copy_source_encryption_algorithm,
@@ -6016,7 +6348,7 @@ impl serde::ser::Serialize for ListObjectsRequest {
 /// should be provided in the encryption_algorithm, encryption_key_bytes, and
 /// encryption_key_sha256_bytes fields of the
 /// common_object_request_params.customer_encryption field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RewriteObjectRequest {
     /// Required. Immutable. The name of the destination object.
@@ -7221,8 +7553,75 @@ impl serde::ser::Serialize for RewriteObjectRequest {
     }
 }
 
+impl std::fmt::Debug for RewriteObjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RewriteObjectRequest");
+        debug_struct.field("destination_name", &self.destination_name);
+        debug_struct.field("destination_bucket", &self.destination_bucket);
+        debug_struct.field("destination_kms_key", &self.destination_kms_key);
+        debug_struct.field("destination", &self.destination);
+        debug_struct.field("source_bucket", &self.source_bucket);
+        debug_struct.field("source_object", &self.source_object);
+        debug_struct.field("source_generation", &self.source_generation);
+        debug_struct.field("rewrite_token", &self.rewrite_token);
+        debug_struct.field(
+            "destination_predefined_acl",
+            &self.destination_predefined_acl,
+        );
+        debug_struct.field("if_generation_match", &self.if_generation_match);
+        debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field(
+            "if_source_generation_match",
+            &self.if_source_generation_match,
+        );
+        debug_struct.field(
+            "if_source_generation_not_match",
+            &self.if_source_generation_not_match,
+        );
+        debug_struct.field(
+            "if_source_metageneration_match",
+            &self.if_source_metageneration_match,
+        );
+        debug_struct.field(
+            "if_source_metageneration_not_match",
+            &self.if_source_metageneration_not_match,
+        );
+        debug_struct.field(
+            "max_bytes_rewritten_per_call",
+            &self.max_bytes_rewritten_per_call,
+        );
+        debug_struct.field(
+            "copy_source_encryption_algorithm",
+            &self.copy_source_encryption_algorithm,
+        );
+        debug_struct.field(
+            "copy_source_encryption_key_bytes",
+            &self.copy_source_encryption_key_bytes,
+        );
+        debug_struct.field(
+            "copy_source_encryption_key_sha256_bytes",
+            &self.copy_source_encryption_key_sha256_bytes,
+        );
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
+        debug_struct.field("object_checksums", &self.object_checksums);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A rewrite response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RewriteResponse {
     /// The total bytes written so far, which can be used to provide a waiting user
@@ -7503,8 +7902,24 @@ impl serde::ser::Serialize for RewriteResponse {
     }
 }
 
+impl std::fmt::Debug for RewriteResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RewriteResponse");
+        debug_struct.field("total_bytes_rewritten", &self.total_bytes_rewritten);
+        debug_struct.field("object_size", &self.object_size);
+        debug_struct.field("done", &self.done);
+        debug_struct.field("rewrite_token", &self.rewrite_token);
+        debug_struct.field("resource", &self.resource);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for MoveObject.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveObjectRequest {
     /// Required. Name of the bucket in which the object resides.
@@ -8225,8 +8640,45 @@ impl serde::ser::Serialize for MoveObjectRequest {
     }
 }
 
+impl std::fmt::Debug for MoveObjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveObjectRequest");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("source_object", &self.source_object);
+        debug_struct.field("destination_object", &self.destination_object);
+        debug_struct.field(
+            "if_source_generation_match",
+            &self.if_source_generation_match,
+        );
+        debug_struct.field(
+            "if_source_generation_not_match",
+            &self.if_source_generation_not_match,
+        );
+        debug_struct.field(
+            "if_source_metageneration_match",
+            &self.if_source_metageneration_match,
+        );
+        debug_struct.field(
+            "if_source_metageneration_not_match",
+            &self.if_source_metageneration_not_match,
+        );
+        debug_struct.field("if_generation_match", &self.if_generation_match);
+        debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateObject.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateObjectRequest {
     /// Required. The object to update.
@@ -8764,8 +9216,37 @@ impl serde::ser::Serialize for UpdateObjectRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateObjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateObjectRequest");
+        debug_struct.field("object", &self.object);
+        debug_struct.field("if_generation_match", &self.if_generation_match);
+        debug_struct.field("if_generation_not_match", &self.if_generation_not_match);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field("predefined_acl", &self.predefined_acl);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field(
+            "common_object_request_params",
+            &self.common_object_request_params,
+        );
+        debug_struct.field(
+            "override_unlocked_retention",
+            &self.override_unlocked_retention,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parameters that can be passed to any object request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonObjectRequestParams {
     /// Optional. Encryption algorithm used with the Customer-Supplied Encryption
@@ -8999,8 +9480,25 @@ impl serde::ser::Serialize for CommonObjectRequestParams {
     }
 }
 
+impl std::fmt::Debug for CommonObjectRequestParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommonObjectRequestParams");
+        debug_struct.field("encryption_algorithm", &self.encryption_algorithm);
+        debug_struct.field("encryption_key_bytes", &self.encryption_key_bytes);
+        debug_struct.field(
+            "encryption_key_sha256_bytes",
+            &self.encryption_key_sha256_bytes,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Bucket {
     /// Identifier. The name of the bucket.
@@ -10200,13 +10698,56 @@ impl serde::ser::Serialize for Bucket {
     }
 }
 
+impl std::fmt::Debug for Bucket {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Bucket");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("bucket_id", &self.bucket_id);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("metageneration", &self.metageneration);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("location_type", &self.location_type);
+        debug_struct.field("storage_class", &self.storage_class);
+        debug_struct.field("rpo", &self.rpo);
+        debug_struct.field("acl", &self.acl);
+        debug_struct.field("default_object_acl", &self.default_object_acl);
+        debug_struct.field("lifecycle", &self.lifecycle);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("cors", &self.cors);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("default_event_based_hold", &self.default_event_based_hold);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("website", &self.website);
+        debug_struct.field("versioning", &self.versioning);
+        debug_struct.field("logging", &self.logging);
+        debug_struct.field("owner", &self.owner);
+        debug_struct.field("encryption", &self.encryption);
+        debug_struct.field("billing", &self.billing);
+        debug_struct.field("retention_policy", &self.retention_policy);
+        debug_struct.field("iam_config", &self.iam_config);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("custom_placement_config", &self.custom_placement_config);
+        debug_struct.field("autoclass", &self.autoclass);
+        debug_struct.field("hierarchical_namespace", &self.hierarchical_namespace);
+        debug_struct.field("soft_delete_policy", &self.soft_delete_policy);
+        debug_struct.field("object_retention", &self.object_retention);
+        debug_struct.field("ip_filter", &self.ip_filter);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Bucket].
 pub mod bucket {
     #[allow(unused_imports)]
     use super::*;
 
     /// Billing properties of a bucket.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Billing {
         /// Optional. When set to true, Requester Pays is enabled for this bucket.
@@ -10339,11 +10880,23 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for Billing {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Billing");
+            debug_struct.field("requester_pays", &self.requester_pays);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Cross-Origin Response sharing (CORS) properties for a bucket.
     /// For more on Cloud Storage and CORS, see
     /// <https://cloud.google.com/storage/docs/cross-origin>.
     /// For more on CORS in general, see <https://tools.ietf.org/html/rfc6454>.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Cors {
         /// Optional. The list of Origins eligible to receive CORS response headers.
@@ -10586,8 +11139,23 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for Cors {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Cors");
+            debug_struct.field("origin", &self.origin);
+            debug_struct.field("method", &self.method);
+            debug_struct.field("response_header", &self.response_header);
+            debug_struct.field("max_age_seconds", &self.max_age_seconds);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Encryption properties of a bucket.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Encryption {
         /// Optional. The name of the Cloud KMS key that will be used to encrypt
@@ -10903,13 +11471,37 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for Encryption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Encryption");
+            debug_struct.field("default_kms_key", &self.default_kms_key);
+            debug_struct.field(
+                "google_managed_encryption_enforcement_config",
+                &self.google_managed_encryption_enforcement_config,
+            );
+            debug_struct.field(
+                "customer_managed_encryption_enforcement_config",
+                &self.customer_managed_encryption_enforcement_config,
+            );
+            debug_struct.field(
+                "customer_supplied_encryption_enforcement_config",
+                &self.customer_supplied_encryption_enforcement_config,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Encryption].
     pub mod encryption {
         #[allow(unused_imports)]
         use super::*;
 
         /// Google Managed Encryption (GMEK) enforcement config of a bucket.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GoogleManagedEncryptionEnforcementConfig {
             /// Restriction mode for google-managed encryption for new objects within
@@ -11103,8 +11695,21 @@ pub mod bucket {
             }
         }
 
+        impl std::fmt::Debug for GoogleManagedEncryptionEnforcementConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("GoogleManagedEncryptionEnforcementConfig");
+                debug_struct.field("restriction_mode", &self.restriction_mode);
+                debug_struct.field("effective_time", &self.effective_time);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Customer Managed Encryption (CMEK) enforcement config of a bucket.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomerManagedEncryptionEnforcementConfig {
             /// Restriction mode for customer-managed encryption for new objects within
@@ -11298,8 +11903,21 @@ pub mod bucket {
             }
         }
 
+        impl std::fmt::Debug for CustomerManagedEncryptionEnforcementConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("CustomerManagedEncryptionEnforcementConfig");
+                debug_struct.field("restriction_mode", &self.restriction_mode);
+                debug_struct.field("effective_time", &self.effective_time);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Customer Supplied Encryption (CSEK) enforcement config of a bucket.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomerSuppliedEncryptionEnforcementConfig {
             /// Restriction mode for customer-supplied encryption for new objects
@@ -11493,10 +12111,24 @@ pub mod bucket {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for CustomerSuppliedEncryptionEnforcementConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct =
+                    f.debug_struct("CustomerSuppliedEncryptionEnforcementConfig");
+                debug_struct.field("restriction_mode", &self.restriction_mode);
+                debug_struct.field("effective_time", &self.effective_time);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Bucket restriction options.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IamConfig {
         /// Optional. Bucket restriction options currently enforced on the bucket.
@@ -11686,6 +12318,22 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for IamConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IamConfig");
+            debug_struct.field(
+                "uniform_bucket_level_access",
+                &self.uniform_bucket_level_access,
+            );
+            debug_struct.field("public_access_prevention", &self.public_access_prevention);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [IamConfig].
     pub mod iam_config {
         #[allow(unused_imports)]
@@ -11693,7 +12341,7 @@ pub mod bucket {
 
         /// Settings for Uniform Bucket level access.
         /// See <https://cloud.google.com/storage/docs/uniform-bucket-level-access>.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct UniformBucketLevelAccess {
             /// Optional. If set, access checks only use bucket-level IAM policies or
@@ -11871,11 +12519,24 @@ pub mod bucket {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for UniformBucketLevelAccess {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("UniformBucketLevelAccess");
+                debug_struct.field("enabled", &self.enabled);
+                debug_struct.field("lock_time", &self.lock_time);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Lifecycle properties of a bucket.
     /// For more information, see <https://cloud.google.com/storage/docs/lifecycle>.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Lifecycle {
         /// Optional. A lifecycle management rule, which is made of an action to take
@@ -12015,6 +12676,18 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for Lifecycle {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Lifecycle");
+            debug_struct.field("rule", &self.rule);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Lifecycle].
     pub mod lifecycle {
         #[allow(unused_imports)]
@@ -12022,7 +12695,7 @@ pub mod bucket {
 
         /// A lifecycle Rule, combining an action to take on an object and a
         /// condition which will trigger that action.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Rule {
             /// Optional. The action to take.
@@ -12208,13 +12881,26 @@ pub mod bucket {
             }
         }
 
+        impl std::fmt::Debug for Rule {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Rule");
+                debug_struct.field("action", &self.action);
+                debug_struct.field("condition", &self.condition);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Rule].
         pub mod rule {
             #[allow(unused_imports)]
             use super::*;
 
             /// An action to take on an object.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Action {
                 /// Optional. Type of the action. Currently, only `Delete`,
@@ -12395,8 +13081,21 @@ pub mod bucket {
                 }
             }
 
+            impl std::fmt::Debug for Action {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Action");
+                    debug_struct.field("r#type", &self.r#type);
+                    debug_struct.field("storage_class", &self.storage_class);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// A condition of an object which triggers some action.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Condition {
                 /// Age of an object (in days). This condition is satisfied when an
@@ -13110,11 +13809,36 @@ pub mod bucket {
                     state.end()
                 }
             }
+
+            impl std::fmt::Debug for Condition {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Condition");
+                    debug_struct.field("age_days", &self.age_days);
+                    debug_struct.field("created_before", &self.created_before);
+                    debug_struct.field("is_live", &self.is_live);
+                    debug_struct.field("num_newer_versions", &self.num_newer_versions);
+                    debug_struct.field("matches_storage_class", &self.matches_storage_class);
+                    debug_struct.field("days_since_custom_time", &self.days_since_custom_time);
+                    debug_struct.field("custom_time_before", &self.custom_time_before);
+                    debug_struct.field(
+                        "days_since_noncurrent_time",
+                        &self.days_since_noncurrent_time,
+                    );
+                    debug_struct.field("noncurrent_time_before", &self.noncurrent_time_before);
+                    debug_struct.field("matches_prefix", &self.matches_prefix);
+                    debug_struct.field("matches_suffix", &self.matches_suffix);
+
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
         }
     }
 
     /// Logging-related properties of a bucket.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Logging {
         /// Optional. The destination bucket where the current bucket's logs should
@@ -13276,8 +14000,21 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for Logging {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Logging");
+            debug_struct.field("log_bucket", &self.log_bucket);
+            debug_struct.field("log_object_prefix", &self.log_object_prefix);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Object Retention related properties of a bucket.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ObjectRetention {
         /// Optional. Output only. If true, object retention is enabled for the
@@ -13410,8 +14147,20 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for ObjectRetention {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ObjectRetention");
+            debug_struct.field("enabled", &self.enabled);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Retention policy properties of a bucket.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RetentionPolicy {
         /// Optional. Server-determined value that indicates the time from which
@@ -13621,8 +14370,22 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for RetentionPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RetentionPolicy");
+            debug_struct.field("effective_time", &self.effective_time);
+            debug_struct.field("is_locked", &self.is_locked);
+            debug_struct.field("retention_duration", &self.retention_duration);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Soft delete policy properties of a bucket.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SoftDeletePolicy {
         /// The period of time that soft-deleted objects in the bucket must be
@@ -13804,10 +14567,23 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for SoftDeletePolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SoftDeletePolicy");
+            debug_struct.field("retention_duration", &self.retention_duration);
+            debug_struct.field("effective_time", &self.effective_time);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Properties of a bucket related to versioning.
     /// For more on Cloud Storage versioning, see
     /// <https://cloud.google.com/storage/docs/object-versioning>.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Versioning {
         /// Optional. While set to true, versioning is fully enabled for this bucket.
@@ -13939,10 +14715,22 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for Versioning {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Versioning");
+            debug_struct.field("enabled", &self.enabled);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Properties of a bucket related to accessing the contents as a static
     /// website. For more on hosting a static website via Cloud Storage, see
     /// <https://cloud.google.com/storage/docs/hosting-static-website>.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Website {
         /// Optional. If the requested object path is missing, the service will
@@ -14113,10 +14901,23 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for Website {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Website");
+            debug_struct.field("main_page_suffix", &self.main_page_suffix);
+            debug_struct.field("not_found_page", &self.not_found_page);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for Custom Dual Regions.  It should specify precisely two
     /// eligible regions within the same Multiregion. More information on regions
     /// may be found [here](https://cloud.google.com/storage/docs/locations).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomPlacementConfig {
         /// Optional. List of locations to use for data placement.
@@ -14252,8 +15053,20 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for CustomPlacementConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CustomPlacementConfig");
+            debug_struct.field("data_locations", &self.data_locations);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for a bucket's Autoclass feature.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Autoclass {
         /// Optional. Enables Autoclass.
@@ -14512,11 +15325,29 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for Autoclass {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Autoclass");
+            debug_struct.field("enabled", &self.enabled);
+            debug_struct.field("toggle_time", &self.toggle_time);
+            debug_struct.field("terminal_storage_class", &self.terminal_storage_class);
+            debug_struct.field(
+                "terminal_storage_class_update_time",
+                &self.terminal_storage_class_update_time,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The [bucket IP
     /// filtering](https://cloud.google.com/storage/docs/ip-filtering-overview)
     /// configuration. Specifies the network sources that can access the bucket, as
     /// well as its underlying objects.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IpFilter {
         /// The state of the IP filter configuration. Valid values are `Enabled` and
@@ -14813,6 +15644,25 @@ pub mod bucket {
         }
     }
 
+    impl std::fmt::Debug for IpFilter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IpFilter");
+            debug_struct.field("mode", &self.mode);
+            debug_struct.field("public_network_source", &self.public_network_source);
+            debug_struct.field("vpc_network_sources", &self.vpc_network_sources);
+            debug_struct.field("allow_cross_org_vpcs", &self.allow_cross_org_vpcs);
+            debug_struct.field(
+                "allow_all_service_agent_access",
+                &self.allow_all_service_agent_access,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [IpFilter].
     pub mod ip_filter {
         #[allow(unused_imports)]
@@ -14820,7 +15670,7 @@ pub mod bucket {
 
         /// The public network IP address ranges that can access the bucket and its
         /// data.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PublicNetworkSource {
             /// Optional. The list of IPv4 and IPv6 cidr blocks that are allowed to
@@ -14966,8 +15816,20 @@ pub mod bucket {
             }
         }
 
+        impl std::fmt::Debug for PublicNetworkSource {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("PublicNetworkSource");
+                debug_struct.field("allowed_ip_cidr_ranges", &self.allowed_ip_cidr_ranges);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The list of VPC networks that can access the bucket.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct VpcNetworkSource {
             /// Name of the network.
@@ -15155,10 +16017,23 @@ pub mod bucket {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for VpcNetworkSource {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("VpcNetworkSource");
+                debug_struct.field("network", &self.network);
+                debug_struct.field("allowed_ip_cidr_ranges", &self.allowed_ip_cidr_ranges);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Configuration for a bucket's hierarchical namespace feature.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HierarchicalNamespace {
         /// Optional. Enables the hierarchical namespace feature.
@@ -15289,10 +16164,22 @@ pub mod bucket {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for HierarchicalNamespace {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("HierarchicalNamespace");
+            debug_struct.field("enabled", &self.enabled);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// An access-control entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BucketAccessControl {
     /// Optional. The access permission for the entity.
@@ -15649,8 +16536,28 @@ impl serde::ser::Serialize for BucketAccessControl {
     }
 }
 
+impl std::fmt::Debug for BucketAccessControl {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BucketAccessControl");
+        debug_struct.field("role", &self.role);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("entity", &self.entity);
+        debug_struct.field("entity_alt", &self.entity_alt);
+        debug_struct.field("entity_id", &self.entity_id);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("email", &self.email);
+        debug_struct.field("domain", &self.domain);
+        debug_struct.field("project_team", &self.project_team);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message used for storing full (not subrange) object checksums.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectChecksums {
     /// CRC32C digest of the object data. Computed by the Cloud Storage service for
@@ -15863,8 +16770,21 @@ impl serde::ser::Serialize for ObjectChecksums {
     }
 }
 
+impl std::fmt::Debug for ObjectChecksums {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectChecksums");
+        debug_struct.field("crc32c", &self.crc32c);
+        debug_struct.field("md5_hash", &self.md5_hash);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The payload of a single user-defined object context.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectCustomContextPayload {
     /// Required. The value of the object context.
@@ -16065,8 +16985,22 @@ impl serde::ser::Serialize for ObjectCustomContextPayload {
     }
 }
 
+impl std::fmt::Debug for ObjectCustomContextPayload {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectCustomContextPayload");
+        debug_struct.field("value", &self.value);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// All contexts of an object grouped by type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectContexts {
     /// Optional. User-defined object contexts.
@@ -16207,9 +17141,21 @@ impl serde::ser::Serialize for ObjectContexts {
     }
 }
 
+impl std::fmt::Debug for ObjectContexts {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectContexts");
+        debug_struct.field("custom", &self.custom);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes the Customer-Supplied Encryption Key mechanism used to store an
 /// Object's data at rest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomerEncryption {
     /// Optional. The encryption algorithm.
@@ -16387,8 +17333,21 @@ impl serde::ser::Serialize for CustomerEncryption {
     }
 }
 
+impl std::fmt::Debug for CustomerEncryption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomerEncryption");
+        debug_struct.field("encryption_algorithm", &self.encryption_algorithm);
+        debug_struct.field("key_sha256_bytes", &self.key_sha256_bytes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An object.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Object {
     /// Immutable. The name of this object. Nearly any sequence of unicode
@@ -17659,6 +18618,50 @@ impl serde::ser::Serialize for Object {
     }
 }
 
+impl std::fmt::Debug for Object {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Object");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("generation", &self.generation);
+        debug_struct.field("restore_token", &self.restore_token);
+        debug_struct.field("metageneration", &self.metageneration);
+        debug_struct.field("storage_class", &self.storage_class);
+        debug_struct.field("size", &self.size);
+        debug_struct.field("content_encoding", &self.content_encoding);
+        debug_struct.field("content_disposition", &self.content_disposition);
+        debug_struct.field("cache_control", &self.cache_control);
+        debug_struct.field("acl", &self.acl);
+        debug_struct.field("content_language", &self.content_language);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("finalize_time", &self.finalize_time);
+        debug_struct.field("content_type", &self.content_type);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("component_count", &self.component_count);
+        debug_struct.field("checksums", &self.checksums);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("kms_key", &self.kms_key);
+        debug_struct.field("update_storage_class_time", &self.update_storage_class_time);
+        debug_struct.field("temporary_hold", &self.temporary_hold);
+        debug_struct.field("retention_expire_time", &self.retention_expire_time);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("contexts", &self.contexts);
+        debug_struct.field("event_based_hold", &self.event_based_hold);
+        debug_struct.field("owner", &self.owner);
+        debug_struct.field("customer_encryption", &self.customer_encryption);
+        debug_struct.field("custom_time", &self.custom_time);
+        debug_struct.field("soft_delete_time", &self.soft_delete_time);
+        debug_struct.field("hard_delete_time", &self.hard_delete_time);
+        debug_struct.field("retention", &self.retention);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Object].
 pub mod object {
     #[allow(unused_imports)]
@@ -17666,7 +18669,7 @@ pub mod object {
 
     /// Specifies retention parameters of the object. Objects under retention
     /// cannot be deleted or overwritten until their retention expires.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Retention {
         /// Optional. The mode of the Retention.
@@ -17836,6 +18839,19 @@ pub mod object {
         }
     }
 
+    impl std::fmt::Debug for Retention {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Retention");
+            debug_struct.field("mode", &self.mode);
+            debug_struct.field("retain_until_time", &self.retain_until_time);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Retention].
     pub mod retention {
         #[allow(unused_imports)]
@@ -17983,7 +18999,7 @@ pub mod object {
 }
 
 /// An access-control entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectAccessControl {
     /// Optional. The access permission for the entity. One of the following
@@ -18345,8 +19361,28 @@ impl serde::ser::Serialize for ObjectAccessControl {
     }
 }
 
+impl std::fmt::Debug for ObjectAccessControl {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectAccessControl");
+        debug_struct.field("role", &self.role);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("entity", &self.entity);
+        debug_struct.field("entity_alt", &self.entity_alt);
+        debug_struct.field("entity_id", &self.entity_id);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("email", &self.email);
+        debug_struct.field("domain", &self.domain);
+        debug_struct.field("project_team", &self.project_team);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The result of a call to Objects.ListObjects
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListObjectsResponse {
     /// The list of items.
@@ -18546,8 +19582,22 @@ impl serde::ser::Serialize for ListObjectsResponse {
     }
 }
 
+impl std::fmt::Debug for ListObjectsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListObjectsResponse");
+        debug_struct.field("objects", &self.objects);
+        debug_struct.field("prefixes", &self.prefixes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the Viewers, Editors, or Owners of a given project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProjectTeam {
     /// Optional. The project number.
@@ -18701,8 +19751,21 @@ impl serde::ser::Serialize for ProjectTeam {
     }
 }
 
+impl std::fmt::Debug for ProjectTeam {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProjectTeam");
+        debug_struct.field("project_number", &self.project_number);
+        debug_struct.field("team", &self.team);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The owner of a specific resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Owner {
     /// Optional. The entity, in the form `user-`*userId*.
@@ -18853,5 +19916,18 @@ impl serde::ser::Serialize for Owner {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Owner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Owner");
+        debug_struct.field("entity", &self.entity);
+        debug_struct.field("entity_id", &self.entity_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

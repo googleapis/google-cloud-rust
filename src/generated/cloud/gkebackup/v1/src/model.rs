@@ -39,7 +39,7 @@ extern crate wkt;
 /// some portion of the state of a GKE cluster, the record of the backup
 /// operation itself, and an anchor for the underlying artifacts that
 /// comprise the Backup (the config backup and VolumeBackups).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Backup {
     /// Output only. The fully qualified name of the Backup.
@@ -1292,13 +1292,52 @@ impl serde::ser::Serialize for Backup {
     }
 }
 
+impl std::fmt::Debug for Backup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Backup");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("manual", &self.manual);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("delete_lock_days", &self.delete_lock_days);
+        debug_struct.field("delete_lock_expire_time", &self.delete_lock_expire_time);
+        debug_struct.field("retain_days", &self.retain_days);
+        debug_struct.field("retain_expire_time", &self.retain_expire_time);
+        debug_struct.field("encryption_key", &self.encryption_key);
+        debug_struct.field("contains_volume_data", &self.contains_volume_data);
+        debug_struct.field("contains_secrets", &self.contains_secrets);
+        debug_struct.field("cluster_metadata", &self.cluster_metadata);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_reason", &self.state_reason);
+        debug_struct.field("complete_time", &self.complete_time);
+        debug_struct.field("resource_count", &self.resource_count);
+        debug_struct.field("volume_count", &self.volume_count);
+        debug_struct.field("size_bytes", &self.size_bytes);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("pod_count", &self.pod_count);
+        debug_struct.field("config_backup_size_bytes", &self.config_backup_size_bytes);
+        debug_struct.field("permissive_mode", &self.permissive_mode);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("backup_scope", &self.backup_scope);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
 
     /// Information about the GKE cluster from which this Backup was created.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClusterMetadata {
         /// Output only. The source cluster from which this Backup was created.
@@ -1621,6 +1660,21 @@ pub mod backup {
         }
     }
 
+    impl std::fmt::Debug for ClusterMetadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ClusterMetadata");
+            debug_struct.field("cluster", &self.cluster);
+            debug_struct.field("k8s_version", &self.k8s_version);
+            debug_struct.field("backup_crd_versions", &self.backup_crd_versions);
+            debug_struct.field("platform_version", &self.platform_version);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ClusterMetadata].
     pub mod cluster_metadata {
         #[allow(unused_imports)]
@@ -1818,7 +1872,7 @@ pub mod backup {
 /// The BackupChannel should be in the same project and region
 /// as the cluster being backed up.
 /// The backup can be created only in destination_project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupChannel {
     /// Identifier. The fully qualified name of the BackupChannel.
@@ -2197,8 +2251,28 @@ impl serde::ser::Serialize for BackupChannel {
     }
 }
 
+impl std::fmt::Debug for BackupChannel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupChannel");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("destination_project", &self.destination_project);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("destination_project_id", &self.destination_project_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines the configuration and scheduling for a "line" of Backups.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupPlan {
     /// Output only. The full name of the BackupPlan resource.
@@ -2930,13 +3004,46 @@ impl serde::ser::Serialize for BackupPlan {
     }
 }
 
+impl std::fmt::Debug for BackupPlan {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupPlan");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("retention_policy", &self.retention_policy);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("backup_schedule", &self.backup_schedule);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("deactivated", &self.deactivated);
+        debug_struct.field("backup_config", &self.backup_config);
+        debug_struct.field("protected_pod_count", &self.protected_pod_count);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_reason", &self.state_reason);
+        debug_struct.field("rpo_risk_level", &self.rpo_risk_level);
+        debug_struct.field("rpo_risk_reason", &self.rpo_risk_reason);
+        debug_struct.field("backup_channel", &self.backup_channel);
+        debug_struct.field(
+            "last_successful_backup_time",
+            &self.last_successful_backup_time,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BackupPlan].
 pub mod backup_plan {
     #[allow(unused_imports)]
     use super::*;
 
     /// RetentionPolicy defines a Backup retention policy for a BackupPlan.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RetentionPolicy {
         /// Optional. Minimum age for Backups created via this BackupPlan (in days).
@@ -3195,9 +3302,23 @@ pub mod backup_plan {
         }
     }
 
+    impl std::fmt::Debug for RetentionPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RetentionPolicy");
+            debug_struct.field("backup_delete_lock_days", &self.backup_delete_lock_days);
+            debug_struct.field("backup_retain_days", &self.backup_retain_days);
+            debug_struct.field("locked", &self.locked);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines scheduling parameters for automatically creating Backups
     /// via this BackupPlan.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Schedule {
         /// Optional. A standard [cron](https://wikipedia.com/wiki/cron) string that
@@ -3464,9 +3585,27 @@ pub mod backup_plan {
         }
     }
 
+    impl std::fmt::Debug for Schedule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Schedule");
+            debug_struct.field("cron_schedule", &self.cron_schedule);
+            debug_struct.field("paused", &self.paused);
+            debug_struct.field("rpo_config", &self.rpo_config);
+            debug_struct.field(
+                "next_scheduled_backup_time",
+                &self.next_scheduled_backup_time,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// BackupConfig defines the configuration of Backups created via this
     /// BackupPlan.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BackupConfig {
         /// Optional. This flag specifies whether volume data should be backed up
@@ -3882,6 +4021,22 @@ pub mod backup_plan {
         }
     }
 
+    impl std::fmt::Debug for BackupConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BackupConfig");
+            debug_struct.field("include_volume_data", &self.include_volume_data);
+            debug_struct.field("include_secrets", &self.include_secrets);
+            debug_struct.field("encryption_key", &self.encryption_key);
+            debug_struct.field("permissive_mode", &self.permissive_mode);
+            debug_struct.field("backup_scope", &self.backup_scope);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [BackupConfig].
     pub mod backup_config {
         #[allow(unused_imports)]
@@ -4066,7 +4221,7 @@ pub mod backup_plan {
 
 /// Defines RPO scheduling configuration for automatically creating
 /// Backups via this BackupPlan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RpoConfig {
     /// Required. Defines the target RPO for the BackupPlan in minutes, which means
@@ -4259,9 +4414,22 @@ impl serde::ser::Serialize for RpoConfig {
     }
 }
 
+impl std::fmt::Debug for RpoConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RpoConfig");
+        debug_struct.field("target_rpo_minutes", &self.target_rpo_minutes);
+        debug_struct.field("exclusion_windows", &self.exclusion_windows);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines a time window during which no backup should
 /// happen. All time and date are in UTC.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExclusionWindow {
     /// Required. Specifies the start time of the window using time of the day in
@@ -4626,13 +4794,27 @@ impl serde::ser::Serialize for ExclusionWindow {
     }
 }
 
+impl std::fmt::Debug for ExclusionWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExclusionWindow");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("recurrence", &self.recurrence);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExclusionWindow].
 pub mod exclusion_window {
     #[allow(unused_imports)]
     use super::*;
 
     /// Holds repeated DaysOfWeek values as a container.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DayOfWeekList {
         /// Optional. A list of days of week.
@@ -4768,6 +4950,18 @@ pub mod exclusion_window {
         }
     }
 
+    impl std::fmt::Debug for DayOfWeekList {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DayOfWeekList");
+            debug_struct.field("days_of_week", &self.days_of_week);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Required. Specifies the day(s) on which the exclusion window takes
     /// effect. Exactly one of the fields MUST be specified.
     #[derive(Clone, Debug, PartialEq)]
@@ -4788,7 +4982,7 @@ pub mod exclusion_window {
 /// This resource is created automatically when a BackupPlan is created using a
 /// BackupChannel. This also serves as a holder for cross-project fields
 /// that need to be displayed in the current project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupPlanBinding {
     /// Identifier. The fully qualified name of the BackupPlanBinding.
@@ -5140,13 +5334,32 @@ impl serde::ser::Serialize for BackupPlanBinding {
     }
 }
 
+impl std::fmt::Debug for BackupPlanBinding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupPlanBinding");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("backup_plan", &self.backup_plan);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("backup_plan_details", &self.backup_plan_details);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BackupPlanBinding].
 pub mod backup_plan_binding {
     #[allow(unused_imports)]
     use super::*;
 
     /// Contains metadata about the backup plan/backup.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BackupPlanDetails {
         /// Output only. The number of Kubernetes Pods backed up in the
@@ -5586,6 +5799,31 @@ pub mod backup_plan_binding {
         }
     }
 
+    impl std::fmt::Debug for BackupPlanDetails {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BackupPlanDetails");
+            debug_struct.field("protected_pod_count", &self.protected_pod_count);
+            debug_struct.field("state", &self.state);
+            debug_struct.field(
+                "last_successful_backup_time",
+                &self.last_successful_backup_time,
+            );
+            debug_struct.field(
+                "next_scheduled_backup_time",
+                &self.next_scheduled_backup_time,
+            );
+            debug_struct.field("rpo_risk_level", &self.rpo_risk_level);
+            debug_struct.field("last_successful_backup", &self.last_successful_backup);
+            debug_struct.field("backup_config_details", &self.backup_config_details);
+            debug_struct.field("retention_policy_details", &self.retention_policy_details);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [BackupPlanDetails].
     pub mod backup_plan_details {
         #[allow(unused_imports)]
@@ -5593,7 +5831,7 @@ pub mod backup_plan_binding {
 
         /// BackupConfigDetails defines the configuration of Backups created via this
         /// BackupPlan.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BackupConfigDetails {
 
@@ -5996,6 +6234,21 @@ pub mod backup_plan_binding {
             }
         }
 
+        impl std::fmt::Debug for BackupConfigDetails {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("BackupConfigDetails");
+                debug_struct.field("include_volume_data", &self.include_volume_data);
+                debug_struct.field("include_secrets", &self.include_secrets);
+                debug_struct.field("encryption_key", &self.encryption_key);
+                debug_struct.field("backup_scope", &self.backup_scope);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [BackupConfigDetails].
         pub mod backup_config_details {
             #[allow(unused_imports)]
@@ -6020,7 +6273,7 @@ pub mod backup_plan_binding {
 
         /// RetentionPolicyDetails defines a Backup retention policy for a
         /// BackupPlan.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct RetentionPolicyDetails {
             /// Optional. Minimum age for Backups created via this BackupPlan (in
@@ -6250,6 +6503,19 @@ pub mod backup_plan_binding {
             }
         }
 
+        impl std::fmt::Debug for RetentionPolicyDetails {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("RetentionPolicyDetails");
+                debug_struct.field("backup_delete_lock_days", &self.backup_delete_lock_days);
+                debug_struct.field("backup_retain_days", &self.backup_retain_days);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// State
         ///
         /// # Working with unknown values
@@ -6416,7 +6682,7 @@ pub mod backup_plan_binding {
 }
 
 /// A list of Kubernetes Namespaces.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Namespaces {
     /// Optional. A list of Kubernetes Namespaces.
@@ -6548,8 +6814,20 @@ impl serde::ser::Serialize for Namespaces {
     }
 }
 
+impl std::fmt::Debug for Namespaces {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Namespaces");
+        debug_struct.field("namespaces", &self.namespaces);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A reference to a namespaced resource in Kubernetes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NamespacedName {
     /// Optional. The Namespace of the Kubernetes resource.
@@ -6702,8 +6980,21 @@ impl serde::ser::Serialize for NamespacedName {
     }
 }
 
+impl std::fmt::Debug for NamespacedName {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NamespacedName");
+        debug_struct.field("namespace", &self.namespace);
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A list of namespaced Kubernetes resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NamespacedNames {
     /// Optional. A list of namespaced Kubernetes resources.
@@ -6840,9 +7131,21 @@ impl serde::ser::Serialize for NamespacedNames {
     }
 }
 
+impl std::fmt::Debug for NamespacedNames {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NamespacedNames");
+        debug_struct.field("namespaced_names", &self.namespaced_names);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defined a customer managed encryption key that will be used to encrypt Backup
 /// artifacts.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionKey {
     /// Optional. Google Cloud KMS encryption key. Format:
@@ -6976,8 +7279,20 @@ impl serde::ser::Serialize for EncryptionKey {
     }
 }
 
+impl std::fmt::Debug for EncryptionKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionKey");
+        debug_struct.field("gcp_kms_encryption_key", &self.gcp_kms_encryption_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message to encapsulate VolumeType enum.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeTypeEnum {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7076,6 +7391,17 @@ impl serde::ser::Serialize for VolumeTypeEnum {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for VolumeTypeEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VolumeTypeEnum");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -7211,7 +7537,7 @@ pub mod volume_type_enum {
 }
 
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -7519,8 +7845,26 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateBackupPlan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupPlanRequest {
     /// Required. The location within which to create the BackupPlan.
@@ -7718,8 +8062,22 @@ impl serde::ser::Serialize for CreateBackupPlanRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBackupPlanRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBackupPlanRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("backup_plan", &self.backup_plan);
+        debug_struct.field("backup_plan_id", &self.backup_plan_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListBackupPlans.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupPlansRequest {
     /// Required. The location that contains the BackupPlans to list.
@@ -7980,8 +8338,24 @@ impl serde::ser::Serialize for ListBackupPlansRequest {
     }
 }
 
+impl std::fmt::Debug for ListBackupPlansRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupPlansRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListBackupPlans.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupPlansResponse {
     /// The list of BackupPlans matching the given criteria.
@@ -8186,8 +8560,22 @@ impl serde::ser::Serialize for ListBackupPlansResponse {
     }
 }
 
+impl std::fmt::Debug for ListBackupPlansResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupPlansResponse");
+        debug_struct.field("backup_plans", &self.backup_plans);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetBackupPlan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupPlanRequest {
     /// Required. Fully qualified BackupPlan name.
@@ -8317,8 +8705,20 @@ impl serde::ser::Serialize for GetBackupPlanRequest {
     }
 }
 
+impl std::fmt::Debug for GetBackupPlanRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupPlanRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateBackupPlan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupPlanRequest {
     /// Required. A new version of the BackupPlan resource that contains updated
@@ -8504,8 +8904,21 @@ impl serde::ser::Serialize for UpdateBackupPlanRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateBackupPlanRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBackupPlanRequest");
+        debug_struct.field("backup_plan", &self.backup_plan);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteBackupPlan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupPlanRequest {
     /// Required. Fully qualified BackupPlan name.
@@ -8663,8 +9076,21 @@ impl serde::ser::Serialize for DeleteBackupPlanRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBackupPlanRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBackupPlanRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateBackupChannel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupChannelRequest {
     /// Required. The location within which to create the BackupChannel.
@@ -8866,8 +9292,22 @@ impl serde::ser::Serialize for CreateBackupChannelRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBackupChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBackupChannelRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("backup_channel", &self.backup_channel);
+        debug_struct.field("backup_channel_id", &self.backup_channel_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListBackupChannels.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupChannelsRequest {
     /// Required. The location that contains the BackupChannels to list.
@@ -9129,8 +9569,24 @@ impl serde::ser::Serialize for ListBackupChannelsRequest {
     }
 }
 
+impl std::fmt::Debug for ListBackupChannelsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupChannelsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListBackupChannels.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupChannelsResponse {
     /// The list of BackupChannels matching the given criteria.
@@ -9335,8 +9791,22 @@ impl serde::ser::Serialize for ListBackupChannelsResponse {
     }
 }
 
+impl std::fmt::Debug for ListBackupChannelsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupChannelsResponse");
+        debug_struct.field("backup_channels", &self.backup_channels);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetBackupChannel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupChannelRequest {
     /// Required. Fully qualified BackupChannel name.
@@ -9466,8 +9936,20 @@ impl serde::ser::Serialize for GetBackupChannelRequest {
     }
 }
 
+impl std::fmt::Debug for GetBackupChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupChannelRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateBackupChannel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupChannelRequest {
     /// Required. A new version of the BackupChannel resource that contains updated
@@ -9653,8 +10135,21 @@ impl serde::ser::Serialize for UpdateBackupChannelRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateBackupChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBackupChannelRequest");
+        debug_struct.field("backup_channel", &self.backup_channel);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteBackupChannel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupChannelRequest {
     /// Required. Fully qualified BackupChannel name.
@@ -9838,8 +10333,22 @@ impl serde::ser::Serialize for DeleteBackupChannelRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBackupChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBackupChannelRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListBackupPlanBindings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupPlanBindingsRequest {
     /// Required. The BackupChannel that contains the BackupPlanBindings to list.
@@ -10101,8 +10610,24 @@ impl serde::ser::Serialize for ListBackupPlanBindingsRequest {
     }
 }
 
+impl std::fmt::Debug for ListBackupPlanBindingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupPlanBindingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListBackupPlanBindings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupPlanBindingsResponse {
     /// The list of BackupPlanBindings matching the given criteria.
@@ -10311,8 +10836,22 @@ impl serde::ser::Serialize for ListBackupPlanBindingsResponse {
     }
 }
 
+impl std::fmt::Debug for ListBackupPlanBindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupPlanBindingsResponse");
+        debug_struct.field("backup_plan_bindings", &self.backup_plan_bindings);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetBackupPlanBinding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupPlanBindingRequest {
     /// Required. Fully qualified BackupPlanBinding name.
@@ -10443,8 +10982,20 @@ impl serde::ser::Serialize for GetBackupPlanBindingRequest {
     }
 }
 
+impl std::fmt::Debug for GetBackupPlanBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupPlanBindingRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateBackup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupRequest {
     /// Required. The BackupPlan within which to create the Backup.
@@ -10641,8 +11192,22 @@ impl serde::ser::Serialize for CreateBackupRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBackupRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("backup_id", &self.backup_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListBackups.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsRequest {
     /// Required. The BackupPlan that contains the Backups to list.
@@ -10929,8 +11494,25 @@ impl serde::ser::Serialize for ListBackupsRequest {
     }
 }
 
+impl std::fmt::Debug for ListBackupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListBackups.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsResponse {
     /// The list of Backups matching the given criteria.
@@ -11133,8 +11715,22 @@ impl serde::ser::Serialize for ListBackupsResponse {
     }
 }
 
+impl std::fmt::Debug for ListBackupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupsResponse");
+        debug_struct.field("backups", &self.backups);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetBackup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupRequest {
     /// Required. Full name of the Backup resource.
@@ -11264,8 +11860,20 @@ impl serde::ser::Serialize for GetBackupRequest {
     }
 }
 
+impl std::fmt::Debug for GetBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateBackup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupRequest {
     /// Required. A new version of the Backup resource that contains updated
@@ -11449,8 +12057,21 @@ impl serde::ser::Serialize for UpdateBackupRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBackupRequest");
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteBackup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupRequest {
     /// Required. Name of the Backup resource.
@@ -11634,8 +12255,22 @@ impl serde::ser::Serialize for DeleteBackupRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBackupRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListVolumeBackups.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumeBackupsRequest {
     /// Required. The Backup that contains the VolumeBackups to list.
@@ -11896,8 +12531,24 @@ impl serde::ser::Serialize for ListVolumeBackupsRequest {
     }
 }
 
+impl std::fmt::Debug for ListVolumeBackupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVolumeBackupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListVolumeBackups.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumeBackupsResponse {
     /// The list of VolumeBackups matching the given criteria.
@@ -12075,8 +12726,21 @@ impl serde::ser::Serialize for ListVolumeBackupsResponse {
     }
 }
 
+impl std::fmt::Debug for ListVolumeBackupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVolumeBackupsResponse");
+        debug_struct.field("volume_backups", &self.volume_backups);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetVolumeBackup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVolumeBackupRequest {
     /// Required. Full name of the VolumeBackup resource.
@@ -12206,8 +12870,20 @@ impl serde::ser::Serialize for GetVolumeBackupRequest {
     }
 }
 
+impl std::fmt::Debug for GetVolumeBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVolumeBackupRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateRestorePlan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRestorePlanRequest {
     /// Required. The location within which to create the RestorePlan.
@@ -12405,8 +13081,22 @@ impl serde::ser::Serialize for CreateRestorePlanRequest {
     }
 }
 
+impl std::fmt::Debug for CreateRestorePlanRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateRestorePlanRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("restore_plan", &self.restore_plan);
+        debug_struct.field("restore_plan_id", &self.restore_plan_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListRestorePlans.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestorePlansRequest {
     /// Required. The location that contains the RestorePlans to list.
@@ -12667,8 +13357,24 @@ impl serde::ser::Serialize for ListRestorePlansRequest {
     }
 }
 
+impl std::fmt::Debug for ListRestorePlansRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRestorePlansRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListRestorePlans.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestorePlansResponse {
     /// The list of RestorePlans matching the given criteria.
@@ -12873,8 +13579,22 @@ impl serde::ser::Serialize for ListRestorePlansResponse {
     }
 }
 
+impl std::fmt::Debug for ListRestorePlansResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRestorePlansResponse");
+        debug_struct.field("restore_plans", &self.restore_plans);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetRestorePlan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRestorePlanRequest {
     /// Required. Fully qualified RestorePlan name.
@@ -13004,8 +13724,20 @@ impl serde::ser::Serialize for GetRestorePlanRequest {
     }
 }
 
+impl std::fmt::Debug for GetRestorePlanRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRestorePlanRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateRestorePlan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRestorePlanRequest {
     /// Required. A new version of the RestorePlan resource that contains updated
@@ -13190,8 +13922,21 @@ impl serde::ser::Serialize for UpdateRestorePlanRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateRestorePlanRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRestorePlanRequest");
+        debug_struct.field("restore_plan", &self.restore_plan);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteRestorePlan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRestorePlanRequest {
     /// Required. Fully qualified RestorePlan name.
@@ -13375,8 +14120,22 @@ impl serde::ser::Serialize for DeleteRestorePlanRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteRestorePlanRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRestorePlanRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateRestoreChannel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRestoreChannelRequest {
     /// Required. The location within which to create the RestoreChannel.
@@ -13579,8 +14338,22 @@ impl serde::ser::Serialize for CreateRestoreChannelRequest {
     }
 }
 
+impl std::fmt::Debug for CreateRestoreChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateRestoreChannelRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("restore_channel", &self.restore_channel);
+        debug_struct.field("restore_channel_id", &self.restore_channel_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListRestoreChannels.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestoreChannelsRequest {
     /// Required. The location that contains the RestoreChannels to list.
@@ -13842,8 +14615,24 @@ impl serde::ser::Serialize for ListRestoreChannelsRequest {
     }
 }
 
+impl std::fmt::Debug for ListRestoreChannelsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRestoreChannelsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListRestoreChannels.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestoreChannelsResponse {
     /// The list of RestoreChannels matching the given criteria.
@@ -14052,8 +14841,22 @@ impl serde::ser::Serialize for ListRestoreChannelsResponse {
     }
 }
 
+impl std::fmt::Debug for ListRestoreChannelsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRestoreChannelsResponse");
+        debug_struct.field("restore_channels", &self.restore_channels);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetRestoreChannel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRestoreChannelRequest {
     /// Required. Fully qualified RestoreChannel name.
@@ -14183,8 +14986,20 @@ impl serde::ser::Serialize for GetRestoreChannelRequest {
     }
 }
 
+impl std::fmt::Debug for GetRestoreChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRestoreChannelRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateRestoreChannel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRestoreChannelRequest {
     /// Required. A new version of the RestoreChannel resource that contains
@@ -14372,8 +15187,21 @@ impl serde::ser::Serialize for UpdateRestoreChannelRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateRestoreChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRestoreChannelRequest");
+        debug_struct.field("restore_channel", &self.restore_channel);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteRestoreChannel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRestoreChannelRequest {
     /// Required. Fully qualified RestoreChannel name.
@@ -14532,8 +15360,21 @@ impl serde::ser::Serialize for DeleteRestoreChannelRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteRestoreChannelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRestoreChannelRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListRestorePlanBindings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestorePlanBindingsRequest {
     /// Required. The RestoreChannel that contains the ListRestorePlanBindings to
@@ -14795,8 +15636,24 @@ impl serde::ser::Serialize for ListRestorePlanBindingsRequest {
     }
 }
 
+impl std::fmt::Debug for ListRestorePlanBindingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRestorePlanBindingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListRestorePlanBindings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestorePlanBindingsResponse {
     /// The list of RestorePlanBindings matching the given criteria.
@@ -15005,8 +15862,22 @@ impl serde::ser::Serialize for ListRestorePlanBindingsResponse {
     }
 }
 
+impl std::fmt::Debug for ListRestorePlanBindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRestorePlanBindingsResponse");
+        debug_struct.field("restore_plan_bindings", &self.restore_plan_bindings);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetRestorePlanBinding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRestorePlanBindingRequest {
     /// Required. Fully qualified RestorePlanBinding name.
@@ -15137,8 +16008,20 @@ impl serde::ser::Serialize for GetRestorePlanBindingRequest {
     }
 }
 
+impl std::fmt::Debug for GetRestorePlanBindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRestorePlanBindingRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateRestore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRestoreRequest {
     /// Required. The RestorePlan within which to create the Restore.
@@ -15335,8 +16218,22 @@ impl serde::ser::Serialize for CreateRestoreRequest {
     }
 }
 
+impl std::fmt::Debug for CreateRestoreRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateRestoreRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("restore", &self.restore);
+        debug_struct.field("restore_id", &self.restore_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListRestores.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestoresRequest {
     /// Required. The RestorePlan that contains the Restores to list.
@@ -15597,8 +16494,24 @@ impl serde::ser::Serialize for ListRestoresRequest {
     }
 }
 
+impl std::fmt::Debug for ListRestoresRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRestoresRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListRestores.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestoresResponse {
     /// The list of Restores matching the given criteria.
@@ -15801,8 +16714,22 @@ impl serde::ser::Serialize for ListRestoresResponse {
     }
 }
 
+impl std::fmt::Debug for ListRestoresResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRestoresResponse");
+        debug_struct.field("restores", &self.restores);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetRestore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRestoreRequest {
     /// Required. Name of the restore resource.
@@ -15932,8 +16859,20 @@ impl serde::ser::Serialize for GetRestoreRequest {
     }
 }
 
+impl std::fmt::Debug for GetRestoreRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRestoreRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateRestore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRestoreRequest {
     /// Required. A new version of the Restore resource that contains updated
@@ -16117,8 +17056,21 @@ impl serde::ser::Serialize for UpdateRestoreRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateRestoreRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRestoreRequest");
+        debug_struct.field("restore", &self.restore);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteRestore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRestoreRequest {
     /// Required. Full name of the Restore
@@ -16302,8 +17254,22 @@ impl serde::ser::Serialize for DeleteRestoreRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteRestoreRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRestoreRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("force", &self.force);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListVolumeRestores.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumeRestoresRequest {
     /// Required. The Restore that contains the VolumeRestores to list.
@@ -16564,8 +17530,24 @@ impl serde::ser::Serialize for ListVolumeRestoresRequest {
     }
 }
 
+impl std::fmt::Debug for ListVolumeRestoresRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVolumeRestoresRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListVolumeRestores.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumeRestoresResponse {
     /// The list of VolumeRestores matching the given criteria.
@@ -16743,8 +17725,21 @@ impl serde::ser::Serialize for ListVolumeRestoresResponse {
     }
 }
 
+impl std::fmt::Debug for ListVolumeRestoresResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVolumeRestoresResponse");
+        debug_struct.field("volume_restores", &self.volume_restores);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetVolumeRestore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVolumeRestoreRequest {
     /// Required. Full name of the VolumeRestore resource.
@@ -16874,8 +17869,20 @@ impl serde::ser::Serialize for GetVolumeRestoreRequest {
     }
 }
 
+impl std::fmt::Debug for GetVolumeRestoreRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVolumeRestoreRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetBackupIndexDownloadUrl.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupIndexDownloadUrlRequest {
     /// Required. Full name of Backup resource.
@@ -17006,8 +18013,20 @@ impl serde::ser::Serialize for GetBackupIndexDownloadUrlRequest {
     }
 }
 
+impl std::fmt::Debug for GetBackupIndexDownloadUrlRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupIndexDownloadUrlRequest");
+        debug_struct.field("backup", &self.backup);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for GetBackupIndexDownloadUrl.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupIndexDownloadUrlResponse {
     /// Required. The signed URL for downloading the backup index.
@@ -17137,9 +18156,21 @@ impl serde::ser::Serialize for GetBackupIndexDownloadUrlResponse {
     }
 }
 
+impl std::fmt::Debug for GetBackupIndexDownloadUrlResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupIndexDownloadUrlResponse");
+        debug_struct.field("signed_url", &self.signed_url);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents both a request to Restore some portion of a Backup into
 /// a target GKE cluster and a record of the restore operation itself.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Restore {
     /// Output only. The full name of the Restore resource.
@@ -17929,6 +18960,39 @@ impl serde::ser::Serialize for Restore {
     }
 }
 
+impl std::fmt::Debug for Restore {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Restore");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("restore_config", &self.restore_config);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_reason", &self.state_reason);
+        debug_struct.field("complete_time", &self.complete_time);
+        debug_struct.field("resources_restored_count", &self.resources_restored_count);
+        debug_struct.field("resources_excluded_count", &self.resources_excluded_count);
+        debug_struct.field("resources_failed_count", &self.resources_failed_count);
+        debug_struct.field("volumes_restored_count", &self.volumes_restored_count);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field(
+            "volume_data_restore_policy_overrides",
+            &self.volume_data_restore_policy_overrides,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Restore].
 pub mod restore {
     #[allow(unused_imports)]
@@ -17939,7 +19003,7 @@ pub mod restore {
     /// scope defined in the `RestorePlan`. `exclusion_filters` take precedence
     /// over `inclusion_filters`. If a resource matches both `inclusion_filters`
     /// and `exclusion_filters`, it will not be restored.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Filter {
         /// Optional. Selects resources for restoration. If specified, only resources
@@ -18116,6 +19180,19 @@ pub mod restore {
         }
     }
 
+    impl std::fmt::Debug for Filter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Filter");
+            debug_struct.field("inclusion_filters", &self.inclusion_filters);
+            debug_struct.field("exclusion_filters", &self.exclusion_filters);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Possible values for state of the Restore.
     ///
     /// # Working with unknown values
@@ -18282,7 +19359,7 @@ pub mod restore {
 }
 
 /// Configuration of a restore.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreConfig {
     /// Optional. Specifies the mechanism to be used to restore volume data.
@@ -19006,6 +20083,44 @@ impl serde::ser::Serialize for RestoreConfig {
     }
 }
 
+impl std::fmt::Debug for RestoreConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreConfig");
+        debug_struct.field(
+            "volume_data_restore_policy",
+            &self.volume_data_restore_policy,
+        );
+        debug_struct.field(
+            "cluster_resource_conflict_policy",
+            &self.cluster_resource_conflict_policy,
+        );
+        debug_struct.field(
+            "namespaced_resource_restore_mode",
+            &self.namespaced_resource_restore_mode,
+        );
+        debug_struct.field(
+            "cluster_resource_restore_scope",
+            &self.cluster_resource_restore_scope,
+        );
+        debug_struct.field("substitution_rules", &self.substitution_rules);
+        debug_struct.field("transformation_rules", &self.transformation_rules);
+        debug_struct.field(
+            "volume_data_restore_policy_bindings",
+            &self.volume_data_restore_policy_bindings,
+        );
+        debug_struct.field("restore_order", &self.restore_order);
+        debug_struct.field(
+            "namespaced_resource_restore_scope",
+            &self.namespaced_resource_restore_scope,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RestoreConfig].
 pub mod restore_config {
     #[allow(unused_imports)]
@@ -19014,7 +20129,7 @@ pub mod restore_config {
     /// This is a direct map to the Kubernetes GroupKind type
     /// [GroupKind](https://godoc.org/k8s.io/apimachinery/pkg/runtime/schema#GroupKind)
     /// and is used for identifying specific "types" of resources to restore.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GroupKind {
         /// Optional. API group string of a Kubernetes resource, e.g.
@@ -19182,6 +20297,19 @@ pub mod restore_config {
         }
     }
 
+    impl std::fmt::Debug for GroupKind {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GroupKind");
+            debug_struct.field("resource_group", &self.resource_group);
+            debug_struct.field("resource_kind", &self.resource_kind);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines the scope of cluster-scoped resources to restore.
     ///
     /// Some group kinds are not reasonable choices for a restore, and will cause
@@ -19204,7 +20332,7 @@ pub mod restore_config {
     ///
     /// - Namespace
     /// - PersistentVolume
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClusterResourceRestoreScope {
         /// Optional. A list of cluster-scoped resource group kinds to restore from
@@ -19434,10 +20562,25 @@ pub mod restore_config {
         }
     }
 
+    impl std::fmt::Debug for ClusterResourceRestoreScope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ClusterResourceRestoreScope");
+            debug_struct.field("selected_group_kinds", &self.selected_group_kinds);
+            debug_struct.field("excluded_group_kinds", &self.excluded_group_kinds);
+            debug_struct.field("all_group_kinds", &self.all_group_kinds);
+            debug_struct.field("no_group_kinds", &self.no_group_kinds);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A transformation rule to be applied against Kubernetes resources as they
     /// are selected for restoration from a Backup. A rule contains both filtering
     /// logic (which resources are subject to substitution) and substitution logic.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SubstitutionRule {
         /// Optional. (Filtering parameter) Any resource subject to substitution must
@@ -19714,9 +20857,25 @@ pub mod restore_config {
         }
     }
 
+    impl std::fmt::Debug for SubstitutionRule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SubstitutionRule");
+            debug_struct.field("target_namespaces", &self.target_namespaces);
+            debug_struct.field("target_group_kinds", &self.target_group_kinds);
+            debug_struct.field("target_json_path", &self.target_json_path);
+            debug_struct.field("original_value_pattern", &self.original_value_pattern);
+            debug_struct.field("new_value", &self.new_value);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// TransformationRuleAction defines a TransformationRule action based on the
     /// JSON Patch RFC (<https://www.rfc-editor.org/rfc/rfc6902>)
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TransformationRuleAction {
         /// Required. op specifies the operation to perform.
@@ -19927,6 +21086,21 @@ pub mod restore_config {
         }
     }
 
+    impl std::fmt::Debug for TransformationRuleAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TransformationRuleAction");
+            debug_struct.field("op", &self.op);
+            debug_struct.field("from_path", &self.from_path);
+            debug_struct.field("path", &self.path);
+            debug_struct.field("value", &self.value);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [TransformationRuleAction].
     pub mod transformation_rule_action {
         #[allow(unused_imports)]
@@ -20112,7 +21286,7 @@ pub mod restore_config {
     /// ResourceFilter specifies matching criteria to limit the scope of a
     /// change to a specific set of kubernetes resources that are selected for
     /// restoration from a backup.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceFilter {
         /// Optional. (Filtering parameter) Any resource subject to transformation
@@ -20316,10 +21490,24 @@ pub mod restore_config {
         }
     }
 
+    impl std::fmt::Debug for ResourceFilter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResourceFilter");
+            debug_struct.field("namespaces", &self.namespaces);
+            debug_struct.field("group_kinds", &self.group_kinds);
+            debug_struct.field("json_path", &self.json_path);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A transformation rule to be applied against Kubernetes resources as they
     /// are selected for restoration from a Backup. A rule contains both filtering
     /// logic (which resources are subject to transform) and transformation logic.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TransformationRule {
         /// Required. A list of transformation rule actions to take against candidate
@@ -20529,8 +21717,22 @@ pub mod restore_config {
         }
     }
 
+    impl std::fmt::Debug for TransformationRule {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TransformationRule");
+            debug_struct.field("field_actions", &self.field_actions);
+            debug_struct.field("resource_filter", &self.resource_filter);
+            debug_struct.field("description", &self.description);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Binds resources in the scope to the given VolumeDataRestorePolicy.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VolumeDataRestorePolicyBinding {
         /// Required. The VolumeDataRestorePolicy to apply when restoring volumes in
@@ -20747,6 +21949,19 @@ pub mod restore_config {
         }
     }
 
+    impl std::fmt::Debug for VolumeDataRestorePolicyBinding {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VolumeDataRestorePolicyBinding");
+            debug_struct.field("policy", &self.policy);
+            debug_struct.field("scope", &self.scope);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [VolumeDataRestorePolicyBinding].
     pub mod volume_data_restore_policy_binding {
         #[allow(unused_imports)]
@@ -20763,7 +21978,7 @@ pub mod restore_config {
 
     /// Allows customers to specify dependencies between resources
     /// that Backup for GKE can use to compute a resasonable restore order.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RestoreOrder {
         /// Optional. Contains a list of group kind dependency pairs provided
@@ -20906,13 +22121,25 @@ pub mod restore_config {
         }
     }
 
+    impl std::fmt::Debug for RestoreOrder {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RestoreOrder");
+            debug_struct.field("group_kind_dependencies", &self.group_kind_dependencies);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [RestoreOrder].
     pub mod restore_order {
         #[allow(unused_imports)]
         use super::*;
 
         /// Defines a dependency between two group kinds.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GroupKindDependency {
             /// Required. The satisfying group kind must be restored first
@@ -21100,6 +22327,19 @@ pub mod restore_config {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for GroupKindDependency {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("GroupKindDependency");
+                debug_struct.field("satisfying", &self.satisfying);
+                debug_struct.field("requiring", &self.requiring);
+
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
     }
@@ -21636,7 +22876,7 @@ pub mod restore_config {
 /// no restrictions will be applied on that dimension.
 /// If more than one condition is specified, a resource will be selected
 /// if and only if all conditions are met.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceSelector {
     /// Optional. Selects resources using their Kubernetes GroupKinds. If
@@ -21872,8 +23112,23 @@ impl serde::ser::Serialize for ResourceSelector {
     }
 }
 
+impl std::fmt::Debug for ResourceSelector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceSelector");
+        debug_struct.field("group_kind", &self.group_kind);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("namespace", &self.namespace);
+        debug_struct.field("labels", &self.labels);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines an override to apply a VolumeDataRestorePolicy for scoped resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeDataRestorePolicyOverride {
     /// Required. The VolumeDataRestorePolicy to apply when restoring volumes in
@@ -22083,6 +23338,19 @@ impl serde::ser::Serialize for VolumeDataRestorePolicyOverride {
     }
 }
 
+impl std::fmt::Debug for VolumeDataRestorePolicyOverride {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VolumeDataRestorePolicyOverride");
+        debug_struct.field("policy", &self.policy);
+        debug_struct.field("scope", &self.scope);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VolumeDataRestorePolicyOverride].
 pub mod volume_data_restore_policy_override {
     #[allow(unused_imports)]
@@ -22100,7 +23368,7 @@ pub mod volume_data_restore_policy_override {
 /// The RestoreChannel should be in the same project and region
 /// as the backups. The backups can only be restored in the
 /// `destination_project`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreChannel {
     /// Identifier. The fully qualified name of the RestoreChannel.
@@ -22478,9 +23746,29 @@ impl serde::ser::Serialize for RestoreChannel {
     }
 }
 
+impl std::fmt::Debug for RestoreChannel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreChannel");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("destination_project", &self.destination_project);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("destination_project_id", &self.destination_project_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration of a potential series of Restore operations to be performed
 /// against Backups belong to a particular BackupPlan.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestorePlan {
     /// Output only. The full name of the RestorePlan resource.
@@ -22977,6 +24265,30 @@ impl serde::ser::Serialize for RestorePlan {
     }
 }
 
+impl std::fmt::Debug for RestorePlan {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestorePlan");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("backup_plan", &self.backup_plan);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("restore_config", &self.restore_config);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_reason", &self.state_reason);
+        debug_struct.field("restore_channel", &self.restore_channel);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RestorePlan].
 pub mod restore_plan {
     #[allow(unused_imports)]
@@ -23133,7 +24445,7 @@ pub mod restore_plan {
 /// This resource is created automatically when a RestorePlan is created using a
 /// RestoreChannel. This also serves as a holder for cross-project fields
 /// that need to be displayed in the current project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestorePlanBinding {
     /// Identifier. The fully qualified name of the RestorePlanBinding.
@@ -23444,10 +24756,28 @@ impl serde::ser::Serialize for RestorePlanBinding {
     }
 }
 
+impl std::fmt::Debug for RestorePlanBinding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestorePlanBinding");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("restore_plan", &self.restore_plan);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("backup_plan", &self.backup_plan);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the backup of a specific persistent volume as a component of a
 /// Backup - both the record of the operation and a pointer to the underlying
 /// storage-specific artifacts.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeBackup {
     /// Output only. The full name of the VolumeBackup resource.
@@ -24033,6 +25363,32 @@ impl serde::ser::Serialize for VolumeBackup {
     }
 }
 
+impl std::fmt::Debug for VolumeBackup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VolumeBackup");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("source_pvc", &self.source_pvc);
+        debug_struct.field("volume_backup_handle", &self.volume_backup_handle);
+        debug_struct.field("format", &self.format);
+        debug_struct.field("storage_bytes", &self.storage_bytes);
+        debug_struct.field("disk_size_bytes", &self.disk_size_bytes);
+        debug_struct.field("complete_time", &self.complete_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_message", &self.state_message);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VolumeBackup].
 pub mod volume_backup {
     #[allow(unused_imports)]
@@ -24339,7 +25695,7 @@ pub mod volume_backup {
 }
 
 /// Represents the operation of restoring a volume from a VolumeBackup.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeRestore {
     /// Output only. Full name of the VolumeRestore resource.
@@ -24797,6 +26153,29 @@ impl serde::ser::Serialize for VolumeRestore {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for VolumeRestore {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VolumeRestore");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("volume_backup", &self.volume_backup);
+        debug_struct.field("target_pvc", &self.target_pvc);
+        debug_struct.field("volume_handle", &self.volume_handle);
+        debug_struct.field("volume_type", &self.volume_type);
+        debug_struct.field("complete_time", &self.complete_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_message", &self.state_message);
+        debug_struct.field("etag", &self.etag);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

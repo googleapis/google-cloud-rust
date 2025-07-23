@@ -41,7 +41,7 @@ extern crate wkt;
 /// NOTE: Different system may generate different subset of attributes. Please
 /// verify the system specification before relying on an attribute generated
 /// a system.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttributeContext {
     /// The origin of a network activity. In a multi hop network activity,
@@ -428,6 +428,25 @@ impl serde::ser::Serialize for AttributeContext {
     }
 }
 
+impl std::fmt::Debug for AttributeContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttributeContext");
+        debug_struct.field("origin", &self.origin);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("destination", &self.destination);
+        debug_struct.field("request", &self.request);
+        debug_struct.field("response", &self.response);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("api", &self.api);
+        debug_struct.field("extensions", &self.extensions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AttributeContext].
 pub mod attribute_context {
     #[allow(unused_imports)]
@@ -437,7 +456,7 @@ pub mod attribute_context {
     /// The node can be either a service or an application that sends, forwards,
     /// or receives the request. Service peers should fill in
     /// `principal` and `labels` as appropriate.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Peer {
         /// The IP address of the peer.
@@ -699,10 +718,26 @@ pub mod attribute_context {
         }
     }
 
+    impl std::fmt::Debug for Peer {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Peer");
+            debug_struct.field("ip", &self.ip);
+            debug_struct.field("port", &self.port);
+            debug_struct.field("labels", &self.labels);
+            debug_struct.field("principal", &self.principal);
+            debug_struct.field("region_code", &self.region_code);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// This message defines attributes associated with API operations, such as
     /// a network API request. The terminology is based on the conventions used
     /// by Google APIs, Istio, and OpenAPI.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Api {
         /// The API service name. It is a logical identifier for a networked API,
@@ -912,10 +947,25 @@ pub mod attribute_context {
         }
     }
 
+    impl std::fmt::Debug for Api {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Api");
+            debug_struct.field("service", &self.service);
+            debug_struct.field("operation", &self.operation);
+            debug_struct.field("protocol", &self.protocol);
+            debug_struct.field("version", &self.version);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// This message defines request authentication attributes. Terminology is
     /// based on the JSON Web Token (JWT) standard, but the terms also
     /// correlate to concepts in other standards.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Auth {
         /// The authenticated principal. Reflects the issuer (`iss`) and subject
@@ -1201,10 +1251,26 @@ pub mod attribute_context {
         }
     }
 
+    impl std::fmt::Debug for Auth {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Auth");
+            debug_struct.field("principal", &self.principal);
+            debug_struct.field("audiences", &self.audiences);
+            debug_struct.field("presenter", &self.presenter);
+            debug_struct.field("claims", &self.claims);
+            debug_struct.field("access_levels", &self.access_levels);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// This message defines attributes for an HTTP request. If the actual
     /// request is not an HTTP request, the runtime system should try to map
     /// the actual request to an equivalent HTTP request.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Request {
         /// The unique ID for a request, which can be propagated to downstream
@@ -1662,9 +1728,32 @@ pub mod attribute_context {
         }
     }
 
+    impl std::fmt::Debug for Request {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Request");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("method", &self.method);
+            debug_struct.field("headers", &self.headers);
+            debug_struct.field("path", &self.path);
+            debug_struct.field("host", &self.host);
+            debug_struct.field("scheme", &self.scheme);
+            debug_struct.field("query", &self.query);
+            debug_struct.field("time", &self.time);
+            debug_struct.field("size", &self.size);
+            debug_struct.field("protocol", &self.protocol);
+            debug_struct.field("reason", &self.reason);
+            debug_struct.field("auth", &self.auth);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// This message defines attributes for a typical network response. It
     /// generally models semantics of an HTTP response.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Response {
         /// The HTTP response status code, such as `200` and `404`.
@@ -1968,10 +2057,26 @@ pub mod attribute_context {
         }
     }
 
+    impl std::fmt::Debug for Response {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Response");
+            debug_struct.field("code", &self.code);
+            debug_struct.field("size", &self.size);
+            debug_struct.field("headers", &self.headers);
+            debug_struct.field("time", &self.time);
+            debug_struct.field("backend_latency", &self.backend_latency);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// This message defines core attributes for a resource. A resource is an
     /// addressable (named) entity provided by the destination service. For
     /// example, a file stored on a network storage service.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Resource {
         /// The name of the service that this resource belongs to, such as
@@ -2468,10 +2573,33 @@ pub mod attribute_context {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Resource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Resource");
+            debug_struct.field("service", &self.service);
+            debug_struct.field("name", &self.name);
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("labels", &self.labels);
+            debug_struct.field("uid", &self.uid);
+            debug_struct.field("annotations", &self.annotations);
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("create_time", &self.create_time);
+            debug_struct.field("update_time", &self.update_time);
+            debug_struct.field("delete_time", &self.delete_time);
+            debug_struct.field("etag", &self.etag);
+            debug_struct.field("location", &self.location);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// `AuditContext` provides information that is needed for audit logging.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditContext {
     /// Serialized audit log.
@@ -2770,5 +2898,24 @@ impl serde::ser::Serialize for AuditContext {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AuditContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuditContext");
+        debug_struct.field("audit_log", &self.audit_log);
+        debug_struct.field("scrubbed_request", &self.scrubbed_request);
+        debug_struct.field("scrubbed_response", &self.scrubbed_response);
+        debug_struct.field(
+            "scrubbed_response_item_count",
+            &self.scrubbed_response_item_count,
+        );
+        debug_struct.field("target_resource", &self.target_resource);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

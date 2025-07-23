@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request message for BeyondCorp.ListAppGateways.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAppGatewaysRequest {
     /// Required. The resource name of the AppGateway location using the form:
@@ -291,8 +291,24 @@ impl serde::ser::Serialize for ListAppGatewaysRequest {
     }
 }
 
+impl std::fmt::Debug for ListAppGatewaysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAppGatewaysRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for BeyondCorp.ListAppGateways.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAppGatewaysResponse {
     /// A list of BeyondCorp AppGateways in the project.
@@ -492,8 +508,22 @@ impl serde::ser::Serialize for ListAppGatewaysResponse {
     }
 }
 
+impl std::fmt::Debug for ListAppGatewaysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAppGatewaysResponse");
+        debug_struct.field("app_gateways", &self.app_gateways);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.GetAppGateway.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAppGatewayRequest {
     /// Required. BeyondCorp AppGateway name using the form:
@@ -623,8 +653,20 @@ impl serde::ser::Serialize for GetAppGatewayRequest {
     }
 }
 
+impl std::fmt::Debug for GetAppGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAppGatewayRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.CreateAppGateway.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAppGatewayRequest {
     /// Required. The resource project name of the AppGateway location using the
@@ -882,8 +924,24 @@ impl serde::ser::Serialize for CreateAppGatewayRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAppGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAppGatewayRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("app_gateway_id", &self.app_gateway_id);
+        debug_struct.field("app_gateway", &self.app_gateway);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for BeyondCorp.DeleteAppGateway.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAppGatewayRequest {
     /// Required. BeyondCorp AppGateway name using the form:
@@ -1076,11 +1134,25 @@ impl serde::ser::Serialize for DeleteAppGatewayRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAppGatewayRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAppGatewayRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("validate_only", &self.validate_only);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A BeyondCorp AppGateway resource represents a BeyondCorp protected AppGateway
 /// to a remote application. It creates all the necessary GCP components needed
 /// for creating a BeyondCorp protected AppGateway. Multiple connectors can be
 /// authorised for a single AppGateway.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppGateway {
     /// Required. Unique resource name of the AppGateway.
@@ -1503,13 +1575,35 @@ impl serde::ser::Serialize for AppGateway {
     }
 }
 
+impl std::fmt::Debug for AppGateway {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppGateway");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("allocated_connections", &self.allocated_connections);
+        debug_struct.field("host_type", &self.host_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AppGateway].
 pub mod app_gateway {
     #[allow(unused_imports)]
     use super::*;
 
     /// Allocated connection of the AppGateway.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AllocatedConnection {
         /// Required. The PSC uri of an allocated connection
@@ -1683,6 +1777,19 @@ pub mod app_gateway {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for AllocatedConnection {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AllocatedConnection");
+            debug_struct.field("psc_uri", &self.psc_uri);
+            debug_struct.field("ingress_port", &self.ingress_port);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -2094,7 +2201,7 @@ pub mod app_gateway {
 }
 
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppGatewayOperationMetadata {
     /// Output only. The time the operation was created.
@@ -2397,5 +2504,23 @@ impl serde::ser::Serialize for AppGatewayOperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AppGatewayOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppGatewayOperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

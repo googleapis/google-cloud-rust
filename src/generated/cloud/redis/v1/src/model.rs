@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Node specific properties.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeInfo {
     /// Output only. Node identifying string. e.g. 'node-0', 'node-1'
@@ -188,8 +188,21 @@ impl serde::ser::Serialize for NodeInfo {
     }
 }
 
+impl std::fmt::Debug for NodeInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeInfo");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("zone", &self.zone);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Memorystore for Redis instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
     /// Required. Unique name of the resource in this scope including project and
@@ -1456,6 +1469,55 @@ impl serde::ser::Serialize for Instance {
     }
 }
 
+impl std::fmt::Debug for Instance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instance");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("location_id", &self.location_id);
+        debug_struct.field("alternative_location_id", &self.alternative_location_id);
+        debug_struct.field("redis_version", &self.redis_version);
+        debug_struct.field("reserved_ip_range", &self.reserved_ip_range);
+        debug_struct.field("secondary_ip_range", &self.secondary_ip_range);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("current_location_id", &self.current_location_id);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("redis_configs", &self.redis_configs);
+        debug_struct.field("tier", &self.tier);
+        debug_struct.field("memory_size_gb", &self.memory_size_gb);
+        debug_struct.field("authorized_network", &self.authorized_network);
+        debug_struct.field("persistence_iam_identity", &self.persistence_iam_identity);
+        debug_struct.field("connect_mode", &self.connect_mode);
+        debug_struct.field("auth_enabled", &self.auth_enabled);
+        debug_struct.field("server_ca_certs", &self.server_ca_certs);
+        debug_struct.field("transit_encryption_mode", &self.transit_encryption_mode);
+        debug_struct.field("maintenance_policy", &self.maintenance_policy);
+        debug_struct.field("maintenance_schedule", &self.maintenance_schedule);
+        debug_struct.field("replica_count", &self.replica_count);
+        debug_struct.field("nodes", &self.nodes);
+        debug_struct.field("read_endpoint", &self.read_endpoint);
+        debug_struct.field("read_endpoint_port", &self.read_endpoint_port);
+        debug_struct.field("read_replicas_mode", &self.read_replicas_mode);
+        debug_struct.field("customer_managed_key", &self.customer_managed_key);
+        debug_struct.field("persistence_config", &self.persistence_config);
+        debug_struct.field("suspension_reasons", &self.suspension_reasons);
+        debug_struct.field("maintenance_version", &self.maintenance_version);
+        debug_struct.field(
+            "available_maintenance_versions",
+            &self.available_maintenance_versions,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
@@ -2301,7 +2363,7 @@ pub mod instance {
 }
 
 /// Configuration of the persistence functionality.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PersistenceConfig {
     /// Optional. Controls whether Persistence features are enabled.
@@ -2547,6 +2609,21 @@ impl serde::ser::Serialize for PersistenceConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for PersistenceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PersistenceConfig");
+        debug_struct.field("persistence_mode", &self.persistence_mode);
+        debug_struct.field("rdb_snapshot_period", &self.rdb_snapshot_period);
+        debug_struct.field("rdb_next_snapshot_time", &self.rdb_next_snapshot_time);
+        debug_struct.field("rdb_snapshot_start_time", &self.rdb_snapshot_start_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -2839,7 +2916,7 @@ pub mod persistence_config {
 /// [RescheduleMaintenance][google.cloud.redis.v1.CloudRedis.RescheduleMaintenance].
 ///
 /// [google.cloud.redis.v1.CloudRedis.RescheduleMaintenance]: crate::client::CloudRedis::reschedule_maintenance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RescheduleMaintenanceRequest {
     /// Required. Redis instance resource name using the form:
@@ -3041,6 +3118,20 @@ impl serde::ser::Serialize for RescheduleMaintenanceRequest {
     }
 }
 
+impl std::fmt::Debug for RescheduleMaintenanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RescheduleMaintenanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("reschedule_type", &self.reschedule_type);
+        debug_struct.field("schedule_time", &self.schedule_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RescheduleMaintenanceRequest].
 pub mod reschedule_maintenance_request {
     #[allow(unused_imports)]
@@ -3188,7 +3279,7 @@ pub mod reschedule_maintenance_request {
 }
 
 /// Maintenance policy for an instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenancePolicy {
     /// Output only. The time when the policy was created.
@@ -3428,9 +3519,24 @@ impl serde::ser::Serialize for MaintenancePolicy {
     }
 }
 
+impl std::fmt::Debug for MaintenancePolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaintenancePolicy");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("weekly_maintenance_window", &self.weekly_maintenance_window);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Time window in which disruptive maintenance updates occur. Non-disruptive
 /// updates can occur inside or outside this window.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WeeklyMaintenanceWindow {
     /// Required. The day of week that maintenance updates occur.
@@ -3631,9 +3737,23 @@ impl serde::ser::Serialize for WeeklyMaintenanceWindow {
     }
 }
 
+impl std::fmt::Debug for WeeklyMaintenanceWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WeeklyMaintenanceWindow");
+        debug_struct.field("day", &self.day);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("duration", &self.duration);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Upcoming maintenance schedule. If no maintenance is scheduled, fields are not
 /// populated.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenanceSchedule {
     /// Output only. The start time of any upcoming scheduled maintenance for this
@@ -3876,10 +3996,25 @@ impl serde::ser::Serialize for MaintenanceSchedule {
     }
 }
 
+impl std::fmt::Debug for MaintenanceSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaintenanceSchedule");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("can_reschedule", &self.can_reschedule);
+        debug_struct.field("schedule_deadline_time", &self.schedule_deadline_time);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [ListInstances][google.cloud.redis.v1.CloudRedis.ListInstances].
 ///
 /// [google.cloud.redis.v1.CloudRedis.ListInstances]: crate::client::CloudRedis::list_instances
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
     /// Required. The resource name of the instance location using the form:
@@ -4090,10 +4225,24 @@ impl serde::ser::Serialize for ListInstancesRequest {
     }
 }
 
+impl std::fmt::Debug for ListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for [ListInstances][google.cloud.redis.v1.CloudRedis.ListInstances].
 ///
 /// [google.cloud.redis.v1.CloudRedis.ListInstances]: crate::client::CloudRedis::list_instances
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
     /// A list of Redis instances in the project in the specified location,
@@ -4302,10 +4451,24 @@ impl serde::ser::Serialize for ListInstancesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesResponse");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [GetInstance][google.cloud.redis.v1.CloudRedis.GetInstance].
 ///
 /// [google.cloud.redis.v1.CloudRedis.GetInstance]: crate::client::CloudRedis::get_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
     /// Required. Redis instance resource name using the form:
@@ -4436,11 +4599,23 @@ impl serde::ser::Serialize for GetInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [GetInstanceAuthString][google.cloud.redis.v1.CloudRedis.GetInstanceAuthString].
 ///
 /// [google.cloud.redis.v1.CloudRedis.GetInstanceAuthString]: crate::client::CloudRedis::get_instance_auth_string
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceAuthStringRequest {
     /// Required. Redis instance resource name using the form:
@@ -4571,8 +4746,20 @@ impl serde::ser::Serialize for GetInstanceAuthStringRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstanceAuthStringRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstanceAuthStringRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Instance AUTH string details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceAuthString {
     /// AUTH string set on the instance.
@@ -4702,11 +4889,23 @@ impl serde::ser::Serialize for InstanceAuthString {
     }
 }
 
+impl std::fmt::Debug for InstanceAuthString {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceAuthString");
+        debug_struct.field("auth_string", &self.auth_string);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [CreateInstance][google.cloud.redis.v1.CloudRedis.CreateInstance].
 ///
 /// [google.cloud.redis.v1.CloudRedis.CreateInstance]: crate::client::CloudRedis::create_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
     /// Required. The resource name of the instance location using the form:
@@ -4904,11 +5103,25 @@ impl serde::ser::Serialize for CreateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstanceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("instance", &self.instance);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [UpdateInstance][google.cloud.redis.v1.CloudRedis.UpdateInstance].
 ///
 /// [google.cloud.redis.v1.CloudRedis.UpdateInstance]: crate::client::CloudRedis::update_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
     /// Required. Mask of fields to update. At least one path must be supplied in
@@ -5095,11 +5308,24 @@ impl serde::ser::Serialize for UpdateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstanceRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("instance", &self.instance);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [UpgradeInstance][google.cloud.redis.v1.CloudRedis.UpgradeInstance].
 ///
 /// [google.cloud.redis.v1.CloudRedis.UpgradeInstance]: crate::client::CloudRedis::upgrade_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpgradeInstanceRequest {
     /// Required. Redis instance resource name using the form:
@@ -5255,11 +5481,24 @@ impl serde::ser::Serialize for UpgradeInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for UpgradeInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpgradeInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("redis_version", &self.redis_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [DeleteInstance][google.cloud.redis.v1.CloudRedis.DeleteInstance].
 ///
 /// [google.cloud.redis.v1.CloudRedis.DeleteInstance]: crate::client::CloudRedis::delete_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
     /// Required. Redis instance resource name using the form:
@@ -5390,8 +5629,20 @@ impl serde::ser::Serialize for DeleteInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Cloud Storage location for the input content
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsSource {
     /// Required. Source data URI. (e.g. 'gs://my_bucket/my_object').
@@ -5520,8 +5771,20 @@ impl serde::ser::Serialize for GcsSource {
     }
 }
 
+impl std::fmt::Debug for GcsSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsSource");
+        debug_struct.field("uri", &self.uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The input content
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InputConfig {
     /// Required. Specify source location of input data
@@ -5694,6 +5957,18 @@ impl serde::ser::Serialize for InputConfig {
     }
 }
 
+impl std::fmt::Debug for InputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InputConfig");
+        debug_struct.field("source", &self.source);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InputConfig].
 pub mod input_config {
     #[allow(unused_imports)]
@@ -5711,7 +5986,7 @@ pub mod input_config {
 /// Request for [Import][google.cloud.redis.v1.CloudRedis.ImportInstance].
 ///
 /// [google.cloud.redis.v1.CloudRedis.ImportInstance]: crate::client::CloudRedis::import_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportInstanceRequest {
     /// Required. Redis instance resource name using the form:
@@ -5878,8 +6153,21 @@ impl serde::ser::Serialize for ImportInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for ImportInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("input_config", &self.input_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Cloud Storage location for the output content
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDestination {
     /// Required. Data destination URI (e.g.
@@ -6009,8 +6297,20 @@ impl serde::ser::Serialize for GcsDestination {
     }
 }
 
+impl std::fmt::Debug for GcsDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsDestination");
+        debug_struct.field("uri", &self.uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The output content
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputConfig {
     /// Required. Specify destination location of output data
@@ -6190,6 +6490,18 @@ impl serde::ser::Serialize for OutputConfig {
     }
 }
 
+impl std::fmt::Debug for OutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputConfig");
+        debug_struct.field("destination", &self.destination);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OutputConfig].
 pub mod output_config {
     #[allow(unused_imports)]
@@ -6207,7 +6519,7 @@ pub mod output_config {
 /// Request for [Export][google.cloud.redis.v1.CloudRedis.ExportInstance].
 ///
 /// [google.cloud.redis.v1.CloudRedis.ExportInstance]: crate::client::CloudRedis::export_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportInstanceRequest {
     /// Required. Redis instance resource name using the form:
@@ -6374,10 +6686,23 @@ impl serde::ser::Serialize for ExportInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for ExportInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("output_config", &self.output_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [Failover][google.cloud.redis.v1.CloudRedis.FailoverInstance].
 ///
 /// [google.cloud.redis.v1.CloudRedis.FailoverInstance]: crate::client::CloudRedis::failover_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FailoverInstanceRequest {
     /// Required. Redis instance resource name using the form:
@@ -6541,6 +6866,19 @@ impl serde::ser::Serialize for FailoverInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for FailoverInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FailoverInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data_protection_mode", &self.data_protection_mode);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FailoverInstanceRequest].
 pub mod failover_instance_request {
     #[allow(unused_imports)]
@@ -6684,7 +7022,7 @@ pub mod failover_instance_request {
 }
 
 /// Represents the v1 metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Creation timestamp.
@@ -6984,11 +7322,29 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_detail", &self.status_detail);
+        debug_struct.field("cancel_requested", &self.cancel_requested);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// This location metadata represents additional configuration options for a
 /// given location where a Redis instance may be created. All fields are output
 /// only. It is returned as content of the
 /// `google.cloud.location.Location.metadata` field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     /// Output only. The set of available zones in the location. The map is keyed
@@ -7132,9 +7488,21 @@ impl serde::ser::Serialize for LocationMetadata {
     }
 }
 
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+        debug_struct.field("available_zones", &self.available_zones);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines specific information for a particular zone. Currently empty and
 /// reserved for future use only.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ZoneMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7236,8 +7604,19 @@ impl serde::ser::Serialize for ZoneMetadata {
     }
 }
 
+impl std::fmt::Debug for ZoneMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ZoneMetadata");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// TlsCertificate Resource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TlsCertificate {
     /// Serial number, as extracted from the certificate.
@@ -7492,5 +7871,21 @@ impl serde::ser::Serialize for TlsCertificate {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for TlsCertificate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TlsCertificate");
+        debug_struct.field("serial_number", &self.serial_number);
+        debug_struct.field("cert", &self.cert);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("sha1_fingerprint", &self.sha1_fingerprint);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

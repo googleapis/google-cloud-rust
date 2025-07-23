@@ -33,7 +33,7 @@ extern crate wkt;
 
 /// This resource represents a long-running operation that is the result of a
 /// network API call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Operation {
     /// The server-assigned name, which is only unique within the same service that
@@ -341,6 +341,21 @@ impl serde::ser::Serialize for Operation {
     }
 }
 
+impl std::fmt::Debug for Operation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Operation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("done", &self.done);
+        debug_struct.field("result", &self.result);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Operation].
 pub mod operation {
     #[allow(unused_imports)]
@@ -371,7 +386,7 @@ pub mod operation {
 /// [Operations.GetOperation][google.longrunning.Operations.GetOperation].
 ///
 /// [google.longrunning.Operations.GetOperation]: crate::client::Operations::get_operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOperationRequest {
     /// The name of the operation resource.
@@ -500,11 +515,23 @@ impl serde::ser::Serialize for GetOperationRequest {
     }
 }
 
+impl std::fmt::Debug for GetOperationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetOperationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Operations.ListOperations][google.longrunning.Operations.ListOperations].
 ///
 /// [google.longrunning.Operations.ListOperations]: crate::client::Operations::list_operations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOperationsRequest {
     /// The name of the operation's parent resource.
@@ -725,11 +752,26 @@ impl serde::ser::Serialize for ListOperationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListOperationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOperationsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Operations.ListOperations][google.longrunning.Operations.ListOperations].
 ///
 /// [google.longrunning.Operations.ListOperations]: crate::client::Operations::list_operations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOperationsResponse {
     /// A list of operations that matches the specified filter in the request.
@@ -900,11 +942,24 @@ impl serde::ser::Serialize for ListOperationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListOperationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOperationsResponse");
+        debug_struct.field("operations", &self.operations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Operations.CancelOperation][google.longrunning.Operations.CancelOperation].
 ///
 /// [google.longrunning.Operations.CancelOperation]: crate::client::Operations::cancel_operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelOperationRequest {
     /// The name of the operation resource to be cancelled.
@@ -1033,11 +1088,23 @@ impl serde::ser::Serialize for CancelOperationRequest {
     }
 }
 
+impl std::fmt::Debug for CancelOperationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelOperationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Operations.DeleteOperation][google.longrunning.Operations.DeleteOperation].
 ///
 /// [google.longrunning.Operations.DeleteOperation]: crate::client::Operations::delete_operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteOperationRequest {
     /// The name of the operation resource to be deleted.
@@ -1166,9 +1233,21 @@ impl serde::ser::Serialize for DeleteOperationRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteOperationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteOperationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Operations.WaitOperation][google.longrunning.Operations.WaitOperation].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WaitOperationRequest {
     /// The name of the operation resource to wait on.
@@ -1334,6 +1413,19 @@ impl serde::ser::Serialize for WaitOperationRequest {
     }
 }
 
+impl std::fmt::Debug for WaitOperationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WaitOperationRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("timeout", &self.timeout);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A message representing the message types used by a long-running operation.
 ///
 /// Example:
@@ -1346,7 +1438,7 @@ impl serde::ser::Serialize for WaitOperationRequest {
 ///   };
 /// }
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationInfo {
     /// Required. The message name of the primary return type for this
@@ -1511,5 +1603,18 @@ impl serde::ser::Serialize for OperationInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OperationInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationInfo");
+        debug_struct.field("response_type", &self.response_type);
+        debug_struct.field("metadata_type", &self.metadata_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

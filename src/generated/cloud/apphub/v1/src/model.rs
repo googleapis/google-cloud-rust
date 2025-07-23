@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request for LookupServiceProjectAttachment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupServiceProjectAttachmentRequest {
     /// Required. Service project ID and location to lookup service project
@@ -167,8 +167,20 @@ impl serde::ser::Serialize for LookupServiceProjectAttachmentRequest {
     }
 }
 
+impl std::fmt::Debug for LookupServiceProjectAttachmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupServiceProjectAttachmentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for LookupServiceProjectAttachment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupServiceProjectAttachmentResponse {
     /// Service project attachment for a project if exists, empty otherwise.
@@ -314,8 +326,23 @@ impl serde::ser::Serialize for LookupServiceProjectAttachmentResponse {
     }
 }
 
+impl std::fmt::Debug for LookupServiceProjectAttachmentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupServiceProjectAttachmentResponse");
+        debug_struct.field(
+            "service_project_attachment",
+            &self.service_project_attachment,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListServiceProjectAttachments.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceProjectAttachmentsRequest {
     /// Required. Host project ID and location to list service project attachments.
@@ -564,8 +591,24 @@ impl serde::ser::Serialize for ListServiceProjectAttachmentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListServiceProjectAttachmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceProjectAttachmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListServiceProjectAttachments.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceProjectAttachmentsResponse {
     /// List of service project attachments.
@@ -776,8 +819,25 @@ impl serde::ser::Serialize for ListServiceProjectAttachmentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListServiceProjectAttachmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceProjectAttachmentsResponse");
+        debug_struct.field(
+            "service_project_attachments",
+            &self.service_project_attachments,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateServiceProjectAttachment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceProjectAttachmentRequest {
     /// Required. Host project ID and location to which service project is being
@@ -1023,8 +1083,29 @@ impl serde::ser::Serialize for CreateServiceProjectAttachmentRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceProjectAttachmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceProjectAttachmentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "service_project_attachment_id",
+            &self.service_project_attachment_id,
+        );
+        debug_struct.field(
+            "service_project_attachment",
+            &self.service_project_attachment,
+        );
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetServiceProjectAttachment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceProjectAttachmentRequest {
     /// Required. Fully qualified name of the service project attachment to
@@ -1155,8 +1236,20 @@ impl serde::ser::Serialize for GetServiceProjectAttachmentRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceProjectAttachmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceProjectAttachmentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteServiceProjectAttachment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceProjectAttachmentRequest {
     /// Required. Fully qualified name of the service project attachment to delete.
@@ -1325,8 +1418,21 @@ impl serde::ser::Serialize for DeleteServiceProjectAttachmentRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceProjectAttachmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceProjectAttachmentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DetachServiceProjectAttachment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetachServiceProjectAttachmentRequest {
     /// Required. Service project id and location to detach from a host project.
@@ -1458,8 +1564,20 @@ impl serde::ser::Serialize for DetachServiceProjectAttachmentRequest {
     }
 }
 
+impl std::fmt::Debug for DetachServiceProjectAttachmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetachServiceProjectAttachmentRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for DetachServiceProjectAttachment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetachServiceProjectAttachmentResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1562,8 +1680,19 @@ impl serde::ser::Serialize for DetachServiceProjectAttachmentResponse {
     }
 }
 
+impl std::fmt::Debug for DetachServiceProjectAttachmentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetachServiceProjectAttachmentResponse");
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListServices.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
     /// Required. Fully qualified name of the parent Application to list Services
@@ -1812,8 +1941,24 @@ impl serde::ser::Serialize for ListServicesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListServices.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
     /// List of Services.
@@ -2011,8 +2156,22 @@ impl serde::ser::Serialize for ListServicesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesResponse");
+        debug_struct.field("services", &self.services);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListDiscoveredServices.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDiscoveredServicesRequest {
     /// Required. Project and location to list Discovered Services on.
@@ -2260,8 +2419,24 @@ impl serde::ser::Serialize for ListDiscoveredServicesRequest {
     }
 }
 
+impl std::fmt::Debug for ListDiscoveredServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDiscoveredServicesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListDiscoveredServices.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDiscoveredServicesResponse {
     /// List of Discovered Services.
@@ -2464,8 +2639,22 @@ impl serde::ser::Serialize for ListDiscoveredServicesResponse {
     }
 }
 
+impl std::fmt::Debug for ListDiscoveredServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDiscoveredServicesResponse");
+        debug_struct.field("discovered_services", &self.discovered_services);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateService.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceRequest {
     /// Required. Fully qualified name of the parent Application to create the
@@ -2696,8 +2885,23 @@ impl serde::ser::Serialize for CreateServiceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("service_id", &self.service_id);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetService.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRequest {
     /// Required. Fully qualified name of the Service to fetch.
@@ -2828,8 +3032,20 @@ impl serde::ser::Serialize for GetServiceRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetDiscoveredService.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDiscoveredServiceRequest {
     /// Required. Fully qualified name of the Discovered Service to fetch.
@@ -2960,8 +3176,20 @@ impl serde::ser::Serialize for GetDiscoveredServiceRequest {
     }
 }
 
+impl std::fmt::Debug for GetDiscoveredServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDiscoveredServiceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for LookupDiscoveredService.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupDiscoveredServiceRequest {
     /// Required. Host project ID and location to lookup Discovered Service in.
@@ -3117,8 +3345,21 @@ impl serde::ser::Serialize for LookupDiscoveredServiceRequest {
     }
 }
 
+impl std::fmt::Debug for LookupDiscoveredServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupDiscoveredServiceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("uri", &self.uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for LookupDiscoveredService.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupDiscoveredServiceResponse {
     /// Discovered Service if exists, empty otherwise.
@@ -3260,8 +3501,20 @@ impl serde::ser::Serialize for LookupDiscoveredServiceResponse {
     }
 }
 
+impl std::fmt::Debug for LookupDiscoveredServiceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupDiscoveredServiceResponse");
+        debug_struct.field("discovered_service", &self.discovered_service);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateService.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -3482,8 +3735,22 @@ impl serde::ser::Serialize for UpdateServiceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServiceRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteService.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceRequest {
     /// Required. Fully qualified name of the Service to delete from an
@@ -3651,8 +3918,21 @@ impl serde::ser::Serialize for DeleteServiceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListApplications.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApplicationsRequest {
     /// Required. Project and location to list Applications on.
@@ -3900,8 +4180,24 @@ impl serde::ser::Serialize for ListApplicationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListApplicationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListApplicationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListApplications.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListApplicationsResponse {
     /// List of Applications.
@@ -4099,8 +4395,22 @@ impl serde::ser::Serialize for ListApplicationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListApplicationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListApplicationsResponse");
+        debug_struct.field("applications", &self.applications);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateApplication.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateApplicationRequest {
     /// Required. Project and location to create Application in.
@@ -4330,8 +4640,23 @@ impl serde::ser::Serialize for CreateApplicationRequest {
     }
 }
 
+impl std::fmt::Debug for CreateApplicationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateApplicationRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("application_id", &self.application_id);
+        debug_struct.field("application", &self.application);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetApplication.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetApplicationRequest {
     /// Required. Fully qualified name of the Application to fetch.
@@ -4462,8 +4787,20 @@ impl serde::ser::Serialize for GetApplicationRequest {
     }
 }
 
+impl std::fmt::Debug for GetApplicationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetApplicationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateApplication.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateApplicationRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -4684,8 +5021,22 @@ impl serde::ser::Serialize for UpdateApplicationRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateApplicationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateApplicationRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("application", &self.application);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteApplication.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteApplicationRequest {
     /// Required. Fully qualified name of the Application to delete.
@@ -4853,8 +5204,21 @@ impl serde::ser::Serialize for DeleteApplicationRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteApplicationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteApplicationRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListWorkloads.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkloadsRequest {
     /// Required. Fully qualified name of the parent Application to list Workloads
@@ -5103,8 +5467,24 @@ impl serde::ser::Serialize for ListWorkloadsRequest {
     }
 }
 
+impl std::fmt::Debug for ListWorkloadsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkloadsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListWorkloads.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkloadsResponse {
     /// List of Workloads.
@@ -5302,8 +5682,22 @@ impl serde::ser::Serialize for ListWorkloadsResponse {
     }
 }
 
+impl std::fmt::Debug for ListWorkloadsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkloadsResponse");
+        debug_struct.field("workloads", &self.workloads);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for ListDiscoveredWorkloads.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDiscoveredWorkloadsRequest {
     /// Required. Project and location to list Discovered Workloads on.
@@ -5551,8 +5945,24 @@ impl serde::ser::Serialize for ListDiscoveredWorkloadsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDiscoveredWorkloadsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDiscoveredWorkloadsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for ListDiscoveredWorkloads.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDiscoveredWorkloadsResponse {
     /// List of Discovered Workloads.
@@ -5755,8 +6165,22 @@ impl serde::ser::Serialize for ListDiscoveredWorkloadsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDiscoveredWorkloadsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDiscoveredWorkloadsResponse");
+        debug_struct.field("discovered_workloads", &self.discovered_workloads);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateWorkload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkloadRequest {
     /// Required. Fully qualified name of the Application to create Workload in.
@@ -5987,8 +6411,23 @@ impl serde::ser::Serialize for CreateWorkloadRequest {
     }
 }
 
+impl std::fmt::Debug for CreateWorkloadRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWorkloadRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("workload_id", &self.workload_id);
+        debug_struct.field("workload", &self.workload);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetWorkload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkloadRequest {
     /// Required. Fully qualified name of the Workload to fetch.
@@ -6119,8 +6558,20 @@ impl serde::ser::Serialize for GetWorkloadRequest {
     }
 }
 
+impl std::fmt::Debug for GetWorkloadRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWorkloadRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetDiscoveredWorkload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDiscoveredWorkloadRequest {
     /// Required. Fully qualified name of the Discovered Workload to fetch.
@@ -6251,8 +6702,20 @@ impl serde::ser::Serialize for GetDiscoveredWorkloadRequest {
     }
 }
 
+impl std::fmt::Debug for GetDiscoveredWorkloadRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDiscoveredWorkloadRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for LookupDiscoveredWorkload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupDiscoveredWorkloadRequest {
     /// Required. Host project ID and location to lookup Discovered Workload in.
@@ -6408,8 +6871,21 @@ impl serde::ser::Serialize for LookupDiscoveredWorkloadRequest {
     }
 }
 
+impl std::fmt::Debug for LookupDiscoveredWorkloadRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupDiscoveredWorkloadRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("uri", &self.uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for LookupDiscoveredWorkload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupDiscoveredWorkloadResponse {
     /// Discovered Workload if exists, empty otherwise.
@@ -6550,8 +7026,20 @@ impl serde::ser::Serialize for LookupDiscoveredWorkloadResponse {
     }
 }
 
+impl std::fmt::Debug for LookupDiscoveredWorkloadResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupDiscoveredWorkloadResponse");
+        debug_struct.field("discovered_workload", &self.discovered_workload);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for UpdateWorkload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkloadRequest {
     /// Required. Field mask is used to specify the fields to be overwritten in the
@@ -6772,8 +7260,22 @@ impl serde::ser::Serialize for UpdateWorkloadRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateWorkloadRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateWorkloadRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("workload", &self.workload);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for DeleteWorkload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkloadRequest {
     /// Required. Fully qualified name of the Workload to delete from an
@@ -6941,8 +7443,21 @@ impl serde::ser::Serialize for DeleteWorkloadRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteWorkloadRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWorkloadRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -7250,11 +7765,29 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Application defines the governance boundary for App Hub entities that
 /// perform a logical end-to-end business function.
 /// App Hub supports application level IAM permission to align with governance
 /// requirements.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Application {
     /// Identifier. The resource name of an Application. Format:
@@ -7628,6 +8161,26 @@ impl serde::ser::Serialize for Application {
     }
 }
 
+impl std::fmt::Debug for Application {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Application");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Application].
 pub mod application {
     #[allow(unused_imports)]
@@ -7774,7 +8327,7 @@ pub mod application {
 }
 
 /// Scope of an application.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Scope {
     /// Required. Scope Type.
@@ -7900,6 +8453,18 @@ impl serde::ser::Serialize for Scope {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Scope {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Scope");
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -8042,7 +8607,7 @@ pub mod scope {
 }
 
 /// Consumer provided attributes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Attributes {
     /// Optional. User-defined criticality information.
@@ -8302,8 +8867,24 @@ impl serde::ser::Serialize for Attributes {
     }
 }
 
+impl std::fmt::Debug for Attributes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Attributes");
+        debug_struct.field("criticality", &self.criticality);
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("developer_owners", &self.developer_owners);
+        debug_struct.field("operator_owners", &self.operator_owners);
+        debug_struct.field("business_owners", &self.business_owners);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Criticality of the Application, Service, or Workload
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Criticality {
     /// Required. Criticality Type.
@@ -8433,6 +9014,18 @@ impl serde::ser::Serialize for Criticality {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Criticality {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Criticality");
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -8589,7 +9182,7 @@ pub mod criticality {
 }
 
 /// Environment of the Application, Service, or Workload
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Environment {
     /// Required. Environment Type.
@@ -8719,6 +9312,18 @@ impl serde::ser::Serialize for Environment {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Environment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Environment");
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -8875,7 +9480,7 @@ pub mod environment {
 }
 
 /// Contact information of stakeholders.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContactInfo {
     /// Optional. Contact's name.
@@ -9030,10 +9635,23 @@ impl serde::ser::Serialize for ContactInfo {
     }
 }
 
+impl std::fmt::Debug for ContactInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContactInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("email", &self.email);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Service is an App Hub data model that contains a discovered service, which
 /// represents a network or API interface that exposes some functionality to
 /// clients for consumption over the network.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
     /// Identifier. The resource name of a Service. Format:
@@ -9474,6 +10092,28 @@ impl serde::ser::Serialize for Service {
     }
 }
 
+impl std::fmt::Debug for Service {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Service");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("service_reference", &self.service_reference);
+        debug_struct.field("service_properties", &self.service_properties);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("discovered_service", &self.discovered_service);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Service].
 pub mod service {
     #[allow(unused_imports)]
@@ -9627,7 +10267,7 @@ pub mod service {
 }
 
 /// Reference to an underlying networking resource that can comprise a Service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceReference {
     /// Output only. The underlying resource URI. For example, URI of Forwarding
@@ -9757,8 +10397,20 @@ impl serde::ser::Serialize for ServiceReference {
     }
 }
 
+impl std::fmt::Debug for ServiceReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceReference");
+        debug_struct.field("uri", &self.uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Properties of an underlying cloud resource that can comprise a Service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceProperties {
     /// Output only. The service project identifier that the underlying cloud
@@ -9939,10 +10591,24 @@ impl serde::ser::Serialize for ServiceProperties {
     }
 }
 
+impl std::fmt::Debug for ServiceProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceProperties");
+        debug_struct.field("gcp_project", &self.gcp_project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("zone", &self.zone);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// DiscoveredService is a network or API interface that exposes some
 /// functionality to clients for consumption over the network. A discovered
 /// service can be registered to a App Hub service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveredService {
     /// Identifier. The resource name of the discovered service. Format:
@@ -10148,12 +10814,26 @@ impl serde::ser::Serialize for DiscoveredService {
     }
 }
 
+impl std::fmt::Debug for DiscoveredService {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveredService");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("service_reference", &self.service_reference);
+        debug_struct.field("service_properties", &self.service_properties);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ServiceProjectAttachment represents an attachment from a service project to a
 /// host project. Service projects contain the underlying cloud
 /// infrastructure resources, and expose these resources to the host project
 /// through a ServiceProjectAttachment. With the attachments, the host project
 /// can provide an aggregated view of resources across all service projects.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceProjectAttachment {
     /// Identifier. The resource name of a ServiceProjectAttachment. Format:
@@ -10400,6 +11080,22 @@ impl serde::ser::Serialize for ServiceProjectAttachment {
     }
 }
 
+impl std::fmt::Debug for ServiceProjectAttachment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceProjectAttachment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("service_project", &self.service_project);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServiceProjectAttachment].
 pub mod service_project_attachment {
     #[allow(unused_imports)]
@@ -10551,7 +11247,7 @@ pub mod service_project_attachment {
 /// represents a binary deployment (such as managed instance groups (MIGs) and
 /// GKE deployments) that performs the smallest logical subset of business
 /// functionality.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Workload {
     /// Identifier. The resource name of the Workload. Format:
@@ -10991,6 +11687,28 @@ impl serde::ser::Serialize for Workload {
     }
 }
 
+impl std::fmt::Debug for Workload {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Workload");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("workload_reference", &self.workload_reference);
+        debug_struct.field("workload_properties", &self.workload_properties);
+        debug_struct.field("discovered_workload", &self.discovered_workload);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("state", &self.state);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Workload].
 pub mod workload {
     #[allow(unused_imports)]
@@ -11144,7 +11862,7 @@ pub mod workload {
 }
 
 /// Reference of an underlying compute resource represented by the Workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkloadReference {
     /// Output only. The underlying compute resource uri.
@@ -11273,8 +11991,20 @@ impl serde::ser::Serialize for WorkloadReference {
     }
 }
 
+impl std::fmt::Debug for WorkloadReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadReference");
+        debug_struct.field("uri", &self.uri);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Properties of an underlying compute resource represented by the Workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkloadProperties {
     /// Output only. The service project identifier that the underlying cloud
@@ -11455,11 +12185,25 @@ impl serde::ser::Serialize for WorkloadProperties {
     }
 }
 
+impl std::fmt::Debug for WorkloadProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadProperties");
+        debug_struct.field("gcp_project", &self.gcp_project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("zone", &self.zone);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// DiscoveredWorkload is a binary deployment (such as managed instance groups
 /// (MIGs) and GKE deployments) that performs the smallest logical subset of
 /// business functionality. A discovered workload can be registered to an App Hub
 /// Workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveredWorkload {
     /// Identifier. The resource name of the discovered workload. Format:
@@ -11661,5 +12405,19 @@ impl serde::ser::Serialize for DiscoveredWorkload {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DiscoveredWorkload {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiscoveredWorkload");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("workload_reference", &self.workload_reference);
+        debug_struct.field("workload_properties", &self.workload_properties);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

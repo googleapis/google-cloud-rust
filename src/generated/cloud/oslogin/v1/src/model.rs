@@ -33,7 +33,7 @@ extern crate wkt;
 
 /// The user profile information used for logging in to a virtual machine on
 /// Google Compute Engine.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoginProfile {
     /// Required. A unique user ID.
@@ -231,8 +231,22 @@ impl serde::ser::Serialize for LoginProfile {
     }
 }
 
+impl std::fmt::Debug for LoginProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoginProfile");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("posix_accounts", &self.posix_accounts);
+        debug_struct.field("ssh_public_keys", &self.ssh_public_keys);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for creating an SSH public key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSshPublicKeyRequest {
     /// Required. The unique ID for the user in format `users/{user}`.
@@ -397,8 +411,21 @@ impl serde::ser::Serialize for CreateSshPublicKeyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSshPublicKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSshPublicKeyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("ssh_public_key", &self.ssh_public_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for deleting a POSIX account entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePosixAccountRequest {
     /// Required. A reference to the POSIX account to update. POSIX accounts are
@@ -529,8 +556,20 @@ impl serde::ser::Serialize for DeletePosixAccountRequest {
     }
 }
 
+impl std::fmt::Debug for DeletePosixAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePosixAccountRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for deleting an SSH public key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSshPublicKeyRequest {
     /// Required. The fingerprint of the public key to update. Public keys are
@@ -661,8 +700,20 @@ impl serde::ser::Serialize for DeleteSshPublicKeyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSshPublicKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSshPublicKeyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for retrieving the login profile information for a user.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLoginProfileRequest {
     /// Required. The unique ID for the user in format `users/{user}`.
@@ -841,8 +892,22 @@ impl serde::ser::Serialize for GetLoginProfileRequest {
     }
 }
 
+impl std::fmt::Debug for GetLoginProfileRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLoginProfileRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("system_id", &self.system_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for retrieving an SSH public key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSshPublicKeyRequest {
     /// Required. The fingerprint of the public key to retrieve. Public keys are
@@ -973,8 +1038,20 @@ impl serde::ser::Serialize for GetSshPublicKeyRequest {
     }
 }
 
+impl std::fmt::Debug for GetSshPublicKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSshPublicKeyRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for importing an SSH public key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportSshPublicKeyRequest {
     /// Required. The unique ID for the user in format `users/{user}`.
@@ -1193,8 +1270,23 @@ impl serde::ser::Serialize for ImportSshPublicKeyRequest {
     }
 }
 
+impl std::fmt::Debug for ImportSshPublicKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportSshPublicKeyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("ssh_public_key", &self.ssh_public_key);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("regions", &self.regions);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response message for importing an SSH public key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportSshPublicKeyResponse {
     /// The login profile information for the user.
@@ -1359,8 +1451,21 @@ impl serde::ser::Serialize for ImportSshPublicKeyResponse {
     }
 }
 
+impl std::fmt::Debug for ImportSshPublicKeyResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportSshPublicKeyResponse");
+        debug_struct.field("login_profile", &self.login_profile);
+        debug_struct.field("details", &self.details);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request message for updating an SSH public key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSshPublicKeyRequest {
     /// Required. The fingerprint of the public key to update. Public keys are
@@ -1560,5 +1665,19 @@ impl serde::ser::Serialize for UpdateSshPublicKeyRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdateSshPublicKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSshPublicKeyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ssh_public_key", &self.ssh_public_key);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

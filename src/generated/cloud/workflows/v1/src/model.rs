@@ -36,7 +36,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Workflow program to be executed by Workflows.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Workflow {
     /// The resource name of the workflow.
@@ -801,13 +801,43 @@ impl serde::ser::Serialize for Workflow {
     }
 }
 
+impl std::fmt::Debug for Workflow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Workflow");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("revision_id", &self.revision_id);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("revision_create_time", &self.revision_create_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("crypto_key_name", &self.crypto_key_name);
+        debug_struct.field("state_error", &self.state_error);
+        debug_struct.field("call_log_level", &self.call_log_level);
+        debug_struct.field("user_env_vars", &self.user_env_vars);
+        debug_struct.field("execution_history_level", &self.execution_history_level);
+        debug_struct.field("all_kms_keys", &self.all_kms_keys);
+        debug_struct.field("all_kms_keys_versions", &self.all_kms_keys_versions);
+        debug_struct.field("crypto_key_version", &self.crypto_key_version);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("source_code", &self.source_code);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Workflow].
 pub mod workflow {
     #[allow(unused_imports)]
     use super::*;
 
     /// Describes an error related to the current state of the workflow.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StateError {
         /// Provides specifics about the error.
@@ -965,6 +995,19 @@ pub mod workflow {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for StateError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StateError");
+            debug_struct.field("details", &self.details);
+            debug_struct.field("r#type", &self.r#type);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -1391,7 +1434,7 @@ pub mod workflow {
 /// method.
 ///
 /// [google.cloud.workflows.v1.Workflows.ListWorkflows]: crate::client::Workflows::list_workflows
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowsRequest {
     /// Required. Project and location from which the workflows should be listed.
@@ -1658,12 +1701,28 @@ impl serde::ser::Serialize for ListWorkflowsRequest {
     }
 }
 
+impl std::fmt::Debug for ListWorkflowsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkflowsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the
 /// [ListWorkflows][google.cloud.workflows.v1.Workflows.ListWorkflows]
 /// method.
 ///
 /// [google.cloud.workflows.v1.Workflows.ListWorkflows]: crate::client::Workflows::list_workflows
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowsResponse {
     /// The workflows that match the request.
@@ -1862,11 +1921,25 @@ impl serde::ser::Serialize for ListWorkflowsResponse {
     }
 }
 
+impl std::fmt::Debug for ListWorkflowsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkflowsResponse");
+        debug_struct.field("workflows", &self.workflows);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the
 /// [GetWorkflow][google.cloud.workflows.v1.Workflows.GetWorkflow] method.
 ///
 /// [google.cloud.workflows.v1.Workflows.GetWorkflow]: crate::client::Workflows::get_workflow
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkflowRequest {
     /// Required. Name of the workflow for which information should be retrieved.
@@ -2025,12 +2098,25 @@ impl serde::ser::Serialize for GetWorkflowRequest {
     }
 }
 
+impl std::fmt::Debug for GetWorkflowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWorkflowRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("revision_id", &self.revision_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the
 /// [CreateWorkflow][google.cloud.workflows.v1.Workflows.CreateWorkflow]
 /// method.
 ///
 /// [google.cloud.workflows.v1.Workflows.CreateWorkflow]: crate::client::Workflows::create_workflow
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkflowRequest {
     /// Required. Project and location in which the workflow should be created.
@@ -2227,12 +2313,26 @@ impl serde::ser::Serialize for CreateWorkflowRequest {
     }
 }
 
+impl std::fmt::Debug for CreateWorkflowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWorkflowRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("workflow", &self.workflow);
+        debug_struct.field("workflow_id", &self.workflow_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the
 /// [DeleteWorkflow][google.cloud.workflows.v1.Workflows.DeleteWorkflow]
 /// method.
 ///
 /// [google.cloud.workflows.v1.Workflows.DeleteWorkflow]: crate::client::Workflows::delete_workflow
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkflowRequest {
     /// Required. Name of the workflow to be deleted.
@@ -2362,12 +2462,24 @@ impl serde::ser::Serialize for DeleteWorkflowRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteWorkflowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWorkflowRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the
 /// [UpdateWorkflow][google.cloud.workflows.v1.Workflows.UpdateWorkflow]
 /// method.
 ///
 /// [google.cloud.workflows.v1.Workflows.UpdateWorkflow]: crate::client::Workflows::update_workflow
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkflowRequest {
     /// Required. Workflow to be updated.
@@ -2544,8 +2656,21 @@ impl serde::ser::Serialize for UpdateWorkflowRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateWorkflowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateWorkflowRequest");
+        debug_struct.field("workflow", &self.workflow);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The time the operation was created.
@@ -2795,12 +2920,28 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the
 /// [ListWorkflowRevisions][google.cloud.workflows.v1.Workflows.ListWorkflowRevisions]
 /// method.
 ///
 /// [google.cloud.workflows.v1.Workflows.ListWorkflowRevisions]: crate::client::Workflows::list_workflow_revisions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowRevisionsRequest {
     /// Required. Workflow for which the revisions should be listed.
@@ -3001,12 +3142,26 @@ impl serde::ser::Serialize for ListWorkflowRevisionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListWorkflowRevisionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkflowRevisionsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the
 /// [ListWorkflowRevisions][google.cloud.workflows.v1.Workflows.ListWorkflowRevisions]
 /// method.
 ///
 /// [google.cloud.workflows.v1.Workflows.ListWorkflowRevisions]: crate::client::Workflows::list_workflow_revisions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowRevisionsResponse {
     /// The revisions of the workflow, ordered in reverse chronological order.
@@ -3175,6 +3330,19 @@ impl serde::ser::Serialize for ListWorkflowRevisionsResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ListWorkflowRevisionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkflowRevisionsResponse");
+        debug_struct.field("workflows", &self.workflows);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

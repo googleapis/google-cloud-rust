@@ -34,7 +34,7 @@ extern crate wkt;
 
 /// [Google Cloud Endpoints](https://cloud.google.com/appengine/docs/python/endpoints/)
 /// configuration for API handlers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApiConfigHandler {
     /// Action to take when users access resources that require
@@ -273,8 +273,24 @@ impl serde::ser::Serialize for ApiConfigHandler {
     }
 }
 
+impl std::fmt::Debug for ApiConfigHandler {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApiConfigHandler");
+        debug_struct.field("auth_fail_action", &self.auth_fail_action);
+        debug_struct.field("login", &self.login);
+        debug_struct.field("script", &self.script);
+        debug_struct.field("security_level", &self.security_level);
+        debug_struct.field("url", &self.url);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Custom static error page to be served when an error occurs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorHandler {
     /// Error condition this handler applies to.
@@ -455,6 +471,20 @@ impl serde::ser::Serialize for ErrorHandler {
     }
 }
 
+impl std::fmt::Debug for ErrorHandler {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorHandler");
+        debug_struct.field("error_code", &self.error_code);
+        debug_struct.field("static_file", &self.static_file);
+        debug_struct.field("mime_type", &self.mime_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ErrorHandler].
 pub mod error_handler {
     #[allow(unused_imports)]
@@ -610,7 +640,7 @@ pub mod error_handler {
 /// URL pattern and description of how the URL should be handled. App Engine can
 /// handle URLs by executing application code or by serving static files
 /// uploaded with the version, such as images, CSS, or JavaScript.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UrlMap {
     /// URL prefix. Uses regular expression syntax, which means regexp
@@ -1046,6 +1076,26 @@ impl serde::ser::Serialize for UrlMap {
     }
 }
 
+impl std::fmt::Debug for UrlMap {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UrlMap");
+        debug_struct.field("url_regex", &self.url_regex);
+        debug_struct.field("security_level", &self.security_level);
+        debug_struct.field("login", &self.login);
+        debug_struct.field("auth_fail_action", &self.auth_fail_action);
+        debug_struct.field(
+            "redirect_http_response_code",
+            &self.redirect_http_response_code,
+        );
+        debug_struct.field("handler_type", &self.handler_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [UrlMap].
 pub mod url_map {
     #[allow(unused_imports)]
@@ -1228,7 +1278,7 @@ pub mod url_map {
 /// stylesheets, or JavaScript source files. Static file handlers describe which
 /// files in the application directory are static files, and which URLs serve
 /// them.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StaticFilesHandler {
     /// Path to the static files matched by the URL pattern, from the
@@ -1543,8 +1593,26 @@ impl serde::ser::Serialize for StaticFilesHandler {
     }
 }
 
+impl std::fmt::Debug for StaticFilesHandler {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StaticFilesHandler");
+        debug_struct.field("path", &self.path);
+        debug_struct.field("upload_path_regex", &self.upload_path_regex);
+        debug_struct.field("http_headers", &self.http_headers);
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("expiration", &self.expiration);
+        debug_struct.field("require_matching_file", &self.require_matching_file);
+        debug_struct.field("application_readable", &self.application_readable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Executes a script to handle the request that matches the URL pattern.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScriptHandler {
     /// Path to the script from the application root directory.
@@ -1674,8 +1742,20 @@ impl serde::ser::Serialize for ScriptHandler {
     }
 }
 
+impl std::fmt::Debug for ScriptHandler {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScriptHandler");
+        debug_struct.field("script_path", &self.script_path);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Uses Google Cloud Endpoints to handle requests.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApiEndpointHandler {
     /// Path to the script from the application root directory.
@@ -1805,10 +1885,22 @@ impl serde::ser::Serialize for ApiEndpointHandler {
     }
 }
 
+impl std::fmt::Debug for ApiEndpointHandler {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApiEndpointHandler");
+        debug_struct.field("script_path", &self.script_path);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Health checking configuration for VM instances. Unhealthy instances
 /// are killed and replaced with new instances. Only applicable for
 /// instances in App Engine flexible environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HealthCheck {
     /// Whether to explicitly disable health checks for this instance.
@@ -2169,9 +2261,27 @@ impl serde::ser::Serialize for HealthCheck {
     }
 }
 
+impl std::fmt::Debug for HealthCheck {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HealthCheck");
+        debug_struct.field("disable_health_check", &self.disable_health_check);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("healthy_threshold", &self.healthy_threshold);
+        debug_struct.field("unhealthy_threshold", &self.unhealthy_threshold);
+        debug_struct.field("restart_threshold", &self.restart_threshold);
+        debug_struct.field("check_interval", &self.check_interval);
+        debug_struct.field("timeout", &self.timeout);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Readiness checking configuration for VM instances. Unhealthy instances
 /// are removed from traffic rotation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadinessCheck {
     /// The request path.
@@ -2524,9 +2634,27 @@ impl serde::ser::Serialize for ReadinessCheck {
     }
 }
 
+impl std::fmt::Debug for ReadinessCheck {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReadinessCheck");
+        debug_struct.field("path", &self.path);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("failure_threshold", &self.failure_threshold);
+        debug_struct.field("success_threshold", &self.success_threshold);
+        debug_struct.field("check_interval", &self.check_interval);
+        debug_struct.field("timeout", &self.timeout);
+        debug_struct.field("app_start_timeout", &self.app_start_timeout);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Health checking configuration for VM instances. Unhealthy instances
 /// are killed and replaced with new instances.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LivenessCheck {
     /// The request path.
@@ -2877,8 +3005,26 @@ impl serde::ser::Serialize for LivenessCheck {
     }
 }
 
+impl std::fmt::Debug for LivenessCheck {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LivenessCheck");
+        debug_struct.field("path", &self.path);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("failure_threshold", &self.failure_threshold);
+        debug_struct.field("success_threshold", &self.success_threshold);
+        debug_struct.field("check_interval", &self.check_interval);
+        debug_struct.field("timeout", &self.timeout);
+        debug_struct.field("initial_delay", &self.initial_delay);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Third-party Python runtime library that is required by the application.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Library {
     /// Name of the library. Example: "django".
@@ -3031,8 +3177,21 @@ impl serde::ser::Serialize for Library {
     }
 }
 
+impl std::fmt::Debug for Library {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Library");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Applications.GetApplication`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetApplicationRequest {
     /// Name of the Application resource to get. Example: `apps/myapp`.
@@ -3161,8 +3320,20 @@ impl serde::ser::Serialize for GetApplicationRequest {
     }
 }
 
+impl std::fmt::Debug for GetApplicationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetApplicationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Applications.CreateApplication`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateApplicationRequest {
     /// Application configuration.
@@ -3302,8 +3473,20 @@ impl serde::ser::Serialize for CreateApplicationRequest {
     }
 }
 
+impl std::fmt::Debug for CreateApplicationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateApplicationRequest");
+        debug_struct.field("application", &self.application);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Applications.UpdateApplication`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateApplicationRequest {
     /// Name of the Application resource to update. Example: `apps/myapp`.
@@ -3503,8 +3686,22 @@ impl serde::ser::Serialize for UpdateApplicationRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateApplicationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateApplicationRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("application", &self.application);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'Applications.RepairApplication'.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepairApplicationRequest {
     /// Name of the application to repair. Example: `apps/myapp`
@@ -3633,8 +3830,20 @@ impl serde::ser::Serialize for RepairApplicationRequest {
     }
 }
 
+impl std::fmt::Debug for RepairApplicationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RepairApplicationRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Services.ListServices`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
     /// Name of the parent Application resource. Example: `apps/myapp`.
@@ -3831,8 +4040,22 @@ impl serde::ser::Serialize for ListServicesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `Services.ListServices`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
     /// The services belonging to the requested application.
@@ -4003,8 +4226,21 @@ impl serde::ser::Serialize for ListServicesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesResponse");
+        debug_struct.field("services", &self.services);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Services.GetService`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRequest {
     /// Name of the resource requested. Example: `apps/myapp/services/default`.
@@ -4133,8 +4369,20 @@ impl serde::ser::Serialize for GetServiceRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Services.UpdateService`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceRequest {
     /// Name of the resource to update. Example: `apps/myapp/services/default`.
@@ -4371,8 +4619,23 @@ impl serde::ser::Serialize for UpdateServiceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServiceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("migrate_traffic", &self.migrate_traffic);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Services.DeleteService`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceRequest {
     /// Name of the resource requested. Example: `apps/myapp/services/default`.
@@ -4501,8 +4764,20 @@ impl serde::ser::Serialize for DeleteServiceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Versions.ListVersions`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVersionsRequest {
     /// Name of the parent Service resource. Example:
@@ -4724,8 +4999,23 @@ impl serde::ser::Serialize for ListVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("view", &self.view);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `Versions.ListVersions`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVersionsResponse {
     /// The versions belonging to the requested service.
@@ -4896,8 +5186,21 @@ impl serde::ser::Serialize for ListVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVersionsResponse");
+        debug_struct.field("versions", &self.versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Versions.GetVersion`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVersionRequest {
     /// Name of the resource requested. Example:
@@ -5051,8 +5354,21 @@ impl serde::ser::Serialize for GetVersionRequest {
     }
 }
 
+impl std::fmt::Debug for GetVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Versions.CreateVersion`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVersionRequest {
     /// Name of the parent resource to create this version under. Example:
@@ -5217,8 +5533,21 @@ impl serde::ser::Serialize for CreateVersionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("version", &self.version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Versions.UpdateVersion`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVersionRequest {
     /// Name of the resource to update. Example:
@@ -5420,8 +5749,22 @@ impl serde::ser::Serialize for UpdateVersionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Versions.DeleteVersion`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVersionRequest {
     /// Name of the resource requested. Example:
@@ -5551,8 +5894,20 @@ impl serde::ser::Serialize for DeleteVersionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteVersionRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Instances.ListInstances`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
     /// Name of the parent Version resource. Example:
@@ -5750,8 +6105,22 @@ impl serde::ser::Serialize for ListInstancesRequest {
     }
 }
 
+impl std::fmt::Debug for ListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `Instances.ListInstances`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
     /// The instances belonging to the requested version.
@@ -5922,8 +6291,21 @@ impl serde::ser::Serialize for ListInstancesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesResponse");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Instances.GetInstance`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
     /// Name of the resource requested. Example:
@@ -6053,8 +6435,20 @@ impl serde::ser::Serialize for GetInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Instances.DeleteInstance`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
     /// Name of the resource requested. Example:
@@ -6184,8 +6578,20 @@ impl serde::ser::Serialize for DeleteInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Instances.DebugInstance`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DebugInstanceRequest {
     /// Name of the resource requested. Example:
@@ -6346,8 +6752,21 @@ impl serde::ser::Serialize for DebugInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for DebugInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DebugInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ssh_key", &self.ssh_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Firewall.ListIngressRules`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIngressRulesRequest {
     /// Name of the Firewall collection to retrieve.
@@ -6575,8 +6994,23 @@ impl serde::ser::Serialize for ListIngressRulesRequest {
     }
 }
 
+impl std::fmt::Debug for ListIngressRulesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIngressRulesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("matching_address", &self.matching_address);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `Firewall.ListIngressRules`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIngressRulesResponse {
     /// The ingress FirewallRules for this application.
@@ -6748,8 +7182,21 @@ impl serde::ser::Serialize for ListIngressRulesResponse {
     }
 }
 
+impl std::fmt::Debug for ListIngressRulesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIngressRulesResponse");
+        debug_struct.field("ingress_rules", &self.ingress_rules);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Firewall.BatchUpdateIngressRules`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchUpdateIngressRulesRequest {
     /// Name of the Firewall collection to set.
@@ -6907,8 +7354,21 @@ impl serde::ser::Serialize for BatchUpdateIngressRulesRequest {
     }
 }
 
+impl std::fmt::Debug for BatchUpdateIngressRulesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchUpdateIngressRulesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ingress_rules", &self.ingress_rules);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `Firewall.UpdateAllIngressRules`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchUpdateIngressRulesResponse {
     /// The full list of ingress FirewallRules for this application.
@@ -7041,8 +7501,20 @@ impl serde::ser::Serialize for BatchUpdateIngressRulesResponse {
     }
 }
 
+impl std::fmt::Debug for BatchUpdateIngressRulesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchUpdateIngressRulesResponse");
+        debug_struct.field("ingress_rules", &self.ingress_rules);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Firewall.CreateIngressRule`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateIngressRuleRequest {
     /// Name of the parent Firewall collection in which to create a new rule.
@@ -7216,8 +7688,21 @@ impl serde::ser::Serialize for CreateIngressRuleRequest {
     }
 }
 
+impl std::fmt::Debug for CreateIngressRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateIngressRuleRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("rule", &self.rule);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Firewall.GetIngressRule`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIngressRuleRequest {
     /// Name of the Firewall resource to retrieve.
@@ -7347,8 +7832,20 @@ impl serde::ser::Serialize for GetIngressRuleRequest {
     }
 }
 
+impl std::fmt::Debug for GetIngressRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIngressRuleRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Firewall.UpdateIngressRule`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateIngressRuleRequest {
     /// Name of the Firewall resource to update.
@@ -7549,8 +8046,22 @@ impl serde::ser::Serialize for UpdateIngressRuleRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateIngressRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateIngressRuleRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("rule", &self.rule);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `Firewall.DeleteIngressRule`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteIngressRuleRequest {
     /// Name of the Firewall resource to delete.
@@ -7680,8 +8191,20 @@ impl serde::ser::Serialize for DeleteIngressRuleRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteIngressRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteIngressRuleRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AuthorizedDomains.ListAuthorizedDomains`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuthorizedDomainsRequest {
     /// Name of the parent Application resource. Example: `apps/myapp`.
@@ -7878,8 +8401,22 @@ impl serde::ser::Serialize for ListAuthorizedDomainsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAuthorizedDomainsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAuthorizedDomainsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `AuthorizedDomains.ListAuthorizedDomains`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuthorizedDomainsResponse {
     /// The authorized domains belonging to the user.
@@ -8054,8 +8591,21 @@ impl serde::ser::Serialize for ListAuthorizedDomainsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAuthorizedDomainsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAuthorizedDomainsResponse");
+        debug_struct.field("domains", &self.domains);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AuthorizedCertificates.ListAuthorizedCertificates`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuthorizedCertificatesRequest {
     /// Name of the parent `Application` resource. Example: `apps/myapp`.
@@ -8277,8 +8827,23 @@ impl serde::ser::Serialize for ListAuthorizedCertificatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListAuthorizedCertificatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAuthorizedCertificatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("view", &self.view);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `AuthorizedCertificates.ListAuthorizedCertificates`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAuthorizedCertificatesResponse {
     /// The SSL certificates the user is authorized to administer.
@@ -8453,8 +9018,21 @@ impl serde::ser::Serialize for ListAuthorizedCertificatesResponse {
     }
 }
 
+impl std::fmt::Debug for ListAuthorizedCertificatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAuthorizedCertificatesResponse");
+        debug_struct.field("certificates", &self.certificates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AuthorizedCertificates.GetAuthorizedCertificate`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAuthorizedCertificateRequest {
     /// Name of the resource requested. Example:
@@ -8609,8 +9187,21 @@ impl serde::ser::Serialize for GetAuthorizedCertificateRequest {
     }
 }
 
+impl std::fmt::Debug for GetAuthorizedCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAuthorizedCertificateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AuthorizedCertificates.CreateAuthorizedCertificate`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAuthorizedCertificateRequest {
     /// Name of the parent `Application` resource. Example: `apps/myapp`.
@@ -8774,8 +9365,21 @@ impl serde::ser::Serialize for CreateAuthorizedCertificateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAuthorizedCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAuthorizedCertificateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("certificate", &self.certificate);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AuthorizedCertificates.UpdateAuthorizedCertificate`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAuthorizedCertificateRequest {
     /// Name of the resource to update. Example:
@@ -8978,8 +9582,22 @@ impl serde::ser::Serialize for UpdateAuthorizedCertificateRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAuthorizedCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAuthorizedCertificateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("certificate", &self.certificate);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `AuthorizedCertificates.DeleteAuthorizedCertificate`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAuthorizedCertificateRequest {
     /// Name of the resource to delete. Example:
@@ -9109,8 +9727,20 @@ impl serde::ser::Serialize for DeleteAuthorizedCertificateRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAuthorizedCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAuthorizedCertificateRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `DomainMappings.ListDomainMappings`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDomainMappingsRequest {
     /// Name of the parent Application resource. Example: `apps/myapp`.
@@ -9307,8 +9937,22 @@ impl serde::ser::Serialize for ListDomainMappingsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDomainMappingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDomainMappingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `DomainMappings.ListDomainMappings`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDomainMappingsResponse {
     /// The domain mappings for the application.
@@ -9480,8 +10124,21 @@ impl serde::ser::Serialize for ListDomainMappingsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDomainMappingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDomainMappingsResponse");
+        debug_struct.field("domain_mappings", &self.domain_mappings);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `DomainMappings.GetDomainMapping`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDomainMappingRequest {
     /// Name of the resource requested. Example:
@@ -9611,8 +10268,20 @@ impl serde::ser::Serialize for GetDomainMappingRequest {
     }
 }
 
+impl std::fmt::Debug for GetDomainMappingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDomainMappingRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `DomainMappings.CreateDomainMapping`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDomainMappingRequest {
     /// Name of the parent Application resource. Example: `apps/myapp`.
@@ -9804,8 +10473,22 @@ impl serde::ser::Serialize for CreateDomainMappingRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDomainMappingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDomainMappingRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("domain_mapping", &self.domain_mapping);
+        debug_struct.field("override_strategy", &self.override_strategy);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `DomainMappings.UpdateDomainMapping`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDomainMappingRequest {
     /// Name of the resource to update. Example:
@@ -10008,8 +10691,22 @@ impl serde::ser::Serialize for UpdateDomainMappingRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateDomainMappingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDomainMappingRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("domain_mapping", &self.domain_mapping);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `DomainMappings.DeleteDomainMapping`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDomainMappingRequest {
     /// Name of the resource to delete. Example:
@@ -10139,9 +10836,21 @@ impl serde::ser::Serialize for DeleteDomainMappingRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDomainMappingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDomainMappingRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An Application resource contains the top-level configuration of an App
 /// Engine application.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Application {
     /// Full path to the Application resource in the API.
@@ -10698,13 +11407,39 @@ impl serde::ser::Serialize for Application {
     }
 }
 
+impl std::fmt::Debug for Application {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Application");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("dispatch_rules", &self.dispatch_rules);
+        debug_struct.field("auth_domain", &self.auth_domain);
+        debug_struct.field("location_id", &self.location_id);
+        debug_struct.field("code_bucket", &self.code_bucket);
+        debug_struct.field("default_cookie_expiration", &self.default_cookie_expiration);
+        debug_struct.field("serving_status", &self.serving_status);
+        debug_struct.field("default_hostname", &self.default_hostname);
+        debug_struct.field("default_bucket", &self.default_bucket);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("iap", &self.iap);
+        debug_struct.field("gcr_domain", &self.gcr_domain);
+        debug_struct.field("database_type", &self.database_type);
+        debug_struct.field("feature_settings", &self.feature_settings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Application].
 pub mod application {
     #[allow(unused_imports)]
     use super::*;
 
     /// Identity-Aware Proxy
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IdentityAwareProxy {
         /// Whether the serving infrastructure will authenticate and
@@ -10939,9 +11674,27 @@ pub mod application {
         }
     }
 
+    impl std::fmt::Debug for IdentityAwareProxy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IdentityAwareProxy");
+            debug_struct.field("enabled", &self.enabled);
+            debug_struct.field("oauth2_client_id", &self.oauth2_client_id);
+            debug_struct.field("oauth2_client_secret", &self.oauth2_client_secret);
+            debug_struct.field(
+                "oauth2_client_secret_sha256",
+                &self.oauth2_client_secret_sha256,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The feature specific settings to be used in the application. These define
     /// behaviors that are user configurable.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FeatureSettings {
         /// Boolean value indicating if split health checks should be used instead
@@ -11107,6 +11860,22 @@ pub mod application {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for FeatureSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FeatureSettings");
+            debug_struct.field("split_health_checks", &self.split_health_checks);
+            debug_struct.field(
+                "use_container_optimized_os",
+                &self.use_container_optimized_os,
+            );
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -11390,7 +12159,7 @@ pub mod application {
 }
 
 /// Rules to match an HTTP request and dispatch that request to a service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UrlDispatchRule {
     /// Domain name to match against. The wildcard "`*`" is supported if
@@ -11576,8 +12345,22 @@ impl serde::ser::Serialize for UrlDispatchRule {
     }
 }
 
+impl std::fmt::Debug for UrlDispatchRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UrlDispatchRule");
+        debug_struct.field("domain", &self.domain);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("service", &self.service);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// App Engine admin service audit log.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditData {
     /// Detailed information about methods that require it. Does not include
@@ -11812,6 +12595,18 @@ impl serde::ser::Serialize for AuditData {
     }
 }
 
+impl std::fmt::Debug for AuditData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuditData");
+        debug_struct.field("method", &self.method);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AuditData].
 pub mod audit_data {
     #[allow(unused_imports)]
@@ -11832,7 +12627,7 @@ pub mod audit_data {
 }
 
 /// Detailed information about UpdateService call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceMethod {
     /// Update service request.
@@ -11972,8 +12767,20 @@ impl serde::ser::Serialize for UpdateServiceMethod {
     }
 }
 
+impl std::fmt::Debug for UpdateServiceMethod {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServiceMethod");
+        debug_struct.field("request", &self.request);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Detailed information about CreateVersion call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVersionMethod {
     /// Create version request.
@@ -12113,10 +12920,22 @@ impl serde::ser::Serialize for CreateVersionMethod {
     }
 }
 
+impl std::fmt::Debug for CreateVersionMethod {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVersionMethod");
+        debug_struct.field("request", &self.request);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An SSL certificate that a user has been authorized to administer. A user
 /// is authorized to administer any certificate that applies to one of their
 /// authorized domains.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthorizedCertificate {
     /// Full path to the `AuthorizedCertificate` resource in the API. Example:
@@ -12539,8 +13358,28 @@ impl serde::ser::Serialize for AuthorizedCertificate {
     }
 }
 
+impl std::fmt::Debug for AuthorizedCertificate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthorizedCertificate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("domain_names", &self.domain_names);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("certificate_raw_data", &self.certificate_raw_data);
+        debug_struct.field("managed_certificate", &self.managed_certificate);
+        debug_struct.field("visible_domain_mappings", &self.visible_domain_mappings);
+        debug_struct.field("domain_mappings_count", &self.domain_mappings_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An SSL certificate obtained from a certificate authority.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateRawData {
     /// PEM encoded x.509 public key certificate. This field is set once on
@@ -12703,8 +13542,21 @@ impl serde::ser::Serialize for CertificateRawData {
     }
 }
 
+impl std::fmt::Debug for CertificateRawData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CertificateRawData");
+        debug_struct.field("public_certificate", &self.public_certificate);
+        debug_struct.field("private_key", &self.private_key);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A certificate managed by App Engine.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedCertificate {
     /// Time at which the certificate was last renewed. The renewal process is
@@ -12880,8 +13732,21 @@ impl serde::ser::Serialize for ManagedCertificate {
     }
 }
 
+impl std::fmt::Debug for ManagedCertificate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedCertificate");
+        debug_struct.field("last_renewal_time", &self.last_renewal_time);
+        debug_struct.field("status", &self.status);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Code and application artifacts used to deploy a version to App Engine.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Deployment {
     /// Manifest of the files stored in Google Cloud Storage that are included
@@ -13135,9 +14000,24 @@ impl serde::ser::Serialize for Deployment {
     }
 }
 
+impl std::fmt::Debug for Deployment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Deployment");
+        debug_struct.field("files", &self.files);
+        debug_struct.field("container", &self.container);
+        debug_struct.field("zip", &self.zip);
+        debug_struct.field("cloud_build_options", &self.cloud_build_options);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Single source file that is part of the version to be deployed. Each source
 /// file that is deployed must be specified separately.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileInfo {
     /// URL source to use to fetch this file. Must be a URL to a resource in
@@ -13321,10 +14201,24 @@ impl serde::ser::Serialize for FileInfo {
     }
 }
 
+impl std::fmt::Debug for FileInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FileInfo");
+        debug_struct.field("source_url", &self.source_url);
+        debug_struct.field("sha1_sum", &self.sha1_sum);
+        debug_struct.field("mime_type", &self.mime_type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Docker image that is used to create a container and start a VM instance for
 /// the version that you deploy. Only applicable for instances running in the App
 /// Engine flexible environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContainerInfo {
     /// URI to the hosted container image in Google Container Registry. The URI
@@ -13455,10 +14349,22 @@ impl serde::ser::Serialize for ContainerInfo {
     }
 }
 
+impl std::fmt::Debug for ContainerInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContainerInfo");
+        debug_struct.field("image", &self.image);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options for the build operations performed as a part of the version
 /// deployment. Only applicable for App Engine flexible environment when creating
 /// a version using source code directly.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudBuildOptions {
     /// Path to the yaml file used in deployment, used to determine runtime
@@ -13631,8 +14537,21 @@ impl serde::ser::Serialize for CloudBuildOptions {
     }
 }
 
+impl std::fmt::Debug for CloudBuildOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudBuildOptions");
+        debug_struct.field("app_yaml_path", &self.app_yaml_path);
+        debug_struct.field("cloud_build_timeout", &self.cloud_build_timeout);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The zip file information for a zip deployment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ZipInfo {
     /// URL of the zip file to deploy from. Must be a URL to a resource in
@@ -13809,10 +14728,23 @@ impl serde::ser::Serialize for ZipInfo {
     }
 }
 
+impl std::fmt::Debug for ZipInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ZipInfo");
+        debug_struct.field("source_url", &self.source_url);
+        debug_struct.field("files_count", &self.files_count);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A domain that a user has been authorized to administer. To authorize use
 /// of a domain, verify ownership via
 /// [Search Console](https://search.google.com/search-console/welcome).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthorizedDomain {
     /// Full path to the `AuthorizedDomain` resource in the API. Example:
@@ -13969,8 +14901,21 @@ impl serde::ser::Serialize for AuthorizedDomain {
     }
 }
 
+impl std::fmt::Debug for AuthorizedDomain {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthorizedDomain");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A domain serving an App Engine application.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DomainMapping {
     /// Full path to the `DomainMapping` resource in the API. Example:
@@ -14200,8 +15145,23 @@ impl serde::ser::Serialize for DomainMapping {
     }
 }
 
+impl std::fmt::Debug for DomainMapping {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DomainMapping");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("ssl_settings", &self.ssl_settings);
+        debug_struct.field("resource_records", &self.resource_records);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SSL configuration for a `DomainMapping` resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslSettings {
     /// ID of the `AuthorizedCertificate` resource configuring SSL for the
@@ -14416,6 +15376,23 @@ impl serde::ser::Serialize for SslSettings {
     }
 }
 
+impl std::fmt::Debug for SslSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SslSettings");
+        debug_struct.field("certificate_id", &self.certificate_id);
+        debug_struct.field("ssl_management_type", &self.ssl_management_type);
+        debug_struct.field(
+            "pending_managed_certificate_id",
+            &self.pending_managed_certificate_id,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SslSettings].
 pub mod ssl_settings {
     #[allow(unused_imports)]
@@ -14558,7 +15535,7 @@ pub mod ssl_settings {
 }
 
 /// A DNS resource record.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceRecord {
     /// Relative name of the object affected by this record. Only applicable for
@@ -14738,6 +15715,20 @@ impl serde::ser::Serialize for ResourceRecord {
     }
 }
 
+impl std::fmt::Debug for ResourceRecord {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceRecord");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("rrdata", &self.rrdata);
+        debug_struct.field("r#type", &self.r#type);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ResourceRecord].
 pub mod resource_record {
     #[allow(unused_imports)]
@@ -14885,7 +15876,7 @@ pub mod resource_record {
 
 /// A single firewall rule that is evaluated against incoming traffic
 /// and provides an action to take on matched requests.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FirewallRule {
     /// A positive integer between [1, Int32.MaxValue-1] that defines the order of
@@ -15116,6 +16107,21 @@ impl serde::ser::Serialize for FirewallRule {
     }
 }
 
+impl std::fmt::Debug for FirewallRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FirewallRule");
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("source_range", &self.source_range);
+        debug_struct.field("description", &self.description);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FirewallRule].
 pub mod firewall_rule {
     #[allow(unused_imports)]
@@ -15255,7 +16261,7 @@ pub mod firewall_rule {
 
 /// An Instance resource is the computing unit that App Engine uses to
 /// automatically scale an application.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
     /// Output only. Full path to the Instance resource in the API.
@@ -15903,13 +16909,41 @@ impl serde::ser::Serialize for Instance {
     }
 }
 
+impl std::fmt::Debug for Instance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instance");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("app_engine_release", &self.app_engine_release);
+        debug_struct.field("availability", &self.availability);
+        debug_struct.field("vm_name", &self.vm_name);
+        debug_struct.field("vm_zone_name", &self.vm_zone_name);
+        debug_struct.field("vm_id", &self.vm_id);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("requests", &self.requests);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("qps", &self.qps);
+        debug_struct.field("average_latency", &self.average_latency);
+        debug_struct.field("memory_usage", &self.memory_usage);
+        debug_struct.field("vm_status", &self.vm_status);
+        debug_struct.field("vm_debug_enabled", &self.vm_debug_enabled);
+        debug_struct.field("vm_ip", &self.vm_ip);
+        debug_struct.field("vm_liveness", &self.vm_liveness);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
 
     /// Wrapper for LivenessState enum.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Liveness {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16011,6 +17045,17 @@ pub mod instance {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Liveness {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Liveness");
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -16315,7 +17360,7 @@ pub mod instance {
 }
 
 /// Metadata for the given [google.cloud.location.Location][google.cloud.location.Location].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     /// App Engine standard environment is available in the given location.
@@ -16514,9 +17559,29 @@ impl serde::ser::Serialize for LocationMetadata {
     }
 }
 
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+        debug_struct.field(
+            "standard_environment_available",
+            &self.standard_environment_available,
+        );
+        debug_struct.field(
+            "flexible_environment_available",
+            &self.flexible_environment_available,
+        );
+        debug_struct.field("search_api_available", &self.search_api_available);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A NetworkSettings resource is a container for ingress settings for a version
 /// or service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkSettings {
     /// The ingress settings for version or service.
@@ -16650,6 +17715,18 @@ impl serde::ser::Serialize for NetworkSettings {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for NetworkSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkSettings");
+        debug_struct.field("ingress_traffic_allowed", &self.ingress_traffic_allowed);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -16807,7 +17884,7 @@ pub mod network_settings {
 /// Metadata for the given [google.longrunning.Operation][google.longrunning.Operation].
 ///
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadataV1 {
     /// API method that initiated this operation. Example:
@@ -17200,6 +18277,25 @@ impl serde::ser::Serialize for OperationMetadataV1 {
     }
 }
 
+impl std::fmt::Debug for OperationMetadataV1 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadataV1");
+        debug_struct.field("method", &self.method);
+        debug_struct.field("insert_time", &self.insert_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("user", &self.user);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("ephemeral_message", &self.ephemeral_message);
+        debug_struct.field("warning", &self.warning);
+        debug_struct.field("method_metadata", &self.method_metadata);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OperationMetadataV1].
 pub mod operation_metadata_v_1 {
     #[allow(unused_imports)]
@@ -17219,7 +18315,7 @@ pub mod operation_metadata_v_1 {
 ///
 /// [google.appengine.v1.CreateVersionRequest]: crate::model::CreateVersionRequest
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVersionMetadataV1 {
     /// The Cloud Build ID if one was created as part of the version create.
@@ -17350,6 +18446,18 @@ impl serde::ser::Serialize for CreateVersionMetadataV1 {
     }
 }
 
+impl std::fmt::Debug for CreateVersionMetadataV1 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVersionMetadataV1");
+        debug_struct.field("cloud_build_id", &self.cloud_build_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Service resource is a logical component of an application that can share
 /// state and communicate in a secure fashion with other services.
 /// For example, an application that handles customer requests might
@@ -17357,7 +18465,7 @@ impl serde::ser::Serialize for CreateVersionMetadataV1 {
 /// analysis or API requests from mobile devices. Each service has a
 /// collection of versions that define a specific set of code used to
 /// implement the functionality of that service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
     /// Full path to the Service resource in the API.
@@ -17629,9 +18737,25 @@ impl serde::ser::Serialize for Service {
     }
 }
 
+impl std::fmt::Debug for Service {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Service");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("split", &self.split);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("network_settings", &self.network_settings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Traffic routing configuration for versions within a single service. Traffic
 /// splits define how traffic directed to the service is assigned to versions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrafficSplit {
     /// Mechanism used to determine which version a request is sent to.
@@ -17831,6 +18955,19 @@ impl serde::ser::Serialize for TrafficSplit {
     }
 }
 
+impl std::fmt::Debug for TrafficSplit {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TrafficSplit");
+        debug_struct.field("shard_by", &self.shard_by);
+        debug_struct.field("allocations", &self.allocations);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TrafficSplit].
 pub mod traffic_split {
     #[allow(unused_imports)]
@@ -17982,7 +19119,7 @@ pub mod traffic_split {
 
 /// A Version resource is a specific set of source code and configuration files
 /// that are deployed into a service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Version {
     /// Full path to the Version resource in the API.  Example:
@@ -19481,6 +20618,58 @@ impl serde::ser::Serialize for Version {
     }
 }
 
+impl std::fmt::Debug for Version {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Version");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("inbound_services", &self.inbound_services);
+        debug_struct.field("instance_class", &self.instance_class);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("zones", &self.zones);
+        debug_struct.field("resources", &self.resources);
+        debug_struct.field("runtime", &self.runtime);
+        debug_struct.field("runtime_channel", &self.runtime_channel);
+        debug_struct.field("threadsafe", &self.threadsafe);
+        debug_struct.field("vm", &self.vm);
+        debug_struct.field("app_engine_apis", &self.app_engine_apis);
+        debug_struct.field("beta_settings", &self.beta_settings);
+        debug_struct.field("env", &self.env);
+        debug_struct.field("serving_status", &self.serving_status);
+        debug_struct.field("created_by", &self.created_by);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("disk_usage_bytes", &self.disk_usage_bytes);
+        debug_struct.field("runtime_api_version", &self.runtime_api_version);
+        debug_struct.field(
+            "runtime_main_executable_path",
+            &self.runtime_main_executable_path,
+        );
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("handlers", &self.handlers);
+        debug_struct.field("error_handlers", &self.error_handlers);
+        debug_struct.field("libraries", &self.libraries);
+        debug_struct.field("api_config", &self.api_config);
+        debug_struct.field("env_variables", &self.env_variables);
+        debug_struct.field("build_env_variables", &self.build_env_variables);
+        debug_struct.field("default_expiration", &self.default_expiration);
+        debug_struct.field("health_check", &self.health_check);
+        debug_struct.field("readiness_check", &self.readiness_check);
+        debug_struct.field("liveness_check", &self.liveness_check);
+        debug_struct.field("nobuild_files_regex", &self.nobuild_files_regex);
+        debug_struct.field("deployment", &self.deployment);
+        debug_struct.field("version_url", &self.version_url);
+        debug_struct.field("endpoints_api_service", &self.endpoints_api_service);
+        debug_struct.field("entrypoint", &self.entrypoint);
+        debug_struct.field("vpc_access_connector", &self.vpc_access_connector);
+        debug_struct.field("scaling", &self.scaling);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Version].
 pub mod version {
     #[allow(unused_imports)]
@@ -19515,7 +20704,7 @@ pub mod version {
 ///
 /// The fields here refer to the name and configuration ID of a "service"
 /// resource in the [Service Management API](https://cloud.google.com/service-management/overview).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EndpointsApiService {
     /// Endpoints service name which is the name of the "service" resource in the
@@ -19740,6 +20929,21 @@ impl serde::ser::Serialize for EndpointsApiService {
     }
 }
 
+impl std::fmt::Debug for EndpointsApiService {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EndpointsApiService");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("config_id", &self.config_id);
+        debug_struct.field("rollout_strategy", &self.rollout_strategy);
+        debug_struct.field("disable_trace_sampling", &self.disable_trace_sampling);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EndpointsApiService].
 pub mod endpoints_api_service {
     #[allow(unused_imports)]
@@ -19883,7 +21087,7 @@ pub mod endpoints_api_service {
 
 /// Automatic scaling is based on request rate, response latencies, and other
 /// application metrics.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutomaticScaling {
     /// The time period that the
@@ -20522,11 +21726,38 @@ impl serde::ser::Serialize for AutomaticScaling {
     }
 }
 
+impl std::fmt::Debug for AutomaticScaling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutomaticScaling");
+        debug_struct.field("cool_down_period", &self.cool_down_period);
+        debug_struct.field("cpu_utilization", &self.cpu_utilization);
+        debug_struct.field("max_concurrent_requests", &self.max_concurrent_requests);
+        debug_struct.field("max_idle_instances", &self.max_idle_instances);
+        debug_struct.field("max_total_instances", &self.max_total_instances);
+        debug_struct.field("max_pending_latency", &self.max_pending_latency);
+        debug_struct.field("min_idle_instances", &self.min_idle_instances);
+        debug_struct.field("min_total_instances", &self.min_total_instances);
+        debug_struct.field("min_pending_latency", &self.min_pending_latency);
+        debug_struct.field("request_utilization", &self.request_utilization);
+        debug_struct.field("disk_utilization", &self.disk_utilization);
+        debug_struct.field("network_utilization", &self.network_utilization);
+        debug_struct.field(
+            "standard_scheduler_settings",
+            &self.standard_scheduler_settings,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A service with basic scaling will create an instance when the application
 /// receives a request. The instance will be turned down when the app becomes
 /// idle. Basic scaling is ideal for work that is intermittent or driven by
 /// user activity.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BasicScaling {
     /// Duration of time after the last request that an instance must wait before
@@ -20712,9 +21943,22 @@ impl serde::ser::Serialize for BasicScaling {
     }
 }
 
+impl std::fmt::Debug for BasicScaling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BasicScaling");
+        debug_struct.field("idle_timeout", &self.idle_timeout);
+        debug_struct.field("max_instances", &self.max_instances);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A service with manual scaling runs continuously, allowing you to perform
 /// complex initialization and rely on the state of its memory over time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManualScaling {
     /// Number of instances to assign to the service at the start. This number
@@ -20864,8 +22108,20 @@ impl serde::ser::Serialize for ManualScaling {
     }
 }
 
+impl std::fmt::Debug for ManualScaling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManualScaling");
+        debug_struct.field("instances", &self.instances);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Target scaling by CPU usage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CpuUtilization {
     /// Period of time over which CPU utilization is calculated.
@@ -21055,9 +22311,22 @@ impl serde::ser::Serialize for CpuUtilization {
     }
 }
 
+impl std::fmt::Debug for CpuUtilization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CpuUtilization");
+        debug_struct.field("aggregation_window_length", &self.aggregation_window_length);
+        debug_struct.field("target_utilization", &self.target_utilization);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Target scaling by request utilization.
 /// Only applicable in the App Engine flexible environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RequestUtilization {
     /// Target requests per second.
@@ -21264,9 +22533,28 @@ impl serde::ser::Serialize for RequestUtilization {
     }
 }
 
+impl std::fmt::Debug for RequestUtilization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RequestUtilization");
+        debug_struct.field(
+            "target_request_count_per_second",
+            &self.target_request_count_per_second,
+        );
+        debug_struct.field(
+            "target_concurrent_requests",
+            &self.target_concurrent_requests,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Target scaling by disk usage.
 /// Only applicable in the App Engine flexible environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiskUtilization {
     /// Target bytes written per second.
@@ -21575,9 +22863,36 @@ impl serde::ser::Serialize for DiskUtilization {
     }
 }
 
+impl std::fmt::Debug for DiskUtilization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiskUtilization");
+        debug_struct.field(
+            "target_write_bytes_per_second",
+            &self.target_write_bytes_per_second,
+        );
+        debug_struct.field(
+            "target_write_ops_per_second",
+            &self.target_write_ops_per_second,
+        );
+        debug_struct.field(
+            "target_read_bytes_per_second",
+            &self.target_read_bytes_per_second,
+        );
+        debug_struct.field(
+            "target_read_ops_per_second",
+            &self.target_read_ops_per_second,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Target scaling by network usage.
 /// Only applicable in the App Engine flexible environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkUtilization {
     /// Target bytes sent per second.
@@ -21892,8 +23207,35 @@ impl serde::ser::Serialize for NetworkUtilization {
     }
 }
 
+impl std::fmt::Debug for NetworkUtilization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkUtilization");
+        debug_struct.field(
+            "target_sent_bytes_per_second",
+            &self.target_sent_bytes_per_second,
+        );
+        debug_struct.field(
+            "target_sent_packets_per_second",
+            &self.target_sent_packets_per_second,
+        );
+        debug_struct.field(
+            "target_received_bytes_per_second",
+            &self.target_received_bytes_per_second,
+        );
+        debug_struct.field(
+            "target_received_packets_per_second",
+            &self.target_received_packets_per_second,
+        );
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Scheduler settings for standard environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StandardSchedulerSettings {
     /// Target CPU utilization ratio to maintain when scaling.
@@ -22186,9 +23528,27 @@ impl serde::ser::Serialize for StandardSchedulerSettings {
     }
 }
 
+impl std::fmt::Debug for StandardSchedulerSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StandardSchedulerSettings");
+        debug_struct.field("target_cpu_utilization", &self.target_cpu_utilization);
+        debug_struct.field(
+            "target_throughput_utilization",
+            &self.target_throughput_utilization,
+        );
+        debug_struct.field("min_instances", &self.min_instances);
+        debug_struct.field("max_instances", &self.max_instances);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Extra network settings.
 /// Only applicable in the App Engine flexible environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Network {
     /// List of ports, or port pairs, to forward from the virtual machine to the
@@ -22444,9 +23804,25 @@ impl serde::ser::Serialize for Network {
     }
 }
 
+impl std::fmt::Debug for Network {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Network");
+        debug_struct.field("forwarded_ports", &self.forwarded_ports);
+        debug_struct.field("instance_tag", &self.instance_tag);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("subnetwork_name", &self.subnetwork_name);
+        debug_struct.field("session_affinity", &self.session_affinity);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Volumes mounted within the app container.
 /// Only applicable in the App Engine flexible environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Volume {
     /// Unique name for the volume.
@@ -22643,8 +24019,22 @@ impl serde::ser::Serialize for Volume {
     }
 }
 
+impl std::fmt::Debug for Volume {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Volume");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("volume_type", &self.volume_type);
+        debug_struct.field("size_gb", &self.size_gb);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Machine resources for a version.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Resources {
     /// Number of CPU cores needed.
@@ -22933,8 +24323,24 @@ impl serde::ser::Serialize for Resources {
     }
 }
 
+impl std::fmt::Debug for Resources {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Resources");
+        debug_struct.field("cpu", &self.cpu);
+        debug_struct.field("disk_gb", &self.disk_gb);
+        debug_struct.field("memory_gb", &self.memory_gb);
+        debug_struct.field("volumes", &self.volumes);
+        debug_struct.field("kms_key_reference", &self.kms_key_reference);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// VPC access connector specification.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpcAccessConnector {
     /// Full Serverless VPC Access Connector name e.g.
@@ -23097,6 +24503,19 @@ impl serde::ser::Serialize for VpcAccessConnector {
     }
 }
 
+impl std::fmt::Debug for VpcAccessConnector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VpcAccessConnector");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("egress_setting", &self.egress_setting);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VpcAccessConnector].
 pub mod vpc_access_connector {
     #[allow(unused_imports)]
@@ -23238,7 +24657,7 @@ pub mod vpc_access_connector {
 }
 
 /// The entrypoint for the application.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Entrypoint {
     /// The command to run.
@@ -23402,6 +24821,18 @@ impl serde::ser::Serialize for Entrypoint {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Entrypoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Entrypoint");
+        debug_struct.field("command", &self.command);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

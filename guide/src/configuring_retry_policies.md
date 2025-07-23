@@ -21,7 +21,7 @@ that fail due to transient errors. However, the clients do not automatically
 enable the retry loop. The application must set the retry policy to enable this
 feature.
 
-This guide will show you how to enable the retry loop. First we will show how to
+This guide shows you how to enable the retry loop. First you'll learn how to
 enable a common retry policy for all requests in a client, and then how to
 override this default for a specific request.
 
@@ -37,8 +37,7 @@ and that your account has the necessary permissions.
 
 ## Dependencies
 
-As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
-file. We use:
+As usual with Rust, you must declare dependencies in your `Cargo.toml` file:
 
 ```toml
 {{#include ../samples/Cargo.toml:secretmanager}}
@@ -46,8 +45,9 @@ file. We use:
 
 ## Configuring the default retry policy
 
-In this example we will use the [`Aip194Strict`] policy, as the name implies
-this policy is based on the guidelines in [`AIP-194`]. The policy is fairly
+This example uses the [`Aip194Strict`] policy. This policy is based on the
+guidelines in [`AIP-194`], which documents the conditions under which a Google
+API client should automatically retry a request. The policy is fairly
 conservative, and will not retry any error that indicates the request *may* have
 reached the service, **unless** the request is idempotent. As such, the policy
 is safe to use as a default. The only downside may be additional requests to the
@@ -74,7 +74,7 @@ complete code.
 The [`Aip194Strict`] policy does not limit the number of retry attempts or the
 time spent retrying requests. However, it can be decorated to set such limits.
 For example, you can limit *both* the number of attempts and the time spent in
-the retry loop using::
+the retry loop using:
 
 ```rust,ignore
 {{#include ../samples/src/retry_policies.rs:client-retry-full-client}}

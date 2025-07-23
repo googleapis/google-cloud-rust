@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A resource that represents a Secure Source Manager instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
     /// Optional. A unique identifier for an instance. The name should be of the
@@ -431,13 +431,33 @@ impl serde::ser::Serialize for Instance {
     }
 }
 
+impl std::fmt::Debug for Instance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instance");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("private_config", &self.private_config);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_note", &self.state_note);
+        debug_struct.field("kms_key", &self.kms_key);
+        debug_struct.field("host_config", &self.host_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
 
     /// HostConfig has different instance endpoints.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HostConfig {
         /// Output only. HTML hostname.
@@ -644,8 +664,23 @@ pub mod instance {
         }
     }
 
+    impl std::fmt::Debug for HostConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("HostConfig");
+            debug_struct.field("html", &self.html);
+            debug_struct.field("api", &self.api);
+            debug_struct.field("git_http", &self.git_http);
+            debug_struct.field("git_ssh", &self.git_ssh);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// PrivateConfig includes settings for private instance.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrivateConfig {
         /// Required. Immutable. Indicate if it's private instance.
@@ -895,6 +930,22 @@ pub mod instance {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for PrivateConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PrivateConfig");
+            debug_struct.field("is_private", &self.is_private);
+            debug_struct.field("ca_pool", &self.ca_pool);
+            debug_struct.field("http_service_attachment", &self.http_service_attachment);
+            debug_struct.field("ssh_service_attachment", &self.ssh_service_attachment);
+            debug_struct.field("psc_allowed_projects", &self.psc_allowed_projects);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -1187,7 +1238,7 @@ pub mod instance {
 }
 
 /// Metadata of a Secure Source Manager repository.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Repository {
     /// Optional. A unique identifier for a repository. The name should be of the
@@ -1567,13 +1618,33 @@ impl serde::ser::Serialize for Repository {
     }
 }
 
+impl std::fmt::Debug for Repository {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Repository");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("uris", &self.uris);
+        debug_struct.field("initial_config", &self.initial_config);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Repository].
 pub mod repository {
     #[allow(unused_imports)]
     use super::*;
 
     /// URIs for the repository.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct URIs {
         /// Output only. HTML is the URI for user to view the repository in a
@@ -1755,8 +1826,22 @@ pub mod repository {
         }
     }
 
+    impl std::fmt::Debug for URIs {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("URIs");
+            debug_struct.field("html", &self.html);
+            debug_struct.field("git_https", &self.git_https);
+            debug_struct.field("api", &self.api);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Repository initialization configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InitialConfig {
         /// Default branch name of the repository.
@@ -2090,11 +2175,26 @@ pub mod repository {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for InitialConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InitialConfig");
+            debug_struct.field("default_branch", &self.default_branch);
+            debug_struct.field("gitignores", &self.gitignores);
+            debug_struct.field("license", &self.license);
+            debug_struct.field("readme", &self.readme);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Metadata of a BranchRule. BranchRule is the protection rule to enforce
 /// pre-defined rules on desginated branches within a repository.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BranchRule {
     /// Optional. A unique identifier for a BranchRule. The name should be of the
@@ -2668,13 +2768,39 @@ impl serde::ser::Serialize for BranchRule {
     }
 }
 
+impl std::fmt::Debug for BranchRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BranchRule");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("include_pattern", &self.include_pattern);
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("require_pull_request", &self.require_pull_request);
+        debug_struct.field("minimum_reviews_count", &self.minimum_reviews_count);
+        debug_struct.field("minimum_approvals_count", &self.minimum_approvals_count);
+        debug_struct.field("require_comments_resolved", &self.require_comments_resolved);
+        debug_struct.field("allow_stale_reviews", &self.allow_stale_reviews);
+        debug_struct.field("require_linear_history", &self.require_linear_history);
+        debug_struct.field("required_status_checks", &self.required_status_checks);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BranchRule].
 pub mod branch_rule {
     #[allow(unused_imports)]
     use super::*;
 
     /// Check is a type for status check.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Check {
         /// Required. The context of the check.
@@ -2805,10 +2931,22 @@ pub mod branch_rule {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Check {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Check");
+            debug_struct.field("context", &self.context);
+
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// ListInstancesRequest is the request to list instances.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
     /// Required. Parent value for ListInstancesRequest.
@@ -3055,7 +3193,23 @@ impl serde::ser::Serialize for ListInstancesRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for ListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
     /// The list of instances.
@@ -3253,8 +3407,22 @@ impl serde::ser::Serialize for ListInstancesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesResponse");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GetInstanceRequest is the request for getting an instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
     /// Required. Name of the resource.
@@ -3383,8 +3551,20 @@ impl serde::ser::Serialize for GetInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstanceRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// CreateInstanceRequest is the request for creating an instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
     /// Required. Value for parent.
@@ -3610,8 +3790,23 @@ impl serde::ser::Serialize for CreateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstanceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// DeleteInstanceRequest is the request for deleting an instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
     /// Required. Name of the resource.
@@ -3777,8 +3972,21 @@ impl serde::ser::Serialize for DeleteInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -4084,8 +4292,26 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ListRepositoriesRequest is request to list repositories.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRepositoriesRequest {
     /// Required. Parent value for ListRepositoriesRequest.
@@ -4337,7 +4563,23 @@ impl serde::ser::Serialize for ListRepositoriesRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for ListRepositoriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRepositoriesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance", &self.instance);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRepositoriesResponse {
     /// The list of repositories.
@@ -4508,8 +4750,21 @@ impl serde::ser::Serialize for ListRepositoriesResponse {
     }
 }
 
+impl std::fmt::Debug for ListRepositoriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRepositoriesResponse");
+        debug_struct.field("repositories", &self.repositories);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GetRepositoryRequest is the request for getting a repository.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRepositoryRequest {
     /// Required. Name of the repository to retrieve.
@@ -4640,8 +4895,20 @@ impl serde::ser::Serialize for GetRepositoryRequest {
     }
 }
 
+impl std::fmt::Debug for GetRepositoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRepositoryRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// CreateRepositoryRequest is the request for creating a repository.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRepositoryRequest {
     /// Required. The project in which to create the repository. Values are of the
@@ -4833,8 +5100,22 @@ impl serde::ser::Serialize for CreateRepositoryRequest {
     }
 }
 
+impl std::fmt::Debug for CreateRepositoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateRepositoryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("repository", &self.repository);
+        debug_struct.field("repository_id", &self.repository_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// DeleteRepositoryRequest is the request to delete a repository.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRepositoryRequest {
     /// Required. Name of the repository to delete.
@@ -4991,8 +5272,21 @@ impl serde::ser::Serialize for DeleteRepositoryRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteRepositoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRepositoryRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GetBranchRuleRequest is the request for getting a branch rule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBranchRuleRequest {
     /// Required. Name of the repository to retrieve.
@@ -5123,8 +5417,20 @@ impl serde::ser::Serialize for GetBranchRuleRequest {
     }
 }
 
+impl std::fmt::Debug for GetBranchRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBranchRuleRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// CreateBranchRuleRequest is the request to create a branch rule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBranchRuleRequest {
     pub parent: std::string::String,
@@ -5311,8 +5617,22 @@ impl serde::ser::Serialize for CreateBranchRuleRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBranchRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBranchRuleRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("branch_rule", &self.branch_rule);
+        debug_struct.field("branch_rule_id", &self.branch_rule_id);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ListBranchRulesRequest is the request to list branch rules.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBranchRulesRequest {
     pub parent: std::string::String,
@@ -5506,8 +5826,22 @@ impl serde::ser::Serialize for ListBranchRulesRequest {
     }
 }
 
+impl std::fmt::Debug for ListBranchRulesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBranchRulesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// DeleteBranchRuleRequest is the request to delete a branch rule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBranchRuleRequest {
     pub name: std::string::String,
@@ -5661,8 +5995,21 @@ impl serde::ser::Serialize for DeleteBranchRuleRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBranchRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBranchRuleRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("allow_missing", &self.allow_missing);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// UpdateBranchRuleRequest is the request to update a branchRule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBranchRuleRequest {
     pub branch_rule: std::option::Option<crate::model::BranchRule>,
@@ -5868,8 +6215,22 @@ impl serde::ser::Serialize for UpdateBranchRuleRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateBranchRuleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBranchRuleRequest");
+        debug_struct.field("branch_rule", &self.branch_rule);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ListBranchRulesResponse is the response to listing branchRules.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBranchRulesResponse {
     /// The list of branch rules.
@@ -6038,5 +6399,18 @@ impl serde::ser::Serialize for ListBranchRulesResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ListBranchRulesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBranchRulesResponse");
+        debug_struct.field("branch_rules", &self.branch_rules);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

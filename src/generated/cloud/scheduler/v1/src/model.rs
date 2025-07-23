@@ -36,7 +36,7 @@ extern crate wkt;
 /// [ListJobs][google.cloud.scheduler.v1.CloudScheduler.ListJobs].
 ///
 /// [google.cloud.scheduler.v1.CloudScheduler.ListJobs]: crate::client::CloudScheduler::list_jobs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsRequest {
     /// Required. The location name. For example:
@@ -247,11 +247,25 @@ impl serde::ser::Serialize for ListJobsRequest {
     }
 }
 
+impl std::fmt::Debug for ListJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for listing jobs using
 /// [ListJobs][google.cloud.scheduler.v1.CloudScheduler.ListJobs].
 ///
 /// [google.cloud.scheduler.v1.CloudScheduler.ListJobs]: crate::client::CloudScheduler::list_jobs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsResponse {
     /// The list of jobs.
@@ -432,11 +446,24 @@ impl serde::ser::Serialize for ListJobsResponse {
     }
 }
 
+impl std::fmt::Debug for ListJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobsResponse");
+        debug_struct.field("jobs", &self.jobs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [GetJob][google.cloud.scheduler.v1.CloudScheduler.GetJob].
 ///
 /// [google.cloud.scheduler.v1.CloudScheduler.GetJob]: crate::client::CloudScheduler::get_job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobRequest {
     /// Required. The job name. For example:
@@ -566,11 +593,23 @@ impl serde::ser::Serialize for GetJobRequest {
     }
 }
 
+impl std::fmt::Debug for GetJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetJobRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateJob][google.cloud.scheduler.v1.CloudScheduler.CreateJob].
 ///
 /// [google.cloud.scheduler.v1.CloudScheduler.CreateJob]: crate::client::CloudScheduler::create_job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateJobRequest {
     /// Required. The location name. For example:
@@ -742,11 +781,24 @@ impl serde::ser::Serialize for CreateJobRequest {
     }
 }
 
+impl std::fmt::Debug for CreateJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateJobRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("job", &self.job);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdateJob][google.cloud.scheduler.v1.CloudScheduler.UpdateJob].
 ///
 /// [google.cloud.scheduler.v1.CloudScheduler.UpdateJob]: crate::client::CloudScheduler::update_job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateJobRequest {
     /// Required. The new job properties.
@@ -928,11 +980,24 @@ impl serde::ser::Serialize for UpdateJobRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateJobRequest");
+        debug_struct.field("job", &self.job);
+        debug_struct.field("update_mask", &self.update_mask);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for deleting a job using
 /// [DeleteJob][google.cloud.scheduler.v1.CloudScheduler.DeleteJob].
 ///
 /// [google.cloud.scheduler.v1.CloudScheduler.DeleteJob]: crate::client::CloudScheduler::delete_job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobRequest {
     /// Required. The job name. For example:
@@ -1062,11 +1127,23 @@ impl serde::ser::Serialize for DeleteJobRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteJobRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [PauseJob][google.cloud.scheduler.v1.CloudScheduler.PauseJob].
 ///
 /// [google.cloud.scheduler.v1.CloudScheduler.PauseJob]: crate::client::CloudScheduler::pause_job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseJobRequest {
     /// Required. The job name. For example:
@@ -1196,11 +1273,23 @@ impl serde::ser::Serialize for PauseJobRequest {
     }
 }
 
+impl std::fmt::Debug for PauseJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PauseJobRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ResumeJob][google.cloud.scheduler.v1.CloudScheduler.ResumeJob].
 ///
 /// [google.cloud.scheduler.v1.CloudScheduler.ResumeJob]: crate::client::CloudScheduler::resume_job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeJobRequest {
     /// Required. The job name. For example:
@@ -1330,11 +1419,23 @@ impl serde::ser::Serialize for ResumeJobRequest {
     }
 }
 
+impl std::fmt::Debug for ResumeJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeJobRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for forcing a job to run now using
 /// [RunJob][google.cloud.scheduler.v1.CloudScheduler.RunJob].
 ///
 /// [google.cloud.scheduler.v1.CloudScheduler.RunJob]: crate::client::CloudScheduler::run_job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunJobRequest {
     /// Required. The job name. For example:
@@ -1464,9 +1565,21 @@ impl serde::ser::Serialize for RunJobRequest {
     }
 }
 
+impl std::fmt::Debug for RunJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunJobRequest");
+        debug_struct.field("name", &self.name);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for a job.
 /// The maximum allowed size for a job is 1MB.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Job {
     /// Optionally caller-specified in
@@ -2176,6 +2289,29 @@ impl serde::ser::Serialize for Job {
     }
 }
 
+impl std::fmt::Debug for Job {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Job");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("schedule", &self.schedule);
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field("user_update_time", &self.user_update_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("schedule_time", &self.schedule_time);
+        debug_struct.field("last_attempt_time", &self.last_attempt_time);
+        debug_struct.field("retry_config", &self.retry_config);
+        debug_struct.field("attempt_deadline", &self.attempt_deadline);
+        debug_struct.field("target", &self.target);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Job].
 pub mod job {
     #[allow(unused_imports)]
@@ -2361,7 +2497,7 @@ pub mod job {
 /// [RetryConfig][google.cloud.scheduler.v1.RetryConfig].
 ///
 /// [google.cloud.scheduler.v1.RetryConfig]: crate::model::RetryConfig
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryConfig {
     /// The number of attempts that the system will make to run a job using the
@@ -2720,6 +2856,22 @@ impl serde::ser::Serialize for RetryConfig {
     }
 }
 
+impl std::fmt::Debug for RetryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetryConfig");
+        debug_struct.field("retry_count", &self.retry_count);
+        debug_struct.field("max_retry_duration", &self.max_retry_duration);
+        debug_struct.field("min_backoff_duration", &self.min_backoff_duration);
+        debug_struct.field("max_backoff_duration", &self.max_backoff_duration);
+        debug_struct.field("max_doublings", &self.max_doublings);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Http target. The job will be pushed to the job handler by means of
 /// an HTTP request via an
 /// [http_method][google.cloud.scheduler.v1.HttpTarget.http_method] such as HTTP
@@ -2729,7 +2881,7 @@ impl serde::ser::Serialize for RetryConfig {
 /// returned by the redirected request is considered.
 ///
 /// [google.cloud.scheduler.v1.HttpTarget.http_method]: crate::model::HttpTarget::http_method
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpTarget {
     /// Required. The full URI path that the request will be sent to. This string
@@ -3142,6 +3294,22 @@ impl serde::ser::Serialize for HttpTarget {
     }
 }
 
+impl std::fmt::Debug for HttpTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpTarget");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("http_method", &self.http_method);
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field("body", &self.body);
+        debug_struct.field("authorization_header", &self.authorization_header);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [HttpTarget].
 pub mod http_target {
     #[allow(unused_imports)]
@@ -3189,7 +3357,7 @@ pub mod http_target {
 /// deadline, constitutes a failed attempt.
 ///
 /// [google.cloud.scheduler.v1.AppEngineHttpTarget.http_method]: crate::model::AppEngineHttpTarget::http_method
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppEngineHttpTarget {
     /// The HTTP method to use for the request. PATCH and OPTIONS are not
@@ -3510,9 +3678,25 @@ impl serde::ser::Serialize for AppEngineHttpTarget {
     }
 }
 
+impl std::fmt::Debug for AppEngineHttpTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppEngineHttpTarget");
+        debug_struct.field("http_method", &self.http_method);
+        debug_struct.field("app_engine_routing", &self.app_engine_routing);
+        debug_struct.field("relative_uri", &self.relative_uri);
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field("body", &self.body);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Pub/Sub target. The job will be delivered by publishing a message to
 /// the given Pub/Sub topic.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PubsubTarget {
     /// Required. The name of the Cloud Pub/Sub topic to which messages will
@@ -3731,6 +3915,20 @@ impl serde::ser::Serialize for PubsubTarget {
     }
 }
 
+impl std::fmt::Debug for PubsubTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PubsubTarget");
+        debug_struct.field("topic_name", &self.topic_name);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("attributes", &self.attributes);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// App Engine Routing.
 ///
 /// For more information about services, versions, and instances see
@@ -3742,7 +3940,7 @@ impl serde::ser::Serialize for PubsubTarget {
 /// routing](https://cloud.google.com/appengine/docs/standard/python/how-requests-are-routed),
 /// and [App Engine Flex request
 /// routing](https://cloud.google.com/appengine/docs/flexible/python/how-requests-are-routed).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppEngineRouting {
     /// App service.
@@ -4026,11 +4224,26 @@ impl serde::ser::Serialize for AppEngineRouting {
     }
 }
 
+impl std::fmt::Debug for AppEngineRouting {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppEngineRouting");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("host", &self.host);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains information needed for generating an
 /// [OAuth token](https://developers.google.com/identity/protocols/OAuth2).
 /// This type of authorization should generally only be used when calling Google
 /// APIs hosted on *.googleapis.com.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OAuthToken {
     /// [Service account email](https://cloud.google.com/iam/docs/service-accounts)
@@ -4192,13 +4405,26 @@ impl serde::ser::Serialize for OAuthToken {
     }
 }
 
+impl std::fmt::Debug for OAuthToken {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OAuthToken");
+        debug_struct.field("service_account_email", &self.service_account_email);
+        debug_struct.field("scope", &self.scope);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains information needed for generating an
 /// [OpenID Connect
 /// token](https://developers.google.com/identity/protocols/OpenIDConnect).
 /// This type of authorization can be used for many scenarios, including
 /// calling Cloud Run, or endpoints where you intend to validate the token
 /// yourself.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OidcToken {
     /// [Service account email](https://cloud.google.com/iam/docs/service-accounts)
@@ -4356,6 +4582,19 @@ impl serde::ser::Serialize for OidcToken {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OidcToken {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OidcToken");
+        debug_struct.field("service_account_email", &self.service_account_email);
+        debug_struct.field("audience", &self.audience);
+
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
