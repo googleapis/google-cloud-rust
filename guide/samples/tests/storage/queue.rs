@@ -25,7 +25,7 @@ struct QueueSource(mpsc::Receiver<bytes::Bytes>);
 impl StreamingSource for QueueSource {
     type Error = std::convert::Infallible;
     async fn next(&mut self) -> Option<Result<bytes::Bytes, Self::Error>> {
-        self.0.recv().await.map(|b| Ok(b))
+        self.0.recv().await.map(Ok)
     }
 }
 // ANCHOR_END: impl-streaming-source
@@ -47,7 +47,7 @@ pub async fn queue(bucket_name: &str, object_name: &str) -> anyhow::Result<()> {
         .send();
     // ANCHOR_END: create-upload
     // ANCHOR: create-task
-    let task = tokio::spawn(async move { upload.await });
+    let task = tokio::spawn(upload);
     // ANCHOR_END: create-task
 
     // ANCHOR: send-data
