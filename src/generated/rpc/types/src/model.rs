@@ -263,7 +263,6 @@ impl std::fmt::Debug for ErrorInfo {
         debug_struct.field("reason", &self.reason);
         debug_struct.field("domain", &self.domain);
         debug_struct.field("metadata", &self.metadata);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -429,7 +428,6 @@ impl std::fmt::Debug for RetryInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RetryInfo");
         debug_struct.field("retry_delay", &self.retry_delay);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -600,7 +598,6 @@ impl std::fmt::Debug for DebugInfo {
         let mut debug_struct = f.debug_struct("DebugInfo");
         debug_struct.field("stack_entries", &self.stack_entries);
         debug_struct.field("detail", &self.detail);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -759,7 +756,6 @@ impl std::fmt::Debug for QuotaFailure {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QuotaFailure");
         debug_struct.field("violations", &self.violations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1211,7 +1207,6 @@ pub mod quota_failure {
             debug_struct.field("quota_dimensions", &self.quota_dimensions);
             debug_struct.field("quota_value", &self.quota_value);
             debug_struct.field("future_quota_value", &self.future_quota_value);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1365,7 +1360,6 @@ impl std::fmt::Debug for PreconditionFailure {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PreconditionFailure");
         debug_struct.field("violations", &self.violations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1572,7 +1566,6 @@ pub mod precondition_failure {
             debug_struct.field("r#type", &self.r#type);
             debug_struct.field("subject", &self.subject);
             debug_struct.field("description", &self.description);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1724,7 +1717,6 @@ impl std::fmt::Debug for BadRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BadRequest");
         debug_struct.field("field_violations", &self.field_violations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2005,7 +1997,6 @@ pub mod bad_request {
             debug_struct.field("description", &self.description);
             debug_struct.field("reason", &self.reason);
             debug_struct.field("localized_message", &self.localized_message);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2178,7 +2169,6 @@ impl std::fmt::Debug for RequestInfo {
         let mut debug_struct = f.debug_struct("RequestInfo");
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("serving_data", &self.serving_data);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2408,7 +2398,6 @@ impl std::fmt::Debug for ResourceInfo {
         debug_struct.field("resource_name", &self.resource_name);
         debug_struct.field("owner", &self.owner);
         debug_struct.field("description", &self.description);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2557,7 +2546,6 @@ impl std::fmt::Debug for Help {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Help");
         debug_struct.field("links", &self.links);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2732,7 +2720,6 @@ pub mod help {
             let mut debug_struct = f.debug_struct("Link");
             debug_struct.field("description", &self.description);
             debug_struct.field("url", &self.url);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2903,7 +2890,6 @@ impl std::fmt::Debug for LocalizedMessage {
         let mut debug_struct = f.debug_struct("LocalizedMessage");
         debug_struct.field("locale", &self.locale);
         debug_struct.field("message", &self.message);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3142,7 +3128,6 @@ impl std::fmt::Debug for HttpRequest {
         debug_struct.field("uri", &self.uri);
         debug_struct.field("headers", &self.headers);
         debug_struct.field("body", &self.body);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3399,7 +3384,6 @@ impl std::fmt::Debug for HttpResponse {
         debug_struct.field("reason", &self.reason);
         debug_struct.field("headers", &self.headers);
         debug_struct.field("body", &self.body);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3566,7 +3550,6 @@ impl std::fmt::Debug for HttpHeader {
         let mut debug_struct = f.debug_struct("HttpHeader");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3796,7 +3779,6 @@ impl std::fmt::Debug for Status {
         debug_struct.field("code", &self.code);
         debug_struct.field("message", &self.message);
         debug_struct.field("details", &self.details);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

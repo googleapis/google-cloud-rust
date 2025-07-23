@@ -681,7 +681,6 @@ impl std::fmt::Debug for Span {
         );
         debug_struct.field("child_span_count", &self.child_span_count);
         debug_struct.field("span_kind", &self.span_kind);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -906,7 +905,6 @@ pub mod span {
             let mut debug_struct = f.debug_struct("Attributes");
             debug_struct.field("attribute_map", &self.attribute_map);
             debug_struct.field("dropped_attributes_count", &self.dropped_attributes_count);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1202,7 +1200,6 @@ pub mod span {
             let mut debug_struct = f.debug_struct("TimeEvent");
             debug_struct.field("time", &self.time);
             debug_struct.field("value", &self.value);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1408,7 +1405,6 @@ pub mod span {
                 let mut debug_struct = f.debug_struct("Annotation");
                 debug_struct.field("description", &self.description);
                 debug_struct.field("attributes", &self.attributes);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -1727,7 +1723,6 @@ pub mod span {
                 debug_struct.field("id", &self.id);
                 debug_struct.field("uncompressed_size_bytes", &self.uncompressed_size_bytes);
                 debug_struct.field("compressed_size_bytes", &self.compressed_size_bytes);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -2147,7 +2142,6 @@ pub mod span {
                 "dropped_message_events_count",
                 &self.dropped_message_events_count,
             );
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2385,7 +2379,6 @@ pub mod span {
             debug_struct.field("span_id", &self.span_id);
             debug_struct.field("r#type", &self.r#type);
             debug_struct.field("attributes", &self.attributes);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2726,7 +2719,6 @@ pub mod span {
             let mut debug_struct = f.debug_struct("Links");
             debug_struct.field("link", &self.link);
             debug_struct.field("dropped_links_count", &self.dropped_links_count);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3191,7 +3183,6 @@ impl std::fmt::Debug for AttributeValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AttributeValue");
         debug_struct.field("value", &self.value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3416,7 +3407,6 @@ impl std::fmt::Debug for StackTrace {
         let mut debug_struct = f.debug_struct("StackTrace");
         debug_struct.field("stack_frames", &self.stack_frames);
         debug_struct.field("stack_trace_hash_id", &self.stack_trace_hash_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3824,7 +3814,6 @@ pub mod stack_trace {
             debug_struct.field("column_number", &self.column_number);
             debug_struct.field("load_module", &self.load_module);
             debug_struct.field("source_version", &self.source_version);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -4023,7 +4012,6 @@ pub mod stack_trace {
             let mut debug_struct = f.debug_struct("StackFrames");
             debug_struct.field("frame", &self.frame);
             debug_struct.field("dropped_frames_count", &self.dropped_frames_count);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -4218,7 +4206,6 @@ impl std::fmt::Debug for Module {
         let mut debug_struct = f.debug_struct("Module");
         debug_struct.field("module", &self.module);
         debug_struct.field("build_id", &self.build_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4412,7 +4399,6 @@ impl std::fmt::Debug for TruncatableString {
         let mut debug_struct = f.debug_struct("TruncatableString");
         debug_struct.field("value", &self.value);
         debug_struct.field("truncated_byte_count", &self.truncated_byte_count);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4584,7 +4570,6 @@ impl std::fmt::Debug for BatchWriteSpansRequest {
         let mut debug_struct = f.debug_struct("BatchWriteSpansRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("spans", &self.spans);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

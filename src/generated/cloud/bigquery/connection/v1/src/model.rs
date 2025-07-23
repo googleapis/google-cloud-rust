@@ -231,7 +231,6 @@ impl std::fmt::Debug for CreateConnectionRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("connection_id", &self.connection_id);
         debug_struct.field("connection", &self.connection);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -377,7 +376,6 @@ impl std::fmt::Debug for GetConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConnectionRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -593,7 +591,6 @@ impl std::fmt::Debug for ListConnectionsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -781,7 +778,6 @@ impl std::fmt::Debug for ListConnectionsResponse {
         let mut debug_struct = f.debug_struct("ListConnectionsResponse");
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("connections", &self.connections);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1000,7 +996,6 @@ impl std::fmt::Debug for UpdateConnectionRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("connection", &self.connection);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1143,7 +1138,6 @@ impl std::fmt::Debug for DeleteConnectionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteConnectionRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1848,7 +1842,6 @@ impl std::fmt::Debug for Connection {
         debug_struct.field("last_modified_time", &self.last_modified_time);
         debug_struct.field("has_credential", &self.has_credential);
         debug_struct.field("properties", &self.properties);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2144,7 +2137,6 @@ impl std::fmt::Debug for CloudSqlProperties {
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("credential", &self.credential);
         debug_struct.field("service_account_id", &self.service_account_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2449,7 +2441,6 @@ impl std::fmt::Debug for CloudSqlCredential {
         let mut debug_struct = f.debug_struct("CloudSqlCredential");
         debug_struct.field("username", &self.username);
         debug_struct.field("password", &self.password);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2765,7 +2756,6 @@ impl std::fmt::Debug for CloudSpannerProperties {
         debug_struct.field("use_serverless_analytics", &self.use_serverless_analytics);
         debug_struct.field("use_data_boost", &self.use_data_boost);
         debug_struct.field("database_role", &self.database_role);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3014,7 +3004,6 @@ impl std::fmt::Debug for AwsProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AwsProperties");
         debug_struct.field("authentication_method", &self.authentication_method);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3234,7 +3223,6 @@ impl std::fmt::Debug for AwsCrossAccountRole {
         debug_struct.field("iam_role_id", &self.iam_role_id);
         debug_struct.field("iam_user_id", &self.iam_user_id);
         debug_struct.field("external_id", &self.external_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3405,7 +3393,6 @@ impl std::fmt::Debug for AwsAccessRole {
         let mut debug_struct = f.debug_struct("AwsAccessRole");
         debug_struct.field("iam_role_id", &self.iam_role_id);
         debug_struct.field("identity", &self.identity);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3722,7 +3709,6 @@ impl std::fmt::Debug for AzureProperties {
             &self.federated_application_client_id,
         );
         debug_struct.field("identity", &self.identity);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3879,7 +3865,6 @@ impl std::fmt::Debug for CloudResourceProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudResourceProperties");
         debug_struct.field("service_account_id", &self.service_account_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4029,7 +4014,6 @@ impl std::fmt::Debug for MetastoreServiceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MetastoreServiceConfig");
         debug_struct.field("metastore_service", &self.metastore_service);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4180,7 +4164,6 @@ impl std::fmt::Debug for SparkHistoryServerConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SparkHistoryServerConfig");
         debug_struct.field("dataproc_cluster", &self.dataproc_cluster);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4423,7 +4406,6 @@ impl std::fmt::Debug for SparkProperties {
             "spark_history_server_config",
             &self.spark_history_server_config,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4619,7 +4601,6 @@ impl std::fmt::Debug for SalesforceDataCloudProperties {
         debug_struct.field("instance_uri", &self.instance_uri);
         debug_struct.field("identity", &self.identity);
         debug_struct.field("tenant_id", &self.tenant_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

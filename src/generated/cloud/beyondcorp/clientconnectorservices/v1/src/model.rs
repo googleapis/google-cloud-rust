@@ -377,7 +377,6 @@ impl std::fmt::Debug for ClientConnectorService {
         debug_struct.field("ingress", &self.ingress);
         debug_struct.field("egress", &self.egress);
         debug_struct.field("state", &self.state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -583,7 +582,6 @@ pub mod client_connector_service {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Ingress");
             debug_struct.field("ingress_config", &self.ingress_config);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -781,7 +779,6 @@ pub mod client_connector_service {
                 let mut debug_struct = f.debug_struct("Config");
                 debug_struct.field("transport_protocol", &self.transport_protocol);
                 debug_struct.field("destination_routes", &self.destination_routes);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -981,7 +978,6 @@ pub mod client_connector_service {
                     let mut debug_struct = f.debug_struct("DestinationRoute");
                     debug_struct.field("address", &self.address);
                     debug_struct.field("netmask", &self.netmask);
-
                     if !self._unknown_fields.is_empty() {
                         debug_struct.field("_unknown_fields", &self._unknown_fields);
                     }
@@ -1322,7 +1318,6 @@ pub mod client_connector_service {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Egress");
             debug_struct.field("destination_type", &self.destination_type);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1481,7 +1476,6 @@ pub mod client_connector_service {
             fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
                 let mut debug_struct = f.debug_struct("PeeredVpc");
                 debug_struct.field("network_vpc", &self.network_vpc);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -1916,7 +1910,6 @@ impl std::fmt::Debug for ListClientConnectorServicesRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2138,7 +2131,6 @@ impl std::fmt::Debug for ListClientConnectorServicesResponse {
         debug_struct.field("client_connector_services", &self.client_connector_services);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2280,7 +2272,6 @@ impl std::fmt::Debug for GetClientConnectorServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetClientConnectorServiceRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2572,7 +2563,6 @@ impl std::fmt::Debug for CreateClientConnectorServiceRequest {
         debug_struct.field("client_connector_service", &self.client_connector_service);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2862,7 +2852,6 @@ impl std::fmt::Debug for UpdateClientConnectorServiceRequest {
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("allow_missing", &self.allow_missing);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3069,7 +3058,6 @@ impl std::fmt::Debug for DeleteClientConnectorServiceRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3395,7 +3383,6 @@ impl std::fmt::Debug for ClientConnectorServiceOperationMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -170,7 +170,6 @@ impl std::fmt::Debug for AlertChart {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AlertChart");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -313,7 +312,6 @@ impl std::fmt::Debug for CollapsibleGroup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CollapsibleGroup");
         debug_struct.field("collapsed", &self.collapsed);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -627,7 +625,6 @@ impl std::fmt::Debug for Aggregation {
         debug_struct.field("per_series_aligner", &self.per_series_aligner);
         debug_struct.field("cross_series_reducer", &self.cross_series_reducer);
         debug_struct.field("group_by_fields", &self.group_by_fields);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1506,7 +1503,6 @@ impl std::fmt::Debug for PickTimeSeriesFilter {
         debug_struct.field("num_time_series", &self.num_time_series);
         debug_struct.field("direction", &self.direction);
         debug_struct.field("interval", &self.interval);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2000,7 +1996,6 @@ impl std::fmt::Debug for StatisticalTimeSeriesFilter {
         let mut debug_struct = f.debug_struct("StatisticalTimeSeriesFilter");
         debug_struct.field("ranking_method", &self.ranking_method);
         debug_struct.field("num_time_series", &self.num_time_series);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2626,7 +2621,6 @@ impl std::fmt::Debug for Dashboard {
         debug_struct.field("dashboard_filters", &self.dashboard_filters);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("layout", &self.layout);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2918,7 +2912,6 @@ impl std::fmt::Debug for DashboardFilter {
         debug_struct.field("template_variable", &self.template_variable);
         debug_struct.field("filter_type", &self.filter_type);
         debug_struct.field("default_value", &self.default_value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3296,7 +3289,6 @@ impl std::fmt::Debug for CreateDashboardRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("dashboard", &self.dashboard);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3516,7 +3508,6 @@ impl std::fmt::Debug for ListDashboardsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3703,7 +3694,6 @@ impl std::fmt::Debug for ListDashboardsResponse {
         let mut debug_struct = f.debug_struct("ListDashboardsResponse");
         debug_struct.field("dashboards", &self.dashboards);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3849,7 +3839,6 @@ impl std::fmt::Debug for GetDashboardRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDashboardRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3995,7 +3984,6 @@ impl std::fmt::Debug for DeleteDashboardRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteDashboardRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4175,7 +4163,6 @@ impl std::fmt::Debug for UpdateDashboardRequest {
         let mut debug_struct = f.debug_struct("UpdateDashboardRequest");
         debug_struct.field("dashboard", &self.dashboard);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4391,7 +4378,6 @@ impl std::fmt::Debug for ErrorReportingPanel {
         debug_struct.field("project_names", &self.project_names);
         debug_struct.field("services", &self.services);
         debug_struct.field("versions", &self.versions);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4575,7 +4561,6 @@ impl std::fmt::Debug for IncidentList {
         let mut debug_struct = f.debug_struct("IncidentList");
         debug_struct.field("monitored_resources", &self.monitored_resources);
         debug_struct.field("policy_names", &self.policy_names);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4765,7 +4750,6 @@ impl std::fmt::Debug for GridLayout {
         let mut debug_struct = f.debug_struct("GridLayout");
         debug_struct.field("columns", &self.columns);
         debug_struct.field("widgets", &self.widgets);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4960,7 +4944,6 @@ impl std::fmt::Debug for MosaicLayout {
         let mut debug_struct = f.debug_struct("MosaicLayout");
         debug_struct.field("columns", &self.columns);
         debug_struct.field("tiles", &self.tiles);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5301,7 +5284,6 @@ pub mod mosaic_layout {
             debug_struct.field("width", &self.width);
             debug_struct.field("height", &self.height);
             debug_struct.field("widget", &self.widget);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -5452,7 +5434,6 @@ impl std::fmt::Debug for RowLayout {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RowLayout");
         debug_struct.field("rows", &self.rows);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5651,7 +5632,6 @@ pub mod row_layout {
             let mut debug_struct = f.debug_struct("Row");
             debug_struct.field("weight", &self.weight);
             debug_struct.field("widgets", &self.widgets);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -5802,7 +5782,6 @@ impl std::fmt::Debug for ColumnLayout {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ColumnLayout");
         debug_struct.field("columns", &self.columns);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6001,7 +5980,6 @@ pub mod column_layout {
             let mut debug_struct = f.debug_struct("Column");
             debug_struct.field("weight", &self.weight);
             debug_struct.field("widgets", &self.widgets);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -6177,7 +6155,6 @@ impl std::fmt::Debug for LogsPanel {
         let mut debug_struct = f.debug_struct("LogsPanel");
         debug_struct.field("filter", &self.filter);
         debug_struct.field("resource_names", &self.resource_names);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6602,7 +6579,6 @@ impl std::fmt::Debug for TimeSeriesQuery {
         debug_struct.field("unit_override", &self.unit_override);
         debug_struct.field("output_full_duration", &self.output_full_duration);
         debug_struct.field("source", &self.source);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6978,7 +6954,6 @@ impl std::fmt::Debug for TimeSeriesFilter {
         debug_struct.field("aggregation", &self.aggregation);
         debug_struct.field("secondary_aggregation", &self.secondary_aggregation);
         debug_struct.field("output_filter", &self.output_filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7365,7 +7340,6 @@ impl std::fmt::Debug for TimeSeriesFilterRatio {
         debug_struct.field("denominator", &self.denominator);
         debug_struct.field("secondary_aggregation", &self.secondary_aggregation);
         debug_struct.field("output_filter", &self.output_filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7557,7 +7531,6 @@ pub mod time_series_filter_ratio {
             let mut debug_struct = f.debug_struct("RatioPart");
             debug_struct.field("filter", &self.filter);
             debug_struct.field("aggregation", &self.aggregation);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -7841,7 +7814,6 @@ impl std::fmt::Debug for Threshold {
         debug_struct.field("color", &self.color);
         debug_struct.field("direction", &self.direction);
         debug_struct.field("target_axis", &self.target_axis);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8451,7 +8423,6 @@ impl std::fmt::Debug for PieChart {
         debug_struct.field("data_sets", &self.data_sets);
         debug_struct.field("chart_type", &self.chart_type);
         debug_struct.field("show_labels", &self.show_labels);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8689,7 +8660,6 @@ pub mod pie_chart {
             debug_struct.field("time_series_query", &self.time_series_query);
             debug_struct.field("slice_name_template", &self.slice_name_template);
             debug_struct.field("min_alignment_period", &self.min_alignment_period);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -9221,7 +9191,6 @@ impl std::fmt::Debug for Scorecard {
         debug_struct.field("time_series_query", &self.time_series_query);
         debug_struct.field("thresholds", &self.thresholds);
         debug_struct.field("data_view", &self.data_view);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9440,7 +9409,6 @@ pub mod scorecard {
             let mut debug_struct = f.debug_struct("GaugeView");
             debug_struct.field("lower_bound", &self.lower_bound);
             debug_struct.field("upper_bound", &self.upper_bound);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -9631,7 +9599,6 @@ pub mod scorecard {
             let mut debug_struct = f.debug_struct("SparkChartView");
             debug_struct.field("spark_chart_type", &self.spark_chart_type);
             debug_struct.field("min_alignment_period", &self.min_alignment_period);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -9815,7 +9782,6 @@ impl std::fmt::Debug for SectionHeader {
         let mut debug_struct = f.debug_struct("SectionHeader");
         debug_struct.field("subtitle", &self.subtitle);
         debug_struct.field("divider_below", &self.divider_below);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9931,7 +9897,6 @@ impl serde::ser::Serialize for SingleViewGroup {
 impl std::fmt::Debug for SingleViewGroup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SingleViewGroup");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10147,7 +10112,6 @@ impl std::fmt::Debug for TimeSeriesTable {
         debug_struct.field("data_sets", &self.data_sets);
         debug_struct.field("metric_visualization", &self.metric_visualization);
         debug_struct.field("column_settings", &self.column_settings);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10421,7 +10385,6 @@ pub mod time_series_table {
             debug_struct.field("table_template", &self.table_template);
             debug_struct.field("min_alignment_period", &self.min_alignment_period);
             debug_struct.field("table_display_options", &self.table_display_options);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -10591,7 +10554,6 @@ pub mod time_series_table {
             let mut debug_struct = f.debug_struct("ColumnSettings");
             debug_struct.field("column", &self.column);
             debug_struct.field("visible", &self.visible);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -10873,7 +10835,6 @@ impl std::fmt::Debug for TableDisplayOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TableDisplayOptions");
         debug_struct.field("shown_columns", &self.shown_columns);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11077,7 +11038,6 @@ impl std::fmt::Debug for Text {
         debug_struct.field("content", &self.content);
         debug_struct.field("format", &self.format);
         debug_struct.field("style", &self.style);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11418,7 +11378,6 @@ pub mod text {
             debug_struct.field("padding", &self.padding);
             debug_struct.field("font_size", &self.font_size);
             debug_struct.field("pointer_location", &self.pointer_location);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -13225,7 +13184,6 @@ impl std::fmt::Debug for Widget {
         debug_struct.field("title", &self.title);
         debug_struct.field("id", &self.id);
         debug_struct.field("content", &self.content);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13635,7 +13593,6 @@ impl std::fmt::Debug for XyChart {
         debug_struct.field("y_axis", &self.y_axis);
         debug_struct.field("y2_axis", &self.y2_axis);
         debug_struct.field("chart_options", &self.chart_options);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13934,7 +13891,6 @@ pub mod xy_chart {
             debug_struct.field("legend_template", &self.legend_template);
             debug_struct.field("min_alignment_period", &self.min_alignment_period);
             debug_struct.field("target_axis", &self.target_axis);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -14404,7 +14360,6 @@ pub mod xy_chart {
             let mut debug_struct = f.debug_struct("Axis");
             debug_struct.field("label", &self.label);
             debug_struct.field("scale", &self.scale);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -14689,7 +14644,6 @@ impl std::fmt::Debug for ChartOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChartOptions");
         debug_struct.field("mode", &self.mode);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -322,7 +322,6 @@ impl std::fmt::Debug for OpMetadata {
         debug_struct.field("verb", &self.verb);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -539,7 +538,6 @@ impl std::fmt::Debug for CreateMicrosoftAdDomainRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("domain_name", &self.domain_name);
         debug_struct.field("domain", &self.domain);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -683,7 +681,6 @@ impl std::fmt::Debug for ResetAdminPasswordRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResetAdminPasswordRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -828,7 +825,6 @@ impl std::fmt::Debug for ResetAdminPasswordResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResetAdminPasswordResponse");
         debug_struct.field("password", &self.password);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1105,7 +1101,6 @@ impl std::fmt::Debug for ListDomainsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1320,7 +1315,6 @@ impl std::fmt::Debug for ListDomainsResponse {
         debug_struct.field("domains", &self.domains);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1463,7 +1457,6 @@ impl std::fmt::Debug for GetDomainRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDomainRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1663,7 +1656,6 @@ impl std::fmt::Debug for UpdateDomainRequest {
         let mut debug_struct = f.debug_struct("UpdateDomainRequest");
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("domain", &self.domain);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1807,7 +1799,6 @@ impl std::fmt::Debug for DeleteDomainRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteDomainRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1987,7 +1978,6 @@ impl std::fmt::Debug for AttachTrustRequest {
         let mut debug_struct = f.debug_struct("AttachTrustRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("trust", &self.trust);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2191,7 +2181,6 @@ impl std::fmt::Debug for ReconfigureTrustRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("target_domain_name", &self.target_domain_name);
         debug_struct.field("target_dns_ip_addresses", &self.target_dns_ip_addresses);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2371,7 +2360,6 @@ impl std::fmt::Debug for DetachTrustRequest {
         let mut debug_struct = f.debug_struct("DetachTrustRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("trust", &self.trust);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2551,7 +2539,6 @@ impl std::fmt::Debug for ValidateTrustRequest {
         let mut debug_struct = f.debug_struct("ValidateTrustRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("trust", &self.trust);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3034,7 +3021,6 @@ impl std::fmt::Debug for Domain {
         debug_struct.field("state", &self.state);
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("trusts", &self.trusts);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3671,7 +3657,6 @@ impl std::fmt::Debug for Trust {
         debug_struct.field("state", &self.state);
         debug_struct.field("state_description", &self.state_description);
         debug_struct.field("last_trust_heartbeat_time", &self.last_trust_heartbeat_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

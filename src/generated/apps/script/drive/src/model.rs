@@ -213,7 +213,6 @@ impl std::fmt::Debug for DriveAddOnManifest {
         let mut debug_struct = f.debug_struct("DriveAddOnManifest");
         debug_struct.field("homepage_trigger", &self.homepage_trigger);
         debug_struct.field("on_items_selected_trigger", &self.on_items_selected_trigger);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -358,7 +357,6 @@ impl std::fmt::Debug for DriveExtensionPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DriveExtensionPoint");
         debug_struct.field("run_function", &self.run_function);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

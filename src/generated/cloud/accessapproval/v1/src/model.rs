@@ -235,7 +235,6 @@ impl std::fmt::Debug for AccessLocations {
             "principal_physical_location_country",
             &self.principal_physical_location_country,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -402,7 +401,6 @@ impl std::fmt::Debug for AccessReason {
         let mut debug_struct = f.debug_struct("AccessReason");
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("detail", &self.detail);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -867,7 +865,6 @@ impl std::fmt::Debug for SignatureInfo {
         let mut debug_struct = f.debug_struct("SignatureInfo");
         debug_struct.field("signature", &self.signature);
         debug_struct.field("verification_info", &self.verification_info);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1176,7 +1173,6 @@ impl std::fmt::Debug for ApproveDecision {
         debug_struct.field("invalidate_time", &self.invalidate_time);
         debug_struct.field("signature_info", &self.signature_info);
         debug_struct.field("auto_approved", &self.auto_approved);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1357,7 +1353,6 @@ impl std::fmt::Debug for DismissDecision {
         let mut debug_struct = f.debug_struct("DismissDecision");
         debug_struct.field("dismiss_time", &self.dismiss_time);
         debug_struct.field("implicit", &self.implicit);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1501,7 +1496,6 @@ impl std::fmt::Debug for ResourceProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceProperties");
         debug_struct.field("excludes_descendants", &self.excludes_descendants);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1997,7 +1991,6 @@ impl std::fmt::Debug for ApprovalRequest {
         debug_struct.field("request_time", &self.request_time);
         debug_struct.field("requested_expiration", &self.requested_expiration);
         debug_struct.field("decision", &self.decision);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2246,7 +2239,6 @@ impl std::fmt::Debug for EnrolledService {
         let mut debug_struct = f.debug_struct("EnrolledService");
         debug_struct.field("cloud_product", &self.cloud_product);
         debug_struct.field("enrollment_level", &self.enrollment_level);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2603,7 +2595,6 @@ impl std::fmt::Debug for AccessApprovalSettings {
             &self.ancestor_has_active_key_version,
         );
         debug_struct.field("invalid_key_version", &self.invalid_key_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2775,7 +2766,6 @@ impl std::fmt::Debug for AccessApprovalServiceAccount {
         let mut debug_struct = f.debug_struct("AccessApprovalServiceAccount");
         debug_struct.field("name", &self.name);
         debug_struct.field("account_email", &self.account_email);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3024,7 +3014,6 @@ impl std::fmt::Debug for ListApprovalRequestsMessage {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3214,7 +3203,6 @@ impl std::fmt::Debug for ListApprovalRequestsResponse {
         let mut debug_struct = f.debug_struct("ListApprovalRequestsResponse");
         debug_struct.field("approval_requests", &self.approval_requests);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3358,7 +3346,6 @@ impl std::fmt::Debug for GetApprovalRequestMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetApprovalRequestMessage");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3537,7 +3524,6 @@ impl std::fmt::Debug for ApproveApprovalRequestMessage {
         let mut debug_struct = f.debug_struct("ApproveApprovalRequestMessage");
         debug_struct.field("name", &self.name);
         debug_struct.field("expire_time", &self.expire_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3679,7 +3665,6 @@ impl std::fmt::Debug for DismissApprovalRequestMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DismissApprovalRequestMessage");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3821,7 +3806,6 @@ impl std::fmt::Debug for InvalidateApprovalRequestMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InvalidateApprovalRequestMessage");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3964,7 +3948,6 @@ impl std::fmt::Debug for GetAccessApprovalSettingsMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAccessApprovalSettingsMessage");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4163,7 +4146,6 @@ impl std::fmt::Debug for UpdateAccessApprovalSettingsMessage {
         let mut debug_struct = f.debug_struct("UpdateAccessApprovalSettingsMessage");
         debug_struct.field("settings", &self.settings);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4305,7 +4287,6 @@ impl std::fmt::Debug for DeleteAccessApprovalSettingsMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteAccessApprovalSettingsMessage");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4448,7 +4429,6 @@ impl std::fmt::Debug for GetAccessApprovalServiceAccountMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAccessApprovalServiceAccountMessage");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -241,7 +241,6 @@ impl std::fmt::Debug for AccessTuple {
         debug_struct.field("principal", &self.principal);
         debug_struct.field("full_resource_name", &self.full_resource_name);
         debug_struct.field("permission", &self.permission);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -547,7 +546,6 @@ impl std::fmt::Debug for ExplainedPolicy {
         debug_struct.field("policy", &self.policy);
         debug_struct.field("binding_explanations", &self.binding_explanations);
         debug_struct.field("relevance", &self.relevance);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -919,7 +917,6 @@ impl std::fmt::Debug for BindingExplanation {
         debug_struct.field("memberships", &self.memberships);
         debug_struct.field("relevance", &self.relevance);
         debug_struct.field("condition", &self.condition);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1103,7 +1100,6 @@ pub mod binding_explanation {
             let mut debug_struct = f.debug_struct("AnnotatedMembership");
             debug_struct.field("membership", &self.membership);
             debug_struct.field("relevance", &self.relevance);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1796,7 +1792,6 @@ impl std::fmt::Debug for OrgPolicyViolationsPreview {
         debug_struct.field("resource_counts", &self.resource_counts);
         debug_struct.field("custom_constraints", &self.custom_constraints);
         debug_struct.field("create_time", &self.create_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2143,7 +2138,6 @@ pub mod org_policy_violations_preview {
             debug_struct.field("compliant", &self.compliant);
             debug_struct.field("unenforced", &self.unenforced);
             debug_struct.field("errors", &self.errors);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2398,7 +2392,6 @@ impl std::fmt::Debug for OrgPolicyViolation {
         debug_struct.field("resource", &self.resource);
         debug_struct.field("custom_constraint", &self.custom_constraint);
         debug_struct.field("error", &self.error);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2614,7 +2607,6 @@ impl std::fmt::Debug for ResourceContext {
         debug_struct.field("resource", &self.resource);
         debug_struct.field("asset_type", &self.asset_type);
         debug_struct.field("ancestors", &self.ancestors);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2812,7 +2804,6 @@ impl std::fmt::Debug for OrgPolicyOverlay {
         let mut debug_struct = f.debug_struct("OrgPolicyOverlay");
         debug_struct.field("policies", &self.policies);
         debug_struct.field("custom_constraints", &self.custom_constraints);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3004,7 +2995,6 @@ pub mod org_policy_overlay {
             let mut debug_struct = f.debug_struct("PolicyOverlay");
             debug_struct.field("policy_parent", &self.policy_parent);
             debug_struct.field("policy", &self.policy);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3195,7 +3185,6 @@ pub mod org_policy_overlay {
             let mut debug_struct = f.debug_struct("CustomConstraintOverlay");
             debug_struct.field("custom_constraint_parent", &self.custom_constraint_parent);
             debug_struct.field("custom_constraint", &self.custom_constraint);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3552,7 +3541,6 @@ impl std::fmt::Debug for CreateOrgPolicyViolationsPreviewOperationMetadata {
         debug_struct.field("resources_found", &self.resources_found);
         debug_struct.field("resources_scanned", &self.resources_scanned);
         debug_struct.field("resources_pending", &self.resources_pending);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3778,7 +3766,6 @@ impl std::fmt::Debug for ListOrgPolicyViolationsPreviewsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3983,7 +3970,6 @@ impl std::fmt::Debug for ListOrgPolicyViolationsPreviewsResponse {
             &self.org_policy_violations_previews,
         );
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4128,7 +4114,6 @@ impl std::fmt::Debug for GetOrgPolicyViolationsPreviewRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOrgPolicyViolationsPreviewRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4378,7 +4363,6 @@ impl std::fmt::Debug for CreateOrgPolicyViolationsPreviewRequest {
             "org_policy_violations_preview_id",
             &self.org_policy_violations_preview_id,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4601,7 +4585,6 @@ impl std::fmt::Debug for ListOrgPolicyViolationsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4795,7 +4778,6 @@ impl std::fmt::Debug for ListOrgPolicyViolationsResponse {
         let mut debug_struct = f.debug_struct("ListOrgPolicyViolationsResponse");
         debug_struct.field("org_policy_violations", &self.org_policy_violations);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5043,7 +5025,6 @@ impl std::fmt::Debug for Replay {
         debug_struct.field("state", &self.state);
         debug_struct.field("config", &self.config);
         debug_struct.field("results_summary", &self.results_summary);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5424,7 +5405,6 @@ pub mod replay {
             debug_struct.field("error_count", &self.error_count);
             debug_struct.field("oldest_date", &self.oldest_date);
             debug_struct.field("newest_date", &self.newest_date);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -5947,7 +5927,6 @@ impl std::fmt::Debug for ReplayResult {
         debug_struct.field("access_tuple", &self.access_tuple);
         debug_struct.field("last_seen_date", &self.last_seen_date);
         debug_struct.field("result", &self.result);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6162,7 +6141,6 @@ impl std::fmt::Debug for CreateReplayRequest {
         let mut debug_struct = f.debug_struct("CreateReplayRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("replay", &self.replay);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6316,7 +6294,6 @@ impl std::fmt::Debug for ReplayOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplayOperationMetadata");
         debug_struct.field("start_time", &self.start_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6471,7 +6448,6 @@ impl std::fmt::Debug for GetReplayRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetReplayRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6708,7 +6684,6 @@ impl std::fmt::Debug for ListReplayResultsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6903,7 +6878,6 @@ impl std::fmt::Debug for ListReplayResultsResponse {
         let mut debug_struct = f.debug_struct("ListReplayResultsResponse");
         debug_struct.field("replay_results", &self.replay_results);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7105,7 +7079,6 @@ impl std::fmt::Debug for ReplayConfig {
         let mut debug_struct = f.debug_struct("ReplayConfig");
         debug_struct.field("policy_overlay", &self.policy_overlay);
         debug_struct.field("log_source", &self.log_source);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7410,7 +7383,6 @@ impl std::fmt::Debug for ReplayDiff {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplayDiff");
         debug_struct.field("access_diff", &self.access_diff);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7646,7 +7618,6 @@ impl std::fmt::Debug for AccessStateDiff {
         debug_struct.field("baseline", &self.baseline);
         debug_struct.field("simulated", &self.simulated);
         debug_struct.field("access_change", &self.access_change);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8061,7 +8032,6 @@ impl std::fmt::Debug for ExplainedAccess {
         debug_struct.field("access_state", &self.access_state);
         debug_struct.field("policies", &self.policies);
         debug_struct.field("errors", &self.errors);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

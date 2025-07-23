@@ -384,7 +384,6 @@ impl std::fmt::Debug for Parameter {
         debug_struct.field("format", &self.format);
         debug_struct.field("policy_member", &self.policy_member);
         debug_struct.field("kms_key", &self.kms_key);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -649,7 +648,6 @@ impl std::fmt::Debug for ListParametersRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -862,7 +860,6 @@ impl std::fmt::Debug for ListParametersResponse {
         debug_struct.field("parameters", &self.parameters);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1005,7 +1002,6 @@ impl std::fmt::Debug for GetParameterRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetParameterRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1248,7 +1244,6 @@ impl std::fmt::Debug for CreateParameterRequest {
         debug_struct.field("parameter_id", &self.parameter_id);
         debug_struct.field("parameter", &self.parameter);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1481,7 +1476,6 @@ impl std::fmt::Debug for UpdateParameterRequest {
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("parameter", &self.parameter);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1662,7 +1656,6 @@ impl std::fmt::Debug for DeleteParameterRequest {
         let mut debug_struct = f.debug_struct("DeleteParameterRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1986,7 +1979,6 @@ impl std::fmt::Debug for ParameterVersion {
         debug_struct.field("disabled", &self.disabled);
         debug_struct.field("payload", &self.payload);
         debug_struct.field("kms_key_version", &self.kms_key_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2146,7 +2138,6 @@ impl std::fmt::Debug for ParameterVersionPayload {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ParameterVersionPayload");
         debug_struct.field("data", &self.data);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2411,7 +2402,6 @@ impl std::fmt::Debug for ListParameterVersionsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2629,7 +2619,6 @@ impl std::fmt::Debug for ListParameterVersionsResponse {
         debug_struct.field("parameter_versions", &self.parameter_versions);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2799,7 +2788,6 @@ impl std::fmt::Debug for GetParameterVersionRequest {
         let mut debug_struct = f.debug_struct("GetParameterVersionRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("view", &self.view);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2941,7 +2929,6 @@ impl std::fmt::Debug for RenderParameterVersionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RenderParameterVersionRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3172,7 +3159,6 @@ impl std::fmt::Debug for RenderParameterVersionResponse {
         debug_struct.field("parameter_version", &self.parameter_version);
         debug_struct.field("payload", &self.payload);
         debug_struct.field("rendered_payload", &self.rendered_payload);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3420,7 +3406,6 @@ impl std::fmt::Debug for CreateParameterVersionRequest {
         debug_struct.field("parameter_version_id", &self.parameter_version_id);
         debug_struct.field("parameter_version", &self.parameter_version);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3655,7 +3640,6 @@ impl std::fmt::Debug for UpdateParameterVersionRequest {
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("parameter_version", &self.parameter_version);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3836,7 +3820,6 @@ impl std::fmt::Debug for DeleteParameterVersionRequest {
         let mut debug_struct = f.debug_struct("DeleteParameterVersionRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

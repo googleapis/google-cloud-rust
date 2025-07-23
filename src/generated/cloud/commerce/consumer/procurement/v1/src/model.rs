@@ -274,7 +274,6 @@ impl std::fmt::Debug for AssignmentProtocol {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssignmentProtocol");
         debug_struct.field("assignment_type", &self.assignment_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -396,7 +395,6 @@ pub mod assignment_protocol {
     impl std::fmt::Debug for ManualAssignmentType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("ManualAssignmentType");
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -555,7 +553,6 @@ pub mod assignment_protocol {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("AutoAssignmentType");
             debug_struct.field("inactive_license_ttl", &self.inactive_license_ttl);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -851,7 +848,6 @@ impl std::fmt::Debug for LicensePool {
         );
         debug_struct.field("available_license_count", &self.available_license_count);
         debug_struct.field("total_license_count", &self.total_license_count);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -994,7 +990,6 @@ impl std::fmt::Debug for GetLicensePoolRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetLicensePoolRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1189,7 +1184,6 @@ impl std::fmt::Debug for UpdateLicensePoolRequest {
         let mut debug_struct = f.debug_struct("UpdateLicensePoolRequest");
         debug_struct.field("license_pool", &self.license_pool);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1363,7 +1357,6 @@ impl std::fmt::Debug for AssignRequest {
         let mut debug_struct = f.debug_struct("AssignRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("usernames", &self.usernames);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1480,7 +1473,6 @@ impl serde::ser::Serialize for AssignResponse {
 impl std::fmt::Debug for AssignResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssignResponse");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1654,7 +1646,6 @@ impl std::fmt::Debug for UnassignRequest {
         let mut debug_struct = f.debug_struct("UnassignRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("usernames", &self.usernames);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1771,7 +1762,6 @@ impl serde::ser::Serialize for UnassignResponse {
 impl std::fmt::Debug for UnassignResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UnassignResponse");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1988,7 +1978,6 @@ impl std::fmt::Debug for EnumerateLicensedUsersRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2207,7 +2196,6 @@ impl std::fmt::Debug for LicensedUser {
         debug_struct.field("username", &self.username);
         debug_struct.field("assign_time", &self.assign_time);
         debug_struct.field("recent_usage_time", &self.recent_usage_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2397,7 +2385,6 @@ impl std::fmt::Debug for EnumerateLicensedUsersResponse {
         let mut debug_struct = f.debug_struct("EnumerateLicensedUsersResponse");
         debug_struct.field("licensed_users", &self.licensed_users);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2733,7 +2720,6 @@ impl std::fmt::Debug for Order {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2990,7 +2976,6 @@ impl std::fmt::Debug for LineItem {
         debug_struct.field("line_item_info", &self.line_item_info);
         debug_struct.field("pending_change", &self.pending_change);
         debug_struct.field("change_history", &self.change_history);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3443,7 +3428,6 @@ impl std::fmt::Debug for LineItemChange {
         debug_struct.field("change_effective_time", &self.change_effective_time);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3651,7 +3635,6 @@ impl std::fmt::Debug for LineItemInfo {
         debug_struct.field("offer", &self.offer);
         debug_struct.field("parameters", &self.parameters);
         debug_struct.field("subscription", &self.subscription);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3830,7 +3813,6 @@ impl std::fmt::Debug for Parameter {
         let mut debug_struct = f.debug_struct("Parameter");
         debug_struct.field("name", &self.name);
         debug_struct.field("value", &self.value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4159,7 +4141,6 @@ pub mod parameter {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Value");
             debug_struct.field("kind", &self.kind);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -4397,7 +4378,6 @@ impl std::fmt::Debug for Subscription {
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("auto_renewal_enabled", &self.auto_renewal_enabled);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4630,7 +4610,6 @@ impl std::fmt::Debug for PlaceOrderRequest {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("line_item_info", &self.line_item_info);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4747,7 +4726,6 @@ impl serde::ser::Serialize for PlaceOrderMetadata {
 impl std::fmt::Debug for PlaceOrderMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PlaceOrderMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4892,7 +4870,6 @@ impl std::fmt::Debug for GetOrderRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOrderRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5149,7 +5126,6 @@ impl std::fmt::Debug for ListOrdersRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5337,7 +5313,6 @@ impl std::fmt::Debug for ListOrdersResponse {
         let mut debug_struct = f.debug_struct("ListOrdersResponse");
         debug_struct.field("orders", &self.orders);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5570,7 +5545,6 @@ impl std::fmt::Debug for ModifyOrderRequest {
         debug_struct.field("modifications", &self.modifications);
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5827,7 +5801,6 @@ pub mod modify_order_request {
             debug_struct.field("change_type", &self.change_type);
             debug_struct.field("new_line_item_info", &self.new_line_item_info);
             debug_struct.field("auto_renewal_behavior", &self.auto_renewal_behavior);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -5945,7 +5918,6 @@ impl serde::ser::Serialize for ModifyOrderMetadata {
 impl std::fmt::Debug for ModifyOrderMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModifyOrderMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6150,7 +6122,6 @@ impl std::fmt::Debug for CancelOrderRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("cancellation_policy", &self.cancellation_policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6414,7 +6385,6 @@ impl serde::ser::Serialize for CancelOrderMetadata {
 impl std::fmt::Debug for CancelOrderMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelOrderMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

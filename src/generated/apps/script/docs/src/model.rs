@@ -224,7 +224,6 @@ impl std::fmt::Debug for DocsAddOnManifest {
             "on_file_scope_granted_trigger",
             &self.on_file_scope_granted_trigger,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -367,7 +366,6 @@ impl std::fmt::Debug for DocsExtensionPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocsExtensionPoint");
         debug_struct.field("run_function", &self.run_function);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -525,7 +525,6 @@ impl std::fmt::Debug for Insight {
             "associated_recommendations",
             &self.associated_recommendations,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -679,7 +678,6 @@ pub mod insight {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("RecommendationReference");
             debug_struct.field("recommendation", &self.recommendation);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1166,7 +1164,6 @@ impl std::fmt::Debug for InsightStateInfo {
         let mut debug_struct = f.debug_struct("InsightStateInfo");
         debug_struct.field("state", &self.state);
         debug_struct.field("state_metadata", &self.state_metadata);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1674,7 +1671,6 @@ impl std::fmt::Debug for InsightTypeConfig {
         debug_struct.field("revision_id", &self.revision_id);
         debug_struct.field("annotations", &self.annotations);
         debug_struct.field("display_name", &self.display_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1829,7 +1825,6 @@ impl std::fmt::Debug for InsightTypeGenerationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InsightTypeGenerationConfig");
         debug_struct.field("params", &self.params);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2329,7 +2324,6 @@ impl std::fmt::Debug for Recommendation {
         debug_struct.field("etag", &self.etag);
         debug_struct.field("associated_insights", &self.associated_insights);
         debug_struct.field("xor_group_id", &self.xor_group_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2480,7 +2474,6 @@ pub mod recommendation {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("InsightReference");
             debug_struct.field("insight", &self.insight);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2815,7 +2808,6 @@ impl std::fmt::Debug for RecommendationContent {
         let mut debug_struct = f.debug_struct("RecommendationContent");
         debug_struct.field("operation_groups", &self.operation_groups);
         debug_struct.field("overview", &self.overview);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2961,7 +2953,6 @@ impl std::fmt::Debug for OperationGroup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OperationGroup");
         debug_struct.field("operations", &self.operations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3476,7 +3467,6 @@ impl std::fmt::Debug for Operation {
         debug_struct.field("path_filters", &self.path_filters);
         debug_struct.field("path_value_matchers", &self.path_value_matchers);
         debug_struct.field("path_value", &self.path_value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3679,7 +3669,6 @@ impl std::fmt::Debug for ValueMatcher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ValueMatcher");
         debug_struct.field("match_variant", &self.match_variant);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3925,7 +3914,6 @@ impl std::fmt::Debug for CostProjection {
         debug_struct.field("cost", &self.cost);
         debug_struct.field("duration", &self.duration);
         debug_struct.field("cost_in_local_currency", &self.cost_in_local_currency);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4078,7 +4066,6 @@ impl std::fmt::Debug for SecurityProjection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecurityProjection");
         debug_struct.field("details", &self.details);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4277,7 +4264,6 @@ impl std::fmt::Debug for SustainabilityProjection {
         let mut debug_struct = f.debug_struct("SustainabilityProjection");
         debug_struct.field("kg_c_o2e", &self.kg_c_o2e);
         debug_struct.field("duration", &self.duration);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4462,7 +4448,6 @@ impl std::fmt::Debug for ReliabilityProjection {
         let mut debug_struct = f.debug_struct("ReliabilityProjection");
         debug_struct.field("risks", &self.risks);
         debug_struct.field("details", &self.details);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5003,7 +4988,6 @@ impl std::fmt::Debug for Impact {
         let mut debug_struct = f.debug_struct("Impact");
         debug_struct.field("category", &self.category);
         debug_struct.field("projection", &self.projection);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5367,7 +5351,6 @@ impl std::fmt::Debug for RecommendationStateInfo {
         let mut debug_struct = f.debug_struct("RecommendationStateInfo");
         debug_struct.field("state", &self.state);
         debug_struct.field("state_metadata", &self.state_metadata);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5898,7 +5881,6 @@ impl std::fmt::Debug for RecommenderConfig {
         debug_struct.field("revision_id", &self.revision_id);
         debug_struct.field("annotations", &self.annotations);
         debug_struct.field("display_name", &self.display_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6053,7 +6035,6 @@ impl std::fmt::Debug for RecommenderGenerationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecommenderGenerationConfig");
         debug_struct.field("params", &self.params);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6341,7 +6322,6 @@ impl std::fmt::Debug for ListInsightsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6527,7 +6507,6 @@ impl std::fmt::Debug for ListInsightsResponse {
         let mut debug_struct = f.debug_struct("ListInsightsResponse");
         debug_struct.field("insights", &self.insights);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6669,7 +6648,6 @@ impl std::fmt::Debug for GetInsightRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetInsightRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6874,7 +6852,6 @@ impl std::fmt::Debug for MarkInsightAcceptedRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("state_metadata", &self.state_metadata);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7162,7 +7139,6 @@ impl std::fmt::Debug for ListRecommendationsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7352,7 +7328,6 @@ impl std::fmt::Debug for ListRecommendationsResponse {
         let mut debug_struct = f.debug_struct("ListRecommendationsResponse");
         debug_struct.field("recommendations", &self.recommendations);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7494,7 +7469,6 @@ impl std::fmt::Debug for GetRecommendationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRecommendationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7661,7 +7635,6 @@ impl std::fmt::Debug for MarkRecommendationDismissedRequest {
         let mut debug_struct = f.debug_struct("MarkRecommendationDismissedRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7868,7 +7841,6 @@ impl std::fmt::Debug for MarkRecommendationClaimedRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("state_metadata", &self.state_metadata);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8075,7 +8047,6 @@ impl std::fmt::Debug for MarkRecommendationSucceededRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("state_metadata", &self.state_metadata);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8282,7 +8253,6 @@ impl std::fmt::Debug for MarkRecommendationFailedRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("state_metadata", &self.state_metadata);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8435,7 +8405,6 @@ impl std::fmt::Debug for GetRecommenderConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRecommenderConfigRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8654,7 +8623,6 @@ impl std::fmt::Debug for UpdateRecommenderConfigRequest {
         debug_struct.field("recommender_config", &self.recommender_config);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8807,7 +8775,6 @@ impl std::fmt::Debug for GetInsightTypeConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetInsightTypeConfigRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9026,7 +8993,6 @@ impl std::fmt::Debug for UpdateInsightTypeConfigRequest {
         debug_struct.field("insight_type_config", &self.insight_type_config);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

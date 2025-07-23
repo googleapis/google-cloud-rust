@@ -238,7 +238,6 @@ impl std::fmt::Debug for CreateKeyRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("key", &self.key);
         debug_struct.field("key_id", &self.key_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -477,7 +476,6 @@ impl std::fmt::Debug for ListKeysRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("show_deleted", &self.show_deleted);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -662,7 +660,6 @@ impl std::fmt::Debug for ListKeysResponse {
         let mut debug_struct = f.debug_struct("ListKeysResponse");
         debug_struct.field("keys", &self.keys);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -804,7 +801,6 @@ impl std::fmt::Debug for GetKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetKeyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -946,7 +942,6 @@ impl std::fmt::Debug for GetKeyStringRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetKeyStringRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1089,7 +1084,6 @@ impl std::fmt::Debug for GetKeyStringResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetKeyStringResponse");
         debug_struct.field("key_string", &self.key_string);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1287,7 +1281,6 @@ impl std::fmt::Debug for UpdateKeyRequest {
         let mut debug_struct = f.debug_struct("UpdateKeyRequest");
         debug_struct.field("key", &self.key);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1455,7 +1448,6 @@ impl std::fmt::Debug for DeleteKeyRequest {
         let mut debug_struct = f.debug_struct("DeleteKeyRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1597,7 +1589,6 @@ impl std::fmt::Debug for UndeleteKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeleteKeyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1740,7 +1731,6 @@ impl std::fmt::Debug for LookupKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LookupKeyRequest");
         debug_struct.field("key_string", &self.key_string);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1908,7 +1898,6 @@ impl std::fmt::Debug for LookupKeyResponse {
         let mut debug_struct = f.debug_struct("LookupKeyResponse");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2352,7 +2341,6 @@ impl std::fmt::Debug for Key {
         debug_struct.field("annotations", &self.annotations);
         debug_struct.field("restrictions", &self.restrictions);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2748,7 +2736,6 @@ impl std::fmt::Debug for Restrictions {
         let mut debug_struct = f.debug_struct("Restrictions");
         debug_struct.field("api_targets", &self.api_targets);
         debug_struct.field("client_restrictions", &self.client_restrictions);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2917,7 +2904,6 @@ impl std::fmt::Debug for BrowserKeyRestrictions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BrowserKeyRestrictions");
         debug_struct.field("allowed_referrers", &self.allowed_referrers);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3064,7 +3050,6 @@ impl std::fmt::Debug for ServerKeyRestrictions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServerKeyRestrictions");
         debug_struct.field("allowed_ips", &self.allowed_ips);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3215,7 +3200,6 @@ impl std::fmt::Debug for AndroidKeyRestrictions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AndroidKeyRestrictions");
         debug_struct.field("allowed_applications", &self.allowed_applications);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3390,7 +3374,6 @@ impl std::fmt::Debug for AndroidApplication {
         let mut debug_struct = f.debug_struct("AndroidApplication");
         debug_struct.field("sha1_fingerprint", &self.sha1_fingerprint);
         debug_struct.field("package_name", &self.package_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3536,7 +3519,6 @@ impl std::fmt::Debug for IosKeyRestrictions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IosKeyRestrictions");
         debug_struct.field("allowed_bundle_ids", &self.allowed_bundle_ids);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3717,7 +3699,6 @@ impl std::fmt::Debug for ApiTarget {
         let mut debug_struct = f.debug_struct("ApiTarget");
         debug_struct.field("service", &self.service);
         debug_struct.field("methods", &self.methods);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

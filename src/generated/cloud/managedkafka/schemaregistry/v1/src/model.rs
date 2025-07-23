@@ -169,7 +169,6 @@ impl std::fmt::Debug for GetSchemaRegistryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSchemaRegistryRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -312,7 +311,6 @@ impl std::fmt::Debug for ListSchemaRegistriesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSchemaRegistriesRequest");
         debug_struct.field("parent", &self.parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -462,7 +460,6 @@ impl std::fmt::Debug for ListSchemaRegistriesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSchemaRegistriesResponse");
         debug_struct.field("schema_registries", &self.schema_registries);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -676,7 +673,6 @@ impl std::fmt::Debug for CreateSchemaRegistryRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("schema_registry_id", &self.schema_registry_id);
         debug_struct.field("schema_registry", &self.schema_registry);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -820,7 +816,6 @@ impl std::fmt::Debug for DeleteSchemaRegistryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSchemaRegistryRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -963,7 +958,6 @@ impl std::fmt::Debug for GetContextRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetContextRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1106,7 +1100,6 @@ impl std::fmt::Debug for ListContextsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListContextsRequest");
         debug_struct.field("parent", &self.parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1287,7 +1280,6 @@ impl std::fmt::Debug for GetSchemaRequest {
         let mut debug_struct = f.debug_struct("GetSchemaRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("subject", &self.subject);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1431,7 +1423,6 @@ impl std::fmt::Debug for ListSchemaTypesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSchemaTypesRequest");
         debug_struct.field("parent", &self.parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1649,7 +1640,6 @@ impl std::fmt::Debug for ListSchemaVersionsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("subject", &self.subject);
         debug_struct.field("deleted", &self.deleted);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1872,7 +1862,6 @@ impl std::fmt::Debug for ListSubjectsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("subject_prefix", &self.subject_prefix);
         debug_struct.field("deleted", &self.deleted);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2090,7 +2079,6 @@ impl std::fmt::Debug for ListSubjectsBySchemaIdRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("subject", &self.subject);
         debug_struct.field("deleted", &self.deleted);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2271,7 +2259,6 @@ impl std::fmt::Debug for ListVersionsRequest {
         let mut debug_struct = f.debug_struct("ListVersionsRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("deleted", &self.deleted);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2455,7 +2442,6 @@ impl std::fmt::Debug for DeleteSubjectRequest {
         let mut debug_struct = f.debug_struct("DeleteSubjectRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("permanent", &self.permanent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2637,7 +2623,6 @@ impl std::fmt::Debug for GetVersionRequest {
         let mut debug_struct = f.debug_struct("GetVersionRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("deleted", &self.deleted);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3032,7 +3017,6 @@ impl std::fmt::Debug for CreateVersionRequest {
         debug_struct.field("schema", &self.schema);
         debug_struct.field("references", &self.references);
         debug_struct.field("normalize", &self.normalize);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3192,7 +3176,6 @@ impl std::fmt::Debug for CreateVersionResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateVersionResponse");
         debug_struct.field("id", &self.id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3504,7 +3487,6 @@ impl std::fmt::Debug for LookupVersionRequest {
         debug_struct.field("references", &self.references);
         debug_struct.field("normalize", &self.normalize);
         debug_struct.field("deleted", &self.deleted);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3688,7 +3670,6 @@ impl std::fmt::Debug for DeleteVersionRequest {
         let mut debug_struct = f.debug_struct("DeleteVersionRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("permanent", &self.permanent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3833,7 +3814,6 @@ impl std::fmt::Debug for ListReferencedSchemasRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListReferencedSchemasRequest");
         debug_struct.field("parent", &self.parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4111,7 +4091,6 @@ impl std::fmt::Debug for CheckCompatibilityRequest {
         debug_struct.field("schema", &self.schema);
         debug_struct.field("references", &self.references);
         debug_struct.field("verbose", &self.verbose);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4282,7 +4261,6 @@ impl std::fmt::Debug for CheckCompatibilityResponse {
         let mut debug_struct = f.debug_struct("CheckCompatibilityResponse");
         debug_struct.field("is_compatible", &self.is_compatible);
         debug_struct.field("messages", &self.messages);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4466,7 +4444,6 @@ impl std::fmt::Debug for GetSchemaConfigRequest {
         let mut debug_struct = f.debug_struct("GetSchemaConfigRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("default_to_global", &self.default_to_global);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4692,7 +4669,6 @@ impl std::fmt::Debug for UpdateSchemaConfigRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("compatibility", &self.compatibility);
         debug_struct.field("normalize", &self.normalize);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4837,7 +4813,6 @@ impl std::fmt::Debug for DeleteSchemaConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSchemaConfigRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4982,7 +4957,6 @@ impl std::fmt::Debug for GetSchemaModeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSchemaModeRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5153,7 +5127,6 @@ impl std::fmt::Debug for UpdateSchemaModeRequest {
         let mut debug_struct = f.debug_struct("UpdateSchemaModeRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("mode", &self.mode);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5299,7 +5272,6 @@ impl std::fmt::Debug for DeleteSchemaModeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSchemaModeRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5474,7 +5446,6 @@ impl std::fmt::Debug for SchemaRegistry {
         let mut debug_struct = f.debug_struct("SchemaRegistry");
         debug_struct.field("name", &self.name);
         debug_struct.field("contexts", &self.contexts);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5651,7 +5622,6 @@ impl std::fmt::Debug for Context {
         let mut debug_struct = f.debug_struct("Context");
         debug_struct.field("name", &self.name);
         debug_struct.field("subjects", &self.subjects);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5853,7 +5823,6 @@ impl std::fmt::Debug for Schema {
         debug_struct.field("schema_type", &self.schema_type);
         debug_struct.field("schema_payload", &self.schema_payload);
         debug_struct.field("references", &self.references);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6071,7 +6040,6 @@ pub mod schema {
             debug_struct.field("name", &self.name);
             debug_struct.field("subject", &self.subject);
             debug_struct.field("version", &self.version);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -6391,7 +6359,6 @@ impl std::fmt::Debug for SchemaSubject {
         let mut debug_struct = f.debug_struct("SchemaSubject");
         debug_struct.field("name", &self.name);
         debug_struct.field("versions", &self.versions);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6706,7 +6673,6 @@ impl std::fmt::Debug for SchemaVersion {
         debug_struct.field("schema_type", &self.schema_type);
         debug_struct.field("schema_payload", &self.schema_payload);
         debug_struct.field("references", &self.references);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6929,7 +6895,6 @@ impl std::fmt::Debug for SchemaConfig {
         debug_struct.field("compatibility", &self.compatibility);
         debug_struct.field("normalize", &self.normalize);
         debug_struct.field("alias", &self.alias);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7249,7 +7214,6 @@ impl std::fmt::Debug for SchemaMode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SchemaMode");
         debug_struct.field("mode", &self.mode);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

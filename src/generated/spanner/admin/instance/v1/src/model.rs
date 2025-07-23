@@ -264,7 +264,6 @@ impl std::fmt::Debug for OperationProgress {
         debug_struct.field("progress_percent", &self.progress_percent);
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("end_time", &self.end_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -406,7 +405,6 @@ impl std::fmt::Debug for ReplicaSelection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplicaSelection");
         debug_struct.field("location", &self.location);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -602,7 +600,6 @@ impl std::fmt::Debug for ReplicaInfo {
         debug_struct.field("location", &self.location);
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("default_leader_location", &self.default_leader_location);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1361,7 +1358,6 @@ impl std::fmt::Debug for InstanceConfig {
             "storage_limit_per_processing_unit",
             &self.storage_limit_per_processing_unit,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2253,7 +2249,6 @@ impl std::fmt::Debug for ReplicaComputeCapacity {
         let mut debug_struct = f.debug_struct("ReplicaComputeCapacity");
         debug_struct.field("replica_selection", &self.replica_selection);
         debug_struct.field("compute_capacity", &self.compute_capacity);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2522,7 +2517,6 @@ impl std::fmt::Debug for AutoscalingConfig {
             "asymmetric_autoscaling_options",
             &self.asymmetric_autoscaling_options,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2971,7 +2965,6 @@ pub mod autoscaling_config {
             let mut debug_struct = f.debug_struct("AutoscalingLimits");
             debug_struct.field("min_limit", &self.min_limit);
             debug_struct.field("max_limit", &self.max_limit);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3245,7 +3238,6 @@ pub mod autoscaling_config {
                 "storage_utilization_percent",
                 &self.storage_utilization_percent,
             );
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3440,7 +3432,6 @@ pub mod autoscaling_config {
             let mut debug_struct = f.debug_struct("AsymmetricAutoscalingOption");
             debug_struct.field("replica_selection", &self.replica_selection);
             debug_struct.field("overrides", &self.overrides);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3666,7 +3657,6 @@ pub mod autoscaling_config {
                     "autoscaling_target_high_priority_cpu_utilization_percent",
                     &self.autoscaling_target_high_priority_cpu_utilization_percent,
                 );
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -4403,7 +4393,6 @@ impl std::fmt::Debug for Instance {
             "default_backup_schedule_type",
             &self.default_backup_schedule_type,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5189,7 +5178,6 @@ impl std::fmt::Debug for ListInstanceConfigsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5386,7 +5374,6 @@ impl std::fmt::Debug for ListInstanceConfigsResponse {
         let mut debug_struct = f.debug_struct("ListInstanceConfigsResponse");
         debug_struct.field("instance_configs", &self.instance_configs);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5532,7 +5519,6 @@ impl std::fmt::Debug for GetInstanceConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetInstanceConfigRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5779,7 +5765,6 @@ impl std::fmt::Debug for CreateInstanceConfigRequest {
         debug_struct.field("instance_config_id", &self.instance_config_id);
         debug_struct.field("instance_config", &self.instance_config);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6017,7 +6002,6 @@ impl std::fmt::Debug for UpdateInstanceConfigRequest {
         debug_struct.field("instance_config", &self.instance_config);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6222,7 +6206,6 @@ impl std::fmt::Debug for DeleteInstanceConfigRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6514,7 +6497,6 @@ impl std::fmt::Debug for ListInstanceConfigOperationsRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6714,7 +6696,6 @@ impl std::fmt::Debug for ListInstanceConfigOperationsResponse {
         let mut debug_struct = f.debug_struct("ListInstanceConfigOperationsResponse");
         debug_struct.field("operations", &self.operations);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6902,7 +6883,6 @@ impl std::fmt::Debug for GetInstanceRequest {
         let mut debug_struct = f.debug_struct("GetInstanceRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("field_mask", &self.field_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7113,7 +7093,6 @@ impl std::fmt::Debug for CreateInstanceRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("instance_id", &self.instance_id);
         debug_struct.field("instance", &self.instance);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7424,7 +7403,6 @@ impl std::fmt::Debug for ListInstancesRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("instance_deadline", &self.instance_deadline);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7649,7 +7627,6 @@ impl std::fmt::Debug for ListInstancesResponse {
         debug_struct.field("instances", &self.instances);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7853,7 +7830,6 @@ impl std::fmt::Debug for UpdateInstanceRequest {
         let mut debug_struct = f.debug_struct("UpdateInstanceRequest");
         debug_struct.field("instance", &self.instance);
         debug_struct.field("field_mask", &self.field_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7999,7 +7975,6 @@ impl std::fmt::Debug for DeleteInstanceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteInstanceRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8314,7 +8289,6 @@ impl std::fmt::Debug for CreateInstanceMetadata {
             "expected_fulfillment_period",
             &self.expected_fulfillment_period,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8629,7 +8603,6 @@ impl std::fmt::Debug for UpdateInstanceMetadata {
             "expected_fulfillment_period",
             &self.expected_fulfillment_period,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8860,7 +8833,6 @@ impl std::fmt::Debug for FreeInstanceMetadata {
         debug_struct.field("expire_time", &self.expire_time);
         debug_struct.field("upgrade_time", &self.upgrade_time);
         debug_struct.field("expire_behavior", &self.expire_behavior);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9238,7 +9210,6 @@ impl std::fmt::Debug for CreateInstanceConfigMetadata {
         debug_struct.field("instance_config", &self.instance_config);
         debug_struct.field("progress", &self.progress);
         debug_struct.field("cancel_time", &self.cancel_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9474,7 +9445,6 @@ impl std::fmt::Debug for UpdateInstanceConfigMetadata {
         debug_struct.field("instance_config", &self.instance_config);
         debug_struct.field("progress", &self.progress);
         debug_struct.field("cancel_time", &self.cancel_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10041,7 +10011,6 @@ impl std::fmt::Debug for InstancePartition {
         debug_struct.field("referencing_backups", &self.referencing_backups);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("compute_capacity", &self.compute_capacity);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10484,7 +10453,6 @@ impl std::fmt::Debug for CreateInstancePartitionMetadata {
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("cancel_time", &self.cancel_time);
         debug_struct.field("end_time", &self.end_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10702,7 +10670,6 @@ impl std::fmt::Debug for CreateInstancePartitionRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("instance_partition_id", &self.instance_partition_id);
         debug_struct.field("instance_partition", &self.instance_partition);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10877,7 +10844,6 @@ impl std::fmt::Debug for DeleteInstancePartitionRequest {
         let mut debug_struct = f.debug_struct("DeleteInstancePartitionRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11024,7 +10990,6 @@ impl std::fmt::Debug for GetInstancePartitionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetInstancePartitionRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11231,7 +11196,6 @@ impl std::fmt::Debug for UpdateInstancePartitionRequest {
         let mut debug_struct = f.debug_struct("UpdateInstancePartitionRequest");
         debug_struct.field("instance_partition", &self.instance_partition);
         debug_struct.field("field_mask", &self.field_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11506,7 +11470,6 @@ impl std::fmt::Debug for UpdateInstancePartitionMetadata {
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("cancel_time", &self.cancel_time);
         debug_struct.field("end_time", &self.end_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11786,7 +11749,6 @@ impl std::fmt::Debug for ListInstancePartitionsRequest {
             "instance_partition_deadline",
             &self.instance_partition_deadline,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12016,7 +11978,6 @@ impl std::fmt::Debug for ListInstancePartitionsResponse {
         debug_struct.field("instance_partitions", &self.instance_partitions);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12364,7 +12325,6 @@ impl std::fmt::Debug for ListInstancePartitionOperationsRequest {
             "instance_partition_deadline",
             &self.instance_partition_deadline,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12609,7 +12569,6 @@ impl std::fmt::Debug for ListInstancePartitionOperationsResponse {
             "unreachable_instance_partitions",
             &self.unreachable_instance_partitions,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12782,7 +12741,6 @@ impl std::fmt::Debug for MoveInstanceRequest {
         let mut debug_struct = f.debug_struct("MoveInstanceRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("target_config", &self.target_config);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12899,7 +12857,6 @@ impl serde::ser::Serialize for MoveInstanceResponse {
 impl std::fmt::Debug for MoveInstanceResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MoveInstanceResponse");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13127,7 +13084,6 @@ impl std::fmt::Debug for MoveInstanceMetadata {
         debug_struct.field("target_config", &self.target_config);
         debug_struct.field("progress", &self.progress);
         debug_struct.field("cancel_time", &self.cancel_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

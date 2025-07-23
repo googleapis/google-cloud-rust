@@ -168,7 +168,6 @@ impl std::fmt::Debug for GuestOsScan {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GuestOsScan");
         debug_struct.field("core_source", &self.core_source);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -311,7 +310,6 @@ impl std::fmt::Debug for VSphereScan {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VSphereScan");
         debug_struct.field("core_source", &self.core_source);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -911,7 +909,6 @@ impl std::fmt::Debug for Collector {
         debug_struct.field("vsphere_scan", &self.vsphere_scan);
         debug_struct.field("collection_days", &self.collection_days);
         debug_struct.field("eula_uri", &self.eula_uri);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1376,7 +1373,6 @@ impl std::fmt::Debug for Annotation {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("r#type", &self.r#type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1720,7 +1716,6 @@ impl std::fmt::Debug for CreateAnnotationRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("annotation", &self.annotation);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1862,7 +1857,6 @@ impl std::fmt::Debug for GetAnnotationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAnnotationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2092,7 +2086,6 @@ impl std::fmt::Debug for CreateCollectorRequest {
         debug_struct.field("collector_id", &self.collector_id);
         debug_struct.field("collector", &self.collector);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2356,7 +2349,6 @@ impl std::fmt::Debug for ListCollectorsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2569,7 +2561,6 @@ impl std::fmt::Debug for ListCollectorsResponse {
         debug_struct.field("collectors", &self.collectors);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2711,7 +2702,6 @@ impl std::fmt::Debug for GetCollectorRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCollectorRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2891,7 +2881,6 @@ impl std::fmt::Debug for DeleteCollectorRequest {
         let mut debug_struct = f.debug_struct("DeleteCollectorRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3123,7 +3112,6 @@ impl std::fmt::Debug for UpdateCollectorRequest {
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("collector", &self.collector);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3303,7 +3291,6 @@ impl std::fmt::Debug for ResumeCollectorRequest {
         let mut debug_struct = f.debug_struct("ResumeCollectorRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3483,7 +3470,6 @@ impl std::fmt::Debug for RegisterCollectorRequest {
         let mut debug_struct = f.debug_struct("RegisterCollectorRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3663,7 +3649,6 @@ impl std::fmt::Debug for PauseCollectorRequest {
         let mut debug_struct = f.debug_struct("PauseCollectorRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3988,7 +3973,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -166,7 +166,6 @@ impl std::fmt::Debug for AddOnWidgetSet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddOnWidgetSet");
         debug_struct.field("used_widgets", &self.used_widgets);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -540,7 +539,6 @@ impl std::fmt::Debug for MenuItemExtensionPoint {
         debug_struct.field("run_function", &self.run_function);
         debug_struct.field("label", &self.label);
         debug_struct.field("logo_url", &self.logo_url);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -725,7 +723,6 @@ impl std::fmt::Debug for HomepageExtensionPoint {
         let mut debug_struct = f.debug_struct("HomepageExtensionPoint");
         debug_struct.field("run_function", &self.run_function);
         debug_struct.field("enabled", &self.enabled);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -986,7 +983,6 @@ impl std::fmt::Debug for UniversalActionExtensionPoint {
         let mut debug_struct = f.debug_struct("UniversalActionExtensionPoint");
         debug_struct.field("label", &self.label);
         debug_struct.field("action_type", &self.action_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1393,7 +1389,6 @@ impl std::fmt::Debug for CommonAddOnManifest {
         debug_struct.field("homepage_trigger", &self.homepage_trigger);
         debug_struct.field("universal_actions", &self.universal_actions);
         debug_struct.field("open_link_url_prefixes", &self.open_link_url_prefixes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1568,7 +1563,6 @@ impl std::fmt::Debug for LayoutProperties {
         let mut debug_struct = f.debug_struct("LayoutProperties");
         debug_struct.field("primary_color", &self.primary_color);
         debug_struct.field("secondary_color", &self.secondary_color);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1714,7 +1708,6 @@ impl std::fmt::Debug for HttpOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HttpOptions");
         debug_struct.field("authorization_header", &self.authorization_header);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

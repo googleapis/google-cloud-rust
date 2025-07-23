@@ -638,7 +638,6 @@ impl std::fmt::Debug for Instance {
         debug_struct.field("file_stripe_level", &self.file_stripe_level);
         debug_struct.field("directory_stripe_level", &self.directory_stripe_level);
         debug_struct.field("deployment_type", &self.deployment_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1073,7 +1072,6 @@ impl std::fmt::Debug for ListInstancesRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1289,7 +1287,6 @@ impl std::fmt::Debug for ListInstancesResponse {
         debug_struct.field("instances", &self.instances);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1432,7 +1429,6 @@ impl std::fmt::Debug for GetInstanceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetInstanceRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1682,7 +1678,6 @@ impl std::fmt::Debug for CreateInstanceRequest {
         debug_struct.field("instance_id", &self.instance_id);
         debug_struct.field("instance", &self.instance);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1913,7 +1908,6 @@ impl std::fmt::Debug for UpdateInstanceRequest {
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("instance", &self.instance);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2093,7 +2087,6 @@ impl std::fmt::Debug for DeleteInstanceRequest {
         let mut debug_struct = f.debug_struct("DeleteInstanceRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2419,7 +2412,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2563,7 +2555,6 @@ impl std::fmt::Debug for SourceGcsBucket {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SourceGcsBucket");
         debug_struct.field("uri", &self.uri);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2707,7 +2698,6 @@ impl std::fmt::Debug for DestinationGcsBucket {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DestinationGcsBucket");
         debug_struct.field("uri", &self.uri);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2850,7 +2840,6 @@ impl std::fmt::Debug for SourceParallelstore {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SourceParallelstore");
         debug_struct.field("path", &self.path);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2993,7 +2982,6 @@ impl std::fmt::Debug for DestinationParallelstore {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DestinationParallelstore");
         debug_struct.field("path", &self.path);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3362,7 +3350,6 @@ impl std::fmt::Debug for ImportDataRequest {
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("source", &self.source);
         debug_struct.field("destination", &self.destination);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3748,7 +3735,6 @@ impl std::fmt::Debug for ExportDataRequest {
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("source", &self.source);
         debug_struct.field("destination", &self.destination);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3884,7 +3870,6 @@ impl serde::ser::Serialize for ImportDataResponse {
 impl std::fmt::Debug for ImportDataResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportDataResponse");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4056,7 +4041,6 @@ impl std::fmt::Debug for TransferErrorLogEntry {
         let mut debug_struct = f.debug_struct("TransferErrorLogEntry");
         debug_struct.field("uri", &self.uri);
         debug_struct.field("error_details", &self.error_details);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4277,7 +4261,6 @@ impl std::fmt::Debug for TransferErrorSummary {
         debug_struct.field("error_code", &self.error_code);
         debug_struct.field("error_count", &self.error_count);
         debug_struct.field("error_log_entries", &self.error_log_entries);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4640,7 +4623,6 @@ impl std::fmt::Debug for ImportDataMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4754,7 +4736,6 @@ impl serde::ser::Serialize for ExportDataResponse {
 impl std::fmt::Debug for ExportDataResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportDataResponse");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5117,7 +5098,6 @@ impl std::fmt::Debug for ExportDataMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5601,7 +5581,6 @@ impl std::fmt::Debug for TransferOperationMetadata {
         debug_struct.field("error_summary", &self.error_summary);
         debug_struct.field("source", &self.source);
         debug_struct.field("destination", &self.destination);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6107,7 +6086,6 @@ impl std::fmt::Debug for TransferCounters {
         debug_struct.field("bytes_copied", &self.bytes_copied);
         debug_struct.field("objects_failed", &self.objects_failed);
         debug_struct.field("bytes_failed", &self.bytes_failed);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

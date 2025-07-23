@@ -399,7 +399,6 @@ impl std::fmt::Debug for Folder {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("delete_time", &self.delete_time);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -680,7 +679,6 @@ impl std::fmt::Debug for GetFolderRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetFolderRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -933,7 +931,6 @@ impl std::fmt::Debug for ListFoldersRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("show_deleted", &self.show_deleted);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1120,7 +1117,6 @@ impl std::fmt::Debug for ListFoldersResponse {
         let mut debug_struct = f.debug_struct("ListFoldersResponse");
         debug_struct.field("folders", &self.folders);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1365,7 +1361,6 @@ impl std::fmt::Debug for SearchFoldersRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("query", &self.query);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1552,7 +1547,6 @@ impl std::fmt::Debug for SearchFoldersResponse {
         let mut debug_struct = f.debug_struct("SearchFoldersResponse");
         debug_struct.field("folders", &self.folders);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1706,7 +1700,6 @@ impl std::fmt::Debug for CreateFolderRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateFolderRequest");
         debug_struct.field("folder", &self.folder);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1875,7 +1868,6 @@ impl std::fmt::Debug for CreateFolderMetadata {
         let mut debug_struct = f.debug_struct("CreateFolderMetadata");
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("parent", &self.parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2076,7 +2068,6 @@ impl std::fmt::Debug for UpdateFolderRequest {
         let mut debug_struct = f.debug_struct("UpdateFolderRequest");
         debug_struct.field("folder", &self.folder);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2191,7 +2182,6 @@ impl serde::ser::Serialize for UpdateFolderMetadata {
 impl std::fmt::Debug for UpdateFolderMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateFolderMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2365,7 +2355,6 @@ impl std::fmt::Debug for MoveFolderRequest {
         let mut debug_struct = f.debug_struct("MoveFolderRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("destination_parent", &self.destination_parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2563,7 +2552,6 @@ impl std::fmt::Debug for MoveFolderMetadata {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("source_parent", &self.source_parent);
         debug_struct.field("destination_parent", &self.destination_parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2706,7 +2694,6 @@ impl std::fmt::Debug for DeleteFolderRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteFolderRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2821,7 +2808,6 @@ impl serde::ser::Serialize for DeleteFolderMetadata {
 impl std::fmt::Debug for DeleteFolderMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteFolderMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2964,7 +2950,6 @@ impl std::fmt::Debug for UndeleteFolderRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeleteFolderRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3079,7 +3064,6 @@ impl serde::ser::Serialize for UndeleteFolderMetadata {
 impl std::fmt::Debug for UndeleteFolderMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeleteFolderMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3492,7 +3476,6 @@ impl std::fmt::Debug for Organization {
         debug_struct.field("delete_time", &self.delete_time);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("owner", &self.owner);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3788,7 +3771,6 @@ impl std::fmt::Debug for GetOrganizationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetOrganizationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4020,7 +4002,6 @@ impl std::fmt::Debug for SearchOrganizationsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("query", &self.query);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4210,7 +4191,6 @@ impl std::fmt::Debug for SearchOrganizationsResponse {
         let mut debug_struct = f.debug_struct("SearchOrganizationsResponse");
         debug_struct.field("organizations", &self.organizations);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4325,7 +4305,6 @@ impl serde::ser::Serialize for DeleteOrganizationMetadata {
 impl std::fmt::Debug for DeleteOrganizationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteOrganizationMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4440,7 +4419,6 @@ impl serde::ser::Serialize for UndeleteOrganizationMetadata {
 impl std::fmt::Debug for UndeleteOrganizationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeleteOrganizationMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4887,7 +4865,6 @@ impl std::fmt::Debug for Project {
         debug_struct.field("delete_time", &self.delete_time);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("labels", &self.labels);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5179,7 +5156,6 @@ impl std::fmt::Debug for GetProjectRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetProjectRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5431,7 +5407,6 @@ impl std::fmt::Debug for ListProjectsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("show_deleted", &self.show_deleted);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5637,7 +5612,6 @@ impl std::fmt::Debug for ListProjectsResponse {
         let mut debug_struct = f.debug_struct("ListProjectsResponse");
         debug_struct.field("projects", &self.projects);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5888,7 +5862,6 @@ impl std::fmt::Debug for SearchProjectsRequest {
         debug_struct.field("query", &self.query);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("page_size", &self.page_size);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6092,7 +6065,6 @@ impl std::fmt::Debug for SearchProjectsResponse {
         let mut debug_struct = f.debug_struct("SearchProjectsResponse");
         debug_struct.field("projects", &self.projects);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6257,7 +6229,6 @@ impl std::fmt::Debug for CreateProjectRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateProjectRequest");
         debug_struct.field("project", &self.project);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6465,7 +6436,6 @@ impl std::fmt::Debug for CreateProjectMetadata {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("gettable", &self.gettable);
         debug_struct.field("ready", &self.ready);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6664,7 +6634,6 @@ impl std::fmt::Debug for UpdateProjectRequest {
         let mut debug_struct = f.debug_struct("UpdateProjectRequest");
         debug_struct.field("project", &self.project);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6779,7 +6748,6 @@ impl serde::ser::Serialize for UpdateProjectMetadata {
 impl std::fmt::Debug for UpdateProjectMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateProjectMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6954,7 +6922,6 @@ impl std::fmt::Debug for MoveProjectRequest {
         let mut debug_struct = f.debug_struct("MoveProjectRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("destination_parent", &self.destination_parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7069,7 +7036,6 @@ impl serde::ser::Serialize for MoveProjectMetadata {
 impl std::fmt::Debug for MoveProjectMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MoveProjectMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7214,7 +7180,6 @@ impl std::fmt::Debug for DeleteProjectRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteProjectRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7329,7 +7294,6 @@ impl serde::ser::Serialize for DeleteProjectMetadata {
 impl std::fmt::Debug for DeleteProjectMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteProjectMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7475,7 +7439,6 @@ impl std::fmt::Debug for UndeleteProjectRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeleteProjectRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7590,7 +7553,6 @@ impl serde::ser::Serialize for UndeleteProjectMetadata {
 impl std::fmt::Debug for UndeleteProjectMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UndeleteProjectMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7826,7 +7788,6 @@ impl std::fmt::Debug for TagBinding {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("tag_value", &self.tag_value);
         debug_struct.field("tag_value_namespaced_name", &self.tag_value_namespaced_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7940,7 +7901,6 @@ impl serde::ser::Serialize for CreateTagBindingMetadata {
 impl std::fmt::Debug for CreateTagBindingMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateTagBindingMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8121,7 +8081,6 @@ impl std::fmt::Debug for CreateTagBindingRequest {
         let mut debug_struct = f.debug_struct("CreateTagBindingRequest");
         debug_struct.field("tag_binding", &self.tag_binding);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8235,7 +8194,6 @@ impl serde::ser::Serialize for DeleteTagBindingMetadata {
 impl std::fmt::Debug for DeleteTagBindingMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteTagBindingMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8379,7 +8337,6 @@ impl std::fmt::Debug for DeleteTagBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteTagBindingRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8596,7 +8553,6 @@ impl std::fmt::Debug for ListTagBindingsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8792,7 +8748,6 @@ impl std::fmt::Debug for ListTagBindingsResponse {
         let mut debug_struct = f.debug_struct("ListTagBindingsResponse");
         debug_struct.field("tag_bindings", &self.tag_bindings);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9009,7 +8964,6 @@ impl std::fmt::Debug for ListEffectiveTagsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9205,7 +9159,6 @@ impl std::fmt::Debug for ListEffectiveTagsResponse {
         let mut debug_struct = f.debug_struct("ListEffectiveTagsResponse");
         debug_struct.field("effective_tags", &self.effective_tags);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9502,7 +9455,6 @@ impl std::fmt::Debug for EffectiveTag {
         debug_struct.field("namespaced_tag_key", &self.namespaced_tag_key);
         debug_struct.field("tag_key_parent_name", &self.tag_key_parent_name);
         debug_struct.field("inherited", &self.inherited);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9770,7 +9722,6 @@ impl std::fmt::Debug for TagHold {
         debug_struct.field("origin", &self.origin);
         debug_struct.field("help_link", &self.help_link);
         debug_struct.field("create_time", &self.create_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9977,7 +9928,6 @@ impl std::fmt::Debug for CreateTagHoldRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("tag_hold", &self.tag_hold);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10093,7 +10043,6 @@ impl serde::ser::Serialize for CreateTagHoldMetadata {
 impl std::fmt::Debug for CreateTagHoldMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateTagHoldMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10263,7 +10212,6 @@ impl std::fmt::Debug for DeleteTagHoldRequest {
         let mut debug_struct = f.debug_struct("DeleteTagHoldRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10379,7 +10327,6 @@ impl serde::ser::Serialize for DeleteTagHoldMetadata {
 impl std::fmt::Debug for DeleteTagHoldMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteTagHoldMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10630,7 +10577,6 @@ impl std::fmt::Debug for ListTagHoldsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10826,7 +10772,6 @@ impl std::fmt::Debug for ListTagHoldsResponse {
         let mut debug_struct = f.debug_struct("ListTagHoldsResponse");
         debug_struct.field("tag_holds", &self.tag_holds);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11256,7 +11201,6 @@ impl std::fmt::Debug for TagKey {
         debug_struct.field("etag", &self.etag);
         debug_struct.field("purpose", &self.purpose);
         debug_struct.field("purpose_data", &self.purpose_data);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11473,7 +11417,6 @@ impl std::fmt::Debug for ListTagKeysRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11660,7 +11603,6 @@ impl std::fmt::Debug for ListTagKeysResponse {
         let mut debug_struct = f.debug_struct("ListTagKeysResponse");
         debug_struct.field("tag_keys", &self.tag_keys);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11803,7 +11745,6 @@ impl std::fmt::Debug for GetTagKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetTagKeyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11948,7 +11889,6 @@ impl std::fmt::Debug for GetNamespacedTagKeyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetNamespacedTagKeyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12130,7 +12070,6 @@ impl std::fmt::Debug for CreateTagKeyRequest {
         let mut debug_struct = f.debug_struct("CreateTagKeyRequest");
         debug_struct.field("tag_key", &self.tag_key);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12244,7 +12183,6 @@ impl serde::ser::Serialize for CreateTagKeyMetadata {
 impl std::fmt::Debug for CreateTagKeyMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateTagKeyMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12467,7 +12405,6 @@ impl std::fmt::Debug for UpdateTagKeyRequest {
         debug_struct.field("tag_key", &self.tag_key);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12581,7 +12518,6 @@ impl serde::ser::Serialize for UpdateTagKeyMetadata {
 impl std::fmt::Debug for UpdateTagKeyMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateTagKeyMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12778,7 +12714,6 @@ impl std::fmt::Debug for DeleteTagKeyRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12892,7 +12827,6 @@ impl serde::ser::Serialize for DeleteTagKeyMetadata {
 impl std::fmt::Debug for DeleteTagKeyMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteTagKeyMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13250,7 +13184,6 @@ impl std::fmt::Debug for TagValue {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13467,7 +13400,6 @@ impl std::fmt::Debug for ListTagValuesRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13656,7 +13588,6 @@ impl std::fmt::Debug for ListTagValuesResponse {
         let mut debug_struct = f.debug_struct("ListTagValuesResponse");
         debug_struct.field("tag_values", &self.tag_values);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13799,7 +13730,6 @@ impl std::fmt::Debug for GetTagValueRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetTagValueRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13950,7 +13880,6 @@ impl std::fmt::Debug for GetNamespacedTagValueRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetNamespacedTagValueRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14132,7 +14061,6 @@ impl std::fmt::Debug for CreateTagValueRequest {
         let mut debug_struct = f.debug_struct("CreateTagValueRequest");
         debug_struct.field("tag_value", &self.tag_value);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14246,7 +14174,6 @@ impl serde::ser::Serialize for CreateTagValueMetadata {
 impl std::fmt::Debug for CreateTagValueMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateTagValueMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14467,7 +14394,6 @@ impl std::fmt::Debug for UpdateTagValueRequest {
         debug_struct.field("tag_value", &self.tag_value);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14581,7 +14507,6 @@ impl serde::ser::Serialize for UpdateTagValueMetadata {
 impl std::fmt::Debug for UpdateTagValueMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateTagValueMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14777,7 +14702,6 @@ impl std::fmt::Debug for DeleteTagValueRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14891,7 +14815,6 @@ impl serde::ser::Serialize for DeleteTagValueMetadata {
 impl std::fmt::Debug for DeleteTagValueMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteTagValueMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -7221,7 +7221,6 @@ impl std::fmt::Debug for TestAllTypesProto3 {
         debug_struct.field("field_name17__", &self.field_name17__);
         debug_struct.field("field_name_18__", &self.field_name_18__);
         debug_struct.field("oneof_field", &self.oneof_field);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7426,7 +7425,6 @@ pub mod test_all_types_proto_3 {
             let mut debug_struct = f.debug_struct("NestedMessage");
             debug_struct.field("a", &self.a);
             debug_struct.field("corecursive", &self.corecursive);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -7875,7 +7873,6 @@ impl std::fmt::Debug for ForeignMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ForeignMessage");
         debug_struct.field("c", &self.c);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7988,7 +7985,6 @@ impl serde::ser::Serialize for NullHypothesisProto3 {
 impl std::fmt::Debug for NullHypothesisProto3 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NullHypothesisProto3");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8101,7 +8097,6 @@ impl serde::ser::Serialize for EnumOnlyProto3 {
 impl std::fmt::Debug for EnumOnlyProto3 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnumOnlyProto3");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

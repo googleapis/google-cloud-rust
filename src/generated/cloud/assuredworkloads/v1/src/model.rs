@@ -232,7 +232,6 @@ impl std::fmt::Debug for CreateWorkloadRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("workload", &self.workload);
         debug_struct.field("external_id", &self.external_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -425,7 +424,6 @@ impl std::fmt::Debug for UpdateWorkloadRequest {
         let mut debug_struct = f.debug_struct("UpdateWorkloadRequest");
         debug_struct.field("workload", &self.workload);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -595,7 +593,6 @@ impl std::fmt::Debug for DeleteWorkloadRequest {
         let mut debug_struct = f.debug_struct("DeleteWorkloadRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -741,7 +738,6 @@ impl std::fmt::Debug for GetWorkloadRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetWorkloadRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -982,7 +978,6 @@ impl std::fmt::Debug for ListWorkloadsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1167,7 +1162,6 @@ impl std::fmt::Debug for ListWorkloadsResponse {
         let mut debug_struct = f.debug_struct("ListWorkloadsResponse");
         debug_struct.field("workloads", &self.workloads);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1835,7 +1829,6 @@ impl std::fmt::Debug for Workload {
             &self.compliant_but_disallowed_services,
         );
         debug_struct.field("partner", &self.partner);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2039,7 +2032,6 @@ pub mod workload {
             let mut debug_struct = f.debug_struct("ResourceInfo");
             debug_struct.field("resource_id", &self.resource_id);
             debug_struct.field("resource_type", &self.resource_type);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2402,7 +2394,6 @@ pub mod workload {
             let mut debug_struct = f.debug_struct("KMSSettings");
             debug_struct.field("next_rotation_time", &self.next_rotation_time);
             debug_struct.field("rotation_period", &self.rotation_period);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2618,7 +2609,6 @@ pub mod workload {
             debug_struct.field("resource_id", &self.resource_id);
             debug_struct.field("resource_type", &self.resource_type);
             debug_struct.field("display_name", &self.display_name);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2807,7 +2797,6 @@ pub mod workload {
             let mut debug_struct = f.debug_struct("SaaEnrollmentResponse");
             debug_struct.field("setup_status", &self.setup_status);
             debug_struct.field("setup_errors", &self.setup_errors);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3809,7 +3798,6 @@ impl std::fmt::Debug for CreateWorkloadOperationMetadata {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("parent", &self.parent);
         debug_struct.field("compliance_regime", &self.compliance_regime);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3984,7 +3972,6 @@ impl std::fmt::Debug for RestrictAllowedResourcesRequest {
         let mut debug_struct = f.debug_struct("RestrictAllowedResourcesRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("restriction_type", &self.restriction_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4242,7 +4229,6 @@ impl serde::ser::Serialize for RestrictAllowedResourcesResponse {
 impl std::fmt::Debug for RestrictAllowedResourcesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RestrictAllowedResourcesResponse");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4451,7 +4437,6 @@ impl std::fmt::Debug for AcknowledgeViolationRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("comment", &self.comment);
         debug_struct.field("non_compliant_org_policy", &self.non_compliant_org_policy);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4565,7 +4550,6 @@ impl serde::ser::Serialize for AcknowledgeViolationResponse {
 impl std::fmt::Debug for AcknowledgeViolationResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AcknowledgeViolationResponse");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4756,7 +4740,6 @@ impl std::fmt::Debug for TimeWindow {
         let mut debug_struct = f.debug_struct("TimeWindow");
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("end_time", &self.end_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5032,7 +5015,6 @@ impl std::fmt::Debug for ListViolationsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5217,7 +5199,6 @@ impl std::fmt::Debug for ListViolationsResponse {
         let mut debug_struct = f.debug_struct("ListViolationsResponse");
         debug_struct.field("violations", &self.violations);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5361,7 +5342,6 @@ impl std::fmt::Debug for GetViolationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetViolationRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5924,7 +5904,6 @@ impl std::fmt::Debug for Violation {
         debug_struct.field("acknowledged", &self.acknowledged);
         debug_struct.field("acknowledgement_time", &self.acknowledgement_time);
         debug_struct.field("exception_audit_log_link", &self.exception_audit_log_link);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6151,7 +6130,6 @@ pub mod violation {
             debug_struct.field("instructions", &self.instructions);
             debug_struct.field("compliant_values", &self.compliant_values);
             debug_struct.field("remediation_type", &self.remediation_type);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -6367,7 +6345,6 @@ pub mod violation {
                 let mut debug_struct = f.debug_struct("Instructions");
                 debug_struct.field("gcloud_instructions", &self.gcloud_instructions);
                 debug_struct.field("console_instructions", &self.console_instructions);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -6605,7 +6582,6 @@ pub mod violation {
                     debug_struct.field("gcloud_commands", &self.gcloud_commands);
                     debug_struct.field("steps", &self.steps);
                     debug_struct.field("additional_links", &self.additional_links);
-
                     if !self._unknown_fields.is_empty() {
                         debug_struct.field("_unknown_fields", &self._unknown_fields);
                     }
@@ -6838,7 +6814,6 @@ pub mod violation {
                     debug_struct.field("console_uris", &self.console_uris);
                     debug_struct.field("steps", &self.steps);
                     debug_struct.field("additional_links", &self.additional_links);
-
                     if !self._unknown_fields.is_empty() {
                         debug_struct.field("_unknown_fields", &self._unknown_fields);
                     }

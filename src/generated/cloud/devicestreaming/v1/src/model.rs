@@ -315,7 +315,6 @@ impl std::fmt::Debug for DeviceMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeviceMessage");
         debug_struct.field("contents", &self.contents);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -568,7 +567,6 @@ impl std::fmt::Debug for AdbMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdbMessage");
         debug_struct.field("contents", &self.contents);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -787,7 +785,6 @@ impl std::fmt::Debug for StatusUpdate {
         debug_struct.field("state", &self.state);
         debug_struct.field("properties", &self.properties);
         debug_struct.field("features", &self.features);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1255,7 +1252,6 @@ impl std::fmt::Debug for StreamStatus {
         let mut debug_struct = f.debug_struct("StreamStatus");
         debug_struct.field("stream_id", &self.stream_id);
         debug_struct.field("status", &self.status);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1458,7 +1454,6 @@ impl std::fmt::Debug for Open {
         let mut debug_struct = f.debug_struct("Open");
         debug_struct.field("stream_id", &self.stream_id);
         debug_struct.field("service", &self.service);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1753,7 +1748,6 @@ impl std::fmt::Debug for StreamData {
         let mut debug_struct = f.debug_struct("StreamData");
         debug_struct.field("stream_id", &self.stream_id);
         debug_struct.field("contents", &self.contents);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1884,7 +1878,6 @@ impl serde::ser::Serialize for Okay {
 impl std::fmt::Debug for Okay {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Okay");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2026,7 +2019,6 @@ impl std::fmt::Debug for Fail {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Fail");
         debug_struct.field("reason", &self.reason);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2140,7 +2132,6 @@ impl serde::ser::Serialize for Close {
 impl std::fmt::Debug for Close {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Close");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2353,7 +2344,6 @@ impl std::fmt::Debug for CreateDeviceSessionRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("device_session", &self.device_session);
         debug_struct.field("device_session_id", &self.device_session_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2591,7 +2581,6 @@ impl std::fmt::Debug for ListDeviceSessionsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2778,7 +2767,6 @@ impl std::fmt::Debug for ListDeviceSessionsResponse {
         let mut debug_struct = f.debug_struct("ListDeviceSessionsResponse");
         debug_struct.field("device_sessions", &self.device_sessions);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2921,7 +2909,6 @@ impl std::fmt::Debug for GetDeviceSessionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDeviceSessionRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3064,7 +3051,6 @@ impl std::fmt::Debug for CancelDeviceSessionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelDeviceSessionRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3257,7 +3243,6 @@ impl std::fmt::Debug for UpdateDeviceSessionRequest {
         let mut debug_struct = f.debug_struct("UpdateDeviceSessionRequest");
         debug_struct.field("device_session", &self.device_session);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3746,7 +3731,6 @@ impl std::fmt::Debug for DeviceSession {
         debug_struct.field("active_start_time", &self.active_start_time);
         debug_struct.field("android_device", &self.android_device);
         debug_struct.field("expiration", &self.expiration);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3972,7 +3956,6 @@ pub mod device_session {
             debug_struct.field("session_state", &self.session_state);
             debug_struct.field("event_time", &self.event_time);
             debug_struct.field("state_message", &self.state_message);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -4392,7 +4375,6 @@ impl std::fmt::Debug for AndroidDevice {
         debug_struct.field("android_version_id", &self.android_version_id);
         debug_struct.field("locale", &self.locale);
         debug_struct.field("orientation", &self.orientation);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

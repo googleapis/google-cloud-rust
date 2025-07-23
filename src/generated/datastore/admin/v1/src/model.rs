@@ -308,7 +308,6 @@ impl std::fmt::Debug for CommonMetadata {
         debug_struct.field("operation_type", &self.operation_type);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("state", &self.state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -692,7 +691,6 @@ impl std::fmt::Debug for Progress {
         let mut debug_struct = f.debug_struct("Progress");
         debug_struct.field("work_completed", &self.work_completed);
         debug_struct.field("work_estimated", &self.work_estimated);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -959,7 +957,6 @@ impl std::fmt::Debug for ExportEntitiesRequest {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("entity_filter", &self.entity_filter);
         debug_struct.field("output_url_prefix", &self.output_url_prefix);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1222,7 +1219,6 @@ impl std::fmt::Debug for ImportEntitiesRequest {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("input_url", &self.input_url);
         debug_struct.field("entity_filter", &self.entity_filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1373,7 +1369,6 @@ impl std::fmt::Debug for ExportEntitiesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExportEntitiesResponse");
         debug_struct.field("output_url", &self.output_url);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1674,7 +1669,6 @@ impl std::fmt::Debug for ExportEntitiesMetadata {
         debug_struct.field("progress_bytes", &self.progress_bytes);
         debug_struct.field("entity_filter", &self.entity_filter);
         debug_struct.field("output_url_prefix", &self.output_url_prefix);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1970,7 +1964,6 @@ impl std::fmt::Debug for ImportEntitiesMetadata {
         debug_struct.field("progress_bytes", &self.progress_bytes);
         debug_struct.field("entity_filter", &self.entity_filter);
         debug_struct.field("input_url", &self.input_url);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2168,7 +2161,6 @@ impl std::fmt::Debug for EntityFilter {
         let mut debug_struct = f.debug_struct("EntityFilter");
         debug_struct.field("kinds", &self.kinds);
         debug_struct.field("namespace_ids", &self.namespace_ids);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2351,7 +2343,6 @@ impl std::fmt::Debug for CreateIndexRequest {
         let mut debug_struct = f.debug_struct("CreateIndexRequest");
         debug_struct.field("project_id", &self.project_id);
         debug_struct.field("index", &self.index);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2523,7 +2514,6 @@ impl std::fmt::Debug for DeleteIndexRequest {
         let mut debug_struct = f.debug_struct("DeleteIndexRequest");
         debug_struct.field("project_id", &self.project_id);
         debug_struct.field("index_id", &self.index_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2695,7 +2685,6 @@ impl std::fmt::Debug for GetIndexRequest {
         let mut debug_struct = f.debug_struct("GetIndexRequest");
         debug_struct.field("project_id", &self.project_id);
         debug_struct.field("index_id", &self.index_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2936,7 +2925,6 @@ impl std::fmt::Debug for ListIndexesRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3124,7 +3112,6 @@ impl std::fmt::Debug for ListIndexesResponse {
         let mut debug_struct = f.debug_struct("ListIndexesResponse");
         debug_struct.field("indexes", &self.indexes);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3341,7 +3328,6 @@ impl std::fmt::Debug for IndexOperationMetadata {
         debug_struct.field("common", &self.common);
         debug_struct.field("progress_entities", &self.progress_entities);
         debug_struct.field("index_id", &self.index_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3525,7 +3511,6 @@ impl std::fmt::Debug for DatastoreFirestoreMigrationMetadata {
         let mut debug_struct = f.debug_struct("DatastoreFirestoreMigrationMetadata");
         debug_struct.field("migration_state", &self.migration_state);
         debug_struct.field("migration_step", &self.migration_step);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3807,7 +3792,6 @@ impl std::fmt::Debug for Index {
         debug_struct.field("ancestor", &self.ancestor);
         debug_struct.field("properties", &self.properties);
         debug_struct.field("state", &self.state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3984,7 +3968,6 @@ pub mod index {
             let mut debug_struct = f.debug_struct("IndexedProperty");
             debug_struct.field("name", &self.name);
             debug_struct.field("direction", &self.direction);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -4555,7 +4538,6 @@ impl std::fmt::Debug for MigrationStateEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MigrationStateEvent");
         debug_struct.field("state", &self.state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4846,7 +4828,6 @@ impl std::fmt::Debug for MigrationProgressEvent {
         let mut debug_struct = f.debug_struct("MigrationProgressEvent");
         debug_struct.field("step", &self.step);
         debug_struct.field("step_details", &self.step_details);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5005,7 +4986,6 @@ pub mod migration_progress_event {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("PrepareStepDetails");
             debug_struct.field("concurrency_mode", &self.concurrency_mode);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -5158,7 +5138,6 @@ pub mod migration_progress_event {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("RedirectWritesStepDetails");
             debug_struct.field("concurrency_mode", &self.concurrency_mode);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }

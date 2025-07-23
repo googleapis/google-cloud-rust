@@ -174,7 +174,6 @@ impl std::fmt::Debug for ListVoicesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListVoicesRequest");
         debug_struct.field("language_code", &self.language_code);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -319,7 +318,6 @@ impl std::fmt::Debug for ListVoicesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListVoicesResponse");
         debug_struct.field("voices", &self.voices);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -571,7 +569,6 @@ impl std::fmt::Debug for Voice {
         debug_struct.field("name", &self.name);
         debug_struct.field("ssml_gender", &self.ssml_gender);
         debug_struct.field("natural_sample_rate_hertz", &self.natural_sample_rate_hertz);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -739,7 +736,6 @@ impl std::fmt::Debug for AdvancedVoiceOptions {
             "low_latency_journey_synthesis",
             &self.low_latency_journey_synthesis,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1003,7 +999,6 @@ impl std::fmt::Debug for SynthesizeSpeechRequest {
         debug_struct.field("voice", &self.voice);
         debug_struct.field("audio_config", &self.audio_config);
         debug_struct.field("advanced_voice_options", &self.advanced_voice_options);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1234,7 +1229,6 @@ impl std::fmt::Debug for CustomPronunciationParams {
         debug_struct.field("phrase", &self.phrase);
         debug_struct.field("phonetic_encoding", &self.phonetic_encoding);
         debug_struct.field("pronunciation", &self.pronunciation);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1558,7 +1552,6 @@ impl std::fmt::Debug for CustomPronunciations {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomPronunciations");
         debug_struct.field("pronunciations", &self.pronunciations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1707,7 +1700,6 @@ impl std::fmt::Debug for MultiSpeakerMarkup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MultiSpeakerMarkup");
         debug_struct.field("turns", &self.turns);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1883,7 +1875,6 @@ pub mod multi_speaker_markup {
             let mut debug_struct = f.debug_struct("Turn");
             debug_struct.field("speaker", &self.speaker);
             debug_struct.field("text", &self.text);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2261,7 +2252,6 @@ impl std::fmt::Debug for SynthesisInput {
         let mut debug_struct = f.debug_struct("SynthesisInput");
         debug_struct.field("custom_pronunciations", &self.custom_pronunciations);
         debug_struct.field("input_source", &self.input_source);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2580,7 +2570,6 @@ impl std::fmt::Debug for VoiceSelectionParams {
         debug_struct.field("ssml_gender", &self.ssml_gender);
         debug_struct.field("custom_voice", &self.custom_voice);
         debug_struct.field("voice_clone", &self.voice_clone);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2956,7 +2945,6 @@ impl std::fmt::Debug for AudioConfig {
         debug_struct.field("volume_gain_db", &self.volume_gain_db);
         debug_struct.field("sample_rate_hertz", &self.sample_rate_hertz);
         debug_struct.field("effects_profile_id", &self.effects_profile_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3133,7 +3121,6 @@ impl std::fmt::Debug for CustomVoiceParams {
         let mut debug_struct = f.debug_struct("CustomVoiceParams");
         debug_struct.field("model", &self.model);
         debug_struct.field("reported_usage", &self.reported_usage);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3421,7 +3408,6 @@ impl std::fmt::Debug for VoiceCloneParams {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VoiceCloneParams");
         debug_struct.field("voice_cloning_key", &self.voice_cloning_key);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3587,7 +3573,6 @@ impl std::fmt::Debug for SynthesizeSpeechResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynthesizeSpeechResponse");
         debug_struct.field("audio_content", &self.audio_content);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3828,7 +3813,6 @@ impl std::fmt::Debug for StreamingAudioConfig {
         debug_struct.field("audio_encoding", &self.audio_encoding);
         debug_struct.field("sample_rate_hertz", &self.sample_rate_hertz);
         debug_struct.field("speaking_rate", &self.speaking_rate);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4064,7 +4048,6 @@ impl std::fmt::Debug for StreamingSynthesizeConfig {
         debug_struct.field("voice", &self.voice);
         debug_struct.field("streaming_audio_config", &self.streaming_audio_config);
         debug_struct.field("custom_pronunciations", &self.custom_pronunciations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4296,7 +4279,6 @@ impl std::fmt::Debug for StreamingSynthesisInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingSynthesisInput");
         debug_struct.field("input_source", &self.input_source);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4569,7 +4551,6 @@ impl std::fmt::Debug for StreamingSynthesizeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingSynthesizeRequest");
         debug_struct.field("streaming_request", &self.streaming_request);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4753,7 +4734,6 @@ impl std::fmt::Debug for StreamingSynthesizeResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamingSynthesizeResponse");
         debug_struct.field("audio_content", &self.audio_content);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5035,7 +5015,6 @@ impl std::fmt::Debug for SynthesizeLongAudioRequest {
         debug_struct.field("audio_config", &self.audio_config);
         debug_struct.field("output_gcs_uri", &self.output_gcs_uri);
         debug_struct.field("voice", &self.voice);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5149,7 +5128,6 @@ impl serde::ser::Serialize for SynthesizeLongAudioResponse {
 impl std::fmt::Debug for SynthesizeLongAudioResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynthesizeLongAudioResponse");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5388,7 +5366,6 @@ impl std::fmt::Debug for SynthesizeLongAudioMetadata {
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("last_update_time", &self.last_update_time);
         debug_struct.field("progress_percentage", &self.progress_percentage);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

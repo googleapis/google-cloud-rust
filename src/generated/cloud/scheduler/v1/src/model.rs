@@ -253,7 +253,6 @@ impl std::fmt::Debug for ListJobsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -451,7 +450,6 @@ impl std::fmt::Debug for ListJobsResponse {
         let mut debug_struct = f.debug_struct("ListJobsResponse");
         debug_struct.field("jobs", &self.jobs);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -597,7 +595,6 @@ impl std::fmt::Debug for GetJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetJobRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -786,7 +783,6 @@ impl std::fmt::Debug for CreateJobRequest {
         let mut debug_struct = f.debug_struct("CreateJobRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("job", &self.job);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -985,7 +981,6 @@ impl std::fmt::Debug for UpdateJobRequest {
         let mut debug_struct = f.debug_struct("UpdateJobRequest");
         debug_struct.field("job", &self.job);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1131,7 +1126,6 @@ impl std::fmt::Debug for DeleteJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteJobRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1277,7 +1271,6 @@ impl std::fmt::Debug for PauseJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PauseJobRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1423,7 +1416,6 @@ impl std::fmt::Debug for ResumeJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResumeJobRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1569,7 +1561,6 @@ impl std::fmt::Debug for RunJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RunJobRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2304,7 +2295,6 @@ impl std::fmt::Debug for Job {
         debug_struct.field("retry_config", &self.retry_config);
         debug_struct.field("attempt_deadline", &self.attempt_deadline);
         debug_struct.field("target", &self.target);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2864,7 +2854,6 @@ impl std::fmt::Debug for RetryConfig {
         debug_struct.field("min_backoff_duration", &self.min_backoff_duration);
         debug_struct.field("max_backoff_duration", &self.max_backoff_duration);
         debug_struct.field("max_doublings", &self.max_doublings);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3302,7 +3291,6 @@ impl std::fmt::Debug for HttpTarget {
         debug_struct.field("headers", &self.headers);
         debug_struct.field("body", &self.body);
         debug_struct.field("authorization_header", &self.authorization_header);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3686,7 +3674,6 @@ impl std::fmt::Debug for AppEngineHttpTarget {
         debug_struct.field("relative_uri", &self.relative_uri);
         debug_struct.field("headers", &self.headers);
         debug_struct.field("body", &self.body);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3921,7 +3908,6 @@ impl std::fmt::Debug for PubsubTarget {
         debug_struct.field("topic_name", &self.topic_name);
         debug_struct.field("data", &self.data);
         debug_struct.field("attributes", &self.attributes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4231,7 +4217,6 @@ impl std::fmt::Debug for AppEngineRouting {
         debug_struct.field("version", &self.version);
         debug_struct.field("instance", &self.instance);
         debug_struct.field("host", &self.host);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4410,7 +4395,6 @@ impl std::fmt::Debug for OAuthToken {
         let mut debug_struct = f.debug_struct("OAuthToken");
         debug_struct.field("service_account_email", &self.service_account_email);
         debug_struct.field("scope", &self.scope);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4590,7 +4574,6 @@ impl std::fmt::Debug for OidcToken {
         let mut debug_struct = f.debug_struct("OidcToken");
         debug_struct.field("service_account_email", &self.service_account_email);
         debug_struct.field("audience", &self.audience);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

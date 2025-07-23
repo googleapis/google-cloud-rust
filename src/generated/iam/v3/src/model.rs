@@ -350,7 +350,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -884,7 +883,6 @@ impl std::fmt::Debug for PolicyBinding {
         debug_struct.field("condition", &self.condition);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1081,7 +1079,6 @@ pub mod policy_binding {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Target");
             debug_struct.field("target", &self.target);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1494,7 +1491,6 @@ impl std::fmt::Debug for CreatePolicyBindingRequest {
         debug_struct.field("policy_binding_id", &self.policy_binding_id);
         debug_struct.field("policy_binding", &self.policy_binding);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1643,7 +1639,6 @@ impl std::fmt::Debug for GetPolicyBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPolicyBindingRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1864,7 +1859,6 @@ impl std::fmt::Debug for UpdatePolicyBindingRequest {
         debug_struct.field("policy_binding", &self.policy_binding);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2066,7 +2060,6 @@ impl std::fmt::Debug for DeletePolicyBindingRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2329,7 +2322,6 @@ impl std::fmt::Debug for ListPolicyBindingsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2516,7 +2508,6 @@ impl std::fmt::Debug for ListPolicyBindingsResponse {
         let mut debug_struct = f.debug_struct("ListPolicyBindingsResponse");
         debug_struct.field("policy_bindings", &self.policy_bindings);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2781,7 +2772,6 @@ impl std::fmt::Debug for SearchTargetPolicyBindingsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("parent", &self.parent);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2968,7 +2958,6 @@ impl std::fmt::Debug for SearchTargetPolicyBindingsResponse {
         let mut debug_struct = f.debug_struct("SearchTargetPolicyBindingsResponse");
         debug_struct.field("policy_bindings", &self.policy_bindings);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3241,7 +3230,6 @@ impl std::fmt::Debug for CreatePrincipalAccessBoundaryPolicyRequest {
             &self.principal_access_boundary_policy,
         );
         debug_struct.field("validate_only", &self.validate_only);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3387,7 +3375,6 @@ impl std::fmt::Debug for GetPrincipalAccessBoundaryPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPrincipalAccessBoundaryPolicyRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3626,7 +3613,6 @@ impl std::fmt::Debug for UpdatePrincipalAccessBoundaryPolicyRequest {
         );
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3852,7 +3838,6 @@ impl std::fmt::Debug for DeletePrincipalAccessBoundaryPolicyRequest {
         debug_struct.field("etag", &self.etag);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("force", &self.force);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4081,7 +4066,6 @@ impl std::fmt::Debug for ListPrincipalAccessBoundaryPoliciesRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4285,7 +4269,6 @@ impl std::fmt::Debug for ListPrincipalAccessBoundaryPoliciesResponse {
             &self.principal_access_boundary_policies,
         );
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4511,7 +4494,6 @@ impl std::fmt::Debug for SearchPrincipalAccessBoundaryPolicyBindingsRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4703,7 +4685,6 @@ impl std::fmt::Debug for SearchPrincipalAccessBoundaryPolicyBindingsResponse {
             f.debug_struct("SearchPrincipalAccessBoundaryPolicyBindingsResponse");
         debug_struct.field("policy_bindings", &self.policy_bindings);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5078,7 +5059,6 @@ impl std::fmt::Debug for PrincipalAccessBoundaryPolicy {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("details", &self.details);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5261,7 +5241,6 @@ impl std::fmt::Debug for PrincipalAccessBoundaryPolicyDetails {
         let mut debug_struct = f.debug_struct("PrincipalAccessBoundaryPolicyDetails");
         debug_struct.field("rules", &self.rules);
         debug_struct.field("enforcement_version", &self.enforcement_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5476,7 +5455,6 @@ impl std::fmt::Debug for PrincipalAccessBoundaryPolicyRule {
         debug_struct.field("description", &self.description);
         debug_struct.field("resources", &self.resources);
         debug_struct.field("effect", &self.effect);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

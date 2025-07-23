@@ -411,7 +411,6 @@ impl std::fmt::Debug for Environment {
         debug_struct.field("ssh_host", &self.ssh_host);
         debug_struct.field("ssh_port", &self.ssh_port);
         debug_struct.field("public_keys", &self.public_keys);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -713,7 +712,6 @@ impl std::fmt::Debug for GetEnvironmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEnvironmentRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -828,7 +826,6 @@ impl serde::ser::Serialize for CreateEnvironmentMetadata {
 impl std::fmt::Debug for CreateEnvironmentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateEnvironmentMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -943,7 +940,6 @@ impl serde::ser::Serialize for DeleteEnvironmentMetadata {
 impl std::fmt::Debug for DeleteEnvironmentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteEnvironmentMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1148,7 +1144,6 @@ impl std::fmt::Debug for StartEnvironmentRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("access_token", &self.access_token);
         debug_struct.field("public_keys", &self.public_keys);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1385,7 +1380,6 @@ impl std::fmt::Debug for AuthorizeEnvironmentRequest {
         debug_struct.field("access_token", &self.access_token);
         debug_struct.field("id_token", &self.id_token);
         debug_struct.field("expire_time", &self.expire_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1502,7 +1496,6 @@ impl serde::ser::Serialize for AuthorizeEnvironmentResponse {
 impl std::fmt::Debug for AuthorizeEnvironmentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuthorizeEnvironmentResponse");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1619,7 +1612,6 @@ impl serde::ser::Serialize for AuthorizeEnvironmentMetadata {
 impl std::fmt::Debug for AuthorizeEnvironmentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuthorizeEnvironmentMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1769,7 +1761,6 @@ impl std::fmt::Debug for StartEnvironmentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StartEnvironmentMetadata");
         debug_struct.field("state", &self.state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2092,7 +2083,6 @@ impl std::fmt::Debug for StartEnvironmentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StartEnvironmentResponse");
         debug_struct.field("environment", &self.environment);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2268,7 +2258,6 @@ impl std::fmt::Debug for AddPublicKeyRequest {
         let mut debug_struct = f.debug_struct("AddPublicKeyRequest");
         debug_struct.field("environment", &self.environment);
         debug_struct.field("key", &self.key);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2413,7 +2402,6 @@ impl std::fmt::Debug for AddPublicKeyResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddPublicKeyResponse");
         debug_struct.field("key", &self.key);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2530,7 +2518,6 @@ impl serde::ser::Serialize for AddPublicKeyMetadata {
 impl std::fmt::Debug for AddPublicKeyMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddPublicKeyMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2701,7 +2688,6 @@ impl std::fmt::Debug for RemovePublicKeyRequest {
         let mut debug_struct = f.debug_struct("RemovePublicKeyRequest");
         debug_struct.field("environment", &self.environment);
         debug_struct.field("key", &self.key);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2818,7 +2804,6 @@ impl serde::ser::Serialize for RemovePublicKeyResponse {
 impl std::fmt::Debug for RemovePublicKeyResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RemovePublicKeyResponse");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2935,7 +2920,6 @@ impl serde::ser::Serialize for RemovePublicKeyMetadata {
 impl std::fmt::Debug for RemovePublicKeyMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RemovePublicKeyMetadata");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3085,7 +3069,6 @@ impl std::fmt::Debug for CloudShellErrorDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudShellErrorDetails");
         debug_struct.field("code", &self.code);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

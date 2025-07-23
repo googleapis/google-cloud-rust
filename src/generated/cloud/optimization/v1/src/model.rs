@@ -241,7 +241,6 @@ impl std::fmt::Debug for InputConfig {
         let mut debug_struct = f.debug_struct("InputConfig");
         debug_struct.field("data_format", &self.data_format);
         debug_struct.field("source", &self.source);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -480,7 +479,6 @@ impl std::fmt::Debug for OutputConfig {
         let mut debug_struct = f.debug_struct("OutputConfig");
         debug_struct.field("data_format", &self.data_format);
         debug_struct.field("destination", &self.destination);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -637,7 +635,6 @@ impl std::fmt::Debug for GcsSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcsSource");
         debug_struct.field("uri", &self.uri);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -779,7 +776,6 @@ impl std::fmt::Debug for GcsDestination {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcsDestination");
         debug_struct.field("uri", &self.uri);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1023,7 +1019,6 @@ impl std::fmt::Debug for AsyncModelMetadata {
         debug_struct.field("state_message", &self.state_message);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2134,7 +2129,6 @@ impl std::fmt::Debug for OptimizeToursRequest {
             "populate_travel_step_polylines",
             &self.populate_travel_step_polylines,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2774,7 +2768,6 @@ impl std::fmt::Debug for OptimizeToursResponse {
         debug_struct.field("validation_errors", &self.validation_errors);
         debug_struct.field("metrics", &self.metrics);
         debug_struct.field("total_cost", &self.total_cost);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3267,7 +3260,6 @@ pub mod optimize_tours_response {
             debug_struct.field("latest_vehicle_end_time", &self.latest_vehicle_end_time);
             debug_struct.field("costs", &self.costs);
             debug_struct.field("total_cost", &self.total_cost);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3448,7 +3440,6 @@ impl std::fmt::Debug for BatchOptimizeToursRequest {
         let mut debug_struct = f.debug_struct("BatchOptimizeToursRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("model_configs", &self.model_configs);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3712,7 +3703,6 @@ pub mod batch_optimize_tours_request {
             debug_struct.field("input_config", &self.input_config);
             debug_struct.field("output_config", &self.output_config);
             debug_struct.field("enable_checkpoints", &self.enable_checkpoints);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3828,7 +3818,6 @@ impl serde::ser::Serialize for BatchOptimizeToursResponse {
 impl std::fmt::Debug for BatchOptimizeToursResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchOptimizeToursResponse");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4645,7 +4634,6 @@ impl std::fmt::Debug for ShipmentModel {
         );
         debug_struct.field("precedence_rules", &self.precedence_rules);
         debug_struct.field("break_rules", &self.break_rules);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4840,7 +4828,6 @@ pub mod shipment_model {
             let mut debug_struct = f.debug_struct("DurationDistanceMatrix");
             debug_struct.field("rows", &self.rows);
             debug_struct.field("vehicle_start_tag", &self.vehicle_start_tag);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -5064,7 +5051,6 @@ pub mod shipment_model {
                 let mut debug_struct = f.debug_struct("Row");
                 debug_struct.field("durations", &self.durations);
                 debug_struct.field("meters", &self.meters);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -5399,7 +5385,6 @@ pub mod shipment_model {
             debug_struct.field("second_index", &self.second_index);
             debug_struct.field("second_is_delivery", &self.second_is_delivery);
             debug_struct.field("offset_duration", &self.offset_duration);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -5600,7 +5585,6 @@ pub mod shipment_model {
             let mut debug_struct = f.debug_struct("BreakRule");
             debug_struct.field("break_requests", &self.break_requests);
             debug_struct.field("frequency_constraints", &self.frequency_constraints);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -5849,7 +5833,6 @@ pub mod shipment_model {
                 debug_struct.field("earliest_start_time", &self.earliest_start_time);
                 debug_struct.field("latest_start_time", &self.latest_start_time);
                 debug_struct.field("min_duration", &self.min_duration);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -6095,7 +6078,6 @@ pub mod shipment_model {
                 let mut debug_struct = f.debug_struct("FrequencyConstraint");
                 debug_struct.field("min_break_duration", &self.min_break_duration);
                 debug_struct.field("max_inter_break_duration", &self.max_inter_break_duration);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -6925,7 +6907,6 @@ impl std::fmt::Debug for Shipment {
         debug_struct.field("label", &self.label);
         debug_struct.field("ignore", &self.ignore);
         debug_struct.field("demands", &self.demands);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7522,7 +7503,6 @@ pub mod shipment {
             debug_struct.field("visit_types", &self.visit_types);
             debug_struct.field("label", &self.label);
             debug_struct.field("demands", &self.demands);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -7692,7 +7672,6 @@ pub mod shipment {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Load");
             debug_struct.field("amount", &self.amount);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -7870,7 +7849,6 @@ impl std::fmt::Debug for ShipmentTypeIncompatibility {
         let mut debug_struct = f.debug_struct("ShipmentTypeIncompatibility");
         debug_struct.field("types", &self.types);
         debug_struct.field("incompatibility_mode", &self.incompatibility_mode);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8248,7 +8226,6 @@ impl std::fmt::Debug for ShipmentTypeRequirement {
         );
         debug_struct.field("dependent_shipment_types", &self.dependent_shipment_types);
         debug_struct.field("requirement_mode", &self.requirement_mode);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8642,7 +8619,6 @@ impl std::fmt::Debug for RouteModifiers {
         debug_struct.field("avoid_highways", &self.avoid_highways);
         debug_struct.field("avoid_ferries", &self.avoid_ferries);
         debug_struct.field("avoid_indoor", &self.avoid_indoor);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9981,7 +9957,6 @@ impl std::fmt::Debug for Vehicle {
         debug_struct.field("capacities", &self.capacities);
         debug_struct.field("start_load_intervals", &self.start_load_intervals);
         debug_struct.field("end_load_intervals", &self.end_load_intervals);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10364,7 +10339,6 @@ pub mod vehicle {
             );
             debug_struct.field("start_load_interval", &self.start_load_interval);
             debug_struct.field("end_load_interval", &self.end_load_interval);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -10613,7 +10587,6 @@ pub mod vehicle {
                 let mut debug_struct = f.debug_struct("Interval");
                 debug_struct.field("min", &self.min);
                 debug_struct.field("max", &self.max);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -11041,7 +11014,6 @@ pub mod vehicle {
                 "cost_per_square_hour_after_quadratic_soft_max",
                 &self.cost_per_square_hour_after_quadratic_soft_max,
             );
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -11770,7 +11742,6 @@ impl std::fmt::Debug for TimeWindow {
             "cost_per_hour_after_soft_end_time",
             &self.cost_per_hour_after_soft_end_time,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11958,7 +11929,6 @@ impl std::fmt::Debug for CapacityQuantity {
         let mut debug_struct = f.debug_struct("CapacityQuantity");
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("value", &self.value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12218,7 +12188,6 @@ impl std::fmt::Debug for CapacityQuantityInterval {
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("min_value", &self.min_value);
         debug_struct.field("max_value", &self.max_value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12622,7 +12591,6 @@ impl std::fmt::Debug for DistanceLimit {
             "cost_per_kilometer_above_soft_max",
             &self.cost_per_kilometer_above_soft_max,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13044,7 +13012,6 @@ impl std::fmt::Debug for TransitionAttributes {
         debug_struct.field("cost_per_kilometer", &self.cost_per_kilometer);
         debug_struct.field("distance_limit", &self.distance_limit);
         debug_struct.field("delay", &self.delay);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13307,7 +13274,6 @@ impl std::fmt::Debug for Waypoint {
         let mut debug_struct = f.debug_struct("Waypoint");
         debug_struct.field("side_of_road", &self.side_of_road);
         debug_struct.field("location_type", &self.location_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13538,7 +13504,6 @@ impl std::fmt::Debug for Location {
         let mut debug_struct = f.debug_struct("Location");
         debug_struct.field("lat_lng", &self.lat_lng);
         debug_struct.field("heading", &self.heading);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13731,7 +13696,6 @@ impl std::fmt::Debug for BreakRule {
         let mut debug_struct = f.debug_struct("BreakRule");
         debug_struct.field("break_requests", &self.break_requests);
         debug_struct.field("frequency_constraints", &self.frequency_constraints);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13971,7 +13935,6 @@ pub mod break_rule {
             debug_struct.field("earliest_start_time", &self.earliest_start_time);
             debug_struct.field("latest_start_time", &self.latest_start_time);
             debug_struct.field("min_duration", &self.min_duration);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -14206,7 +14169,6 @@ pub mod break_rule {
             let mut debug_struct = f.debug_struct("FrequencyConstraint");
             debug_struct.field("min_break_duration", &self.min_break_duration);
             debug_struct.field("max_inter_break_duration", &self.max_inter_break_duration);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -15098,7 +15060,6 @@ impl std::fmt::Debug for ShipmentRoute {
         debug_struct.field("travel_steps", &self.travel_steps);
         debug_struct.field("vehicle_detour", &self.vehicle_detour);
         debug_struct.field("delay_before_vehicle_end", &self.delay_before_vehicle_end);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15303,7 +15264,6 @@ pub mod shipment_route {
             let mut debug_struct = f.debug_struct("Delay");
             debug_struct.field("start_time", &self.start_time);
             debug_struct.field("duration", &self.duration);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -15869,7 +15829,6 @@ pub mod shipment_route {
             debug_struct.field("arrival_loads", &self.arrival_loads);
             debug_struct.field("delay_before_start", &self.delay_before_start);
             debug_struct.field("demands", &self.demands);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -16454,7 +16413,6 @@ pub mod shipment_route {
             debug_struct.field("route_polyline", &self.route_polyline);
             debug_struct.field("vehicle_loads", &self.vehicle_loads);
             debug_struct.field("loads", &self.loads);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -16625,7 +16583,6 @@ pub mod shipment_route {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("VehicleLoad");
             debug_struct.field("amount", &self.amount);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -16773,7 +16730,6 @@ pub mod shipment_route {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("EncodedPolyline");
             debug_struct.field("points", &self.points);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -16966,7 +16922,6 @@ pub mod shipment_route {
             let mut debug_struct = f.debug_struct("Break");
             debug_struct.field("start_time", &self.start_time);
             debug_struct.field("duration", &self.duration);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -17264,7 +17219,6 @@ pub mod shipment_route {
             debug_struct.field("distance_meters", &self.distance_meters);
             debug_struct.field("traffic_info_unavailable", &self.traffic_info_unavailable);
             debug_struct.field("route_polyline", &self.route_polyline);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -17490,7 +17444,6 @@ impl std::fmt::Debug for SkippedShipment {
         debug_struct.field("index", &self.index);
         debug_struct.field("label", &self.label);
         debug_struct.field("reasons", &self.reasons);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -17772,7 +17725,6 @@ pub mod skipped_shipment {
                 "example_exceeded_capacity_type",
                 &self.example_exceeded_capacity_type,
             );
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -18624,7 +18576,6 @@ impl std::fmt::Debug for AggregatedMetrics {
         debug_struct.field("max_loads", &self.max_loads);
         debug_struct.field("costs", &self.costs);
         debug_struct.field("total_cost", &self.total_cost);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -18838,7 +18789,6 @@ impl std::fmt::Debug for InjectedSolutionConstraint {
         debug_struct.field("routes", &self.routes);
         debug_struct.field("skipped_shipments", &self.skipped_shipments);
         debug_struct.field("constraint_relaxations", &self.constraint_relaxations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -19069,7 +19019,6 @@ pub mod injected_solution_constraint {
             let mut debug_struct = f.debug_struct("ConstraintRelaxation");
             debug_struct.field("relaxations", &self.relaxations);
             debug_struct.field("vehicle_indices", &self.vehicle_indices);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -19359,7 +19308,6 @@ pub mod injected_solution_constraint {
                 debug_struct.field("level", &self.level);
                 debug_struct.field("threshold_time", &self.threshold_time);
                 debug_struct.field("threshold_visit_count", &self.threshold_visit_count);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -20086,7 +20034,6 @@ impl std::fmt::Debug for OptimizeToursValidationError {
         debug_struct.field("fields", &self.fields);
         debug_struct.field("error_message", &self.error_message);
         debug_struct.field("offending_values", &self.offending_values);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -20424,7 +20371,6 @@ pub mod optimize_tours_validation_error {
             debug_struct.field("name", &self.name);
             debug_struct.field("sub_field", &self.sub_field);
             debug_struct.field("index_or_key", &self.index_or_key);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }

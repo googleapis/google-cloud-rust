@@ -351,7 +351,6 @@ impl std::fmt::Debug for AnnotateVideoRequest {
         debug_struct.field("video_context", &self.video_context);
         debug_struct.field("output_uri", &self.output_uri);
         debug_struct.field("location_id", &self.location_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -830,7 +829,6 @@ impl std::fmt::Debug for VideoContext {
         debug_struct.field("text_detection_config", &self.text_detection_config);
         debug_struct.field("person_detection_config", &self.person_detection_config);
         debug_struct.field("object_tracking_config", &self.object_tracking_config);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1151,7 +1149,6 @@ impl std::fmt::Debug for LabelDetectionConfig {
             "video_confidence_threshold",
             &self.video_confidence_threshold,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1295,7 +1292,6 @@ impl std::fmt::Debug for ShotChangeDetectionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ShotChangeDetectionConfig");
         debug_struct.field("model", &self.model);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1439,7 +1435,6 @@ impl std::fmt::Debug for ObjectTrackingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ObjectTrackingConfig");
         debug_struct.field("model", &self.model);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1636,7 +1631,6 @@ impl std::fmt::Debug for FaceDetectionConfig {
         debug_struct.field("model", &self.model);
         debug_struct.field("include_bounding_boxes", &self.include_bounding_boxes);
         debug_struct.field("include_attributes", &self.include_attributes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1836,7 +1830,6 @@ impl std::fmt::Debug for PersonDetectionConfig {
         debug_struct.field("include_bounding_boxes", &self.include_bounding_boxes);
         debug_struct.field("include_pose_landmarks", &self.include_pose_landmarks);
         debug_struct.field("include_attributes", &self.include_attributes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1980,7 +1973,6 @@ impl std::fmt::Debug for ExplicitContentDetectionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExplicitContentDetectionConfig");
         debug_struct.field("model", &self.model);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2157,7 +2149,6 @@ impl std::fmt::Debug for TextDetectionConfig {
         let mut debug_struct = f.debug_struct("TextDetectionConfig");
         debug_struct.field("language_hints", &self.language_hints);
         debug_struct.field("model", &self.model);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2350,7 +2341,6 @@ impl std::fmt::Debug for VideoSegment {
         let mut debug_struct = f.debug_struct("VideoSegment");
         debug_struct.field("start_time_offset", &self.start_time_offset);
         debug_struct.field("end_time_offset", &self.end_time_offset);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2546,7 +2536,6 @@ impl std::fmt::Debug for LabelSegment {
         let mut debug_struct = f.debug_struct("LabelSegment");
         debug_struct.field("segment", &self.segment);
         debug_struct.field("confidence", &self.confidence);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2744,7 +2733,6 @@ impl std::fmt::Debug for LabelFrame {
         let mut debug_struct = f.debug_struct("LabelFrame");
         debug_struct.field("time_offset", &self.time_offset);
         debug_struct.field("confidence", &self.confidence);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2940,7 +2928,6 @@ impl std::fmt::Debug for Entity {
         debug_struct.field("entity_id", &self.entity_id);
         debug_struct.field("description", &self.description);
         debug_struct.field("language_code", &self.language_code);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3206,7 +3193,6 @@ impl std::fmt::Debug for LabelAnnotation {
         debug_struct.field("segments", &self.segments);
         debug_struct.field("frames", &self.frames);
         debug_struct.field("version", &self.version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3390,7 +3376,6 @@ impl std::fmt::Debug for ExplicitContentFrame {
         let mut debug_struct = f.debug_struct("ExplicitContentFrame");
         debug_struct.field("time_offset", &self.time_offset);
         debug_struct.field("pornography_likelihood", &self.pornography_likelihood);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3566,7 +3551,6 @@ impl std::fmt::Debug for ExplicitContentAnnotation {
         let mut debug_struct = f.debug_struct("ExplicitContentAnnotation");
         debug_struct.field("frames", &self.frames);
         debug_struct.field("version", &self.version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3857,7 +3841,6 @@ impl std::fmt::Debug for NormalizedBoundingBox {
         debug_struct.field("top", &self.top);
         debug_struct.field("right", &self.right);
         debug_struct.field("bottom", &self.bottom);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4070,7 +4053,6 @@ impl std::fmt::Debug for FaceDetectionAnnotation {
         debug_struct.field("tracks", &self.tracks);
         debug_struct.field("thumbnail", &self.thumbnail);
         debug_struct.field("version", &self.version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4240,7 +4222,6 @@ impl std::fmt::Debug for PersonDetectionAnnotation {
         let mut debug_struct = f.debug_struct("PersonDetectionAnnotation");
         debug_struct.field("tracks", &self.tracks);
         debug_struct.field("version", &self.version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4393,7 +4374,6 @@ impl std::fmt::Debug for FaceSegment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FaceSegment");
         debug_struct.field("segment", &self.segment);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4588,7 +4568,6 @@ impl std::fmt::Debug for FaceFrame {
         let mut debug_struct = f.debug_struct("FaceFrame");
         debug_struct.field("normalized_bounding_boxes", &self.normalized_bounding_boxes);
         debug_struct.field("time_offset", &self.time_offset);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4805,7 +4784,6 @@ impl std::fmt::Debug for FaceAnnotation {
         debug_struct.field("thumbnail", &self.thumbnail);
         debug_struct.field("segments", &self.segments);
         debug_struct.field("frames", &self.frames);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5063,7 +5041,6 @@ impl std::fmt::Debug for TimestampedObject {
         debug_struct.field("time_offset", &self.time_offset);
         debug_struct.field("attributes", &self.attributes);
         debug_struct.field("landmarks", &self.landmarks);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5324,7 +5301,6 @@ impl std::fmt::Debug for Track {
         debug_struct.field("timestamped_objects", &self.timestamped_objects);
         debug_struct.field("attributes", &self.attributes);
         debug_struct.field("confidence", &self.confidence);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5536,7 +5512,6 @@ impl std::fmt::Debug for DetectedAttribute {
         debug_struct.field("name", &self.name);
         debug_struct.field("confidence", &self.confidence);
         debug_struct.field("value", &self.value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5760,7 +5735,6 @@ impl std::fmt::Debug for DetectedLandmark {
         debug_struct.field("name", &self.name);
         debug_struct.field("point", &self.point);
         debug_struct.field("confidence", &self.confidence);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6506,7 +6480,6 @@ impl std::fmt::Debug for VideoAnnotationResults {
             &self.person_detection_annotations,
         );
         debug_struct.field("error", &self.error);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6658,7 +6631,6 @@ impl std::fmt::Debug for AnnotateVideoResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotateVideoResponse");
         debug_struct.field("annotation_results", &self.annotation_results);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6985,7 +6957,6 @@ impl std::fmt::Debug for VideoAnnotationProgress {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("feature", &self.feature);
         debug_struct.field("segment", &self.segment);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7137,7 +7108,6 @@ impl std::fmt::Debug for AnnotateVideoProgress {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotateVideoProgress");
         debug_struct.field("annotation_progress", &self.annotation_progress);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7608,7 +7578,6 @@ impl std::fmt::Debug for SpeechTranscriptionConfig {
         );
         debug_struct.field("diarization_speaker_count", &self.diarization_speaker_count);
         debug_struct.field("enable_word_confidence", &self.enable_word_confidence);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7759,7 +7728,6 @@ impl std::fmt::Debug for SpeechContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeechContext");
         debug_struct.field("phrases", &self.phrases);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7939,7 +7907,6 @@ impl std::fmt::Debug for SpeechTranscription {
         let mut debug_struct = f.debug_struct("SpeechTranscription");
         debug_struct.field("alternatives", &self.alternatives);
         debug_struct.field("language_code", &self.language_code);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8159,7 +8126,6 @@ impl std::fmt::Debug for SpeechRecognitionAlternative {
         debug_struct.field("transcript", &self.transcript);
         debug_struct.field("confidence", &self.confidence);
         debug_struct.field("words", &self.words);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8478,7 +8444,6 @@ impl std::fmt::Debug for WordInfo {
         debug_struct.field("word", &self.word);
         debug_struct.field("confidence", &self.confidence);
         debug_struct.field("speaker_tag", &self.speaker_tag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8683,7 +8648,6 @@ impl std::fmt::Debug for NormalizedVertex {
         let mut debug_struct = f.debug_struct("NormalizedVertex");
         debug_struct.field("x", &self.x);
         debug_struct.field("y", &self.y);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8848,7 +8812,6 @@ impl std::fmt::Debug for NormalizedBoundingPoly {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NormalizedBoundingPoly");
         debug_struct.field("vertices", &self.vertices);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9073,7 +9036,6 @@ impl std::fmt::Debug for TextSegment {
         debug_struct.field("segment", &self.segment);
         debug_struct.field("confidence", &self.confidence);
         debug_struct.field("frames", &self.frames);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9266,7 +9228,6 @@ impl std::fmt::Debug for TextFrame {
         let mut debug_struct = f.debug_struct("TextFrame");
         debug_struct.field("rotated_bounding_box", &self.rotated_bounding_box);
         debug_struct.field("time_offset", &self.time_offset);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9463,7 +9424,6 @@ impl std::fmt::Debug for TextAnnotation {
         debug_struct.field("text", &self.text);
         debug_struct.field("segments", &self.segments);
         debug_struct.field("version", &self.version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9655,7 +9615,6 @@ impl std::fmt::Debug for ObjectTrackingFrame {
         let mut debug_struct = f.debug_struct("ObjectTrackingFrame");
         debug_struct.field("normalized_bounding_box", &self.normalized_bounding_box);
         debug_struct.field("time_offset", &self.time_offset);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10053,7 +10012,6 @@ impl std::fmt::Debug for ObjectTrackingAnnotation {
         debug_struct.field("frames", &self.frames);
         debug_struct.field("version", &self.version);
         debug_struct.field("track_info", &self.track_info);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10288,7 +10246,6 @@ impl std::fmt::Debug for LogoRecognitionAnnotation {
         debug_struct.field("entity", &self.entity);
         debug_struct.field("tracks", &self.tracks);
         debug_struct.field("segments", &self.segments);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

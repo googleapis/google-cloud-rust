@@ -332,7 +332,6 @@ impl std::fmt::Debug for GmailAddOnManifest {
             "authorization_check_function",
             &self.authorization_check_function,
         );
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -591,7 +590,6 @@ impl std::fmt::Debug for UniversalAction {
         let mut debug_struct = f.debug_struct("UniversalAction");
         debug_struct.field("text", &self.text);
         debug_struct.field("action_type", &self.action_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -787,7 +785,6 @@ impl std::fmt::Debug for ComposeTrigger {
         let mut debug_struct = f.debug_struct("ComposeTrigger");
         debug_struct.field("actions", &self.actions);
         debug_struct.field("draft_access", &self.draft_access);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1153,7 +1150,6 @@ impl std::fmt::Debug for ContextualTrigger {
         let mut debug_struct = f.debug_struct("ContextualTrigger");
         debug_struct.field("on_trigger_function", &self.on_trigger_function);
         debug_struct.field("trigger", &self.trigger);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1282,7 +1278,6 @@ impl serde::ser::Serialize for UnconditionalTrigger {
 impl std::fmt::Debug for UnconditionalTrigger {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UnconditionalTrigger");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

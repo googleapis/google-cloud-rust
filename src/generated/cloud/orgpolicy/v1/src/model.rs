@@ -496,7 +496,6 @@ impl std::fmt::Debug for Policy {
         debug_struct.field("etag", &self.etag);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("policy_type", &self.policy_type);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -890,7 +889,6 @@ pub mod policy {
             debug_struct.field("all_values", &self.all_values);
             debug_struct.field("suggested_value", &self.suggested_value);
             debug_struct.field("inherit_from_parent", &self.inherit_from_parent);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1229,7 +1227,6 @@ pub mod policy {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("BooleanPolicy");
             debug_struct.field("enforced", &self.enforced);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1357,7 +1354,6 @@ pub mod policy {
     impl std::fmt::Debug for RestoreDefault {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("RestoreDefault");
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }

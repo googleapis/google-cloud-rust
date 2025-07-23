@@ -823,7 +823,6 @@ impl std::fmt::Debug for Workflow {
         debug_struct.field("crypto_key_version", &self.crypto_key_version);
         debug_struct.field("tags", &self.tags);
         debug_struct.field("source_code", &self.source_code);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1003,7 +1002,6 @@ pub mod workflow {
             let mut debug_struct = f.debug_struct("StateError");
             debug_struct.field("details", &self.details);
             debug_struct.field("r#type", &self.r#type);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1709,7 +1707,6 @@ impl std::fmt::Debug for ListWorkflowsRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1927,7 +1924,6 @@ impl std::fmt::Debug for ListWorkflowsResponse {
         debug_struct.field("workflows", &self.workflows);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2103,7 +2099,6 @@ impl std::fmt::Debug for GetWorkflowRequest {
         let mut debug_struct = f.debug_struct("GetWorkflowRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("revision_id", &self.revision_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2319,7 +2314,6 @@ impl std::fmt::Debug for CreateWorkflowRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("workflow", &self.workflow);
         debug_struct.field("workflow_id", &self.workflow_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2466,7 +2460,6 @@ impl std::fmt::Debug for DeleteWorkflowRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteWorkflowRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2661,7 +2654,6 @@ impl std::fmt::Debug for UpdateWorkflowRequest {
         let mut debug_struct = f.debug_struct("UpdateWorkflowRequest");
         debug_struct.field("workflow", &self.workflow);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2928,7 +2920,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("target", &self.target);
         debug_struct.field("verb", &self.verb);
         debug_struct.field("api_version", &self.api_version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3148,7 +3139,6 @@ impl std::fmt::Debug for ListWorkflowRevisionsRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3338,7 +3328,6 @@ impl std::fmt::Debug for ListWorkflowRevisionsResponse {
         let mut debug_struct = f.debug_struct("ListWorkflowRevisionsResponse");
         debug_struct.field("workflows", &self.workflows);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

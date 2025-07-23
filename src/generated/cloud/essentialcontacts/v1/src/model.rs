@@ -333,7 +333,6 @@ impl std::fmt::Debug for Contact {
         debug_struct.field("language_tag", &self.language_tag);
         debug_struct.field("validation_state", &self.validation_state);
         debug_struct.field("validate_time", &self.validate_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -553,7 +552,6 @@ impl std::fmt::Debug for ListContactsRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -741,7 +739,6 @@ impl std::fmt::Debug for ListContactsResponse {
         let mut debug_struct = f.debug_struct("ListContactsResponse");
         debug_struct.field("contacts", &self.contacts);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -886,7 +883,6 @@ impl std::fmt::Debug for GetContactRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetContactRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1031,7 +1027,6 @@ impl std::fmt::Debug for DeleteContactRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteContactRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1212,7 +1207,6 @@ impl std::fmt::Debug for CreateContactRequest {
         let mut debug_struct = f.debug_struct("CreateContactRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("contact", &self.contact);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1405,7 +1399,6 @@ impl std::fmt::Debug for UpdateContactRequest {
         let mut debug_struct = f.debug_struct("UpdateContactRequest");
         debug_struct.field("contact", &self.contact);
         debug_struct.field("update_mask", &self.update_mask);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1660,7 +1653,6 @@ impl std::fmt::Debug for ComputeContactsRequest {
         debug_struct.field("notification_categories", &self.notification_categories);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1850,7 +1842,6 @@ impl std::fmt::Debug for ComputeContactsResponse {
         let mut debug_struct = f.debug_struct("ComputeContactsResponse");
         debug_struct.field("contacts", &self.contacts);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2055,7 +2046,6 @@ impl std::fmt::Debug for SendTestMessageRequest {
         debug_struct.field("contacts", &self.contacts);
         debug_struct.field("resource", &self.resource);
         debug_struct.field("notification_category", &self.notification_category);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

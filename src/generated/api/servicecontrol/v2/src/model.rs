@@ -292,7 +292,6 @@ impl std::fmt::Debug for CheckRequest {
         debug_struct.field("attributes", &self.attributes);
         debug_struct.field("resources", &self.resources);
         debug_struct.field("flags", &self.flags);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -546,7 +545,6 @@ impl std::fmt::Debug for ResourceInfo {
         debug_struct.field("permission", &self.permission);
         debug_struct.field("container", &self.container);
         debug_struct.field("location", &self.location);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -739,7 +737,6 @@ impl std::fmt::Debug for CheckResponse {
         let mut debug_struct = f.debug_struct("CheckResponse");
         debug_struct.field("status", &self.status);
         debug_struct.field("headers", &self.headers);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -952,7 +949,6 @@ impl std::fmt::Debug for ReportRequest {
         debug_struct.field("service_name", &self.service_name);
         debug_struct.field("service_config_id", &self.service_config_id);
         debug_struct.field("operations", &self.operations);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1067,7 +1063,6 @@ impl serde::ser::Serialize for ReportResponse {
 impl std::fmt::Debug for ReportResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReportResponse");
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1212,7 +1207,6 @@ impl std::fmt::Debug for ResourceInfoList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ResourceInfoList");
         debug_struct.field("resources", &self.resources);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

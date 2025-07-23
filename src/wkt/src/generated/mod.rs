@@ -359,7 +359,6 @@ impl std::fmt::Debug for Api {
         debug_struct.field("source_context", &self.source_context);
         debug_struct.field("mixins", &self.mixins);
         debug_struct.field("syntax", &self.syntax);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -666,7 +665,6 @@ impl std::fmt::Debug for Method {
         debug_struct.field("response_streaming", &self.response_streaming);
         debug_struct.field("options", &self.options);
         debug_struct.field("syntax", &self.syntax);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -924,7 +922,6 @@ impl std::fmt::Debug for Mixin {
         let mut debug_struct = f.debug_struct("Mixin");
         debug_struct.field("name", &self.name);
         debug_struct.field("root", &self.root);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1069,7 +1066,6 @@ impl std::fmt::Debug for FileDescriptorSet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FileDescriptorSet");
         debug_struct.field("file", &self.file);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1616,7 +1612,6 @@ impl std::fmt::Debug for FileDescriptorProto {
         debug_struct.field("source_code_info", &self.source_code_info);
         debug_struct.field("syntax", &self.syntax);
         debug_struct.field("edition", &self.edition);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2024,7 +2019,6 @@ impl std::fmt::Debug for DescriptorProto {
         debug_struct.field("options", &self.options);
         debug_struct.field("reserved_range", &self.reserved_range);
         debug_struct.field("reserved_name", &self.reserved_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2267,7 +2261,6 @@ pub mod descriptor_proto {
             debug_struct.field("start", &self.start);
             debug_struct.field("end", &self.end);
             debug_struct.field("options", &self.options);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2473,7 +2466,6 @@ pub mod descriptor_proto {
             let mut debug_struct = f.debug_struct("ReservedRange");
             debug_struct.field("start", &self.start);
             debug_struct.field("end", &self.end);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2723,7 +2715,6 @@ impl std::fmt::Debug for ExtensionRangeOptions {
         debug_struct.field("declaration", &self.declaration);
         debug_struct.field("features", &self.features);
         debug_struct.field("verification", &self.verification);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2997,7 +2988,6 @@ pub mod extension_range_options {
             debug_struct.field("r#type", &self.r#type);
             debug_struct.field("reserved", &self.reserved);
             debug_struct.field("repeated", &self.repeated);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3597,7 +3587,6 @@ impl std::fmt::Debug for FieldDescriptorProto {
         debug_struct.field("json_name", &self.json_name);
         debug_struct.field("options", &self.options);
         debug_struct.field("proto3_optional", &self.proto3_optional);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4141,7 +4130,6 @@ impl std::fmt::Debug for OneofDescriptorProto {
         let mut debug_struct = f.debug_struct("OneofDescriptorProto");
         debug_struct.field("name", &self.name);
         debug_struct.field("options", &self.options);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4413,7 +4401,6 @@ impl std::fmt::Debug for EnumDescriptorProto {
         debug_struct.field("options", &self.options);
         debug_struct.field("reserved_range", &self.reserved_range);
         debug_struct.field("reserved_name", &self.reserved_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4627,7 +4614,6 @@ pub mod enum_descriptor_proto {
             let mut debug_struct = f.debug_struct("EnumReservedRange");
             debug_struct.field("start", &self.start);
             debug_struct.field("end", &self.end);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -4846,7 +4832,6 @@ impl std::fmt::Debug for EnumValueDescriptorProto {
         debug_struct.field("name", &self.name);
         debug_struct.field("number", &self.number);
         debug_struct.field("options", &self.options);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5053,7 +5038,6 @@ impl std::fmt::Debug for ServiceDescriptorProto {
         debug_struct.field("name", &self.name);
         debug_struct.field("method", &self.method);
         debug_struct.field("options", &self.options);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5333,7 +5317,6 @@ impl std::fmt::Debug for MethodDescriptorProto {
         debug_struct.field("options", &self.options);
         debug_struct.field("client_streaming", &self.client_streaming);
         debug_struct.field("server_streaming", &self.server_streaming);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6083,7 +6066,6 @@ impl std::fmt::Debug for FileOptions {
         debug_struct.field("ruby_package", &self.ruby_package);
         debug_struct.field("features", &self.features);
         debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6609,7 +6591,6 @@ impl std::fmt::Debug for MessageOptions {
         );
         debug_struct.field("features", &self.features);
         debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7165,7 +7146,6 @@ impl std::fmt::Debug for FieldOptions {
         debug_struct.field("features", &self.features);
         debug_struct.field("feature_support", &self.feature_support);
         debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7337,7 +7317,6 @@ pub mod field_options {
             let mut debug_struct = f.debug_struct("EditionDefault");
             debug_struct.field("edition", &self.edition);
             debug_struct.field("value", &self.value);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -7576,7 +7555,6 @@ pub mod field_options {
             debug_struct.field("edition_deprecated", &self.edition_deprecated);
             debug_struct.field("deprecation_warning", &self.deprecation_warning);
             debug_struct.field("edition_removed", &self.edition_removed);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -8328,7 +8306,6 @@ impl std::fmt::Debug for OneofOptions {
         let mut debug_struct = f.debug_struct("OneofOptions");
         debug_struct.field("features", &self.features);
         debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8611,7 +8588,6 @@ impl std::fmt::Debug for EnumOptions {
         );
         debug_struct.field("features", &self.features);
         debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8885,7 +8861,6 @@ impl std::fmt::Debug for EnumValueOptions {
         debug_struct.field("debug_redact", &self.debug_redact);
         debug_struct.field("feature_support", &self.feature_support);
         debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9094,7 +9069,6 @@ impl std::fmt::Debug for ServiceOptions {
         debug_struct.field("features", &self.features);
         debug_struct.field("deprecated", &self.deprecated);
         debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9329,7 +9303,6 @@ impl std::fmt::Debug for MethodOptions {
         debug_struct.field("idempotency_level", &self.idempotency_level);
         debug_struct.field("features", &self.features);
         debug_struct.field("uninterpreted_option", &self.uninterpreted_option);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9848,7 +9821,6 @@ impl std::fmt::Debug for UninterpretedOption {
         debug_struct.field("double_value", &self.double_value);
         debug_struct.field("string_value", &self.string_value);
         debug_struct.field("aggregate_value", &self.aggregate_value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10027,7 +9999,6 @@ pub mod uninterpreted_option {
             let mut debug_struct = f.debug_struct("NamePart");
             debug_struct.field("name_part", &self.name_part);
             debug_struct.field("is_extension", &self.is_extension);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -10313,7 +10284,6 @@ impl std::fmt::Debug for FeatureSet {
         debug_struct.field("utf8_validation", &self.utf8_validation);
         debug_struct.field("message_encoding", &self.message_encoding);
         debug_struct.field("json_format", &self.json_format);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11300,7 +11270,6 @@ impl std::fmt::Debug for FeatureSetDefaults {
         debug_struct.field("defaults", &self.defaults);
         debug_struct.field("minimum_edition", &self.minimum_edition);
         debug_struct.field("maximum_edition", &self.maximum_edition);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11526,7 +11495,6 @@ pub mod feature_set_defaults {
             debug_struct.field("edition", &self.edition);
             debug_struct.field("overridable_features", &self.overridable_features);
             debug_struct.field("fixed_features", &self.fixed_features);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -11720,7 +11688,6 @@ impl std::fmt::Debug for SourceCodeInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SourceCodeInfo");
         debug_struct.field("location", &self.location);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12117,7 +12084,6 @@ pub mod source_code_info {
             debug_struct.field("leading_comments", &self.leading_comments);
             debug_struct.field("trailing_comments", &self.trailing_comments);
             debug_struct.field("leading_detached_comments", &self.leading_detached_comments);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -12270,7 +12236,6 @@ impl std::fmt::Debug for GeneratedCodeInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GeneratedCodeInfo");
         debug_struct.field("annotation", &self.annotation);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12596,7 +12561,6 @@ pub mod generated_code_info {
             debug_struct.field("begin", &self.begin);
             debug_struct.field("end", &self.end);
             debug_struct.field("semantic", &self.semantic);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -12884,7 +12848,6 @@ impl std::fmt::Debug for SourceContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SourceContext");
         debug_struct.field("file_name", &self.file_name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13201,7 +13164,6 @@ impl std::fmt::Debug for Type {
         debug_struct.field("source_context", &self.source_context);
         debug_struct.field("syntax", &self.syntax);
         debug_struct.field("edition", &self.edition);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13618,7 +13580,6 @@ impl std::fmt::Debug for Field {
         debug_struct.field("options", &self.options);
         debug_struct.field("json_name", &self.json_name);
         debug_struct.field("default_value", &self.default_value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14297,7 +14258,6 @@ impl std::fmt::Debug for Enum {
         debug_struct.field("source_context", &self.source_context);
         debug_struct.field("syntax", &self.syntax);
         debug_struct.field("edition", &self.edition);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14512,7 +14472,6 @@ impl std::fmt::Debug for EnumValue {
         debug_struct.field("name", &self.name);
         debug_struct.field("number", &self.number);
         debug_struct.field("options", &self.options);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14696,7 +14655,6 @@ impl std::fmt::Debug for Option {
         let mut debug_struct = f.debug_struct("Option");
         debug_struct.field("name", &self.name);
         debug_struct.field("value", &self.value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

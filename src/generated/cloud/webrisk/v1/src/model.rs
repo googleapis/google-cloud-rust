@@ -259,7 +259,6 @@ impl std::fmt::Debug for ComputeThreatListDiffRequest {
         debug_struct.field("threat_type", &self.threat_type);
         debug_struct.field("version_token", &self.version_token);
         debug_struct.field("constraints", &self.constraints);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -513,7 +512,6 @@ pub mod compute_threat_list_diff_request {
             debug_struct.field("max_diff_entries", &self.max_diff_entries);
             debug_struct.field("max_database_entries", &self.max_database_entries);
             debug_struct.field("supported_compressions", &self.supported_compressions);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -864,7 +862,6 @@ impl std::fmt::Debug for ComputeThreatListDiffResponse {
         debug_struct.field("new_version_token", &self.new_version_token);
         debug_struct.field("checksum", &self.checksum);
         debug_struct.field("recommended_next_diff", &self.recommended_next_diff);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1038,7 +1035,6 @@ pub mod compute_threat_list_diff_response {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Checksum");
             debug_struct.field("sha256", &self.sha256);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1345,7 +1341,6 @@ impl std::fmt::Debug for SearchUrisRequest {
         let mut debug_struct = f.debug_struct("SearchUrisRequest");
         debug_struct.field("uri", &self.uri);
         debug_struct.field("threat_types", &self.threat_types);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1498,7 +1493,6 @@ impl std::fmt::Debug for SearchUrisResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchUrisResponse");
         debug_struct.field("threat", &self.threat);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1694,7 +1688,6 @@ pub mod search_uris_response {
             let mut debug_struct = f.debug_struct("ThreatUri");
             debug_struct.field("threat_types", &self.threat_types);
             debug_struct.field("expire_time", &self.expire_time);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -1889,7 +1882,6 @@ impl std::fmt::Debug for SearchHashesRequest {
         let mut debug_struct = f.debug_struct("SearchHashesRequest");
         debug_struct.field("hash_prefix", &self.hash_prefix);
         debug_struct.field("threat_types", &self.threat_types);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2076,7 +2068,6 @@ impl std::fmt::Debug for SearchHashesResponse {
         let mut debug_struct = f.debug_struct("SearchHashesResponse");
         debug_struct.field("threats", &self.threats);
         debug_struct.field("negative_expire_time", &self.negative_expire_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2322,7 +2313,6 @@ pub mod search_hashes_response {
             debug_struct.field("threat_types", &self.threat_types);
             debug_struct.field("hash", &self.hash);
             debug_struct.field("expire_time", &self.expire_time);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -2511,7 +2501,6 @@ impl std::fmt::Debug for ThreatEntryAdditions {
         let mut debug_struct = f.debug_struct("ThreatEntryAdditions");
         debug_struct.field("raw_hashes", &self.raw_hashes);
         debug_struct.field("rice_hashes", &self.rice_hashes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2706,7 +2695,6 @@ impl std::fmt::Debug for ThreatEntryRemovals {
         let mut debug_struct = f.debug_struct("ThreatEntryRemovals");
         debug_struct.field("raw_indices", &self.raw_indices);
         debug_struct.field("rice_indices", &self.rice_indices);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2876,7 +2864,6 @@ impl std::fmt::Debug for RawIndices {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RawIndices");
         debug_struct.field("indices", &self.indices);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3092,7 +3079,6 @@ impl std::fmt::Debug for RawHashes {
         let mut debug_struct = f.debug_struct("RawHashes");
         debug_struct.field("prefix_size", &self.prefix_size);
         debug_struct.field("raw_hashes", &self.raw_hashes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3392,7 +3378,6 @@ impl std::fmt::Debug for RiceDeltaEncoding {
         debug_struct.field("rice_parameter", &self.rice_parameter);
         debug_struct.field("entry_count", &self.entry_count);
         debug_struct.field("encoded_data", &self.encoded_data);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3566,7 +3551,6 @@ impl std::fmt::Debug for Submission {
         let mut debug_struct = f.debug_struct("Submission");
         debug_struct.field("uri", &self.uri);
         debug_struct.field("threat_types", &self.threat_types);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3786,7 +3770,6 @@ impl std::fmt::Debug for ThreatInfo {
         debug_struct.field("abuse_type", &self.abuse_type);
         debug_struct.field("threat_confidence", &self.threat_confidence);
         debug_struct.field("threat_justification", &self.threat_justification);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4052,7 +4035,6 @@ pub mod threat_info {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("Confidence");
             debug_struct.field("value", &self.value);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -4390,7 +4372,6 @@ pub mod threat_info {
             let mut debug_struct = f.debug_struct("ThreatJustification");
             debug_struct.field("labels", &self.labels);
             debug_struct.field("comments", &self.comments);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -4853,7 +4834,6 @@ impl std::fmt::Debug for ThreatDiscovery {
         let mut debug_struct = f.debug_struct("ThreatDiscovery");
         debug_struct.field("platform", &self.platform);
         debug_struct.field("region_codes", &self.region_codes);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5184,7 +5164,6 @@ impl std::fmt::Debug for CreateSubmissionRequest {
         let mut debug_struct = f.debug_struct("CreateSubmissionRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("submission", &self.submission);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5438,7 +5417,6 @@ impl std::fmt::Debug for SubmitUriRequest {
         debug_struct.field("submission", &self.submission);
         debug_struct.field("threat_info", &self.threat_info);
         debug_struct.field("threat_discovery", &self.threat_discovery);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5655,7 +5633,6 @@ impl std::fmt::Debug for SubmitUriMetadata {
         debug_struct.field("state", &self.state);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

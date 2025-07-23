@@ -229,21 +229,29 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(json!({}))]
-    #[test_case(json!({"unknown0": "hello", "unknown1": "world"}))]
-    fn test_empty_unknown_fields(input: Value) -> Result {
-        let got = serde_json::from_value::<MessageWithString>(input.clone())?;
-        let unknown_fields = serde_json::from_value::<
-            serde_json::Map<std::string::String, serde_json::Value>,
-        >(input)?;
-        if unknown_fields.is_empty() {
-            assert!(!format!("{got:?}").contains("_unknown_fields"));
-            return Ok(());
-        }
-        for (key, value) in unknown_fields.into_iter() {
-            let value_str = serde_json::from_value::<String>(value)?;
-            assert!(format!("{got:?}").contains(&key));
-            assert!(format!("{got:?}").contains(&value_str));
+    #[test]
+    fn test_debug_without_unknown_fields() -> Result {
+        let got = MessageWithString::new()
+            .set_singular("hello")
+            .set_optional("world");
+        let debug_str = format!("{got:?}");
+        assert!(!debug_str.contains("_unknown_fields"));
+        assert!(debug_str.contains("singular: \"hello\""));
+        assert!(debug_str.contains("optional: Some(\"world\")"));
+        Ok(())
+    }
+
+    #[test]
+    fn test_debug_with_unknown_fields() -> Result {
+        let m = serde_json::from_value::<MessageWithString>(
+            json!({"unknown0": "hello", "unknown1": "world"}),
+        )?;
+        let fmt = format!("{m:?}");
+        for detail in ["_unknown_fields", "unknown0", "hello", "unknown1", "world"] {
+            assert!(
+                fmt.contains(detail),
+                "Expected the format string to contain `{detail}`; got: `{fmt}`"
+            );
         }
         Ok(())
     }

@@ -450,7 +450,6 @@ impl std::fmt::Debug for PosixAccount {
         debug_struct.field("account_id", &self.account_id);
         debug_struct.field("operating_system_type", &self.operating_system_type);
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -688,7 +687,6 @@ impl std::fmt::Debug for SshPublicKey {
         debug_struct.field("expiration_time_usec", &self.expiration_time_usec);
         debug_struct.field("fingerprint", &self.fingerprint);
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

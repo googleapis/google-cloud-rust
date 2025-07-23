@@ -391,7 +391,6 @@ impl std::fmt::Debug for PolicyRule {
         let mut debug_struct = f.debug_struct("PolicyRule");
         debug_struct.field("condition", &self.condition);
         debug_struct.field("kind", &self.kind);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -590,7 +589,6 @@ pub mod policy_rule {
             let mut debug_struct = f.debug_struct("StringValues");
             debug_struct.field("allowed_values", &self.allowed_values);
             debug_struct.field("denied_values", &self.denied_values);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -982,7 +980,6 @@ impl std::fmt::Debug for CustomConstraint {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("description", &self.description);
         debug_struct.field("update_time", &self.update_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1441,7 +1438,6 @@ impl std::fmt::Debug for OrgPolicyConstraint {
         let mut debug_struct = f.debug_struct("OrgPolicyConstraint");
         debug_struct.field("canned_constraint_id", &self.canned_constraint_id);
         debug_struct.field("policy_rules", &self.policy_rules);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1625,7 +1621,6 @@ impl std::fmt::Debug for OrgPolicyConstraintCustom {
         let mut debug_struct = f.debug_struct("OrgPolicyConstraintCustom");
         debug_struct.field("custom_constraint", &self.custom_constraint);
         debug_struct.field("policy_rules", &self.policy_rules);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1978,7 +1973,6 @@ impl std::fmt::Debug for OperationMetadata {
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
         debug_struct.field("error_message", &self.error_message);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2401,7 +2395,6 @@ impl std::fmt::Debug for Posture {
         debug_struct.field("etag", &self.etag);
         debug_struct.field("annotations", &self.annotations);
         debug_struct.field("reconciling", &self.reconciling);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2742,7 +2735,6 @@ impl std::fmt::Debug for PolicySet {
         debug_struct.field("policy_set_id", &self.policy_set_id);
         debug_struct.field("description", &self.description);
         debug_struct.field("policies", &self.policies);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2980,7 +2972,6 @@ impl std::fmt::Debug for Policy {
         debug_struct.field("compliance_standards", &self.compliance_standards);
         debug_struct.field("constraint", &self.constraint);
         debug_struct.field("description", &self.description);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3155,7 +3146,6 @@ pub mod policy {
             let mut debug_struct = f.debug_struct("ComplianceStandard");
             debug_struct.field("standard", &self.standard);
             debug_struct.field("control", &self.control);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3530,7 +3520,6 @@ impl std::fmt::Debug for Constraint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Constraint");
         debug_struct.field("implementation", &self.implementation);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3764,7 +3753,6 @@ impl std::fmt::Debug for ListPosturesRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3977,7 +3965,6 @@ impl std::fmt::Debug for ListPosturesResponse {
         debug_struct.field("postures", &self.postures);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4190,7 +4177,6 @@ impl std::fmt::Debug for ListPostureRevisionsRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4375,7 +4361,6 @@ impl std::fmt::Debug for ListPostureRevisionsResponse {
         let mut debug_struct = f.debug_struct("ListPostureRevisionsResponse");
         debug_struct.field("revisions", &self.revisions);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4543,7 +4528,6 @@ impl std::fmt::Debug for GetPostureRequest {
         let mut debug_struct = f.debug_struct("GetPostureRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("revision_id", &self.revision_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4748,7 +4732,6 @@ impl std::fmt::Debug for CreatePostureRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("posture_id", &self.posture_id);
         debug_struct.field("posture", &self.posture);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4968,7 +4951,6 @@ impl std::fmt::Debug for UpdatePostureRequest {
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("posture", &self.posture);
         debug_struct.field("revision_id", &self.revision_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5135,7 +5117,6 @@ impl std::fmt::Debug for DeletePostureRequest {
         let mut debug_struct = f.debug_struct("DeletePostureRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5336,7 +5317,6 @@ impl std::fmt::Debug for ExtractPostureRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("posture_id", &self.posture_id);
         debug_struct.field("workload", &self.workload);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5890,7 +5870,6 @@ impl std::fmt::Debug for PostureDeployment {
             &self.desired_posture_revision_id,
         );
         debug_struct.field("failure_message", &self.failure_message);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6302,7 +6281,6 @@ impl std::fmt::Debug for ListPostureDeploymentsRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6520,7 +6498,6 @@ impl std::fmt::Debug for ListPostureDeploymentsResponse {
         debug_struct.field("posture_deployments", &self.posture_deployments);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6662,7 +6639,6 @@ impl std::fmt::Debug for GetPostureDeploymentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetPostureDeploymentRequest");
         debug_struct.field("name", &self.name);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6873,7 +6849,6 @@ impl std::fmt::Debug for CreatePostureDeploymentRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("posture_deployment_id", &self.posture_deployment_id);
         debug_struct.field("posture_deployment", &self.posture_deployment);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7069,7 +7044,6 @@ impl std::fmt::Debug for UpdatePostureDeploymentRequest {
         let mut debug_struct = f.debug_struct("UpdatePostureDeploymentRequest");
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("posture_deployment", &self.posture_deployment);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7236,7 +7210,6 @@ impl std::fmt::Debug for DeletePostureDeploymentRequest {
         let mut debug_struct = f.debug_struct("DeletePostureDeploymentRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("etag", &self.etag);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7487,7 +7460,6 @@ impl std::fmt::Debug for PostureTemplate {
         debug_struct.field("description", &self.description);
         debug_struct.field("state", &self.state);
         debug_struct.field("policy_sets", &self.policy_sets);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7865,7 +7837,6 @@ impl std::fmt::Debug for ListPostureTemplatesRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8055,7 +8026,6 @@ impl std::fmt::Debug for ListPostureTemplatesResponse {
         let mut debug_struct = f.debug_struct("ListPostureTemplatesResponse");
         debug_struct.field("posture_templates", &self.posture_templates);
         debug_struct.field("next_page_token", &self.next_page_token);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8224,7 +8194,6 @@ impl std::fmt::Debug for GetPostureTemplateRequest {
         let mut debug_struct = f.debug_struct("GetPostureTemplateRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("revision_id", &self.revision_id);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8397,7 +8366,6 @@ impl std::fmt::Debug for SecurityHealthAnalyticsModule {
         let mut debug_struct = f.debug_struct("SecurityHealthAnalyticsModule");
         debug_struct.field("module_name", &self.module_name);
         debug_struct.field("module_enablement_state", &self.module_enablement_state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8637,7 +8605,6 @@ impl std::fmt::Debug for SecurityHealthAnalyticsCustomModule {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("config", &self.config);
         debug_struct.field("module_enablement_state", &self.module_enablement_state);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8952,7 +8919,6 @@ impl std::fmt::Debug for CustomConfig {
         debug_struct.field("severity", &self.severity);
         debug_struct.field("description", &self.description);
         debug_struct.field("recommendation", &self.recommendation);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9108,7 +9074,6 @@ pub mod custom_config {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("CustomOutputSpec");
             debug_struct.field("properties", &self.properties);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -9302,7 +9267,6 @@ pub mod custom_config {
                 let mut debug_struct = f.debug_struct("Property");
                 debug_struct.field("name", &self.name);
                 debug_struct.field("value_expression", &self.value_expression);
-
                 if !self._unknown_fields.is_empty() {
                     debug_struct.field("_unknown_fields", &self._unknown_fields);
                 }
@@ -9452,7 +9416,6 @@ pub mod custom_config {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let mut debug_struct = f.debug_struct("ResourceSelector");
             debug_struct.field("resource_types", &self.resource_types);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }

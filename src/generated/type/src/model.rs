@@ -458,7 +458,6 @@ impl std::fmt::Debug for Color {
         debug_struct.field("green", &self.green);
         debug_struct.field("blue", &self.blue);
         debug_struct.field("alpha", &self.alpha);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -722,7 +721,6 @@ impl std::fmt::Debug for Date {
         debug_struct.field("year", &self.year);
         debug_struct.field("month", &self.month);
         debug_struct.field("day", &self.day);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1290,7 +1288,6 @@ impl std::fmt::Debug for DateTime {
         debug_struct.field("seconds", &self.seconds);
         debug_struct.field("nanos", &self.nanos);
         debug_struct.field("time_offset", &self.time_offset);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1480,7 +1477,6 @@ impl std::fmt::Debug for TimeZone {
         let mut debug_struct = f.debug_struct("TimeZone");
         debug_struct.field("id", &self.id);
         debug_struct.field("version", &self.version);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1690,7 +1686,6 @@ impl std::fmt::Debug for Decimal {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Decimal");
         debug_struct.field("value", &self.value);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1950,7 +1945,6 @@ impl std::fmt::Debug for Expr {
         debug_struct.field("title", &self.title);
         debug_struct.field("description", &self.description);
         debug_struct.field("location", &self.location);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2154,7 +2148,6 @@ impl std::fmt::Debug for Fraction {
         let mut debug_struct = f.debug_struct("Fraction");
         debug_struct.field("numerator", &self.numerator);
         debug_struct.field("denominator", &self.denominator);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2356,7 +2349,6 @@ impl std::fmt::Debug for Interval {
         let mut debug_struct = f.debug_struct("Interval");
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("end_time", &self.end_time);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2563,7 +2555,6 @@ impl std::fmt::Debug for LatLng {
         let mut debug_struct = f.debug_struct("LatLng");
         debug_struct.field("latitude", &self.latitude);
         debug_struct.field("longitude", &self.longitude);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2734,7 +2725,6 @@ impl std::fmt::Debug for LocalizedText {
         let mut debug_struct = f.debug_struct("LocalizedText");
         debug_struct.field("text", &self.text);
         debug_struct.field("language_code", &self.language_code);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2969,7 +2959,6 @@ impl std::fmt::Debug for Money {
         debug_struct.field("currency_code", &self.currency_code);
         debug_struct.field("units", &self.units);
         debug_struct.field("nanos", &self.nanos);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3268,7 +3257,6 @@ impl std::fmt::Debug for PhoneNumber {
         let mut debug_struct = f.debug_struct("PhoneNumber");
         debug_struct.field("extension", &self.extension);
         debug_struct.field("kind", &self.kind);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3458,7 +3446,6 @@ pub mod phone_number {
             let mut debug_struct = f.debug_struct("ShortCode");
             debug_struct.field("region_code", &self.region_code);
             debug_struct.field("number", &self.number);
-
             if !self._unknown_fields.is_empty() {
                 debug_struct.field("_unknown_fields", &self._unknown_fields);
             }
@@ -3991,7 +3978,6 @@ impl std::fmt::Debug for PostalAddress {
         debug_struct.field("address_lines", &self.address_lines);
         debug_struct.field("recipients", &self.recipients);
         debug_struct.field("organization", &self.organization);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4338,7 +4324,6 @@ impl std::fmt::Debug for Quaternion {
         debug_struct.field("y", &self.y);
         debug_struct.field("z", &self.z);
         debug_struct.field("w", &self.w);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4634,7 +4619,6 @@ impl std::fmt::Debug for TimeOfDay {
         debug_struct.field("minutes", &self.minutes);
         debug_struct.field("seconds", &self.seconds);
         debug_struct.field("nanos", &self.nanos);
-
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
