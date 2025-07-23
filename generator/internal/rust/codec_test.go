@@ -1243,34 +1243,40 @@ func TestFormatDocCommentsCrossLinks(t *testing.T) {
 [unmangled field][test.v1.SomeMessage.type] - normally r#type, but not in links
 [SomeMessage.error][test.v1.SomeMessage.error]
 [ExternalMessage][google.iam.v1.SetIamPolicyRequest]
-[ExternalService][google.iam.v1.Iampolicy]
+[ExternalService][google.iam.v1.IAMPolicy]
 [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]
 [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]
 [SomeService.CreateBar][test.v1.SomeService.CreateBar]
 [a method][test.v1.YELL.CreateThing]
 [the service name][test.v1.YELL]
+[renamed service][test.v1.RenamedService]
+[method of renamed service][test.v1.RenamedService.CreateFoo]
 `
 	want := []string{
 		"/// [Any][google.protobuf.Any]",
 		"/// [Message][test.v1.SomeMessage]",
 		"/// [Enum][test.v1.SomeMessage.SomeEnum]",
 		"/// [Message][test.v1.SomeMessage] repeated",
-		"/// [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]",
+		"/// [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]", // multiple links on one line
 		"/// [oneof group][test.v1.SomeMessage.result]",
 		"/// [oneof field][test.v1.SomeMessage.error]",
 		"/// [unmangled field][test.v1.SomeMessage.type] - normally r#type, but not in links",
 		"/// [SomeMessage.error][test.v1.SomeMessage.error]",
 		"/// [ExternalMessage][google.iam.v1.SetIamPolicyRequest]",
-		"/// [ExternalService][google.iam.v1.Iampolicy]",
+		"/// [ExternalService][google.iam.v1.IAMPolicy]",
 		"/// [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]",
 		"/// [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]",
 		"/// [SomeService.CreateBar][test.v1.SomeService.CreateBar]",
 		"/// [a method][test.v1.YELL.CreateThing]",
 		"/// [the service name][test.v1.YELL]",
+		"/// [renamed service][test.v1.RenamedService]",
+		"/// [method of renamed service][test.v1.RenamedService.CreateFoo]",
 		"///",
-		"/// [google.iam.v1.Iampolicy]: iam_v1::client::Iampolicy",
+		"/// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy",
 		"/// [google.iam.v1.SetIamPolicyRequest]: iam_v1::model::SetIamPolicyRequest",
 		"/// [google.protobuf.Any]: wkt::Any",
+		"/// [test.v1.RenamedService]: crate::client::NewName",
+		"/// [test.v1.RenamedService.CreateFoo]: crate::client::NewName::create_foo",
 		"/// [test.v1.SomeMessage]: crate::model::SomeMessage",
 		"/// [test.v1.SomeMessage.SomeEnum]: crate::model::some_message::SomeEnum",
 		"/// [test.v1.SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::SomeEnum::EnumValue",
@@ -1300,6 +1306,9 @@ func TestFormatDocCommentsCrossLinks(t *testing.T) {
 		packageMapping: map[string]*packagez{
 			"google.protobuf": wkt,
 			"google.iam.v1":   iam,
+		},
+		nameOverrides: map[string]string{
+			".test.v1.RenamedService": "NewName",
 		},
 	}
 
@@ -1517,7 +1526,8 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 		Package: "test.v1",
 		Methods: []*api.Method{
 			{
-				Name: "CreateFoo", ID: ".test.v1.SomeService.CreateFoo",
+				Name: "CreateFoo",
+				ID:   ".test.v1.SomeService.CreateFoo",
 				PathInfo: &api.PathInfo{
 					Bindings: []*api.PathBinding{
 						{
@@ -1529,7 +1539,31 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 					},
 				},
 			},
-			{Name: "CreateBar", ID: ".test.v1.SomeService.CreateBar"},
+			{
+				Name: "CreateBar",
+				ID:   ".test.v1.SomeService.CreateBar",
+			},
+		},
+	}
+	renamedService := &api.Service{
+		Name:    "RenamedService",
+		ID:      ".test.v1.RenamedService",
+		Package: "test.v1",
+		Methods: []*api.Method{
+			{
+				Name: "CreateFoo",
+				ID:   ".test.v1.RenamedService.CreateFoo",
+				PathInfo: &api.PathInfo{
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithLiteral("foo"),
+						},
+					},
+				},
+			},
 		},
 	}
 	yellyService := &api.Service{
@@ -1556,17 +1590,17 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 	a := api.NewTestAPI(
 		[]*api.Message{someMessage},
 		[]*api.Enum{someEnum},
-		[]*api.Service{someService, yellyService})
+		[]*api.Service{someService, renamedService, yellyService})
 	a.PackageName = "test.v1"
 	a.State.MessageByID[".google.iam.v1.SetIamPolicyRequest"] = &api.Message{
 		Name:    "SetIamPolicyRequest",
 		Package: "google.iam.v1",
 		ID:      ".google.iam.v1.SetIamPolicyRequest",
 	}
-	a.State.ServiceByID[".google.iam.v1.Iampolicy"] = &api.Service{
-		Name:    "Iampolicy",
+	a.State.ServiceByID[".google.iam.v1.IAMPolicy"] = &api.Service{
+		Name:    "IAMPolicy",
 		Package: "google.iam.v1",
-		ID:      ".google.iam.v1.Iampolicy",
+		ID:      ".google.iam.v1.IAMPolicy",
 	}
 	return a
 }

@@ -154,7 +154,7 @@ impl StorageControl {
     /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions) on
     /// the bucket.
     ///
-    /// [google.storage.v2.Storage.RestoreObject]: crate::client::Storage::restore_object
+    /// [google.storage.v2.Storage.RestoreObject]: crate::client::StorageControl::restore_object
     pub fn delete_object(&self) -> super::builder::storage_control::DeleteObject {
         super::builder::storage_control::DeleteObject::new(self.inner.clone())
     }

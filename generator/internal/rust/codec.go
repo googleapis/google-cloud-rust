@@ -1277,10 +1277,11 @@ func (c *codec) methodRustdocLink(m *api.Method, state *api.APIState) string {
 
 func (c *codec) serviceRustdocLink(s *api.Service) string {
 	mapped, ok := c.packageMapping[s.Package]
+	name := c.ServiceName(s)
 	if ok {
-		return fmt.Sprintf("%s::client::%s", mapped.name, toPascal(s.Name))
+		return fmt.Sprintf("%s::client::%s", mapped.name, toPascal(name))
 	}
-	return fmt.Sprintf("crate::client::%s", toPascal(s.Name))
+	return fmt.Sprintf("crate::client::%s", toPascal(name))
 }
 
 func usePackage(source string, model *api.API, c *codec) {
