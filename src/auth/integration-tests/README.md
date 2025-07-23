@@ -17,10 +17,6 @@ These tests use service account impersonation to generate an OIDC ID token for a
 service account in a different project (`rust-external-account-joonix`). This ID
 token acts as the source credential for testing WIF flow.
 
-The infrastructure for these tests is created by the `external_account_test`
-module. See the section on running tests in your own project for details on how
-to create these resources.
-
 To run these tests locally, first, ensure your local Application Default
 Credentials are up to date by running:
 
