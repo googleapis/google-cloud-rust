@@ -55,16 +55,19 @@ where
     async fn send_buffered_resumable(self, hint: (u64, Option<u64>)) -> Result<Object> {
         let mut progress = InProgressUpload::new(self.options.resumable_upload_buffer_size, hint);
         let mut url = None;
+        let throttler = self.options.retry_throttler.clone();
+        let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));
+        let backoff = self.options.backoff_policy.clone();
         gax::retry_loop_internal::retry_loop(
-            async |_| {
+            async move |_| {
                 self.buffered_resumable_attempt(&mut progress, &mut url)
                     .await
             },
             async |duration| tokio::time::sleep(duration).await,
             true,
-            self.options.retry_throttler.clone(),
-            Arc::new(ContinueOn308::new(self.options.retry_policy.clone())),
-            self.options.backoff_policy.clone(),
+            throttler,
+            retry,
+            backoff,
         )
         .await
     }

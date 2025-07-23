@@ -54,13 +54,16 @@ where
 
     async fn send_unbuffered_resumable(self, hint: (u64, Option<u64>)) -> Result<Object> {
         let mut upload_url = None;
+        let throttler = self.options.retry_throttler.clone();
+        let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));
+        let backoff = self.options.backoff_policy.clone();
         gax::retry_loop_internal::retry_loop(
-            async |_| self.resumable_attempt(&mut upload_url, hint).await,
+            async move |_| self.resumable_attempt(&mut upload_url, hint).await,
             async |duration| tokio::time::sleep(duration).await,
             true,
-            self.options.retry_throttler.clone(),
-            Arc::new(ContinueOn308::new(self.options.retry_policy.clone())),
-            self.options.backoff_policy.clone(),
+            throttler,
+            retry,
+            backoff,
         )
         .await
     }
@@ -131,14 +134,17 @@ where
         // Single shot uploads are idempotent only if they have pre-conditions.
         let idempotent =
             self.spec.if_generation_match.is_some() || self.spec.if_metageneration_match.is_some();
+        let throttler = self.options.retry_throttler.clone();
+        let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));
+        let backoff = self.options.backoff_policy.clone();
         gax::retry_loop_internal::retry_loop(
             // TODO(#2044) - we need to apply any timeouts here.
-            async |_| self.single_shot_attempt().await,
+            async move |_| self.single_shot_attempt().await,
             async |duration| tokio::time::sleep(duration).await,
             idempotent,
-            self.options.retry_throttler.clone(),
-            self.options.retry_policy.clone(),
-            self.options.backoff_policy.clone(),
+            throttler,
+            retry,
+            backoff,
         )
         .await
     }
