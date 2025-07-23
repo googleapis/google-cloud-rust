@@ -79,7 +79,7 @@ resource "google_iam_workload_identity_pool_provider" "provider" {
   provider                           = google.external_account_project
   project                            = var.project
   workload_identity_pool_id          = google_iam_workload_identity_pool.pool.workload_identity_pool_id
-  workload_identity_pool_provider_id = "${var.workload_identity_pool_id}"
+  workload_identity_pool_provider_id = var.workload_identity_pool_id
   display_name                       = "External Account Test Provider"
   description                        = "Trust Google as an OIDC provider"
 
