@@ -18,6 +18,8 @@ limitations under the License.
 //{{{.}}}
 {{/Codec.Storage.Codec.BoilerPlate}}
 
+use crate::control::client::*;
+
 impl StorageControl {
     /// Returns a builder for [StorageControl].
     ///
@@ -57,7 +59,7 @@ impl StorageControl {
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stub::StorageControl + 'static,
+        T: crate::stub::StorageControl + 'static,
     {
         let stub = std::sync::Arc::new(stub);
         Self {
