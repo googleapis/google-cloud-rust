@@ -1237,8 +1237,7 @@ func TestFormatDocCommentsCrossLinks(t *testing.T) {
 [Message][test.v1.SomeMessage]
 [Enum][test.v1.SomeMessage.SomeEnum]
 [Message][test.v1.SomeMessage] repeated
-[Service][test.v1.SomeService]
-[field][test.v1.SomeMessage.field]
+[Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]
 [oneof group][test.v1.SomeMessage.result]
 [oneof field][test.v1.SomeMessage.error]
 [unmangled field][test.v1.SomeMessage.type] - normally r#type, but not in links
@@ -1258,8 +1257,7 @@ func TestFormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [Message][test.v1.SomeMessage]",
 		"/// [Enum][test.v1.SomeMessage.SomeEnum]",
 		"/// [Message][test.v1.SomeMessage] repeated",
-		"/// [Service][test.v1.SomeService]",
-		"/// [field][test.v1.SomeMessage.field]",
+		"/// [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]", // multiple links on one line
 		"/// [oneof group][test.v1.SomeMessage.result]",
 		"/// [oneof field][test.v1.SomeMessage.error]",
 		"/// [unmangled field][test.v1.SomeMessage.type] - normally r#type, but not in links",
