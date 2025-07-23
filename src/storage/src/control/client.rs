@@ -81,11 +81,11 @@
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
 pub struct StorageControl {
-    storage: crate::generated::gapic::client::StorageControl,
-    control: crate::generated::gapic_control::client::StorageControl,
+    pub(crate) storage: crate::generated::gapic::client::StorageControl,
+    pub(crate) control: crate::generated::gapic_control::client::StorageControl,
 }
 
-include!("../generated/combined/client.rs.in");
+// Note that the `impl` is defined in `generated/client.rs`
 
 /// A builder for [StorageControl].
 ///
