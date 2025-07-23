@@ -33,7 +33,7 @@ impl StorageControl {
     {{#Codec.Storage.Services}}
     {{#Methods}}
 
-    {{> ../common/client_method_preamble}}
+    {{> /templates/common/client_method_preamble}}
     pub fn {{Codec.Name}}(&self) -> crate::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
     {
         self.storage.{{Codec.Name}}()
@@ -43,7 +43,7 @@ impl StorageControl {
     {{#Codec.Control.Services}}
     {{#Methods}}
 
-    {{> ../common/client_method_preamble}}
+    {{> /templates/common/client_method_preamble}}
     pub fn {{Codec.Name}}(&self) -> crate::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
     {
         self.control.{{Codec.Name}}()

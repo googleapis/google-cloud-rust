@@ -130,7 +130,7 @@ impl {{Codec.Name}} {
     }
     {{#Codec.Methods}}
 
-    {{> ../common/client_method_preamble}}
+    {{> /templates/common/client_method_preamble}}
     pub fn {{Codec.Name}}(&self) -> super::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
     {
         super::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}::new(self.inner.clone())
