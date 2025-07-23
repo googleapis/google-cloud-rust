@@ -444,13 +444,8 @@ async fn generate_id_token(
         .build()
         .expect("failed to get default credentials for IAM");
 
-    let impersonated_cred = ImpersonatedCredentialsBuilder::from_source_credentials(creds)
-        .with_target_principal(target_principal_email.clone())
-        .build()
-        .expect("failed to create impersonated credentials");
-
     let client = IAMCredentials::builder()
-        .with_credentials(impersonated_cred)
+        .with_credentials(creds)
         .build()
         .await
         .expect("failed to setup IAM client");
@@ -462,6 +457,9 @@ async fn generate_id_token(
         .set_name(format!(
             "projects/-/serviceAccounts/{target_principal_email}"
         ))
+        .set_delegates(vec![format!(
+            "projects/-/serviceAccounts/{target_principal_email}"
+        )])
         .send()
         .await?;
 

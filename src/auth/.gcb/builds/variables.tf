@@ -38,7 +38,7 @@ variable "external_account_service_account_id" {
 variable "workload_identity_pool_id" {
   description = "The ID for the workload identity pool."
   type        = string
-  default     = "external-account-pool"
+  default     = "google-idp"
 }
 
 variable "impersonation_target_account_id" {

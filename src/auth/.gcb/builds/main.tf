@@ -70,3 +70,8 @@ module "triggers" {
   external_account_service_account_id = var.external_account_service_account_id
   workload_identity_audience          = module.external_account_test.audience
 }
+
+output "workload_identity_audience" {
+  description = "The audience for the workload identity pool."
+  value       = module.external_account_test.audience
+}
