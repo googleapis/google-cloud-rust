@@ -146,6 +146,26 @@ mod driver {
 
     #[test_case(Storage::builder(); "default")]
     #[tokio::test]
+    async fn run_storage_upload_buffered_resumable_known_size(
+        builder: storage::builder::storage::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::storage::upload_buffered_resumable_known_size(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[test_case(Storage::builder(); "default")]
+    #[tokio::test]
+    async fn run_storage_upload_buffered_resumable_unknown_size(
+        builder: storage::builder::storage::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::storage::upload_buffered_resumable_unknown_size(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[test_case(Storage::builder(); "default")]
+    #[tokio::test]
     async fn run_storage_upload_unbuffered_resumable_known_size(
         builder: storage::builder::storage::ClientBuilder,
     ) -> integration_tests::Result<()> {
