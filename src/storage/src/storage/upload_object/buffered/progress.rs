@@ -31,10 +31,6 @@ pub struct InProgressUpload {
     ///
     /// If the maximum is `None` the maximum size is not known.
     hint: (u64, Option<u64>),
-    /// The upload session URL.
-    ///
-    /// Starts as `None` and is initialized before the first `PUT` request.
-    url: Option<String>,
     /// The offset for the current `PUT` request.
     offset: u64,
     /// The data for the current `PUT` request.
@@ -76,7 +72,6 @@ impl std::fmt::Debug for InProgressUpload {
         let mut fmt = f.debug_struct("InProgressUpload");
         fmt.field("target_size", &self.target_size)
             .field("hint", &self.hint)
-            .field("url", &self.url)
             .field("offset", &self.offset)
             .field("buffer_size", &self.buffer_size)
             // The buffer and remainder can be rather large, just print a summary.
@@ -97,6 +92,7 @@ impl InProgressUpload {
         Self {
             target_size,
             hint,
+            persisted_size: Some(0_u64),
             ..Default::default()
         }
     }
@@ -107,18 +103,9 @@ impl InProgressUpload {
         Self {
             target_size,
             hint: (0, None),
+            persisted_size: Some(0_u64),
             ..Default::default()
         }
-    }
-
-    pub fn upload_session(&self) -> Option<String> {
-        self.url.clone()
-    }
-
-    pub fn set_upload_session(&mut self, url: String) -> String {
-        self.url = Some(url.clone());
-        self.persisted_size = Some(0_u64);
-        url
     }
 
     pub fn needs_query(&self) -> bool {
@@ -288,20 +275,6 @@ mod tests {
     fn rounding(input: usize, want: usize) {
         let upload = InProgressUpload::new(input, (0, None));
         assert_eq!(upload.target_size, want, "{upload:?}");
-    }
-
-    #[test]
-    fn upload_session() {
-        let mut upload = InProgressUpload::new(0, (0, None));
-        assert!(upload.upload_session().is_none(), "{upload:?}");
-        assert!(upload.needs_query(), "{upload:?}");
-
-        upload.set_upload_session("test-only-invalid".to_string());
-        assert_eq!(
-            upload.upload_session().as_deref(),
-            Some("test-only-invalid"),
-            "{upload:?}"
-        );
         assert!(!upload.needs_query(), "{upload:?}");
     }
 
@@ -489,8 +462,9 @@ mod tests {
 
     #[tokio::test]
     async fn range_header_unknown_size() -> Result {
-        const LINES: i32 = 257;
-        let stream = IterSource::new((0..LINES).map(|i| new_line(i, 1024)));
+        const LEN: usize = 1024;
+        const LINES: i32 = (RESUMABLE_UPLOAD_QUANTUM / LEN) as i32 + 1;
+        let stream = IterSource::new((0..LINES).map(|i| new_line(i, LEN)));
         let mut payload = InsertPayload::from(stream);
 
         let mut upload = InProgressUpload::new(0, (0, None));
@@ -507,8 +481,8 @@ mod tests {
             format!(
                 "bytes {}-{}/{}",
                 RESUMABLE_UPLOAD_QUANTUM,
-                RESUMABLE_UPLOAD_QUANTUM + 1024 - 1,
-                RESUMABLE_UPLOAD_QUANTUM + 1024
+                RESUMABLE_UPLOAD_QUANTUM + LEN - 1,
+                RESUMABLE_UPLOAD_QUANTUM + LEN
             )
         );
 
