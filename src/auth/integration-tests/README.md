@@ -119,7 +119,71 @@ terraform plan \
 terraform apply "/tmp/builds.plan"
 ```
 
+#### Create external account resources
+
+Set up a project for the external account.
+
+```sh
+EXTERNAL_PROJECT=<your-external-project>
+```
+
+Create the service accounts in the external project.
+
+```sh
+gcloud iam service-accounts create testsa --project=${EXTERNAL_PROJECT}
+gcloud iam service-accounts create impersonation-target --project=${EXTERNAL_PROJECT}
+```
+
+The terraform configuration also needs a service account in the main project
+that will run the tests.
+
+```sh
+gcloud iam service-accounts create integration-test-runner --project=${PROJECT}
+```
+
+Create the external account resources.
+
+```sh
+terraform plan \
+    -var="project=${PROJECT}" \
+    -var="external_account_project=${EXTERNAL_PROJECT}" \
+    -out="/tmp/builds.plan" \
+    -target="module.external_account_test"
+
+terraform apply "/tmp/builds.plan"
+```
+
+Get the audience for the workload identity pool.
+
+```sh
+AUDIENCE=$(terraform output -raw workload_identity_audience)
+```
+
+Run the tests:
+
+```sh
+env GOOGLE_CLOUD_PROJECT=${EXTERNAL_PROJECT} \
+    EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@${EXTERNAL_PROJECT}.iam.gserviceaccount.com \
+    GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=${AUDIENCE} \
+    cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
+```
+
+If you are done with the resources, you can destroy them with:
+
+```sh
+terraform plan \
+    -var="project=${PROJECT}" \
+    -var="external_account_project=${EXTERNAL_PROJECT}" \
+    -out="/tmp/builds.plan" \
+    -target="module.external_account_test" \
+    -destroy
+
+terraform apply "/tmp/builds.plan"
+```
+
 ## Test design
+
+```
 
 For access token credentials, there are integration tests for each type of
 principal (service account, authorized user, etc.).
@@ -142,3 +206,4 @@ The steps in the test are:
 
 [adc]: https://cloud.google.com/docs/authentication/application-default-credentials
 [secretmanager]: https://cloud.google.com/security/products/secret-manager
+```
