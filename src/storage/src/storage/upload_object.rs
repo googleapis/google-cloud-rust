@@ -803,6 +803,25 @@ impl<T> UploadObject<T> {
         Ok(builder)
     }
 
+    async fn query_resumable_upload_attempt(
+        &self,
+        upload_url: &str,
+    ) -> Result<ResumableUploadStatus> {
+        let builder = self
+            .inner
+            .client
+            .request(reqwest::Method::PUT, upload_url)
+            .header("content-type", "application/octet-stream")
+            .header("Content-Range", "bytes */*")
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = self.inner.apply_auth_headers(builder).await?;
+        let response = builder.send().await.map_err(Error::io)?;
+        self::query_resumable_upload_handle_response(response).await
+    }
+
     fn apply_preconditions(&self, builder: reqwest::RequestBuilder) -> reqwest::RequestBuilder {
         let builder = self
             .spec
@@ -846,6 +865,39 @@ async fn handle_start_resumable_upload_response(response: reqwest::Response) -> 
         .get("Location")
         .ok_or_else(|| Error::deser("missing Location header in start resumable upload"))?;
     location.to_str().map_err(Error::deser).map(str::to_string)
+}
+
+async fn query_resumable_upload_handle_response(
+    response: reqwest::Response,
+) -> Result<ResumableUploadStatus> {
+    if response.status() == RESUME_INCOMPLETE {
+        return self::parse_range(response).await;
+    }
+    if !response.status().is_success() {
+        return gaxi::http::to_http_error(response).await;
+    }
+    let response = response.json::<v1::Object>().await.map_err(Error::deser)?;
+    Ok(ResumableUploadStatus::Finalized(Box::new(Object::from(
+        response,
+    ))))
+}
+
+async fn parse_range(response: reqwest::Response) -> Result<ResumableUploadStatus> {
+    let Some(end) = self::parse_range_end(response.headers()) else {
+        return gaxi::http::to_http_error(response).await;
+    };
+    // The `Range` header returns an inclusive range, i.e. bytes=0-999 means "1000 bytes".
+    let persisted_size = match end {
+        0 => 0,
+        e => e + 1,
+    };
+    Ok(ResumableUploadStatus::Partial(persisted_size))
+}
+
+#[derive(Debug, PartialEq)]
+enum ResumableUploadStatus {
+    Finalized(Box<Object>),
+    Partial(u64),
 }
 
 fn parse_range_end(headers: &reqwest::header::HeaderMap) -> Option<u64> {
