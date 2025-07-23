@@ -21,15 +21,17 @@ To run these tests locally, first, ensure your local Application Default
 Credentials are up to date by running:
 
 ```sh
-gcloud auth application-default login
+gcloud auth login --update-adc
 ```
 
 Then, set the following environment variables and run the tests.
 
 ```sh
-env GOOGLE_CLOUD_PROJECT=rust-external-account-joonix \
+GOOGLE_CLOUD_PROJECT=rust-external-account-joonix
+GOOGLE_PROJECT_NUMBER=$(gcloud projects describe ${GOOGLE_CLOUD_PROJECT} --format='value(projectNumber)')
+env GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT} \
 EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
-GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/1092239828259/locations/global/workloadIdentityPools/google-idp/providers/google-idp \
+GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/${GOOGLE_PROJECT_NUMBER}/locations/global/workloadIdentityPools/google-idp/providers/google-idp \
 cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
 ```
 
@@ -153,18 +155,17 @@ terraform plan \
 terraform apply "/tmp/builds.plan"
 ```
 
-Get the audience for the workload identity pool.
-
-```sh
-AUDIENCE=$(terraform output -raw workload_identity_audience)
-```
-
 Run the tests:
 
+The following command assumes the default workload identity pool and provider ID
+(`google-idp`) are used.
+
 ```sh
-env GOOGLE_CLOUD_PROJECT=${EXTERNAL_PROJECT} \
-    EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@${EXTERNAL_PROJECT}.iam.gserviceaccount.com \
-    GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=${AUDIENCE} \
+GOOGLE_CLOUD_PROJECT=${EXTERNAL_PROJECT}
+GOOGLE_PROJECT_NUMBER=$(gcloud projects describe ${GOOGLE_CLOUD_PROJECT} --format='value(projectNumber)')
+env GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT} \
+    EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
+    GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/${GOOGLE_PROJECT_NUMBER}/locations/global/workloadIdentityPools/google-idp/providers/google-idp \
     cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
 ```
 
@@ -182,8 +183,6 @@ terraform apply "/tmp/builds.plan"
 ```
 
 ## Test design
-
-```
 
 For access token credentials, there are integration tests for each type of
 principal (service account, authorized user, etc.).
@@ -206,4 +205,3 @@ The steps in the test are:
 
 [adc]: https://cloud.google.com/docs/authentication/application-default-credentials
 [secretmanager]: https://cloud.google.com/security/products/secret-manager
-```
