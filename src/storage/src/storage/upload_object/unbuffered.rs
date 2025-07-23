@@ -15,6 +15,7 @@
 use super::upload_source::Seek;
 use super::*;
 use crate::retry_policy::ContinueOn308;
+use futures::stream::unfold;
 
 impl<T> UploadObject<T>
 where
@@ -70,7 +71,7 @@ where
         hint: (u64, Option<u64>),
     ) -> Result<Object> {
         let (offset, url_ref) = if let Some(upload_url) = url.as_deref() {
-            match self.query_resumable_upload(upload_url).await? {
+            match self.query_resumable_upload_attempt(upload_url).await? {
                 ResumableUploadStatus::Finalized(object) => {
                     return Ok(*object);
                 }
@@ -123,22 +124,6 @@ where
         let builder = builder.body(reqwest::Body::wrap_stream(stream));
         let response = builder.send().await.map_err(Error::io)?;
         self::resumable_upload_handle_response(response).await
-    }
-
-    async fn query_resumable_upload(&self, upload_url: &str) -> Result<ResumableUploadStatus> {
-        let builder = self
-            .inner
-            .client
-            .request(reqwest::Method::PUT, upload_url)
-            .header("content-type", "application/octet-stream")
-            .header("Content-Range", "bytes */*")
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let builder = self.inner.apply_auth_headers(builder).await?;
-        let response = builder.send().await.map_err(Error::io)?;
-        self::query_resumable_upload_handle_response(response).await
     }
 
     pub(super) async fn send_unbuffered_single_shot(self) -> Result<Object> {
@@ -231,39 +216,6 @@ async fn resumable_upload_handle_response(response: reqwest::Response) -> Result
     }
     let response = response.json::<v1::Object>().await.map_err(Error::deser)?;
     Ok(Object::from(response))
-}
-
-async fn query_resumable_upload_handle_response(
-    response: reqwest::Response,
-) -> Result<ResumableUploadStatus> {
-    if response.status() == RESUME_INCOMPLETE {
-        return self::parse_range(response).await;
-    }
-    if !response.status().is_success() {
-        return gaxi::http::to_http_error(response).await;
-    }
-    let response = response.json::<v1::Object>().await.map_err(Error::deser)?;
-    Ok(ResumableUploadStatus::Finalized(Box::new(Object::from(
-        response,
-    ))))
-}
-
-async fn parse_range(response: reqwest::Response) -> Result<ResumableUploadStatus> {
-    let Some(end) = self::parse_range_end(response.headers()) else {
-        return gaxi::http::to_http_error(response).await;
-    };
-    // The `Range` header returns an inclusive range, i.e. bytes=0-999 means "1000 bytes".
-    let persisted_size = match end {
-        0 => 0,
-        e => e + 1,
-    };
-    Ok(ResumableUploadStatus::Partial(persisted_size))
-}
-
-#[derive(Debug, PartialEq)]
-enum ResumableUploadStatus {
-    Finalized(Box<Object>),
-    Partial(u64),
 }
 
 #[cfg(test)]
