@@ -31,10 +31,9 @@ gcloud auth application-default login
 Then, set the following environment variables and run the tests.
 
 ```sh
-cd /usr/local/google/home/harkamalj/google-cloud-rust/src/auth/.gcb/builds
-export GOOGLE_CLOUD_PROJECT=rust-external-account-joonix \
-export EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
-export GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/1092239828259/locations/global/workloadIdentityPools/google-idp/providers/google-idp \
+env GOOGLE_CLOUD_PROJECT=rust-external-account-joonix \
+EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
+GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/1092239828259/locations/global/workloadIdentityPools/google-idp/providers/google-idp \
 cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
 ```
 
@@ -55,12 +54,10 @@ terraform apply "/tmp/builds.plan"
 
 #### Create the test resources
 
-Set your test project and the project where the test runner service account
-lives.
+Set your test project
 
 ```sh
 PROJECT=$(gcloud config get project)
-RUNNER_PROJECT=rust-auth-testing
 ```
 
 Create test service accounts. Our terraform configuration expects these to
@@ -68,12 +65,7 @@ already exist, for org policy reasons.
 
 ```sh
 gcloud iam service-accounts create test-sa-creds \
-    --project=${PROJECT} \
     --display-name "Principal for testing service account credentials"
-
-gcloud iam service-accounts create impersonation-target \
-    --project=${PROJECT} \
-    --display-name "Impersonation target service account"
 ```
 
 Navigate to the terraform root. For example:
@@ -103,12 +95,10 @@ to a test project.
 
 ```sh
 terraform plan \
-    -var="project=${RUNNER_PROJECT}" \
-    -var="external_account_project=${PROJECT}" \
+    -var="project=${PROJECT}" \
     -out="/tmp/builds.plan" \
     -target="module.api_key_test" \
-    -target="module.service_account_test" \
-    -target="module.external_account_test"
+    -target="module.service_account_test"
 
 terraform apply "/tmp/builds.plan"
 ```
@@ -116,24 +106,18 @@ terraform apply "/tmp/builds.plan"
 Run the tests:
 
 ```sh
-export GOOGLE_CLOUD_PROJECT=${PROJECT}
-export EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com
-export GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=$(terraform output workload_identity_audience)
-
-cd /usr/local/google/home/harkamalj/google-cloud-rust
-cargo test --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
+env GOOGLE_CLOUD_PROJECT=${PROJECT} \
+    cargo test --features run-integration-tests -p auth-integration-tests
 ```
 
 If you are done with the resources, you can destroy them with:
 
 ```sh
 terraform plan \
-    -var="project=${RUNNER_PROJECT}" \
-    -var="external_account_project=${PROJECT}" \
+    -var="project=${PROJECT}" \
     -out="/tmp/builds.plan" \
     -target="module.api_key_test" \
     -target="module.service_account_test" \
-    -target="module.external_account_test" \
     -destroy
 
 terraform apply "/tmp/builds.plan"
