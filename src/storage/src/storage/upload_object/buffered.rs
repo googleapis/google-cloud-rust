@@ -54,8 +54,12 @@ where
 
     async fn send_buffered_resumable(self, hint: (u64, Option<u64>)) -> Result<Object> {
         let mut progress = InProgressUpload::new(self.options.resumable_upload_buffer_size, hint);
+        let mut url = None;
         gax::retry_loop_internal::retry_loop(
-            async |_| self.buffered_resumable_attempt(&mut progress).await,
+            async |_| {
+                self.buffered_resumable_attempt(&mut progress, &mut url)
+                    .await
+            },
             async |duration| tokio::time::sleep(duration).await,
             true,
             self.options.retry_throttler.clone(),
@@ -65,18 +69,22 @@ where
         .await
     }
 
-    async fn buffered_resumable_attempt(&self, progress: &mut InProgressUpload) -> Result<Object> {
-        // Cannot borrow `progress.url` because we plan to borrow `progress` as
-        // mutable below.
-        let upload_url = if let Some(url) = progress.upload_session() {
-            url
+    // Use separate arguments for `progress` and `url` so we can borrow them
+    // separately.
+    async fn buffered_resumable_attempt(
+        &self,
+        progress: &mut InProgressUpload,
+        url: &mut Option<String>,
+    ) -> Result<Object> {
+        let upload_url = if let Some(u) = url.as_deref() {
+            u
         } else {
-            let url = self.start_resumable_upload_attempt().await?;
-            progress.set_upload_session(url)
+            let u = self.start_resumable_upload_attempt().await?;
+            url.insert(u).as_str()
         };
 
         if progress.needs_query() {
-            match self.query_resumable_upload_attempt(&upload_url).await? {
+            match self.query_resumable_upload_attempt(upload_url).await? {
                 ResumableUploadStatus::Finalized(object) => return Ok(*object),
                 ResumableUploadStatus::Partial(persisted_size) => {
                     progress.handle_partial(persisted_size)?;
@@ -88,7 +96,7 @@ where
             progress
                 .next_buffer(&mut *self.payload.lock().await)
                 .await?;
-            let builder = self.partial_upload_request(&upload_url, progress).await?;
+            let builder = self.partial_upload_request(upload_url, progress).await?;
             let response = builder.send().await.map_err(Error::io)?;
             match super::query_resumable_upload_handle_response(response).await {
                 Err(e) => {
