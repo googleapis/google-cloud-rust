@@ -101,6 +101,7 @@ path = "../../src/gax"
 mockall = "0.13"
 # ANCHOR_END: mockall
 anyhow.workspace            = true
+bytes.workspace             = true
 rand                        = "0.9"
 test-case.workspace         = true
 integration-tests.workspace = true

@@ -13,6 +13,9 @@
 // limitations under the License.
 
 pub mod storage {
+    pub mod queue;
+    pub mod quickstart;
+
     pub use integration_tests::random_bucket_id;
 
     #[cfg(all(test, feature = "run-integration-tests"))]
@@ -28,9 +31,16 @@ pub mod storage {
             let _ = super::cleanup_bucket(&bucket_id).await;
             response
         }
-    }
 
-    pub mod quickstart;
+        #[tokio::test(flavor = "multi_thread")]
+        async fn queue() -> anyhow::Result<()> {
+            let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
+            let response = super::queue::queue(&bucket.name, "test-only").await;
+            // Ignore cleanup errors.
+            let _ = integration_tests::cleanup_bucket(control, bucket.name).await;
+            response
+        }
+    }
 
     pub async fn cleanup_bucket(bucket_id: &str) -> anyhow::Result<()> {
         let control = google_cloud_storage::client::StorageControl::builder()
