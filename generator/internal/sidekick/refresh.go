@@ -77,6 +77,8 @@ func createModel(config *config.Config) (*api.API, error) {
 		model, err = parser.ParseOpenAPI(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
 	case "protobuf":
 		model, err = parser.ParseProtobuf(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
+	case "none":
+		return nil, nil
 	default:
 		return nil, fmt.Errorf("unknown parser %q", config.General.SpecificationFormat)
 	}
@@ -121,6 +123,19 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	switch config.General.Language {
 	case "rust":
 		return rust.Generate(model, output, config)
+	case "rust_storage":
+		// The StorageControl client depends on multiple specification sources.
+		// We load them both here manually, and pass them along to
+		// `rust.GenerateStorage` which will merge them appropriately.
+		storageModel, storageConfig, err := loadDir(rootConfig, "src/storage/src/generated/gapic")
+		if err != nil {
+			return err
+		}
+		controlModel, controlConfig, err := loadDir(rootConfig, "src/storage/src/generated/gapic_control")
+		if err != nil {
+			return err
+		}
+		return rust.GenerateStorage(output, storageModel, storageConfig, controlModel, controlConfig)
 	case "rust+prost":
 		return rust_prost.Generate(model, output, config)
 	case "go":

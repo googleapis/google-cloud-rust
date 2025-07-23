@@ -36,6 +36,34 @@ func Generate(model *api.API, outdir string, cfg *config.Config) error {
 	return language.GenerateFromModel(outdir, model, provider, generatedFiles)
 }
 
+func GenerateStorage(outdir string, storageModel *api.API, storageConfig *config.Config, controlModel *api.API, controlConfig *config.Config) error {
+	storageCodec, err := newCodec(storageConfig.General.SpecificationFormat == "protobuf", storageConfig.Codec)
+	if err != nil {
+		return err
+	}
+	annotateModel(storageModel, storageCodec)
+	controlCodec, err := newCodec(controlConfig.General.SpecificationFormat == "protobuf", controlConfig.Codec)
+	if err != nil {
+		return err
+	}
+	annotateModel(controlModel, controlCodec)
+
+	model := &api.API{
+		Codec: &storageAnnotations{
+			Storage: storageModel,
+			Control: controlModel,
+		},
+	}
+	provider := templatesProvider()
+	generatedFiles := language.WalkTemplatesDir(templates, "templates/storage")
+	return language.GenerateFromModel(outdir, model, provider, generatedFiles)
+}
+
+type storageAnnotations struct {
+	Storage *api.API
+	Control *api.API
+}
+
 func templatesProvider() language.TemplateProvider {
 	return func(name string) (string, error) {
 		contents, err := templates.ReadFile(name)
