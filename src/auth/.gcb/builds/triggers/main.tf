@@ -18,6 +18,7 @@ variable "sa_adc_secret" {}
 variable "api_key_secret" {}
 variable "external_account_project" {}
 variable "external_account_service_account_id" {}
+variable "workload_identity_audience" {}
 
 # This is used to retrieve the project number. The project number is embedded in
 # certain P4 (Per-product per-project) service accounts.
@@ -121,6 +122,14 @@ resource "google_secret_manager_secret_iam_member" "test-api-key-secret-member" 
   member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
 
+# The default Cloud Build service account needs permission to act as the
+# integration test runner service account.
+resource "google_service_account_iam_member" "cloudbuild_can_act_as_runner" {
+  service_account_id = data.google_service_account.integration-test-runner.name
+  role               = "roles/iam.serviceAccountUser"
+  member             = "serviceAccount:${data.google_project.project.number}@cloudbuild.gserviceaccount.com"
+}
+
 locals {
   # Google Cloud Build installs an application on the GitHub organization or
   # repository. This id is hard-coded here because there is no easy way [^1] to
@@ -190,6 +199,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
   substitutions = {
     _EXTERNAL_ACCOUNT_PROJECT               = var.external_account_project
     _EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL = "${var.external_account_service_account_id}@${var.external_account_project}.iam.gserviceaccount.com"
+    _WORKLOAD_IDENTITY_AUDIENCE             = var.workload_identity_audience
   }
 
   repository_event_config {
@@ -214,6 +224,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
   substitutions = {
     _EXTERNAL_ACCOUNT_PROJECT               = var.external_account_project
     _EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL = "${var.external_account_service_account_id}@${var.external_account_project}.iam.gserviceaccount.com"
+    _WORKLOAD_IDENTITY_AUDIENCE             = var.workload_identity_audience
   }
 
   repository_event_config {
