@@ -951,6 +951,38 @@ mod tests {
         Ok(())
     }
 
+    // Verify `upload_object()` meets normal Send, Sync, requirements.
+    #[tokio::test]
+    async fn test_upload_is_send_and_static() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        fn need_send<T: Send>(_val: &T) {}
+        fn need_sync<T: Sync>(_val: &T) {}
+        fn need_static<T: 'static>(_val: &T) {}
+
+        let upload = client.upload_object("projects/_/buckets/test-bucket", "test-object", "");
+        need_send(&upload);
+        need_sync(&upload);
+        need_static(&upload);
+
+        let upload = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send_unbuffered();
+        need_send(&upload);
+        need_static(&upload);
+
+        let upload = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send();
+        need_send(&upload);
+        need_static(&upload);
+
+        Ok(())
+    }
+
     #[test]
     fn upload_object_unbuffered_metadata() -> Result {
         use crate::model::ObjectAccessControl;
