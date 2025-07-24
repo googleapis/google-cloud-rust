@@ -138,6 +138,12 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 			codec.hasVeneer = value
 		case key == "internal-types":
 			codec.internalTypes = strings.Split(definition, ",")
+		case key == "routing-required":
+			value, err := strconv.ParseBool(definition)
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `routing-required` value %q to boolean: %w", definition, err)
+			}
+			codec.routingRequired = value
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -248,6 +254,9 @@ type codec struct {
 	//
 	// Only supports messages.
 	internalTypes []string
+	// If true, fail requests locally that do not yield a gRPC routing
+	// header.
+	routingRequired bool
 }
 
 type systemParameter struct {
