@@ -181,7 +181,7 @@ async fn request_retry_options() -> Result {
 // Verify the client retry options are used and that exhausted policies
 // result in errors.
 #[tokio::test]
-async fn start_resumable_upload_client_retry_options() -> Result {
+async fn client_retry_options() -> Result {
     use gax::retry_policy::RetryPolicyExt;
     let server = Server::run();
     let matching = || {
