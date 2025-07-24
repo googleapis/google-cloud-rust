@@ -1273,7 +1273,8 @@ mod tests {
     #[test_case("123-456/457"; "bad prefix")]
     #[test_case("bytes 123-456 457"; "bad separator")]
     #[test_case("bytes 123+456/457"; "bad separator [2]")]
-    #[test_case("bytes abc-cde/457"; "not numbers")]
+    #[test_case("bytes abc-456/457"; "start is not numbers")]
+    #[test_case("bytes 123-cde/457"; "end is not numbers")]
     #[test_case("bytes 123-0/457"; "invalid range")]
     fn response_range_partial_format(value: &'static str) -> Result {
         let response = http::Response::builder()
@@ -1287,6 +1288,19 @@ mod tests {
             "{err:?}"
         );
         assert!(err.source().is_some(), "{err:?}");
+        Ok(())
+    }
+
+    #[test]
+    fn response_range_bad_response() -> Result {
+        let code = reqwest::StatusCode::CREATED;
+        let response = http::Response::builder().status(code).body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err = response_range(&response).expect_err("unexpected status creates error");
+        assert!(
+            matches!(err, ReadError::UnexpectedSuccessCode(c) if c == code),
+            "{err:?}"
+        );
         Ok(())
     }
 
