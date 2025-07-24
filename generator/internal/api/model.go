@@ -14,7 +14,10 @@
 
 package api
 
-import "slices"
+import (
+	"slices"
+	"strings"
+)
 
 // Typez represent different field types that may be found in messages.
 type Typez int
@@ -342,6 +345,18 @@ type RoutingInfoVariant struct {
 	Suffix RoutingPathSpec
 	// Language specific information
 	Codec any
+}
+
+func (v *RoutingInfoVariant) FieldName() string {
+	return strings.Join(v.FieldPath, ".")
+}
+
+func (v *RoutingInfoVariant) TemplateAsString() string {
+	var full []string
+	full = append(full, v.Prefix.Segments...)
+	full = append(full, v.Matching.Segments...)
+	full = append(full, v.Suffix.Segments...)
+	return strings.Join(full, "/")
 }
 
 type RoutingPathSpec struct {
