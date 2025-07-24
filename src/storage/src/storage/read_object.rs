@@ -612,26 +612,14 @@ fn check_crc32c_match(crc32c: u32, response: Option<u32>) -> Result<()> {
 fn response_range(response: &reqwest::Response) -> std::result::Result<ReadRange, ReadError> {
     match response.status() {
         reqwest::StatusCode::OK => {
-            let header = response
-                .headers()
-                .get("content-length")
-                .ok_or_else(|| ReadError::MissingHeader("content-length"))?;
-            let header = header
-                .to_str()
-                .map_err(|e| ReadError::BadHeaderFormat("content-length", e.into()))?;
+            let header = required_header(response, "content-length")?;
             let limit = header
                 .parse::<u64>()
                 .map_err(|e| ReadError::BadHeaderFormat("content-length", e.into()))?;
             Ok(ReadRange { start: 0, limit })
         }
         reqwest::StatusCode::PARTIAL_CONTENT => {
-            let header = response
-                .headers()
-                .get("content-range")
-                .ok_or_else(|| ReadError::MissingHeader("content-range"))?;
-            let header = header
-                .to_str()
-                .map_err(|e| ReadError::BadHeaderFormat("content-range", e.into()))?;
+            let header = required_header(response, "content-range")?;
             let header = header.strip_prefix("bytes ").ok_or_else(|| {
                 ReadError::BadHeaderFormat("content-range", "missing bytes prefix".into())
             })?;
@@ -658,16 +646,23 @@ fn response_range(response: &reqwest::Response) -> std::result::Result<ReadRange
 }
 
 fn response_generation(response: &reqwest::Response) -> std::result::Result<i64, ReadError> {
-    let header = response
-        .headers()
-        .get("x-goog-generation")
-        .ok_or_else(|| ReadError::MissingHeader("x-goog-generation"))?;
-    let header = header
-        .to_str()
-        .map_err(|e| ReadError::BadHeaderFormat("x-goog-generation", e.into()))?;
+    let header = required_header(response, "x-goog-generation")?;
     header
         .parse::<i64>()
         .map_err(|e| ReadError::BadHeaderFormat("content-length", e.into()))
+}
+
+fn required_header<'a>(
+    response: &'a reqwest::Response,
+    name: &'static str,
+) -> std::result::Result<&'a str, ReadError> {
+    let header = response
+        .headers()
+        .get(name)
+        .ok_or_else(|| ReadError::MissingHeader(name))?;
+    header
+        .to_str()
+        .map_err(|e| ReadError::BadHeaderFormat(name, e.into()))
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -1289,6 +1284,66 @@ mod tests {
         let err = response_range(&response).expect_err("header value should result in an error");
         assert!(
             matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-range"),
+            "{err:?}"
+        );
+        assert!(err.source().is_some(), "{err:?}");
+        Ok(())
+    }
+
+    #[test_case(0)]
+    #[test_case(1024)]
+    fn response_generation_success(value: i64) -> Result {
+        let response = http::Response::builder()
+            .status(200)
+            .header("x-goog-generation", value)
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let got = response_generation(&response)?;
+        assert_eq!(got, value);
+        Ok(())
+    }
+
+    #[test]
+    fn response_generation_missing() -> Result {
+        let response = http::Response::builder().status(200).body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err =
+            response_generation(&response).expect_err("missing header should result in an error");
+        assert!(
+            matches!(err, ReadError::MissingHeader(h) if h == "x-goog-generation"),
+            "{err:?}"
+        );
+        Ok(())
+    }
+
+    #[test_case("")]
+    #[test_case("abc")]
+    #[test_case("-123")]
+    fn response_generation_format(value: &'static str) -> Result {
+        let response = http::Response::builder()
+            .status(200)
+            .header("content-length", value)
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err = response_range(&response).expect_err("header value should result in an error");
+        assert!(
+            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-length"),
+            "{err:?}"
+        );
+        assert!(err.source().is_some(), "{err:?}");
+        Ok(())
+    }
+
+    #[test]
+    fn required_header_not_str() -> Result {
+        let response = http::Response::builder()
+            .status(200)
+            .header("content-length", http::HeaderValue::from_bytes(b"invalid\xfa")?)
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err = response_range(&response).expect_err("header value should result in an error");
+        assert!(
+            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-length"),
             "{err:?}"
         );
         assert!(err.source().is_some(), "{err:?}");
