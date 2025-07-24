@@ -51,3 +51,4 @@ internal-types            = """\
     .google.storage.v2.ReadObjectRequest,\
     .google.storage.v2.WriteObjectSpec\
     """
+routing-required          = 'true'

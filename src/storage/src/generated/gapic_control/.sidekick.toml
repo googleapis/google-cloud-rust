@@ -27,3 +27,4 @@ name-overrides            = """\
 """
 include-grpc-only-methods = 'true'
 has-veneer                = 'true'
+routing-required          = 'true'

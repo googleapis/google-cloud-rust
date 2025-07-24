@@ -88,6 +88,22 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                    "parent",
+                    "**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::storage::control::v2::Folder;
         self.inner
@@ -139,6 +155,28 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = ();
         self.inner
@@ -190,6 +228,28 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::storage::control::v2::Folder;
         self.inner
@@ -236,6 +296,22 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                    "parent",
+                    "**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::storage::control::v2::ListFoldersResponse;
         self.inner
@@ -287,6 +363,28 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::longrunning::Operation;
         self.inner
@@ -338,6 +436,28 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::storage::control::v2::StorageLayout;
         self.inner
@@ -384,6 +504,22 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                    "parent",
+                    "**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::storage::control::v2::ManagedFolder;
         self.inner
@@ -435,6 +571,28 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = ();
         self.inner
@@ -486,6 +644,28 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::storage::control::v2::ManagedFolder;
         self.inner
@@ -532,6 +712,22 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                    "parent",
+                    "**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::storage::control::v2::ListManagedFoldersResponse;
         self.inner
@@ -578,6 +774,22 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                    "parent",
+                    "**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::longrunning::Operation;
         self.inner
@@ -632,6 +844,31 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req)
+                        .and_then(|m| m.anywhere_cache.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "anywhere_cache.name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::longrunning::Operation;
         self.inner
@@ -683,6 +920,28 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
         self.inner
@@ -734,6 +993,28 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
         self.inner
@@ -785,6 +1066,28 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
         self.inner
@@ -836,6 +1139,28 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
         self.inner
@@ -882,6 +1207,22 @@ impl super::stub::StorageControl for StorageControl {
                 })
                 .map(|v| ("bucket", v))])
         };
+        if x_goog_request_params.is_empty() {
+            use gax::error::binding::BindingError;
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default().maybe_add(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                    "parent",
+                    "**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(gax::error::Error::binding(BindingError { paths }));
+        }
 
         type TR = crate::google::storage::control::v2::ListAnywhereCachesResponse;
         self.inner
