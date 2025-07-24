@@ -1538,3 +1538,38 @@ func TestInternalMessageOverrides(t *testing.T) {
 		t.Errorf("Private method should not be flagged as internal")
 	}
 }
+
+func TestRoutingRequired(t *testing.T) {
+	message := &api.Message{
+		Name: "Message",
+		ID:   ".test.Message",
+	}
+	method := &api.Method{
+		Name:         "DoFoo",
+		ID:           ".test.Service.DoFoo",
+		InputTypeID:  ".test.Message",
+		OutputTypeID: ".test.Message",
+		PathInfo:     &api.PathInfo{},
+	}
+	service := &api.Service{
+		Name:    "FooService",
+		ID:      ".test.FooService",
+		Package: "test",
+		Methods: []*api.Method{method},
+	}
+	model := api.NewTestAPI([]*api.Message{message},
+		[]*api.Enum{},
+		[]*api.Service{service})
+	codec, err := newCodec(true, map[string]string{
+		"include-grpc-only-methods": "true",
+		"routing-required":          "true",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec)
+
+	if !method.Codec.(*methodAnnotation).RoutingRequired {
+		t.Errorf("codec setting `routing-required` not respected")
+	}
+}
