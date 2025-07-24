@@ -14,7 +14,7 @@
 
 //! Verify read_object() retries downloads.
 //!
-//! Downloads requests may be rejected by the service. Even after they start
+//! Download requests may be rejected by the service. Even after they start
 //! successfully, they may be interrupted. The client library should
 //! automatically retry downloads that fail to start, and automatically resume
 //! downloads that are interrupted.
@@ -224,7 +224,6 @@ async fn client_retry_options() -> Result {
         .with_retry_policy(retry.with_attempt_limit(3))
         .with_backoff_policy(backoff)
         .with_retry_throttler(throttler)
-        .with_resumable_upload_threshold(0_usize)
         .build()
         .await?;
     let err = client

@@ -284,7 +284,7 @@ impl ReadObject {
     ///
     /// Most of the time you want to use the same throttler for all the requests
     /// in a client, and even the same throttler for many clients. Rarely it
-    /// maybe be necessary to use an ad-hoc throttler for some subset of the
+    /// may be necessary to use an custom throttler for some subset of the
     /// requests.
     ///
     /// # Example
@@ -603,7 +603,7 @@ mod tests {
 
     // Verify `read_object()` meets normal Send, Sync, requirements.
     #[tokio::test]
-    async fn test_upload_is_send_and_static() -> Result {
+    async fn test_read_is_send_and_static() -> Result {
         let client = Storage::builder()
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
