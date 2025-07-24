@@ -608,7 +608,7 @@ impl<T> UploadObject<T> {
     ///
     /// Most of the time you want to use the same throttler for all the requests
     /// in a client, and even the same throttler for many clients. Rarely it
-    /// maybe be necessary to use an ad-hoc throttler for some subset of the
+    /// may be necessary to use an custom throttler for some subset of the
     /// requests.
     ///
     /// # Example

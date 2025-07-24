@@ -37,6 +37,7 @@ use futures::Stream;
 pub struct ReadObject {
     inner: std::sync::Arc<StorageInner>,
     request: crate::model::ReadObjectRequest,
+    options: super::request_options::RequestOptions,
 }
 
 impl ReadObject {
@@ -45,11 +46,13 @@ impl ReadObject {
         B: Into<String>,
         O: Into<String>,
     {
+        let options = inner.options.clone();
         ReadObject {
             inner,
             request: crate::model::ReadObjectRequest::new()
                 .set_bucket(bucket)
                 .set_object(object),
+            options,
         }
     }
 
@@ -228,18 +231,102 @@ impl ReadObject {
         self
     }
 
+    /// The retry policy used for this request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::retry_policy::RecommendedPolicy;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// use gax::retry_policy::RetryPolicyExt;
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_retry_policy(RecommendedPolicy
+    ///         .with_attempt_limit(5)
+    ///         .with_time_limit(Duration::from_secs(10)),
+    ///     )
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_policy<V: Into<gax::retry_policy::RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.options.retry_policy = v.into().into();
+        self
+    }
+
+    /// The backoff policy used for this request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_backoff_policy(ExponentialBackoff::default())
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_backoff_policy<V: Into<gax::backoff_policy::BackoffPolicyArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
+        self.options.backoff_policy = v.into().into();
+        self
+    }
+
+    /// The retry throttler used for this request.
+    ///
+    /// Most of the time you want to use the same throttler for all the requests
+    /// in a client, and even the same throttler for many clients. Rarely it
+    /// may be necessary to use an custom throttler for some subset of the
+    /// requests.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_retry_throttler(adhoc_throttler())
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// fn adhoc_throttler() -> gax::retry_throttler::SharedRetryThrottler {
+    ///     # panic!();
+    /// }
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_throttler<V: Into<gax::retry_throttler::RetryThrottlerArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
+        self.options.retry_throttler = v.into().into();
+        self
+    }
+
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse> {
         let full_content_requested = self.request.read_offset == 0 && self.request.read_limit == 0;
+        let throttler = self.options.retry_throttler.clone();
+        let retry = self.options.retry_policy.clone();
+        let backoff = self.options.backoff_policy.clone();
 
-        let builder = self.http_request_builder().await?;
+        let response = gax::retry_loop_internal::retry_loop(
+            async move |_| self.download_attempt().await,
+            async |duration| tokio::time::sleep(duration).await,
+            true,
+            throttler,
+            retry,
+            backoff,
+        )
+        .await?;
 
-        tracing::info!("builder={builder:?}");
-
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return gaxi::http::to_http_error(response).await;
-        }
         let response_crc32c = crc32c_from_response(
             full_content_requested,
             response.status(),
@@ -252,9 +339,18 @@ impl ReadObject {
         })
     }
 
-    async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
+    async fn download_attempt(&self) -> Result<reqwest::Response> {
+        let builder = self.http_request_builder().await?;
+        let response = builder.send().await.map_err(Error::io)?;
+        if !response.status().is_success() {
+            return gaxi::http::to_http_error(response).await;
+        }
+        Ok(response)
+    }
+
+    async fn http_request_builder(&self) -> Result<reqwest::RequestBuilder> {
         // Collect the required bucket and object parameters.
-        let bucket: String = self.request.bucket;
+        let bucket = &self.request.bucket;
         let bucket_id = bucket
             .as_str()
             .strip_prefix("projects/_/buckets/")
@@ -263,7 +359,7 @@ impl ReadObject {
                     "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
                 ))
             })?;
-        let object: String = self.request.object;
+        let object = &self.request.object;
 
         // Build the request.
         let builder = self
@@ -274,7 +370,7 @@ impl ReadObject {
                 format!(
                     "{}/storage/v1/b/{bucket_id}/o/{}",
                     &self.inner.endpoint,
-                    enc(&object)
+                    enc(object)
                 ),
             )
             .query(&[("alt", "media")])
@@ -490,6 +586,9 @@ fn check_crc32c_match(crc32c: u32, response: Option<u32>) -> Result<()> {
 }
 
 #[cfg(test)]
+mod resume_tests;
+
+#[cfg(test)]
 mod tests {
     use super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
@@ -502,6 +601,31 @@ mod tests {
 
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
+    // Verify `read_object()` meets normal Send, Sync, requirements.
+    #[tokio::test]
+    async fn test_read_is_send_and_static() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        fn need_send<T: Send>(_val: &T) {}
+        fn need_sync<T: Sync>(_val: &T) {}
+        fn need_static<T: 'static>(_val: &T) {}
+
+        let read = client.read_object("projects/_/buckets/test-bucket", "test-object");
+        need_send(&read);
+        need_sync(&read);
+        need_static(&read);
+
+        let read = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send();
+        need_send(&read);
+        need_static(&read);
+
+        Ok(())
+    }
     #[tokio::test]
     async fn read_object_normal() -> Result {
         let server = Server::run();
