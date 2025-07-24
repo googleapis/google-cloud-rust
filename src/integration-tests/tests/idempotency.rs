@@ -148,6 +148,7 @@ mod default_idempotency {
             // idempotent.
             let _ = client
                 .create_folder()
+                .set_parent("invalid")
                 .with_retry_policy(expect_idempotent())
                 .send()
                 .await;
