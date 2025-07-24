@@ -92,8 +92,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "name",
@@ -153,8 +152,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "name",
@@ -225,8 +223,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req)
                         .and_then(|m| m.bucket.as_ref())
                         .map(|m| &m.project)
@@ -238,8 +235,7 @@ impl super::stub::StorageControl for StorageControl {
                 paths.push(builder.build());
             }
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "parent",
@@ -299,8 +295,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "parent",
@@ -362,8 +357,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.bucket).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "bucket",
@@ -436,8 +430,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[
                         Segment::Literal("projects/"),
@@ -452,8 +445,7 @@ impl super::stub::StorageControl for StorageControl {
                 paths.push(builder.build());
             }
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "resource",
@@ -526,8 +518,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[
                         Segment::Literal("projects/"),
@@ -542,8 +533,7 @@ impl super::stub::StorageControl for StorageControl {
                 paths.push(builder.build());
             }
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "resource",
@@ -633,8 +623,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[
                         Segment::Literal("projects/"),
@@ -650,8 +639,7 @@ impl super::stub::StorageControl for StorageControl {
                 paths.push(builder.build());
             }
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[
                         Segment::Literal("projects/"),
@@ -667,8 +655,7 @@ impl super::stub::StorageControl for StorageControl {
                 paths.push(builder.build());
             }
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "resource",
@@ -731,8 +718,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req)
                         .and_then(|m| m.bucket.as_ref())
                         .map(|m| &m.name)
@@ -798,8 +784,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req)
                         .and_then(|m| m.destination.as_ref())
                         .map(|m| &m.bucket)
@@ -862,8 +847,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.bucket).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "bucket",
@@ -923,8 +907,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.bucket).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "bucket",
@@ -984,8 +967,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.bucket).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "bucket",
@@ -1048,8 +1030,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req)
                         .and_then(|m| m.object.as_ref())
                         .map(|m| &m.bucket)
@@ -1112,8 +1093,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "parent",
@@ -1185,8 +1165,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req)
                         .map(|m| &m.destination_bucket)
                         .map(|s| s.as_str()),
@@ -1197,8 +1176,7 @@ impl super::stub::StorageControl for StorageControl {
                 paths.push(builder.build());
             }
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.source_bucket).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "source_bucket",
@@ -1258,8 +1236,7 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             let mut paths = Vec::new();
             {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
+                let builder = PathMismatchBuilder::default().maybe_add(
                     Some(&req).map(|m| &m.bucket).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                     "bucket",
