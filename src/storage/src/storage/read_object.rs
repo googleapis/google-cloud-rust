@@ -649,7 +649,7 @@ fn response_generation(response: &reqwest::Response) -> std::result::Result<i64,
     let header = required_header(response, "x-goog-generation")?;
     header
         .parse::<i64>()
-        .map_err(|e| ReadError::BadHeaderFormat("content-length", e.into()))
+        .map_err(|e| ReadError::BadHeaderFormat("x-goog-generation", e.into()))
 }
 
 fn required_header<'a>(
@@ -1318,16 +1318,16 @@ mod tests {
 
     #[test_case("")]
     #[test_case("abc")]
-    #[test_case("-123")]
     fn response_generation_format(value: &'static str) -> Result {
         let response = http::Response::builder()
             .status(200)
-            .header("content-length", value)
+            .header("x-goog-generation", value)
             .body(Vec::new())?;
         let response = reqwest::Response::from(response);
-        let err = response_range(&response).expect_err("header value should result in an error");
+        let err =
+            response_generation(&response).expect_err("header value should result in an error");
         assert!(
-            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-length"),
+            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "x-goog-generation"),
             "{err:?}"
         );
         assert!(err.source().is_some(), "{err:?}");
@@ -1336,14 +1336,16 @@ mod tests {
 
     #[test]
     fn required_header_not_str() -> Result {
+        let name = "x-goog-test";
         let response = http::Response::builder()
             .status(200)
-            .header("content-length", http::HeaderValue::from_bytes(b"invalid\xfa")?)
+            .header(name, http::HeaderValue::from_bytes(b"invalid\xfa")?)
             .body(Vec::new())?;
         let response = reqwest::Response::from(response);
-        let err = response_range(&response).expect_err("header value should result in an error");
+        let err =
+            required_header(&response, name).expect_err("header value should result in an error");
         assert!(
-            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-length"),
+            matches!(err, ReadError::BadHeaderFormat(h, _) if h == name),
             "{err:?}"
         );
         assert!(err.source().is_some(), "{err:?}");
