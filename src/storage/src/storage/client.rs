@@ -685,7 +685,8 @@ pub(crate) mod tests {
                 gax::exponential_backoff::ExponentialBackoffBuilder::new()
                     .with_initial_delay(Duration::from_millis(1))
                     .with_maximum_delay(Duration::from_millis(2))
-                    .clamp(),
+                    .build()
+                    .expect("hard coded policy should build correctly"),
             )
     }
 
