@@ -900,7 +900,7 @@ mod tests {
     use super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
     use crate::model::WriteObjectSpec;
-    use gax::retry_result::RetryResult;
+
     use serde_json::{Value, json};
     use std::collections::BTreeMap;
     use test_case::test_case;
@@ -1234,35 +1234,6 @@ mod tests {
             .inspect_err(|e| assert!(e.is_authentication()))
             .expect_err("invalid credentials should err");
         Ok(())
-    }
-
-    mockall::mock! {
-        #[derive(Debug)]
-        pub RetryThrottler {}
-
-        impl gax::retry_throttler::RetryThrottler for RetryThrottler {
-            fn throttle_retry_attempt(&self) -> bool;
-            fn on_retry_failure(&mut self, flow: &RetryResult);
-            fn on_success(&mut self);
-        }
-    }
-
-    mockall::mock! {
-        #[derive(Debug)]
-        pub RetryPolicy {}
-
-        impl gax::retry_policy::RetryPolicy for RetryPolicy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: gax::error::Error) -> RetryResult;
-        }
-    }
-
-    mockall::mock! {
-        #[derive(Debug)]
-        pub BackoffPolicy {}
-
-        impl gax::backoff_policy::BackoffPolicy for BackoffPolicy {
-            fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> std::time::Duration;
-        }
     }
 
     #[test_case(None, Some(0))]
