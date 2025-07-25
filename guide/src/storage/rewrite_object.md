@@ -126,7 +126,7 @@ Putting all these steps together you get:
 
 We should see output similar to:
 
-```
+```norust
 PROGRESS: total_bytes_rewritten=1048576; object_size=3145728
 PROGRESS: total_bytes_rewritten=2097152; object_size=3145728
 DONE:     total_bytes_rewritten=3145728; object_size=3145728
