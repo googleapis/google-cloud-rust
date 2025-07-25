@@ -105,7 +105,8 @@ impl ResumeQuery {
 
 /// The recommended policy for storage downloads.
 ///
-/// This policy resumes any download that fails due to I/O errors, but
+/// This policy resumes any download that fails due to I/O errors, and stops on
+/// any other error kind.
 ///
 /// # Example
 /// ```
