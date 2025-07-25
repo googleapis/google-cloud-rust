@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::download_resume_policy::{DownloadResumePolicy, Recommended};
 use gax::{
     backoff_policy::BackoffPolicy,
     retry_policy::RetryPolicy,
@@ -24,6 +25,7 @@ pub(crate) struct RequestOptions {
     pub retry_policy: Arc<dyn RetryPolicy>,
     pub backoff_policy: Arc<dyn BackoffPolicy>,
     pub retry_throttler: SharedRetryThrottler,
+    pub download_resume_policy: Arc<dyn DownloadResumePolicy>,
     pub resumable_upload_threshold: usize,
     pub resumable_upload_buffer_size: usize,
 }
@@ -39,10 +41,12 @@ impl RequestOptions {
         let retry_policy = Arc::new(crate::retry_policy::default());
         let backoff_policy = Arc::new(crate::backoff_policy::default());
         let retry_throttler = Arc::new(Mutex::new(AdaptiveThrottler::default()));
+        let download_resume_policy = Arc::new(Recommended);
         Self {
             retry_policy,
             backoff_policy,
             retry_throttler,
+            download_resume_policy,
             resumable_upload_threshold: RESUMABLE_UPLOAD_THRESHOLD,
             resumable_upload_buffer_size: RESUMABLE_UPLOAD_TARGET_CHUNK,
         }

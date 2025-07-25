@@ -14,6 +14,7 @@
 
 use super::client::*;
 use super::*;
+use crate::download_resume_policy::DownloadResumePolicy;
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
 use serde_with::DeserializeAs;
@@ -310,6 +311,33 @@ impl ReadObject {
         self
     }
 
+    /// Configure the resume policy for downloads.
+    ///
+    /// The Cloud Storage client library can automatically resume a download
+    /// that is interrupted by a transient error. Applications may want to
+    /// limit the number of download attempts, or may wish to expand the type
+    /// of errors treated as retryable.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::download_resume_policy::{AlwaysResume, DownloadResumePolicyExt};
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_download_resume_policy(AlwaysResume.with_attempt_limit(3))
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_download_resume_policy<V>(mut self, v: V) -> Self
+    where
+        V: DownloadResumePolicy + 'static,
+    {
+        self.options.download_resume_policy = std::sync::Arc::new(v);
+        self
+    }
+
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse> {
         let download = self.clone().download().await?;
@@ -554,24 +582,25 @@ impl ReadObjectResponse {
     }
 
     async fn resume(&mut self, error: Error) -> Option<Result<bytes::Bytes>> {
-        use crate::retry_policy::RecommendedPolicy;
-        use gax::retry_policy::{RetryPolicy, RetryPolicyExt};
-        use gax::retry_result::RetryResult;
+        use crate::download_resume_policy::{ResumeQuery, ResumeResult};
 
         // The existing download is no longer valid.
         self.inner = None;
-        // TODO(#2048) - configurable resume policies.
-        let policy = RecommendedPolicy.with_attempt_limit(5);
-        let result = policy.on_error(std::time::Instant::now(), self.resume_count, true, error);
-        match result {
-            RetryResult::Continue(_) => {}
-            RetryResult::Permanent(e) => return Some(Err(e)),
-            RetryResult::Exhausted(e) => return Some(Err(e)),
+        self.resume_count += 1;
+        let query = ResumeQuery::new(self.resume_count);
+        match self
+            .builder
+            .options
+            .download_resume_policy
+            .on_error(&query, error)
+        {
+            ResumeResult::Continue(_) => {}
+            ResumeResult::Permanent(e) => return Some(Err(e)),
+            ResumeResult::Exhausted(e) => return Some(Err(e)),
         };
         self.builder.request.read_offset = self.range.start as i64;
         self.builder.request.read_limit = self.range.limit as i64;
         self.builder.request.generation = self.generation;
-        self.resume_count += 1;
         self.inner = match self.builder.clone().download().await {
             Ok(r) => Some(r),
             Err(e) => return Some(Err(e)),
