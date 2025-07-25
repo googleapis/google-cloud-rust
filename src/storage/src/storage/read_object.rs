@@ -606,7 +606,7 @@ enum ReadError {
     #[error("missing {0} bytes at the end of the stream")]
     ShortRead(u64),
 
-    #[error("too many bytes received: expected {expected} (at most), got {got}")]
+    #[error("too many bytes received: expected {expected}, stopped download at {got}")]
     LongRead { got: u64, expected: u64 },
 
     /// Only 200 and 206 status codes are expected in successful responses.
