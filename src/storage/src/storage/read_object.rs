@@ -551,7 +551,7 @@ enum ReadError {
     BadCrc { got: u32, want: u32 },
 
     /// Only 200 and 206 status codes are expected in successful responses.
-    #[error("unexpected success code {0} in read request, only 200 and 206")]
+    #[error("unexpected success code {0} in read request, only 200 and 206 are expected")]
     UnexpectedSuccessCode(u16),
 
     /// Successful HTTP response must include some headers.
@@ -627,7 +627,7 @@ fn response_range(response: &reqwest::Response) -> std::result::Result<ReadRange
                 ReadError::BadHeaderFormat("content-range", "missing / separator".into())
             })?;
             let (start, end) = range.split_once('-').ok_or_else(|| {
-                ReadError::BadHeaderFormat("content-range", "missing / separator".into())
+                ReadError::BadHeaderFormat("content-range", "missing - separator".into())
             })?;
             let start = start
                 .parse::<u64>()
@@ -635,10 +635,12 @@ fn response_range(response: &reqwest::Response) -> std::result::Result<ReadRange
             let end = end
                 .parse::<u64>()
                 .map_err(|e| ReadError::BadHeaderFormat("content-range", e.into()))?;
+            // HTTP ranges are inclusive, we need to compute the number of bytes
+            // in the range:
+            let end = end + 1;
             let limit = end
                 .checked_sub(start)
                 .ok_or_else(|| ReadError::BadHeaderFormat("content-range", format!("range start ({start}) should be less than or equal to the range end ({end})").into()))?;
-            // HTTP ranges are inclusive, but it is more idiomatic to use a non-inclusive end point.
             Ok(ReadRange { start, limit })
         }
         s => Err(ReadError::UnexpectedSuccessCode(s.as_u16())),
@@ -1251,7 +1253,7 @@ mod tests {
             range,
             ReadRange {
                 start,
-                limit: (end - start)
+                limit: (end + 1 - start)
             }
         );
         Ok(())
