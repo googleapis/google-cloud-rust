@@ -327,16 +327,7 @@ impl ReadObject {
         )
         .await?;
 
-        let response_crc32c = crc32c_from_response(
-            full_content_requested,
-            response.status(),
-            response.headers(),
-        );
-        Ok(ReadObjectResponse {
-            inner: response,
-            response_crc32c,
-            crc32c: 0, // no bytes read yet.
-        })
+        ReadObjectResponse::new(response, full_content_requested)
     }
 
     async fn download_attempt(&self) -> Result<reqwest::Response> {
@@ -450,9 +441,27 @@ pub struct ReadObjectResponse {
     // Fields for tracking the crc checksum checks.
     response_crc32c: Option<u32>,
     crc32c: u32,
+    #[allow(dead_code)]
+    range: ReadRange,
+    #[allow(dead_code)]
+    generation: i64,
 }
 
 impl ReadObjectResponse {
+    fn new(inner: reqwest::Response, full_content_requested: bool) -> Result<Self> {
+        let response_crc32c =
+            crc32c_from_response(full_content_requested, inner.status(), inner.headers());
+        let range = response_range(&inner).map_err(Error::deser)?;
+        let generation = response_generation(&inner).map_err(Error::deser)?;
+        Ok(Self {
+            inner,
+            response_crc32c,
+            crc32c: 0, // no bytes read yet.
+            range,
+            generation,
+        })
+    }
+
     // Get the full object as bytes.
     //
     /// # Example
@@ -534,12 +543,27 @@ impl ReadObjectResponse {
 }
 
 /// Represents an error that can occur when reading response data.
-#[derive(thiserror::Error, Debug, PartialEq)]
+#[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 enum ReadError {
     /// The calculated crc32c did not match server provided crc32c.
     #[error("bad CRC on read: got {got}, want {want}")]
     BadCrc { got: u32, want: u32 },
+
+    /// Only 200 and 206 status codes are expected in successful responses.
+    #[error("unexpected success code {0} in read request, only 200 and 206 are expected")]
+    UnexpectedSuccessCode(u16),
+
+    /// Successful HTTP response must include some headers.
+    #[error("the response is missing '{0}', a required header")]
+    MissingHeader(&'static str),
+
+    /// The received header format is invalid.
+    #[error("the format for header '{0}' is incorrect")]
+    BadHeaderFormat(
+        &'static str,
+        #[source] Box<dyn std::error::Error + Send + Sync + 'static>,
+    ),
 }
 
 fn crc32c_from_response(
@@ -583,6 +607,70 @@ fn check_crc32c_match(crc32c: u32, response: Option<u32>) -> Result<()> {
         }
     }
     Ok(())
+}
+
+fn response_range(response: &reqwest::Response) -> std::result::Result<ReadRange, ReadError> {
+    match response.status() {
+        reqwest::StatusCode::OK => {
+            let header = required_header(response, "content-length")?;
+            let limit = header
+                .parse::<u64>()
+                .map_err(|e| ReadError::BadHeaderFormat("content-length", e.into()))?;
+            Ok(ReadRange { start: 0, limit })
+        }
+        reqwest::StatusCode::PARTIAL_CONTENT => {
+            let header = required_header(response, "content-range")?;
+            let header = header.strip_prefix("bytes ").ok_or_else(|| {
+                ReadError::BadHeaderFormat("content-range", "missing bytes prefix".into())
+            })?;
+            let (range, _) = header.split_once('/').ok_or_else(|| {
+                ReadError::BadHeaderFormat("content-range", "missing / separator".into())
+            })?;
+            let (start, end) = range.split_once('-').ok_or_else(|| {
+                ReadError::BadHeaderFormat("content-range", "missing - separator".into())
+            })?;
+            let start = start
+                .parse::<u64>()
+                .map_err(|e| ReadError::BadHeaderFormat("content-range", e.into()))?;
+            let end = end
+                .parse::<u64>()
+                .map_err(|e| ReadError::BadHeaderFormat("content-range", e.into()))?;
+            // HTTP ranges are inclusive, we need to compute the number of bytes
+            // in the range:
+            let end = end + 1;
+            let limit = end
+                .checked_sub(start)
+                .ok_or_else(|| ReadError::BadHeaderFormat("content-range", format!("range start ({start}) should be less than or equal to the range end ({end})").into()))?;
+            Ok(ReadRange { start, limit })
+        }
+        s => Err(ReadError::UnexpectedSuccessCode(s.as_u16())),
+    }
+}
+
+fn response_generation(response: &reqwest::Response) -> std::result::Result<i64, ReadError> {
+    let header = required_header(response, "x-goog-generation")?;
+    header
+        .parse::<i64>()
+        .map_err(|e| ReadError::BadHeaderFormat("x-goog-generation", e.into()))
+}
+
+fn required_header<'a>(
+    response: &'a reqwest::Response,
+    name: &'static str,
+) -> std::result::Result<&'a str, ReadError> {
+    let header = response
+        .headers()
+        .get(name)
+        .ok_or_else(|| ReadError::MissingHeader(name))?;
+    header
+        .to_str()
+        .map_err(|e| ReadError::BadHeaderFormat(name, e.into()))
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+struct ReadRange {
+    start: u64,
+    limit: u64,
 }
 
 #[cfg(test)]
@@ -631,15 +719,18 @@ mod tests {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
-                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
-            .respond_with(status_code(200).body("hello world")),
+            .respond_with(
+                status_code(200)
+                    .body("hello world")
+                    .append_header("x-goog-generation", 123456),
+            ),
         );
 
-        let endpoint = server.url("");
         let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
@@ -658,15 +749,18 @@ mod tests {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
-                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
-            .respond_with(status_code(200).body("hello world")),
+            .respond_with(
+                status_code(200)
+                    .append_header("x-goog-generation", 123456)
+                    .body("hello world"),
+            ),
         );
 
-        let endpoint = server.url("");
         let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
@@ -702,20 +796,20 @@ mod tests {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
-                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
             .times(2)
             .respond_with(
                 status_code(200)
                     .body(contents.clone())
-                    .append_header("x-goog-hash", format!("crc32c={value}")),
+                    .append_header("x-goog-hash", format!("crc32c={value}"))
+                    .append_header("x-goog-generation", 123456),
             ),
         );
 
-        let endpoint = server.url("");
         let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
@@ -760,15 +854,14 @@ mod tests {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
-                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
             .respond_with(status_code(404).body("NOT FOUND")),
         );
 
-        let endpoint = server.url("");
         let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
@@ -797,25 +890,23 @@ mod tests {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
-                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
             .times(3)
             .respond_with(
                 status_code(200)
                     .body("hello world")
-                    .append_header("x-goog-hash", format!("crc32c={value}")),
+                    .append_header("x-goog-hash", format!("crc32c={value}"))
+                    .append_header("x-goog-generation", 123456),
             ),
         );
 
-        let want_err = ReadError::BadCrc {
-            got: crc32c::crc32c("hello world".as_bytes()), // calculated from data.
-            want: crc32c::crc32c("goodbye world".as_bytes()), // returned from server.
-        };
+        let expected_got = crc32c::crc32c("hello world".as_bytes()); // calculated from data.
+        let expected_want = crc32c::crc32c("goodbye world".as_bytes()); // returned from server.
 
-        let endpoint = server.url("");
         let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
@@ -827,9 +918,10 @@ mod tests {
             .all_bytes()
             .await
             .expect_err("expect error on incorrect crc32c");
-        assert_eq!(
-            err.source().unwrap().downcast_ref::<ReadError>().unwrap(),
-            &want_err
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(source, Some(&ReadError::BadCrc { got, want }) if got == expected_got && want == expected_want),
+            "err={err:?}, expected_got={expected_got}, expected_want={expected_want}"
         );
 
         let mut response = client
@@ -844,9 +936,10 @@ mod tests {
         }
         .await
         .expect_err("expect error on incorrect crc32c");
-        assert_eq!(
-            err.source().unwrap().downcast_ref::<ReadError>().unwrap(),
-            &want_err
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(source, Some(&ReadError::BadCrc { got, want }) if got == expected_got && want == expected_want),
+            "err={err:?}, expected_got={expected_got}, expected_want={expected_want}"
         );
 
         use futures::TryStreamExt;
@@ -858,9 +951,10 @@ mod tests {
             .try_collect::<Vec<bytes::Bytes>>()
             .await
             .expect_err("expect error on incorrect crc32c");
-        assert_eq!(
-            err.source().unwrap().downcast_ref::<ReadError>().unwrap(),
-            &want_err
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(source, Some(&ReadError::BadCrc { got, want }) if got == expected_got && want == expected_want),
+            "err={err:?}, expected_got={expected_got}, expected_want={expected_want}"
         );
         Ok(())
     }
@@ -1041,26 +1135,23 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(10, Some(10), false; "Match values")]
-    #[test_case(10, None, false; "None response")]
-    #[test_case(10, Some(20), true; "Different values")]
-    fn test_check_crc(crc: u32, resp_crc: Option<u32>, want_err: bool) {
+    #[test_case(10, Some(10); "Match values")]
+    #[test_case(10, None; "None response")]
+    fn check_crc_success(crc: u32, resp_crc: Option<u32>) {
         let res = check_crc32c_match(crc, resp_crc);
-        if want_err {
-            assert_eq!(
-                res.unwrap_err()
-                    .source()
-                    .unwrap()
-                    .downcast_ref::<ReadError>()
-                    .unwrap(),
-                &ReadError::BadCrc {
-                    got: crc,
-                    want: resp_crc.unwrap(),
-                }
-            );
-        } else {
-            res.unwrap();
-        }
+        assert!(res.is_ok(), "{res:?}");
+    }
+
+    #[test_case(10, 20)]
+    fn check_crc_error(crc: u32, response: u32) {
+        let err = check_crc32c_match(crc, Some(response))
+            .expect_err("mismatched CRC values should result in error");
+        assert!(err.is_deserialization());
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(source, Some(&ReadError::BadCrc { got, want }) if got == crc && want == response),
+            "{err:?}"
+        );
     }
 
     #[test_case("", None; "no header")]
@@ -1100,6 +1191,180 @@ mod tests {
 
         let got = crc32c_from_response(full_content_requested, status, &header_map);
         assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(0)]
+    #[test_case(1024)]
+    fn response_range_success(limit: u64) -> Result {
+        let response = http::Response::builder()
+            .status(200)
+            .header("content-length", limit)
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let range = response_range(&response)?;
+        assert_eq!(range, ReadRange { start: 0, limit });
+        Ok(())
+    }
+
+    #[test]
+    fn response_range_missing() -> Result {
+        let response = http::Response::builder().status(200).body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err = response_range(&response).expect_err("missing header should result in an error");
+        assert!(
+            matches!(err, ReadError::MissingHeader(h) if h == "content-length"),
+            "{err:?}"
+        );
+        Ok(())
+    }
+
+    #[test_case("")]
+    #[test_case("abc")]
+    #[test_case("-123")]
+    fn response_range_format(value: &'static str) -> Result {
+        let response = http::Response::builder()
+            .status(200)
+            .header("content-length", value)
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err = response_range(&response).expect_err("header value should result in an error");
+        assert!(
+            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-length"),
+            "{err:?}"
+        );
+        assert!(err.source().is_some(), "{err:?}");
+        Ok(())
+    }
+
+    #[test_case(0, 123)]
+    #[test_case(123, 456)]
+    fn response_range_partial_success(start: u64, end: u64) -> Result {
+        let response = http::Response::builder()
+            .status(206)
+            .header(
+                "content-range",
+                format!("bytes {}-{}/{}", start, end, end + 1),
+            )
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let range = response_range(&response)?;
+        assert_eq!(
+            range,
+            ReadRange {
+                start,
+                limit: (end + 1 - start)
+            }
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn response_range_partial_missing() -> Result {
+        let response = http::Response::builder().status(206).body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err = response_range(&response).expect_err("missing header should result in an error");
+        assert!(
+            matches!(err, ReadError::MissingHeader(h) if h == "content-range"),
+            "{err:?}"
+        );
+        Ok(())
+    }
+
+    #[test_case("")]
+    #[test_case("123-456/457"; "bad prefix")]
+    #[test_case("bytes 123-456 457"; "bad separator")]
+    #[test_case("bytes 123+456/457"; "bad separator [2]")]
+    #[test_case("bytes abc-456/457"; "start is not numbers")]
+    #[test_case("bytes 123-cde/457"; "end is not numbers")]
+    #[test_case("bytes 123-0/457"; "invalid range")]
+    fn response_range_partial_format(value: &'static str) -> Result {
+        let response = http::Response::builder()
+            .status(206)
+            .header("content-range", value)
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err = response_range(&response).expect_err("header value should result in an error");
+        assert!(
+            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-range"),
+            "{err:?}"
+        );
+        assert!(err.source().is_some(), "{err:?}");
+        Ok(())
+    }
+
+    #[test]
+    fn response_range_bad_response() -> Result {
+        let code = reqwest::StatusCode::CREATED;
+        let response = http::Response::builder().status(code).body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err = response_range(&response).expect_err("unexpected status creates error");
+        assert!(
+            matches!(err, ReadError::UnexpectedSuccessCode(c) if c == code),
+            "{err:?}"
+        );
+        Ok(())
+    }
+
+    #[test_case(0)]
+    #[test_case(1024)]
+    fn response_generation_success(value: i64) -> Result {
+        let response = http::Response::builder()
+            .status(200)
+            .header("x-goog-generation", value)
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let got = response_generation(&response)?;
+        assert_eq!(got, value);
+        Ok(())
+    }
+
+    #[test]
+    fn response_generation_missing() -> Result {
+        let response = http::Response::builder().status(200).body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err =
+            response_generation(&response).expect_err("missing header should result in an error");
+        assert!(
+            matches!(err, ReadError::MissingHeader(h) if h == "x-goog-generation"),
+            "{err:?}"
+        );
+        Ok(())
+    }
+
+    #[test_case("")]
+    #[test_case("abc")]
+    fn response_generation_format(value: &'static str) -> Result {
+        let response = http::Response::builder()
+            .status(200)
+            .header("x-goog-generation", value)
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err =
+            response_generation(&response).expect_err("header value should result in an error");
+        assert!(
+            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "x-goog-generation"),
+            "{err:?}"
+        );
+        assert!(err.source().is_some(), "{err:?}");
+        Ok(())
+    }
+
+    #[test]
+    fn required_header_not_str() -> Result {
+        let name = "x-goog-test";
+        let response = http::Response::builder()
+            .status(200)
+            .header(name, http::HeaderValue::from_bytes(b"invalid\xfa")?)
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err =
+            required_header(&response, name).expect_err("header value should result in an error");
+        assert!(
+            matches!(err, ReadError::BadHeaderFormat(h, _) if h == name),
+            "{err:?}"
+        );
+        assert!(err.source().is_some(), "{err:?}");
         Ok(())
     }
 }

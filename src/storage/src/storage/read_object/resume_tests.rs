@@ -45,7 +45,9 @@ async fn start_retry_normal() -> Result {
         .times(2)
         .respond_with(cycle![
             status_code(429).body("try-again"),
-            status_code(200).body("hello world"),
+            status_code(200)
+                .append_header("x-goog-generation", 123456)
+                .body("hello world"),
         ]),
     );
 
