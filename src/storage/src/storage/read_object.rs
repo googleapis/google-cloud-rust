@@ -478,13 +478,12 @@ impl ReadObjectResponse {
     /// println!("object contents={contents:?}");
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
-    pub async fn all_bytes(self) -> Result<bytes::Bytes> {
-        let bytes = self.inner.bytes().await.map_err(Error::io)?;
-        if self.response_crc32c.is_some() {
-            let crc32c = crc32c::crc32c_append(self.crc32c, &bytes); // bytes may have already been read by `next`.
-            check_crc32c_match(crc32c, self.response_crc32c)?;
+    pub async fn all_bytes(mut self) -> Result<bytes::Bytes> {
+        let mut contents = Vec::with_capacity(self.range.limit as usize);
+        while let Some(b) = self.next().await.transpose()? {
+            contents.extend_from_slice(&b);
         }
-        Ok(bytes)
+        Ok(bytes::Bytes::from_owner(contents))
     }
 
     /// Stream the next bytes of the object.
