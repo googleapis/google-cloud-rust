@@ -24,6 +24,7 @@ limitations under the License.
 - [Using Google Cloud Storage](storage.md)
   - [Push data on object uploads](storage/queue.md)
   - [Rewriting objects](storage/rewrite_object.md)
+  - [Speed up large object downloads](storage/striped_downloads.md)
   - [Use errors to terminate uploads](storage/terminate_uploads.md)
 - [Configuring retry policies](configuring_retry_policies.md)
 - [Error handling](error_handling.md)

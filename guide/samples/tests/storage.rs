@@ -16,6 +16,7 @@ pub mod storage {
     pub mod queue;
     pub mod quickstart;
     pub mod rewrite_object;
+    pub mod striped;
     pub mod terminate_uploads;
 
     pub use integration_tests::random_bucket_id;
@@ -47,6 +48,20 @@ pub mod storage {
         async fn rewrite_object() -> anyhow::Result<()> {
             let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
             let response = super::rewrite_object::rewrite_object(&bucket.name).await;
+            // Ignore cleanup errors.
+            let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
+            response
+        }
+
+        #[tokio::test(flavor = "multi_thread")]
+        async fn striped() -> anyhow::Result<()> {
+            let destination = tempfile::NamedTempFile::new()?;
+            let path = destination
+                .path()
+                .to_str()
+                .ok_or(anyhow::Error::msg("cannot open temporary file"))?;
+            let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
+            let response = super::striped::test(&bucket.name, path).await;
             // Ignore cleanup errors.
             let _ = integration_tests::storage::cleanup_bucket(control, bucket.name).await;
             response
