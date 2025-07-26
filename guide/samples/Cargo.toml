@@ -100,10 +100,12 @@ path = "../../src/gax"
 [dev-dependencies]
 mockall = "0.13"
 # ANCHOR_END: mockall
-anyhow.workspace            = true
-bytes.workspace             = true
-rand                        = "0.9"
-test-case.workspace         = true
+anyhow.workspace    = true
+bytes.workspace     = true
+rand.workspace      = true
+tempfile.workspace  = true
+test-case.workspace = true
+# Local
 integration-tests.workspace = true
 
 # ANCHOR: tokio
@@ -115,3 +117,4 @@ features = ["full", "macros"]
 [features]
 run-integration-tests = []
 log-integration-tests = []
+run-large-downloads   = []
