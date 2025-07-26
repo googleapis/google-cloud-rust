@@ -100,7 +100,7 @@ where
                 .next_buffer(&mut *self.payload.lock().await)
                 .await?;
             let builder = self.partial_upload_request(upload_url, progress).await?;
-            let response = builder.send().await.map_err(Error::io)?;
+            let response = builder.send().await.map_err(super::send_err)?;
             match super::query_resumable_upload_handle_response(response).await {
                 Err(e) => {
                     progress.handle_error();
@@ -139,7 +139,7 @@ where
     async fn send_buffered_single_shot(self) -> Result<Object> {
         let mut stream = self.payload.lock().await;
         let mut collected = Vec::new();
-        while let Some(b) = stream.next().await.transpose().map_err(Error::io)? {
+        while let Some(b) = stream.next().await.transpose().map_err(Error::ser)? {
             collected.push(b);
         }
         let upload = UploadObject {
@@ -213,6 +213,36 @@ mod tests {
             response.metadata.get("is-test-object").map(String::as_str),
             Some("true")
         );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_source_error() -> Result {
+        let server = Server::run();
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        use crate::upload_source::tests::MockSimpleSource;
+        use std::io::{Error as IoError, ErrorKind};
+        let mut source = MockSimpleSource::new();
+        source
+            .expect_next()
+            .once()
+            .returning(|| Some(Err(IoError::new(ErrorKind::ConnectionAborted, "test-only"))));
+        source
+            .expect_size_hint()
+            .once()
+            .returning(|| Ok((1024_u64, Some(1024_u64))));
+        let err = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+            .send()
+            .await
+            .expect_err("expected a serialization error");
+        assert!(err.is_serialization(), "{err:?}");
 
         Ok(())
     }

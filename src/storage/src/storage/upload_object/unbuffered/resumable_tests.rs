@@ -54,6 +54,8 @@
 //! - A successful upload where the size of the data is known.
 //! - A successful upload where the size of the data is not known.
 //! - A successful upload with CSEK encryption.
+//! - An upload where the source returns errors on seek().
+//! - An upload where the source returns errors on next().
 //! - An upload that fails due to a permanent error while creating the upload
 //!   session.
 //! - An upload that fails due to too many transients creating the upload
@@ -288,6 +290,98 @@ async fn resumable_empty_csek() -> Result {
         response.metadata.get("is-test-object").map(String::as_str),
         Some("true")
     );
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn source_seek_error() -> Result {
+    let server = Server::run();
+    let session = server.url("/upload/session/test-only-001");
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+            request::query(url_decoded(contains(("name", "test-object")))),
+            request::query(url_decoded(contains(("ifGenerationMatch", "0")))),
+            request::query(url_decoded(contains(("uploadType", "resumable")))),
+        ])
+        .times(1)
+        .respond_with(cycle![
+            status_code(200).append_header("location", session.to_string()),
+        ]),
+    );
+
+    let client = Storage::builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(auth::credentials::testing::test_credentials())
+        .build()
+        .await?;
+    use crate::upload_source::tests::MockSeekSource;
+    use std::io::{Error as IoError, ErrorKind};
+    let mut source = MockSeekSource::new();
+    source.expect_next().never();
+    source
+        .expect_seek()
+        .once()
+        .returning(|_| Err(IoError::new(ErrorKind::ConnectionAborted, "test-only")));
+    source
+        .expect_size_hint()
+        .once()
+        .returning(|| Ok((1024_u64, Some(1024_u64))));
+    let err = client
+        .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await
+        .expect_err("expected a serialization error");
+    assert!(err.is_serialization(), "{err:?}");
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn source_next_error() -> Result {
+    let server = Server::run();
+    let session = server.url("/upload/session/test-only-001");
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+            request::query(url_decoded(contains(("name", "test-object")))),
+            request::query(url_decoded(contains(("ifGenerationMatch", "0")))),
+            request::query(url_decoded(contains(("uploadType", "resumable")))),
+        ])
+        .times(1)
+        .respond_with(cycle![
+            status_code(200).append_header("location", session.to_string()),
+        ]),
+    );
+
+    let client = Storage::builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(auth::credentials::testing::test_credentials())
+        .build()
+        .await?;
+    use crate::upload_source::tests::MockSeekSource;
+    use std::io::{Error as IoError, ErrorKind};
+    let mut source = MockSeekSource::new();
+    source
+        .expect_next()
+        .once()
+        .returning(|| Some(Err(IoError::new(ErrorKind::ConnectionAborted, "test-only"))));
+    source.expect_seek().times(1..).returning(|_| Ok(()));
+    source
+        .expect_size_hint()
+        .once()
+        .returning(|| Ok((1024_u64, Some(1024_u64))));
+    let err = client
+        .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await
+        .expect_err("expected a serialization error");
+    assert!(err.is_serialization(), "{err:?}");
 
     Ok(())
 }
@@ -673,7 +767,7 @@ async fn resumable_upload_handle_response_success() -> Result {
         .status(200)
         .body(response_body().to_string())?;
     let response = reqwest::Response::from(response);
-    let object = super::resumable_upload_handle_response(response).await?;
+    let object = super::handle_object_response(response).await?;
     assert_eq!(object.name, "test-object");
     assert_eq!(object.bucket, "projects/_/buckets/test-bucket");
     assert_eq!(
@@ -687,7 +781,7 @@ async fn resumable_upload_handle_response_success() -> Result {
 async fn resumable_upload_handle_response_http_error() -> Result {
     let response = http::Response::builder().status(429).body("try-again")?;
     let response = reqwest::Response::from(response);
-    let err = super::resumable_upload_handle_response(response)
+    let err = super::handle_object_response(response)
         .await
         .expect_err("HTTP error should return errors");
     assert_eq!(err.http_status_code(), Some(429), "{err:?}");
@@ -700,7 +794,7 @@ async fn resumable_upload_handle_response_deser() -> Result {
         .status(200)
         .body("a string is not an object")?;
     let response = reqwest::Response::from(response);
-    let err = super::resumable_upload_handle_response(response)
+    let err = super::handle_object_response(response)
         .await
         .expect_err("bad format should return errors");
     assert!(err.is_deserialization(), "{err:?}");

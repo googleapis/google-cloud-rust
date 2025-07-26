@@ -320,6 +320,30 @@ pub mod tests {
         }
     }
 
+    mockall::mock! {
+        pub(crate) SimpleSource {}
+
+        impl StreamingSource for SimpleSource {
+            type Error = std::io::Error;
+            async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, std::io::Error>>;
+            async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), std::io::Error>;
+        }
+    }
+
+    mockall::mock! {
+        pub(crate) SeekSource {}
+
+        impl StreamingSource for SeekSource {
+            type Error = std::io::Error;
+            async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, std::io::Error>>;
+            async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), std::io::Error>;
+        }
+        impl Seek for SeekSource {
+            type Error = std::io::Error;
+            async fn seek(&mut self, offset: u64) ->std::result::Result<(), std::io::Error>;
+        }
+    }
+
     /// A helper function to simplify the tests.
     async fn collect<S>(mut source: S) -> anyhow::Result<Vec<u8>>
     where

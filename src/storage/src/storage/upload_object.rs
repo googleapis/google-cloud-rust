@@ -850,13 +850,16 @@ async fn query_resumable_upload_handle_response(
     if response.status() == RESUME_INCOMPLETE {
         return self::parse_range(response).await;
     }
+    let object = handle_object_response(response).await?;
+    Ok(ResumableUploadStatus::Finalized(Box::new(object)))
+}
+
+async fn handle_object_response(response: reqwest::Response) -> Result<Object> {
     if !response.status().is_success() {
         return gaxi::http::to_http_error(response).await;
     }
     let response = response.json::<v1::Object>().await.map_err(Error::deser)?;
-    Ok(ResumableUploadStatus::Finalized(Box::new(Object::from(
-        response,
-    ))))
+    Ok(Object::from(response))
 }
 
 async fn parse_range(response: reqwest::Response) -> Result<ResumableUploadStatus> {
@@ -891,6 +894,15 @@ fn parse_range_end(headers: &reqwest::header::HeaderMap) -> Option<u64> {
     //   https://github.com/googleapis/googleapis/blob/302273adb3293bb504ecd83be8e1467511d5c779/google/storage/v2/storage.proto#L1253-L1255
     let end = std::str::from_utf8(range.as_bytes().strip_prefix(b"bytes=0-")?).ok()?;
     end.parse::<u64>().ok()
+}
+
+fn send_err(error: reqwest::Error) -> Error {
+    match error {
+        e if e.is_body() => Error::ser(e),
+        e if e.is_request() => Error::ser(e),
+        e if e.is_timeout() => Error::timeout(e),
+        e => Error::io(e),
+    }
 }
 
 const RESUME_INCOMPLETE: reqwest::StatusCode = reqwest::StatusCode::PERMANENT_REDIRECT;
