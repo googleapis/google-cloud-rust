@@ -87,7 +87,7 @@ mod tests {
             }
             State::Enabled => println!("the secret is enabled and can be accessed"),
             State::Disabled => {
-                println!("the secret version it not accessible until it is enabled")
+                println!("the secret version is not accessible until it is enabled")
             }
             State::Destroyed => {
                 println!("the secret is destroyed, the data is no longer accessible")
@@ -111,7 +111,7 @@ mod tests {
             }
             State::Enabled => println!("the secret is enabled and can be accessed"),
             State::Disabled => {
-                println!("the secret version it not accessible until it is enabled")
+                println!("the secret version is not accessible until it is enabled")
             }
             State::Destroyed => {
                 println!("the secret is destroyed, the data is no longer accessible")
@@ -135,6 +135,6 @@ mod tests {
     #[test_case(State::from("UNKNOWN"))]
     fn drive_match_expression(state: State) {
         match_with_warnings(state.clone()).expect("example includes all branches");
-        match_with_wildcard(state).expect("example include all branches");
+        match_with_wildcard(state).expect("example includes all branches");
     }
 }
