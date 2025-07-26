@@ -51,8 +51,8 @@ mod tests {
         assert_eq!(state.value(), None);
         assert_eq!(state.name(), Some("STATE_NAME_FROM_THE_FUTURE"));
         println!("json = {}", serde_json::to_value(&state)?);
-        let s2 = serde_json::from_value::<State>(json!("STATE_NAME_FROM_THE_FUTURE"))?;
-        assert_eq!(state, s2);
+        let u = serde_json::from_value::<State>(json!("STATE_NAME_FROM_THE_FUTURE"))?;
+        assert_eq!(state, u);
         // ANCHOR_END: unknown_string
         Ok(())
     }
@@ -79,41 +79,53 @@ mod tests {
     // ANCHOR_END: use
 
     // ANCHOR: match_with_wildcard
-    fn match_with_wildcard(state: State) {
+    fn match_with_wildcard(state: State) -> anyhow::Result<()> {
+        use anyhow::Error;
         match state {
-            State::Unspecified => unreachable!("the service documents this value as unused"),
+            State::Unspecified => {
+                return Err(Error::msg("the documentation says this is never used"));
+            }
             State::Enabled => println!("the secret is enabled and can be accessed"),
-            State::Disabled => println!(
-                "the secret version may not be accessed, but can be enabled and then accessed"
-            ),
+            State::Disabled => {
+                println!("the secret version it not accessible until it is enabled")
+            }
             State::Destroyed => {
                 println!("the secret is destroyed, the data is no longer accessible")
             }
             State::UnknownValue(u) => {
                 println!("unknown State variant ({u:?}) time to update the library")
             }
-            _ => unreachable!("never happens"),
+            _ => return Err(Error::msg("unexpected value, update this code")),
         };
+        Ok(())
     }
     // ANCHOR_END: match_with_wildcard
 
     // ANCHOR: match_with_warnings
-    fn match_with_warnings(state: State) {
+    fn match_with_warnings(state: State) -> anyhow::Result<()> {
+        use anyhow::Error;
         #[warn(clippy::wildcard_enum_match_arm)]
         match state {
-            State::Unspecified => unreachable!("the service documents this value as unused"),
+            State::Unspecified => {
+                return Err(Error::msg("the documentation says this is never used"));
+            }
             State::Enabled => println!("the secret is enabled and can be accessed"),
-            State::Disabled => println!(
-                "the secret version may not be accessed, but can be enabled and then accessed"
-            ),
+            State::Disabled => {
+                println!("the secret version it not accessible until it is enabled")
+            }
             State::Destroyed => {
                 println!("the secret is destroyed, the data is no longer accessible")
             }
             State::UnknownValue(u) => {
                 println!("unknown State variant ({u:?}) time to update the library")
             }
-            _ => unreachable!("never happens"),
+            _ => {
+                // *If* your CI includes treating clippy warnings as errors,
+                // consider using `unreachable!()`.
+                return Err(Error::msg("unexpected value, update this code"));
+            }
         };
+        Ok(())
     }
     // ANCHOR_END: match_with_warnings
 
@@ -122,7 +134,7 @@ mod tests {
     #[test_case(State::Destroyed)]
     #[test_case(State::from("UNKNOWN"))]
     fn drive_match_expression(state: State) {
-        match_with_warnings(state.clone());
-        match_with_wildcard(state);
+        match_with_warnings(state.clone()).expect("example includes all branches");
+        match_with_wildcard(state).expect("example include all branches");
     }
 }
