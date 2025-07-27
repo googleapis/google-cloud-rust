@@ -16,7 +16,7 @@ limitations under the License.
 
 # Speed up large object downloads
 
-In this tutorial you will learn how to use striped dowloads to speed up
+In this tutorial you will learn how to use striped downloads to speed up
 downloads of large [Cloud Storage] objects.
 
 ## Prerequisites
@@ -119,7 +119,7 @@ futures:
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:run-stripes}}
 ```
- 
+
 Once they complete, the file is downloaded.
 
 Now you should complete writing the `write_stripe()` function. First, duplicate
