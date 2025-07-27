@@ -784,13 +784,7 @@ mod tests {
 
         // Calculate and serialize the crc32c checksum
         let u = crc32c::crc32c(&contents);
-        let bytes = [
-            (u >> 24 & 0xFF) as u8,
-            (u >> 16 & 0xFF) as u8,
-            (u >> 8 & 0xFF) as u8,
-            (u & 0xFF) as u8,
-        ];
-        let value = base64::prelude::BASE64_STANDARD.encode(bytes);
+        let value = base64::prelude::BASE64_STANDARD.encode(u.to_be_bytes());
 
         let server = Server::run();
         server.expect(
@@ -878,13 +872,7 @@ mod tests {
     async fn read_object_incorrect_crc32c_check() -> Result {
         // Calculate and serialize the crc32c checksum
         let u = crc32c::crc32c("goodbye world".as_bytes());
-        let bytes = [
-            (u >> 24 & 0xFF) as u8,
-            (u >> 16 & 0xFF) as u8,
-            (u >> 8 & 0xFF) as u8,
-            (u & 0xFF) as u8,
-        ];
-        let value = base64::prelude::BASE64_STANDARD.encode(bytes);
+        let value = base64::prelude::BASE64_STANDARD.encode(u.to_be_bytes());
 
         let server = Server::run();
         server.expect(
@@ -1151,6 +1139,13 @@ mod tests {
             matches!(source, Some(&ReadError::BadCrc { got, want }) if got == crc && want == response),
             "{err:?}"
         );
+    }
+
+    #[test]
+    fn document_crc32c_values() {
+        let bytes = (1234567890_u32).to_be_bytes();
+        let base64 = base64::prelude::BASE64_STANDARD.encode(bytes);
+        assert_eq!(base64, "SZYC0g==", "{bytes:?}");
     }
 
     #[test_case("", None; "no header")]
