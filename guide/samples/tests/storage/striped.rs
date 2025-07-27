@@ -101,8 +101,6 @@ async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> an
 // ANCHOR_END: seed-function-end
 
 // ANCHOR: download-function
-use tokio::io::AsyncWriteExt;
-
 async fn download(
     client: Storage,
     control: StorageControl,
@@ -184,7 +182,8 @@ async fn write_stripe(
     // ANCHOR_END: write-stripe-reader
     // ANCHOR: write-stripe-loop
     while let Some(b) = reader.next().await.transpose()? {
-        writer.write(&b).await?;
+        use tokio::io::AsyncWriteExt;
+        writer.write_all(&b).await?;
     }
     // ANCHOR_END: write-stripe-loop
     Ok(())
