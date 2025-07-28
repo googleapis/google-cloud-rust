@@ -70,7 +70,7 @@ larger value.
 
 Rewriting an object allows you to copy its data to a different bucket, copy its
 data to a different object in the same bucket, change its encryption key, and/or
-change its storage class. The rewrite loop is identical for all these
+change its [storage class]. The rewrite loop is identical for all these
 transformations. We will change the storage class to illustrate the code.
 
 ```rust,ignore,noplayground
