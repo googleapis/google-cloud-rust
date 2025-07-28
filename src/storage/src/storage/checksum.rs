@@ -285,6 +285,8 @@ where
                 Ok(())
             }
             Err(e) => {
+                // With an unknown state for the offset, ignore all future
+                // data when computing the checksums.
                 self.offset = u64::MAX;
                 Err(e)
             }
@@ -369,7 +371,7 @@ mod tests {
 
     #[test]
     fn precomputed() {
-        let mut engine = Null;
+        let mut engine = Precomputed;
         engine.update(0, &data());
         assert_eq!(engine.finalize(), ObjectChecksums::new());
     }
@@ -530,6 +532,7 @@ mod tests {
 
         let err = ck.seek(0).await.unwrap_err();
         assert_eq!(err.kind(), ErrorKind::FileTooLarge, "{err:?}");
+        assert_eq!(ck.offset, u64::MAX);
 
         Ok(())
     }
