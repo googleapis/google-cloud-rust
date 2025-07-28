@@ -90,10 +90,11 @@ impl<T: DownloadResumePolicy> DownloadResumePolicyExt for T {}
 ///
 /// We use a struct so we can grow the amount of information without breaking
 /// existing resume policies.
+#[derive(Debug)]
 #[non_exhaustive]
 pub struct ResumeQuery {
     /// The number of times the download has been interrupted already.
-    attempt_count: u32,
+    pub attempt_count: u32,
 }
 
 impl ResumeQuery {

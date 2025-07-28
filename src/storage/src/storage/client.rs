@@ -16,6 +16,7 @@ use super::request_options::RequestOptions;
 use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::UploadObject;
+use crate::download_resume_policy::DownloadResumePolicy;
 use crate::upload_source::InsertPayload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
@@ -502,6 +503,32 @@ impl ClientBuilder {
         self.default_options.resumable_upload_buffer_size = v.into();
         self
     }
+
+    /// Configure the resume policy for downloads.
+    ///
+    /// The Cloud Storage client library can automatically resume a download
+    /// that is interrupted by a transient error. Applications may want to
+    /// limit the number of download attempts, or may wish to expand the type
+    /// of errors treated as retryable.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use google_cloud_storage::download_resume_policy::{AlwaysResume, DownloadResumePolicyExt};
+    /// let client = Storage::builder()
+    ///     .with_download_resume_policy(AlwaysResume.with_attempt_limit(3))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_download_resume_policy<V>(mut self, v: V) -> Self
+    where
+        V: DownloadResumePolicy + 'static,
+    {
+        self.default_options.download_resume_policy = Arc::new(v);
+        self
+    }
 }
 
 /// The default host used by the service.
@@ -770,6 +797,15 @@ pub(crate) mod tests {
 
         impl gax::backoff_policy::BackoffPolicy for BackoffPolicy {
             fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> std::time::Duration;
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub DownloadResumePolicy {}
+
+        impl crate::download_resume_policy::DownloadResumePolicy for DownloadResumePolicy {
+            fn on_error(&self, query: &crate::download_resume_policy::ResumeQuery, error: gax::error::Error) -> crate::download_resume_policy::ResumeResult;
         }
     }
 }

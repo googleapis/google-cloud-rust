@@ -48,8 +48,12 @@
 //! policies in the request, the policies set in the client are used for the
 //! retry loop.
 
-use crate::storage::client::tests::{
-    MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
+use crate::{
+    download_resume_policy::{DownloadResumePolicyExt, Recommended},
+    storage::client::tests::{
+        MockBackoffPolicy, MockDownloadResumePolicy, MockRetryPolicy, MockRetryThrottler,
+        test_builder,
+    },
 };
 use gax::retry_policy::RetryPolicyExt;
 use gax::retry_result::RetryResult;
@@ -269,6 +273,41 @@ fn test_line(i: usize) -> String {
 
 fn test_body(range: std::ops::Range<usize>) -> String {
     range.map(test_line).fold(String::new(), |s, l| s + &l)
+}
+
+fn return_fragments(server: &Server, count: usize, expect: usize) {
+    let fragments = (0..count)
+        .map(|i| test_body(i..(i + 1)))
+        .collect::<Vec<_>>();
+    let length = fragments.iter().fold(0_usize, |s, b| s + b.len());
+    let mut acc = 0_usize;
+
+    let responses = fragments
+        .into_iter()
+        .map(move |fragment| {
+            let start = acc;
+            acc += fragment.len();
+            let responder: Box<dyn Responder> = Box::new(
+                status_code(206)
+                    .append_header(
+                        "content-range",
+                        format!("bytes {start}-{}/{length}", length - 1),
+                    )
+                    .append_header("x-goog-generation", 123456)
+                    .body(fragment),
+            );
+            responder
+        })
+        .collect::<Vec<_>>();
+
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+            request::query(url_decoded(contains(("alt", "media")))),
+        ])
+        .times(expect)
+        .respond_with(cycle(responses)),
+    );
 }
 
 #[tokio::test]
@@ -501,6 +540,34 @@ async fn resume_after_start_permanent() -> Result {
     Ok(())
 }
 
+#[tokio::test]
+async fn request_after_start_too_many_transients() -> Result {
+    let server = Server::run();
+    return_fragments(&server, 10, 5);
+    let client = test_builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(auth::credentials::testing::test_credentials())
+        .build()
+        .await?;
+    let mut reader = client
+        .read_object("projects/_/buckets/test-bucket", "test-object")
+        .with_download_resume_policy(Recommended.with_attempt_limit(5))
+        .send()
+        .await?;
+    let mut partial = Vec::new();
+    let mut err = None;
+    while let Some(r) = reader.next().await {
+        match r {
+            Ok(b) => partial.extend_from_slice(&b),
+            Err(e) => err = Some(e),
+        };
+    }
+    assert_eq!(bytes::Bytes::from_owner(partial), test_body(0..5));
+    let err = err.expect("the download should have failed");
+    assert!(err.is_io(), "{err:?}");
+    Ok(())
+}
+
 // Verify the retry options are used and that exhausted policies result in
 // errors.
 #[tokio::test]
@@ -646,5 +713,69 @@ async fn resume_uses_client_retry_options() -> Result {
         .expect_err("download should fail after 3 retry attempts");
     assert_eq!(err.http_status_code(), Some(503), "{err:?}");
 
+    Ok(())
+}
+
+#[tokio::test]
+async fn request_resume_options() -> Result {
+    let mut sequence = mockall::Sequence::new();
+
+    let mut resume = MockDownloadResumePolicy::new();
+    for i in 1..10 {
+        resume
+            .expect_on_error()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(move |got, _| got.attempt_count == i)
+            .returning(|_, e| RetryResult::Continue(e));
+    }
+
+    let server = Server::run();
+    return_fragments(&server, 10, 10);
+    let client = test_builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(auth::credentials::testing::test_credentials())
+        .build()
+        .await?;
+    let got = client
+        .read_object("projects/_/buckets/test-bucket", "test-object")
+        .with_download_resume_policy(resume)
+        .send()
+        .await?
+        .all_bytes()
+        .await?;
+    assert_eq!(got, test_body(0..10));
+    Ok(())
+}
+
+#[tokio::test]
+async fn client_resume_options() -> Result {
+    let mut sequence = mockall::Sequence::new();
+
+    let mut resume = MockDownloadResumePolicy::new();
+    for i in 1..10 {
+        resume
+            .expect_on_error()
+            .once()
+            .in_sequence(&mut sequence)
+            .withf(move |got, _| got.attempt_count == i)
+            .returning(|_, e| RetryResult::Continue(e));
+    }
+
+    let server = Server::run();
+    return_fragments(&server, 10, 10);
+    let client = test_builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(auth::credentials::testing::test_credentials())
+        .with_download_resume_policy(resume)
+        .build()
+        .await?;
+    let got = client
+        .read_object("projects/_/buckets/test-bucket", "test-object")
+        .send()
+        .await?
+        .all_bytes()
+        .await?;
+    assert_eq!(got, test_body(0..10));
     Ok(())
 }
