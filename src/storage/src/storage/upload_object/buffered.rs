@@ -15,7 +15,7 @@
 mod progress;
 
 use super::*;
-use crate::retry_policy::ContinueOn308;
+use crate::{retry_policy::ContinueOn308, upload_source::IterSource};
 use progress::InProgressUpload;
 
 impl<T> UploadObject<T>
@@ -37,6 +37,16 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send(self) -> crate::Result<Object> {
+        self.build().send().await
+    }
+}
+
+impl<S> PerformUpload<S>
+where
+    S: StreamingSource + Send + Sync + 'static,
+    S::Error: std::error::Error + Send + Sync + 'static,
+{
+    async fn send(self) -> crate::Result<Object> {
         let hint = self
             .payload
             .lock()
@@ -142,8 +152,8 @@ where
         while let Some(b) = stream.next().await.transpose().map_err(Error::ser)? {
             collected.push(b);
         }
-        let upload = UploadObject {
-            payload: Arc::new(Mutex::new(InsertPayload::from(collected))),
+        let upload = PerformUpload {
+            payload: Arc::new(Mutex::new(IterSource::new(collected))),
             inner: self.inner,
             spec: self.spec,
             params: self.params,
@@ -263,6 +273,7 @@ mod tests {
     async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", name, "hello")
+            .build()
             .start_resumable_upload_request()
             .await?
             .build()?;
