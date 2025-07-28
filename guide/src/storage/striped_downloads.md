@@ -160,6 +160,23 @@ Then you read the data and write it to the local file:
 
 - Consider optimizing the case where the last stripe only has a few bytes
 
+## Expected performance
+
+The performance of these downloads depends on:
+
+- The I/O subsystem: if your local storage is not fast enough the downloads will
+  be throttled by the writes to disk.
+- The configuration of your VM: if you do not have enough CPUs the downloads
+  will throttled trying to decrypt the on data, as Cloud Storage and the client
+  library always encrypt the data in transit.
+- The location of the bucket and the particular object: the bucket may store all
+  of the objects (or some objects) in a region different from your VM's
+  location. In this case, you may be throttled by the wide-area network
+  capacity.
+
+With a large enough VM, using SSD for disk, and with a bucket in the same region
+as the VM you should get close to 1,000 MiB/s of effective throughput.
+
 ## Full program
 
 ```rust,ignore,noplayground
