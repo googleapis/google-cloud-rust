@@ -88,7 +88,7 @@ async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> an
             .send()
             .await?;
         println!(
-            "Created object {} size={}",
+            "Created object {} size={} MiB",
             target.name,
             target.size / (1024 * 1024)
         );
@@ -127,9 +127,18 @@ async fn download(
     // ANCHOR: compute-stripes
     let limit = stripe_size as i64;
     let count = metadata.size / limit;
-    let stripes = (0..count)
+    let mut stripes = (0..count)
         .map(|i| write_stripe(client.clone(), &file, i * limit, limit, &metadata))
         .collect::<Vec<_>>();
+    if metadata.size % limit != 0 {
+        stripes.push(write_stripe(
+            client.clone(),
+            &file,
+            count * limit,
+            limit,
+            &metadata,
+        ))
+    }
     // ANCHOR_END: compute-stripes
 
     // ANCHOR: run-stripes
@@ -186,8 +195,10 @@ async fn write_stripe(
         writer.write_all(&b).await?;
     }
     // ANCHOR_END: write-stripe-loop
+    // ANCHOR: write-stripe-function-end
     Ok(())
 }
+// ANCHOR_END: write-stripe-function-end
 // ANCHOR_END: all
 
 pub async fn test(bucket_name: &str, destination: &str) -> anyhow::Result<()> {

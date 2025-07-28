@@ -28,7 +28,7 @@ You will create some large objects during this tutorial, remember to clean up
 any resources to avoid excessive billing.
 
 The tutorial assumes you are familiar with the basics of using the client
-library, read the [quickstart guide]
+library. If not, read the [quickstart guide].
 
 ## Add the client library as a dependency
 
@@ -39,7 +39,7 @@ library, read the [quickstart guide]
 ## Create source data
 
 To run this tutorial you will need some large objects in Cloud Storage. You can
-create such objects by seeding a smaller object and then repeatedly compose it
+create such objects by seeding a smaller object and then repeatedly composing it
 to create objects of the desired size.
 
 You can put all the code for seeding the data in its own function. This function
@@ -85,7 +85,7 @@ Again, write a function to perform the striped download:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:download-function}}
-    // ... details omitted ...
+    // ... details below ...
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:download-function-end}}
 ```
 
@@ -97,12 +97,12 @@ includes the object size and the current generation:
 ```
 
 We will split the download of each stripe to a separate function. You will see
-the details of this function in a moment, for now just note that is is `async`,
-so it returns a `Future`:
+the details of this function in a moment, for now just note that is `async`, so
+it returns a `Future`:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-function}}
-    // ... details omitted ...
+    // ... details below ...
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-function-end}}
 ```
 
@@ -155,6 +155,10 @@ Then you read the data and write it to the local file:
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-loop}}
 ```
+
+## Next steps
+
+- Consider optimizing the case where the last stripe only has a few bytes
 
 ## Full program
 
