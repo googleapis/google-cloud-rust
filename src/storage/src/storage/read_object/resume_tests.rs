@@ -88,7 +88,9 @@ async fn start_retry_normal() -> Result {
         .read_object("projects/_/buckets/test-bucket", "test-object")
         .send()
         .await?;
-    let got = reader.all_bytes().await?;
+    let mut buf = reader.all_bytes().await?;
+    use bytes::Buf;
+    let got = buf.copy_to_bytes(buf.remaining());
     assert_eq!(got, "hello world");
 
     Ok(())

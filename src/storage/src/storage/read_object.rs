@@ -495,28 +495,30 @@ impl ReadObjectResponse {
         })
     }
 
-    // Get the full object as bytes.
-    //
+    /// Get the full object as a bytes::Buf.
+    ///
     /// # Example
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
-    /// let contents = client
+    /// let mut buf = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
     ///     .await?
     ///     .all_bytes()
     ///     .await?;
+    /// # use bytes::Buf;
+    /// let contents = buf.copy_to_bytes(buf.remaining());
     /// println!("object contents={contents:?}");
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
-    pub async fn all_bytes(mut self) -> Result<bytes::Bytes> {
-        let mut contents = Vec::with_capacity(self.range.limit as usize);
+    pub async fn all_bytes(mut self) -> Result<impl bytes::Buf + std::fmt::Debug> {
+        let mut buf = Vec::new();
         while let Some(b) = self.next().await.transpose()? {
-            contents.extend_from_slice(&b);
+            buf.push(b);
         }
-        Ok(bytes::Bytes::from_owner(contents))
+        Ok(AllBytesBuf::new(buf))
     }
 
     /// Stream the next bytes of the object.
@@ -621,6 +623,66 @@ impl ReadObjectResponse {
             };
             None
         }))
+    }
+}
+
+#[derive(Debug)]
+struct AllBytesBuf {
+    buf: Vec<bytes::Bytes>,
+    remaining: usize,
+    idx: usize,
+}
+
+impl AllBytesBuf {
+    fn new(buf: Vec<bytes::Bytes>) -> Self {
+        use bytes::Buf;
+        let remaining = buf.iter().fold(0, |remaining, b| remaining + b.remaining());
+        AllBytesBuf {
+            buf,
+            remaining: remaining,
+            idx: 0,
+        }
+    }
+}
+
+impl bytes::Buf for AllBytesBuf {
+    fn remaining(&self) -> usize {
+        self.remaining
+    }
+    fn chunk(&self) -> &[u8] {
+        if self.idx >= self.buf.len() {
+            return &[];
+        }
+        self.buf[self.idx].chunk()
+    }
+
+    fn advance(&mut self, cnt: usize) {
+        // bytes::Buf implementations should panic if attempting to advance
+        // past the end of the buffer.
+        assert!(
+            cnt <= self.remaining,
+            "cannot advance past `remaining`: {:?} <= {:?}",
+            cnt,
+            self.remaining,
+        );
+
+        self.remaining -= cnt;
+        let mut cnt = cnt;
+        while cnt > 0 {
+            let chunk = &mut self.buf[self.idx];
+            let chunk_remaining = chunk.remaining();
+            if cnt < chunk_remaining {
+                chunk.advance(cnt);
+                cnt = 0;
+            } else {
+                // Consume the rest of the current buffer and move on to the next.
+                // In the common case, we will just advance a single chunk because
+                // Bytes will return the full Bytes in the chunk.
+                chunk.advance(chunk_remaining);
+                cnt -= chunk_remaining; // decrement by the amount we advanced in this chunk.
+                self.idx += 1; // move to the next chunk
+            }
+        }
     }
 }
 
@@ -769,6 +831,7 @@ mod tests {
     use super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
     use base64::Engine as _;
+    use bytes::Buf;
     use futures::TryStreamExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
@@ -826,7 +889,9 @@ mod tests {
             .read_object("projects/_/buckets/test-bucket", "test-object")
             .send()
             .await?;
-        let got = reader.all_bytes().await?;
+        let mut buf = reader.all_bytes().await?;
+        use bytes::Buf;
+        let got = buf.copy_to_bytes(buf.remaining());
         assert_eq!(got, "hello world");
 
         Ok(())
@@ -906,7 +971,8 @@ mod tests {
         let chunk = response.next().await.transpose()?.unwrap();
         assert!(!chunk.is_empty());
         all_bytes.extend(chunk);
-        let remainder = response.all_bytes().await?;
+        let mut buf = response.all_bytes().await?;
+        let remainder = buf.copy_to_bytes(buf.remaining());
         assert!(!remainder.is_empty());
         all_bytes.extend(remainder);
         assert_eq!(all_bytes, contents);

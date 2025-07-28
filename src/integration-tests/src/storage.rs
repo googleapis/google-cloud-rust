@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::{Error, Result};
+use bytes::Buf;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
 use gax::paginator::ItemPaginator as _;
@@ -140,12 +141,13 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     );
 
     tracing::info!("testing read_object()");
-    let contents = client
+    let mut buf = client
         .read_object(&bucket.name, &insert.name)
         .send()
         .await?
         .all_bytes()
         .await?;
+    let contents = buf.copy_to_bytes(buf.remaining());
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
@@ -198,13 +200,14 @@ pub async fn objects_customer_supplied_encryption(
     tracing::info!("success with insert={insert:?}");
 
     tracing::info!("testing read_object() with key");
-    let contents = client
+    let mut buf = client
         .read_object(&bucket.name, &insert.name)
         .with_key(storage::client::KeyAes256::new(&key)?)
         .send()
         .await?
         .all_bytes()
         .await?;
+    let contents = buf.copy_to_bytes(buf.remaining());
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
