@@ -134,6 +134,6 @@ dest_object=Object { name: "rewrite-object-clone", ... }
 [cloud storage]: https://cloud.google.com/storage
 [details]: https://cloud.google.com/storage/docs/json_api/v1/objects/rewrite
 [google cloud project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
-[overall timeout]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/retry_policy/trait.RetryPolicyExt.html#method.with_time_limit
 [minimum storage duration]: https://cloud.google.com/storage/pricing#early-delete
+[overall timeout]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/retry_policy/trait.RetryPolicyExt.html#method.with_time_limit
 [storage class]: https://cloud.google.com/storage/docs/storage-classes
