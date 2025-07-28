@@ -97,8 +97,8 @@ includes the object size and the current generation:
 ```
 
 We will split the download of each stripe to a separate function. You will see
-the details of this function in a moment, for now just note that is `async`, so
-it returns a `Future`:
+the details of this function in a moment, for now just note that it is `async`,
+so it returns a `Future`:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-function}}
@@ -166,9 +166,9 @@ The performance of these downloads depends on:
 
 - The I/O subsystem: if your local storage is not fast enough the downloads will
   be throttled by the writes to disk.
-- The configuration of your VM: if you do not have enough CPUs the downloads
-  will throttled trying to decrypt the on data, as Cloud Storage and the client
-  library always encrypt the data in transit.
+- The configuration of your VM: if you do not have enough CPUs, the downloads
+  will be throttled on trying to decrypt the on data, as Cloud Storage and the
+  client library always encrypt the data in transit.
 - The location of the bucket and the particular object: the bucket may store all
   of the objects (or some objects) in a region different from your VM's
   location. In this case, you may be throttled by the wide-area network
