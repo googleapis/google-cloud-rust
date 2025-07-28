@@ -104,6 +104,7 @@ this guide:
 ## Next Steps
 
 - [Push data on object uploads](storage/queue.md)
+- [Rewriting objects](storage/rewrite_object.md)
 
 ## Full program
 

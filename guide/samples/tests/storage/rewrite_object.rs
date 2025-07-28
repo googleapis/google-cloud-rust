@@ -17,7 +17,8 @@ use gcs::Result;
 use gcs::builder::storage_control::RewriteObject;
 use gcs::client::StorageControl;
 use gcs::model::Object;
-use google_cloud_gax::retry_policy::AlwaysRetry;
+use gcs::retry_policy::RecommendedPolicy;
+use google_cloud_gax::retry_policy::RetryPolicyExt as _;
 use google_cloud_storage as gcs;
 
 pub async fn rewrite_object(bucket_name: &str) -> anyhow::Result<()> {
@@ -25,7 +26,7 @@ pub async fn rewrite_object(bucket_name: &str) -> anyhow::Result<()> {
 
     // ANCHOR: client
     let control = StorageControl::builder()
-        .with_retry_policy(AlwaysRetry)
+        .with_retry_policy(RecommendedPolicy.with_attempt_limit(5))
         .build()
         .await?;
     // ANCHOR_END: client
@@ -49,18 +50,8 @@ pub async fn rewrite_object(bucket_name: &str) -> anyhow::Result<()> {
     builder = builder.set_destination(Object::new().set_storage_class("NEARLINE"));
     // ANCHOR_END: change-storage-class
 
-    // ANCHOR: execute
-    let dest_object = until_done(builder).await?;
-    println!("dest_object={dest_object:?}");
-    // ANCHOR_END: execute
-
-    cleanup(control, bucket_name, &source_object.name, &dest_object.name).await;
-    Ok(())
-}
-
-// ANCHOR: until-done
-async fn until_done(mut builder: RewriteObject) -> Result<Object> {
-    loop {
+    // ANCHOR: loop
+    let dest_object = loop {
         let progress = make_one_request(builder.clone()).await?;
         match progress {
             // ANCHOR: set-rewrite-token
@@ -68,17 +59,21 @@ async fn until_done(mut builder: RewriteObject) -> Result<Object> {
                 builder = builder.set_rewrite_token(rewrite_token);
             }
             // ANCHOR_END: set-rewrite-token
-            RewriteProgress::Done(o) => return Ok(o),
+            RewriteProgress::Done(object) => break object,
         };
-    }
+    };
+    println!("dest_object={dest_object:?}");
+    // ANCHOR_END: loop
+
+    cleanup(control, bucket_name, &source_object.name, &dest_object.name).await;
+    Ok(())
 }
-// ANCHOR_END: until-done
 
 // ANCHOR: make-one-request
 enum RewriteProgress {
     // This holds the rewrite token
     Incomplete(String),
-    Done(Object),
+    Done(Box<Object>),
 }
 
 async fn make_one_request(builder: RewriteObject) -> Result<RewriteProgress> {
@@ -88,10 +83,10 @@ async fn make_one_request(builder: RewriteObject) -> Result<RewriteProgress> {
             "DONE:     total_bytes_rewritten={}; object_size={}",
             resp.total_bytes_rewritten, resp.object_size
         );
-        return Ok(RewriteProgress::Done(
+        return Ok(RewriteProgress::Done(Box::new(
             resp.resource
                 .expect("A `done` response must have an object."),
-        ));
+        )));
     }
     println!(
         "PROGRESS: total_bytes_rewritten={}; object_size={}",
@@ -104,11 +99,11 @@ async fn make_one_request(builder: RewriteObject) -> Result<RewriteProgress> {
 // Upload an object to rewrite
 async fn upload(bucket_name: &str) -> anyhow::Result<Object> {
     let storage = gcs::client::Storage::builder().build().await?;
-    // We need the size to exceed 1MB to exercise the rewrite token logic.
+    // We need the size to exceed 1MiB to exercise the rewrite token logic.
     let payload = bytes::Bytes::from(vec![65_u8; 3 * 1024 * 1024]);
     let object = storage
         .upload_object(bucket_name, "rewrite-object-source", payload)
-        .send()
+        .send_unbuffered()
         .await?;
     Ok(object)
 }

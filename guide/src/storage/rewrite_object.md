@@ -68,14 +68,18 @@ larger value.
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:limit-bytes-per-call}}
 ```
 
-In this example, we change the object's [storage class]. This is done for
-illustrative purposes, as it forces the service to physically copy all of the
-bytes in the object. Changing the storage class is not necessary to perform a
-successful rewrite object request.
+Rewriting an object allows you to copy its data to a different bucket, copy its
+data to a different object in the same bucket, change its encryption key, and/or
+change its storage class. The rewrite loop is identical for all these
+transformations. We will change the storage class to illustrate the code.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:change-storage-class}}
 ```
+
+Note that there is a [minimum storage duration] associated with the new storage
+class. While the object used in this example (3 MiB) incurs less than `$0.001`
+of cost, the billing may be noticeable for larger objects.
 
 ### Introduce rewrite loop helpers
 
@@ -91,11 +95,12 @@ the rewrite token.
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:make-one-request}}
 ```
 
-Now we introduce a helper function to perform the rewrite loop until the
-operation is done.
+### Execute rewrite loop
+
+Now we are ready to perform the rewrite loop until the operation is done.
 
 ```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:until-done}}
+{{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:loop}}
 ```
 
 Note how if the operation is incomplete, we supply the rewrite token returned by
@@ -107,14 +112,6 @@ the server to the next request.
 
 Also note that the rewrite token can be used to continue the operation from
 another process. Rewrite tokens are valid for up to one week.
-
-### Execute rewrite loop
-
-All that is left is to call this function from our code.
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:execute}}
-```
 
 ## Full program
 
@@ -138,4 +135,5 @@ dest_object=Object { name: "rewrite-object-clone", ... }
 [details]: https://cloud.google.com/storage/docs/json_api/v1/objects/rewrite
 [google cloud project]: https://cloud.google.com/resource-manager/docs/creating-managing-projects
 [overall timeout]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/retry_policy/trait.RetryPolicyExt.html#method.with_time_limit
+[minimum storage duration]: https://cloud.google.com/storage/pricing#early-delete
 [storage class]: https://cloud.google.com/storage/docs/storage-classes
