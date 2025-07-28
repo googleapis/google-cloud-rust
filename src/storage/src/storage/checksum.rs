@@ -44,8 +44,8 @@ pub fn validate(
         _ => None,
     };
     let md5 = match (&expected.md5_hash, &recv.md5_hash) {
-        (e, r) if e != r && !e.is_empty() && !r.is_empty() => Some(format!("{e:?} != {r:?}")),
-        _ => None,
+        (e, r) if e.is_empty() || r.is_empty() || e == r => None,
+        (e, r) => Some(format!("{e:?} != {r:?}")),
     };
     match (crc32c, md5) {
         (None, None) => Ok(()),
