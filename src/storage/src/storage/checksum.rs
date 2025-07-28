@@ -40,16 +40,12 @@ pub fn validate(
         return Ok(());
     };
     let crc32c = match (&expected.crc32c, &recv.crc32c) {
-        (None, _) => None,
-        (Some(_), None) => None,
-        (Some(e), Some(r)) if e == r => None,
-        (Some(e), Some(r)) => Some(format!("{e} != {r}")),
+        (Some(e), Some(r)) if e != r => Some(format!("{e} != {r}")),
+        _ => None,
     };
     let md5 = match (&expected.md5_hash, &recv.md5_hash) {
-        (h, _) if h.is_empty() => None,
-        (_, r) if r.is_empty() => None,
-        (h, r) if h == r => None,
-        (h, r) => Some(format!("{h:?} !=- {r:?}")),
+        (e, r) if e != r && !e.is_empty() && !r.is_empty() => Some(format!("{e:?} != {r:?}")),
+        _ => None,
     };
     match (crc32c, md5) {
         (None, None) => Ok(()),
@@ -66,7 +62,7 @@ pub fn validate(
 /// to support:
 /// - No checksums (`Null`): the client library does not compute any checksums,
 ///   and therefore does not validate checksums either.
-/// - Precomputed checksums (`Precompted`): the client library assumes the
+/// - Precomputed checksums (`Precomputed`): the client library assumes the
 ///   application provided checksums in the object metadata.
 /// - Only crc32c (`Crc32c` or `Crc32c<Null>`)`: compute (and validate) only
 ///   crc32c checksums.
@@ -77,19 +73,19 @@ pub fn validate(
 /// The application should have no need to interact with these types directly,
 /// or even name them. They are used only as implementation details. They may
 /// be visible in debug messages.
-pub trait ChecksumEngine: std::fmt::Debug + sealed::Sealed {
+pub trait ChecksumEngine: std::fmt::Debug + sealed::ChecksumEngine {
     fn update(&mut self, offset: u64, data: &bytes::Bytes);
     fn finalize(&self) -> ObjectChecksums;
 }
 
 mod sealed {
-    pub trait Sealed {}
+    pub trait ChecksumEngine {}
 }
 
 /// YOLO checksum engine.
 #[derive(Clone, Debug)]
 pub(crate) struct Null;
-impl sealed::Sealed for Null {}
+impl sealed::ChecksumEngine for Null {}
 impl ChecksumEngine for Null {
     fn update(&mut self, _offset: u64, _data: &bytes::Bytes) {}
     fn finalize(&self) -> ObjectChecksums {
@@ -100,7 +96,7 @@ impl ChecksumEngine for Null {
 /// Assumes the checksums are provided as part of the object metadata.
 #[derive(Clone, Debug)]
 pub(crate) struct Precomputed;
-impl sealed::Sealed for Precomputed {}
+impl sealed::ChecksumEngine for Precomputed {}
 impl ChecksumEngine for Precomputed {
     fn update(&mut self, _offset: u64, _data: &bytes::Bytes) {}
     fn finalize(&self) -> ObjectChecksums {
@@ -115,7 +111,7 @@ pub(crate) struct Crc32c<C = Null> {
     offset: u64,
     inner: C,
 }
-impl<C> sealed::Sealed for Crc32c<C> {}
+impl<C> sealed::ChecksumEngine for Crc32c<C> {}
 impl<C> Crc32c<C> {
     pub fn from_inner(inner: C) -> Self {
         Self {
@@ -155,7 +151,7 @@ pub(crate) struct Md5<C = Null> {
     offset: u64,
     inner: C,
 }
-impl<C> sealed::Sealed for Md5<C> {}
+impl<C> sealed::ChecksumEngine for Md5<C> {}
 impl<C> Md5<C> {
     pub fn from_inner(inner: C) -> Self {
         Self {
@@ -208,18 +204,13 @@ fn checked_update<F>(current: u64, offset: u64, data: &bytes::Bytes, updater: F)
 where
     F: FnOnce(&bytes::Bytes),
 {
-    match (current, offset, offset + data.len() as u64) {
-        (o, s, end) if o == s => {
-            updater(data);
-            end
-        }
-        (o, s, end) if o > s && o < end => {
-            let data = data.clone().split_off((o - s) as usize);
-            updater(&data);
-            end
-        }
-        (o, s, e) if o > s && o >= e => current,
-        (_, _, _) => current,
+    let end = offset + data.len() as u64;
+    if (offset..end).contains(&current) {
+        let data = data.clone().split_off((current - offset) as usize);
+        updater(&data);
+        end
+    } else {
+        current
     }
 }
 
@@ -348,7 +339,7 @@ mod tests {
     }
 
     #[test_case(both(), both().set_crc32c(0_u32).set_md5_hash(bytes::Bytes::from_static(b"cde")))]
-    fn validate_both_bad_md5(expected: ObjectChecksums, received: ObjectChecksums) {
+    fn validate_bad_both(expected: ObjectChecksums, received: ObjectChecksums) {
         let err = super::validate(expected.clone(), &Some(received.clone()))
             .expect_err("values should not match");
         assert!(matches!(&err, &ChecksumMismatch::Both { .. }), "{err:?}");
@@ -395,6 +386,8 @@ mod tests {
         engine.update(4, &input.slice(4..8));
         engine.update(6, &input.slice(6..12));
         engine.update(8, &input.slice(8..));
+        // Out of range data should be ignored.
+        engine.update(100, &input.slice(0..));
         let want = crc32c::crc32c(&data());
         assert_eq!(engine.finalize(), ObjectChecksums::new().set_crc32c(want));
     }
@@ -421,6 +414,8 @@ mod tests {
         engine.update(4, &input.slice(4..8));
         engine.update(6, &input.slice(6..12));
         engine.update(8, &input.slice(8..));
+        // Out of range data should be ignored.
+        engine.update(100, &input.slice(0..));
         assert_eq!(engine.finalize(), ObjectChecksums::new().set_md5_hash(want));
     }
 
@@ -438,6 +433,7 @@ mod tests {
         engine.update(6, &input.slice(6..12));
         engine.update(0, &input.slice(0..4));
         engine.update(8, &input.slice(8..));
+        // Out of range data should be ignored.
         engine.update(100, &input.slice(0..));
         assert_eq!(
             engine.finalize(),
@@ -461,6 +457,7 @@ mod tests {
         engine.update(6, &input.slice(6..12));
         engine.update(0, &input.slice(0..4));
         engine.update(8, &input.slice(8..));
+        // Out of range data should be ignored.
         engine.update(100, &input.slice(0..));
         assert_eq!(
             engine.finalize(),
