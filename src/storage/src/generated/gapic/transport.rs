@@ -235,6 +235,10 @@ impl super::stub::StorageControl for StorageControl {
                     "bucket.project",
                     "**",
                 );
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
                 let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
@@ -445,6 +449,10 @@ impl super::stub::StorageControl for StorageControl {
                     "resource",
                     "projects/*/buckets/*/**",
                 );
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
                 let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
@@ -531,6 +539,10 @@ impl super::stub::StorageControl for StorageControl {
                     "resource",
                     "projects/*/buckets/*/**",
                 );
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
                 let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
@@ -635,6 +647,10 @@ impl super::stub::StorageControl for StorageControl {
                     "resource",
                     "projects/*/buckets/*/managedFolders/**",
                 );
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
                 let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[
@@ -648,6 +664,10 @@ impl super::stub::StorageControl for StorageControl {
                     "resource",
                     "projects/*/buckets/*/objects/**",
                 );
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
                 let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
