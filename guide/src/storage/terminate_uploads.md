@@ -27,7 +27,7 @@ The guide assumes you have an existing [Google Cloud project] with
 [billing enabled], and a Cloud Storage bucket in that project.
 
 The tutorial assumes you are familiar with the basics of using the client
-library, read the [quickstart guide]
+library. If not, you may want to read the [quickstart guide] first.
 
 ## Add the client library as a dependency
 
