@@ -105,6 +105,7 @@ this guide:
 
 - [Push data on object uploads](storage/queue.md)
 - [Rewriting objects](storage/rewrite_object.md)
+- [Speed up large object downloads](storage/striped_downloads.md)
 
 ## Full program
 
