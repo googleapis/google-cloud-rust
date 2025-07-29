@@ -26,8 +26,8 @@ resources and services as well.
 To complete this tutorial, you need a Rust development environment with the
 following dependencies installed:
 
-* The Secret Manager client library
-* [Tokio]
+- The Secret Manager client library
+- [Tokio]
 
 To get set up, follow the steps in [Setting up your development environment].
 
@@ -106,8 +106,8 @@ In this guide, you updated a resource using a field mask. The sample code uses
 the Secret Manager API, but you can use field masks with other clients too. Try
 one of the other Cloud Client Libraries for Rust:
 
-* [Generate text using the Vertex AI Gemini API]
-* [Using Google Cloud Storage: Push data on object uploads]
+- [Generate text using the Vertex AI Gemini API]
+- [Using Google Cloud Storage: Push data on object uploads]
 
 ______________________________________________________________________
 
