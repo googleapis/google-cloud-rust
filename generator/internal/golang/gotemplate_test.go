@@ -21,7 +21,7 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
-func Test_GoEnumAnnotations(t *testing.T) {
+func TestGoEnumAnnotations(t *testing.T) {
 	// Verify we can handle values that are not in SCREAMING_SNAKE_CASE style.
 	v0 := &api.EnumValue{
 		Name:          "week5",

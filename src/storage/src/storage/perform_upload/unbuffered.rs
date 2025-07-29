@@ -12,31 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::upload_source::Seek;
-use super::*;
-use crate::retry_policy::ContinueOn308;
+use super::{
+    ContinueOn308, Error, Object, PerformUpload, Result, ResumableUploadStatus, Seek,
+    StreamingSource, X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers, enc,
+    handle_object_response, v1,
+};
 use futures::stream::unfold;
+use std::sync::Arc;
 
-impl<T> UploadObject<T>
+impl<S> PerformUpload<S>
 where
-    T: StreamingSource + Seek + Send + Sync + 'static,
-    <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
-    <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
+    S: StreamingSource + Seek + Send + Sync + 'static,
+    <S as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
+    <S as Seek>::Error: std::error::Error + Send + Sync + 'static,
 {
-    /// A simple upload from a buffer.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage::client::Storage;
-    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send_unbuffered()
-    ///     .await?;
-    /// println!("response details={response:?}");
-    /// # Ok(()) }
-    /// ```
-    pub async fn send_unbuffered(self) -> Result<Object> {
+    pub(crate) async fn send_unbuffered(self) -> Result<Object> {
         let hint = self
             .payload
             .lock()
@@ -85,7 +75,6 @@ where
             (0_u64, url.insert(upload_url).as_str())
         };
 
-        use crate::upload_source::Seek;
         let payload = self.payload.clone();
         payload
             .lock()
@@ -108,7 +97,7 @@ where
             .header("Content-Range", range)
             .header(
                 "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+                reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
@@ -125,8 +114,8 @@ where
         }));
 
         let builder = builder.body(reqwest::Body::wrap_stream(stream));
-        let response = builder.send().await.map_err(Error::io)?;
-        self::resumable_upload_handle_response(response).await
+        let response = builder.send().await.map_err(super::send_err)?;
+        self::handle_object_response(response).await
     }
 
     pub(super) async fn send_unbuffered_single_shot(self) -> Result<Object> {
@@ -151,17 +140,11 @@ where
 
     async fn single_shot_attempt(&self) -> Result<Object> {
         let builder = self.single_shot_builder().await?;
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return gaxi::http::to_http_error(response).await;
-        }
-        let response = response.json::<v1::Object>().await.map_err(Error::io)?;
-
-        Ok(Object::from(response))
+        let response = builder.send().await.map_err(super::send_err)?;
+        super::handle_object_response(response).await
     }
 
     async fn single_shot_builder(&self) -> Result<reqwest::RequestBuilder> {
-        use crate::upload_source::Seek;
         let payload = self.payload.clone();
         payload.lock().await.seek(0).await.map_err(Error::ser)?;
 
@@ -183,7 +166,7 @@ where
             .query(&[("name", enc(object))])
             .header(
                 "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+                reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
@@ -216,21 +199,17 @@ where
     }
 }
 
-async fn resumable_upload_handle_response(response: reqwest::Response) -> Result<Object> {
-    if !response.status().is_success() {
-        return gaxi::http::to_http_error(response).await;
-    }
-    let response = response.json::<v1::Object>().await.map_err(Error::deser)?;
-    Ok(Object::from(response))
-}
-
 #[cfg(test)]
 mod resumable_tests;
 
 #[cfg(test)]
 mod tests {
-    use super::super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
+    use crate::storage::client::{
+        KeyAes256, Storage,
+        tests::{create_key_helper, test_builder, test_inner_client},
+    };
+    use crate::storage::upload_object::UploadObject;
     use crate::upload_source::IterSource;
     use gax::retry_policy::RetryPolicyExt;
     use http_body_util::BodyExt;
@@ -249,6 +228,7 @@ mod tests {
                 request::query(url_decoded(contains(("name", "test-object")))),
                 request::query(url_decoded(contains(("uploadType", "multipart")))),
             ])
+            .times(1)
             .respond_with(
                 status_code(200)
                     .append_header("content-type", "application/json")
@@ -276,7 +256,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn send_unbuffered_not_found() -> Result {
+    async fn single_shot_http_error() -> Result {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -298,6 +278,104 @@ mod tests {
             .await
             .expect_err("expected a not found error");
         assert_eq!(err.http_status_code(), Some(404));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_deserialization() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+            .respond_with(status_code(200).body("bad format")),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let err = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send_unbuffered()
+            .await
+            .expect_err("expected a deserialization error");
+        assert!(err.is_deserialization(), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_source_error() -> Result {
+        let server = Server::run();
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        use crate::upload_source::tests::MockSeekSource;
+        use std::io::{Error as IoError, ErrorKind};
+        let mut source = MockSeekSource::new();
+        source
+            .expect_next()
+            .once()
+            .returning(|| Some(Err(IoError::new(ErrorKind::ConnectionAborted, "test-only"))));
+        source.expect_seek().times(1..).returning(|_| Ok(()));
+        source
+            .expect_size_hint()
+            .once()
+            .returning(|| Ok((1024_u64, Some(1024_u64))));
+        let err = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+            .send_unbuffered()
+            .await
+            .expect_err("expected a serialization error");
+        assert!(err.is_serialization(), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_seek_error() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+            .times(0)
+            .respond_with(status_code(200).body("bad format")),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        use crate::upload_source::tests::MockSeekSource;
+        use std::io::{Error as IoError, ErrorKind};
+        let mut source = MockSeekSource::new();
+        source.expect_next().never();
+        source
+            .expect_seek()
+            .once()
+            .returning(|_| Err(IoError::new(ErrorKind::ConnectionAborted, "test-only")));
+        source
+            .expect_size_hint()
+            .once()
+            .returning(|| Ok((1024_u64, Some(1024_u64))));
+        let err = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+            .send_unbuffered()
+            .await
+            .expect_err("expected a serialization error");
+        assert!(err.is_serialization(), "{err:?}");
 
         Ok(())
     }
@@ -350,6 +428,7 @@ mod tests {
     async fn upload_object_bytes() -> Result {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .build()
             .single_shot_builder()
             .await?
             .build()?;
@@ -369,6 +448,7 @@ mod tests {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_metadata([("k0", "v0"), ("k1", "v1")])
+            .build()
             .single_shot_builder()
             .await?
             .build()?;
@@ -395,6 +475,7 @@ mod tests {
         );
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream)
+            .build()
             .single_shot_builder()
             .await?
             .build()?;
@@ -415,6 +496,7 @@ mod tests {
             test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
         );
         let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .build()
             .single_shot_builder()
             .await
             .inspect_err(|e| assert!(e.is_authentication()))
@@ -426,6 +508,7 @@ mod tests {
     async fn upload_object_bad_bucket() -> Result {
         let inner = test_inner_client(test_builder());
         UploadObject::new(inner, "malformed", "object", "hello")
+            .build()
             .single_shot_builder()
             .await
             .expect_err("malformed bucket string should error");
@@ -440,6 +523,7 @@ mod tests {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_key(KeyAes256::new(&key)?)
+            .build()
             .single_shot_builder()
             .await?
             .build()?;

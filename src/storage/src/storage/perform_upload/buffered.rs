@@ -12,31 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::{
+    ContinueOn308, Error, IterSource, Object, PerformUpload, Result, ResumableUploadStatus,
+    StreamingSource, X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers,
+};
+use progress::InProgressUpload;
+use std::sync::Arc;
+use tokio::sync::Mutex;
+
 mod progress;
 
-use super::*;
-use crate::retry_policy::ContinueOn308;
-use progress::InProgressUpload;
-
-impl<T> UploadObject<T>
+impl<S> PerformUpload<S>
 where
-    T: StreamingSource + Send + Sync + 'static,
-    T::Error: std::error::Error + Send + Sync + 'static,
+    S: StreamingSource + Send + Sync + 'static,
+    S::Error: std::error::Error + Send + Sync + 'static,
 {
-    /// Upload an object from a streaming source without rewinds.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage::client::Storage;
-    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send()
-    ///     .await?;
-    /// println!("response details={response:?}");
-    /// # Ok(()) }
-    /// ```
-    pub async fn send(self) -> crate::Result<Object> {
+    pub(crate) async fn send(self) -> crate::Result<Object> {
         let hint = self
             .payload
             .lock()
@@ -100,7 +91,7 @@ where
                 .next_buffer(&mut *self.payload.lock().await)
                 .await?;
             let builder = self.partial_upload_request(upload_url, progress).await?;
-            let response = builder.send().await.map_err(Error::io)?;
+            let response = builder.send().await.map_err(super::send_err)?;
             match super::query_resumable_upload_handle_response(response).await {
                 Err(e) => {
                     progress.handle_error();
@@ -128,7 +119,7 @@ where
             .header("Content-Range", range)
             .header(
                 "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+                reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
@@ -139,11 +130,11 @@ where
     async fn send_buffered_single_shot(self) -> Result<Object> {
         let mut stream = self.payload.lock().await;
         let mut collected = Vec::new();
-        while let Some(b) = stream.next().await.transpose().map_err(Error::io)? {
+        while let Some(b) = stream.next().await.transpose().map_err(Error::ser)? {
             collected.push(b);
         }
-        let upload = UploadObject {
-            payload: Arc::new(Mutex::new(InsertPayload::from(collected))),
+        let upload = PerformUpload {
+            payload: Arc::new(Mutex::new(IterSource::new(collected))),
             inner: self.inner,
             spec: self.spec,
             params: self.params,
@@ -162,8 +153,12 @@ mod resumable_tests;
 
 #[cfg(test)]
 mod tests {
-    use super::super::client::tests::{test_builder, test_inner_client};
     use super::*;
+    use crate::storage::client::{
+        Storage,
+        tests::{test_builder, test_inner_client},
+    };
+    use crate::storage::upload_object::UploadObject;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use test_case::test_case;
 
@@ -217,6 +212,36 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn single_shot_source_error() -> Result {
+        let server = Server::run();
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        use crate::upload_source::tests::MockSimpleSource;
+        use std::io::{Error as IoError, ErrorKind};
+        let mut source = MockSimpleSource::new();
+        source
+            .expect_next()
+            .once()
+            .returning(|| Some(Err(IoError::new(ErrorKind::ConnectionAborted, "test-only"))));
+        source
+            .expect_size_hint()
+            .once()
+            .returning(|| Ok((1024_u64, Some(1024_u64))));
+        let err = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+            .send()
+            .await
+            .expect_err("expected a serialization error");
+        assert!(err.is_serialization(), "{err:?}");
+
+        Ok(())
+    }
+
     #[test_case("projects/p", "projects%2Fp")]
     #[test_case("kebab-case", "kebab-case")]
     #[test_case("dot.name", "dot.name")]
@@ -233,6 +258,7 @@ mod tests {
     async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", name, "hello")
+            .build()
             .start_resumable_upload_request()
             .await?
             .build()?;
@@ -246,20 +272,6 @@ mod tests {
             })
             .unwrap();
         assert_eq!(got, want);
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn handle_start_resumable_upload_response() -> Result {
-        let response = http::Response::builder()
-            .header(
-                "Location",
-                "http://private.googleapis.com/test-only/session-123",
-            )
-            .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
-        let url = super::handle_start_resumable_upload_response(response).await?;
-        assert_eq!(url, "http://private.googleapis.com/test-only/session-123");
         Ok(())
     }
 }

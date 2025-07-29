@@ -80,4 +80,100 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test]
+    async fn binding_error_or() -> anyhow::Result<()> {
+        let client = gcs::client::StorageControl::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        // ```
+        // option (google.api.routing) = {
+        //   routing_parameters {
+        //     field: "resource"
+        //     path_template: "{bucket=**}"
+        //   }
+        //   routing_parameters {
+        //     field: "resource"
+        //     path_template: "{bucket=projects/*/buckets/*}/**"
+        //   }
+        // };
+        // ```
+        let e = client
+            .set_iam_policy()
+            .send()
+            .await
+            .expect_err("Should fail locally with a binding error.");
+        assert!(e.is_binding(), "{e:?}");
+        let got = e
+            .source()
+            .and_then(|e| e.downcast_ref::<BindingError>())
+            .expect("should be a BindingError");
+
+        // Note that the routing key ("bucket") is the same. for the two
+        // `routing_parameters`. We should report the errors in separate paths.
+        let want1 = PathMismatch {
+            subs: vec![SubstitutionMismatch {
+                field_name: "resource",
+                problem: SubstitutionFail::UnsetExpecting("projects/*/buckets/*/**"),
+            }],
+        };
+        let want2 = PathMismatch {
+            subs: vec![SubstitutionMismatch {
+                field_name: "resource",
+                problem: SubstitutionFail::UnsetExpecting("**"),
+            }],
+        };
+        assert!(got.paths.contains(&want1), "got: {got:?}, want: {want1:?}");
+        assert!(got.paths.contains(&want2), "got: {got:?}, want: {want2:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn binding_error_and() -> anyhow::Result<()> {
+        let client = gcs::client::StorageControl::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        // ```
+        // option (google.api.routing) = {
+        //   routing_parameters {
+        //     field: "source_bucket"
+        //   }
+        //   routing_parameters {
+        //     field: "destination_bucket"
+        //     path_template: "{bucket=**}"
+        //   }
+        // };
+        // ```
+        let e = client
+            .rewrite_object()
+            .send()
+            .await
+            .expect_err("Should fail locally with a binding error.");
+        assert!(e.is_binding(), "{e:?}");
+        let got = e
+            .source()
+            .and_then(|e| e.downcast_ref::<BindingError>())
+            .expect("should be a BindingError");
+
+        // Note that the routing key differs for the two `routing_parameters`.
+        // We should report substitution errors in a single path.
+        let want = PathMismatch {
+            subs: vec![
+                SubstitutionMismatch {
+                    field_name: "destination_bucket",
+                    problem: SubstitutionFail::UnsetExpecting("**"),
+                },
+                SubstitutionMismatch {
+                    field_name: "source_bucket",
+                    problem: SubstitutionFail::UnsetExpecting("**"),
+                },
+            ],
+        };
+        assert!(got.paths.contains(&want), "got: {got:?}, want: {want:?}");
+        Ok(())
+    }
 }
