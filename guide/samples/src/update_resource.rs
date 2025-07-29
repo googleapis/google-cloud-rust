@@ -19,10 +19,10 @@ use google_cloud_wkt;
 pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
     use google_cloud_secretmanager_v1::client::SecretManagerService;
     use std::collections::HashMap;
-    
+
     // ANCHOR: create
     let client = SecretManagerService::builder().build().await?;
-    
+
     let secret = client
         .create_secret()
         .set_parent(format!("projects/{project_id}"))
@@ -34,13 +34,13 @@ pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
         .await?;
     println!("CREATE = {secret:?}");
     // ANCHOR_END: create
-    
+
     // ANCHOR: update
     let tag = |mut labels: HashMap<_, _>, msg: &str| {
         labels.insert("updated".to_string(), msg.to_string());
         labels
     };
-    
+
     let update = client
         .update_secret()
         .set_secret(
@@ -51,13 +51,15 @@ pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
                 .set_annotations(tag(secret.annotations, "your-annotations")),
         )
         // ANCHOR: set-update-mask
-        .set_update_mask(google_cloud_wkt::FieldMask::default().set_paths(["annotations", "labels"]))
+        .set_update_mask(
+            google_cloud_wkt::FieldMask::default().set_paths(["annotations", "labels"]),
+        )
         // ANCHOR_END: set-update-mask
         .send()
         .await?;
     println!("UPDATE = {update:?}");
     // ANCHOR_END: update
-    
+
     Ok(())
 }
 // ANCHOR_END: update-field
