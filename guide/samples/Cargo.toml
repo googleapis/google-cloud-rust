@@ -36,6 +36,7 @@ google-cloud-language-v2 = { version = "0.4.2", path = "../../src/generated/clou
 # ANCHOR_END: language
 google-cloud-rpc = { version = "0.4.2", path = "../../src/generated/rpc/types" }
 google-cloud-wkt = { version = "0.5.2", path = "../../src/wkt" }
+anyhow.workspace = true
 
 # ANCHOR: speech
 [dependencies.google-cloud-speech-v2]

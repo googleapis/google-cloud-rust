@@ -26,6 +26,7 @@ limitations under the License.
   - [Rewriting objects](storage/rewrite_object.md)
   - [Speed up large object downloads](storage/striped_downloads.md)
   - [Use errors to terminate uploads](storage/terminate_uploads.md)
+- [Update a resource using a field mask](update_resource.md)
 - [Configuring retry policies](configuring_retry_policies.md)
 - [Error handling](error_handling.md)
 - [Examine error details](examine_error_details.md)

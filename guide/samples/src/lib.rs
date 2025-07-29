@@ -25,3 +25,4 @@ pub mod lro;
 pub mod pagination;
 pub mod polling_policies;
 pub mod retry_policies;
+pub mod update_resource;
