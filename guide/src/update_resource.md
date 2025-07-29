@@ -79,6 +79,9 @@ The following code updates the `labels` and `annotations` fields:
 {{#include ../samples/src/update_resource.rs:update}}
 ```
 
+The `set_etag` method lets you set an [etag] on the secret, which prevents
+overwriting concurrent updates.
+
 Having set labels and annotations on the updated secret, you pass a field mask
 to `set_update_mask` specifying the field paths to be updated:
 
@@ -114,6 +117,7 @@ ______________________________________________________________________
 {{#include ../samples/src/update_resource.rs:update-field}}
 ```
 
+[etag]: https://cloud.google.com/secret-manager/docs/etags
 [fieldmask]: https://docs.rs/google-cloud-wkt/latest/google_cloud_wkt/struct.FieldMask.html
 [generate text using the vertex ai gemini api]: generate_text_using_the_vertex_ai_gemini_api.md
 [google_cloud_wkt]: https://docs.rs/google-cloud-wkt/latest/google_cloud_wkt/index.html
