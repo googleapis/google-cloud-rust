@@ -23,6 +23,7 @@ limitations under the License.
 - [Generate text using the Vertex AI Gemini API](generate_text_using_the_vertex_ai_gemini_api.md)
 - [Using Google Cloud Storage](storage.md)
   - [Push data on object uploads](storage/queue.md)
+- [Update a resource using a field mask](update_resource.md)
 - [Configuring retry policies](configuring_retry_policies.md)
 - [Error handling](error_handling.md)
 - [Examine error details](examine_error_details.md)
