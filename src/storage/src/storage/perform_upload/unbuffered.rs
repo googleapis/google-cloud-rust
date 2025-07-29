@@ -75,14 +75,6 @@ where
             (0_u64, url.insert(upload_url).as_str())
         };
 
-        let payload = self.payload.clone();
-        payload
-            .lock()
-            .await
-            .seek(offset)
-            .await
-            .map_err(Error::ser)?;
-
         let range = match (offset, hint.0, hint.1) {
             (o, _, None) => format!("bytes {o}-*/*"),
             (_, 0, Some(0)) => "bytes */0".to_string(),
@@ -102,18 +94,15 @@ where
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
         let builder = self.inner.apply_auth_headers(builder).await?;
-        let stream = Box::pin(unfold(Some(payload), move |state| async move {
-            if let Some(payload) = state {
-                let mut guard = payload.lock().await;
-                if let Some(next) = guard.next().await {
-                    drop(guard);
-                    return Some((next, Some(payload)));
-                }
-            }
-            None
-        }));
 
-        let builder = builder.body(reqwest::Body::wrap_stream(stream));
+        self.payload
+            .lock()
+            .await
+            .seek(offset)
+            .await
+            .map_err(Error::ser)?;
+        let payload = self.payload_to_body().await?;
+        let builder = builder.body(payload);
         let response = builder.send().await.map_err(super::send_err)?;
         self::handle_object_response(response).await
     }
@@ -145,9 +134,6 @@ where
     }
 
     async fn single_shot_builder(&self) -> Result<reqwest::RequestBuilder> {
-        let payload = self.payload.clone();
-        payload.lock().await.seek(0).await.map_err(Error::ser)?;
-
         let bucket = &self.resource().bucket;
         let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
             Error::binding(format!(
@@ -172,6 +158,28 @@ where
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
         let builder = self.inner.apply_auth_headers(builder).await?;
 
+        let metadata = reqwest::multipart::Part::text(v1::insert_body(self.resource()).to_string())
+            .mime_str("application/json; charset=UTF-8")
+            .map_err(Error::ser)?;
+        self.payload
+            .lock()
+            .await
+            .seek(0)
+            .await
+            .map_err(Error::ser)?;
+        let payload = self.payload_to_body().await?;
+        let form = reqwest::multipart::Form::new()
+            .part("metadata", metadata)
+            .part("media", reqwest::multipart::Part::stream(payload));
+        let builder = builder.header(
+            "content-type",
+            format!("multipart/related; boundary={}", form.boundary()),
+        );
+        Ok(builder.body(reqwest::Body::wrap_stream(form.into_stream())))
+    }
+
+    async fn payload_to_body(&self) -> Result<reqwest::Body> {
+        let payload = self.payload.clone();
         let stream = Box::pin(unfold(Some(payload), move |state| async move {
             if let Some(payload) = state {
                 let mut guard = payload.lock().await;
@@ -182,20 +190,7 @@ where
             }
             None
         }));
-        let metadata = reqwest::multipart::Part::text(v1::insert_body(self.resource()).to_string())
-            .mime_str("application/json; charset=UTF-8")
-            .map_err(Error::ser)?;
-        let form = reqwest::multipart::Form::new()
-            .part("metadata", metadata)
-            .part(
-                "media",
-                reqwest::multipart::Part::stream(reqwest::Body::wrap_stream(stream)),
-            );
-        let builder = builder.header(
-            "content-type",
-            format!("multipart/related; boundary={}", form.boundary()),
-        );
-        Ok(builder.body(reqwest::Body::wrap_stream(form.into_stream())))
+        Ok(reqwest::Body::wrap_stream(stream))
     }
 }
 
