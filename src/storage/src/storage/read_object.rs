@@ -481,6 +481,7 @@ fn headers_to_md5_hash(headers: &http::HeaderMap) -> Vec<u8> {
 #[derive(Debug)]
 pub struct ReadObjectResponse {
     inner: Option<reqwest::Response>,
+    highlights: ObjectHighlights,
     // Fields for tracking the crc checksum checks.
     response_crc32c: Option<u32>,
     crc32c: u32,
@@ -496,43 +497,8 @@ impl ReadObjectResponse {
         let response_crc32c = crc32c_from_response(full, inner.status(), inner.headers());
         let range = response_range(&inner).map_err(Error::deser)?;
         let generation = response_generation(&inner).map_err(Error::deser)?;
-
-        Ok(Self {
-            inner: Some(inner),
-            response_crc32c,
-            crc32c: 0, // no bytes read yet.
-            range,
-            generation,
-            builder,
-            resume_count: 0,
-        })
-    }
-
-    /// Get the object metadata.
-    /// Get the highlights of the object metadata included in the
-    /// response.
-    ///
-    /// To get full metadata about this object, use [crate::client::StorageControl::get_object].
-    ///
-    /// # Example
-    /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
-    /// let object = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .send()
-    ///     .await?
-    ///     .object();
-    /// println!("object generation={}", object.generation);
-    /// println!("object metageneration={}", object.metageneration);
-    /// println!("object size={}", object.size);
-    /// println!("object content encoding={}", object.content_encoding);
-    /// # Ok::<(), anyhow::Error>(()) });
-    /// ```
-    pub fn object(&self) -> ObjectHighlights {
-        let headers = self.inner.headers();
-        ObjectHighlights {
+        let headers = inner.headers();
+        let highlights = ObjectHighlights {
             generation: headers
                 .get("x-goog-generation")
                 .and_then(|g| g.to_str().ok())
@@ -558,7 +524,43 @@ impl ReadObjectResponse {
                     .set_or_clear_crc32c(headers_to_crc32c(headers))
                     .set_md5_hash(headers_to_md5_hash(headers))
             }),
-        }
+        };
+
+        Ok(Self {
+            inner: Some(inner),
+            highlights,
+            response_crc32c,
+            crc32c: 0, // no bytes read yet.
+            range,
+            generation,
+            builder,
+            resume_count: 0,
+        })
+    }
+
+    /// Get the highlights of the object metadata included in the
+    /// response.
+    ///
+    /// To get full metadata about this object, use [crate::client::StorageControl::get_object].
+    ///
+    /// # Example
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let object = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?
+    ///     .object();
+    /// println!("object generation={}", object.generation);
+    /// println!("object metageneration={}", object.metageneration);
+    /// println!("object size={}", object.size);
+    /// println!("object content encoding={}", object.content_encoding);
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub fn object(&self) -> ObjectHighlights {
+        self.highlights.clone()
     }
 
     // Get the full object as bytes.
@@ -691,20 +693,25 @@ impl ReadObjectResponse {
 }
 
 /// ObjectHighlights contains select metadata from a [crate::model::Object].
+#[derive(Clone, Debug, PartialEq)]
 pub struct ObjectHighlights {
     /// The content generation of this object. Used for object versioning.
     pub generation: i64,
+
     /// The version of the metadata for this generation of this
     /// object. Used for preconditions and for detecting changes in metadata. A
     /// metageneration number is only meaningful in the context of a particular
     /// generation of a particular object.
     pub metageneration: i64,
+
     /// Content-Length of the object data in bytes, matching
     /// [<https://tools.ietf.org/html/rfc7230#section-3.3.2>][RFC 7230 §3.3.2].
     pub size: i64,
+
     /// Content-Encoding of the object data, matching
     /// [<https://tools.ietf.org/html/rfc7231#section-3.1.2.2>][RFC 7231 §3.1.2.2]
     pub content_encoding: String,
+
     /// Hashes for the data part of this object. The checksums of the complete
     /// object regardless of data range. If the object is downloaded in full,
     /// the client should compute one of these checksums over the downloaded
