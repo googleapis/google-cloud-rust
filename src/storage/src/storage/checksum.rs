@@ -84,8 +84,10 @@ mod sealed {
 
 /// YOLO checksum engine.
 #[derive(Clone, Debug)]
-pub(crate) struct Null;
+pub struct Null;
+
 impl sealed::ChecksumEngine for Null {}
+
 impl ChecksumEngine for Null {
     fn update(&mut self, _offset: u64, _data: &bytes::Bytes) {}
     fn finalize(&self) -> ObjectChecksums {
@@ -95,8 +97,10 @@ impl ChecksumEngine for Null {
 
 /// Assumes the checksums are provided as part of the object metadata.
 #[derive(Clone, Debug)]
-pub(crate) struct Precomputed;
+pub struct Precomputed;
+
 impl sealed::ChecksumEngine for Precomputed {}
+
 impl ChecksumEngine for Precomputed {
     fn update(&mut self, _offset: u64, _data: &bytes::Bytes) {}
     fn finalize(&self) -> ObjectChecksums {
@@ -106,12 +110,14 @@ impl ChecksumEngine for Precomputed {
 
 /// Automatically computes the CRC32C checksum.
 #[derive(Clone, Debug)]
-pub(crate) struct Crc32c<C = Null> {
+pub struct Crc32c<C = Null> {
     checksum: u32,
     offset: u64,
     inner: C,
 }
+
 impl<C> sealed::ChecksumEngine for Crc32c<C> {}
+
 impl<C> Crc32c<C> {
     pub fn from_inner(inner: C) -> Self {
         Self {
@@ -122,8 +128,8 @@ impl<C> Crc32c<C> {
     }
 }
 
-impl Crc32c<Null> {
-    pub fn new() -> Self {
+impl std::default::Default for Crc32c<Null> {
+    fn default() -> Self {
         Self::from_inner(Null)
     }
 }
@@ -146,12 +152,14 @@ where
 
 /// Automatically computes the MD5 checksum.
 #[derive(Clone)]
-pub(crate) struct Md5<C = Null> {
+pub struct Md5<C = Null> {
     hasher: md5::Context,
     offset: u64,
     inner: C,
 }
+
 impl<C> sealed::ChecksumEngine for Md5<C> {}
+
 impl<C> Md5<C> {
     pub fn from_inner(inner: C) -> Self {
         Self {
@@ -162,8 +170,8 @@ impl<C> Md5<C> {
     }
 }
 
-impl Md5<Null> {
-    pub fn new() -> Self {
+impl std::default::Default for Md5<Null> {
+    fn default() -> Self {
         Self::from_inner(Null)
     }
 }
@@ -370,7 +378,7 @@ mod tests {
     #[test_case(empty())]
     #[test_case(data())]
     fn crc32c_basic(input: bytes::Bytes) {
-        let mut engine = Crc32c::new();
+        let mut engine = Crc32c::default();
         engine.update(0, &input);
         let want = crc32c::crc32c(&input);
         assert_eq!(engine.finalize(), ObjectChecksums::new().set_crc32c(want));
@@ -380,7 +388,7 @@ mod tests {
     fn crc32c_in_parts() {
         let input = data();
 
-        let mut engine = Crc32c::new();
+        let mut engine = Crc32c::default();
         engine.update(0, &input.slice(0..4));
         engine.update(0, &input.slice(0..4));
         engine.update(4, &input.slice(4..8));
@@ -395,7 +403,7 @@ mod tests {
     #[test_case(empty())]
     #[test_case(data())]
     fn md5_basic(input: bytes::Bytes) {
-        let mut engine = Md5::new();
+        let mut engine = Md5::default();
         engine.update(0, &input);
         let digest = md5::compute(&input);
         let want = bytes::Bytes::from_owner(Vec::from_iter(digest.0));
@@ -405,7 +413,7 @@ mod tests {
     #[test]
     fn md5_in_parts() {
         let input = data();
-        let mut engine = Md5::new();
+        let mut engine = Md5::default();
         let digest = md5::compute(&input);
         let want = bytes::Bytes::from_owner(Vec::from_iter(digest.0));
 
@@ -422,7 +430,7 @@ mod tests {
     #[test]
     fn md5_and_crc32_in_parts() {
         let input = data();
-        let mut engine = Md5::from_inner(Crc32c::new());
+        let mut engine = Md5::from_inner(Crc32c::default());
         let digest = md5::compute(&input);
         let md5_want = bytes::Bytes::from_owner(Vec::from_iter(digest.0));
         let crc32_want = crc32c::crc32c(&input);
@@ -446,7 +454,7 @@ mod tests {
     #[test]
     fn crc32_and_md5_in_parts() {
         let input = data();
-        let mut engine = Crc32c::from_inner(Md5::new());
+        let mut engine = Crc32c::from_inner(Md5::default());
         let digest = md5::compute(&input);
         let md5_want = bytes::Bytes::from_owner(Vec::from_iter(digest.0));
         let crc32_want = crc32c::crc32c(&input);
@@ -469,7 +477,7 @@ mod tests {
 
     #[test]
     fn md5_debug() {
-        let engine = Md5::new();
+        let engine = Md5::default();
         let fmt = format!("{engine:?}");
         assert!(fmt.contains("Md5"), "{fmt}");
         assert!(fmt.contains("hasher"), "{fmt}");
@@ -486,7 +494,7 @@ mod tests {
             input.map(|s| bytes::Bytes::from_static(s.as_bytes())),
         );
         let want_hint = source.size_hint().await?;
-        let mut source = ChecksummedSource::new(Crc32c::new(), source);
+        let mut source = ChecksummedSource::new(Crc32c::default(), source);
         assert_eq!(source.size_hint().await?, want_hint);
 
         for expected in input.iter().take(3) {
