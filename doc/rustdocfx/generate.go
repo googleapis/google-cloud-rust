@@ -61,11 +61,10 @@ func (mangedReference *docfxManagedReference) appendReference(reference *docfxRe
 }
 
 type docfxItem struct {
-	Uid     string
-	Name    string
-	Summary string
-	Type    string
-	// FullName    string
+	Uid         string
+	Name        string
+	Summary     string
+	Type        string
 	HasChildren bool
 	Children    []string
 	Syntax      docfxSyntax
@@ -110,7 +109,6 @@ func newDocfxItem(c crate, id string) (*docfxItem, error) {
 	// TODO: This may not map to a correct type in doc fx pipeline type.
 	r.Type = c.getKind(id).String()
 	r.Summary = c.getDocString(id)
-	// r.FullName = c.getFullName(id)
 
 	if len(errs) > 0 {
 		return nil, fmt.Errorf("errors creating new DocfxItem docfx yml files for id %s: %w", id, errors.Join(errs...))
@@ -125,7 +123,6 @@ func newDocfxItemFromFunction(c crate, parent *docfxItem, id string) (*docfxItem
 
 	// Type is explicitly not set.
 	r.Summary = c.getDocString(id)
-	// r.FullName = c.getFullName(id)
 
 	syntax := new(docfxSyntax)
 	for i := 0; i < len(c.Index[id].Inner.Function.Sig.Inputs); i++ {
@@ -151,9 +148,8 @@ func (item *docfxItem) appendChildren(uid string) error {
 }
 
 type docfxReference struct {
-	Uid  string
-	Name string
-	// FullName   string
+	Uid        string
+	Name       string
 	IsExternal bool
 	Parent     string
 }
@@ -182,7 +178,6 @@ func newDocfxManagedReference(c crate, id string) (*docfxManagedReference, error
 	reference := new(docfxReference)
 	reference.Uid = parent.Uid
 	reference.Name = parent.Name
-	// reference.FullName = parent.FullName
 	reference.IsExternal = false
 	r.appendReference(reference)
 
@@ -201,7 +196,6 @@ func newDocfxManagedReference(c crate, id string) (*docfxManagedReference, error
 			}
 			reference.Uid = uid
 			reference.Name = c.getName(referenceId)
-			// reference.FullName = c.getFullName(referenceId)
 			reference.IsExternal = false
 			reference.Parent = parent.Uid
 
@@ -226,7 +220,6 @@ func newDocfxManagedReference(c crate, id string) (*docfxManagedReference, error
 			reference := new(docfxReference)
 			reference.Uid = c.getDocfxUidWithParentPrefix(parent.Uid, referenceId)
 			reference.Name = c.getName(referenceId)
-			// reference.FullName = c.getFullName(referenceId)
 			reference.IsExternal = false
 			reference.Parent = parent.Uid
 

@@ -48,7 +48,6 @@ func (c *crate) getDocfxUidWithParentPrefix(parentUid, id string) string {
 }
 
 func (c *crate) getKind(id string) kind {
-	// TODO: Perhaps use iota to define these enum types instead of a string.
 	if c.Index[id].Inner.Struct != nil {
 		return structKind
 	}
@@ -79,12 +78,6 @@ func (c *crate) getKind(id string) kind {
 	// for structs, implementation, traitimplementation, autotraitimplementation, blanketimplementation
 	return undefinedKind
 }
-
-// NOWNOWNOW: Can we skip FullName?
-// func (c *crate) getFullName(id string) string {
-// 	// TODO(NOW): Update this to support implementations/parents also
-// 	return strings.Join(c.Paths[id].Path, "::")
-// }
 
 func (c *crate) getName(id string) string {
 	return c.Index[id].Name
