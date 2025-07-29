@@ -125,8 +125,8 @@ where
         }));
 
         let builder = builder.body(reqwest::Body::wrap_stream(stream));
-        let response = builder.send().await.map_err(Error::io)?;
-        self::resumable_upload_handle_response(response).await
+        let response = builder.send().await.map_err(super::send_err)?;
+        self::handle_object_response(response).await
     }
 
     pub(super) async fn send_unbuffered_single_shot(self) -> Result<Object> {
@@ -151,13 +151,8 @@ where
 
     async fn single_shot_attempt(&self) -> Result<Object> {
         let builder = self.single_shot_builder().await?;
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return gaxi::http::to_http_error(response).await;
-        }
-        let response = response.json::<v1::Object>().await.map_err(Error::io)?;
-
-        Ok(Object::from(response))
+        let response = builder.send().await.map_err(super::send_err)?;
+        super::handle_object_response(response).await
     }
 
     async fn single_shot_builder(&self) -> Result<reqwest::RequestBuilder> {
@@ -216,14 +211,6 @@ where
     }
 }
 
-async fn resumable_upload_handle_response(response: reqwest::Response) -> Result<Object> {
-    if !response.status().is_success() {
-        return gaxi::http::to_http_error(response).await;
-    }
-    let response = response.json::<v1::Object>().await.map_err(Error::deser)?;
-    Ok(Object::from(response))
-}
-
 #[cfg(test)]
 mod resumable_tests;
 
@@ -249,6 +236,7 @@ mod tests {
                 request::query(url_decoded(contains(("name", "test-object")))),
                 request::query(url_decoded(contains(("uploadType", "multipart")))),
             ])
+            .times(1)
             .respond_with(
                 status_code(200)
                     .append_header("content-type", "application/json")
@@ -276,7 +264,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn send_unbuffered_not_found() -> Result {
+    async fn single_shot_http_error() -> Result {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -298,6 +286,104 @@ mod tests {
             .await
             .expect_err("expected a not found error");
         assert_eq!(err.http_status_code(), Some(404));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_deserialization() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+            .respond_with(status_code(200).body("bad format")),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let err = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send_unbuffered()
+            .await
+            .expect_err("expected a deserialization error");
+        assert!(err.is_deserialization(), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_source_error() -> Result {
+        let server = Server::run();
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        use crate::upload_source::tests::MockSeekSource;
+        use std::io::{Error as IoError, ErrorKind};
+        let mut source = MockSeekSource::new();
+        source
+            .expect_next()
+            .once()
+            .returning(|| Some(Err(IoError::new(ErrorKind::ConnectionAborted, "test-only"))));
+        source.expect_seek().times(1..).returning(|_| Ok(()));
+        source
+            .expect_size_hint()
+            .once()
+            .returning(|| Ok((1024_u64, Some(1024_u64))));
+        let err = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+            .send_unbuffered()
+            .await
+            .expect_err("expected a serialization error");
+        assert!(err.is_serialization(), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_seek_error() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+            .times(0)
+            .respond_with(status_code(200).body("bad format")),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        use crate::upload_source::tests::MockSeekSource;
+        use std::io::{Error as IoError, ErrorKind};
+        let mut source = MockSeekSource::new();
+        source.expect_next().never();
+        source
+            .expect_seek()
+            .once()
+            .returning(|_| Err(IoError::new(ErrorKind::ConnectionAborted, "test-only")));
+        source
+            .expect_size_hint()
+            .once()
+            .returning(|| Ok((1024_u64, Some(1024_u64))));
+        let err = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", source)
+            .send_unbuffered()
+            .await
+            .expect_err("expected a serialization error");
+        assert!(err.is_serialization(), "{err:?}");
 
         Ok(())
     }

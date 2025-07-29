@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use serde_with::DeserializeAs;
-
 use super::client::*;
 use super::*;
+use crate::download_resume_policy::DownloadResumePolicy;
 use base64::Engine;
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
+use serde_with::DeserializeAs;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
@@ -35,6 +35,7 @@ use futures::Stream;
 /// println!("object contents={contents:?}");
 /// # Ok::<(), anyhow::Error>(()) });
 /// ```
+#[derive(Clone, Debug)]
 pub struct ReadObject {
     inner: std::sync::Arc<StorageInner>,
     request: crate::model::ReadObjectRequest,
@@ -311,14 +312,45 @@ impl ReadObject {
         self
     }
 
+    /// Configure the resume policy for downloads.
+    ///
+    /// The Cloud Storage client library can automatically resume a download
+    /// that is interrupted by a transient error. Applications may want to
+    /// limit the number of download attempts, or may wish to expand the type
+    /// of errors treated as retryable.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::download_resume_policy::{AlwaysResume, DownloadResumePolicyExt};
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_download_resume_policy(AlwaysResume.with_attempt_limit(3))
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_download_resume_policy<V>(mut self, v: V) -> Self
+    where
+        V: DownloadResumePolicy + 'static,
+    {
+        self.options.download_resume_policy = std::sync::Arc::new(v);
+        self
+    }
+
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse> {
-        let full_content_requested = self.request.read_offset == 0 && self.request.read_limit == 0;
+        let download = self.clone().download().await?;
+        ReadObjectResponse::new(self, download)
+    }
+
+    async fn download(self) -> Result<reqwest::Response> {
         let throttler = self.options.retry_throttler.clone();
         let retry = self.options.retry_policy.clone();
         let backoff = self.options.backoff_policy.clone();
 
-        let response = gax::retry_loop_internal::retry_loop(
+        gax::retry_loop_internal::retry_loop(
             async move |_| self.download_attempt().await,
             async |duration| tokio::time::sleep(duration).await,
             true,
@@ -326,9 +358,7 @@ impl ReadObject {
             retry,
             backoff,
         )
-        .await?;
-
-        ReadObjectResponse::new(response, full_content_requested)
+        .await
     }
 
     async fn download_attempt(&self) -> Result<reqwest::Response> {
@@ -450,28 +480,31 @@ fn headers_to_md5_hash(headers: &http::HeaderMap) -> Vec<u8> {
 /// A response to a [Storage::read_object] request.
 #[derive(Debug)]
 pub struct ReadObjectResponse {
-    inner: reqwest::Response,
+    inner: Option<reqwest::Response>,
     // Fields for tracking the crc checksum checks.
     response_crc32c: Option<u32>,
     crc32c: u32,
-    #[allow(dead_code)]
     range: ReadRange,
-    #[allow(dead_code)]
     generation: i64,
+    builder: ReadObject,
+    resume_count: u32,
 }
 
 impl ReadObjectResponse {
-    fn new(inner: reqwest::Response, full_content_requested: bool) -> Result<Self> {
-        let response_crc32c =
-            crc32c_from_response(full_content_requested, inner.status(), inner.headers());
+    fn new(builder: ReadObject, inner: reqwest::Response) -> Result<Self> {
+        let full = builder.request.read_offset == 0 && builder.request.read_limit == 0;
+        let response_crc32c = crc32c_from_response(full, inner.status(), inner.headers());
         let range = response_range(&inner).map_err(Error::deser)?;
         let generation = response_generation(&inner).map_err(Error::deser)?;
+
         Ok(Self {
-            inner,
+            inner: Some(inner),
             response_crc32c,
             crc32c: 0, // no bytes read yet.
             range,
             generation,
+            builder,
+            resume_count: 0,
         })
     }
 
@@ -572,15 +605,38 @@ impl ReadObjectResponse {
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
-        let res = self.inner.chunk().await.map_err(Error::io);
+        match self.next_attempt().await {
+            None => None,
+            Some(Ok(b)) => Some(Ok(b)),
+            // Recursive async requires pin:
+            //     https://rust-lang.github.io/async-book/07_workarounds/04_recursion.html
+            Some(Err(e)) => Box::pin(self.resume(e)).await,
+        }
+    }
+
+    async fn next_attempt(&mut self) -> Option<Result<bytes::Bytes>> {
+        let inner = self.inner.as_mut()?;
+        let res = inner.chunk().await.map_err(Error::io);
         match res {
             Ok(Some(chunk)) => {
                 if self.response_crc32c.is_some() {
                     self.crc32c = crc32c::crc32c_append(self.crc32c, &chunk);
                 }
+                let len = chunk.len() as u64;
+                if self.range.limit < len {
+                    return Some(Err(Error::deser(ReadError::LongRead {
+                        expected: self.range.limit,
+                        got: len,
+                    })));
+                }
+                self.range.limit -= len;
+                self.range.start += len;
                 Some(Ok(chunk))
             }
             Ok(None) => {
+                if self.range.limit != 0 {
+                    return Some(Err(Error::io(ReadError::ShortRead(self.range.limit))));
+                }
                 let res = check_crc32c_match(self.crc32c, self.response_crc32c);
                 match res {
                     Err(e) => Some(Err(e)),
@@ -589,6 +645,33 @@ impl ReadObjectResponse {
             }
             Err(e) => Some(Err(e)),
         }
+    }
+
+    async fn resume(&mut self, error: Error) -> Option<Result<bytes::Bytes>> {
+        use crate::download_resume_policy::{ResumeQuery, ResumeResult};
+
+        // The existing download is no longer valid.
+        self.inner = None;
+        self.resume_count += 1;
+        let query = ResumeQuery::new(self.resume_count);
+        match self
+            .builder
+            .options
+            .download_resume_policy
+            .on_error(&query, error)
+        {
+            ResumeResult::Continue(_) => {}
+            ResumeResult::Permanent(e) => return Some(Err(e)),
+            ResumeResult::Exhausted(e) => return Some(Err(e)),
+        };
+        self.builder.request.read_offset = self.range.start as i64;
+        self.builder.request.read_limit = self.range.limit as i64;
+        self.builder.request.generation = self.generation;
+        self.inner = match self.builder.clone().download().await {
+            Ok(r) => Some(r),
+            Err(e) => return Some(Err(e)),
+        };
+        self.next().await
     }
 
     #[cfg(feature = "unstable-stream")]
@@ -636,6 +719,12 @@ enum ReadError {
     /// The calculated crc32c did not match server provided crc32c.
     #[error("bad CRC on read: got {got}, want {want}")]
     BadCrc { got: u32, want: u32 },
+
+    #[error("missing {0} bytes at the end of the stream")]
+    ShortRead(u64),
+
+    #[error("too many bytes received: expected {expected}, stopped download at {got}")]
+    LongRead { got: u64, expected: u64 },
 
     /// Only 200 and 206 status codes are expected in successful responses.
     #[error("unexpected success code {0} in read request, only 200 and 206 are expected")]
@@ -754,7 +843,7 @@ fn required_header<'a>(
         .map_err(|e| ReadError::BadHeaderFormat(name, e.into()))
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Debug, PartialEq)]
 struct ReadRange {
     start: u64,
     limit: u64,
@@ -921,13 +1010,7 @@ mod tests {
 
         // Calculate and serialize the crc32c checksum
         let u = crc32c::crc32c(&contents);
-        let bytes = [
-            (u >> 24 & 0xFF) as u8,
-            (u >> 16 & 0xFF) as u8,
-            (u >> 8 & 0xFF) as u8,
-            (u & 0xFF) as u8,
-        ];
-        let value = base64::prelude::BASE64_STANDARD.encode(bytes);
+        let value = base64::prelude::BASE64_STANDARD.encode(u.to_be_bytes());
 
         let server = Server::run();
         server.expect(
@@ -1015,13 +1098,7 @@ mod tests {
     async fn read_object_incorrect_crc32c_check() -> Result {
         // Calculate and serialize the crc32c checksum
         let u = crc32c::crc32c("goodbye world".as_bytes());
-        let bytes = [
-            (u >> 24 & 0xFF) as u8,
-            (u >> 16 & 0xFF) as u8,
-            (u >> 8 & 0xFF) as u8,
-            (u & 0xFF) as u8,
-        ];
-        let value = base64::prelude::BASE64_STANDARD.encode(bytes);
+        let value = base64::prelude::BASE64_STANDARD.encode(u.to_be_bytes());
 
         let server = Server::run();
         server.expect(
@@ -1288,6 +1365,13 @@ mod tests {
             matches!(source, Some(&ReadError::BadCrc { got, want }) if got == crc && want == response),
             "{err:?}"
         );
+    }
+
+    #[test]
+    fn document_crc32c_values() {
+        let bytes = (1234567890_u32).to_be_bytes();
+        let base64 = base64::prelude::BASE64_STANDARD.encode(bytes);
+        assert_eq!(base64, "SZYC0g==", "{bytes:?}");
     }
 
     #[test_case("", None; "no header")]
