@@ -13,15 +13,16 @@
 // limitations under the License.
 
 use super::{
-    ContinueOn308, Error, Object, PerformUpload, Result, ResumableUploadStatus, Seek,
-    StreamingSource, X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers, enc,
-    handle_object_response, v1,
+    ChecksumEngine, ContinueOn308, Error, Object, PerformUpload, Result, ResumableUploadStatus,
+    Seek, StreamingSource, X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers,
+    enc, handle_object_response, v1,
 };
 use futures::stream::unfold;
 use std::sync::Arc;
 
-impl<S> PerformUpload<S>
+impl<C, S> PerformUpload<C, S>
 where
+    C: ChecksumEngine + Send + Sync + 'static,
     S: StreamingSource + Seek + Send + Sync + 'static,
     <S as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
     <S as Seek>::Error: std::error::Error + Send + Sync + 'static,
@@ -104,7 +105,8 @@ where
         let payload = self.payload_to_body().await?;
         let builder = builder.body(payload);
         let response = builder.send().await.map_err(super::send_err)?;
-        self::handle_object_response(response).await
+        let object = self::handle_object_response(response).await?;
+        self.validate_response_object(object).await
     }
 
     pub(super) async fn send_unbuffered_single_shot(self) -> Result<Object> {
@@ -130,7 +132,8 @@ where
     async fn single_shot_attempt(&self) -> Result<Object> {
         let builder = self.single_shot_builder().await?;
         let response = builder.send().await.map_err(super::send_err)?;
-        super::handle_object_response(response).await
+        let object = super::handle_object_response(response).await?;
+        self.validate_response_object(object).await
     }
 
     async fn single_shot_builder(&self) -> Result<reqwest::RequestBuilder> {

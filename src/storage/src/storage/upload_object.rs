@@ -765,8 +765,9 @@ impl<T, C> UploadObject<T, C> {
             .expect("resource field initialized in `new()`")
     }
 
-    pub(crate) fn build(self) -> PerformUpload<InsertPayload<T>> {
+    pub(crate) fn build(self) -> PerformUpload<C, InsertPayload<T>> {
         PerformUpload::new(
+            self.checksum,
             self.payload,
             self.inner,
             self.spec,
@@ -966,6 +967,7 @@ impl<T> UploadObject<T> {
 
 impl<T, C> UploadObject<T, C>
 where
+    C: ChecksumEngine + Send + Sync + 'static,
     T: StreamingSource + Seek + Send + Sync + 'static,
     <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
     <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
@@ -1040,6 +1042,7 @@ where
 
 impl<T, C> UploadObject<T, C>
 where
+    C: ChecksumEngine + Send + Sync + 'static,
     T: StreamingSource + Send + Sync + 'static,
     T::Error: std::error::Error + Send + Sync + 'static,
 {
