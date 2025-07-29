@@ -17,6 +17,7 @@ use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::UploadObject;
 use crate::download_resume_policy::DownloadResumePolicy;
+use crate::storage::checksum::Crc32c;
 use crate::upload_source::InsertPayload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
@@ -157,7 +158,12 @@ impl Storage {
     /// * `payload` - the object data.
     ///
     /// [Seek]: crate::upload_source::Seek
-    pub fn upload_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> UploadObject<P>
+    pub fn upload_object<B, O, T, P>(
+        &self,
+        bucket: B,
+        object: O,
+        payload: T,
+    ) -> UploadObject<P, Crc32c>
     where
         B: Into<String>,
         O: Into<String>,
