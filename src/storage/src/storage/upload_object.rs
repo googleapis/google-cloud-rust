@@ -25,8 +25,25 @@ pub struct UploadObject<T> {
     inner: std::sync::Arc<StorageInner>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
+    payload: InsertPayload<T>,
+    options: super::request_options::RequestOptions,
+}
+
+/// Represents an upload constructed via `UploadObject<T>`.
+///
+/// Once the application has fully configured an `UploadObject<T>` it calls
+/// `send()` or `send_buffered()` to initiate the upload. At that point the
+/// client library creates an instance of this class. Notable, the `payload`
+/// becomes `Arc<Mutex<T>>` because it needs to be reused in the retry loop.
+///
+/// TODO(#2050) - payload will become `ChecksummedSource<C, S>` to automatically
+///   compute the checksum.
+struct PerformUpload<S> {
     // We need `Arc<Mutex<>>` because this is re-used in retryable uploads.
-    payload: Arc<Mutex<InsertPayload<T>>>,
+    payload: Arc<Mutex<S>>,
+    inner: std::sync::Arc<StorageInner>,
+    spec: crate::model::WriteObjectSpec,
+    params: Option<crate::model::CommonObjectRequestParams>,
     options: super::request_options::RequestOptions,
 }
 
@@ -713,13 +730,6 @@ impl<T> UploadObject<T> {
             .expect("resource field initialized in `new()`")
     }
 
-    fn resource(&self) -> &crate::model::Object {
-        self.spec
-            .resource
-            .as_ref()
-            .expect("resource field initialized in `new()`")
-    }
-
     pub(crate) fn new<B, O, P>(
         inner: std::sync::Arc<StorageInner>,
         bucket: B,
@@ -739,9 +749,28 @@ impl<T> UploadObject<T> {
             inner,
             spec: crate::model::WriteObjectSpec::new().set_resource(resource),
             params: None,
-            payload: Arc::new(Mutex::new(payload.into())),
+            payload: payload.into(),
             options,
         }
+    }
+
+    fn build(self) -> PerformUpload<InsertPayload<T>> {
+        PerformUpload {
+            payload: Arc::new(Mutex::new(self.payload)),
+            inner: self.inner,
+            spec: self.spec,
+            params: self.params,
+            options: self.options,
+        }
+    }
+}
+
+impl<S> PerformUpload<S> {
+    fn resource(&self) -> &crate::model::Object {
+        self.spec
+            .resource
+            .as_ref()
+            .expect("resource field initialized in `new()`")
     }
 
     async fn start_resumable_upload_attempt(&self) -> Result<String> {
@@ -1095,6 +1124,7 @@ mod tests {
     async fn start_resumable_upload() -> Result {
         let inner = test_inner_client(test_builder());
         let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .build()
             .start_resumable_upload_request()
             .await?
             .build()?;
@@ -1119,6 +1149,7 @@ mod tests {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_key(KeyAes256::new(&key)?)
+            .build()
             .start_resumable_upload_request()
             .await?
             .build()?;
@@ -1148,6 +1179,7 @@ mod tests {
     async fn start_resumable_upload_bad_bucket() -> Result {
         let inner = test_inner_client(test_builder());
         UploadObject::new(inner, "malformed", "object", "hello")
+            .build()
             .start_resumable_upload_request()
             .await
             .expect_err("malformed bucket string should error");
@@ -1185,6 +1217,7 @@ mod tests {
             .with_storage_class("ARCHIVE")
             .with_temporary_hold(true)
             .with_kms_key("test-key")
+            .build()
             .start_resumable_upload_request()
             .await?
             .build()?;
@@ -1241,6 +1274,7 @@ mod tests {
             test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
         );
         let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .build()
             .start_resumable_upload_request()
             .await
             .inspect_err(|e| assert!(e.is_authentication()))

@@ -720,6 +720,7 @@ async fn start_resumable_upload_request_retry_options() -> Result {
         .with_retry_policy(retry.with_attempt_limit(3))
         .with_backoff_policy(backoff)
         .with_retry_throttler(throttler)
+        .build()
         .send_buffered_resumable((0, None))
         .await
         .expect_err("request should fail after 3 retry attempts");

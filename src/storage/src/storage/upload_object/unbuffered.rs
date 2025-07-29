@@ -37,6 +37,17 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_unbuffered(self) -> Result<Object> {
+        self.build().send_unbuffered().await
+    }
+}
+
+impl<S> PerformUpload<S>
+where
+    S: StreamingSource + Seek + Send + Sync + 'static,
+    <S as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
+    <S as Seek>::Error: std::error::Error + Send + Sync + 'static,
+{
+    async fn send_unbuffered(self) -> Result<Object> {
         let hint = self
             .payload
             .lock()
@@ -85,7 +96,6 @@ where
             (0_u64, url.insert(upload_url).as_str())
         };
 
-        use crate::upload_source::Seek;
         let payload = self.payload.clone();
         payload
             .lock()
@@ -156,7 +166,6 @@ where
     }
 
     async fn single_shot_builder(&self) -> Result<reqwest::RequestBuilder> {
-        use crate::upload_source::Seek;
         let payload = self.payload.clone();
         payload.lock().await.seek(0).await.map_err(Error::ser)?;
 
@@ -436,6 +445,7 @@ mod tests {
     async fn upload_object_bytes() -> Result {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .build()
             .single_shot_builder()
             .await?
             .build()?;
@@ -455,6 +465,7 @@ mod tests {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_metadata([("k0", "v0"), ("k1", "v1")])
+            .build()
             .single_shot_builder()
             .await?
             .build()?;
@@ -481,6 +492,7 @@ mod tests {
         );
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream)
+            .build()
             .single_shot_builder()
             .await?
             .build()?;
@@ -501,6 +513,7 @@ mod tests {
             test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
         );
         let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .build()
             .single_shot_builder()
             .await
             .inspect_err(|e| assert!(e.is_authentication()))
@@ -512,6 +525,7 @@ mod tests {
     async fn upload_object_bad_bucket() -> Result {
         let inner = test_inner_client(test_builder());
         UploadObject::new(inner, "malformed", "object", "hello")
+            .build()
             .single_shot_builder()
             .await
             .expect_err("malformed bucket string should error");
@@ -526,6 +540,7 @@ mod tests {
         let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_key(KeyAes256::new(&key)?)
+            .build()
             .single_shot_builder()
             .await?
             .build()?;
