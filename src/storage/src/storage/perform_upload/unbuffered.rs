@@ -12,34 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::upload_source::Seek;
-use super::*;
-use crate::retry_policy::ContinueOn308;
+use super::{
+    ContinueOn308, Error, Object, PerformUpload, Result, ResumableUploadStatus, Seek,
+    StreamingSource, X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers, enc,
+    handle_object_response, v1,
+};
 use futures::stream::unfold;
-
-impl<T> UploadObject<T>
-where
-    T: StreamingSource + Seek + Send + Sync + 'static,
-    <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
-    <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
-{
-    /// A simple upload from a buffer.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage::client::Storage;
-    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send_unbuffered()
-    ///     .await?;
-    /// println!("response details={response:?}");
-    /// # Ok(()) }
-    /// ```
-    pub async fn send_unbuffered(self) -> Result<Object> {
-        self.build().send_unbuffered().await
-    }
-}
+use std::sync::Arc;
 
 impl<S> PerformUpload<S>
 where
@@ -47,7 +26,7 @@ where
     <S as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
     <S as Seek>::Error: std::error::Error + Send + Sync + 'static,
 {
-    async fn send_unbuffered(self) -> Result<Object> {
+    pub(crate) async fn send_unbuffered(self) -> Result<Object> {
         let hint = self
             .payload
             .lock()
@@ -118,7 +97,7 @@ where
             .header("Content-Range", range)
             .header(
                 "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+                reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
@@ -187,7 +166,7 @@ where
             .query(&[("name", enc(object))])
             .header(
                 "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+                reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
@@ -225,8 +204,12 @@ mod resumable_tests;
 
 #[cfg(test)]
 mod tests {
-    use super::super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
+    use crate::storage::client::{
+        KeyAes256, Storage,
+        tests::{create_key_helper, test_builder, test_inner_client},
+    };
+    use crate::storage::upload_object::UploadObject;
     use crate::upload_source::IterSource;
     use gax::retry_policy::RetryPolicyExt;
     use http_body_util::BodyExt;
