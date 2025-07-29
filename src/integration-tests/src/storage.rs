@@ -658,16 +658,16 @@ pub async fn abort_upload(
     Ok(())
 }
 
-struct AbortUploadTestCase<T, C> {
+struct AbortUploadTestCase {
     name: String,
-    upload: storage::builder::storage::UploadObject<T, C>,
+    upload: storage::builder::storage::UploadObject<TestDataSource>,
 }
 
-fn abort_upload_test_cases<T, C>(
+fn abort_upload_test_cases(
     client: &storage::client::Storage,
     bucket_name: &str,
     prefix: &str,
-) -> Vec<AbortUploadTestCase<T, C>> {
+) -> Vec<AbortUploadTestCase> {
     let sources = [
         (
             "known-size",

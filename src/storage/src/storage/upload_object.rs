@@ -792,6 +792,7 @@ impl<T> UploadObject<T, Null> {
     /// let payload = tokio::fs::File::open("my-data").await?;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .disable_computed_checksums() // override any defaults
     ///     .with_computed_crc32c()
     ///     .send()
     ///     .await?;
@@ -827,29 +828,6 @@ impl<T> UploadObject<T, Null> {
     /// limitations.
     pub fn with_computed_md5(self) -> UploadObject<T, Md5> {
         self.switch_checksum(Md5::from_inner)
-    }
-
-    /// Disables CRC32C checksums and MD5 hashes.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage::client::Storage;
-    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// let payload = tokio::fs::File::open("my-data").await?;
-    /// let response = client
-    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
-    ///     .disable_computed_checksums()
-    ///     .send()
-    ///     .await?;
-    /// println!("response details={response:?}");
-    /// # Ok(()) }
-    /// ```
-    ///
-    /// See [precompute_checksums][UploadObject::precompute_checksums] for more
-    /// details on how checksums are used by the client library and their
-    /// limitations.
-    pub fn disable_computed_checksums(self) -> UploadObject<T, Null> {
-        self.switch_checksum(|_| Null)
     }
 }
 
@@ -911,6 +889,8 @@ impl<T, C> UploadObject<T, Md5<C>> {
     /// let payload = tokio::fs::File::open("my-data").await?;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .disable_computed_checksums() // override any defaults
+    ///     .with_computed_md5()
     ///     .with_computed_crc32c()
     ///     .send()
     ///     .await?;
@@ -1342,7 +1322,6 @@ mod tests {
             .upload_object("my-bucket", "my-object", QUICK)
             .with_computed_md5()
             .disable_computed_checksums()
-            .disable_computed_checksums()
             .precompute_checksums()
             .await?;
         let want = quick_checksum(Null);
@@ -1379,13 +1358,28 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn checksum_both() -> Result {
+    async fn checksum_md5_and_crc32c() -> Result {
         let client = test_builder().build().await?;
         let upload = client
             .upload_object("my-bucket", "my-object", QUICK)
             .disable_computed_checksums()
             .with_computed_md5()
             .with_computed_crc32c()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Crc32c::from_inner(Md5::default()));
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_crc32c_and_md5() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .disable_computed_checksums()
+            .with_computed_crc32c()
+            .with_computed_md5()
             .precompute_checksums()
             .await?;
         let want = quick_checksum(Crc32c::from_inner(Md5::default()));
