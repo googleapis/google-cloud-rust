@@ -59,13 +59,15 @@ pub async fn quickstart(project_id: &str, bucket_id: &str) -> anyhow::Result<()>
     // ANCHOR_END: upload
 
     // ANCHOR: download
-    let contents = client
-        .read_object(&bucket.name, "hello.txt")
-        .send()
-        .await?
-        .all_bytes()
-        .await?;
-    println!("object contents successfully downloaded {contents:?}");
+    let mut reader = client.read_object(&bucket.name, "hello.txt").send().await?;
+    let mut contents = Vec::new();
+    while let Some(chunk) = reader.next().await.transpose()? {
+        contents.extend_from_slice(&chunk);
+    }
+    println!(
+        "object contents successfully downloaded {:?}",
+        bytes::Bytes::from_owner(contents)
+    );
     // ANCHOR_END: download
 
     // ANCHOR: cleanup

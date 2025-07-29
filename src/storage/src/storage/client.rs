@@ -177,13 +177,15 @@ impl Storage {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// let contents = client
+    /// let mut resp = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
-    ///     .await?
-    ///     .all_bytes()
     ///     .await?;
-    /// println!("object contents={contents:?}");
+    /// let mut contents = Vec::new();
+    /// while let Some(chunk) = resp.next().await.transpose()? {
+    ///   contents.extend_from_slice(&chunk);
+    /// }
+    /// println!("object contents={:?}", bytes::Bytes::from_owner(contents));
     /// # Ok(()) }
     /// ```
     pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject

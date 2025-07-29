@@ -140,7 +140,7 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     );
 
     tracing::info!("testing read_object()");
-    let response = client
+    let mut response = client
         .read_object(&bucket.name, &insert.name)
         .send()
         .await?;
@@ -156,7 +156,11 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
         Some(crc32c::crc32c(CONTENTS.as_bytes()))
     );
 
-    let contents = response.all_bytes().await?;
+    let mut contents = Vec::new();
+    while let Some(b) = response.next().await.transpose()? {
+        contents.extend_from_slice(&b);
+    }
+    let contents = bytes::Bytes::from_owner(contents);
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
@@ -209,13 +213,16 @@ pub async fn objects_customer_supplied_encryption(
     tracing::info!("success with insert={insert:?}");
 
     tracing::info!("testing read_object() with key");
-    let contents = client
+    let mut resp = client
         .read_object(&bucket.name, &insert.name)
         .with_key(storage::client::KeyAes256::new(&key)?)
         .send()
-        .await?
-        .all_bytes()
         .await?;
+    let mut contents = Vec::new();
+    while let Some(chunk) = resp.next().await.transpose()? {
+        contents.extend_from_slice(&chunk);
+    }
+    let contents = bytes::Bytes::from(contents);
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
