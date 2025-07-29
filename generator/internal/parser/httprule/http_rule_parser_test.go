@@ -22,7 +22,7 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
-func Test_ParseSegments(t *testing.T) {
+func TestParseSegments(t *testing.T) {
 	tests := []struct {
 		path        string
 		want        *api.PathTemplate
