@@ -451,7 +451,7 @@ impl TryFrom<Timestamp> for chrono::DateTime<chrono::Utc> {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use serde_json::json;
     use test_case::test_case;

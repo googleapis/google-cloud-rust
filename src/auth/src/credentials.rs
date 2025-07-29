@@ -23,13 +23,13 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
 
 pub mod api_key_credentials;
-#[doc(hidden)]
 pub mod external_account;
 pub(crate) mod external_account_sources;
 pub mod impersonated;
 pub(crate) mod internal;
 pub mod mds;
 pub mod service_account;
+pub mod subject_token;
 pub mod user_account;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
@@ -253,19 +253,13 @@ pub(crate) mod dynamic {
     }
 }
 
-#[derive(Debug, Clone)]
-enum CredentialsSource {
-    CredentialsJson(Value),
-    DefaultCredentials,
-}
-
 /// A builder for constructing [`Credentials`] instances.
 ///
-/// By default (using [`Builder::default`]), the builder is configured to load
-/// credentials according to the standard [Application Default Credentials (ADC)][ADC-link]
-/// strategy. ADC is the recommended approach for most applications and conforms to
-/// [AIP-4110]. If you need to load credentials from a non-standard location or source,
-/// you can provide specific credential JSON directly using [`Builder::new`].
+/// This builder loads credentials according to the standard
+/// [Application Default Credentials (ADC)][ADC-link] strategy.
+/// ADC is the recommended approach for most applications and conforms to
+/// [AIP-4110]. If you need to load credentials from a non-standard location
+/// or source, you can use Builders on the specific credential types.
 ///
 /// Common use cases where using ADC would is useful include:
 /// - Your application is deployed to a Google Cloud environment such as
@@ -274,10 +268,10 @@ enum CredentialsSource {
 ///   deployment environments provides a default service account to the
 ///   application, and offers mechanisms to change this default service account
 ///   without any code changes to your application.
-/// - You are testing or developing the application on a workstation (physical or
-///   virtual). These credentials will use your preferences as set with
-///   [gcloud auth application-default]. These preferences can be your own Gooogle
-///   Cloud user credentials, or some service account.
+/// - You are testing or developing the application on a workstation (physical
+///   or virtual). These credentials will use your preferences as set with
+///   [gcloud auth application-default]. These preferences can be your own
+///   Google Cloud user credentials, or some service account.
 /// - Regardless of where your application is running, you can use the
 ///   `GOOGLE_APPLICATION_CREDENTIALS` environment variable to override the
 ///   defaults. This environment variable should point to a file containing a
@@ -288,11 +282,10 @@ enum CredentialsSource {
 /// Authorization HTTP header.
 ///
 /// The Google Cloud client libraries for Rust will typically find and use these
-/// credentials automatically if a credentials file exists in the
-/// standard ADC search paths. You might instantiate these credentials either
-/// via ADC or a specific JSON file, if you need to:
-/// * Override the OAuth 2.0 **scopes** being requested for the access token.
-/// * Override the **quota project ID** for billing and quota management.
+/// credentials automatically if a credentials file exists in the standard ADC
+/// search paths. You might instantiate these credentials if you need to:
+/// - Override the OAuth 2.0 **scopes** being requested for the access token.
+/// - Override the **quota project ID** for billing and quota management.
 ///
 /// # Example: fetching headers using ADC
 /// ```
@@ -308,30 +301,6 @@ enum CredentialsSource {
 /// # });
 /// ```
 ///
-/// # Example: fetching headers using custom JSON
-/// ```
-/// # use google_cloud_auth::credentials::Builder;
-/// # use http::Extensions;
-/// # tokio_test::block_on(async {
-/// # use google_cloud_auth::credentials::Builder;
-/// let authorized_user = serde_json::json!({
-///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com", // Replace with your actual Client ID
-///     "client_secret": "YOUR_CLIENT_SECRET", // Replace with your actual Client Secret - LOAD SECURELY!
-///     "refresh_token": "YOUR_REFRESH_TOKEN", // Replace with the user's refresh token - LOAD SECURELY!
-///     "type": "authorized_user",
-///     // "quota_project_id": "your-billing-project-id", // Optional: Set if needed
-///     // "token_uri" : "test-token-uri", // Optional: Set if needed
-/// });
-///
-/// let creds = Builder::new(authorized_user)
-///     .with_quota_project_id("my-project")
-///     .build()?;
-/// let headers = creds.headers(Extensions::new()).await?;
-/// println!("Headers: {headers:?}");
-/// # Ok::<(), anyhow::Error>(())
-/// # });
-/// ```
-///
 /// [ADC-link]: https://cloud.google.com/docs/authentication/application-default-credentials
 /// [AIP-4110]: https://google.aip.dev/auth/4110
 /// [Cloud Run]: https://cloud.google.com/run
@@ -340,7 +309,6 @@ enum CredentialsSource {
 /// [gke-link]: https://cloud.google.com/kubernetes-engine
 #[derive(Debug)]
 pub struct Builder {
-    credentials_source: CredentialsSource,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
 }
@@ -359,7 +327,6 @@ impl Default for Builder {
     /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
     fn default() -> Self {
         Self {
-            credentials_source: CredentialsSource::DefaultCredentials,
             quota_project_id: None,
             scopes: None,
         }
@@ -367,23 +334,6 @@ impl Default for Builder {
 }
 
 impl Builder {
-    /// Creates a new builder with given credentials json.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_auth::credentials::Builder;
-    /// let authorized_user = serde_json::json!({ /* add details here */ });
-    /// let credentials = Builder::new(authorized_user).build();
-    ///```
-    ///
-    pub fn new(json: serde_json::Value) -> Self {
-        Self {
-            credentials_source: CredentialsSource::CredentialsJson(json),
-            quota_project_id: None,
-            scopes: None,
-        }
-    }
-
     /// Sets the [quota project] for these credentials.
     ///
     /// In some services, you can use an account in one project for authentication
@@ -443,21 +393,17 @@ impl Builder {
     /// # Errors
     ///
     /// Returns a [CredentialsError] if a unsupported credential type is provided
-    /// or if the `json` provided to [Builder::new] cannot be successfully deserialized
-    /// into the expected format. This typically happens if the JSON value is malformed
+    /// or if the JSON value is either malformed
     /// or missing required fields. For more information, on how to generate
     /// json, consult the relevant section in the [application-default credentials] guide.
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
-        let json_data = match self.credentials_source {
-            CredentialsSource::CredentialsJson(json) => Some(json),
-            CredentialsSource::DefaultCredentials => match load_adc()? {
-                AdcContents::Contents(contents) => {
-                    Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
-                }
-                AdcContents::FallbackToMds => None,
-            },
+        let json_data = match load_adc()? {
+            AdcContents::Contents(contents) => {
+                Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
+            }
+            AdcContents::FallbackToMds => None,
         };
         let quota_project_id = std::env::var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR)
             .ok()
@@ -685,18 +631,113 @@ pub mod testing {
 }
 
 #[cfg(test)]
-mod test {
+pub(crate) mod tests {
     use super::*;
     use base64::Engine;
+    use gax::backoff_policy::BackoffPolicy;
+    use gax::retry_policy::RetryPolicy;
+    use gax::retry_result::RetryResult;
+    use gax::retry_throttler::RetryThrottler;
+    use mockall::mock;
     use num_bigint_dig::BigUint;
     use reqwest::header::AUTHORIZATION;
     use rsa::RsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
+    use std::error::Error;
     use std::sync::LazyLock;
     use test_case::test_case;
+    use tokio::time::Duration;
+
+    pub(crate) fn find_source_error<'a, T: Error + 'static>(
+        error: &'a (dyn Error + 'static),
+    ) -> Option<&'a T> {
+        let mut source = error.source();
+        while let Some(err) = source {
+            if let Some(target_err) = err.downcast_ref::<T>() {
+                return Some(target_err);
+            }
+            source = err.source();
+        }
+        None
+    }
+
+    mock! {
+        #[derive(Debug)]
+        pub RetryPolicy {}
+        impl RetryPolicy for RetryPolicy {
+            fn on_error(
+                &self,
+                loop_start: std::time::Instant,
+                attempt_count: u32,
+                idempotent: bool,
+                error: gax::error::Error,
+            ) -> RetryResult;
+        }
+    }
+
+    mock! {
+        #[derive(Debug)]
+        pub BackoffPolicy {}
+        impl BackoffPolicy for BackoffPolicy {
+            fn on_failure(
+                &self,
+                loop_start: std::time::Instant,
+                attempt_count: u32,
+            ) -> std::time::Duration;
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub RetryThrottler {}
+        impl RetryThrottler for RetryThrottler {
+            fn throttle_retry_attempt(&self) -> bool;
+            fn on_retry_failure(&mut self, error: &RetryResult);
+            fn on_success(&mut self);
+        }
+    }
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    pub(crate) fn get_mock_auth_retry_policy(attempts: usize) -> MockRetryPolicy {
+        let mut retry_policy = MockRetryPolicy::new();
+        retry_policy
+            .expect_on_error()
+            .returning(move |_, attempt_count, _, error| {
+                if attempt_count >= attempts as u32 {
+                    return RetryResult::Exhausted(error);
+                }
+                let is_transient = error
+                    .source()
+                    .and_then(|e| e.downcast_ref::<CredentialsError>())
+                    .is_some_and(|ce| ce.is_transient());
+                if is_transient {
+                    RetryResult::Continue(error)
+                } else {
+                    RetryResult::Permanent(error)
+                }
+            });
+        retry_policy
+    }
+
+    pub(crate) fn get_mock_backoff_policy() -> MockBackoffPolicy {
+        let mut backoff_policy = MockBackoffPolicy::new();
+        backoff_policy
+            .expect_on_failure()
+            .return_const(Duration::from_secs(0));
+        backoff_policy
+    }
+
+    pub(crate) fn get_mock_retry_throttler() -> MockRetryThrottler {
+        let mut throttler = MockRetryThrottler::new();
+        throttler.expect_on_retry_failure().return_const(());
+        throttler
+            .expect_throttle_retry_attempt()
+            .return_const(false);
+        throttler.expect_on_success().return_const(());
+        throttler
+    }
 
     pub(crate) fn get_headers_from_cache(
         headers: CacheableResource<HeaderMap>,
@@ -954,7 +995,13 @@ mod test {
 
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
 
-        let sac = Builder::new(service_account_key)
+        let file = tempfile::NamedTempFile::new().unwrap();
+        let path = file.into_temp_path();
+        std::fs::write(&path, service_account_key.to_string())
+            .expect("Unable to write to temporary file.");
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let sac = Builder::default()
             .with_quota_project_id("test-quota-project")
             .with_scopes(scopes)
             .build()

@@ -36,7 +36,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A managed metastore service that serves metadata queries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
     /// Immutable. The relative resource name of the metastore service, in the
@@ -858,6 +858,40 @@ impl serde::ser::Serialize for Service {
     }
 }
 
+impl std::fmt::Debug for Service {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Service");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("endpoint_uri", &self.endpoint_uri);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_message", &self.state_message);
+        debug_struct.field("artifact_gcs_uri", &self.artifact_gcs_uri);
+        debug_struct.field("tier", &self.tier);
+        debug_struct.field("maintenance_window", &self.maintenance_window);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field(
+            "metadata_management_activity",
+            &self.metadata_management_activity,
+        );
+        debug_struct.field("release_channel", &self.release_channel);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        debug_struct.field("network_config", &self.network_config);
+        debug_struct.field("database_type", &self.database_type);
+        debug_struct.field("telemetry_config", &self.telemetry_config);
+        debug_struct.field("scaling_config", &self.scaling_config);
+        debug_struct.field("metastore_config", &self.metastore_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Service].
 pub mod service {
     #[allow(unused_imports)]
@@ -1449,7 +1483,7 @@ pub mod service {
 
 /// Maintenance window. This specifies when Dataproc Metastore
 /// may perform system maintenance operation to the service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenanceWindow {
     /// The hour of day (0-23) when the window starts.
@@ -1636,9 +1670,21 @@ impl serde::ser::Serialize for MaintenanceWindow {
     }
 }
 
+impl std::fmt::Debug for MaintenanceWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaintenanceWindow");
+        debug_struct.field("hour_of_day", &self.hour_of_day);
+        debug_struct.field("day_of_week", &self.day_of_week);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies configuration information specific to running Hive metastore
 /// software as the metastore service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HiveMetastoreConfig {
     /// Immutable. The Hive metastore schema version.
@@ -1925,6 +1971,21 @@ impl serde::ser::Serialize for HiveMetastoreConfig {
     }
 }
 
+impl std::fmt::Debug for HiveMetastoreConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HiveMetastoreConfig");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("config_overrides", &self.config_overrides);
+        debug_struct.field("kerberos_config", &self.kerberos_config);
+        debug_struct.field("endpoint_protocol", &self.endpoint_protocol);
+        debug_struct.field("auxiliary_versions", &self.auxiliary_versions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [HiveMetastoreConfig].
 pub mod hive_metastore_config {
     #[allow(unused_imports)]
@@ -2064,7 +2125,7 @@ pub mod hive_metastore_config {
 }
 
 /// Configuration information for a Kerberos principal.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KerberosConfig {
     /// A Kerberos keytab file that can be used to authenticate a service principal
@@ -2261,8 +2322,21 @@ impl serde::ser::Serialize for KerberosConfig {
     }
 }
 
+impl std::fmt::Debug for KerberosConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KerberosConfig");
+        debug_struct.field("keytab", &self.keytab);
+        debug_struct.field("principal", &self.principal);
+        debug_struct.field("krb5_config_gcs_uri", &self.krb5_config_gcs_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A securely stored value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Secret {
     pub value: std::option::Option<crate::model::secret::Value>,
@@ -2426,6 +2500,17 @@ impl serde::ser::Serialize for Secret {
     }
 }
 
+impl std::fmt::Debug for Secret {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Secret");
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Secret].
 pub mod secret {
     #[allow(unused_imports)]
@@ -2443,7 +2528,7 @@ pub mod secret {
 }
 
 /// Encryption settings for the service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionConfig {
     /// The fully qualified customer provided Cloud KMS key name to use for
@@ -2576,8 +2661,19 @@ impl serde::ser::Serialize for EncryptionConfig {
     }
 }
 
+impl std::fmt::Debug for EncryptionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionConfig");
+        debug_struct.field("kms_key", &self.kms_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration information for the auxiliary service versions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuxiliaryVersionConfig {
     /// The Hive metastore version of the auxiliary service. It must be less
@@ -2784,10 +2880,23 @@ impl serde::ser::Serialize for AuxiliaryVersionConfig {
     }
 }
 
+impl std::fmt::Debug for AuxiliaryVersionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuxiliaryVersionConfig");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("config_overrides", &self.config_overrides);
+        debug_struct.field("network_config", &self.network_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Network configuration for the Dataproc Metastore service.
 ///
 /// Next available ID: 4
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
     /// Immutable. The consumer-side network configuration for the Dataproc
@@ -2924,6 +3033,17 @@ impl serde::ser::Serialize for NetworkConfig {
     }
 }
 
+impl std::fmt::Debug for NetworkConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkConfig");
+        debug_struct.field("consumers", &self.consumers);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NetworkConfig].
 pub mod network_config {
     #[allow(unused_imports)]
@@ -2932,7 +3052,7 @@ pub mod network_config {
     /// Contains information of the customer's network configurations.
     ///
     /// Next available ID: 5
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Consumer {
         /// Output only. The URI of the endpoint used to access the metastore
@@ -3165,6 +3285,19 @@ pub mod network_config {
         }
     }
 
+    impl std::fmt::Debug for Consumer {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Consumer");
+            debug_struct.field("endpoint_uri", &self.endpoint_uri);
+            debug_struct.field("endpoint_location", &self.endpoint_location);
+            debug_struct.field("vpc_resource", &self.vpc_resource);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Consumer].
     pub mod consumer {
         #[allow(unused_imports)]
@@ -3187,7 +3320,7 @@ pub mod network_config {
 }
 
 /// Telemetry Configuration for the Dataproc Metastore service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TelemetryConfig {
     /// The output format of the Dataproc Metastore service's logs.
@@ -3315,6 +3448,17 @@ impl serde::ser::Serialize for TelemetryConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for TelemetryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TelemetryConfig");
+        debug_struct.field("log_format", &self.log_format);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -3456,7 +3600,7 @@ pub mod telemetry_config {
 }
 
 /// The metadata management activities of the metastore service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetadataManagementActivity {
     /// Output only. The latest metadata exports of the metastore service.
@@ -3620,8 +3764,20 @@ impl serde::ser::Serialize for MetadataManagementActivity {
     }
 }
 
+impl std::fmt::Debug for MetadataManagementActivity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetadataManagementActivity");
+        debug_struct.field("metadata_exports", &self.metadata_exports);
+        debug_struct.field("restores", &self.restores);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A metastore resource that imports metadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetadataImport {
     /// Immutable. The relative resource name of the metadata import, of the form:
@@ -3986,6 +4142,23 @@ impl serde::ser::Serialize for MetadataImport {
     }
 }
 
+impl std::fmt::Debug for MetadataImport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetadataImport");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MetadataImport].
 pub mod metadata_import {
     #[allow(unused_imports)]
@@ -3993,7 +4166,7 @@ pub mod metadata_import {
 
     /// A specification of the location of and metadata about a database dump from
     /// a relational database management system.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DatabaseDump {
         /// The type of the database.
@@ -4214,6 +4387,20 @@ pub mod metadata_import {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for DatabaseDump {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DatabaseDump");
+            debug_struct.field("database_type", &self.database_type);
+            debug_struct.field("gcs_uri", &self.gcs_uri);
+            debug_struct.field("source_database", &self.source_database);
+            debug_struct.field("r#type", &self.r#type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -4508,7 +4695,7 @@ pub mod metadata_import {
 }
 
 /// The details of a metadata export operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetadataExport {
     /// Output only. The time when the export started.
@@ -4804,6 +4991,21 @@ impl serde::ser::Serialize for MetadataExport {
     }
 }
 
+impl std::fmt::Debug for MetadataExport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetadataExport");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("database_dump_type", &self.database_dump_type);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MetadataExport].
 pub mod metadata_export {
     #[allow(unused_imports)]
@@ -4967,7 +5169,7 @@ pub mod metadata_export {
 }
 
 /// The details of a backup resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Backup {
     /// Immutable. The relative resource name of the backup, in the following form:
@@ -5282,6 +5484,23 @@ impl serde::ser::Serialize for Backup {
     }
 }
 
+impl std::fmt::Debug for Backup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Backup");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("service_revision", &self.service_revision);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("restoring_services", &self.restoring_services);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Backup].
 pub mod backup {
     #[allow(unused_imports)]
@@ -5442,7 +5661,7 @@ pub mod backup {
 }
 
 /// The details of a metadata restore operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Restore {
     /// Output only. The time when the restore started.
@@ -5717,6 +5936,22 @@ impl serde::ser::Serialize for Restore {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Restore {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Restore");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("details", &self.details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -6005,7 +6240,7 @@ pub mod restore {
 }
 
 /// Represents the scaling configuration of a metastore service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScalingConfig {
     /// Represents either a predetermined instance size or a numeric
@@ -6252,6 +6487,17 @@ impl serde::ser::Serialize for ScalingConfig {
     }
 }
 
+impl std::fmt::Debug for ScalingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScalingConfig");
+        debug_struct.field("scaling_model", &self.scaling_model);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ScalingConfig].
 pub mod scaling_config {
     #[allow(unused_imports)]
@@ -6428,7 +6674,7 @@ pub mod scaling_config {
 /// [DataprocMetastore.ListServices][google.cloud.metastore.v1.DataprocMetastore.ListServices].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.ListServices]: crate::client::DataprocMetastore::list_services
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
     /// Required. The relative resource name of the location of metastore services
@@ -6692,11 +6938,26 @@ impl serde::ser::Serialize for ListServicesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [DataprocMetastore.ListServices][google.cloud.metastore.v1.DataprocMetastore.ListServices].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.ListServices]: crate::client::DataprocMetastore::list_services
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
     /// The services in the specified location.
@@ -6895,11 +7156,24 @@ impl serde::ser::Serialize for ListServicesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesResponse");
+        debug_struct.field("services", &self.services);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.GetService][google.cloud.metastore.v1.DataprocMetastore.GetService].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.GetService]: crate::client::DataprocMetastore::get_service
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRequest {
     /// Required. The relative resource name of the metastore service to retrieve,
@@ -7031,11 +7305,22 @@ impl serde::ser::Serialize for GetServiceRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.CreateService][google.cloud.metastore.v1.DataprocMetastore.CreateService].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.CreateService]: crate::client::DataprocMetastore::create_service
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceRequest {
     /// Required. The relative resource name of the location in which to create a
@@ -7270,11 +7555,25 @@ impl serde::ser::Serialize for CreateServiceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("service_id", &self.service_id);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.UpdateService][google.cloud.metastore.v1.DataprocMetastore.UpdateService].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.UpdateService]: crate::client::DataprocMetastore::update_service
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceRequest {
     /// Required. A field mask used to specify the fields to be overwritten in the
@@ -7493,11 +7792,24 @@ impl serde::ser::Serialize for UpdateServiceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateServiceRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.DeleteService][google.cloud.metastore.v1.DataprocMetastore.DeleteService].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.DeleteService]: crate::client::DataprocMetastore::delete_service
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceRequest {
     /// Required. The relative resource name of the metastore service to delete, in
@@ -7665,11 +7977,23 @@ impl serde::ser::Serialize for DeleteServiceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.ListMetadataImports][google.cloud.metastore.v1.DataprocMetastore.ListMetadataImports].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.ListMetadataImports]: crate::client::DataprocMetastore::list_metadata_imports
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMetadataImportsRequest {
     /// Required. The relative resource name of the service whose metadata imports
@@ -7932,11 +8256,26 @@ impl serde::ser::Serialize for ListMetadataImportsRequest {
     }
 }
 
+impl std::fmt::Debug for ListMetadataImportsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMetadataImportsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [DataprocMetastore.ListMetadataImports][google.cloud.metastore.v1.DataprocMetastore.ListMetadataImports].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.ListMetadataImports]: crate::client::DataprocMetastore::list_metadata_imports
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMetadataImportsResponse {
     /// The imports in the specified service.
@@ -8140,11 +8479,24 @@ impl serde::ser::Serialize for ListMetadataImportsResponse {
     }
 }
 
+impl std::fmt::Debug for ListMetadataImportsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMetadataImportsResponse");
+        debug_struct.field("metadata_imports", &self.metadata_imports);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.GetMetadataImport][google.cloud.metastore.v1.DataprocMetastore.GetMetadataImport].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.GetMetadataImport]: crate::client::DataprocMetastore::get_metadata_import
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMetadataImportRequest {
     /// Required. The relative resource name of the metadata import to retrieve, in
@@ -8276,11 +8628,22 @@ impl serde::ser::Serialize for GetMetadataImportRequest {
     }
 }
 
+impl std::fmt::Debug for GetMetadataImportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMetadataImportRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.CreateMetadataImport][google.cloud.metastore.v1.DataprocMetastore.CreateMetadataImport].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.CreateMetadataImport]: crate::client::DataprocMetastore::create_metadata_import
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMetadataImportRequest {
     /// Required. The relative resource name of the service in which to create a
@@ -8520,11 +8883,25 @@ impl serde::ser::Serialize for CreateMetadataImportRequest {
     }
 }
 
+impl std::fmt::Debug for CreateMetadataImportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMetadataImportRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("metadata_import_id", &self.metadata_import_id);
+        debug_struct.field("metadata_import", &self.metadata_import);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.UpdateMetadataImport][google.cloud.metastore.v1.DataprocMetastore.UpdateMetadataImport].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.UpdateMetadataImport]: crate::client::DataprocMetastore::update_metadata_import
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateMetadataImportRequest {
     /// Required. A field mask used to specify the fields to be overwritten in the
@@ -8745,11 +9122,24 @@ impl serde::ser::Serialize for UpdateMetadataImportRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateMetadataImportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateMetadataImportRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("metadata_import", &self.metadata_import);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.ListBackups][google.cloud.metastore.v1.DataprocMetastore.ListBackups].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.ListBackups]: crate::client::DataprocMetastore::list_backups
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsRequest {
     /// Required. The relative resource name of the service whose backups to
@@ -9012,11 +9402,26 @@ impl serde::ser::Serialize for ListBackupsRequest {
     }
 }
 
+impl std::fmt::Debug for ListBackupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [DataprocMetastore.ListBackups][google.cloud.metastore.v1.DataprocMetastore.ListBackups].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.ListBackups]: crate::client::DataprocMetastore::list_backups
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsResponse {
     /// The backups of the specified service.
@@ -9215,11 +9620,24 @@ impl serde::ser::Serialize for ListBackupsResponse {
     }
 }
 
+impl std::fmt::Debug for ListBackupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBackupsResponse");
+        debug_struct.field("backups", &self.backups);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.GetBackup][google.cloud.metastore.v1.DataprocMetastore.GetBackup].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.GetBackup]: crate::client::DataprocMetastore::get_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupRequest {
     /// Required. The relative resource name of the backup to retrieve, in the
@@ -9351,11 +9769,22 @@ impl serde::ser::Serialize for GetBackupRequest {
     }
 }
 
+impl std::fmt::Debug for GetBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBackupRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.CreateBackup][google.cloud.metastore.v1.DataprocMetastore.CreateBackup].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.CreateBackup]: crate::client::DataprocMetastore::create_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupRequest {
     /// Required. The relative resource name of the service in which to create a
@@ -9589,11 +10018,25 @@ impl serde::ser::Serialize for CreateBackupRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBackupRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("backup_id", &self.backup_id);
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.DeleteBackup][google.cloud.metastore.v1.DataprocMetastore.DeleteBackup].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.DeleteBackup]: crate::client::DataprocMetastore::delete_backup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupRequest {
     /// Required. The relative resource name of the backup to delete, in the
@@ -9761,11 +10204,23 @@ impl serde::ser::Serialize for DeleteBackupRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBackupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBackupRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.ExportMetadata][google.cloud.metastore.v1.DataprocMetastore.ExportMetadata].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.ExportMetadata]: crate::client::DataprocMetastore::export_metadata
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportMetadataRequest {
     /// Required. The relative resource name of the metastore service to run
@@ -10028,6 +10483,20 @@ impl serde::ser::Serialize for ExportMetadataRequest {
     }
 }
 
+impl std::fmt::Debug for ExportMetadataRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportMetadataRequest");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("database_dump_type", &self.database_dump_type);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportMetadataRequest].
 pub mod export_metadata_request {
     #[allow(unused_imports)]
@@ -10045,7 +10514,7 @@ pub mod export_metadata_request {
 }
 
 /// Request message for [DataprocMetastore.Restore][].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreServiceRequest {
     /// Required. The relative resource name of the metastore service to run
@@ -10266,8 +10735,22 @@ impl serde::ser::Serialize for RestoreServiceRequest {
     }
 }
 
+impl std::fmt::Debug for RestoreServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreServiceRequest");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("restore_type", &self.restore_type);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of a long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -10573,8 +11056,25 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata about the service in a location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     /// The versions of Hive Metastore that can be used when creating a new
@@ -10723,13 +11223,27 @@ impl serde::ser::Serialize for LocationMetadata {
     }
 }
 
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+        debug_struct.field(
+            "supported_hive_metastore_versions",
+            &self.supported_hive_metastore_versions,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LocationMetadata].
 pub mod location_metadata {
     #[allow(unused_imports)]
     use super::*;
 
     /// A specification of a supported version of the Hive Metastore software.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HiveMetastoreVersion {
         /// The semantic version of the Hive Metastore software.
@@ -10886,10 +11400,22 @@ pub mod location_metadata {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for HiveMetastoreVersion {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("HiveMetastoreVersion");
+            debug_struct.field("version", &self.version);
+            debug_struct.field("is_default", &self.is_default);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The specification of database dump to import from or export to.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseDumpSpec {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10988,6 +11514,16 @@ impl serde::ser::Serialize for DatabaseDumpSpec {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DatabaseDumpSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseDumpSpec");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -11133,7 +11669,7 @@ pub mod database_dump_spec {
 /// [DataprocMetastore.QueryMetadata][google.cloud.metastore.v1.DataprocMetastore.QueryMetadata].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.QueryMetadata]: crate::client::DataprocMetastore::query_metadata
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryMetadataRequest {
     /// Required. The relative resource name of the metastore service to query
@@ -11290,11 +11826,23 @@ impl serde::ser::Serialize for QueryMetadataRequest {
     }
 }
 
+impl std::fmt::Debug for QueryMetadataRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryMetadataRequest");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("query", &self.query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [DataprocMetastore.QueryMetadata][google.cloud.metastore.v1.DataprocMetastore.QueryMetadata].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.QueryMetadata]: crate::client::DataprocMetastore::query_metadata
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryMetadataResponse {
     /// The manifest URI  is link to a JSON instance in Cloud Storage.
@@ -11430,11 +11978,22 @@ impl serde::ser::Serialize for QueryMetadataResponse {
     }
 }
 
+impl std::fmt::Debug for QueryMetadataResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryMetadataResponse");
+        debug_struct.field("result_manifest_uri", &self.result_manifest_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Error details in public error message for
 /// [DataprocMetastore.QueryMetadata][google.cloud.metastore.v1.DataprocMetastore.QueryMetadata].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.QueryMetadata]: crate::client::DataprocMetastore::query_metadata
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorDetails {
     /// Additional structured details about this error.
@@ -11577,11 +12136,22 @@ impl serde::ser::Serialize for ErrorDetails {
     }
 }
 
+impl std::fmt::Debug for ErrorDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorDetails");
+        debug_struct.field("details", &self.details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.MoveTableToDatabase][google.cloud.metastore.v1.DataprocMetastore.MoveTableToDatabase].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.MoveTableToDatabase]: crate::client::DataprocMetastore::move_table_to_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveTableToDatabaseRequest {
     /// Required. The relative resource name of the metastore service to mutate
@@ -11791,11 +12361,25 @@ impl serde::ser::Serialize for MoveTableToDatabaseRequest {
     }
 }
 
+impl std::fmt::Debug for MoveTableToDatabaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveTableToDatabaseRequest");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("table_name", &self.table_name);
+        debug_struct.field("db_name", &self.db_name);
+        debug_struct.field("destination_db_name", &self.destination_db_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [DataprocMetastore.MoveTableToDatabase][google.cloud.metastore.v1.DataprocMetastore.MoveTableToDatabase].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.MoveTableToDatabase]: crate::client::DataprocMetastore::move_table_to_database
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveTableToDatabaseResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -11897,11 +12481,21 @@ impl serde::ser::Serialize for MoveTableToDatabaseResponse {
     }
 }
 
+impl std::fmt::Debug for MoveTableToDatabaseResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveTableToDatabaseResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DataprocMetastore.AlterMetadataResourceLocation][google.cloud.metastore.v1.DataprocMetastore.AlterMetadataResourceLocation].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.AlterMetadataResourceLocation]: crate::client::DataprocMetastore::alter_metadata_resource_location
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AlterMetadataResourceLocationRequest {
     /// Required. The relative resource name of the metastore service to mutate
@@ -12089,11 +12683,24 @@ impl serde::ser::Serialize for AlterMetadataResourceLocationRequest {
     }
 }
 
+impl std::fmt::Debug for AlterMetadataResourceLocationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AlterMetadataResourceLocationRequest");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("resource_name", &self.resource_name);
+        debug_struct.field("location_uri", &self.location_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [DataprocMetastore.AlterMetadataResourceLocation][google.cloud.metastore.v1.DataprocMetastore.AlterMetadataResourceLocation].
 ///
 /// [google.cloud.metastore.v1.DataprocMetastore.AlterMetadataResourceLocation]: crate::client::DataprocMetastore::alter_metadata_resource_location
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AlterMetadataResourceLocationResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12196,8 +12803,18 @@ impl serde::ser::Serialize for AlterMetadataResourceLocationResponse {
     }
 }
 
+impl std::fmt::Debug for AlterMetadataResourceLocationResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AlterMetadataResourceLocationResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a federation of multiple backend metastores.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Federation {
     /// Immutable. The relative resource name of the federation, of the
@@ -12631,6 +13248,26 @@ impl serde::ser::Serialize for Federation {
     }
 }
 
+impl std::fmt::Debug for Federation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Federation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("backend_metastores", &self.backend_metastores);
+        debug_struct.field("endpoint_uri", &self.endpoint_uri);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_message", &self.state_message);
+        debug_struct.field("uid", &self.uid);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Federation].
 pub mod federation {
     #[allow(unused_imports)]
@@ -12793,7 +13430,7 @@ pub mod federation {
 }
 
 /// Represents a backend metastore for the federation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackendMetastore {
     /// The relative resource name of the metastore that is being federated.
@@ -12961,6 +13598,18 @@ impl serde::ser::Serialize for BackendMetastore {
     }
 }
 
+impl std::fmt::Debug for BackendMetastore {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackendMetastore");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("metastore_type", &self.metastore_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BackendMetastore].
 pub mod backend_metastore {
     #[allow(unused_imports)]
@@ -13100,7 +13749,7 @@ pub mod backend_metastore {
 }
 
 /// Request message for ListFederations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFederationsRequest {
     /// Required. The relative resource name of the location of metastore
@@ -13360,8 +14009,23 @@ impl serde::ser::Serialize for ListFederationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListFederationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFederationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListFederations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFederationsResponse {
     /// The services in the specified location.
@@ -13560,8 +14224,21 @@ impl serde::ser::Serialize for ListFederationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListFederationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFederationsResponse");
+        debug_struct.field("federations", &self.federations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetFederation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFederationRequest {
     /// Required. The relative resource name of the metastore federation to
@@ -13693,8 +14370,19 @@ impl serde::ser::Serialize for GetFederationRequest {
     }
 }
 
+impl std::fmt::Debug for GetFederationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFederationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateFederation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFederationRequest {
     /// Required. The relative resource name of the location in which to create a
@@ -13929,8 +14617,22 @@ impl serde::ser::Serialize for CreateFederationRequest {
     }
 }
 
+impl std::fmt::Debug for CreateFederationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateFederationRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("federation_id", &self.federation_id);
+        debug_struct.field("federation", &self.federation);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateFederation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFederationRequest {
     /// Required. A field mask used to specify the fields to be overwritten in the
@@ -14149,8 +14851,21 @@ impl serde::ser::Serialize for UpdateFederationRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateFederationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFederationRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("federation", &self.federation);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteFederation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFederationRequest {
     /// Required. The relative resource name of the metastore federation to delete,
@@ -14315,5 +15030,17 @@ impl serde::ser::Serialize for DeleteFederationRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DeleteFederationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFederationRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

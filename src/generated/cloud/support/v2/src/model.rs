@@ -33,7 +33,7 @@ extern crate wkt;
 /// An Actor represents an entity that performed an action. For example, an actor
 /// could be a user who posted a comment on a support case, a user who
 /// uploaded an attachment, or a service account that created a support case.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Actor {
     /// The name to display for the actor. If not provided, it is inferred from
@@ -250,6 +250,20 @@ impl serde::ser::Serialize for Actor {
     }
 }
 
+impl std::fmt::Debug for Actor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Actor");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("email", &self.email);
+        debug_struct.field("google_support", &self.google_support);
+        debug_struct.field("username", &self.username);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An Attachment contains metadata about a file that was uploaded to a
 /// case - it is NOT a file itself. That being said, the name of an Attachment
 /// object can be used to download its accompanying file through the
@@ -258,7 +272,7 @@ impl serde::ser::Serialize for Actor {
 /// While attachments can be uploaded in the console at the
 /// same time as a comment, they're associated on a "case" level, not a
 /// "comment" level.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Attachment {
     /// Output only. Identifier. The resource name of the attachment.
@@ -551,8 +565,24 @@ impl serde::ser::Serialize for Attachment {
     }
 }
 
+impl std::fmt::Debug for Attachment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Attachment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("creator", &self.creator);
+        debug_struct.field("filename", &self.filename);
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("size_bytes", &self.size_bytes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListAttachments endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttachmentsRequest {
     /// Required. The name of the case for which attachments should be listed.
@@ -757,8 +787,21 @@ impl serde::ser::Serialize for ListAttachmentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAttachmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAttachmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the ListAttachments endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttachmentsResponse {
     /// The list of attachments associated with a case.
@@ -931,6 +974,18 @@ impl serde::ser::Serialize for ListAttachmentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAttachmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAttachmentsResponse");
+        debug_struct.field("attachments", &self.attachments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Case is an object that contains the details of a support case. It
 /// contains fields for the time it was created, its priority, its
 /// classification, and more. Cases can also have comments and attachments that
@@ -958,7 +1013,7 @@ impl serde::ser::Serialize for ListAttachmentsResponse {
 ///
 /// You can use either of them when calling the API. To learn more
 /// about project identifiers, see [AIP-2510](https://google.aip.dev/cloud/2510).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Case {
     /// Identifier. The resource name for the case.
@@ -1500,6 +1555,34 @@ impl serde::ser::Serialize for Case {
     }
 }
 
+impl std::fmt::Debug for Case {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Case");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("classification", &self.classification);
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field(
+            "subscriber_email_addresses",
+            &self.subscriber_email_addresses,
+        );
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("creator", &self.creator);
+        debug_struct.field("contact_email", &self.contact_email);
+        debug_struct.field("escalated", &self.escalated);
+        debug_struct.field("test_case", &self.test_case);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("priority", &self.priority);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Case].
 pub mod case {
     #[allow(unused_imports)]
@@ -1823,7 +1906,7 @@ pub mod case {
 ///
 /// A classification always has an ID that is its unique identifier.
 /// A valid ID is required when creating a case.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CaseClassification {
     /// The unique ID for a classification. Must be specified for case creation.
@@ -1988,8 +2071,20 @@ impl serde::ser::Serialize for CaseClassification {
     }
 }
 
+impl std::fmt::Debug for CaseClassification {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CaseClassification");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the GetCase endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCaseRequest {
     /// Required. The full name of a case to be retrieved.
@@ -2118,8 +2213,19 @@ impl serde::ser::Serialize for GetCaseRequest {
     }
 }
 
+impl std::fmt::Debug for GetCaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCaseRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the CreateCase endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCaseRequest {
     /// Required. The name of the parent under which the case should be created.
@@ -2283,8 +2389,20 @@ impl serde::ser::Serialize for CreateCaseRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCaseRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("case", &self.case);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListCases endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCasesRequest {
     /// Required. The name of a parent to list cases under.
@@ -2524,8 +2642,22 @@ impl serde::ser::Serialize for ListCasesRequest {
     }
 }
 
+impl std::fmt::Debug for ListCasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the ListCases endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCasesResponse {
     /// The list of cases associated with the parent after any
@@ -2699,8 +2831,20 @@ impl serde::ser::Serialize for ListCasesResponse {
     }
 }
 
+impl std::fmt::Debug for ListCasesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCasesResponse");
+        debug_struct.field("cases", &self.cases);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the SearchCases endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCasesRequest {
     /// The name of the parent resource to search for cases under.
@@ -2954,8 +3098,22 @@ impl serde::ser::Serialize for SearchCasesRequest {
     }
 }
 
+impl std::fmt::Debug for SearchCasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchCasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the SearchCases endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCasesResponse {
     /// The list of cases associated with the parent after any
@@ -3129,8 +3287,20 @@ impl serde::ser::Serialize for SearchCasesResponse {
     }
 }
 
+impl std::fmt::Debug for SearchCasesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchCasesResponse");
+        debug_struct.field("cases", &self.cases);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the EscalateCase endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EscalateCaseRequest {
     /// Required. The name of the case to be escalated.
@@ -3294,8 +3464,20 @@ impl serde::ser::Serialize for EscalateCaseRequest {
     }
 }
 
+impl std::fmt::Debug for EscalateCaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EscalateCaseRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("escalation", &self.escalation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the UpdateCase endpoint
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCaseRequest {
     /// Required. The case to update.
@@ -3478,8 +3660,20 @@ impl serde::ser::Serialize for UpdateCaseRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCaseRequest");
+        debug_struct.field("case", &self.case);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the CloseCase endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloseCaseRequest {
     /// Required. The name of the case to close.
@@ -3608,8 +3802,19 @@ impl serde::ser::Serialize for CloseCaseRequest {
     }
 }
 
+impl std::fmt::Debug for CloseCaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloseCaseRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the SearchCaseClassifications endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCaseClassificationsRequest {
     /// An expression used to filter case classifications.
@@ -3810,8 +4015,21 @@ impl serde::ser::Serialize for SearchCaseClassificationsRequest {
     }
 }
 
+impl std::fmt::Debug for SearchCaseClassificationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchCaseClassificationsRequest");
+        debug_struct.field("query", &self.query);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for SearchCaseClassifications endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCaseClassificationsResponse {
     /// The classifications retrieved.
@@ -3989,12 +4207,24 @@ impl serde::ser::Serialize for SearchCaseClassificationsResponse {
     }
 }
 
+impl std::fmt::Debug for SearchCaseClassificationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchCaseClassificationsResponse");
+        debug_struct.field("case_classifications", &self.case_classifications);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A comment associated with a support case.
 ///
 /// Case comments are the primary way for Google Support to communicate with a
 /// user who has opened a case. When a user responds to Google Support, the
 /// user's responses also appear as comments.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Comment {
     /// Output only. Identifier. The resource name of the comment.
@@ -4251,8 +4481,23 @@ impl serde::ser::Serialize for Comment {
     }
 }
 
+impl std::fmt::Debug for Comment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Comment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("creator", &self.creator);
+        debug_struct.field("body", &self.body);
+        debug_struct.field("plain_text_body", &self.plain_text_body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the ListComments endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCommentsRequest {
     /// Required. The name of the case for which to list comments.
@@ -4450,8 +4695,21 @@ impl serde::ser::Serialize for ListCommentsRequest {
     }
 }
 
+impl std::fmt::Debug for ListCommentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCommentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for the ListComments endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCommentsResponse {
     /// List of the comments associated with the case.
@@ -4624,8 +4882,20 @@ impl serde::ser::Serialize for ListCommentsResponse {
     }
 }
 
+impl std::fmt::Debug for ListCommentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCommentsResponse");
+        debug_struct.field("comments", &self.comments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the CreateComment endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCommentRequest {
     /// Required. The name of the case to which the comment should be added.
@@ -4789,8 +5059,20 @@ impl serde::ser::Serialize for CreateCommentRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCommentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCommentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("comment", &self.comment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An escalation of a support case.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Escalation {
     /// Required. The reason why the Case is being escalated.
@@ -4942,6 +5224,18 @@ impl serde::ser::Serialize for Escalation {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Escalation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Escalation");
+        debug_struct.field("reason", &self.reason);
+        debug_struct.field("justification", &self.justification);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

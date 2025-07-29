@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Describes an autoscaling policy for Dataproc cluster autoscaler.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoscalingPolicy {
     /// Required. The policy id.
@@ -393,6 +393,22 @@ impl serde::ser::Serialize for AutoscalingPolicy {
     }
 }
 
+impl std::fmt::Debug for AutoscalingPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutoscalingPolicy");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("worker_config", &self.worker_config);
+        debug_struct.field("secondary_worker_config", &self.secondary_worker_config);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("algorithm", &self.algorithm);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AutoscalingPolicy].
 pub mod autoscaling_policy {
     #[allow(unused_imports)]
@@ -407,7 +423,7 @@ pub mod autoscaling_policy {
 }
 
 /// Basic algorithm for autoscaling.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BasicAutoscalingAlgorithm {
     /// Optional. Duration between scaling events. A scaling period starts after
@@ -625,6 +641,18 @@ impl serde::ser::Serialize for BasicAutoscalingAlgorithm {
     }
 }
 
+impl std::fmt::Debug for BasicAutoscalingAlgorithm {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BasicAutoscalingAlgorithm");
+        debug_struct.field("cooldown_period", &self.cooldown_period);
+        debug_struct.field("config", &self.config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BasicAutoscalingAlgorithm].
 pub mod basic_autoscaling_algorithm {
     #[allow(unused_imports)]
@@ -639,7 +667,7 @@ pub mod basic_autoscaling_algorithm {
 }
 
 /// Basic autoscaling configurations for YARN.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BasicYarnAutoscalingConfig {
     /// Required. Timeout for YARN graceful decommissioning of Node Managers.
@@ -1015,9 +1043,33 @@ impl serde::ser::Serialize for BasicYarnAutoscalingConfig {
     }
 }
 
+impl std::fmt::Debug for BasicYarnAutoscalingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BasicYarnAutoscalingConfig");
+        debug_struct.field(
+            "graceful_decommission_timeout",
+            &self.graceful_decommission_timeout,
+        );
+        debug_struct.field("scale_up_factor", &self.scale_up_factor);
+        debug_struct.field("scale_down_factor", &self.scale_down_factor);
+        debug_struct.field(
+            "scale_up_min_worker_fraction",
+            &self.scale_up_min_worker_fraction,
+        );
+        debug_struct.field(
+            "scale_down_min_worker_fraction",
+            &self.scale_down_min_worker_fraction,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for the size bounds of an instance group, including its
 /// proportional size to other groups.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceGroupAutoscalingPolicyConfig {
     /// Optional. Minimum number of instances for this group.
@@ -1277,8 +1329,21 @@ impl serde::ser::Serialize for InstanceGroupAutoscalingPolicyConfig {
     }
 }
 
+impl std::fmt::Debug for InstanceGroupAutoscalingPolicyConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupAutoscalingPolicyConfig");
+        debug_struct.field("min_instances", &self.min_instances);
+        debug_struct.field("max_instances", &self.max_instances);
+        debug_struct.field("weight", &self.weight);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to create an autoscaling policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAutoscalingPolicyRequest {
     /// Required. The "resource name" of the region or location, as described
@@ -1453,8 +1518,20 @@ impl serde::ser::Serialize for CreateAutoscalingPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAutoscalingPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAutoscalingPolicyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("policy", &self.policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to fetch an autoscaling policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAutoscalingPolicyRequest {
     /// Required. The "resource name" of the autoscaling policy, as described
@@ -1593,8 +1670,19 @@ impl serde::ser::Serialize for GetAutoscalingPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetAutoscalingPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAutoscalingPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to update an autoscaling policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAutoscalingPolicyRequest {
     /// Required. The updated autoscaling policy.
@@ -1735,10 +1823,21 @@ impl serde::ser::Serialize for UpdateAutoscalingPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAutoscalingPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAutoscalingPolicyRequest");
+        debug_struct.field("policy", &self.policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete an autoscaling policy.
 ///
 /// Autoscaling policies in use by one or more clusters will not be deleted.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAutoscalingPolicyRequest {
     /// Required. The "resource name" of the autoscaling policy, as described
@@ -1877,8 +1976,19 @@ impl serde::ser::Serialize for DeleteAutoscalingPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAutoscalingPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAutoscalingPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list autoscaling policies in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutoscalingPoliciesRequest {
     /// Required. The "resource name" of the region or location, as described
@@ -2087,8 +2197,21 @@ impl serde::ser::Serialize for ListAutoscalingPoliciesRequest {
     }
 }
 
+impl std::fmt::Debug for ListAutoscalingPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAutoscalingPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to a request to list autoscaling policies in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutoscalingPoliciesResponse {
     /// Output only. Autoscaling policies list.
@@ -2264,8 +2387,20 @@ impl serde::ser::Serialize for ListAutoscalingPoliciesResponse {
     }
 }
 
+impl std::fmt::Debug for ListAutoscalingPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAutoscalingPoliciesResponse");
+        debug_struct.field("policies", &self.policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to create a batch workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBatchRequest {
     /// Required. The parent resource where this batch will be created.
@@ -2493,8 +2628,22 @@ impl serde::ser::Serialize for CreateBatchRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBatchRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBatchRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("batch", &self.batch);
+        debug_struct.field("batch_id", &self.batch_id);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get the resource representation for a batch workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBatchRequest {
     /// Required. The fully qualified name of the batch to retrieve
@@ -2625,8 +2774,19 @@ impl serde::ser::Serialize for GetBatchRequest {
     }
 }
 
+impl std::fmt::Debug for GetBatchRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBatchRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list batch workloads in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBatchesRequest {
     /// Required. The parent, which owns this collection of batches.
@@ -2891,8 +3051,23 @@ impl serde::ser::Serialize for ListBatchesRequest {
     }
 }
 
+impl std::fmt::Debug for ListBatchesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBatchesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A list of batch workloads.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBatchesResponse {
     /// The batches from the specified collection.
@@ -3093,8 +3268,21 @@ impl serde::ser::Serialize for ListBatchesResponse {
     }
 }
 
+impl std::fmt::Debug for ListBatchesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBatchesResponse");
+        debug_struct.field("batches", &self.batches);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete a batch workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBatchRequest {
     /// Required. The fully qualified name of the batch to retrieve
@@ -3225,8 +3413,19 @@ impl serde::ser::Serialize for DeleteBatchRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBatchRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBatchRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A representation of a batch workload in the service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Batch {
     /// Output only. The resource name of the batch.
@@ -3961,13 +4160,37 @@ impl serde::ser::Serialize for Batch {
     }
 }
 
+impl std::fmt::Debug for Batch {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Batch");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uuid", &self.uuid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("runtime_info", &self.runtime_info);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_message", &self.state_message);
+        debug_struct.field("state_time", &self.state_time);
+        debug_struct.field("creator", &self.creator);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("runtime_config", &self.runtime_config);
+        debug_struct.field("environment_config", &self.environment_config);
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("state_history", &self.state_history);
+        debug_struct.field("batch_config", &self.batch_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Batch].
 pub mod batch {
     #[allow(unused_imports)]
     use super::*;
 
     /// Historical state information.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StateHistory {
         /// Output only. The state of the batch at this point in history.
@@ -4167,6 +4390,19 @@ pub mod batch {
         }
     }
 
+    impl std::fmt::Debug for StateHistory {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StateHistory");
+            debug_struct.field("state", &self.state);
+            debug_struct.field("state_message", &self.state_message);
+            debug_struct.field("state_start_time", &self.state_start_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The batch state.
     ///
     /// # Working with unknown values
@@ -4346,7 +4582,7 @@ pub mod batch {
 /// [Apache
 /// PySpark](https://spark.apache.org/docs/latest/api/python/getting_started/quickstart.html)
 /// batch workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PySparkBatch {
     /// Required. The HCFS URI of the main Python file to use as the Spark driver.
@@ -4626,9 +4862,25 @@ impl serde::ser::Serialize for PySparkBatch {
     }
 }
 
+impl std::fmt::Debug for PySparkBatch {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PySparkBatch");
+        debug_struct.field("main_python_file_uri", &self.main_python_file_uri);
+        debug_struct.field("args", &self.args);
+        debug_struct.field("python_file_uris", &self.python_file_uris);
+        debug_struct.field("jar_file_uris", &self.jar_file_uris);
+        debug_struct.field("file_uris", &self.file_uris);
+        debug_struct.field("archive_uris", &self.archive_uris);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A configuration for running an [Apache Spark](https://spark.apache.org/)
 /// batch workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkBatch {
     /// Optional. The arguments to pass to the driver. Do not include arguments
@@ -4966,6 +5218,21 @@ impl serde::ser::Serialize for SparkBatch {
     }
 }
 
+impl std::fmt::Debug for SparkBatch {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SparkBatch");
+        debug_struct.field("args", &self.args);
+        debug_struct.field("jar_file_uris", &self.jar_file_uris);
+        debug_struct.field("file_uris", &self.file_uris);
+        debug_struct.field("archive_uris", &self.archive_uris);
+        debug_struct.field("driver", &self.driver);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SparkBatch].
 pub mod spark_batch {
     #[allow(unused_imports)]
@@ -4990,7 +5257,7 @@ pub mod spark_batch {
 /// A configuration for running an
 /// [Apache SparkR](https://spark.apache.org/docs/latest/sparkr.html)
 /// batch workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkRBatch {
     /// Required. The HCFS URI of the main R file to use as the driver.
@@ -5209,10 +5476,24 @@ impl serde::ser::Serialize for SparkRBatch {
     }
 }
 
+impl std::fmt::Debug for SparkRBatch {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SparkRBatch");
+        debug_struct.field("main_r_file_uri", &self.main_r_file_uri);
+        debug_struct.field("args", &self.args);
+        debug_struct.field("file_uris", &self.file_uris);
+        debug_struct.field("archive_uris", &self.archive_uris);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A configuration for running
 /// [Apache Spark SQL](https://spark.apache.org/sql/) queries as a batch
 /// workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkSqlBatch {
     /// Required. The HCFS URI of the script that contains Spark SQL queries to
@@ -5408,9 +5689,22 @@ impl serde::ser::Serialize for SparkSqlBatch {
     }
 }
 
+impl std::fmt::Debug for SparkSqlBatch {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SparkSqlBatch");
+        debug_struct.field("query_file_uri", &self.query_file_uri);
+        debug_struct.field("query_variables", &self.query_variables);
+        debug_struct.field("jar_file_uris", &self.jar_file_uris);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes the identifying information, config, and status of
 /// a Dataproc cluster
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cluster {
     /// Required. The Google Cloud Platform project ID that the cluster belongs to.
@@ -5823,10 +6117,32 @@ impl serde::ser::Serialize for Cluster {
     }
 }
 
+impl std::fmt::Debug for Cluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Cluster");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("virtual_cluster_config", &self.virtual_cluster_config);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("status_history", &self.status_history);
+        debug_struct.field("cluster_uuid", &self.cluster_uuid);
+        debug_struct.field("metrics", &self.metrics);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The cluster config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterConfig {
+    /// Optional. The cluster tier.
+    pub cluster_tier: crate::model::cluster_config::ClusterTier,
+
     /// Optional. A Cloud Storage bucket used to stage job
     /// dependencies, config files, and job driver console output.
     /// If you do not specify a staging bucket, Cloud
@@ -5920,6 +6236,15 @@ pub struct ClusterConfig {
 impl ClusterConfig {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [cluster_tier][crate::model::ClusterConfig::cluster_tier].
+    pub fn set_cluster_tier<T: std::convert::Into<crate::model::cluster_config::ClusterTier>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cluster_tier = v.into();
+        self
     }
 
     /// Sets the value of [config_bucket][crate::model::ClusterConfig::config_bucket].
@@ -6189,6 +6514,7 @@ impl<'de> serde::de::Deserialize<'de> for ClusterConfig {
         #[doc(hidden)]
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
+            __cluster_tier,
             __config_bucket,
             __temp_bucket,
             __gce_cluster_config,
@@ -6225,6 +6551,8 @@ impl<'de> serde::de::Deserialize<'de> for ClusterConfig {
                         use std::result::Result::Ok;
                         use std::string::ToString;
                         match value {
+                            "clusterTier" => Ok(__FieldTag::__cluster_tier),
+                            "cluster_tier" => Ok(__FieldTag::__cluster_tier),
                             "configBucket" => Ok(__FieldTag::__config_bucket),
                             "config_bucket" => Ok(__FieldTag::__config_bucket),
                             "tempBucket" => Ok(__FieldTag::__temp_bucket),
@@ -6282,6 +6610,14 @@ impl<'de> serde::de::Deserialize<'de> for ClusterConfig {
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::__cluster_tier => {
+                            if !fields.insert(__FieldTag::__cluster_tier) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cluster_tier",
+                                ));
+                            }
+                            result.cluster_tier = map.next_value::<std::option::Option<crate::model::cluster_config::ClusterTier>>()?.unwrap_or_default();
+                        }
                         __FieldTag::__config_bucket => {
                             if !fields.insert(__FieldTag::__config_bucket) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -6465,6 +6801,9 @@ impl serde::ser::Serialize for ClusterConfig {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.cluster_tier) {
+            state.serialize_entry("clusterTier", &self.cluster_tier)?;
+        }
         if !self.config_bucket.is_empty() {
             state.serialize_entry("configBucket", &self.config_bucket)?;
         }
@@ -6522,10 +6861,175 @@ impl serde::ser::Serialize for ClusterConfig {
     }
 }
 
+impl std::fmt::Debug for ClusterConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClusterConfig");
+        debug_struct.field("cluster_tier", &self.cluster_tier);
+        debug_struct.field("config_bucket", &self.config_bucket);
+        debug_struct.field("temp_bucket", &self.temp_bucket);
+        debug_struct.field("gce_cluster_config", &self.gce_cluster_config);
+        debug_struct.field("master_config", &self.master_config);
+        debug_struct.field("worker_config", &self.worker_config);
+        debug_struct.field("secondary_worker_config", &self.secondary_worker_config);
+        debug_struct.field("software_config", &self.software_config);
+        debug_struct.field("initialization_actions", &self.initialization_actions);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        debug_struct.field("autoscaling_config", &self.autoscaling_config);
+        debug_struct.field("security_config", &self.security_config);
+        debug_struct.field("lifecycle_config", &self.lifecycle_config);
+        debug_struct.field("endpoint_config", &self.endpoint_config);
+        debug_struct.field("metastore_config", &self.metastore_config);
+        debug_struct.field("dataproc_metric_config", &self.dataproc_metric_config);
+        debug_struct.field("auxiliary_node_groups", &self.auxiliary_node_groups);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [ClusterConfig].
+pub mod cluster_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The cluster tier.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ClusterTier {
+        /// Not set. Works the same as CLUSTER_TIER_STANDARD.
+        Unspecified,
+        /// Standard Dataproc cluster.
+        Standard,
+        /// Premium Dataproc cluster.
+        Premium,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ClusterTier::value] or
+        /// [ClusterTier::name].
+        UnknownValue(cluster_tier::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod cluster_tier {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ClusterTier {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Standard => std::option::Option::Some(1),
+                Self::Premium => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CLUSTER_TIER_UNSPECIFIED"),
+                Self::Standard => std::option::Option::Some("CLUSTER_TIER_STANDARD"),
+                Self::Premium => std::option::Option::Some("CLUSTER_TIER_PREMIUM"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ClusterTier {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ClusterTier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ClusterTier {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Standard,
+                2 => Self::Premium,
+                _ => Self::UnknownValue(cluster_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ClusterTier {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CLUSTER_TIER_UNSPECIFIED" => Self::Unspecified,
+                "CLUSTER_TIER_STANDARD" => Self::Standard,
+                "CLUSTER_TIER_PREMIUM" => Self::Premium,
+                _ => Self::UnknownValue(cluster_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ClusterTier {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Standard => serializer.serialize_i32(1),
+                Self::Premium => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ClusterTier {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClusterTier>::new(
+                ".google.cloud.dataproc.v1.ClusterConfig.ClusterTier",
+            ))
+        }
+    }
+}
+
 /// The Dataproc cluster config for a cluster that does not directly control the
 /// underlying compute resources, such as a [Dataproc-on-GKE
 /// cluster](https://cloud.google.com/dataproc/docs/guides/dpgke/dataproc-gke-overview).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VirtualClusterConfig {
     /// Optional. A Cloud Storage bucket used to stage job
@@ -6785,6 +7289,19 @@ impl serde::ser::Serialize for VirtualClusterConfig {
     }
 }
 
+impl std::fmt::Debug for VirtualClusterConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VirtualClusterConfig");
+        debug_struct.field("staging_bucket", &self.staging_bucket);
+        debug_struct.field("auxiliary_services_config", &self.auxiliary_services_config);
+        debug_struct.field("infrastructure_config", &self.infrastructure_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VirtualClusterConfig].
 pub mod virtual_cluster_config {
     #[allow(unused_imports)]
@@ -6800,7 +7317,7 @@ pub mod virtual_cluster_config {
 }
 
 /// Auxiliary services configuration for a Cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuxiliaryServicesConfig {
     /// Optional. The Hive Metastore configuration for this workload.
@@ -6985,8 +7502,23 @@ impl serde::ser::Serialize for AuxiliaryServicesConfig {
     }
 }
 
+impl std::fmt::Debug for AuxiliaryServicesConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuxiliaryServicesConfig");
+        debug_struct.field("metastore_config", &self.metastore_config);
+        debug_struct.field(
+            "spark_history_server_config",
+            &self.spark_history_server_config,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Endpoint config for this cluster
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EndpointConfig {
     /// Output only. The map of port descriptions to URLs. Will only be populated
@@ -7154,8 +7686,20 @@ impl serde::ser::Serialize for EndpointConfig {
     }
 }
 
+impl std::fmt::Debug for EndpointConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EndpointConfig");
+        debug_struct.field("http_ports", &self.http_ports);
+        debug_struct.field("enable_http_port_access", &self.enable_http_port_access);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Autoscaling Policy config associated with the cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoscalingConfig {
     /// Optional. The autoscaling policy used by the cluster.
@@ -7293,8 +7837,19 @@ impl serde::ser::Serialize for AutoscalingConfig {
     }
 }
 
+impl std::fmt::Debug for AutoscalingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutoscalingConfig");
+        debug_struct.field("policy_uri", &self.policy_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encryption settings for the cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionConfig {
     /// Optional. The Cloud KMS key resource name to use for persistent disk
@@ -7481,9 +8036,21 @@ impl serde::ser::Serialize for EncryptionConfig {
     }
 }
 
+impl std::fmt::Debug for EncryptionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionConfig");
+        debug_struct.field("gce_pd_kms_key_name", &self.gce_pd_kms_key_name);
+        debug_struct.field("kms_key", &self.kms_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Common config settings for resources of Compute Engine cluster
 /// instances, applicable to all instances in the cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GceClusterConfig {
     /// Optional. The Compute Engine zone where the Dataproc cluster will be
@@ -8074,6 +8641,35 @@ impl serde::ser::Serialize for GceClusterConfig {
     }
 }
 
+impl std::fmt::Debug for GceClusterConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GceClusterConfig");
+        debug_struct.field("zone_uri", &self.zone_uri);
+        debug_struct.field("network_uri", &self.network_uri);
+        debug_struct.field("subnetwork_uri", &self.subnetwork_uri);
+        debug_struct.field("internal_ip_only", &self.internal_ip_only);
+        debug_struct.field(
+            "private_ipv6_google_access",
+            &self.private_ipv6_google_access,
+        );
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("service_account_scopes", &self.service_account_scopes);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("reservation_affinity", &self.reservation_affinity);
+        debug_struct.field("node_group_affinity", &self.node_group_affinity);
+        debug_struct.field("shielded_instance_config", &self.shielded_instance_config);
+        debug_struct.field(
+            "confidential_instance_config",
+            &self.confidential_instance_config,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GceClusterConfig].
 pub mod gce_cluster_config {
     #[allow(unused_imports)]
@@ -8240,7 +8836,7 @@ pub mod gce_cluster_config {
 /// Dataproc [NodeGroup][google.cloud.dataproc.v1.NodeGroup] resource.**
 ///
 /// [google.cloud.dataproc.v1.NodeGroup]: crate::model::NodeGroup
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeGroupAffinity {
     /// Required. The URI of a
@@ -8379,9 +8975,20 @@ impl serde::ser::Serialize for NodeGroupAffinity {
     }
 }
 
+impl std::fmt::Debug for NodeGroupAffinity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeGroupAffinity");
+        debug_struct.field("node_group_uri", &self.node_group_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Shielded Instance Config for clusters using [Compute Engine Shielded
 /// VMs](https://cloud.google.com/security/shielded-cloud/shielded-vm).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShieldedInstanceConfig {
     /// Optional. Defines whether instances have Secure Boot enabled.
@@ -8600,9 +9207,25 @@ impl serde::ser::Serialize for ShieldedInstanceConfig {
     }
 }
 
+impl std::fmt::Debug for ShieldedInstanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShieldedInstanceConfig");
+        debug_struct.field("enable_secure_boot", &self.enable_secure_boot);
+        debug_struct.field("enable_vtpm", &self.enable_vtpm);
+        debug_struct.field(
+            "enable_integrity_monitoring",
+            &self.enable_integrity_monitoring,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Confidential Instance Config for clusters using [Confidential
 /// VMs](https://cloud.google.com/compute/confidential-vm/docs)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfidentialInstanceConfig {
     /// Optional. Defines whether the instance should have confidential compute
@@ -8740,9 +9363,23 @@ impl serde::ser::Serialize for ConfidentialInstanceConfig {
     }
 }
 
+impl std::fmt::Debug for ConfidentialInstanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfidentialInstanceConfig");
+        debug_struct.field(
+            "enable_confidential_compute",
+            &self.enable_confidential_compute,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The config settings for Compute Engine resources in
 /// an instance group, such as a master or worker group.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceGroupConfig {
     /// Optional. The number of VM instances in the instance group.
@@ -9376,6 +10013,33 @@ impl serde::ser::Serialize for InstanceGroupConfig {
     }
 }
 
+impl std::fmt::Debug for InstanceGroupConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupConfig");
+        debug_struct.field("num_instances", &self.num_instances);
+        debug_struct.field("instance_names", &self.instance_names);
+        debug_struct.field("instance_references", &self.instance_references);
+        debug_struct.field("image_uri", &self.image_uri);
+        debug_struct.field("machine_type_uri", &self.machine_type_uri);
+        debug_struct.field("disk_config", &self.disk_config);
+        debug_struct.field("is_preemptible", &self.is_preemptible);
+        debug_struct.field("preemptibility", &self.preemptibility);
+        debug_struct.field("managed_group_config", &self.managed_group_config);
+        debug_struct.field("accelerators", &self.accelerators);
+        debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
+        debug_struct.field("min_num_instances", &self.min_num_instances);
+        debug_struct.field(
+            "instance_flexibility_policy",
+            &self.instance_flexibility_policy,
+        );
+        debug_struct.field("startup_config", &self.startup_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InstanceGroupConfig].
 pub mod instance_group_config {
     #[allow(unused_imports)]
@@ -9539,7 +10203,7 @@ pub mod instance_group_config {
 
 /// Configuration to handle the startup of instances during cluster create and
 /// update process.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartupConfig {
     /// Optional. The config setting to enable cluster creation/ updation to be
@@ -9716,8 +10380,22 @@ impl serde::ser::Serialize for StartupConfig {
     }
 }
 
+impl std::fmt::Debug for StartupConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartupConfig");
+        debug_struct.field(
+            "required_registration_fraction",
+            &self.required_registration_fraction,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A reference to a Compute Engine instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceReference {
     /// The user-friendly name of the Compute Engine instance.
@@ -9925,8 +10603,22 @@ impl serde::ser::Serialize for InstanceReference {
     }
 }
 
+impl std::fmt::Debug for InstanceReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceReference");
+        debug_struct.field("instance_name", &self.instance_name);
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("public_key", &self.public_key);
+        debug_struct.field("public_ecies_key", &self.public_ecies_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the resources used to actively manage an instance group.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedGroupConfig {
     /// Output only. The name of the Instance Template used for the Managed
@@ -10128,9 +10820,28 @@ impl serde::ser::Serialize for ManagedGroupConfig {
     }
 }
 
+impl std::fmt::Debug for ManagedGroupConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedGroupConfig");
+        debug_struct.field("instance_template_name", &self.instance_template_name);
+        debug_struct.field(
+            "instance_group_manager_name",
+            &self.instance_group_manager_name,
+        );
+        debug_struct.field(
+            "instance_group_manager_uri",
+            &self.instance_group_manager_uri,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Instance flexibility Policy allowing a mixture of VM shapes and provisioning
 /// models.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceFlexibilityPolicy {
     /// Optional. Defines how the Group selects the provisioning model to ensure
@@ -10337,6 +11048,22 @@ impl serde::ser::Serialize for InstanceFlexibilityPolicy {
     }
 }
 
+impl std::fmt::Debug for InstanceFlexibilityPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceFlexibilityPolicy");
+        debug_struct.field("provisioning_model_mix", &self.provisioning_model_mix);
+        debug_struct.field("instance_selection_list", &self.instance_selection_list);
+        debug_struct.field(
+            "instance_selection_results",
+            &self.instance_selection_results,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InstanceFlexibilityPolicy].
 pub mod instance_flexibility_policy {
     #[allow(unused_imports)]
@@ -10344,7 +11071,7 @@ pub mod instance_flexibility_policy {
 
     /// Defines how Dataproc should create VMs with a mixture of provisioning
     /// models.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProvisioningModelMix {
         /// Optional. The base capacity that will always use Standard VMs to avoid
@@ -10596,8 +11323,23 @@ pub mod instance_flexibility_policy {
         }
     }
 
+    impl std::fmt::Debug for ProvisioningModelMix {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ProvisioningModelMix");
+            debug_struct.field("standard_capacity_base", &self.standard_capacity_base);
+            debug_struct.field(
+                "standard_capacity_percent_above_base",
+                &self.standard_capacity_percent_above_base,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines machines types and a rank to which the machines types belong.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InstanceSelection {
         /// Optional. Full machine-type names, e.g. "n1-standard-16".
@@ -10779,9 +11521,21 @@ pub mod instance_flexibility_policy {
         }
     }
 
+    impl std::fmt::Debug for InstanceSelection {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InstanceSelection");
+            debug_struct.field("machine_types", &self.machine_types);
+            debug_struct.field("rank", &self.rank);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines a mapping from machine types to the number of VMs that are created
     /// with each machine type.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InstanceSelectionResult {
         /// Output only. Full machine-type names, e.g. "n1-standard-16".
@@ -10981,12 +11735,24 @@ pub mod instance_flexibility_policy {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for InstanceSelectionResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InstanceSelectionResult");
+            debug_struct.field("machine_type", &self.machine_type);
+            debug_struct.field("vm_count", &self.vm_count);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Specifies the type and number of accelerator cards attached to the instances
 /// of an instance. See [GPUs on Compute
 /// Engine](https://cloud.google.com/compute/docs/gpus/).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcceleratorConfig {
     /// Full URL, partial URI, or short name of the accelerator type resource to
@@ -11178,8 +11944,20 @@ impl serde::ser::Serialize for AcceleratorConfig {
     }
 }
 
+impl std::fmt::Debug for AcceleratorConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcceleratorConfig");
+        debug_struct.field("accelerator_type_uri", &self.accelerator_type_uri);
+        debug_struct.field("accelerator_count", &self.accelerator_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the config of disk options for a group of VM instances.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiskConfig {
     /// Optional. Type of the boot disk (default is "pd-standard").
@@ -11577,8 +12355,30 @@ impl serde::ser::Serialize for DiskConfig {
     }
 }
 
+impl std::fmt::Debug for DiskConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiskConfig");
+        debug_struct.field("boot_disk_type", &self.boot_disk_type);
+        debug_struct.field("boot_disk_size_gb", &self.boot_disk_size_gb);
+        debug_struct.field("num_local_ssds", &self.num_local_ssds);
+        debug_struct.field("local_ssd_interface", &self.local_ssd_interface);
+        debug_struct.field(
+            "boot_disk_provisioned_iops",
+            &self.boot_disk_provisioned_iops,
+        );
+        debug_struct.field(
+            "boot_disk_provisioned_throughput",
+            &self.boot_disk_provisioned_throughput,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Node group identification and configuration information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuxiliaryNodeGroup {
     /// Required. Node group configuration.
@@ -11748,13 +12548,25 @@ impl serde::ser::Serialize for AuxiliaryNodeGroup {
     }
 }
 
+impl std::fmt::Debug for AuxiliaryNodeGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuxiliaryNodeGroup");
+        debug_struct.field("node_group", &self.node_group);
+        debug_struct.field("node_group_id", &self.node_group_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Dataproc Node Group.
 /// **The Dataproc `NodeGroup` resource is not related to the
 /// Dataproc [NodeGroupAffinity][google.cloud.dataproc.v1.NodeGroupAffinity]
 /// resource.**
 ///
 /// [google.cloud.dataproc.v1.NodeGroupAffinity]: crate::model::NodeGroupAffinity
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeGroup {
     /// The Node group [resource name](https://aip.dev/122).
@@ -11992,6 +12804,20 @@ impl serde::ser::Serialize for NodeGroup {
     }
 }
 
+impl std::fmt::Debug for NodeGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeGroup");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("roles", &self.roles);
+        debug_struct.field("node_group_config", &self.node_group_config);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NodeGroup].
 pub mod node_group {
     #[allow(unused_imports)]
@@ -12125,7 +12951,7 @@ pub mod node_group {
 
 /// Specifies an executable to run on a fully configured node and a
 /// timeout period for executable completion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeInitializationAction {
     /// Required. Cloud Storage URI of executable file.
@@ -12297,8 +13123,20 @@ impl serde::ser::Serialize for NodeInitializationAction {
     }
 }
 
+impl std::fmt::Debug for NodeInitializationAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeInitializationAction");
+        debug_struct.field("executable_file", &self.executable_file);
+        debug_struct.field("execution_timeout", &self.execution_timeout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The status of a cluster and its instances.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterStatus {
     /// Output only. The cluster's state.
@@ -12512,6 +13350,20 @@ impl serde::ser::Serialize for ClusterStatus {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ClusterStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClusterStatus");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("detail", &self.detail);
+        debug_struct.field("state_start_time", &self.state_start_time);
+        debug_struct.field("substate", &self.substate);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -12854,7 +13706,7 @@ pub mod cluster_status {
 }
 
 /// Security related configuration, including encryption, Kerberos, etc.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityConfig {
     /// Optional. Kerberos related configuration.
@@ -13034,8 +13886,20 @@ impl serde::ser::Serialize for SecurityConfig {
     }
 }
 
+impl std::fmt::Debug for SecurityConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecurityConfig");
+        debug_struct.field("kerberos_config", &self.kerberos_config);
+        debug_struct.field("identity_config", &self.identity_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies Kerberos related configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KerberosConfig {
     /// Optional. Flag to indicate whether to Kerberize the cluster (default:
@@ -13600,9 +14464,43 @@ impl serde::ser::Serialize for KerberosConfig {
     }
 }
 
+impl std::fmt::Debug for KerberosConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KerberosConfig");
+        debug_struct.field("enable_kerberos", &self.enable_kerberos);
+        debug_struct.field(
+            "root_principal_password_uri",
+            &self.root_principal_password_uri,
+        );
+        debug_struct.field("kms_key_uri", &self.kms_key_uri);
+        debug_struct.field("keystore_uri", &self.keystore_uri);
+        debug_struct.field("truststore_uri", &self.truststore_uri);
+        debug_struct.field("keystore_password_uri", &self.keystore_password_uri);
+        debug_struct.field("key_password_uri", &self.key_password_uri);
+        debug_struct.field("truststore_password_uri", &self.truststore_password_uri);
+        debug_struct.field("cross_realm_trust_realm", &self.cross_realm_trust_realm);
+        debug_struct.field("cross_realm_trust_kdc", &self.cross_realm_trust_kdc);
+        debug_struct.field(
+            "cross_realm_trust_admin_server",
+            &self.cross_realm_trust_admin_server,
+        );
+        debug_struct.field(
+            "cross_realm_trust_shared_password_uri",
+            &self.cross_realm_trust_shared_password_uri,
+        );
+        debug_struct.field("kdc_db_key_uri", &self.kdc_db_key_uri);
+        debug_struct.field("tgt_lifetime_hours", &self.tgt_lifetime_hours);
+        debug_struct.field("realm", &self.realm);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identity related configuration, including service account based
 /// secure multi-tenancy user mappings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IdentityConfig {
     /// Required. Map of user to service account.
@@ -13752,8 +14650,22 @@ impl serde::ser::Serialize for IdentityConfig {
     }
 }
 
+impl std::fmt::Debug for IdentityConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IdentityConfig");
+        debug_struct.field(
+            "user_service_account_mapping",
+            &self.user_service_account_mapping,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the selection and config of software inside the cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SoftwareConfig {
     /// Optional. The version of software inside the cluster. It must be one of the
@@ -13969,8 +14881,21 @@ impl serde::ser::Serialize for SoftwareConfig {
     }
 }
 
+impl std::fmt::Debug for SoftwareConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SoftwareConfig");
+        debug_struct.field("image_version", &self.image_version);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("optional_components", &self.optional_components);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the cluster auto-delete schedule configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LifecycleConfig {
     /// Optional. The duration to keep the cluster alive while idling (when no jobs
@@ -14269,6 +15194,19 @@ impl serde::ser::Serialize for LifecycleConfig {
     }
 }
 
+impl std::fmt::Debug for LifecycleConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LifecycleConfig");
+        debug_struct.field("idle_delete_ttl", &self.idle_delete_ttl);
+        debug_struct.field("idle_start_time", &self.idle_start_time);
+        debug_struct.field("ttl", &self.ttl);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LifecycleConfig].
 pub mod lifecycle_config {
     #[allow(unused_imports)]
@@ -14292,7 +15230,7 @@ pub mod lifecycle_config {
 }
 
 /// Specifies a Metastore configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetastoreConfig {
     /// Required. Resource name of an existing Dataproc Metastore service.
@@ -14433,11 +15371,25 @@ impl serde::ser::Serialize for MetastoreConfig {
     }
 }
 
+impl std::fmt::Debug for MetastoreConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetastoreConfig");
+        debug_struct.field(
+            "dataproc_metastore_service",
+            &self.dataproc_metastore_service,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains cluster daemon metrics, such as HDFS and YARN stats.
 ///
 /// **Beta Feature**: This report is available for testing purposes only. It may
 /// be changed before final release.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterMetrics {
     /// The HDFS metrics.
@@ -14664,8 +15616,20 @@ impl serde::ser::Serialize for ClusterMetrics {
     }
 }
 
+impl std::fmt::Debug for ClusterMetrics {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClusterMetrics");
+        debug_struct.field("hdfs_metrics", &self.hdfs_metrics);
+        debug_struct.field("yarn_metrics", &self.yarn_metrics);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Dataproc metric config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataprocMetricConfig {
     /// Required. Metrics sources to enable.
@@ -14801,13 +15765,24 @@ impl serde::ser::Serialize for DataprocMetricConfig {
     }
 }
 
+impl std::fmt::Debug for DataprocMetricConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataprocMetricConfig");
+        debug_struct.field("metrics", &self.metrics);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataprocMetricConfig].
 pub mod dataproc_metric_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// A Dataproc custom metric.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Metric {
         /// Required. A standard set of metrics is collected unless `metricOverrides`
@@ -15006,6 +15981,18 @@ pub mod dataproc_metric_config {
         }
     }
 
+    impl std::fmt::Debug for Metric {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Metric");
+            debug_struct.field("metric_source", &self.metric_source);
+            debug_struct.field("metric_overrides", &self.metric_overrides);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A source for the collection of Dataproc custom metrics (see [Custom
     /// metrics]
     /// (<https://cloud.google.com//dataproc/docs/guides/dataproc-metrics#custom_metrics>)).
@@ -15189,7 +16176,7 @@ pub mod dataproc_metric_config {
 }
 
 /// A request to create a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClusterRequest {
     /// Required. The ID of the Google Cloud Platform project that the cluster
@@ -15454,8 +16441,26 @@ impl serde::ser::Serialize for CreateClusterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateClusterRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field(
+            "action_on_failed_primary_workers",
+            &self.action_on_failed_primary_workers,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to update a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateClusterRequest {
     /// Required. The ID of the Google Cloud Platform project the
@@ -15829,8 +16834,28 @@ impl serde::ser::Serialize for UpdateClusterRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateClusterRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field(
+            "graceful_decommission_timeout",
+            &self.graceful_decommission_timeout,
+        );
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to stop a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopClusterRequest {
     /// Required. The ID of the Google Cloud Platform project the
@@ -16074,8 +17099,23 @@ impl serde::ser::Serialize for StopClusterRequest {
     }
 }
 
+impl std::fmt::Debug for StopClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopClusterRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("cluster_uuid", &self.cluster_uuid);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to start a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartClusterRequest {
     /// Required. The ID of the Google Cloud Platform project the
@@ -16319,8 +17359,23 @@ impl serde::ser::Serialize for StartClusterRequest {
     }
 }
 
+impl std::fmt::Debug for StartClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartClusterRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("cluster_uuid", &self.cluster_uuid);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClusterRequest {
     /// Required. The ID of the Google Cloud Platform project that the cluster
@@ -16564,8 +17619,23 @@ impl serde::ser::Serialize for DeleteClusterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteClusterRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("cluster_uuid", &self.cluster_uuid);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to get the resource representation for a cluster in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClusterRequest {
     /// Required. The ID of the Google Cloud Platform project that the cluster
@@ -16745,8 +17815,21 @@ impl serde::ser::Serialize for GetClusterRequest {
     }
 }
 
+impl std::fmt::Debug for GetClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetClusterRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("cluster_name", &self.cluster_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list the clusters in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersRequest {
     /// Required. The ID of the Google Cloud Platform project that the cluster
@@ -17011,8 +18094,23 @@ impl serde::ser::Serialize for ListClustersRequest {
     }
 }
 
+impl std::fmt::Debug for ListClustersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClustersRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The list of all clusters in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersResponse {
     /// Output only. The clusters in the project.
@@ -17185,8 +18283,20 @@ impl serde::ser::Serialize for ListClustersResponse {
     }
 }
 
+impl std::fmt::Debug for ListClustersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClustersResponse");
+        debug_struct.field("clusters", &self.clusters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to collect cluster diagnostic information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnoseClusterRequest {
     /// Required. The ID of the Google Cloud Platform project that the cluster
@@ -17520,6 +18630,24 @@ impl serde::ser::Serialize for DiagnoseClusterRequest {
     }
 }
 
+impl std::fmt::Debug for DiagnoseClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiagnoseClusterRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("tarball_gcs_dir", &self.tarball_gcs_dir);
+        debug_struct.field("tarball_access", &self.tarball_access);
+        debug_struct.field("diagnosis_interval", &self.diagnosis_interval);
+        debug_struct.field("jobs", &self.jobs);
+        debug_struct.field("yarn_application_ids", &self.yarn_application_ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DiagnoseClusterRequest].
 pub mod diagnose_cluster_request {
     #[allow(unused_imports)]
@@ -17663,7 +18791,7 @@ pub mod diagnose_cluster_request {
 }
 
 /// The location of diagnostic output.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnoseClusterResults {
     /// Output only. The Cloud Storage URI of the diagnostic output.
@@ -17795,8 +18923,19 @@ impl serde::ser::Serialize for DiagnoseClusterResults {
     }
 }
 
+impl std::fmt::Debug for DiagnoseClusterResults {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiagnoseClusterResults");
+        debug_struct.field("output_uri", &self.output_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Reservation Affinity for consuming Zonal reservation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReservationAffinity {
     /// Optional. Type of reservation to consume
@@ -17982,6 +19121,19 @@ impl serde::ser::Serialize for ReservationAffinity {
     }
 }
 
+impl std::fmt::Debug for ReservationAffinity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReservationAffinity");
+        debug_struct.field("consume_reservation_type", &self.consume_reservation_type);
+        debug_struct.field("key", &self.key);
+        debug_struct.field("values", &self.values);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReservationAffinity].
 pub mod reservation_affinity {
     #[allow(unused_imports)]
@@ -18128,7 +19280,7 @@ pub mod reservation_affinity {
 }
 
 /// The runtime logging config of the job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingConfig {
     /// The per-package log levels for the driver. This can include
@@ -18273,6 +19425,17 @@ impl serde::ser::Serialize for LoggingConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LoggingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoggingConfig");
+        debug_struct.field("driver_log_levels", &self.driver_log_levels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -18463,7 +19626,7 @@ pub mod logging_config {
 /// MapReduce](https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html)
 /// jobs on [Apache Hadoop
 /// YARN](https://hadoop.apache.org/docs/r2.7.1/hadoop-yarn/hadoop-yarn-site/YARN.html).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HadoopJob {
     /// Optional. The arguments to pass to the driver. Do not
@@ -18876,6 +20039,23 @@ impl serde::ser::Serialize for HadoopJob {
     }
 }
 
+impl std::fmt::Debug for HadoopJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HadoopJob");
+        debug_struct.field("args", &self.args);
+        debug_struct.field("jar_file_uris", &self.jar_file_uris);
+        debug_struct.field("file_uris", &self.file_uris);
+        debug_struct.field("archive_uris", &self.archive_uris);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("driver", &self.driver);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [HadoopJob].
 pub mod hadoop_job {
     #[allow(unused_imports)]
@@ -18902,7 +20082,7 @@ pub mod hadoop_job {
 
 /// A Dataproc job for running [Apache Spark](https://spark.apache.org/)
 /// applications on YARN.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkJob {
     /// Optional. The arguments to pass to the driver. Do not include arguments,
@@ -19318,6 +20498,23 @@ impl serde::ser::Serialize for SparkJob {
     }
 }
 
+impl std::fmt::Debug for SparkJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SparkJob");
+        debug_struct.field("args", &self.args);
+        debug_struct.field("jar_file_uris", &self.jar_file_uris);
+        debug_struct.field("file_uris", &self.file_uris);
+        debug_struct.field("archive_uris", &self.archive_uris);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("driver", &self.driver);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SparkJob].
 pub mod spark_job {
     #[allow(unused_imports)]
@@ -19348,7 +20545,7 @@ pub mod spark_job {
 /// [Apache
 /// PySpark](https://spark.apache.org/docs/0.9.0/python-programming-guide.html)
 /// applications on YARN.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PySparkJob {
     /// Required. The HCFS URI of the main Python file to use as the driver. Must
@@ -19702,8 +20899,26 @@ impl serde::ser::Serialize for PySparkJob {
     }
 }
 
+impl std::fmt::Debug for PySparkJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PySparkJob");
+        debug_struct.field("main_python_file_uri", &self.main_python_file_uri);
+        debug_struct.field("args", &self.args);
+        debug_struct.field("python_file_uris", &self.python_file_uris);
+        debug_struct.field("jar_file_uris", &self.jar_file_uris);
+        debug_struct.field("file_uris", &self.file_uris);
+        debug_struct.field("archive_uris", &self.archive_uris);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("logging_config", &self.logging_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A list of queries to run on a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryList {
     /// Required. The queries to execute. You do not need to end a query expression
@@ -19850,9 +21065,20 @@ impl serde::ser::Serialize for QueryList {
     }
 }
 
+impl std::fmt::Debug for QueryList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryList");
+        debug_struct.field("queries", &self.queries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Dataproc job for running [Apache Hive](https://hive.apache.org/)
 /// queries on YARN.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HiveJob {
     /// Optional. Whether to continue executing queries if a query fails.
@@ -20204,6 +21430,21 @@ impl serde::ser::Serialize for HiveJob {
     }
 }
 
+impl std::fmt::Debug for HiveJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HiveJob");
+        debug_struct.field("continue_on_failure", &self.continue_on_failure);
+        debug_struct.field("script_variables", &self.script_variables);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("jar_file_uris", &self.jar_file_uris);
+        debug_struct.field("queries", &self.queries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [HiveJob].
 pub mod hive_job {
     #[allow(unused_imports)]
@@ -20223,7 +21464,7 @@ pub mod hive_job {
 
 /// A Dataproc job for running [Apache Spark
 /// SQL](https://spark.apache.org/sql/) queries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkSqlJob {
     /// Optional. Mapping of query variable names to values (equivalent to the
@@ -20581,6 +21822,21 @@ impl serde::ser::Serialize for SparkSqlJob {
     }
 }
 
+impl std::fmt::Debug for SparkSqlJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SparkSqlJob");
+        debug_struct.field("script_variables", &self.script_variables);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("jar_file_uris", &self.jar_file_uris);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("queries", &self.queries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SparkSqlJob].
 pub mod spark_sql_job {
     #[allow(unused_imports)]
@@ -20600,7 +21856,7 @@ pub mod spark_sql_job {
 
 /// A Dataproc job for running [Apache Pig](https://pig.apache.org/)
 /// queries on YARN.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PigJob {
     /// Optional. Whether to continue executing queries if a query fails.
@@ -20987,6 +22243,22 @@ impl serde::ser::Serialize for PigJob {
     }
 }
 
+impl std::fmt::Debug for PigJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PigJob");
+        debug_struct.field("continue_on_failure", &self.continue_on_failure);
+        debug_struct.field("script_variables", &self.script_variables);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("jar_file_uris", &self.jar_file_uris);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("queries", &self.queries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PigJob].
 pub mod pig_job {
     #[allow(unused_imports)]
@@ -21007,7 +22279,7 @@ pub mod pig_job {
 /// A Dataproc job for running
 /// [Apache SparkR](https://spark.apache.org/docs/latest/sparkr.html)
 /// applications on YARN.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkRJob {
     /// Required. The HCFS URI of the main R file to use as the driver.
@@ -21300,12 +22572,28 @@ impl serde::ser::Serialize for SparkRJob {
     }
 }
 
+impl std::fmt::Debug for SparkRJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SparkRJob");
+        debug_struct.field("main_r_file_uri", &self.main_r_file_uri);
+        debug_struct.field("args", &self.args);
+        debug_struct.field("file_uris", &self.file_uris);
+        debug_struct.field("archive_uris", &self.archive_uris);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("logging_config", &self.logging_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Dataproc job for running [Presto](https://prestosql.io/) queries.
 /// **IMPORTANT**: The [Dataproc Presto Optional
 /// Component](https://cloud.google.com/dataproc/docs/concepts/components/presto)
 /// must be enabled when the cluster is created to submit a Presto job to the
 /// cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrestoJob {
     /// Optional. Whether to continue executing queries if a query fails.
@@ -21679,6 +22967,22 @@ impl serde::ser::Serialize for PrestoJob {
     }
 }
 
+impl std::fmt::Debug for PrestoJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrestoJob");
+        debug_struct.field("continue_on_failure", &self.continue_on_failure);
+        debug_struct.field("output_format", &self.output_format);
+        debug_struct.field("client_tags", &self.client_tags);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("queries", &self.queries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PrestoJob].
 pub mod presto_job {
     #[allow(unused_imports)]
@@ -21701,7 +23005,7 @@ pub mod presto_job {
 /// Component](https://cloud.google.com/dataproc/docs/concepts/components/trino)
 /// must be enabled when the cluster is created to submit a Trino job to the
 /// cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrinoJob {
     /// Optional. Whether to continue executing queries if a query fails.
@@ -22075,6 +23379,22 @@ impl serde::ser::Serialize for TrinoJob {
     }
 }
 
+impl std::fmt::Debug for TrinoJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TrinoJob");
+        debug_struct.field("continue_on_failure", &self.continue_on_failure);
+        debug_struct.field("output_format", &self.output_format);
+        debug_struct.field("client_tags", &self.client_tags);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("queries", &self.queries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TrinoJob].
 pub mod trino_job {
     #[allow(unused_imports)]
@@ -22093,7 +23413,7 @@ pub mod trino_job {
 }
 
 /// A Dataproc job for running Apache Flink applications on YARN.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FlinkJob {
     /// Optional. The arguments to pass to the driver. Do not include arguments,
@@ -22476,6 +23796,22 @@ impl serde::ser::Serialize for FlinkJob {
     }
 }
 
+impl std::fmt::Debug for FlinkJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FlinkJob");
+        debug_struct.field("args", &self.args);
+        debug_struct.field("jar_file_uris", &self.jar_file_uris);
+        debug_struct.field("savepoint_uri", &self.savepoint_uri);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("driver", &self.driver);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FlinkJob].
 pub mod flink_job {
     #[allow(unused_imports)]
@@ -22505,7 +23841,7 @@ pub mod flink_job {
 }
 
 /// Dataproc job config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobPlacement {
     /// Required. The name of the cluster where the job will be submitted.
@@ -22698,8 +24034,21 @@ impl serde::ser::Serialize for JobPlacement {
     }
 }
 
+impl std::fmt::Debug for JobPlacement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobPlacement");
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("cluster_uuid", &self.cluster_uuid);
+        debug_struct.field("cluster_labels", &self.cluster_labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Dataproc job status.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobStatus {
     /// Output only. A state message specifying the overall job state.
@@ -22916,6 +24265,20 @@ impl serde::ser::Serialize for JobStatus {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for JobStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobStatus");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("details", &self.details);
+        debug_struct.field("state_start_time", &self.state_start_time);
+        debug_struct.field("substate", &self.substate);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -23261,7 +24624,7 @@ pub mod job_status {
 }
 
 /// Encapsulates the full scoping used to reference a job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobReference {
     /// Optional. The ID of the Google Cloud Platform project that the job belongs
@@ -23422,12 +24785,24 @@ impl serde::ser::Serialize for JobReference {
     }
 }
 
+impl std::fmt::Debug for JobReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobReference");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("job_id", &self.job_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A YARN application created by a job. Application information is a subset of
 /// \<code\>org.apache.hadoop.yarn.proto.YarnProtos.ApplicationReportProto\</code\>.
 ///
 /// **Beta Feature**: This report is available for testing purposes only. It may
 /// be changed before final release.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct YarnApplication {
     /// Required. The application name.
@@ -23651,6 +25026,20 @@ impl serde::ser::Serialize for YarnApplication {
     }
 }
 
+impl std::fmt::Debug for YarnApplication {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("YarnApplication");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("progress", &self.progress);
+        debug_struct.field("tracking_url", &self.tracking_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [YarnApplication].
 pub mod yarn_application {
     #[allow(unused_imports)]
@@ -23833,7 +25222,7 @@ pub mod yarn_application {
 }
 
 /// A Dataproc job resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Job {
     /// Optional. The fully qualified reference to the job, which can be used to
@@ -24857,6 +26246,32 @@ impl serde::ser::Serialize for Job {
     }
 }
 
+impl std::fmt::Debug for Job {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Job");
+        debug_struct.field("reference", &self.reference);
+        debug_struct.field("placement", &self.placement);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("status_history", &self.status_history);
+        debug_struct.field("yarn_applications", &self.yarn_applications);
+        debug_struct.field(
+            "driver_output_resource_uri",
+            &self.driver_output_resource_uri,
+        );
+        debug_struct.field("driver_control_files_uri", &self.driver_control_files_uri);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("scheduling", &self.scheduling);
+        debug_struct.field("job_uuid", &self.job_uuid);
+        debug_struct.field("done", &self.done);
+        debug_struct.field("driver_scheduling_config", &self.driver_scheduling_config);
+        debug_struct.field("type_job", &self.type_job);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Job].
 pub mod job {
     #[allow(unused_imports)]
@@ -24890,7 +26305,7 @@ pub mod job {
 }
 
 /// Driver scheduling configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DriverSchedulingConfig {
     /// Required. The amount of memory in MB the driver is requesting.
@@ -25080,8 +26495,20 @@ impl serde::ser::Serialize for DriverSchedulingConfig {
     }
 }
 
+impl std::fmt::Debug for DriverSchedulingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DriverSchedulingConfig");
+        debug_struct.field("memory_mb", &self.memory_mb);
+        debug_struct.field("vcores", &self.vcores);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Job scheduling options.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobScheduling {
     /// Optional. Maximum number of times per hour a driver can be restarted as
@@ -25294,8 +26721,20 @@ impl serde::ser::Serialize for JobScheduling {
     }
 }
 
+impl std::fmt::Debug for JobScheduling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobScheduling");
+        debug_struct.field("max_failures_per_hour", &self.max_failures_per_hour);
+        debug_struct.field("max_failures_total", &self.max_failures_total);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to submit a job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitJobRequest {
     /// Required. The ID of the Google Cloud Platform project that the job
@@ -25523,8 +26962,22 @@ impl serde::ser::Serialize for SubmitJobRequest {
     }
 }
 
+impl std::fmt::Debug for SubmitJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubmitJobRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("job", &self.job);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Job Operation metadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobMetadata {
     /// Output only. The job id.
@@ -25750,8 +27203,22 @@ impl serde::ser::Serialize for JobMetadata {
     }
 }
 
+impl std::fmt::Debug for JobMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobMetadata");
+        debug_struct.field("job_id", &self.job_id);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("operation_type", &self.operation_type);
+        debug_struct.field("start_time", &self.start_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get the resource representation for a job in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobRequest {
     /// Required. The ID of the Google Cloud Platform project that the job
@@ -25931,8 +27398,21 @@ impl serde::ser::Serialize for GetJobRequest {
     }
 }
 
+impl std::fmt::Debug for GetJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetJobRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("job_id", &self.job_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list jobs in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsRequest {
     /// Required. The ID of the Google Cloud Platform project that the job
@@ -26254,6 +27734,23 @@ impl serde::ser::Serialize for ListJobsRequest {
     }
 }
 
+impl std::fmt::Debug for ListJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobsRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("job_state_matcher", &self.job_state_matcher);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListJobsRequest].
 pub mod list_jobs_request {
     #[allow(unused_imports)]
@@ -26394,7 +27891,7 @@ pub mod list_jobs_request {
 }
 
 /// A request to update a job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateJobRequest {
     /// Required. The ID of the Google Cloud Platform project that the job
@@ -26650,8 +28147,23 @@ impl serde::ser::Serialize for UpdateJobRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateJobRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("job_id", &self.job_id);
+        debug_struct.field("job", &self.job);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A list of jobs in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsResponse {
     /// Output only. Jobs list.
@@ -26856,8 +28368,21 @@ impl serde::ser::Serialize for ListJobsResponse {
     }
 }
 
+impl std::fmt::Debug for ListJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobsResponse");
+        debug_struct.field("jobs", &self.jobs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to cancel a job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelJobRequest {
     /// Required. The ID of the Google Cloud Platform project that the job
@@ -27037,8 +28562,21 @@ impl serde::ser::Serialize for CancelJobRequest {
     }
 }
 
+impl std::fmt::Debug for CancelJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelJobRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("job_id", &self.job_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete a job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobRequest {
     /// Required. The ID of the Google Cloud Platform project that the job
@@ -27218,8 +28756,21 @@ impl serde::ser::Serialize for DeleteJobRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteJobRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("job_id", &self.job_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to create a node group.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNodeGroupRequest {
     /// Required. The parent resource where this node group will be created.
@@ -27452,8 +29003,22 @@ impl serde::ser::Serialize for CreateNodeGroupRequest {
     }
 }
 
+impl std::fmt::Debug for CreateNodeGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateNodeGroupRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("node_group", &self.node_group);
+        debug_struct.field("node_group_id", &self.node_group_id);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to resize a node group.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResizeNodeGroupRequest {
     /// Required. The name of the node group to resize.
@@ -27723,8 +29288,25 @@ impl serde::ser::Serialize for ResizeNodeGroupRequest {
     }
 }
 
+impl std::fmt::Debug for ResizeNodeGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResizeNodeGroupRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("size", &self.size);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field(
+            "graceful_decommission_timeout",
+            &self.graceful_decommission_timeout,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get a node group .
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNodeGroupRequest {
     /// Required. The name of the node group to retrieve.
@@ -27855,8 +29437,19 @@ impl serde::ser::Serialize for GetNodeGroupRequest {
     }
 }
 
+impl std::fmt::Debug for GetNodeGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNodeGroupRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata describing the Batch operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchOperationMetadata {
     /// Name of the batch for the operation.
@@ -28200,6 +29793,24 @@ impl serde::ser::Serialize for BatchOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for BatchOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchOperationMetadata");
+        debug_struct.field("batch", &self.batch);
+        debug_struct.field("batch_uuid", &self.batch_uuid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("done_time", &self.done_time);
+        debug_struct.field("operation_type", &self.operation_type);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("warnings", &self.warnings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchOperationMetadata].
 pub mod batch_operation_metadata {
     #[allow(unused_imports)]
@@ -28332,7 +29943,7 @@ pub mod batch_operation_metadata {
 }
 
 /// Metadata describing the Session operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SessionOperationMetadata {
     /// Name of the session for the operation.
@@ -28676,6 +30287,24 @@ impl serde::ser::Serialize for SessionOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for SessionOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SessionOperationMetadata");
+        debug_struct.field("session", &self.session);
+        debug_struct.field("session_uuid", &self.session_uuid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("done_time", &self.done_time);
+        debug_struct.field("operation_type", &self.operation_type);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("warnings", &self.warnings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SessionOperationMetadata].
 pub mod session_operation_metadata {
     #[allow(unused_imports)]
@@ -28824,7 +30453,7 @@ pub mod session_operation_metadata {
 }
 
 /// The status of the operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterOperationStatus {
     /// Output only. A message containing the operation state.
@@ -29043,6 +30672,20 @@ impl serde::ser::Serialize for ClusterOperationStatus {
     }
 }
 
+impl std::fmt::Debug for ClusterOperationStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClusterOperationStatus");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("inner_state", &self.inner_state);
+        debug_struct.field("details", &self.details);
+        debug_struct.field("state_start_time", &self.state_start_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ClusterOperationStatus].
 pub mod cluster_operation_status {
     #[allow(unused_imports)]
@@ -29189,7 +30832,7 @@ pub mod cluster_operation_status {
 }
 
 /// Metadata describing the operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterOperationMetadata {
     /// Output only. Name of the cluster for the operation.
@@ -29550,8 +31193,27 @@ impl serde::ser::Serialize for ClusterOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for ClusterOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClusterOperationMetadata");
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("cluster_uuid", &self.cluster_uuid);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("status_history", &self.status_history);
+        debug_struct.field("operation_type", &self.operation_type);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("warnings", &self.warnings);
+        debug_struct.field("child_operation_ids", &self.child_operation_ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata describing the node group operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeGroupOperationMetadata {
     /// Output only. Node group ID for the operation.
@@ -29887,6 +31549,24 @@ impl serde::ser::Serialize for NodeGroupOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for NodeGroupOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeGroupOperationMetadata");
+        debug_struct.field("node_group_id", &self.node_group_id);
+        debug_struct.field("cluster_uuid", &self.cluster_uuid);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("status_history", &self.status_history);
+        debug_struct.field("operation_type", &self.operation_type);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("warnings", &self.warnings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NodeGroupOperationMetadata].
 pub mod node_group_operation_metadata {
     #[allow(unused_imports)]
@@ -30042,7 +31722,7 @@ pub mod node_group_operation_metadata {
 }
 
 /// A request to create a session template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSessionTemplateRequest {
     /// Required. The parent resource where this session template will be created.
@@ -30208,8 +31888,20 @@ impl serde::ser::Serialize for CreateSessionTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSessionTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSessionTemplateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("session_template", &self.session_template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to update a session template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSessionTemplateRequest {
     /// Required. The updated session template.
@@ -30351,8 +32043,19 @@ impl serde::ser::Serialize for UpdateSessionTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSessionTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSessionTemplateRequest");
+        debug_struct.field("session_template", &self.session_template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get the resource representation for a session template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSessionTemplateRequest {
     /// Required. The name of the session template to retrieve.
@@ -30481,8 +32184,19 @@ impl serde::ser::Serialize for GetSessionTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for GetSessionTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSessionTemplateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list session templates in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSessionTemplatesRequest {
     /// Required. The parent that owns this collection of session templates.
@@ -30708,8 +32422,22 @@ impl serde::ser::Serialize for ListSessionTemplatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListSessionTemplatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSessionTemplatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A list of session templates.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSessionTemplatesResponse {
     /// Output only. Session template list
@@ -30886,8 +32614,20 @@ impl serde::ser::Serialize for ListSessionTemplatesResponse {
     }
 }
 
+impl std::fmt::Debug for ListSessionTemplatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSessionTemplatesResponse");
+        debug_struct.field("session_templates", &self.session_templates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete a session template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSessionTemplateRequest {
     /// Required. The name of the session template resource to delete.
@@ -31016,8 +32756,19 @@ impl serde::ser::Serialize for DeleteSessionTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSessionTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSessionTemplateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A representation of a session template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SessionTemplate {
     /// Required. The resource name of the session template.
@@ -31538,6 +33289,26 @@ impl serde::ser::Serialize for SessionTemplate {
     }
 }
 
+impl std::fmt::Debug for SessionTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SessionTemplate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("creator", &self.creator);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("runtime_config", &self.runtime_config);
+        debug_struct.field("environment_config", &self.environment_config);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("uuid", &self.uuid);
+        debug_struct.field("session_config", &self.session_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SessionTemplate].
 pub mod session_template {
     #[allow(unused_imports)]
@@ -31555,7 +33326,7 @@ pub mod session_template {
 }
 
 /// A request to create a session.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSessionRequest {
     /// Required. The parent resource where this session will be created.
@@ -31786,8 +33557,22 @@ impl serde::ser::Serialize for CreateSessionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSessionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("session", &self.session);
+        debug_struct.field("session_id", &self.session_id);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get the resource representation for a session.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSessionRequest {
     /// Required. The name of the session to retrieve.
@@ -31916,8 +33701,19 @@ impl serde::ser::Serialize for GetSessionRequest {
     }
 }
 
+impl std::fmt::Debug for GetSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSessionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list sessions in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSessionsRequest {
     /// Required. The parent, which owns this collection of sessions.
@@ -32154,8 +33950,22 @@ impl serde::ser::Serialize for ListSessionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListSessionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSessionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A list of interactive sessions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSessionsResponse {
     /// Output only. The sessions from the specified collection.
@@ -32327,8 +34137,20 @@ impl serde::ser::Serialize for ListSessionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListSessionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSessionsResponse");
+        debug_struct.field("sessions", &self.sessions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to terminate an interactive session.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TerminateSessionRequest {
     /// Required. The name of the session resource to terminate.
@@ -32491,8 +34313,20 @@ impl serde::ser::Serialize for TerminateSessionRequest {
     }
 }
 
+impl std::fmt::Debug for TerminateSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TerminateSessionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete a session.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSessionRequest {
     /// Required. The name of the session resource to delete.
@@ -32655,8 +34489,20 @@ impl serde::ser::Serialize for DeleteSessionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSessionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A representation of a session.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Session {
     /// Required. The resource name of the session.
@@ -33331,13 +35177,38 @@ impl serde::ser::Serialize for Session {
     }
 }
 
+impl std::fmt::Debug for Session {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Session");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uuid", &self.uuid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("runtime_info", &self.runtime_info);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_message", &self.state_message);
+        debug_struct.field("state_time", &self.state_time);
+        debug_struct.field("creator", &self.creator);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("runtime_config", &self.runtime_config);
+        debug_struct.field("environment_config", &self.environment_config);
+        debug_struct.field("user", &self.user);
+        debug_struct.field("state_history", &self.state_history);
+        debug_struct.field("session_template", &self.session_template);
+        debug_struct.field("session_config", &self.session_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Session].
 pub mod session {
     #[allow(unused_imports)]
     use super::*;
 
     /// Historical state information.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SessionStateHistory {
         /// Output only. The state of the session at this point in the session
@@ -33536,6 +35407,19 @@ pub mod session {
         }
     }
 
+    impl std::fmt::Debug for SessionStateHistory {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SessionStateHistory");
+            debug_struct.field("state", &self.state);
+            debug_struct.field("state_message", &self.state_message);
+            debug_struct.field("state_start_time", &self.state_start_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The session state.
     ///
     /// # Working with unknown values
@@ -33701,7 +35585,7 @@ pub mod session {
 }
 
 /// Jupyter configuration for an interactive session.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JupyterConfig {
     /// Optional. Kernel
@@ -33856,6 +35740,18 @@ impl serde::ser::Serialize for JupyterConfig {
     }
 }
 
+impl std::fmt::Debug for JupyterConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JupyterConfig");
+        debug_struct.field("kernel", &self.kernel);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [JupyterConfig].
 pub mod jupyter_config {
     #[allow(unused_imports)]
@@ -33995,7 +35891,7 @@ pub mod jupyter_config {
 }
 
 /// Spark Connect configuration for an interactive session.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkConnectConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -34097,8 +35993,18 @@ impl serde::ser::Serialize for SparkConnectConfig {
     }
 }
 
+impl std::fmt::Debug for SparkConnectConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SparkConnectConfig");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime configuration for a workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeConfig {
     /// Optional. Version of the batch runtime.
@@ -34388,8 +36294,24 @@ impl serde::ser::Serialize for RuntimeConfig {
     }
 }
 
+impl std::fmt::Debug for RuntimeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RuntimeConfig");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("container_image", &self.container_image);
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("repository_config", &self.repository_config);
+        debug_struct.field("autotuning_config", &self.autotuning_config);
+        debug_struct.field("cohort", &self.cohort);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Environment configuration for a workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnvironmentConfig {
     /// Optional. Execution configuration for a workload.
@@ -34568,8 +36490,20 @@ impl serde::ser::Serialize for EnvironmentConfig {
     }
 }
 
+impl std::fmt::Debug for EnvironmentConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnvironmentConfig");
+        debug_struct.field("execution_config", &self.execution_config);
+        debug_struct.field("peripherals_config", &self.peripherals_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Execution configuration for a workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecutionConfig {
     /// Optional. Service account that used to execute workload.
@@ -35028,6 +36962,24 @@ impl serde::ser::Serialize for ExecutionConfig {
     }
 }
 
+impl std::fmt::Debug for ExecutionConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecutionConfig");
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("network_tags", &self.network_tags);
+        debug_struct.field("kms_key", &self.kms_key);
+        debug_struct.field("idle_ttl", &self.idle_ttl);
+        debug_struct.field("ttl", &self.ttl);
+        debug_struct.field("staging_bucket", &self.staging_bucket);
+        debug_struct.field("authentication_config", &self.authentication_config);
+        debug_struct.field("network", &self.network);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExecutionConfig].
 pub mod execution_config {
     #[allow(unused_imports)]
@@ -35045,7 +36997,7 @@ pub mod execution_config {
 }
 
 /// Spark History Server configuration for the workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkHistoryServerConfig {
     /// Optional. Resource name of an existing Dataproc Cluster to act as a Spark
@@ -35183,8 +37135,19 @@ impl serde::ser::Serialize for SparkHistoryServerConfig {
     }
 }
 
+impl std::fmt::Debug for SparkHistoryServerConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SparkHistoryServerConfig");
+        debug_struct.field("dataproc_cluster", &self.dataproc_cluster);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Auxiliary services configuration for a workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PeripheralsConfig {
     /// Optional. Resource name of an existing Dataproc Metastore service.
@@ -35364,8 +37327,23 @@ impl serde::ser::Serialize for PeripheralsConfig {
     }
 }
 
+impl std::fmt::Debug for PeripheralsConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PeripheralsConfig");
+        debug_struct.field("metastore_service", &self.metastore_service);
+        debug_struct.field(
+            "spark_history_server_config",
+            &self.spark_history_server_config,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Runtime information about workload execution.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeInfo {
     /// Output only. Map of remote access endpoints (such as web interfaces and
@@ -35642,8 +37620,23 @@ impl serde::ser::Serialize for RuntimeInfo {
     }
 }
 
+impl std::fmt::Debug for RuntimeInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RuntimeInfo");
+        debug_struct.field("endpoints", &self.endpoints);
+        debug_struct.field("output_uri", &self.output_uri);
+        debug_struct.field("diagnostic_output_uri", &self.diagnostic_output_uri);
+        debug_struct.field("approximate_usage", &self.approximate_usage);
+        debug_struct.field("current_usage", &self.current_usage);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Usage metrics represent approximate total resources consumed by a workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UsageMetrics {
     /// Optional. DCU (Dataproc Compute Units) usage in (`milliDCU` x `seconds`)
@@ -35928,9 +37921,26 @@ impl serde::ser::Serialize for UsageMetrics {
     }
 }
 
+impl std::fmt::Debug for UsageMetrics {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UsageMetrics");
+        debug_struct.field("milli_dcu_seconds", &self.milli_dcu_seconds);
+        debug_struct.field(
+            "shuffle_storage_gb_seconds",
+            &self.shuffle_storage_gb_seconds,
+        );
+        debug_struct.field("milli_accelerator_seconds", &self.milli_accelerator_seconds);
+        debug_struct.field("accelerator_type", &self.accelerator_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The usage snapshot represents the resources consumed by a workload at a
 /// specified time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UsageSnapshot {
     /// Optional. Milli (one-thousandth) Dataproc Compute Units (DCUs) (see
@@ -36333,8 +38343,28 @@ impl serde::ser::Serialize for UsageSnapshot {
     }
 }
 
+impl std::fmt::Debug for UsageSnapshot {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UsageSnapshot");
+        debug_struct.field("milli_dcu", &self.milli_dcu);
+        debug_struct.field("shuffle_storage_gb", &self.shuffle_storage_gb);
+        debug_struct.field("milli_dcu_premium", &self.milli_dcu_premium);
+        debug_struct.field(
+            "shuffle_storage_gb_premium",
+            &self.shuffle_storage_gb_premium,
+        );
+        debug_struct.field("milli_accelerator", &self.milli_accelerator);
+        debug_struct.field("accelerator_type", &self.accelerator_type);
+        debug_struct.field("snapshot_time", &self.snapshot_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The cluster's GKE config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GkeClusterConfig {
     /// Optional. A target GKE cluster to deploy to. It must be in the same project
@@ -36509,8 +38539,20 @@ impl serde::ser::Serialize for GkeClusterConfig {
     }
 }
 
+impl std::fmt::Debug for GkeClusterConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GkeClusterConfig");
+        debug_struct.field("gke_cluster_target", &self.gke_cluster_target);
+        debug_struct.field("node_pool_target", &self.node_pool_target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration for running the Dataproc cluster on Kubernetes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KubernetesClusterConfig {
     /// Optional. A namespace within the Kubernetes cluster to deploy into. If this
@@ -36761,6 +38803,22 @@ impl serde::ser::Serialize for KubernetesClusterConfig {
     }
 }
 
+impl std::fmt::Debug for KubernetesClusterConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KubernetesClusterConfig");
+        debug_struct.field("kubernetes_namespace", &self.kubernetes_namespace);
+        debug_struct.field(
+            "kubernetes_software_config",
+            &self.kubernetes_software_config,
+        );
+        debug_struct.field("config", &self.config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [KubernetesClusterConfig].
 pub mod kubernetes_cluster_config {
     #[allow(unused_imports)]
@@ -36775,7 +38833,7 @@ pub mod kubernetes_cluster_config {
 }
 
 /// The software configuration for this Dataproc cluster running on Kubernetes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KubernetesSoftwareConfig {
     /// The components that should be installed in this Dataproc cluster. The key
@@ -36963,8 +39021,20 @@ impl serde::ser::Serialize for KubernetesSoftwareConfig {
     }
 }
 
+impl std::fmt::Debug for KubernetesSoftwareConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KubernetesSoftwareConfig");
+        debug_struct.field("component_version", &self.component_version);
+        debug_struct.field("properties", &self.properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// GKE node pools that Dataproc workloads run on.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GkeNodePoolTarget {
     /// Required. The target GKE node pool.
@@ -37175,6 +39245,19 @@ impl serde::ser::Serialize for GkeNodePoolTarget {
     }
 }
 
+impl std::fmt::Debug for GkeNodePoolTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GkeNodePoolTarget");
+        debug_struct.field("node_pool", &self.node_pool);
+        debug_struct.field("roles", &self.roles);
+        debug_struct.field("node_pool_config", &self.node_pool_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GkeNodePoolTarget].
 pub mod gke_node_pool_target {
     #[allow(unused_imports)]
@@ -37340,7 +39423,7 @@ pub mod gke_node_pool_target {
 
 /// The configuration of a GKE node pool used by a [Dataproc-on-GKE
 /// cluster](https://cloud.google.com/dataproc/docs/concepts/jobs/dataproc-gke#create-a-dataproc-on-gke-cluster).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GkeNodePoolConfig {
     /// Optional. The node pool configuration.
@@ -37556,13 +39639,26 @@ impl serde::ser::Serialize for GkeNodePoolConfig {
     }
 }
 
+impl std::fmt::Debug for GkeNodePoolConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GkeNodePoolConfig");
+        debug_struct.field("config", &self.config);
+        debug_struct.field("locations", &self.locations);
+        debug_struct.field("autoscaling", &self.autoscaling);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GkeNodePoolConfig].
 pub mod gke_node_pool_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Parameters that describe cluster nodes.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GkeNodeConfig {
         /// Optional. The name of a Compute Engine [machine
@@ -37909,9 +40005,26 @@ pub mod gke_node_pool_config {
         }
     }
 
+    impl std::fmt::Debug for GkeNodeConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GkeNodeConfig");
+            debug_struct.field("machine_type", &self.machine_type);
+            debug_struct.field("local_ssd_count", &self.local_ssd_count);
+            debug_struct.field("preemptible", &self.preemptible);
+            debug_struct.field("accelerators", &self.accelerators);
+            debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
+            debug_struct.field("boot_disk_kms_key", &self.boot_disk_kms_key);
+            debug_struct.field("spot", &self.spot);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A GkeNodeConfigAcceleratorConfig represents a Hardware Accelerator request
     /// for a node pool.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GkeNodePoolAcceleratorConfig {
         /// The number of accelerator cards exposed to an instance.
@@ -38121,9 +40234,22 @@ pub mod gke_node_pool_config {
         }
     }
 
+    impl std::fmt::Debug for GkeNodePoolAcceleratorConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GkeNodePoolAcceleratorConfig");
+            debug_struct.field("accelerator_count", &self.accelerator_count);
+            debug_struct.field("accelerator_type", &self.accelerator_type);
+            debug_struct.field("gpu_partition_size", &self.gpu_partition_size);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// GkeNodePoolAutoscaling contains information the cluster autoscaler needs to
     /// adjust the size of the node pool to the current cluster usage.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GkeNodePoolAutoscalingConfig {
         /// The minimum number of nodes in the node pool. Must be >= 0 and <=
@@ -38321,13 +40447,25 @@ pub mod gke_node_pool_config {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for GkeNodePoolAutoscalingConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GkeNodePoolAutoscalingConfig");
+            debug_struct.field("min_node_count", &self.min_node_count);
+            debug_struct.field("max_node_count", &self.max_node_count);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Authentication configuration for a workload is used to set the default
 /// identity for the workload execution.
 /// The config specifies the type of identity (service account or user) that
 /// will be used by workloads to access resources on the project(s).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthenticationConfig {
     /// Optional. Authentication type for the user workload running in containers.
@@ -38468,6 +40606,20 @@ impl serde::ser::Serialize for AuthenticationConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AuthenticationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthenticationConfig");
+        debug_struct.field(
+            "user_workload_authentication_type",
+            &self.user_workload_authentication_type,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -38613,7 +40765,7 @@ pub mod authentication_config {
 }
 
 /// Autotuning configuration of the workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutotuningConfig {
     /// Optional. Scenarios for which tunings are applied.
@@ -38746,6 +40898,17 @@ impl serde::ser::Serialize for AutotuningConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AutotuningConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutotuningConfig");
+        debug_struct.field("scenarios", &self.scenarios);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -38910,7 +41073,7 @@ pub mod autotuning_config {
 }
 
 /// Configuration for dependency repositories
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepositoryConfig {
     /// Optional. Configuration for PyPi repository.
@@ -39051,8 +41214,19 @@ impl serde::ser::Serialize for RepositoryConfig {
     }
 }
 
+impl std::fmt::Debug for RepositoryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RepositoryConfig");
+        debug_struct.field("pypi_repository_config", &self.pypi_repository_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for PyPi repository
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PyPiRepositoryConfig {
     /// Optional. PyPi repository address
@@ -39182,8 +41356,19 @@ impl serde::ser::Serialize for PyPiRepositoryConfig {
     }
 }
 
+impl std::fmt::Debug for PyPiRepositoryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PyPiRepositoryConfig");
+        debug_struct.field("pypi_repository", &self.pypi_repository);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Dataproc workflow template resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowTemplate {
     pub id: std::string::String,
@@ -39691,13 +41876,34 @@ impl serde::ser::Serialize for WorkflowTemplate {
     }
 }
 
+impl std::fmt::Debug for WorkflowTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkflowTemplate");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("placement", &self.placement);
+        debug_struct.field("jobs", &self.jobs);
+        debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("dag_timeout", &self.dag_timeout);
+        debug_struct.field("encryption_config", &self.encryption_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WorkflowTemplate].
 pub mod workflow_template {
     #[allow(unused_imports)]
     use super::*;
 
     /// Encryption settings for encrypting workflow template job arguments.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EncryptionConfig {
         /// Optional. The Cloud KMS key name to use for encrypting
@@ -39856,12 +42062,23 @@ pub mod workflow_template {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for EncryptionConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EncryptionConfig");
+            debug_struct.field("kms_key", &self.kms_key);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Specifies workflow execution target.
 ///
 /// Either `managed_cluster` or `cluster_selector` is required.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowTemplatePlacement {
     /// Required. Specifies where workflow executes; either on a managed
@@ -40096,6 +42313,17 @@ impl serde::ser::Serialize for WorkflowTemplatePlacement {
     }
 }
 
+impl std::fmt::Debug for WorkflowTemplatePlacement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkflowTemplatePlacement");
+        debug_struct.field("placement", &self.placement);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WorkflowTemplatePlacement].
 pub mod workflow_template_placement {
     #[allow(unused_imports)]
@@ -40117,7 +42345,7 @@ pub mod workflow_template_placement {
 }
 
 /// Cluster that is managed by the workflow.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedCluster {
     /// Required. The cluster name prefix. A unique cluster name will be formed by
@@ -40331,8 +42559,21 @@ impl serde::ser::Serialize for ManagedCluster {
     }
 }
 
+impl std::fmt::Debug for ManagedCluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedCluster");
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A selector that chooses target cluster for jobs based on metadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterSelector {
     /// Optional. The zone where workflow process executes. This parameter does not
@@ -40502,8 +42743,20 @@ impl serde::ser::Serialize for ClusterSelector {
     }
 }
 
+impl std::fmt::Debug for ClusterSelector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClusterSelector");
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("cluster_labels", &self.cluster_labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A job executed by the workflow.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrderedJob {
     /// Required. The step id. The id must be unique among all jobs
@@ -41284,6 +43537,21 @@ impl serde::ser::Serialize for OrderedJob {
     }
 }
 
+impl std::fmt::Debug for OrderedJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OrderedJob");
+        debug_struct.field("step_id", &self.step_id);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("scheduling", &self.scheduling);
+        debug_struct.field("prerequisite_step_ids", &self.prerequisite_step_ids);
+        debug_struct.field("job_type", &self.job_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OrderedJob].
 pub mod ordered_job {
     #[allow(unused_imports)]
@@ -41326,7 +43594,7 @@ pub mod ordered_job {
 /// - Script variables
 /// - Main class (in HadoopJob and SparkJob)
 /// - Zone (in ClusterSelector)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TemplateParameter {
     /// Required. Parameter name.
@@ -41594,8 +43862,22 @@ impl serde::ser::Serialize for TemplateParameter {
     }
 }
 
+impl std::fmt::Debug for TemplateParameter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TemplateParameter");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("fields", &self.fields);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("validation", &self.validation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for parameter validation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParameterValidation {
     /// Required. The type of validation to be performed.
@@ -41823,6 +44105,17 @@ impl serde::ser::Serialize for ParameterValidation {
     }
 }
 
+impl std::fmt::Debug for ParameterValidation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ParameterValidation");
+        debug_struct.field("validation_type", &self.validation_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ParameterValidation].
 pub mod parameter_validation {
     #[allow(unused_imports)]
@@ -41840,7 +44133,7 @@ pub mod parameter_validation {
 }
 
 /// Validation based on regular expressions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RegexValidation {
     /// Required. RE2 regular expressions used to validate the parameter's value.
@@ -41974,8 +44267,19 @@ impl serde::ser::Serialize for RegexValidation {
     }
 }
 
+impl std::fmt::Debug for RegexValidation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegexValidation");
+        debug_struct.field("regexes", &self.regexes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Validation based on a list of allowed values.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValueValidation {
     /// Required. List of allowed values for the parameter.
@@ -42107,8 +44411,19 @@ impl serde::ser::Serialize for ValueValidation {
     }
 }
 
+impl std::fmt::Debug for ValueValidation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValueValidation");
+        debug_struct.field("values", &self.values);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Dataproc workflow template resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowMetadata {
     /// Output only. The resource name of the workflow template as described
@@ -42699,6 +45014,30 @@ impl serde::ser::Serialize for WorkflowMetadata {
     }
 }
 
+impl std::fmt::Debug for WorkflowMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkflowMetadata");
+        debug_struct.field("template", &self.template);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("create_cluster", &self.create_cluster);
+        debug_struct.field("graph", &self.graph);
+        debug_struct.field("delete_cluster", &self.delete_cluster);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("cluster_uuid", &self.cluster_uuid);
+        debug_struct.field("dag_timeout", &self.dag_timeout);
+        debug_struct.field("dag_start_time", &self.dag_start_time);
+        debug_struct.field("dag_end_time", &self.dag_end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WorkflowMetadata].
 pub mod workflow_metadata {
     #[allow(unused_imports)]
@@ -42845,7 +45184,7 @@ pub mod workflow_metadata {
 }
 
 /// The cluster operation triggered by a workflow.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterOperation {
     /// Output only. The id of the cluster operation.
@@ -43023,8 +45362,21 @@ impl serde::ser::Serialize for ClusterOperation {
     }
 }
 
+impl std::fmt::Debug for ClusterOperation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClusterOperation");
+        debug_struct.field("operation_id", &self.operation_id);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("done", &self.done);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The workflow graph.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowGraph {
     /// Output only. The workflow nodes.
@@ -43156,8 +45508,19 @@ impl serde::ser::Serialize for WorkflowGraph {
     }
 }
 
+impl std::fmt::Debug for WorkflowGraph {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkflowGraph");
+        debug_struct.field("nodes", &self.nodes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The workflow node.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowNode {
     /// Output only. The name of the node.
@@ -43389,6 +45752,21 @@ impl serde::ser::Serialize for WorkflowNode {
     }
 }
 
+impl std::fmt::Debug for WorkflowNode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkflowNode");
+        debug_struct.field("step_id", &self.step_id);
+        debug_struct.field("prerequisite_step_ids", &self.prerequisite_step_ids);
+        debug_struct.field("job_id", &self.job_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WorkflowNode].
 pub mod workflow_node {
     #[allow(unused_imports)]
@@ -43550,7 +45928,7 @@ pub mod workflow_node {
 }
 
 /// A request to create a workflow template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkflowTemplateRequest {
     /// Required. The resource name of the region or location, as described
@@ -43725,8 +46103,20 @@ impl serde::ser::Serialize for CreateWorkflowTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateWorkflowTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWorkflowTemplateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("template", &self.template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to fetch a workflow template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkflowTemplateRequest {
     /// Required. The resource name of the workflow template, as described
@@ -43910,8 +46300,20 @@ impl serde::ser::Serialize for GetWorkflowTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for GetWorkflowTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWorkflowTemplateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to instantiate a workflow template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstantiateWorkflowTemplateRequest {
     /// Required. The resource name of the workflow template, as described
@@ -44166,8 +46568,22 @@ impl serde::ser::Serialize for InstantiateWorkflowTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for InstantiateWorkflowTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstantiateWorkflowTemplateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("parameters", &self.parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to instantiate an inline workflow template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstantiateInlineWorkflowTemplateRequest {
     /// Required. The resource name of the region or location, as described
@@ -44376,8 +46792,21 @@ impl serde::ser::Serialize for InstantiateInlineWorkflowTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for InstantiateInlineWorkflowTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstantiateInlineWorkflowTemplateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("template", &self.template);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to update a workflow template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkflowTemplateRequest {
     /// Required. The updated workflow template.
@@ -44520,8 +46949,19 @@ impl serde::ser::Serialize for UpdateWorkflowTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateWorkflowTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateWorkflowTemplateRequest");
+        debug_struct.field("template", &self.template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list workflow templates in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowTemplatesRequest {
     /// Required. The resource name of the region or location, as described
@@ -44729,8 +47169,21 @@ impl serde::ser::Serialize for ListWorkflowTemplatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListWorkflowTemplatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkflowTemplatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to a request to list workflow templates in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowTemplatesResponse {
     /// Output only. WorkflowTemplates list.
@@ -44936,10 +47389,23 @@ impl serde::ser::Serialize for ListWorkflowTemplatesResponse {
     }
 }
 
+impl std::fmt::Debug for ListWorkflowTemplatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkflowTemplatesResponse");
+        debug_struct.field("templates", &self.templates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete a workflow template.
 ///
 /// Currently started workflows will remain running.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkflowTemplateRequest {
     /// Required. The resource name of the workflow template, as described
@@ -45119,6 +47585,18 @@ impl serde::ser::Serialize for DeleteWorkflowTemplateRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DeleteWorkflowTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWorkflowTemplateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

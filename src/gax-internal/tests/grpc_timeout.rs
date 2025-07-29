@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(all(test, feature = "_internal-grpc-client"))]
-mod test {
+mod tests {
     use anyhow::Result;
     use auth::credentials::testing::test_credentials;
     use gax::options::*;

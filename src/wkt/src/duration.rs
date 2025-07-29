@@ -510,7 +510,7 @@ impl<'de> serde::de::Deserialize<'de> for Duration {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use serde_json::json;
     use test_case::test_case;

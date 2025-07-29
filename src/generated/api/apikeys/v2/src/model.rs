@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request message for `CreateKey` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateKeyRequest {
     /// Required. The project in which the API key is created.
@@ -232,8 +232,21 @@ impl serde::ser::Serialize for CreateKeyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateKeyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("key", &self.key);
+        debug_struct.field("key_id", &self.key_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `ListKeys` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeysRequest {
     /// Required. Lists all API keys associated with this project.
@@ -456,8 +469,22 @@ impl serde::ser::Serialize for ListKeysRequest {
     }
 }
 
+impl std::fmt::Debug for ListKeysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListKeysRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("show_deleted", &self.show_deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `ListKeys` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListKeysResponse {
     /// A list of API keys.
@@ -628,8 +655,20 @@ impl serde::ser::Serialize for ListKeysResponse {
     }
 }
 
+impl std::fmt::Debug for ListKeysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListKeysResponse");
+        debug_struct.field("keys", &self.keys);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GetKey` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetKeyRequest {
     /// Required. The resource name of the API key to get.
@@ -758,8 +797,19 @@ impl serde::ser::Serialize for GetKeyRequest {
     }
 }
 
+impl std::fmt::Debug for GetKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetKeyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GetKeyString` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetKeyStringRequest {
     /// Required. The resource name of the API key to be retrieved.
@@ -888,8 +938,19 @@ impl serde::ser::Serialize for GetKeyStringRequest {
     }
 }
 
+impl std::fmt::Debug for GetKeyStringRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetKeyStringRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `GetKeyString` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetKeyStringResponse {
     /// An encrypted and signed value of the key.
@@ -1019,8 +1080,19 @@ impl serde::ser::Serialize for GetKeyStringResponse {
     }
 }
 
+impl std::fmt::Debug for GetKeyStringResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetKeyStringResponse");
+        debug_struct.field("key_string", &self.key_string);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `UpdateKey` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateKeyRequest {
     /// Required. Set the `name` field to the resource name of the API key to be
@@ -1204,8 +1276,20 @@ impl serde::ser::Serialize for UpdateKeyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateKeyRequest");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `DeleteKey` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteKeyRequest {
     /// Required. The resource name of the API key to be deleted.
@@ -1359,8 +1443,20 @@ impl serde::ser::Serialize for DeleteKeyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteKeyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `UndeleteKey` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteKeyRequest {
     /// Required. The resource name of the API key to be undeleted.
@@ -1489,8 +1585,19 @@ impl serde::ser::Serialize for UndeleteKeyRequest {
     }
 }
 
+impl std::fmt::Debug for UndeleteKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteKeyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `LookupKey` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupKeyRequest {
     /// Required. Finds the project that owns the key string value.
@@ -1620,8 +1727,19 @@ impl serde::ser::Serialize for LookupKeyRequest {
     }
 }
 
+impl std::fmt::Debug for LookupKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupKeyRequest");
+        debug_struct.field("key_string", &self.key_string);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `LookupKey` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupKeyResponse {
     /// The project that owns the key with the value specified in the request.
@@ -1775,8 +1893,20 @@ impl serde::ser::Serialize for LookupKeyResponse {
     }
 }
 
+impl std::fmt::Debug for LookupKeyResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupKeyResponse");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The representation of a key managed by the API Keys API.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Key {
     /// Output only. The resource name of the key.
@@ -2198,8 +2328,28 @@ impl serde::ser::Serialize for Key {
     }
 }
 
+impl std::fmt::Debug for Key {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Key");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("key_string", &self.key_string);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("restrictions", &self.restrictions);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes the restrictions on the key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Restrictions {
     /// A restriction for a specific service and optionally one or
@@ -2581,6 +2731,18 @@ impl serde::ser::Serialize for Restrictions {
     }
 }
 
+impl std::fmt::Debug for Restrictions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Restrictions");
+        debug_struct.field("api_targets", &self.api_targets);
+        debug_struct.field("client_restrictions", &self.client_restrictions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Restrictions].
 pub mod restrictions {
     #[allow(unused_imports)]
@@ -2604,7 +2766,7 @@ pub mod restrictions {
 }
 
 /// The HTTP referrers (websites) that are allowed to use the key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BrowserKeyRestrictions {
     /// A list of regular expressions for the referrer URLs that are allowed
@@ -2738,8 +2900,19 @@ impl serde::ser::Serialize for BrowserKeyRestrictions {
     }
 }
 
+impl std::fmt::Debug for BrowserKeyRestrictions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BrowserKeyRestrictions");
+        debug_struct.field("allowed_referrers", &self.allowed_referrers);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The IP addresses of callers that are allowed to use the key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServerKeyRestrictions {
     /// A list of the caller IP addresses that are allowed to make API calls
@@ -2873,8 +3046,19 @@ impl serde::ser::Serialize for ServerKeyRestrictions {
     }
 }
 
+impl std::fmt::Debug for ServerKeyRestrictions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServerKeyRestrictions");
+        debug_struct.field("allowed_ips", &self.allowed_ips);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Android apps that are allowed to use the key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AndroidKeyRestrictions {
     /// A list of Android applications that are allowed to make API calls with
@@ -3012,8 +3196,19 @@ impl serde::ser::Serialize for AndroidKeyRestrictions {
     }
 }
 
+impl std::fmt::Debug for AndroidKeyRestrictions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AndroidKeyRestrictions");
+        debug_struct.field("allowed_applications", &self.allowed_applications);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identifier of an Android application for key use.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AndroidApplication {
     /// The SHA1 fingerprint of the application. For example, both sha1 formats are
@@ -3174,8 +3369,20 @@ impl serde::ser::Serialize for AndroidApplication {
     }
 }
 
+impl std::fmt::Debug for AndroidApplication {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AndroidApplication");
+        debug_struct.field("sha1_fingerprint", &self.sha1_fingerprint);
+        debug_struct.field("package_name", &self.package_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The iOS apps that are allowed to use the key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IosKeyRestrictions {
     /// A list of bundle IDs that are allowed when making API calls with this key.
@@ -3308,9 +3515,20 @@ impl serde::ser::Serialize for IosKeyRestrictions {
     }
 }
 
+impl std::fmt::Debug for IosKeyRestrictions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IosKeyRestrictions");
+        debug_struct.field("allowed_bundle_ids", &self.allowed_bundle_ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A restriction for a specific service and optionally one or multiple
 /// specific methods. Both fields are case insensitive.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApiTarget {
     /// The service for this restriction. It should be the canonical
@@ -3473,5 +3691,17 @@ impl serde::ser::Serialize for ApiTarget {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ApiTarget {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApiTarget");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("methods", &self.methods);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

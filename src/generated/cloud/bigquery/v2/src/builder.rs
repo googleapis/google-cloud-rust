@@ -740,6 +740,751 @@ pub mod dataset_service {
     }
 }
 
+pub mod job_service {
+    use crate::Result;
+
+    /// A builder for [JobService][crate::client::JobService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::*;
+    /// # use builder::job_service::ClientBuilder;
+    /// # use client::JobService;
+    /// let builder : ClientBuilder = JobService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://bigquery.googleapis.com")
+    ///     .build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::JobService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = JobService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::JobService] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [JobService::cancel_job][crate::client::JobService::cancel_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::CancelJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
+
+    impl CancelJob {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CancelJobRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::JobCancelResponse> {
+            (*self.0.stub)
+                .cancel_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project_id][crate::model::CancelJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project_id = v.into();
+            self
+        }
+
+        /// Sets the value of [job_id][crate::model::CancelJobRequest::job_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.job_id = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::CancelJobRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CancelJob {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [JobService::get_job][crate::client::JobService::get_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::GetJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
+
+    impl GetJob {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetJobRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Job> {
+            (*self.0.stub)
+                .get_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project_id][crate::model::GetJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project_id = v.into();
+            self
+        }
+
+        /// Sets the value of [job_id][crate::model::GetJobRequest::job_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.job_id = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::GetJobRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetJob {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [JobService::insert_job][crate::client::JobService::insert_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::InsertJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InsertJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct InsertJob(RequestBuilder<crate::model::InsertJobRequest>);
+
+    impl InsertJob {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::InsertJobRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Job> {
+            (*self.0.stub)
+                .insert_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project_id][crate::model::InsertJobRequest::project_id].
+        pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project_id = v.into();
+            self
+        }
+
+        /// Sets the value of [job][crate::model::InsertJobRequest::job].
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::InsertJobRequest::job].
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for InsertJob {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [JobService::delete_job][crate::client::JobService::delete_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::DeleteJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
+
+    impl DeleteJob {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteJobRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project_id][crate::model::DeleteJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project_id = v.into();
+            self
+        }
+
+        /// Sets the value of [job_id][crate::model::DeleteJobRequest::job_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.job_id = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::DeleteJobRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteJob {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [JobService::list_jobs][crate::client::JobService::list_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::ListJobs;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
+
+    impl ListJobs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListJobsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::JobList> {
+            (*self.0.stub)
+                .list_jobs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project_id][crate::model::ListJobsRequest::project_id].
+        pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project_id = v.into();
+            self
+        }
+
+        /// Sets the value of [all_users][crate::model::ListJobsRequest::all_users].
+        pub fn set_all_users<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.all_users = v.into();
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::ListJobsRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int32Value>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::ListJobsRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int32Value>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [min_creation_time][crate::model::ListJobsRequest::min_creation_time].
+        pub fn set_min_creation_time<T: Into<u64>>(mut self, v: T) -> Self {
+            self.0.request.min_creation_time = v.into();
+            self
+        }
+
+        /// Sets the value of [max_creation_time][crate::model::ListJobsRequest::max_creation_time].
+        pub fn set_max_creation_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt64Value>,
+        {
+            self.0.request.max_creation_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_creation_time][crate::model::ListJobsRequest::max_creation_time].
+        pub fn set_or_clear_max_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt64Value>,
+        {
+            self.0.request.max_creation_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListJobsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [projection][crate::model::ListJobsRequest::projection].
+        pub fn set_projection<T: Into<crate::model::list_jobs_request::Projection>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.projection = v.into();
+            self
+        }
+
+        /// Sets the value of [state_filter][crate::model::ListJobsRequest::state_filter].
+        pub fn set_state_filter<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::list_jobs_request::StateFilter>,
+        {
+            use std::iter::Iterator;
+            self.0.request.state_filter = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parent_job_id][crate::model::ListJobsRequest::parent_job_id].
+        pub fn set_parent_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent_job_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListJobs {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [JobService::get_query_results][crate::client::JobService::get_query_results] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::GetQueryResults;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetQueryResults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetQueryResults(RequestBuilder<crate::model::GetQueryResultsRequest>);
+
+    impl GetQueryResults {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetQueryResultsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::GetQueryResultsResponse> {
+            (*self.0.stub)
+                .get_query_results(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project_id][crate::model::GetQueryResultsRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project_id = v.into();
+            self
+        }
+
+        /// Sets the value of [job_id][crate::model::GetQueryResultsRequest::job_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.job_id = v.into();
+            self
+        }
+
+        /// Sets the value of [start_index][crate::model::GetQueryResultsRequest::start_index].
+        pub fn set_start_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt64Value>,
+        {
+            self.0.request.start_index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_index][crate::model::GetQueryResultsRequest::start_index].
+        pub fn set_or_clear_start_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt64Value>,
+        {
+            self.0.request.start_index = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::GetQueryResultsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [max_results][crate::model::GetQueryResultsRequest::max_results].
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::GetQueryResultsRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [timeout_ms][crate::model::GetQueryResultsRequest::timeout_ms].
+        pub fn set_timeout_ms<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.timeout_ms = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeout_ms][crate::model::GetQueryResultsRequest::timeout_ms].
+        pub fn set_or_clear_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.timeout_ms = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [location][crate::model::GetQueryResultsRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
+
+        /// Sets the value of [format_options][crate::model::GetQueryResultsRequest::format_options].
+        pub fn set_format_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataFormatOptions>,
+        {
+            self.0.request.format_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [format_options][crate::model::GetQueryResultsRequest::format_options].
+        pub fn set_or_clear_format_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataFormatOptions>,
+        {
+            self.0.request.format_options = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetQueryResults {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [JobService::query][crate::client::JobService::query] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::Query;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Query {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Query(RequestBuilder<crate::model::PostQueryRequest>);
+
+    impl Query {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::PostQueryRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::QueryResponse> {
+            (*self.0.stub)
+                .query(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [project_id][crate::model::PostQueryRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project_id = v.into();
+            self
+        }
+
+        /// Sets the value of [query_request][crate::model::PostQueryRequest::query_request].
+        pub fn set_query_request<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryRequest>,
+        {
+            self.0.request.query_request = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_request][crate::model::PostQueryRequest::query_request].
+        pub fn set_or_clear_query_request<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryRequest>,
+        {
+            self.0.request.query_request = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Query {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
 pub mod model_service {
     use crate::Result;
 

@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Specification for the BigQuery connection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryConnectionSpec {
     /// The type of the BigQuery connection.
@@ -277,6 +277,19 @@ impl serde::ser::Serialize for BigQueryConnectionSpec {
     }
 }
 
+impl std::fmt::Debug for BigQueryConnectionSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryConnectionSpec");
+        debug_struct.field("connection_type", &self.connection_type);
+        debug_struct.field("has_credential", &self.has_credential);
+        debug_struct.field("connection_spec", &self.connection_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BigQueryConnectionSpec].
 pub mod big_query_connection_spec {
     #[allow(unused_imports)]
@@ -416,7 +429,7 @@ pub mod big_query_connection_spec {
 }
 
 /// Specification for the BigQuery connection to a Cloud SQL instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlBigQueryConnectionSpec {
     /// Cloud SQL instance ID in the format of `project:location:instance`.
@@ -601,6 +614,19 @@ impl serde::ser::Serialize for CloudSqlBigQueryConnectionSpec {
     }
 }
 
+impl std::fmt::Debug for CloudSqlBigQueryConnectionSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlBigQueryConnectionSpec");
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CloudSqlBigQueryConnectionSpec].
 pub mod cloud_sql_big_query_connection_spec {
     #[allow(unused_imports)]
@@ -740,7 +766,7 @@ pub mod cloud_sql_big_query_connection_spec {
 }
 
 /// Fields specific for BigQuery routines.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryRoutineSpec {
     /// Paths of the imported libraries.
@@ -873,8 +899,19 @@ impl serde::ser::Serialize for BigQueryRoutineSpec {
     }
 }
 
+impl std::fmt::Debug for BigQueryRoutineSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryRoutineSpec");
+        debug_struct.field("imported_libraries", &self.imported_libraries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Entry metadata relevant only to the user and private to them.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PersonalDetails {
     /// True if the entry is starred by the user; false otherwise.
@@ -1039,8 +1076,20 @@ impl serde::ser::Serialize for PersonalDetails {
     }
 }
 
+impl std::fmt::Debug for PersonalDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PersonalDetails");
+        debug_struct.field("starred", &self.starred);
+        debug_struct.field("star_time", &self.star_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Physical location of an entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataSource {
     /// Service that physically stores the data.
@@ -1295,6 +1344,20 @@ impl serde::ser::Serialize for DataSource {
     }
 }
 
+impl std::fmt::Debug for DataSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataSource");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("source_entry", &self.source_entry);
+        debug_struct.field("properties", &self.properties);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataSource].
 pub mod data_source {
     #[allow(unused_imports)]
@@ -1441,7 +1504,7 @@ pub mod data_source {
 }
 
 /// Details the properties of the underlying storage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageProperties {
     /// Patterns to identify a set of files for this fileset.
@@ -1618,11 +1681,23 @@ impl serde::ser::Serialize for StorageProperties {
     }
 }
 
+impl std::fmt::Debug for StorageProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StorageProperties");
+        debug_struct.field("file_pattern", &self.file_pattern);
+        debug_struct.field("file_type", &self.file_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SearchCatalog][google.cloud.datacatalog.v1.DataCatalog.SearchCatalog].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.SearchCatalog]: crate::client::DataCatalog::search_catalog
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCatalogRequest {
     /// Required. The scope of this search request.
@@ -1954,13 +2029,29 @@ impl serde::ser::Serialize for SearchCatalogRequest {
     }
 }
 
+impl std::fmt::Debug for SearchCatalogRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchCatalogRequest");
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("admin_search", &self.admin_search);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SearchCatalogRequest].
 pub mod search_catalog_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// The criteria that select the subspace used for query matching.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Scope {
         /// The list of organization IDs to search within.
@@ -2271,13 +2362,35 @@ pub mod search_catalog_request {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Scope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Scope");
+            debug_struct.field("include_org_ids", &self.include_org_ids);
+            debug_struct.field("include_project_ids", &self.include_project_ids);
+            debug_struct.field(
+                "include_gcp_public_datasets",
+                &self.include_gcp_public_datasets,
+            );
+            debug_struct.field("restricted_locations", &self.restricted_locations);
+            debug_struct.field("starred_only", &self.starred_only);
+            debug_struct.field(
+                "include_public_tag_templates",
+                &self.include_public_tag_templates,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Response message for
 /// [SearchCatalog][google.cloud.datacatalog.v1.DataCatalog.SearchCatalog].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.SearchCatalog]: crate::client::DataCatalog::search_catalog
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCatalogResponse {
     /// Search results.
@@ -2528,11 +2641,25 @@ impl serde::ser::Serialize for SearchCatalogResponse {
     }
 }
 
+impl std::fmt::Debug for SearchCatalogResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchCatalogResponse");
+        debug_struct.field("results", &self.results);
+        debug_struct.field("total_size", &self.total_size);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateEntryGroup][google.cloud.datacatalog.v1.DataCatalog.CreateEntryGroup].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.CreateEntryGroup]: crate::client::DataCatalog::create_entry_group
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEntryGroupRequest {
     /// Required. The names of the project and location that the new entry group
@@ -2730,11 +2857,24 @@ impl serde::ser::Serialize for CreateEntryGroupRequest {
     }
 }
 
+impl std::fmt::Debug for CreateEntryGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateEntryGroupRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("entry_group_id", &self.entry_group_id);
+        debug_struct.field("entry_group", &self.entry_group);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdateEntryGroup][google.cloud.datacatalog.v1.DataCatalog.UpdateEntryGroup].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.UpdateEntryGroup]: crate::client::DataCatalog::update_entry_group
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEntryGroupRequest {
     /// Required. Updates for the entry group. The `name` field must be set.
@@ -2915,11 +3055,23 @@ impl serde::ser::Serialize for UpdateEntryGroupRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateEntryGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateEntryGroupRequest");
+        debug_struct.field("entry_group", &self.entry_group);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [GetEntryGroup][google.cloud.datacatalog.v1.DataCatalog.GetEntryGroup].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.GetEntryGroup]: crate::client::DataCatalog::get_entry_group
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEntryGroupRequest {
     /// Required. The name of the entry group to get.
@@ -3084,11 +3236,23 @@ impl serde::ser::Serialize for GetEntryGroupRequest {
     }
 }
 
+impl std::fmt::Debug for GetEntryGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEntryGroupRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("read_mask", &self.read_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DeleteEntryGroup][google.cloud.datacatalog.v1.DataCatalog.DeleteEntryGroup].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.DeleteEntryGroup]: crate::client::DataCatalog::delete_entry_group
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEntryGroupRequest {
     /// Required. The name of the entry group to delete.
@@ -3241,11 +3405,23 @@ impl serde::ser::Serialize for DeleteEntryGroupRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteEntryGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteEntryGroupRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ListEntryGroups][google.cloud.datacatalog.v1.DataCatalog.ListEntryGroups].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ListEntryGroups]: crate::client::DataCatalog::list_entry_groups
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEntryGroupsRequest {
     /// Required. The name of the location that contains the entry groups to list.
@@ -3448,11 +3624,24 @@ impl serde::ser::Serialize for ListEntryGroupsRequest {
     }
 }
 
+impl std::fmt::Debug for ListEntryGroupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEntryGroupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ListEntryGroups][google.cloud.datacatalog.v1.DataCatalog.ListEntryGroups].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ListEntryGroups]: crate::client::DataCatalog::list_entry_groups
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEntryGroupsResponse {
     /// Entry group details.
@@ -3625,11 +3814,23 @@ impl serde::ser::Serialize for ListEntryGroupsResponse {
     }
 }
 
+impl std::fmt::Debug for ListEntryGroupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEntryGroupsResponse");
+        debug_struct.field("entry_groups", &self.entry_groups);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateEntry][google.cloud.datacatalog.v1.DataCatalog.CreateEntry].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.CreateEntry]: crate::client::DataCatalog::create_entry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEntryRequest {
     /// Required. The name of the entry group this entry belongs to.
@@ -3825,11 +4026,24 @@ impl serde::ser::Serialize for CreateEntryRequest {
     }
 }
 
+impl std::fmt::Debug for CreateEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateEntryRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("entry_id", &self.entry_id);
+        debug_struct.field("entry", &self.entry);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdateEntry][google.cloud.datacatalog.v1.DataCatalog.UpdateEntry].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.UpdateEntry]: crate::client::DataCatalog::update_entry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEntryRequest {
     /// Required. Updates for the entry. The `name` field must be set.
@@ -4033,11 +4247,23 @@ impl serde::ser::Serialize for UpdateEntryRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateEntryRequest");
+        debug_struct.field("entry", &self.entry);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DeleteEntry][google.cloud.datacatalog.v1.DataCatalog.DeleteEntry].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.DeleteEntry]: crate::client::DataCatalog::delete_entry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEntryRequest {
     /// Required. The name of the entry to delete.
@@ -4166,11 +4392,22 @@ impl serde::ser::Serialize for DeleteEntryRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteEntryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [GetEntry][google.cloud.datacatalog.v1.DataCatalog.GetEntry].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.GetEntry]: crate::client::DataCatalog::get_entry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEntryRequest {
     /// Required. The name of the entry to get.
@@ -4299,11 +4536,22 @@ impl serde::ser::Serialize for GetEntryRequest {
     }
 }
 
+impl std::fmt::Debug for GetEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEntryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [LookupEntry][google.cloud.datacatalog.v1.DataCatalog.LookupEntry].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.LookupEntry]: crate::client::DataCatalog::lookup_entry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupEntryRequest {
     /// Project where the lookup should be performed. Required to lookup
@@ -4628,6 +4876,19 @@ impl serde::ser::Serialize for LookupEntryRequest {
     }
 }
 
+impl std::fmt::Debug for LookupEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupEntryRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("target_name", &self.target_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LookupEntryRequest].
 pub mod lookup_entry_request {
     #[allow(unused_imports)]
@@ -4695,7 +4956,7 @@ pub mod lookup_entry_request {
 /// [Tag][google.cloud.datacatalog.v1.Tag].
 ///
 /// [google.cloud.datacatalog.v1.Tag]: crate::model::Tag
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Entry {
     /// Output only. Identifier. The resource name of an entry in URL format.
@@ -6269,6 +6530,33 @@ impl serde::ser::Serialize for Entry {
     }
 }
 
+impl std::fmt::Debug for Entry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Entry");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("linked_resource", &self.linked_resource);
+        debug_struct.field("fully_qualified_name", &self.fully_qualified_name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("business_context", &self.business_context);
+        debug_struct.field("schema", &self.schema);
+        debug_struct.field("source_system_timestamps", &self.source_system_timestamps);
+        debug_struct.field("usage_signal", &self.usage_signal);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("data_source", &self.data_source);
+        debug_struct.field("personal_details", &self.personal_details);
+        debug_struct.field("entry_type", &self.entry_type);
+        debug_struct.field("system", &self.system);
+        debug_struct.field("system_spec", &self.system_spec);
+        debug_struct.field("type_spec", &self.type_spec);
+        debug_struct.field("spec", &self.spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Entry].
 pub mod entry {
     #[allow(unused_imports)]
@@ -6386,7 +6674,7 @@ pub mod entry {
 
 /// Specification that applies to a table resource. Valid only
 /// for entries with the `TABLE` type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseTableSpec {
     /// Type of this table.
@@ -6597,13 +6885,26 @@ impl serde::ser::Serialize for DatabaseTableSpec {
     }
 }
 
+impl std::fmt::Debug for DatabaseTableSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatabaseTableSpec");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("dataplex_table", &self.dataplex_table);
+        debug_struct.field("database_view_spec", &self.database_view_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DatabaseTableSpec].
 pub mod database_table_spec {
     #[allow(unused_imports)]
     use super::*;
 
     /// Specification that applies to database view.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DatabaseViewSpec {
         /// Type of this view.
@@ -6855,6 +7156,18 @@ pub mod database_table_spec {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for DatabaseViewSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DatabaseViewSpec");
+            debug_struct.field("view_type", &self.view_type);
+            debug_struct.field("source_definition", &self.source_definition);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -7144,7 +7457,7 @@ pub mod database_table_spec {
 
 /// Specification that applies to a fileset. Valid only for entries with the
 /// 'FILESET' type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FilesetSpec {
     /// Fields specific to a Dataplex fileset and present only in the Dataplex
@@ -7286,11 +7599,22 @@ impl serde::ser::Serialize for FilesetSpec {
     }
 }
 
+impl std::fmt::Debug for FilesetSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FilesetSpec");
+        debug_struct.field("dataplex_fileset", &self.dataplex_fileset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification that applies to a data source connection. Valid only for
 /// entries with the `DATA_SOURCE_CONNECTION` type.
 /// Only one of internal specs can be set at the time, and cannot
 /// be changed later.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataSourceConnectionSpec {
     /// Output only. Fields specific to BigQuery connections.
@@ -7433,9 +7757,20 @@ impl serde::ser::Serialize for DataSourceConnectionSpec {
     }
 }
 
+impl std::fmt::Debug for DataSourceConnectionSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataSourceConnectionSpec");
+        debug_struct.field("bigquery_connection_spec", &self.bigquery_connection_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification that applies to a routine. Valid only for
 /// entries with the `ROUTINE` type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RoutineSpec {
     /// The type of the routine.
@@ -7752,13 +8087,29 @@ impl serde::ser::Serialize for RoutineSpec {
     }
 }
 
+impl std::fmt::Debug for RoutineSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RoutineSpec");
+        debug_struct.field("routine_type", &self.routine_type);
+        debug_struct.field("language", &self.language);
+        debug_struct.field("routine_arguments", &self.routine_arguments);
+        debug_struct.field("return_type", &self.return_type);
+        debug_struct.field("definition_body", &self.definition_body);
+        debug_struct.field("system_spec", &self.system_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RoutineSpec].
 pub mod routine_spec {
     #[allow(unused_imports)]
     use super::*;
 
     /// Input or output argument of a function or stored procedure.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Argument {
         /// The name of the argument. A return argument of a function might not have
@@ -7942,6 +8293,19 @@ pub mod routine_spec {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Argument {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Argument");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("mode", &self.mode);
+            debug_struct.field("r#type", &self.r#type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -8236,7 +8600,7 @@ pub mod routine_spec {
 
 /// Specification that applies to a dataset. Valid only for
 /// entries with the `DATASET` type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatasetSpec {
     /// Fields specific to the source system.
@@ -8416,6 +8780,17 @@ impl serde::ser::Serialize for DatasetSpec {
     }
 }
 
+impl std::fmt::Debug for DatasetSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatasetSpec");
+        debug_struct.field("system_spec", &self.system_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DatasetSpec].
 pub mod dataset_spec {
     #[allow(unused_imports)]
@@ -8433,7 +8808,7 @@ pub mod dataset_spec {
 /// Specification that applies to
 /// entries that are part `SQL_DATABASE` system
 /// (user_specified_type)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlDatabaseSystemSpec {
     /// SQL Database Engine.
@@ -8631,10 +9006,23 @@ impl serde::ser::Serialize for SqlDatabaseSystemSpec {
     }
 }
 
+impl std::fmt::Debug for SqlDatabaseSystemSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SqlDatabaseSystemSpec");
+        debug_struct.field("sql_engine", &self.sql_engine);
+        debug_struct.field("database_version", &self.database_version);
+        debug_struct.field("instance_host", &self.instance_host);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification that applies to
 /// entries that are part `LOOKER` system
 /// (user_specified_type)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookerSystemSpec {
     /// ID of the parent Looker Instance. Empty if it does not exist.
@@ -8913,10 +9301,29 @@ impl serde::ser::Serialize for LookerSystemSpec {
     }
 }
 
+impl std::fmt::Debug for LookerSystemSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookerSystemSpec");
+        debug_struct.field("parent_instance_id", &self.parent_instance_id);
+        debug_struct.field(
+            "parent_instance_display_name",
+            &self.parent_instance_display_name,
+        );
+        debug_struct.field("parent_model_id", &self.parent_model_id);
+        debug_struct.field("parent_model_display_name", &self.parent_model_display_name);
+        debug_struct.field("parent_view_id", &self.parent_view_id);
+        debug_struct.field("parent_view_display_name", &self.parent_view_display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification that applies to
 /// all entries that are part of `CLOUD_BIGTABLE` system
 /// (user_specified_type)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudBigtableSystemSpec {
     /// Display name of the Instance. This is user specified and different from
@@ -9050,10 +9457,21 @@ impl serde::ser::Serialize for CloudBigtableSystemSpec {
     }
 }
 
+impl std::fmt::Debug for CloudBigtableSystemSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudBigtableSystemSpec");
+        debug_struct.field("instance_display_name", &self.instance_display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification that applies to Instance
 /// entries that are part of `CLOUD_BIGTABLE` system.
 /// (user_specified_type)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudBigtableInstanceSpec {
     /// The list of clusters for the Instance.
@@ -9194,13 +9612,27 @@ impl serde::ser::Serialize for CloudBigtableInstanceSpec {
     }
 }
 
+impl std::fmt::Debug for CloudBigtableInstanceSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudBigtableInstanceSpec");
+        debug_struct.field(
+            "cloud_bigtable_cluster_specs",
+            &self.cloud_bigtable_cluster_specs,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CloudBigtableInstanceSpec].
 pub mod cloud_bigtable_instance_spec {
     #[allow(unused_imports)]
     use super::*;
 
     /// Spec that applies to clusters of an Instance of Cloud Bigtable.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudBigtableClusterSpec {
         /// Name of the cluster.
@@ -9411,11 +9843,25 @@ pub mod cloud_bigtable_instance_spec {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for CloudBigtableClusterSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CloudBigtableClusterSpec");
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("location", &self.location);
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("linked_resource", &self.linked_resource);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Specification that applies to a Service resource. Valid only
 /// for entries with the `SERVICE` type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceSpec {
     /// System spec
@@ -9599,6 +10045,17 @@ impl serde::ser::Serialize for ServiceSpec {
     }
 }
 
+impl std::fmt::Debug for ServiceSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceSpec");
+        debug_struct.field("system_spec", &self.system_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServiceSpec].
 pub mod service_spec {
     #[allow(unused_imports)]
@@ -9615,7 +10072,7 @@ pub mod service_spec {
 }
 
 /// Detail description of the source information of a Vertex model.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VertexModelSourceInfo {
     /// Type of the model source.
@@ -9777,6 +10234,18 @@ impl serde::ser::Serialize for VertexModelSourceInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for VertexModelSourceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VertexModelSourceInfo");
+        debug_struct.field("source_type", &self.source_type);
+        debug_struct.field("copy", &self.copy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -9954,7 +10423,7 @@ pub mod vertex_model_source_info {
 }
 
 /// Specification for vertex model resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VertexModelSpec {
     /// The version ID of the model.
@@ -10208,8 +10677,23 @@ impl serde::ser::Serialize for VertexModelSpec {
     }
 }
 
+impl std::fmt::Debug for VertexModelSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VertexModelSpec");
+        debug_struct.field("version_id", &self.version_id);
+        debug_struct.field("version_aliases", &self.version_aliases);
+        debug_struct.field("version_description", &self.version_description);
+        debug_struct.field("vertex_model_source_info", &self.vertex_model_source_info);
+        debug_struct.field("container_image_uri", &self.container_image_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification for vertex dataset resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VertexDatasetSpec {
     /// The number of DataItems in this Dataset. Only apply for non-structured
@@ -10386,6 +10870,18 @@ impl serde::ser::Serialize for VertexDatasetSpec {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for VertexDatasetSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VertexDatasetSpec");
+        debug_struct.field("data_item_count", &self.data_item_count);
+        debug_struct.field("data_type", &self.data_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -10605,7 +11101,7 @@ pub mod vertex_dataset_spec {
 
 /// Specification that applies to a model. Valid only for
 /// entries with the `MODEL` type.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModelSpec {
     /// System spec
@@ -10785,6 +11281,17 @@ impl serde::ser::Serialize for ModelSpec {
     }
 }
 
+impl std::fmt::Debug for ModelSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ModelSpec");
+        debug_struct.field("system_spec", &self.system_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ModelSpec].
 pub mod model_spec {
     #[allow(unused_imports)]
@@ -10801,7 +11308,7 @@ pub mod model_spec {
 
 /// Detail description of the source information of a Vertex Feature Online
 /// Store.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureOnlineStoreSpec {
     /// Output only. Type of underlying storage for the FeatureOnlineStore.
@@ -10935,6 +11442,17 @@ impl serde::ser::Serialize for FeatureOnlineStoreSpec {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for FeatureOnlineStoreSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FeatureOnlineStoreSpec");
+        debug_struct.field("storage_type", &self.storage_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -11077,7 +11595,7 @@ pub mod feature_online_store_spec {
 }
 
 /// Business Context of the entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BusinessContext {
     /// Entry overview fields for rich text descriptions of entries.
@@ -11253,8 +11771,20 @@ impl serde::ser::Serialize for BusinessContext {
     }
 }
 
+impl std::fmt::Debug for BusinessContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BusinessContext");
+        debug_struct.field("entry_overview", &self.entry_overview);
+        debug_struct.field("contacts", &self.contacts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Entry overview fields for rich text descriptions of entries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntryOverview {
     /// Entry overview with support for rich text.
@@ -11389,8 +11919,19 @@ impl serde::ser::Serialize for EntryOverview {
     }
 }
 
+impl std::fmt::Debug for EntryOverview {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntryOverview");
+        debug_struct.field("overview", &self.overview);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contact people for the entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Contacts {
     /// The list of contact people for the entry.
@@ -11526,13 +12067,24 @@ impl serde::ser::Serialize for Contacts {
     }
 }
 
+impl std::fmt::Debug for Contacts {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Contacts");
+        debug_struct.field("people", &self.people);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Contacts].
 pub mod contacts {
     #[allow(unused_imports)]
     use super::*;
 
     /// A contact person for the entry.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Person {
         /// Designation of the person, for example, Data Steward.
@@ -11688,6 +12240,18 @@ pub mod contacts {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Person {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Person");
+            debug_struct.field("designation", &self.designation);
+            debug_struct.field("email", &self.email);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Entry group metadata.
@@ -11696,7 +12260,7 @@ pub mod contacts {
 /// Data Catalog [Entry][google.cloud.datacatalog.v1.Entry] resources.
 ///
 /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntryGroup {
     /// Identifier. The resource name of the entry group in URL format.
@@ -11946,11 +12510,26 @@ impl serde::ser::Serialize for EntryGroup {
     }
 }
 
+impl std::fmt::Debug for EntryGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntryGroup");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("data_catalog_timestamps", &self.data_catalog_timestamps);
+        debug_struct.field("transferred_to_dataplex", &self.transferred_to_dataplex);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateTagTemplate][google.cloud.datacatalog.v1.DataCatalog.CreateTagTemplate].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.CreateTagTemplate]: crate::client::DataCatalog::create_tag_template
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagTemplateRequest {
     /// Required. The name of the project and the template location
@@ -12145,11 +12724,24 @@ impl serde::ser::Serialize for CreateTagTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTagTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTagTemplateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("tag_template_id", &self.tag_template_id);
+        debug_struct.field("tag_template", &self.tag_template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [GetTagTemplate][google.cloud.datacatalog.v1.DataCatalog.GetTagTemplate].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.GetTagTemplate]: crate::client::DataCatalog::get_tag_template
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTagTemplateRequest {
     /// Required. The name of the tag template to get.
@@ -12278,11 +12870,22 @@ impl serde::ser::Serialize for GetTagTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for GetTagTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTagTemplateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdateTagTemplate][google.cloud.datacatalog.v1.DataCatalog.UpdateTagTemplate].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.UpdateTagTemplate]: crate::client::DataCatalog::update_tag_template
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTagTemplateRequest {
     /// Required. The template to update. The `name` field must be set.
@@ -12467,11 +13070,23 @@ impl serde::ser::Serialize for UpdateTagTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTagTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTagTemplateRequest");
+        debug_struct.field("tag_template", &self.tag_template);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DeleteTagTemplate][google.cloud.datacatalog.v1.DataCatalog.DeleteTagTemplate].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.DeleteTagTemplate]: crate::client::DataCatalog::delete_tag_template
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagTemplateRequest {
     /// Required. The name of the tag template to delete.
@@ -12626,11 +13241,23 @@ impl serde::ser::Serialize for DeleteTagTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTagTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTagTemplateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateTag][google.cloud.datacatalog.v1.DataCatalog.CreateTag].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.CreateTag]: crate::client::DataCatalog::create_tag
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagRequest {
     /// Required. The name of the resource to attach this tag to.
@@ -12800,11 +13427,23 @@ impl serde::ser::Serialize for CreateTagRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTagRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTagRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("tag", &self.tag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdateTag][google.cloud.datacatalog.v1.DataCatalog.UpdateTag].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.UpdateTag]: crate::client::DataCatalog::update_tag
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTagRequest {
     /// Required. The updated tag. The "name" field must be set.
@@ -12985,11 +13624,23 @@ impl serde::ser::Serialize for UpdateTagRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTagRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTagRequest");
+        debug_struct.field("tag", &self.tag);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DeleteTag][google.cloud.datacatalog.v1.DataCatalog.DeleteTag].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.DeleteTag]: crate::client::DataCatalog::delete_tag
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagRequest {
     /// Required. The name of the tag to delete.
@@ -13118,11 +13769,22 @@ impl serde::ser::Serialize for DeleteTagRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTagRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTagRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateTagTemplateField][google.cloud.datacatalog.v1.DataCatalog.CreateTagTemplateField].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.CreateTagTemplateField]: crate::client::DataCatalog::create_tag_template_field
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagTemplateFieldRequest {
     /// Required. The name of the project and the template location
@@ -13324,11 +13986,24 @@ impl serde::ser::Serialize for CreateTagTemplateFieldRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTagTemplateFieldRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTagTemplateFieldRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("tag_template_field_id", &self.tag_template_field_id);
+        debug_struct.field("tag_template_field", &self.tag_template_field);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdateTagTemplateField][google.cloud.datacatalog.v1.DataCatalog.UpdateTagTemplateField].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.UpdateTagTemplateField]: crate::client::DataCatalog::update_tag_template_field
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTagTemplateFieldRequest {
     /// Required. The name of the tag template field.
@@ -13545,11 +14220,24 @@ impl serde::ser::Serialize for UpdateTagTemplateFieldRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTagTemplateFieldRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTagTemplateFieldRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("tag_template_field", &self.tag_template_field);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [RenameTagTemplateField][google.cloud.datacatalog.v1.DataCatalog.RenameTagTemplateField].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.RenameTagTemplateField]: crate::client::DataCatalog::rename_tag_template_field
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameTagTemplateFieldRequest {
     /// Required. The name of the tag template field.
@@ -13709,11 +14397,23 @@ impl serde::ser::Serialize for RenameTagTemplateFieldRequest {
     }
 }
 
+impl std::fmt::Debug for RenameTagTemplateFieldRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RenameTagTemplateFieldRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("new_tag_template_field_id", &self.new_tag_template_field_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [RenameTagTemplateFieldEnumValue][google.cloud.datacatalog.v1.DataCatalog.RenameTagTemplateFieldEnumValue].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.RenameTagTemplateFieldEnumValue]: crate::client::DataCatalog::rename_tag_template_field_enum_value
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameTagTemplateFieldEnumValueRequest {
     /// Required. The name of the enum field value.
@@ -13876,11 +14576,26 @@ impl serde::ser::Serialize for RenameTagTemplateFieldEnumValueRequest {
     }
 }
 
+impl std::fmt::Debug for RenameTagTemplateFieldEnumValueRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RenameTagTemplateFieldEnumValueRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "new_enum_value_display_name",
+            &self.new_enum_value_display_name,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DeleteTagTemplateField][google.cloud.datacatalog.v1.DataCatalog.DeleteTagTemplateField].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.DeleteTagTemplateField]: crate::client::DataCatalog::delete_tag_template_field
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagTemplateFieldRequest {
     /// Required. The name of the tag template field to delete.
@@ -14035,11 +14750,23 @@ impl serde::ser::Serialize for DeleteTagTemplateFieldRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTagTemplateFieldRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTagTemplateFieldRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ListTags][google.cloud.datacatalog.v1.DataCatalog.ListTags].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ListTags]: crate::client::DataCatalog::list_tags
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagsRequest {
     /// Required. The name of the Data Catalog resource to list the tags of.
@@ -14244,11 +14971,24 @@ impl serde::ser::Serialize for ListTagsRequest {
     }
 }
 
+impl std::fmt::Debug for ListTagsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTagsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ListTags][google.cloud.datacatalog.v1.DataCatalog.ListTags].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ListTags]: crate::client::DataCatalog::list_tags
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagsResponse {
     /// [Tag][google.cloud.datacatalog.v1.Tag] details.
@@ -14422,11 +15162,23 @@ impl serde::ser::Serialize for ListTagsResponse {
     }
 }
 
+impl std::fmt::Debug for ListTagsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTagsResponse");
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ReconcileTags][google.cloud.datacatalog.v1.DataCatalog.ReconcileTags].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ReconcileTags]: crate::client::DataCatalog::reconcile_tags
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReconcileTagsRequest {
     /// Required. Name of [Entry][google.cloud.datacatalog.v1.Entry] to be tagged.
@@ -14639,13 +15391,27 @@ impl serde::ser::Serialize for ReconcileTagsRequest {
     }
 }
 
+impl std::fmt::Debug for ReconcileTagsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReconcileTagsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("tag_template", &self.tag_template);
+        debug_struct.field("force_delete_missing", &self.force_delete_missing);
+        debug_struct.field("tags", &self.tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// [Long-running operation][google.longrunning.Operation]
 /// response message returned by
 /// [ReconcileTags][google.cloud.datacatalog.v1.DataCatalog.ReconcileTags].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ReconcileTags]: crate::client::DataCatalog::reconcile_tags
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReconcileTagsResponse {
     /// Number of tags created in the request.
@@ -14882,13 +15648,26 @@ impl serde::ser::Serialize for ReconcileTagsResponse {
     }
 }
 
+impl std::fmt::Debug for ReconcileTagsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReconcileTagsResponse");
+        debug_struct.field("created_tags_count", &self.created_tags_count);
+        debug_struct.field("updated_tags_count", &self.updated_tags_count);
+        debug_struct.field("deleted_tags_count", &self.deleted_tags_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// [Long-running operation][google.longrunning.Operation]
 /// metadata message returned by the
 /// [ReconcileTags][google.cloud.datacatalog.v1.DataCatalog.ReconcileTags].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ReconcileTags]: crate::client::DataCatalog::reconcile_tags
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReconcileTagsMetadata {
     /// State of the reconciliation operation.
@@ -15062,6 +15841,18 @@ impl serde::ser::Serialize for ReconcileTagsMetadata {
     }
 }
 
+impl std::fmt::Debug for ReconcileTagsMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReconcileTagsMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReconcileTagsMetadata].
 pub mod reconcile_tags_metadata {
     #[allow(unused_imports)]
@@ -15213,7 +16004,7 @@ pub mod reconcile_tags_metadata {
 /// [ListEntries][google.cloud.datacatalog.v1.DataCatalog.ListEntries].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ListEntries]: crate::client::DataCatalog::list_entries
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEntriesRequest {
     /// Required. The name of the entry group that contains the entries to list.
@@ -15454,11 +16245,25 @@ impl serde::ser::Serialize for ListEntriesRequest {
     }
 }
 
+impl std::fmt::Debug for ListEntriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEntriesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("read_mask", &self.read_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ListEntries][google.cloud.datacatalog.v1.DataCatalog.ListEntries].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ListEntries]: crate::client::DataCatalog::list_entries
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEntriesResponse {
     /// Entry details.
@@ -15630,11 +16435,23 @@ impl serde::ser::Serialize for ListEntriesResponse {
     }
 }
 
+impl std::fmt::Debug for ListEntriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEntriesResponse");
+        debug_struct.field("entries", &self.entries);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [StarEntry][google.cloud.datacatalog.v1.DataCatalog.StarEntry].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.StarEntry]: crate::client::DataCatalog::star_entry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StarEntryRequest {
     /// Required. The name of the entry to mark as starred.
@@ -15763,12 +16580,23 @@ impl serde::ser::Serialize for StarEntryRequest {
     }
 }
 
+impl std::fmt::Debug for StarEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StarEntryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [StarEntry][google.cloud.datacatalog.v1.DataCatalog.StarEntry].
 /// Empty for now
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.StarEntry]: crate::client::DataCatalog::star_entry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StarEntryResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15870,11 +16698,21 @@ impl serde::ser::Serialize for StarEntryResponse {
     }
 }
 
+impl std::fmt::Debug for StarEntryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StarEntryResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UnstarEntry][google.cloud.datacatalog.v1.DataCatalog.UnstarEntry].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.UnstarEntry]: crate::client::DataCatalog::unstar_entry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnstarEntryRequest {
     /// Required. The name of the entry to mark as **not** starred.
@@ -16003,12 +16841,23 @@ impl serde::ser::Serialize for UnstarEntryRequest {
     }
 }
 
+impl std::fmt::Debug for UnstarEntryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UnstarEntryRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [UnstarEntry][google.cloud.datacatalog.v1.DataCatalog.UnstarEntry].
 /// Empty for now
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.UnstarEntry]: crate::client::DataCatalog::unstar_entry
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnstarEntryResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16110,12 +16959,22 @@ impl serde::ser::Serialize for UnstarEntryResponse {
     }
 }
 
+impl std::fmt::Debug for UnstarEntryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UnstarEntryResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ImportEntries][google.cloud.datacatalog.v1.DataCatalog.ImportEntries]
 /// method.
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ImportEntries]: crate::client::DataCatalog::import_entries
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportEntriesRequest {
     /// Required. Target entry group for ingested entries.
@@ -16336,6 +17195,19 @@ impl serde::ser::Serialize for ImportEntriesRequest {
     }
 }
 
+impl std::fmt::Debug for ImportEntriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportEntriesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("job_id", &self.job_id);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportEntriesRequest].
 pub mod import_entries_request {
     #[allow(unused_imports)]
@@ -16356,7 +17228,7 @@ pub mod import_entries_request {
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ImportEntries]: crate::client::DataCatalog::import_entries
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportEntriesResponse {
     /// Cumulative number of entries created and entries updated as a result of
@@ -16579,13 +17451,25 @@ impl serde::ser::Serialize for ImportEntriesResponse {
     }
 }
 
+impl std::fmt::Debug for ImportEntriesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportEntriesResponse");
+        debug_struct.field("upserted_entries_count", &self.upserted_entries_count);
+        debug_struct.field("deleted_entries_count", &self.deleted_entries_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata message for [long-running operation][google.longrunning.Operation]
 /// returned by the
 /// [ImportEntries][google.cloud.datacatalog.v1.DataCatalog.ImportEntries].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ImportEntries]: crate::client::DataCatalog::import_entries
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportEntriesMetadata {
     /// State of the import operation.
@@ -16749,6 +17633,18 @@ impl serde::ser::Serialize for ImportEntriesMetadata {
     }
 }
 
+impl std::fmt::Debug for ImportEntriesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportEntriesMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportEntriesMetadata].
 pub mod import_entries_metadata {
     #[allow(unused_imports)]
@@ -16905,7 +17801,7 @@ pub mod import_entries_metadata {
 /// [ModifyEntryOverview][google.cloud.datacatalog.v1.DataCatalog.ModifyEntryOverview].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ModifyEntryOverview]: crate::client::DataCatalog::modify_entry_overview
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModifyEntryOverviewRequest {
     /// Required. The full resource name of the entry.
@@ -17070,11 +17966,23 @@ impl serde::ser::Serialize for ModifyEntryOverviewRequest {
     }
 }
 
+impl std::fmt::Debug for ModifyEntryOverviewRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ModifyEntryOverviewRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("entry_overview", &self.entry_overview);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ModifyEntryContacts][google.cloud.datacatalog.v1.DataCatalog.ModifyEntryContacts].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.ModifyEntryContacts]: crate::client::DataCatalog::modify_entry_contacts
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModifyEntryContactsRequest {
     /// Required. The full resource name of the entry.
@@ -17238,11 +18146,23 @@ impl serde::ser::Serialize for ModifyEntryContactsRequest {
     }
 }
 
+impl std::fmt::Debug for ModifyEntryContactsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ModifyEntryContactsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("contacts", &self.contacts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SetConfig][google.cloud.datacatalog.v1.DataCatalog.SetConfig].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.SetConfig]: crate::client::DataCatalog::set_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetConfigRequest {
     /// Required. The organization or project whose config is being specified.
@@ -17492,6 +18412,18 @@ impl serde::ser::Serialize for SetConfigRequest {
     }
 }
 
+impl std::fmt::Debug for SetConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetConfigRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("configuration", &self.configuration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SetConfigRequest].
 pub mod set_config_request {
     #[allow(unused_imports)]
@@ -17512,7 +18444,7 @@ pub mod set_config_request {
 /// [RetrieveConfig][google.cloud.datacatalog.v1.DataCatalog.RetrieveConfig].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.RetrieveConfig]: crate::client::DataCatalog::retrieve_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveConfigRequest {
     /// Required. The organization whose config is being retrieved.
@@ -17641,11 +18573,22 @@ impl serde::ser::Serialize for RetrieveConfigRequest {
     }
 }
 
+impl std::fmt::Debug for RetrieveConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrieveConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [RetrieveEffectiveConfig][google.cloud.datacatalog.v1.DataCatalog.RetrieveEffectiveConfig].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.RetrieveEffectiveConfig]: crate::client::DataCatalog::retrieve_effective_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveEffectiveConfigRequest {
     /// Required. The resource whose effective config is being retrieved.
@@ -17774,13 +18717,24 @@ impl serde::ser::Serialize for RetrieveEffectiveConfigRequest {
     }
 }
 
+impl std::fmt::Debug for RetrieveEffectiveConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrieveEffectiveConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration related to the migration from Data Catalog to Dataplex that
 /// has been applied to an organization and any projects under it. It is the
 /// response message for
 /// [RetrieveConfig][google.cloud.datacatalog.v1.DataCatalog.RetrieveConfig].
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.RetrieveConfig]: crate::client::DataCatalog::retrieve_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrganizationConfig {
     /// Map of organizations and project resource names and their configuration.
@@ -17922,6 +18876,17 @@ impl serde::ser::Serialize for OrganizationConfig {
     }
 }
 
+impl std::fmt::Debug for OrganizationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OrganizationConfig");
+        debug_struct.field("config", &self.config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The configuration related to the migration to Dataplex applied to an
 /// organization or project.
 /// It is the response message for
@@ -17930,7 +18895,7 @@ impl serde::ser::Serialize for OrganizationConfig {
 ///
 /// [google.cloud.datacatalog.v1.DataCatalog.RetrieveEffectiveConfig]: crate::client::DataCatalog::retrieve_effective_config
 /// [google.cloud.datacatalog.v1.DataCatalog.SetConfig]: crate::client::DataCatalog::set_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrationConfig {
     /// Opt-in status for the migration of Tag Templates to Dataplex.
@@ -18134,8 +19099,24 @@ impl serde::ser::Serialize for MigrationConfig {
     }
 }
 
+impl std::fmt::Debug for MigrationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MigrationConfig");
+        debug_struct.field("tag_template_migration", &self.tag_template_migration);
+        debug_struct.field("catalog_ui_experience", &self.catalog_ui_experience);
+        debug_struct.field(
+            "template_migration_enabled_time",
+            &self.template_migration_enabled_time,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Common Dataplex fields.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataplexSpec {
     /// Fully qualified resource name of an asset in Dataplex, to which the
@@ -18358,8 +19339,22 @@ impl serde::ser::Serialize for DataplexSpec {
     }
 }
 
+impl std::fmt::Debug for DataplexSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataplexSpec");
+        debug_struct.field("asset", &self.asset);
+        debug_struct.field("data_format", &self.data_format);
+        debug_struct.field("compression_format", &self.compression_format);
+        debug_struct.field("project_id", &self.project_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Entry specyfication for a Dataplex fileset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataplexFilesetSpec {
     /// Common Dataplex fields.
@@ -18500,8 +19495,19 @@ impl serde::ser::Serialize for DataplexFilesetSpec {
     }
 }
 
+impl std::fmt::Debug for DataplexFilesetSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataplexFilesetSpec");
+        debug_struct.field("dataplex_spec", &self.dataplex_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Entry specification for a Dataplex table.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataplexTableSpec {
     /// List of external tables registered by Dataplex in other systems based on
@@ -18702,6 +19708,19 @@ impl serde::ser::Serialize for DataplexTableSpec {
     }
 }
 
+impl std::fmt::Debug for DataplexTableSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataplexTableSpec");
+        debug_struct.field("external_tables", &self.external_tables);
+        debug_struct.field("dataplex_spec", &self.dataplex_spec);
+        debug_struct.field("user_managed", &self.user_managed);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// External table registered by Dataplex.
 /// Dataplex publishes data discovered from an asset into multiple other systems
 /// (BigQuery, DPMS) in form of tables. We call them "external tables". External
@@ -18709,7 +19728,7 @@ impl serde::ser::Serialize for DataplexTableSpec {
 /// This message contains pointers to
 /// those external tables (fully qualified name, resource name et cetera) within
 /// the Data Catalog.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataplexExternalTable {
     /// Service in which the external table is registered.
@@ -18926,9 +19945,23 @@ impl serde::ser::Serialize for DataplexExternalTable {
     }
 }
 
+impl std::fmt::Debug for DataplexExternalTable {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataplexExternalTable");
+        debug_struct.field("system", &self.system);
+        debug_struct.field("fully_qualified_name", &self.fully_qualified_name);
+        debug_struct.field("google_cloud_resource", &self.google_cloud_resource);
+        debug_struct.field("data_catalog_entry", &self.data_catalog_entry);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Wrapper containing Entry and information about Tags
 /// that should and should not be attached to it.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TaggedEntry {
     /// Optional. Tags that should be ingested into the Data Catalog.
@@ -19160,6 +20193,19 @@ impl serde::ser::Serialize for TaggedEntry {
     }
 }
 
+impl std::fmt::Debug for TaggedEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TaggedEntry");
+        debug_struct.field("present_tags", &self.present_tags);
+        debug_struct.field("absent_tags", &self.absent_tags);
+        debug_struct.field("entry", &self.entry);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TaggedEntry].
 pub mod tagged_entry {
     #[allow(unused_imports)]
@@ -19175,7 +20221,7 @@ pub mod tagged_entry {
 }
 
 /// Wrapper for any item that can be contained in the dump.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DumpItem {
     pub item: std::option::Option<crate::model::dump_item::Item>,
@@ -19344,6 +20390,17 @@ impl serde::ser::Serialize for DumpItem {
     }
 }
 
+impl std::fmt::Debug for DumpItem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DumpItem");
+        debug_struct.field("item", &self.item);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DumpItem].
 pub mod dump_item {
     #[allow(unused_imports)]
@@ -19358,7 +20415,7 @@ pub mod dump_item {
 }
 
 /// Describes a Cloud Storage fileset entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsFilesetSpec {
     /// Required. Patterns to identify a set of files in Google Cloud Storage.
@@ -19548,8 +20605,20 @@ impl serde::ser::Serialize for GcsFilesetSpec {
     }
 }
 
+impl std::fmt::Debug for GcsFilesetSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsFilesetSpec");
+        debug_struct.field("file_patterns", &self.file_patterns);
+        debug_struct.field("sample_gcs_file_specs", &self.sample_gcs_file_specs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification of a single file in Cloud Storage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsFileSpec {
     /// Required. Full file path. Example: `gs://bucket_name/a/b.txt`.
@@ -19760,9 +20829,22 @@ impl serde::ser::Serialize for GcsFileSpec {
     }
 }
 
+impl std::fmt::Debug for GcsFileSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsFileSpec");
+        debug_struct.field("file_path", &self.file_path);
+        debug_struct.field("gcs_timestamps", &self.gcs_timestamps);
+        debug_struct.field("size_bytes", &self.size_bytes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Native schema used by a resource represented as an entry. Used by query
 /// engines for deserializing and parsing source data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PhysicalSchema {
     pub schema: std::option::Option<crate::model::physical_schema::Schema>,
@@ -20213,13 +21295,24 @@ impl serde::ser::Serialize for PhysicalSchema {
     }
 }
 
+impl std::fmt::Debug for PhysicalSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PhysicalSchema");
+        debug_struct.field("schema", &self.schema);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PhysicalSchema].
 pub mod physical_schema {
     #[allow(unused_imports)]
     use super::*;
 
     /// Schema in Avro JSON format.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AvroSchema {
         /// JSON source of the Avro schema.
@@ -20351,8 +21444,19 @@ pub mod physical_schema {
         }
     }
 
+    impl std::fmt::Debug for AvroSchema {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AvroSchema");
+            debug_struct.field("text", &self.text);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Schema in Thrift format.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ThriftSchema {
         /// Thrift IDL source of the schema.
@@ -20484,8 +21588,19 @@ pub mod physical_schema {
         }
     }
 
+    impl std::fmt::Debug for ThriftSchema {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ThriftSchema");
+            debug_struct.field("text", &self.text);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Schema in protocol buffer format.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProtobufSchema {
         /// Protocol buffer source of the schema.
@@ -20617,8 +21732,19 @@ pub mod physical_schema {
         }
     }
 
+    impl std::fmt::Debug for ProtobufSchema {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ProtobufSchema");
+            debug_struct.field("text", &self.text);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Marks a Parquet-encoded data source.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ParquetSchema {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -20723,8 +21849,18 @@ pub mod physical_schema {
         }
     }
 
+    impl std::fmt::Debug for ParquetSchema {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ParquetSchema");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Marks an ORC-encoded data source.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OrcSchema {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -20829,8 +21965,18 @@ pub mod physical_schema {
         }
     }
 
+    impl std::fmt::Debug for OrcSchema {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("OrcSchema");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Marks a CSV-encoded data source.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CsvSchema {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -20935,6 +22081,16 @@ pub mod physical_schema {
         }
     }
 
+    impl std::fmt::Debug for CsvSchema {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CsvSchema");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Schema {
@@ -20977,7 +22133,7 @@ pub mod physical_schema {
 /// + Partner data
 /// + Public data
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Taxonomy {
     /// Identifier. Resource name of this taxonomy in URL format.
@@ -21319,13 +22475,30 @@ impl serde::ser::Serialize for Taxonomy {
     }
 }
 
+impl std::fmt::Debug for Taxonomy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Taxonomy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("policy_tag_count", &self.policy_tag_count);
+        debug_struct.field("taxonomy_timestamps", &self.taxonomy_timestamps);
+        debug_struct.field("activated_policy_types", &self.activated_policy_types);
+        debug_struct.field("service", &self.service);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Taxonomy].
 pub mod taxonomy {
     #[allow(unused_imports)]
     use super::*;
 
     /// The source system of the Taxonomy.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Service {
         /// The Google Cloud service name.
@@ -21482,6 +22655,18 @@ pub mod taxonomy {
         }
     }
 
+    impl std::fmt::Debug for Service {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Service");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("identity", &self.identity);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines policy types where the policy tags can be used for.
     ///
     /// # Working with unknown values
@@ -21623,7 +22808,7 @@ pub mod taxonomy {
 /// ```
 ///
 /// Where the "Geolocation" policy tag contains three children.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyTag {
     /// Identifier. Resource name of this policy tag in the URL format.
@@ -21872,11 +23057,26 @@ impl serde::ser::Serialize for PolicyTag {
     }
 }
 
+impl std::fmt::Debug for PolicyTag {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PolicyTag");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("parent_policy_tag", &self.parent_policy_tag);
+        debug_struct.field("child_policy_tags", &self.child_policy_tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateTaxonomy][google.cloud.datacatalog.v1.PolicyTagManager.CreateTaxonomy].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManager.CreateTaxonomy]: crate::client::PolicyTagManager::create_taxonomy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTaxonomyRequest {
     /// Required. Resource name of the project that the taxonomy will belong to.
@@ -22040,11 +23240,23 @@ impl serde::ser::Serialize for CreateTaxonomyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTaxonomyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTaxonomyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("taxonomy", &self.taxonomy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DeleteTaxonomy][google.cloud.datacatalog.v1.PolicyTagManager.DeleteTaxonomy].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManager.DeleteTaxonomy]: crate::client::PolicyTagManager::delete_taxonomy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTaxonomyRequest {
     /// Required. Resource name of the taxonomy to delete.
@@ -22175,11 +23387,22 @@ impl serde::ser::Serialize for DeleteTaxonomyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTaxonomyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTaxonomyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdateTaxonomy][google.cloud.datacatalog.v1.PolicyTagManager.UpdateTaxonomy].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManager.UpdateTaxonomy]: crate::client::PolicyTagManager::update_taxonomy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTaxonomyRequest {
     /// The taxonomy to update. You can update only its description, display name,
@@ -22360,11 +23583,23 @@ impl serde::ser::Serialize for UpdateTaxonomyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTaxonomyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTaxonomyRequest");
+        debug_struct.field("taxonomy", &self.taxonomy);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ListTaxonomies][google.cloud.datacatalog.v1.PolicyTagManager.ListTaxonomies].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManager.ListTaxonomies]: crate::client::PolicyTagManager::list_taxonomies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTaxonomiesRequest {
     /// Required. Resource name of the project to list the taxonomies of.
@@ -22590,11 +23825,25 @@ impl serde::ser::Serialize for ListTaxonomiesRequest {
     }
 }
 
+impl std::fmt::Debug for ListTaxonomiesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTaxonomiesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ListTaxonomies][google.cloud.datacatalog.v1.PolicyTagManager.ListTaxonomies].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManager.ListTaxonomies]: crate::client::PolicyTagManager::list_taxonomies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTaxonomiesResponse {
     /// Taxonomies that the project contains.
@@ -22766,11 +24015,23 @@ impl serde::ser::Serialize for ListTaxonomiesResponse {
     }
 }
 
+impl std::fmt::Debug for ListTaxonomiesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTaxonomiesResponse");
+        debug_struct.field("taxonomies", &self.taxonomies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [GetTaxonomy][google.cloud.datacatalog.v1.PolicyTagManager.GetTaxonomy].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManager.GetTaxonomy]: crate::client::PolicyTagManager::get_taxonomy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTaxonomyRequest {
     /// Required. Resource name of the taxonomy to get.
@@ -22899,11 +24160,22 @@ impl serde::ser::Serialize for GetTaxonomyRequest {
     }
 }
 
+impl std::fmt::Debug for GetTaxonomyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTaxonomyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreatePolicyTag][google.cloud.datacatalog.v1.PolicyTagManager.CreatePolicyTag].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManager.CreatePolicyTag]: crate::client::PolicyTagManager::create_policy_tag
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePolicyTagRequest {
     /// Required. Resource name of the taxonomy that the policy tag will belong to.
@@ -23068,11 +24340,23 @@ impl serde::ser::Serialize for CreatePolicyTagRequest {
     }
 }
 
+impl std::fmt::Debug for CreatePolicyTagRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePolicyTagRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("policy_tag", &self.policy_tag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DeletePolicyTag][google.cloud.datacatalog.v1.PolicyTagManager.DeletePolicyTag].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManager.DeletePolicyTag]: crate::client::PolicyTagManager::delete_policy_tag
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePolicyTagRequest {
     /// Required. Resource name of the policy tag to delete.
@@ -23203,11 +24487,22 @@ impl serde::ser::Serialize for DeletePolicyTagRequest {
     }
 }
 
+impl std::fmt::Debug for DeletePolicyTagRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePolicyTagRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdatePolicyTag][google.cloud.datacatalog.v1.PolicyTagManager.UpdatePolicyTag].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManager.UpdatePolicyTag]: crate::client::PolicyTagManager::update_policy_tag
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePolicyTagRequest {
     /// The policy tag to update. You can update only its description, display
@@ -23390,11 +24685,23 @@ impl serde::ser::Serialize for UpdatePolicyTagRequest {
     }
 }
 
+impl std::fmt::Debug for UpdatePolicyTagRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePolicyTagRequest");
+        debug_struct.field("policy_tag", &self.policy_tag);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ListPolicyTags][google.cloud.datacatalog.v1.PolicyTagManager.ListPolicyTags].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManager.ListPolicyTags]: crate::client::PolicyTagManager::list_policy_tags
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPolicyTagsRequest {
     /// Required. Resource name of the taxonomy to list the policy tags of.
@@ -23596,11 +24903,24 @@ impl serde::ser::Serialize for ListPolicyTagsRequest {
     }
 }
 
+impl std::fmt::Debug for ListPolicyTagsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPolicyTagsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ListPolicyTags][google.cloud.datacatalog.v1.PolicyTagManager.ListPolicyTags].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManager.ListPolicyTags]: crate::client::PolicyTagManager::list_policy_tags
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPolicyTagsResponse {
     /// The policy tags that belong to the taxonomy.
@@ -23773,11 +25093,23 @@ impl serde::ser::Serialize for ListPolicyTagsResponse {
     }
 }
 
+impl std::fmt::Debug for ListPolicyTagsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPolicyTagsResponse");
+        debug_struct.field("policy_tags", &self.policy_tags);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [GetPolicyTag][google.cloud.datacatalog.v1.PolicyTagManager.GetPolicyTag].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManager.GetPolicyTag]: crate::client::PolicyTagManager::get_policy_tag
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPolicyTagRequest {
     /// Required. Resource name of the policy tag.
@@ -23906,10 +25238,21 @@ impl serde::ser::Serialize for GetPolicyTagRequest {
     }
 }
 
+impl std::fmt::Debug for GetPolicyTagRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPolicyTagRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A nested protocol buffer that represents a taxonomy and the hierarchy of its
 /// policy tags. Used for taxonomy replacement, import, and
 /// export.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SerializedTaxonomy {
     /// Required. Display name of the taxonomy. At most 200 bytes when encoded in
@@ -24129,9 +25472,23 @@ impl serde::ser::Serialize for SerializedTaxonomy {
     }
 }
 
+impl std::fmt::Debug for SerializedTaxonomy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SerializedTaxonomy");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("policy_tags", &self.policy_tags);
+        debug_struct.field("activated_policy_types", &self.activated_policy_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A nested protocol buffer that represents a policy tag and all its
 /// descendants.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SerializedPolicyTag {
     /// Resource name of the policy tag.
@@ -24347,11 +25704,25 @@ impl serde::ser::Serialize for SerializedPolicyTag {
     }
 }
 
+impl std::fmt::Debug for SerializedPolicyTag {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SerializedPolicyTag");
+        debug_struct.field("policy_tag", &self.policy_tag);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("child_policy_tags", &self.child_policy_tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ReplaceTaxonomy][google.cloud.datacatalog.v1.PolicyTagManagerSerialization.ReplaceTaxonomy].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManagerSerialization.ReplaceTaxonomy]: crate::client::PolicyTagManagerSerialization::replace_taxonomy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceTaxonomyRequest {
     /// Required. Resource name of the taxonomy to update.
@@ -24516,11 +25887,23 @@ impl serde::ser::Serialize for ReplaceTaxonomyRequest {
     }
 }
 
+impl std::fmt::Debug for ReplaceTaxonomyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplaceTaxonomyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("serialized_taxonomy", &self.serialized_taxonomy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ImportTaxonomies][google.cloud.datacatalog.v1.PolicyTagManagerSerialization.ImportTaxonomies].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManagerSerialization.ImportTaxonomies]: crate::client::PolicyTagManagerSerialization::import_taxonomies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportTaxonomiesRequest {
     /// Required. Resource name of project that the imported taxonomies will belong
@@ -24778,6 +26161,18 @@ impl serde::ser::Serialize for ImportTaxonomiesRequest {
     }
 }
 
+impl std::fmt::Debug for ImportTaxonomiesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportTaxonomiesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportTaxonomiesRequest].
 pub mod import_taxonomies_request {
     #[allow(unused_imports)]
@@ -24795,7 +26190,7 @@ pub mod import_taxonomies_request {
 }
 
 /// Inline source containing taxonomies to import.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InlineSource {
     /// Required. Taxonomies to import.
@@ -24931,9 +26326,20 @@ impl serde::ser::Serialize for InlineSource {
     }
 }
 
+impl std::fmt::Debug for InlineSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InlineSource");
+        debug_struct.field("taxonomies", &self.taxonomies);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Cross-regional source used to import an existing taxonomy into a different
 /// region.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CrossRegionalSource {
     /// Required. The resource name of the source taxonomy to import.
@@ -25062,11 +26468,22 @@ impl serde::ser::Serialize for CrossRegionalSource {
     }
 }
 
+impl std::fmt::Debug for CrossRegionalSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CrossRegionalSource");
+        debug_struct.field("taxonomy", &self.taxonomy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ImportTaxonomies][google.cloud.datacatalog.v1.PolicyTagManagerSerialization.ImportTaxonomies].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManagerSerialization.ImportTaxonomies]: crate::client::PolicyTagManagerSerialization::import_taxonomies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportTaxonomiesResponse {
     /// Imported taxonomies.
@@ -25198,11 +26615,22 @@ impl serde::ser::Serialize for ImportTaxonomiesResponse {
     }
 }
 
+impl std::fmt::Debug for ImportTaxonomiesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportTaxonomiesResponse");
+        debug_struct.field("taxonomies", &self.taxonomies);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ExportTaxonomies][google.cloud.datacatalog.v1.PolicyTagManagerSerialization.ExportTaxonomies].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManagerSerialization.ExportTaxonomies]: crate::client::PolicyTagManagerSerialization::export_taxonomies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportTaxonomiesRequest {
     /// Required. Resource name of the project that the exported taxonomies belong
@@ -25426,6 +26854,19 @@ impl serde::ser::Serialize for ExportTaxonomiesRequest {
     }
 }
 
+impl std::fmt::Debug for ExportTaxonomiesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportTaxonomiesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("taxonomies", &self.taxonomies);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportTaxonomiesRequest].
 pub mod export_taxonomies_request {
     #[allow(unused_imports)]
@@ -25445,7 +26886,7 @@ pub mod export_taxonomies_request {
 /// [ExportTaxonomies][google.cloud.datacatalog.v1.PolicyTagManagerSerialization.ExportTaxonomies].
 ///
 /// [google.cloud.datacatalog.v1.PolicyTagManagerSerialization.ExportTaxonomies]: crate::client::PolicyTagManagerSerialization::export_taxonomies
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportTaxonomiesResponse {
     /// List of taxonomies and policy tags as nested protocol buffers.
@@ -25581,8 +27022,19 @@ impl serde::ser::Serialize for ExportTaxonomiesResponse {
     }
 }
 
+impl std::fmt::Debug for ExportTaxonomiesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportTaxonomiesResponse");
+        debug_struct.field("taxonomies", &self.taxonomies);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a schema, for example, a BigQuery, GoogleSQL, or Avro schema.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Schema {
     /// The unified GoogleSQL-like schema of columns.
@@ -25717,9 +27169,20 @@ impl serde::ser::Serialize for Schema {
     }
 }
 
+impl std::fmt::Debug for Schema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Schema");
+        debug_struct.field("columns", &self.columns);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A column within a schema. Columns can be nested inside
 /// other columns.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ColumnSchema {
     /// Required. Name of the column.
@@ -26203,13 +27666,34 @@ impl serde::ser::Serialize for ColumnSchema {
     }
 }
 
+impl std::fmt::Debug for ColumnSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnSchema");
+        debug_struct.field("column", &self.column);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("mode", &self.mode);
+        debug_struct.field("default_value", &self.default_value);
+        debug_struct.field("ordinal_position", &self.ordinal_position);
+        debug_struct.field("highest_indexing_type", &self.highest_indexing_type);
+        debug_struct.field("subcolumns", &self.subcolumns);
+        debug_struct.field("range_element_type", &self.range_element_type);
+        debug_struct.field("gc_rule", &self.gc_rule);
+        debug_struct.field("system_spec", &self.system_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ColumnSchema].
 pub mod column_schema {
     #[allow(unused_imports)]
     use super::*;
 
     /// Column info specific to Looker System.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LookerColumnSpec {
         /// Looker specific column type of this column.
@@ -26341,6 +27825,17 @@ pub mod column_schema {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for LookerColumnSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LookerColumnSpec");
+            debug_struct.field("r#type", &self.r#type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -26509,7 +28004,7 @@ pub mod column_schema {
     }
 
     /// Represents the type of a field element.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FieldElementType {
         /// Required. The type of a field element. See
@@ -26641,6 +28136,17 @@ pub mod column_schema {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for FieldElementType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FieldElementType");
+            debug_struct.field("r#type", &self.r#type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -26802,7 +28308,7 @@ pub mod column_schema {
 /// Result in the response to a search request.
 ///
 /// Each result captures details of one entry that matches the search.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchCatalogResult {
     /// Type of the search result.
@@ -27287,6 +28793,25 @@ impl serde::ser::Serialize for SearchCatalogResult {
     }
 }
 
+impl std::fmt::Debug for SearchCatalogResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchCatalogResult");
+        debug_struct.field("search_result_type", &self.search_result_type);
+        debug_struct.field("search_result_subtype", &self.search_result_subtype);
+        debug_struct.field("relative_resource_name", &self.relative_resource_name);
+        debug_struct.field("linked_resource", &self.linked_resource);
+        debug_struct.field("modify_time", &self.modify_time);
+        debug_struct.field("fully_qualified_name", &self.fully_qualified_name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("system", &self.system);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SearchCatalogResult].
 pub mod search_catalog_result {
     #[allow(unused_imports)]
@@ -27306,7 +28831,7 @@ pub mod search_catalog_result {
 }
 
 /// Describes a BigQuery table.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryTableSpec {
     /// Output only. The table source type.
@@ -27564,6 +29089,18 @@ impl serde::ser::Serialize for BigQueryTableSpec {
     }
 }
 
+impl std::fmt::Debug for BigQueryTableSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryTableSpec");
+        debug_struct.field("table_source_type", &self.table_source_type);
+        debug_struct.field("type_spec", &self.type_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BigQueryTableSpec].
 pub mod big_query_table_spec {
     #[allow(unused_imports)]
@@ -27583,7 +29120,7 @@ pub mod big_query_table_spec {
 }
 
 /// Table view specification.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ViewSpec {
     /// Output only. The query that defines the table view.
@@ -27713,8 +29250,19 @@ impl serde::ser::Serialize for ViewSpec {
     }
 }
 
+impl std::fmt::Debug for ViewSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ViewSpec");
+        debug_struct.field("view_query", &self.view_query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Normal BigQuery table specification.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableSpec {
     /// Output only. If the table is date-sharded, that is, it matches the
@@ -27850,12 +29398,23 @@ impl serde::ser::Serialize for TableSpec {
     }
 }
 
+impl std::fmt::Debug for TableSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableSpec");
+        debug_struct.field("grouped_entry", &self.grouped_entry);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification for a group of BigQuery tables with the `[prefix]YYYYMMDD` name
 /// pattern.
 ///
 /// For more information, see [Introduction to partitioned tables]
 /// (<https://cloud.google.com/bigquery/docs/partitioned-tables#partitioning_versus_sharding>).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryDateShardedSpec {
     /// Output only. The Data Catalog resource name of the dataset entry the
@@ -28087,13 +29646,27 @@ impl serde::ser::Serialize for BigQueryDateShardedSpec {
     }
 }
 
+impl std::fmt::Debug for BigQueryDateShardedSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryDateShardedSpec");
+        debug_struct.field("dataset", &self.dataset);
+        debug_struct.field("table_prefix", &self.table_prefix);
+        debug_struct.field("shard_count", &self.shard_count);
+        debug_struct.field("latest_shard_resource", &self.latest_shard_resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Tags contain custom metadata and are attached to Data Catalog resources. Tags
 /// conform with the specification of their tag template.
 ///
 /// See [Data Catalog
 /// IAM](https://cloud.google.com/data-catalog/docs/concepts/iam) for information
 /// on the permissions needed to create or view tags.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Tag {
     /// Identifier. The resource name of the tag in URL format where tag ID is a
@@ -28419,6 +29992,22 @@ impl serde::ser::Serialize for Tag {
     }
 }
 
+impl std::fmt::Debug for Tag {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Tag");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("template", &self.template);
+        debug_struct.field("template_display_name", &self.template_display_name);
+        debug_struct.field("fields", &self.fields);
+        debug_struct.field("dataplex_transfer_status", &self.dataplex_transfer_status);
+        debug_struct.field("scope", &self.scope);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Tag].
 pub mod tag {
     #[allow(unused_imports)]
@@ -28447,7 +30036,7 @@ pub mod tag {
 /// a [Tag][google.cloud.datacatalog.v1.Tag].
 ///
 /// [google.cloud.datacatalog.v1.Tag]: crate::model::Tag
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TagField {
     /// Output only. The display name of this field.
@@ -28944,13 +30533,26 @@ impl serde::ser::Serialize for TagField {
     }
 }
 
+impl std::fmt::Debug for TagField {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TagField");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("order", &self.order);
+        debug_struct.field("kind", &self.kind);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TagField].
 pub mod tag_field {
     #[allow(unused_imports)]
     use super::*;
 
     /// An enum value.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EnumValue {
         /// The display name of the enum value.
@@ -29086,6 +30688,17 @@ pub mod tag_field {
         }
     }
 
+    impl std::fmt::Debug for EnumValue {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EnumValue");
+            debug_struct.field("display_name", &self.display_name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Required. The value of this field.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -29122,7 +30735,7 @@ pub mod tag_field {
 /// see the [TagTemplate User]
 /// (<https://cloud.google.com/data-catalog/docs/how-to/template-user>) role
 /// that includes a permission to use the tag template to tag resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TagTemplate {
     /// Identifier. The resource name of the tag template in URL format.
@@ -29394,6 +31007,21 @@ impl serde::ser::Serialize for TagTemplate {
     }
 }
 
+impl std::fmt::Debug for TagTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TagTemplate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("is_publicly_readable", &self.is_publicly_readable);
+        debug_struct.field("fields", &self.fields);
+        debug_struct.field("dataplex_transfer_status", &self.dataplex_transfer_status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TagTemplate].
 pub mod tag_template {
     #[allow(unused_imports)]
@@ -29541,7 +31169,7 @@ pub mod tag_template {
 }
 
 /// The template for an individual field within a tag template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TagTemplateField {
     /// Identifier. The resource name of the tag template field in URL format.
@@ -29840,7 +31468,23 @@ impl serde::ser::Serialize for TagTemplateField {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for TagTemplateField {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TagTemplateField");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("is_required", &self.is_required);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("order", &self.order);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldType {
     /// Required.
@@ -30068,12 +31712,23 @@ impl serde::ser::Serialize for FieldType {
     }
 }
 
+impl std::fmt::Debug for FieldType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FieldType");
+        debug_struct.field("type_decl", &self.type_decl);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FieldType].
 pub mod field_type {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EnumType {
         /// The set of allowed values for this enum.
@@ -30223,12 +31878,23 @@ pub mod field_type {
         }
     }
 
+    impl std::fmt::Debug for EnumType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EnumType");
+            debug_struct.field("allowed_values", &self.allowed_values);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [EnumType].
     pub mod enum_type {
         #[allow(unused_imports)]
         use super::*;
 
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct EnumValue {
             /// Required. The display name of the enum value. Must not be an empty
@@ -30371,6 +32037,17 @@ pub mod field_type {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for EnumValue {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("EnumValue");
+                debug_struct.field("display_name", &self.display_name);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
     }
@@ -30539,7 +32216,7 @@ pub mod field_type {
 }
 
 /// Timestamps associated with this resource in a particular system.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SystemTimestamps {
     /// Creation timestamp of the resource within the given system.
@@ -30760,6 +32437,19 @@ impl serde::ser::Serialize for SystemTimestamps {
     }
 }
 
+impl std::fmt::Debug for SystemTimestamps {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SystemTimestamps");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Detailed statistics on the entry's usage.
 ///
 /// Usage statistics have the following limitations:
@@ -30770,7 +32460,7 @@ impl serde::ser::Serialize for SystemTimestamps {
 ///   are not yet counted. For more information, see
 ///   [Querying multiple tables using a wildcard table]
 ///   (<https://cloud.google.com/bigquery/docs/querying-wildcard-tables>)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UsageStats {
     /// The number of successful uses of the underlying entry.
@@ -31063,10 +32753,27 @@ impl serde::ser::Serialize for UsageStats {
     }
 }
 
+impl std::fmt::Debug for UsageStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UsageStats");
+        debug_struct.field("total_completions", &self.total_completions);
+        debug_struct.field("total_failures", &self.total_failures);
+        debug_struct.field("total_cancellations", &self.total_cancellations);
+        debug_struct.field(
+            "total_execution_time_for_completions_millis",
+            &self.total_execution_time_for_completions_millis,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Common statistics on the entry's usage.
 ///
 /// They can be set on any system.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonUsageStats {
     /// View count in source system.
@@ -31228,11 +32935,22 @@ impl serde::ser::Serialize for CommonUsageStats {
     }
 }
 
+impl std::fmt::Debug for CommonUsageStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommonUsageStats");
+        debug_struct.field("view_count", &self.view_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The set of all usage signals that Data Catalog stores.
 ///
 /// Note: Usually, these signals are updated daily. In rare cases, an update may
 /// fail but will be performed again on the next day.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UsageSignal {
     /// The end timestamp of the duration of usage statistics.
@@ -31514,6 +33232,23 @@ impl serde::ser::Serialize for UsageSignal {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for UsageSignal {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UsageSignal");
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("usage_within_time_range", &self.usage_within_time_range);
+        debug_struct.field(
+            "common_usage_within_time_range",
+            &self.common_usage_within_time_range,
+        );
+        debug_struct.field("favorite_count", &self.favorite_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

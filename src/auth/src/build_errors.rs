@@ -43,6 +43,11 @@ impl Error {
         matches!(self.0, ErrorKind::UnknownType(_))
     }
 
+    /// A required field was missing from the builder.
+    pub fn is_missing_field(&self) -> bool {
+        matches!(self.0, ErrorKind::MissingField(_))
+    }
+
     /// Create an error representing problems loading or reading a credentials
     /// file.
     pub(crate) fn loading<T>(source: T) -> Error
@@ -67,6 +72,11 @@ impl Error {
     {
         Error(ErrorKind::UnknownType(source.into()))
     }
+
+    /// A required field was missing from the builder.
+    pub(crate) fn missing_field(field: &'static str) -> Error {
+        Error(ErrorKind::MissingField(field))
+    }
 }
 
 #[derive(thiserror::Error, Debug)]
@@ -77,10 +87,12 @@ enum ErrorKind {
     Parsing(#[source] BoxError),
     #[error("unknown or invalid credentials type {0}")]
     UnknownType(#[source] BoxError),
+    #[error("missing required field: {0}")]
+    MissingField(&'static str),
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use std::error::Error as _;
 
@@ -100,5 +112,10 @@ mod test {
         assert!(error.is_unknown_type(), "{error:?}");
         assert!(error.source().is_some(), "{error:?}");
         assert!(error.to_string().contains("test message"), "{error}");
+
+        let error = Error::missing_field("test field");
+        assert!(error.is_missing_field(), "{error:?}");
+        assert!(error.source().is_none(), "{error:?}");
+        assert!(error.to_string().contains("test field"), "{error}");
     }
 }

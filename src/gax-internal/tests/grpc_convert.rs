@@ -15,7 +15,7 @@
 use google_cloud_gax_internal::grpc;
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use tonic::metadata::MetadataMap;
 

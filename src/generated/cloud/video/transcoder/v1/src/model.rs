@@ -32,7 +32,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Transcoding job resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Job {
     /// The resource name of the job.
@@ -76,7 +76,11 @@ pub struct Job {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. An error object that describes the reason for the failure.
-    /// This property is always present when `state` is `FAILED`.
+    /// This property is always present when
+    /// [ProcessingState][google.cloud.video.transcoder.v1.Job.ProcessingState] is
+    /// `FAILED`.
+    ///
+    /// [google.cloud.video.transcoder.v1.Job.ProcessingState]: crate::model::job::ProcessingState
     pub error: std::option::Option<rpc::model::Status>,
 
     /// The processing mode of the job.
@@ -93,7 +97,11 @@ pub struct Job {
     /// `AUTODETECT`.
     pub optimization: crate::model::job::OptimizationStrategy,
 
-    /// Specify the `job_config` for the transcoding job. If you don't specify the
+    /// Optional. Insert silence and duplicate frames when timestamp gaps are
+    /// detected in a given stream.
+    pub fill_content_gaps: bool,
+
+    /// Specify the config for the transcoding job. If you don't specify the
     /// `job_config`, the API selects `templateId`; this template ID is set to
     /// `preset/web-hd` by default. When you use a `template_id` to create a job,
     /// the `Job.config` is populated by the `JobTemplate.config`.\<br\>
@@ -248,6 +256,12 @@ impl Job {
         self
     }
 
+    /// Sets the value of [fill_content_gaps][crate::model::Job::fill_content_gaps].
+    pub fn set_fill_content_gaps<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.fill_content_gaps = v.into();
+        self
+    }
+
     /// Sets the value of [job_config][crate::model::Job::job_config].
     ///
     /// Note that all the setters affecting `job_config` are mutually
@@ -340,6 +354,7 @@ impl<'de> serde::de::Deserialize<'de> for Job {
             __mode,
             __batch_mode_priority,
             __optimization,
+            __fill_content_gaps,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -385,6 +400,8 @@ impl<'de> serde::de::Deserialize<'de> for Job {
                             "batchModePriority" => Ok(__FieldTag::__batch_mode_priority),
                             "batch_mode_priority" => Ok(__FieldTag::__batch_mode_priority),
                             "optimization" => Ok(__FieldTag::__optimization),
+                            "fillContentGaps" => Ok(__FieldTag::__fill_content_gaps),
+                            "fill_content_gaps" => Ok(__FieldTag::__fill_content_gaps),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -592,6 +609,16 @@ impl<'de> serde::de::Deserialize<'de> for Job {
                             }
                             result.optimization = map.next_value::<std::option::Option<crate::model::job::OptimizationStrategy>>()?.unwrap_or_default();
                         }
+                        __FieldTag::__fill_content_gaps => {
+                            if !fields.insert(__FieldTag::__fill_content_gaps) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fill_content_gaps",
+                                ));
+                            }
+                            result.fill_content_gaps = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -681,12 +708,40 @@ impl serde::ser::Serialize for Job {
         if !wkt::internal::is_default(&self.optimization) {
             state.serialize_entry("optimization", &self.optimization)?;
         }
+        if !wkt::internal::is_default(&self.fill_content_gaps) {
+            state.serialize_entry("fillContentGaps", &self.fill_content_gaps)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Job {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Job");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("input_uri", &self.input_uri);
+        debug_struct.field("output_uri", &self.output_uri);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("ttl_after_completion_days", &self.ttl_after_completion_days);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("mode", &self.mode);
+        debug_struct.field("batch_mode_priority", &self.batch_mode_priority);
+        debug_struct.field("optimization", &self.optimization);
+        debug_struct.field("fill_content_gaps", &self.fill_content_gaps);
+        debug_struct.field("job_config", &self.job_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -721,8 +776,8 @@ pub mod job {
         Running,
         /// The job has been completed successfully.
         Succeeded,
-        /// The job has failed. For additional information, see `failure_reason` and
-        /// `failure_details`
+        /// The job has failed. For additional information, see
+        /// [Troubleshooting](https://cloud.google.com/transcoder/docs/troubleshooting).
         Failed,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -1109,7 +1164,7 @@ pub mod job {
         }
     }
 
-    /// Specify the `job_config` for the transcoding job. If you don't specify the
+    /// Specify the config for the transcoding job. If you don't specify the
     /// `job_config`, the API selects `templateId`; this template ID is set to
     /// `preset/web-hd` by default. When you use a `template_id` to create a job,
     /// the `Job.config` is populated by the `JobTemplate.config`.\<br\>
@@ -1127,7 +1182,7 @@ pub mod job {
 }
 
 /// Transcoding job template resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobTemplate {
     /// The resource name of the job template.
@@ -1329,14 +1384,27 @@ impl serde::ser::Serialize for JobTemplate {
     }
 }
 
+impl std::fmt::Debug for JobTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobTemplate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Job configuration
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobConfig {
     /// List of input assets stored in Cloud Storage.
     pub inputs: std::vec::Vec<crate::model::Input>,
 
-    /// List of `Edit atom`s. Defines the ultimate timeline of the resulting
+    /// List of edit atoms. Defines the ultimate timeline of the resulting
     /// file or manifest.
     pub edit_list: std::vec::Vec<crate::model::EditAtom>,
 
@@ -1767,8 +1835,29 @@ impl serde::ser::Serialize for JobConfig {
     }
 }
 
+impl std::fmt::Debug for JobConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobConfig");
+        debug_struct.field("inputs", &self.inputs);
+        debug_struct.field("edit_list", &self.edit_list);
+        debug_struct.field("elementary_streams", &self.elementary_streams);
+        debug_struct.field("mux_streams", &self.mux_streams);
+        debug_struct.field("manifests", &self.manifests);
+        debug_struct.field("output", &self.output);
+        debug_struct.field("ad_breaks", &self.ad_breaks);
+        debug_struct.field("pubsub_destination", &self.pubsub_destination);
+        debug_struct.field("sprite_sheets", &self.sprite_sheets);
+        debug_struct.field("overlays", &self.overlays);
+        debug_struct.field("encryptions", &self.encryptions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Input asset.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Input {
     /// A unique key for this input. Must be specified when using advanced
@@ -1777,9 +1866,12 @@ pub struct Input {
 
     /// URI of the media. Input files must be at least 5 seconds in duration and
     /// stored in Cloud Storage (for example, `gs://bucket/inputs/file.mp4`).
-    /// If empty, the value is populated from `Job.input_uri`. See
+    /// If empty, the value is populated from
+    /// [Job.input_uri][google.cloud.video.transcoder.v1.Job.input_uri]. See
     /// [Supported input and output
     /// formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats).
+    ///
+    /// [google.cloud.video.transcoder.v1.Job.input_uri]: crate::model::Job::input_uri
     pub uri: std::string::String,
 
     /// Preprocessing configurations.
@@ -1962,14 +2054,30 @@ impl serde::ser::Serialize for Input {
     }
 }
 
+impl std::fmt::Debug for Input {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Input");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("preprocessing_config", &self.preprocessing_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Location of output file(s) in a Cloud Storage bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Output {
-    /// URI for the output file(s). For example, `gs://my-bucket/outputs/`.
-    /// If empty, the value is populated from `Job.output_uri`. See
+    /// URI for the output file(s). For example, `gs://my-bucket/outputs/`. Must be
+    /// a directory and not a top-level bucket. If empty, the value is populated
+    /// from [Job.output_uri][google.cloud.video.transcoder.v1.Job.output_uri]. See
     /// [Supported input and output
     /// formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats).
+    ///
+    /// [google.cloud.video.transcoder.v1.Job.output_uri]: crate::model::Job::output_uri
     pub uri: std::string::String,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2095,16 +2203,30 @@ impl serde::ser::Serialize for Output {
     }
 }
 
+impl std::fmt::Debug for Output {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Output");
+        debug_struct.field("uri", &self.uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Edit atom.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EditAtom {
     /// A unique key for this atom. Must be specified when using advanced
     /// mapping.
     pub key: std::string::String,
 
-    /// List of `Input.key`s identifying files that should be used in this atom.
-    /// The listed `inputs` must have the same timeline.
+    /// List of [Input.key][google.cloud.video.transcoder.v1.Input.key] values
+    /// identifying files that should be used in this atom. The listed `inputs`
+    /// must have the same timeline.
+    ///
+    /// [google.cloud.video.transcoder.v1.Input.key]: crate::model::Input::key
     pub inputs: std::vec::Vec<std::string::String>,
 
     /// End time in seconds for the atom, relative to the input file timeline.
@@ -2329,8 +2451,22 @@ impl serde::ser::Serialize for EditAtom {
     }
 }
 
+impl std::fmt::Debug for EditAtom {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EditAtom");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("inputs", &self.inputs);
+        debug_struct.field("end_time_offset", &self.end_time_offset);
+        debug_struct.field("start_time_offset", &self.start_time_offset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Ad break.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdBreak {
     /// Start time in seconds for the ad break, relative to the output file
@@ -2472,10 +2608,21 @@ impl serde::ser::Serialize for AdBreak {
     }
 }
 
+impl std::fmt::Debug for AdBreak {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdBreak");
+        debug_struct.field("start_time_offset", &self.start_time_offset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encoding of an input file such as an audio, video, or text track.
 /// Elementary streams must be packaged before
 /// mapping and sharing between different output formats.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ElementaryStream {
     /// A unique key for this elementary stream.
@@ -2783,6 +2930,18 @@ impl serde::ser::Serialize for ElementaryStream {
     }
 }
 
+impl std::fmt::Debug for ElementaryStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ElementaryStream");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("elementary_stream", &self.elementary_stream);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ElementaryStream].
 pub mod elementary_stream {
     #[allow(unused_imports)]
@@ -2802,27 +2961,36 @@ pub mod elementary_stream {
 }
 
 /// Multiplexing settings for output stream.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MuxStream {
-    /// A unique key for this multiplexed stream. HLS media manifests will be
-    /// named `MuxStream.key` with the `.m3u8` extension suffix.
+    /// A unique key for this multiplexed stream.
     pub key: std::string::String,
 
-    /// The name of the generated file. The default is `MuxStream.key` with the
-    /// extension suffix corresponding to the `MuxStream.container`.
+    /// The name of the generated file. The default is
+    /// [MuxStream.key][google.cloud.video.transcoder.v1.MuxStream.key] with the
+    /// extension suffix corresponding to the
+    /// [MuxStream.container][google.cloud.video.transcoder.v1.MuxStream.container].
     ///
     /// Individual segments also have an incremental 10-digit zero-padded suffix
     /// starting from 0 before the extension, such as `mux_stream0000000123.ts`.
+    ///
+    /// [google.cloud.video.transcoder.v1.MuxStream.container]: crate::model::MuxStream::container
+    /// [google.cloud.video.transcoder.v1.MuxStream.key]: crate::model::MuxStream::key
     pub file_name: std::string::String,
 
     /// The container format. The default is `mp4`
     ///
-    /// Supported container formats:
+    /// Supported streaming formats:
     ///
     /// - `ts`
     /// - `fmp4`- the corresponding file extension is `.m4s`
+    ///
+    /// Supported standalone file formats:
+    ///
     /// - `mp4`
+    /// - `mp3`
+    /// - `ogg`
     /// - `vtt`
     ///
     /// See also:
@@ -2830,7 +2998,11 @@ pub struct MuxStream {
     /// formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats)
     pub container: std::string::String,
 
-    /// List of `ElementaryStream.key`s multiplexed in this stream.
+    /// List of
+    /// [ElementaryStream.key][google.cloud.video.transcoder.v1.ElementaryStream.key]
+    /// values multiplexed in this stream.
+    ///
+    /// [google.cloud.video.transcoder.v1.ElementaryStream.key]: crate::model::ElementaryStream::key
     pub elementary_streams: std::vec::Vec<std::string::String>,
 
     /// Segment settings for `ts`, `fmp4` and `vtt`.
@@ -2839,6 +3011,9 @@ pub struct MuxStream {
     /// Identifier of the encryption configuration to use. If omitted, output will
     /// be unencrypted.
     pub encryption_id: std::string::String,
+
+    /// Specifies the container configuration.
+    pub container_config: std::option::Option<crate::model::mux_stream::ContainerConfig>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2900,6 +3075,49 @@ impl MuxStream {
         self.encryption_id = v.into();
         self
     }
+
+    /// Sets the value of [container_config][crate::model::MuxStream::container_config].
+    ///
+    /// Note that all the setters affecting `container_config` are mutually
+    /// exclusive.
+    pub fn set_container_config<
+        T: std::convert::Into<std::option::Option<crate::model::mux_stream::ContainerConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.container_config = v.into();
+        self
+    }
+
+    /// The value of [container_config][crate::model::MuxStream::container_config]
+    /// if it holds a `Fmp4`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn fmp4(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::mux_stream::Fmp4Config>> {
+        #[allow(unreachable_patterns)]
+        self.container_config.as_ref().and_then(|v| match v {
+            crate::model::mux_stream::ContainerConfig::Fmp4(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [container_config][crate::model::MuxStream::container_config]
+    /// to hold a `Fmp4`.
+    ///
+    /// Note that all the setters affecting `container_config` are
+    /// mutually exclusive.
+    pub fn set_fmp4<
+        T: std::convert::Into<std::boxed::Box<crate::model::mux_stream::Fmp4Config>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.container_config =
+            std::option::Option::Some(crate::model::mux_stream::ContainerConfig::Fmp4(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for MuxStream {
@@ -2924,6 +3142,7 @@ impl<'de> serde::de::Deserialize<'de> for MuxStream {
             __elementary_streams,
             __segment_settings,
             __encryption_id,
+            __fmp4,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2954,6 +3173,7 @@ impl<'de> serde::de::Deserialize<'de> for MuxStream {
                             "segment_settings" => Ok(__FieldTag::__segment_settings),
                             "encryptionId" => Ok(__FieldTag::__encryption_id),
                             "encryption_id" => Ok(__FieldTag::__encryption_id),
+                            "fmp4" => Ok(__FieldTag::__fmp4),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3037,6 +3257,26 @@ impl<'de> serde::de::Deserialize<'de> for MuxStream {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__fmp4 => {
+                            if !fields.insert(__FieldTag::__fmp4) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fmp4",
+                                ));
+                            }
+                            if result.container_config.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `container_config`, a oneof with full ID .google.cloud.video.transcoder.v1.MuxStream.fmp4, latest field was fmp4",
+                                ));
+                            }
+                            result.container_config = std::option::Option::Some(
+                                crate::model::mux_stream::ContainerConfig::Fmp4(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::mux_stream::Fmp4Config>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3078,6 +3318,9 @@ impl serde::ser::Serialize for MuxStream {
         if !self.encryption_id.is_empty() {
             state.serialize_entry("encryptionId", &self.encryption_id)?;
         }
+        if let Some(value) = self.fmp4() {
+            state.serialize_entry("fmp4", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3087,23 +3330,213 @@ impl serde::ser::Serialize for MuxStream {
     }
 }
 
+impl std::fmt::Debug for MuxStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MuxStream");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("file_name", &self.file_name);
+        debug_struct.field("container", &self.container);
+        debug_struct.field("elementary_streams", &self.elementary_streams);
+        debug_struct.field("segment_settings", &self.segment_settings);
+        debug_struct.field("encryption_id", &self.encryption_id);
+        debug_struct.field("container_config", &self.container_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [MuxStream].
+pub mod mux_stream {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// `fmp4` container configuration.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Fmp4Config {
+        /// Optional. Specify the codec tag string that will be used in the media
+        /// bitstream. When not specified, the codec appropriate value is used.
+        ///
+        /// Supported H265 codec tags:
+        ///
+        /// - `hvc1` (default)
+        /// - `hev1`
+        pub codec_tag: std::string::String,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Fmp4Config {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [codec_tag][crate::model::mux_stream::Fmp4Config::codec_tag].
+        pub fn set_codec_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.codec_tag = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Fmp4Config {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.transcoder.v1.MuxStream.Fmp4Config"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Fmp4Config {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __codec_tag,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Fmp4Config")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "codecTag" => Ok(__FieldTag::__codec_tag),
+                                "codec_tag" => Ok(__FieldTag::__codec_tag),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Fmp4Config;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Fmp4Config")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__codec_tag => {
+                                if !fields.insert(__FieldTag::__codec_tag) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for codec_tag",
+                                    ));
+                                }
+                                result.codec_tag = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Fmp4Config {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.codec_tag.is_empty() {
+                state.serialize_entry("codecTag", &self.codec_tag)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Fmp4Config {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Fmp4Config");
+            debug_struct.field("codec_tag", &self.codec_tag);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Specifies the container configuration.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ContainerConfig {
+        /// Optional. `fmp4` container configuration.
+        Fmp4(std::boxed::Box<crate::model::mux_stream::Fmp4Config>),
+    }
+}
+
 /// Manifest configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Manifest {
     /// The name of the generated file. The default is `manifest` with the
-    /// extension suffix corresponding to the `Manifest.type`.
+    /// extension suffix corresponding to the
+    /// [Manifest.type][google.cloud.video.transcoder.v1.Manifest.type].
+    ///
+    /// [google.cloud.video.transcoder.v1.Manifest.type]: crate::model::Manifest::type
     pub file_name: std::string::String,
 
     /// Required. Type of the manifest.
     pub r#type: crate::model::manifest::ManifestType,
 
-    /// Required. List of user given `MuxStream.key`s that should appear in this
-    /// manifest.
+    /// Required. List of user supplied
+    /// [MuxStream.key][google.cloud.video.transcoder.v1.MuxStream.key] values that
+    /// should appear in this manifest.
     ///
-    /// When `Manifest.type` is `HLS`, a media manifest with name `MuxStream.key`
-    /// and `.m3u8` extension is generated for each element of the
-    /// `Manifest.mux_streams`.
+    /// When [Manifest.type][google.cloud.video.transcoder.v1.Manifest.type] is
+    /// `HLS`, a media manifest with name
+    /// [MuxStream.key][google.cloud.video.transcoder.v1.MuxStream.key] and `.m3u8`
+    /// extension is generated for each element in this list.
+    ///
+    /// [google.cloud.video.transcoder.v1.Manifest.type]: crate::model::Manifest::type
+    /// [google.cloud.video.transcoder.v1.MuxStream.key]: crate::model::MuxStream::key
     pub mux_streams: std::vec::Vec<std::string::String>,
 
     /// Specifies the manifest configuration.
@@ -3346,13 +3779,27 @@ impl serde::ser::Serialize for Manifest {
     }
 }
 
+impl std::fmt::Debug for Manifest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Manifest");
+        debug_struct.field("file_name", &self.file_name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("mux_streams", &self.mux_streams);
+        debug_struct.field("manifest_config", &self.manifest_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Manifest].
 pub mod manifest {
     #[allow(unused_imports)]
     use super::*;
 
     /// `DASH` manifest configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DashConfig {
         /// The segment reference scheme for a `DASH` manifest. The default is
@@ -3497,6 +3944,17 @@ pub mod manifest {
         }
     }
 
+    impl std::fmt::Debug for DashConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DashConfig");
+            debug_struct.field("segment_reference_scheme", &self.segment_reference_scheme);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [DashConfig].
     pub mod dash_config {
         #[allow(unused_imports)]
@@ -3522,9 +3980,36 @@ pub mod manifest {
         pub enum SegmentReferenceScheme {
             /// The segment reference scheme is not specified.
             Unspecified,
-            /// Lists the URLs of media files for each segment.
+            /// Explicitly lists the URLs of media files for each segment. For example,
+            /// if
+            /// [SegmentSettings.individual_segments][google.cloud.video.transcoder.v1.SegmentSettings.individual_segments]
+            /// is `true`, then the manifest contains fields similar to the following:
+            ///
+            /// ```norust
+            /// <Initialization sourceURL="my-hd-stream-init.m4s"/>
+            ///   <SegmentList presentationTimeOffset="0" duration="1000"
+            ///   timescale="10000">
+            ///     <SegmentURL media="hd-stream0000000000.m4s"/>
+            ///     <SegmentURL media="hd-stream0000000001.m4s"/>
+            ///     ...
+            /// ```
+            ///
+            /// [google.cloud.video.transcoder.v1.SegmentSettings.individual_segments]: crate::model::SegmentSettings::individual_segments
             SegmentList,
-            /// Lists each segment from a template with $Number$ variable.
+            /// [SegmentSettings.individual_segments][google.cloud.video.transcoder.v1.SegmentSettings.individual_segments]
+            /// must be set to `true` to use this segment reference scheme. Uses the
+            /// DASH specification
+            /// `<SegmentTemplate>` tag to determine the URLs of media files for each
+            /// segment. For example:
+            ///
+            /// ```norust
+            /// <SegmentTemplate presentationTimeOffset="0" timescale="10000"
+            ///       initialization="my-hd-stream-init.m4s"
+            ///       media="hd-stream$Number%010d$.m4s" startNumber="0">
+            ///   ...
+            /// ```
+            ///
+            /// [google.cloud.video.transcoder.v1.SegmentSettings.individual_segments]: crate::model::SegmentSettings::individual_segments
             SegmentTemplateNumber,
             /// If set, the enum was initialized with an unknown value.
             ///
@@ -3783,7 +4268,7 @@ pub mod manifest {
 }
 
 /// A Pub/Sub destination.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PubsubDestination {
     /// The name of the Pub/Sub topic to publish job completion notification
@@ -3913,8 +4398,19 @@ impl serde::ser::Serialize for PubsubDestination {
     }
 }
 
+impl std::fmt::Debug for PubsubDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PubsubDestination");
+        debug_struct.field("topic", &self.topic);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Sprite sheet configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpriteSheet {
     /// Format type. The default is `jpeg`.
@@ -4535,6 +5031,26 @@ impl serde::ser::Serialize for SpriteSheet {
     }
 }
 
+impl std::fmt::Debug for SpriteSheet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpriteSheet");
+        debug_struct.field("format", &self.format);
+        debug_struct.field("file_prefix", &self.file_prefix);
+        debug_struct.field("sprite_width_pixels", &self.sprite_width_pixels);
+        debug_struct.field("sprite_height_pixels", &self.sprite_height_pixels);
+        debug_struct.field("column_count", &self.column_count);
+        debug_struct.field("row_count", &self.row_count);
+        debug_struct.field("start_time_offset", &self.start_time_offset);
+        debug_struct.field("end_time_offset", &self.end_time_offset);
+        debug_struct.field("quality", &self.quality);
+        debug_struct.field("extraction_strategy", &self.extraction_strategy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SpriteSheet].
 pub mod sprite_sheet {
     #[allow(unused_imports)]
@@ -4555,13 +5071,13 @@ pub mod sprite_sheet {
 }
 
 /// Overlay configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Overlay {
     /// Image overlay.
     pub image: std::option::Option<crate::model::overlay::Image>,
 
-    /// List of Animations. The list should be chronological, without any time
+    /// List of animations. The list should be chronological, without any time
     /// overlap.
     pub animations: std::vec::Vec<crate::model::overlay::Animation>,
 
@@ -4728,13 +5244,25 @@ impl serde::ser::Serialize for Overlay {
     }
 }
 
+impl std::fmt::Debug for Overlay {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Overlay");
+        debug_struct.field("image", &self.image);
+        debug_struct.field("animations", &self.animations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Overlay].
 pub mod overlay {
     #[allow(unused_imports)]
     use super::*;
 
     /// 2D normalized coordinates. Default: `{0.0, 0.0}`
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NormalizedCoordinate {
         /// Normalized x coordinate.
@@ -4926,8 +5454,20 @@ pub mod overlay {
         }
     }
 
+    impl std::fmt::Debug for NormalizedCoordinate {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NormalizedCoordinate");
+            debug_struct.field("x", &self.x);
+            debug_struct.field("y", &self.y);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Overlaid image.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Image {
         /// Required. URI of the image in Cloud Storage. For example,
@@ -5142,8 +5682,21 @@ pub mod overlay {
         }
     }
 
+    impl std::fmt::Debug for Image {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Image");
+            debug_struct.field("uri", &self.uri);
+            debug_struct.field("resolution", &self.resolution);
+            debug_struct.field("alpha", &self.alpha);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Display static overlay object.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnimationStatic {
         /// Normalized coordinates based on output video resolution. Valid
@@ -5327,8 +5880,20 @@ pub mod overlay {
         }
     }
 
+    impl std::fmt::Debug for AnimationStatic {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnimationStatic");
+            debug_struct.field("xy", &self.xy);
+            debug_struct.field("start_time_offset", &self.start_time_offset);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Display overlay object with fade animation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnimationFade {
         /// Required. Type of fade animation: `FADE_IN` or `FADE_OUT`.
@@ -5575,10 +6140,24 @@ pub mod overlay {
         }
     }
 
-    /// End previous overlay animation from the video. Without AnimationEnd, the
+    impl std::fmt::Debug for AnimationFade {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnimationFade");
+            debug_struct.field("fade_type", &self.fade_type);
+            debug_struct.field("xy", &self.xy);
+            debug_struct.field("start_time_offset", &self.start_time_offset);
+            debug_struct.field("end_time_offset", &self.end_time_offset);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// End previous overlay animation from the video. Without `AnimationEnd`, the
     /// overlay object will keep the state of previous animation until the end of
     /// the video.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnimationEnd {
         /// The time to end overlay object, in seconds. Default: 0
@@ -5722,8 +6301,19 @@ pub mod overlay {
         }
     }
 
+    impl std::fmt::Debug for AnimationEnd {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnimationEnd");
+            debug_struct.field("start_time_offset", &self.start_time_offset);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Animation types.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Animation {
         /// Animations can be static or fade, or they can end the previous animation.
@@ -6021,6 +6611,17 @@ pub mod overlay {
         }
     }
 
+    impl std::fmt::Debug for Animation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Animation");
+            debug_struct.field("animation_type", &self.animation_type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Animation].
     pub mod animation {
         #[allow(unused_imports)]
@@ -6173,7 +6774,7 @@ pub mod overlay {
 }
 
 /// Preprocessing configurations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PreprocessingConfig {
     /// Color preprocessing configuration.
@@ -6528,6 +7129,23 @@ impl serde::ser::Serialize for PreprocessingConfig {
     }
 }
 
+impl std::fmt::Debug for PreprocessingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreprocessingConfig");
+        debug_struct.field("color", &self.color);
+        debug_struct.field("denoise", &self.denoise);
+        debug_struct.field("deblock", &self.deblock);
+        debug_struct.field("audio", &self.audio);
+        debug_struct.field("crop", &self.crop);
+        debug_struct.field("pad", &self.pad);
+        debug_struct.field("deinterlace", &self.deinterlace);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PreprocessingConfig].
 pub mod preprocessing_config {
     #[allow(unused_imports)]
@@ -6536,7 +7154,7 @@ pub mod preprocessing_config {
     /// Color preprocessing configuration.
     ///
     /// **Note:** This configuration is not supported.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Color {
         /// Control color saturation of the video. Enter a value between -1 and 1,
@@ -6778,10 +7396,23 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Color {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Color");
+            debug_struct.field("saturation", &self.saturation);
+            debug_struct.field("contrast", &self.contrast);
+            debug_struct.field("brightness", &self.brightness);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Denoise preprocessing configuration.
     ///
     /// **Note:** This configuration is not supported.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Denoise {
         /// Set strength of the denoise. Enter a value between 0 and 1. The higher
@@ -6961,10 +7592,22 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Denoise {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Denoise");
+            debug_struct.field("strength", &self.strength);
+            debug_struct.field("tune", &self.tune);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Deblock preprocessing configuration.
     ///
     /// **Note:** This configuration is not supported.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Deblock {
         /// Set strength of the deblocker. Enter a value between 0 and 1. The higher
@@ -7140,8 +7783,20 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Deblock {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Deblock");
+            debug_struct.field("strength", &self.strength);
+            debug_struct.field("enabled", &self.enabled);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Audio preprocessing configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Audio {
         /// Specify audio loudness normalization in loudness units relative to full
@@ -7355,9 +8010,22 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Audio {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Audio");
+            debug_struct.field("lufs", &self.lufs);
+            debug_struct.field("high_boost", &self.high_boost);
+            debug_struct.field("low_boost", &self.low_boost);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Video cropping configuration for the input video. The cropped input video
     /// is scaled to match the output resolution.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Crop {
         /// The number of pixels to crop from the top. The default is 0.
@@ -7641,9 +8309,23 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Crop {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Crop");
+            debug_struct.field("top_pixels", &self.top_pixels);
+            debug_struct.field("bottom_pixels", &self.bottom_pixels);
+            debug_struct.field("left_pixels", &self.left_pixels);
+            debug_struct.field("right_pixels", &self.right_pixels);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Pad filter configuration for the input video. The padded input video
     /// is scaled after padding with black to match the output resolution.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Pad {
         /// The number of pixels to add to the top. The default is 0.
@@ -7927,8 +8609,22 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Pad {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Pad");
+            debug_struct.field("top_pixels", &self.top_pixels);
+            debug_struct.field("bottom_pixels", &self.bottom_pixels);
+            debug_struct.field("left_pixels", &self.left_pixels);
+            debug_struct.field("right_pixels", &self.right_pixels);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Deinterlace configuration for input video.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Deinterlace {
         /// Specify the video deinterlacing filter. The default is `yadif`.
@@ -8179,13 +8875,24 @@ pub mod preprocessing_config {
         }
     }
 
+    impl std::fmt::Debug for Deinterlace {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Deinterlace");
+            debug_struct.field("deinterlacing_filter", &self.deinterlacing_filter);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Deinterlace].
     pub mod deinterlace {
         #[allow(unused_imports)]
         use super::*;
 
         /// Yet Another Deinterlacing Filter Configuration.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct YadifConfig {
             /// Specifies the deinterlacing mode to adopt.
@@ -8425,8 +9132,25 @@ pub mod preprocessing_config {
             }
         }
 
+        impl std::fmt::Debug for YadifConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("YadifConfig");
+                debug_struct.field("mode", &self.mode);
+                debug_struct.field(
+                    "disable_spatial_interlacing",
+                    &self.disable_spatial_interlacing,
+                );
+                debug_struct.field("parity", &self.parity);
+                debug_struct.field("deinterlace_all_frames", &self.deinterlace_all_frames);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Bob Weaver Deinterlacing Filter Configuration.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BwdifConfig {
             /// Specifies the deinterlacing mode to adopt.
@@ -8628,6 +9352,19 @@ pub mod preprocessing_config {
             }
         }
 
+        impl std::fmt::Debug for BwdifConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("BwdifConfig");
+                debug_struct.field("mode", &self.mode);
+                debug_struct.field("parity", &self.parity);
+                debug_struct.field("deinterlace_all_frames", &self.deinterlace_all_frames);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Specify the video deinterlacing filter. The default is `yadif`.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -8641,7 +9378,7 @@ pub mod preprocessing_config {
 }
 
 /// Video stream resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoStream {
     /// Codec settings can be h264, h265, or vp9.
@@ -8931,13 +9668,256 @@ impl serde::ser::Serialize for VideoStream {
     }
 }
 
+impl std::fmt::Debug for VideoStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VideoStream");
+        debug_struct.field("codec_settings", &self.codec_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VideoStream].
 pub mod video_stream {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Convert the input video to a Standard Dynamic Range (SDR) video.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct H264ColorFormatSDR {
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl H264ColorFormatSDR {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for H264ColorFormatSDR {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.transcoder.v1.VideoStream.H264ColorFormatSDR"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for H264ColorFormatSDR {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for H264ColorFormatSDR")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            Ok(__FieldTag::Unknown(value.to_string()))
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = H264ColorFormatSDR;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct H264ColorFormatSDR")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for H264ColorFormatSDR {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for H264ColorFormatSDR {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H264ColorFormatSDR");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Convert the input video to a Hybrid Log Gamma (HLG) video.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct H264ColorFormatHLG {
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl H264ColorFormatHLG {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for H264ColorFormatHLG {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.transcoder.v1.VideoStream.H264ColorFormatHLG"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for H264ColorFormatHLG {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for H264ColorFormatHLG")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            Ok(__FieldTag::Unknown(value.to_string()))
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = H264ColorFormatHLG;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct H264ColorFormatHLG")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for H264ColorFormatHLG {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for H264ColorFormatHLG {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H264ColorFormatHLG");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// H264 codec settings.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H264CodecSettings {
         /// The width of the video in pixels. Must be an even integer.
@@ -8961,13 +9941,12 @@ pub mod video_stream {
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
-        /// less than or equal to 120. Will default to the input frame rate if larger
-        /// than the input frame rate. The API will generate an output FPS that is
-        /// divisible by the input FPS, and smaller or equal to the target FPS. See
-        /// [Calculating frame
-        /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
-        /// more information.
+        /// less than or equal to 120.
         pub frame_rate: f64,
+
+        /// Optional. Frame rate conversion strategy for desired frame rate. The
+        /// default is `DOWNSAMPLE`.
+        pub frame_rate_conversion_strategy: crate::model::video_stream::FrameRateConversionStrategy,
 
         /// Required. The video bitrate in bits per second. The minimum value is
         /// 1,000. The maximum value is 800,000,000.
@@ -8988,7 +9967,7 @@ pub mod video_stream {
         /// - `yuv444p12` 12-bit HDR pixel format
         pub pixel_format: std::string::String,
 
-        /// Specify the `rate_control_mode`. The default is `vbr`.
+        /// Specify the mode. The default is `vbr`.
         ///
         /// Supported rate control modes:
         ///
@@ -9005,16 +9984,24 @@ pub mod video_stream {
         pub allow_open_gop: bool,
 
         /// Use two-pass encoding strategy to achieve better video quality.
-        /// `VideoStream.rate_control_mode` must be `vbr`. The default is `false`.
+        /// [H264CodecSettings.rate_control_mode][google.cloud.video.transcoder.v1.VideoStream.H264CodecSettings.rate_control_mode]
+        /// must be `vbr`. The default is `false`.
+        ///
+        /// [google.cloud.video.transcoder.v1.VideoStream.H264CodecSettings.rate_control_mode]: crate::model::video_stream::H264CodecSettings::rate_control_mode
         pub enable_two_pass: bool,
 
         /// Size of the Video Buffering Verifier (VBV) buffer in bits. Must be
-        /// greater than zero. The default is equal to `VideoStream.bitrate_bps`.
+        /// greater than zero. The default is equal to
+        /// [H264CodecSettings.bitrate_bps][google.cloud.video.transcoder.v1.VideoStream.H264CodecSettings.bitrate_bps].
+        ///
+        /// [google.cloud.video.transcoder.v1.VideoStream.H264CodecSettings.bitrate_bps]: crate::model::video_stream::H264CodecSettings::bitrate_bps
         pub vbv_size_bits: i32,
 
         /// Initial fullness of the Video Buffering Verifier (VBV) buffer in bits.
         /// Must be greater than zero. The default is equal to 90% of
-        /// `VideoStream.vbv_size_bits`.
+        /// [H264CodecSettings.vbv_size_bits][google.cloud.video.transcoder.v1.VideoStream.H264CodecSettings.vbv_size_bits].
+        ///
+        /// [google.cloud.video.transcoder.v1.VideoStream.H264CodecSettings.vbv_size_bits]: crate::model::video_stream::H264CodecSettings::vbv_size_bits
         pub vbv_fullness_bits: i32,
 
         /// The entropy coder to use. The default is `cabac`.
@@ -9030,8 +10017,11 @@ pub mod video_stream {
         pub b_pyramid: bool,
 
         /// The number of consecutive B-frames. Must be greater than or equal to
-        /// zero. Must be less than `VideoStream.gop_frame_count` if set. The default
-        /// is 0.
+        /// zero. Must be less than
+        /// [H264CodecSettings.gop_frame_count][google.cloud.video.transcoder.v1.VideoStream.H264CodecSettings.gop_frame_count]
+        /// if set. The default is 0.
+        ///
+        /// [google.cloud.video.transcoder.v1.VideoStream.H264CodecSettings.gop_frame_count]: crate::model::video_stream::H264CodecSettings::gop_mode
         pub b_frame_count: i32,
 
         /// Specify the intensity of the adaptive quantizer (AQ). Must be between 0
@@ -9072,6 +10062,10 @@ pub mod video_stream {
         pub gop_mode:
             std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
 
+        /// Color format can be sdr or hlg.
+        pub color_format:
+            std::option::Option<crate::model::video_stream::h_264_codec_settings::ColorFormat>,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -9095,6 +10089,17 @@ pub mod video_stream {
         /// Sets the value of [frame_rate][crate::model::video_stream::H264CodecSettings::frame_rate].
         pub fn set_frame_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.frame_rate = v.into();
+            self
+        }
+
+        /// Sets the value of [frame_rate_conversion_strategy][crate::model::video_stream::H264CodecSettings::frame_rate_conversion_strategy].
+        pub fn set_frame_rate_conversion_strategy<
+            T: std::convert::Into<crate::model::video_stream::FrameRateConversionStrategy>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.frame_rate_conversion_strategy = v.into();
             self
         }
 
@@ -9265,6 +10270,90 @@ pub mod video_stream {
             );
             self
         }
+
+        /// Sets the value of [color_format][crate::model::video_stream::H264CodecSettings::color_format].
+        ///
+        /// Note that all the setters affecting `color_format` are mutually
+        /// exclusive.
+        pub fn set_color_format<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::video_stream::h_264_codec_settings::ColorFormat,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.color_format = v.into();
+            self
+        }
+
+        /// The value of [color_format][crate::model::video_stream::H264CodecSettings::color_format]
+        /// if it holds a `Sdr`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn sdr(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H264ColorFormatSDR>>
+        {
+            #[allow(unreachable_patterns)]
+            self.color_format.as_ref().and_then(|v| match v {
+                crate::model::video_stream::h_264_codec_settings::ColorFormat::Sdr(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [color_format][crate::model::video_stream::H264CodecSettings::color_format]
+        /// to hold a `Sdr`.
+        ///
+        /// Note that all the setters affecting `color_format` are
+        /// mutually exclusive.
+        pub fn set_sdr<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264ColorFormatSDR>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.color_format = std::option::Option::Some(
+                crate::model::video_stream::h_264_codec_settings::ColorFormat::Sdr(v.into()),
+            );
+            self
+        }
+
+        /// The value of [color_format][crate::model::video_stream::H264CodecSettings::color_format]
+        /// if it holds a `Hlg`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn hlg(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H264ColorFormatHLG>>
+        {
+            #[allow(unreachable_patterns)]
+            self.color_format.as_ref().and_then(|v| match v {
+                crate::model::video_stream::h_264_codec_settings::ColorFormat::Hlg(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [color_format][crate::model::video_stream::H264CodecSettings::color_format]
+        /// to hold a `Hlg`.
+        ///
+        /// Note that all the setters affecting `color_format` are
+        /// mutually exclusive.
+        pub fn set_hlg<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264ColorFormatHLG>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.color_format = std::option::Option::Some(
+                crate::model::video_stream::h_264_codec_settings::ColorFormat::Hlg(v.into()),
+            );
+            self
+        }
     }
 
     impl wkt::message::Message for H264CodecSettings {
@@ -9286,6 +10375,7 @@ pub mod video_stream {
                 __width_pixels,
                 __height_pixels,
                 __frame_rate,
+                __frame_rate_conversion_strategy,
                 __bitrate_bps,
                 __pixel_format,
                 __rate_control_mode,
@@ -9303,6 +10393,8 @@ pub mod video_stream {
                 __profile,
                 __tune,
                 __preset,
+                __sdr,
+                __hlg,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9332,6 +10424,12 @@ pub mod video_stream {
                                 "height_pixels" => Ok(__FieldTag::__height_pixels),
                                 "frameRate" => Ok(__FieldTag::__frame_rate),
                                 "frame_rate" => Ok(__FieldTag::__frame_rate),
+                                "frameRateConversionStrategy" => {
+                                    Ok(__FieldTag::__frame_rate_conversion_strategy)
+                                }
+                                "frame_rate_conversion_strategy" => {
+                                    Ok(__FieldTag::__frame_rate_conversion_strategy)
+                                }
                                 "bitrateBps" => Ok(__FieldTag::__bitrate_bps),
                                 "bitrate_bps" => Ok(__FieldTag::__bitrate_bps),
                                 "pixelFormat" => Ok(__FieldTag::__pixel_format),
@@ -9363,6 +10461,8 @@ pub mod video_stream {
                                 "profile" => Ok(__FieldTag::__profile),
                                 "tune" => Ok(__FieldTag::__tune),
                                 "preset" => Ok(__FieldTag::__preset),
+                                "sdr" => Ok(__FieldTag::__sdr),
+                                "hlg" => Ok(__FieldTag::__hlg),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -9447,6 +10547,18 @@ pub mod video_stream {
                                 }
                                 result.frame_rate =
                                     map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__frame_rate_conversion_strategy => {
+                                if !fields.insert(__FieldTag::__frame_rate_conversion_strategy) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for frame_rate_conversion_strategy",
+                                    ));
+                                }
+                                result.frame_rate_conversion_strategy = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::video_stream::FrameRateConversionStrategy,
+                                    >>()?
+                                    .unwrap_or_default();
                             }
                             __FieldTag::__bitrate_bps => {
                                 if !fields.insert(__FieldTag::__bitrate_bps) {
@@ -9703,6 +10815,40 @@ pub mod video_stream {
                                     .next_value::<std::option::Option<std::string::String>>()?
                                     .unwrap_or_default();
                             }
+                            __FieldTag::__sdr => {
+                                if !fields.insert(__FieldTag::__sdr) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for sdr",
+                                    ));
+                                }
+                                if result.color_format.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `color_format`, a oneof with full ID .google.cloud.video.transcoder.v1.VideoStream.H264CodecSettings.sdr, latest field was sdr",
+                                    ));
+                                }
+                                result.color_format = std::option::Option::Some(
+                                    crate::model::video_stream::h_264_codec_settings::ColorFormat::Sdr(
+                                        map.next_value::<std::option::Option<std::boxed::Box<crate::model::video_stream::H264ColorFormatSDR>>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::__hlg => {
+                                if !fields.insert(__FieldTag::__hlg) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for hlg",
+                                    ));
+                                }
+                                if result.color_format.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `color_format`, a oneof with full ID .google.cloud.video.transcoder.v1.VideoStream.H264CodecSettings.hlg, latest field was hlg",
+                                    ));
+                                }
+                                result.color_format = std::option::Option::Some(
+                                    crate::model::video_stream::h_264_codec_settings::ColorFormat::Hlg(
+                                        map.next_value::<std::option::Option<std::boxed::Box<crate::model::video_stream::H264ColorFormatHLG>>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -9761,6 +10907,12 @@ pub mod video_stream {
                     }
                 }
                 state.serialize_entry("frameRate", &__With(&self.frame_rate))?;
+            }
+            if !wkt::internal::is_default(&self.frame_rate_conversion_strategy) {
+                state.serialize_entry(
+                    "frameRateConversionStrategy",
+                    &self.frame_rate_conversion_strategy,
+                )?;
             }
             if !wkt::internal::is_default(&self.bitrate_bps) {
                 struct __With<'a>(&'a i32);
@@ -9876,12 +11028,52 @@ pub mod video_stream {
             if !self.preset.is_empty() {
                 state.serialize_entry("preset", &self.preset)?;
             }
+            if let Some(value) = self.sdr() {
+                state.serialize_entry("sdr", value)?;
+            }
+            if let Some(value) = self.hlg() {
+                state.serialize_entry("hlg", value)?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for H264CodecSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H264CodecSettings");
+            debug_struct.field("width_pixels", &self.width_pixels);
+            debug_struct.field("height_pixels", &self.height_pixels);
+            debug_struct.field("frame_rate", &self.frame_rate);
+            debug_struct.field(
+                "frame_rate_conversion_strategy",
+                &self.frame_rate_conversion_strategy,
+            );
+            debug_struct.field("bitrate_bps", &self.bitrate_bps);
+            debug_struct.field("pixel_format", &self.pixel_format);
+            debug_struct.field("rate_control_mode", &self.rate_control_mode);
+            debug_struct.field("crf_level", &self.crf_level);
+            debug_struct.field("allow_open_gop", &self.allow_open_gop);
+            debug_struct.field("enable_two_pass", &self.enable_two_pass);
+            debug_struct.field("vbv_size_bits", &self.vbv_size_bits);
+            debug_struct.field("vbv_fullness_bits", &self.vbv_fullness_bits);
+            debug_struct.field("entropy_coder", &self.entropy_coder);
+            debug_struct.field("b_pyramid", &self.b_pyramid);
+            debug_struct.field("b_frame_count", &self.b_frame_count);
+            debug_struct.field("aq_strength", &self.aq_strength);
+            debug_struct.field("profile", &self.profile);
+            debug_struct.field("tune", &self.tune);
+            debug_struct.field("preset", &self.preset);
+            debug_struct.field("gop_mode", &self.gop_mode);
+            debug_struct.field("color_format", &self.color_format);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -9904,10 +11096,368 @@ pub mod video_stream {
             /// `gopDuration`.
             GopDuration(std::boxed::Box<wkt::Duration>),
         }
+
+        /// Color format can be sdr or hlg.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ColorFormat {
+            /// Optional. SDR color format setting for H264.
+            Sdr(std::boxed::Box<crate::model::video_stream::H264ColorFormatSDR>),
+            /// Optional. HLG color format setting for H264.
+            Hlg(std::boxed::Box<crate::model::video_stream::H264ColorFormatHLG>),
+        }
+    }
+
+    /// Convert the input video to a Standard Dynamic Range (SDR) video.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct H265ColorFormatSDR {
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl H265ColorFormatSDR {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for H265ColorFormatSDR {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.transcoder.v1.VideoStream.H265ColorFormatSDR"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for H265ColorFormatSDR {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for H265ColorFormatSDR")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            Ok(__FieldTag::Unknown(value.to_string()))
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = H265ColorFormatSDR;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct H265ColorFormatSDR")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for H265ColorFormatSDR {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for H265ColorFormatSDR {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H265ColorFormatSDR");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Convert the input video to a Hybrid Log Gamma (HLG) video.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct H265ColorFormatHLG {
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl H265ColorFormatHLG {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for H265ColorFormatHLG {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.transcoder.v1.VideoStream.H265ColorFormatHLG"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for H265ColorFormatHLG {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for H265ColorFormatHLG")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            Ok(__FieldTag::Unknown(value.to_string()))
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = H265ColorFormatHLG;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct H265ColorFormatHLG")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for H265ColorFormatHLG {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for H265ColorFormatHLG {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H265ColorFormatHLG");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Convert the input video to a High Dynamic Range 10 (HDR10) video.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct H265ColorFormatHDR10 {
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl H265ColorFormatHDR10 {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for H265ColorFormatHDR10 {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.transcoder.v1.VideoStream.H265ColorFormatHDR10"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for H265ColorFormatHDR10 {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for H265ColorFormatHDR10")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            Ok(__FieldTag::Unknown(value.to_string()))
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = H265ColorFormatHDR10;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct H265ColorFormatHDR10")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for H265ColorFormatHDR10 {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for H265ColorFormatHDR10 {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H265ColorFormatHDR10");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
     }
 
     /// H265 codec settings.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct H265CodecSettings {
         /// The width of the video in pixels. Must be an even integer.
@@ -9931,13 +11481,12 @@ pub mod video_stream {
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
-        /// less than or equal to 120. Will default to the input frame rate if larger
-        /// than the input frame rate. The API will generate an output FPS that is
-        /// divisible by the input FPS, and smaller or equal to the target FPS. See
-        /// [Calculating frame
-        /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
-        /// more information.
+        /// less than or equal to 120.
         pub frame_rate: f64,
+
+        /// Optional. Frame rate conversion strategy for desired frame rate. The
+        /// default is `DOWNSAMPLE`.
+        pub frame_rate_conversion_strategy: crate::model::video_stream::FrameRateConversionStrategy,
 
         /// Required. The video bitrate in bits per second. The minimum value is
         /// 1,000. The maximum value is 800,000,000.
@@ -9958,7 +11507,7 @@ pub mod video_stream {
         /// - `yuv444p12` 12-bit HDR pixel format
         pub pixel_format: std::string::String,
 
-        /// Specify the `rate_control_mode`. The default is `vbr`.
+        /// Specify the mode. The default is `vbr`.
         ///
         /// Supported rate control modes:
         ///
@@ -9975,7 +11524,10 @@ pub mod video_stream {
         pub allow_open_gop: bool,
 
         /// Use two-pass encoding strategy to achieve better video quality.
-        /// `VideoStream.rate_control_mode` must be `vbr`. The default is `false`.
+        /// [H265CodecSettings.rate_control_mode][google.cloud.video.transcoder.v1.VideoStream.H265CodecSettings.rate_control_mode]
+        /// must be `vbr`. The default is `false`.
+        ///
+        /// [google.cloud.video.transcoder.v1.VideoStream.H265CodecSettings.rate_control_mode]: crate::model::video_stream::H265CodecSettings::rate_control_mode
         pub enable_two_pass: bool,
 
         /// Size of the Video Buffering Verifier (VBV) buffer in bits. Must be
@@ -9984,7 +11536,9 @@ pub mod video_stream {
 
         /// Initial fullness of the Video Buffering Verifier (VBV) buffer in bits.
         /// Must be greater than zero. The default is equal to 90% of
-        /// `VideoStream.vbv_size_bits`.
+        /// [H265CodecSettings.vbv_size_bits][google.cloud.video.transcoder.v1.VideoStream.H265CodecSettings.vbv_size_bits].
+        ///
+        /// [google.cloud.video.transcoder.v1.VideoStream.H265CodecSettings.vbv_size_bits]: crate::model::video_stream::H265CodecSettings::vbv_size_bits
         pub vbv_fullness_bits: i32,
 
         /// Allow B-pyramid for reference frame selection. This may not be supported
@@ -9992,8 +11546,11 @@ pub mod video_stream {
         pub b_pyramid: bool,
 
         /// The number of consecutive B-frames. Must be greater than or equal to
-        /// zero. Must be less than `VideoStream.gop_frame_count` if set. The default
-        /// is 0.
+        /// zero. Must be less than
+        /// [H265CodecSettings.gop_frame_count][google.cloud.video.transcoder.v1.VideoStream.H265CodecSettings.gop_frame_count]
+        /// if set. The default is 0.
+        ///
+        /// [google.cloud.video.transcoder.v1.VideoStream.H265CodecSettings.gop_frame_count]: crate::model::video_stream::H265CodecSettings::gop_mode
         pub b_frame_count: i32,
 
         /// Specify the intensity of the adaptive quantizer (AQ). Must be between 0
@@ -10049,6 +11606,10 @@ pub mod video_stream {
         pub gop_mode:
             std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
 
+        /// Color format can be sdr, hlg, hdr10.
+        pub color_format:
+            std::option::Option<crate::model::video_stream::h_265_codec_settings::ColorFormat>,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -10072,6 +11633,17 @@ pub mod video_stream {
         /// Sets the value of [frame_rate][crate::model::video_stream::H265CodecSettings::frame_rate].
         pub fn set_frame_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.frame_rate = v.into();
+            self
+        }
+
+        /// Sets the value of [frame_rate_conversion_strategy][crate::model::video_stream::H265CodecSettings::frame_rate_conversion_strategy].
+        pub fn set_frame_rate_conversion_strategy<
+            T: std::convert::Into<crate::model::video_stream::FrameRateConversionStrategy>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.frame_rate_conversion_strategy = v.into();
             self
         }
 
@@ -10233,6 +11805,123 @@ pub mod video_stream {
             );
             self
         }
+
+        /// Sets the value of [color_format][crate::model::video_stream::H265CodecSettings::color_format].
+        ///
+        /// Note that all the setters affecting `color_format` are mutually
+        /// exclusive.
+        pub fn set_color_format<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::video_stream::h_265_codec_settings::ColorFormat,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.color_format = v.into();
+            self
+        }
+
+        /// The value of [color_format][crate::model::video_stream::H265CodecSettings::color_format]
+        /// if it holds a `Sdr`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn sdr(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265ColorFormatSDR>>
+        {
+            #[allow(unreachable_patterns)]
+            self.color_format.as_ref().and_then(|v| match v {
+                crate::model::video_stream::h_265_codec_settings::ColorFormat::Sdr(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [color_format][crate::model::video_stream::H265CodecSettings::color_format]
+        /// to hold a `Sdr`.
+        ///
+        /// Note that all the setters affecting `color_format` are
+        /// mutually exclusive.
+        pub fn set_sdr<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265ColorFormatSDR>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.color_format = std::option::Option::Some(
+                crate::model::video_stream::h_265_codec_settings::ColorFormat::Sdr(v.into()),
+            );
+            self
+        }
+
+        /// The value of [color_format][crate::model::video_stream::H265CodecSettings::color_format]
+        /// if it holds a `Hlg`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn hlg(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265ColorFormatHLG>>
+        {
+            #[allow(unreachable_patterns)]
+            self.color_format.as_ref().and_then(|v| match v {
+                crate::model::video_stream::h_265_codec_settings::ColorFormat::Hlg(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [color_format][crate::model::video_stream::H265CodecSettings::color_format]
+        /// to hold a `Hlg`.
+        ///
+        /// Note that all the setters affecting `color_format` are
+        /// mutually exclusive.
+        pub fn set_hlg<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265ColorFormatHLG>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.color_format = std::option::Option::Some(
+                crate::model::video_stream::h_265_codec_settings::ColorFormat::Hlg(v.into()),
+            );
+            self
+        }
+
+        /// The value of [color_format][crate::model::video_stream::H265CodecSettings::color_format]
+        /// if it holds a `Hdr10`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn hdr10(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265ColorFormatHDR10>>
+        {
+            #[allow(unreachable_patterns)]
+            self.color_format.as_ref().and_then(|v| match v {
+                crate::model::video_stream::h_265_codec_settings::ColorFormat::Hdr10(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [color_format][crate::model::video_stream::H265CodecSettings::color_format]
+        /// to hold a `Hdr10`.
+        ///
+        /// Note that all the setters affecting `color_format` are
+        /// mutually exclusive.
+        pub fn set_hdr10<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265ColorFormatHDR10>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.color_format = std::option::Option::Some(
+                crate::model::video_stream::h_265_codec_settings::ColorFormat::Hdr10(v.into()),
+            );
+            self
+        }
     }
 
     impl wkt::message::Message for H265CodecSettings {
@@ -10254,6 +11943,7 @@ pub mod video_stream {
                 __width_pixels,
                 __height_pixels,
                 __frame_rate,
+                __frame_rate_conversion_strategy,
                 __bitrate_bps,
                 __pixel_format,
                 __rate_control_mode,
@@ -10270,6 +11960,9 @@ pub mod video_stream {
                 __profile,
                 __tune,
                 __preset,
+                __sdr,
+                __hlg,
+                __hdr10,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10299,6 +11992,12 @@ pub mod video_stream {
                                 "height_pixels" => Ok(__FieldTag::__height_pixels),
                                 "frameRate" => Ok(__FieldTag::__frame_rate),
                                 "frame_rate" => Ok(__FieldTag::__frame_rate),
+                                "frameRateConversionStrategy" => {
+                                    Ok(__FieldTag::__frame_rate_conversion_strategy)
+                                }
+                                "frame_rate_conversion_strategy" => {
+                                    Ok(__FieldTag::__frame_rate_conversion_strategy)
+                                }
                                 "bitrateBps" => Ok(__FieldTag::__bitrate_bps),
                                 "bitrate_bps" => Ok(__FieldTag::__bitrate_bps),
                                 "pixelFormat" => Ok(__FieldTag::__pixel_format),
@@ -10328,6 +12027,9 @@ pub mod video_stream {
                                 "profile" => Ok(__FieldTag::__profile),
                                 "tune" => Ok(__FieldTag::__tune),
                                 "preset" => Ok(__FieldTag::__preset),
+                                "sdr" => Ok(__FieldTag::__sdr),
+                                "hlg" => Ok(__FieldTag::__hlg),
+                                "hdr10" => Ok(__FieldTag::__hdr10),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -10412,6 +12114,18 @@ pub mod video_stream {
                                 }
                                 result.frame_rate =
                                     map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__frame_rate_conversion_strategy => {
+                                if !fields.insert(__FieldTag::__frame_rate_conversion_strategy) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for frame_rate_conversion_strategy",
+                                    ));
+                                }
+                                result.frame_rate_conversion_strategy = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::video_stream::FrameRateConversionStrategy,
+                                    >>()?
+                                    .unwrap_or_default();
                             }
                             __FieldTag::__bitrate_bps => {
                                 if !fields.insert(__FieldTag::__bitrate_bps) {
@@ -10658,6 +12372,57 @@ pub mod video_stream {
                                     .next_value::<std::option::Option<std::string::String>>()?
                                     .unwrap_or_default();
                             }
+                            __FieldTag::__sdr => {
+                                if !fields.insert(__FieldTag::__sdr) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for sdr",
+                                    ));
+                                }
+                                if result.color_format.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `color_format`, a oneof with full ID .google.cloud.video.transcoder.v1.VideoStream.H265CodecSettings.sdr, latest field was sdr",
+                                    ));
+                                }
+                                result.color_format = std::option::Option::Some(
+                                    crate::model::video_stream::h_265_codec_settings::ColorFormat::Sdr(
+                                        map.next_value::<std::option::Option<std::boxed::Box<crate::model::video_stream::H265ColorFormatSDR>>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::__hlg => {
+                                if !fields.insert(__FieldTag::__hlg) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for hlg",
+                                    ));
+                                }
+                                if result.color_format.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `color_format`, a oneof with full ID .google.cloud.video.transcoder.v1.VideoStream.H265CodecSettings.hlg, latest field was hlg",
+                                    ));
+                                }
+                                result.color_format = std::option::Option::Some(
+                                    crate::model::video_stream::h_265_codec_settings::ColorFormat::Hlg(
+                                        map.next_value::<std::option::Option<std::boxed::Box<crate::model::video_stream::H265ColorFormatHLG>>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::__hdr10 => {
+                                if !fields.insert(__FieldTag::__hdr10) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for hdr10",
+                                    ));
+                                }
+                                if result.color_format.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `color_format`, a oneof with full ID .google.cloud.video.transcoder.v1.VideoStream.H265CodecSettings.hdr10, latest field was hdr10",
+                                    ));
+                                }
+                                result.color_format = std::option::Option::Some(
+                                    crate::model::video_stream::h_265_codec_settings::ColorFormat::Hdr10(
+                                        map.next_value::<std::option::Option<std::boxed::Box<crate::model::video_stream::H265ColorFormatHDR10>>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -10716,6 +12481,12 @@ pub mod video_stream {
                     }
                 }
                 state.serialize_entry("frameRate", &__With(&self.frame_rate))?;
+            }
+            if !wkt::internal::is_default(&self.frame_rate_conversion_strategy) {
+                state.serialize_entry(
+                    "frameRateConversionStrategy",
+                    &self.frame_rate_conversion_strategy,
+                )?;
             }
             if !wkt::internal::is_default(&self.bitrate_bps) {
                 struct __With<'a>(&'a i32);
@@ -10828,12 +12599,54 @@ pub mod video_stream {
             if !self.preset.is_empty() {
                 state.serialize_entry("preset", &self.preset)?;
             }
+            if let Some(value) = self.sdr() {
+                state.serialize_entry("sdr", value)?;
+            }
+            if let Some(value) = self.hlg() {
+                state.serialize_entry("hlg", value)?;
+            }
+            if let Some(value) = self.hdr10() {
+                state.serialize_entry("hdr10", value)?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for H265CodecSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("H265CodecSettings");
+            debug_struct.field("width_pixels", &self.width_pixels);
+            debug_struct.field("height_pixels", &self.height_pixels);
+            debug_struct.field("frame_rate", &self.frame_rate);
+            debug_struct.field(
+                "frame_rate_conversion_strategy",
+                &self.frame_rate_conversion_strategy,
+            );
+            debug_struct.field("bitrate_bps", &self.bitrate_bps);
+            debug_struct.field("pixel_format", &self.pixel_format);
+            debug_struct.field("rate_control_mode", &self.rate_control_mode);
+            debug_struct.field("crf_level", &self.crf_level);
+            debug_struct.field("allow_open_gop", &self.allow_open_gop);
+            debug_struct.field("enable_two_pass", &self.enable_two_pass);
+            debug_struct.field("vbv_size_bits", &self.vbv_size_bits);
+            debug_struct.field("vbv_fullness_bits", &self.vbv_fullness_bits);
+            debug_struct.field("b_pyramid", &self.b_pyramid);
+            debug_struct.field("b_frame_count", &self.b_frame_count);
+            debug_struct.field("aq_strength", &self.aq_strength);
+            debug_struct.field("profile", &self.profile);
+            debug_struct.field("tune", &self.tune);
+            debug_struct.field("preset", &self.preset);
+            debug_struct.field("gop_mode", &self.gop_mode);
+            debug_struct.field("color_format", &self.color_format);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -10856,10 +12669,254 @@ pub mod video_stream {
             /// `gopDuration`.
             GopDuration(std::boxed::Box<wkt::Duration>),
         }
+
+        /// Color format can be sdr, hlg, hdr10.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ColorFormat {
+            /// Optional. SDR color format setting for H265.
+            Sdr(std::boxed::Box<crate::model::video_stream::H265ColorFormatSDR>),
+            /// Optional. HLG color format setting for H265.
+            Hlg(std::boxed::Box<crate::model::video_stream::H265ColorFormatHLG>),
+            /// Optional. HDR10 color format setting for H265.
+            Hdr10(std::boxed::Box<crate::model::video_stream::H265ColorFormatHDR10>),
+        }
+    }
+
+    /// Convert the input video to a Standard Dynamic Range (SDR) video.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Vp9ColorFormatSDR {
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Vp9ColorFormatSDR {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for Vp9ColorFormatSDR {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.transcoder.v1.VideoStream.Vp9ColorFormatSDR"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Vp9ColorFormatSDR {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Vp9ColorFormatSDR")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            Ok(__FieldTag::Unknown(value.to_string()))
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Vp9ColorFormatSDR;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Vp9ColorFormatSDR")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Vp9ColorFormatSDR {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Vp9ColorFormatSDR {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Vp9ColorFormatSDR");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Convert the input video to a Hybrid Log Gamma (HLG) video.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Vp9ColorFormatHLG {
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Vp9ColorFormatHLG {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for Vp9ColorFormatHLG {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.transcoder.v1.VideoStream.Vp9ColorFormatHLG"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Vp9ColorFormatHLG {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Vp9ColorFormatHLG")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            Ok(__FieldTag::Unknown(value.to_string()))
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Vp9ColorFormatHLG;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Vp9ColorFormatHLG")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Vp9ColorFormatHLG {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Vp9ColorFormatHLG {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Vp9ColorFormatHLG");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
     }
 
     /// VP9 codec settings.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Vp9CodecSettings {
         /// The width of the video in pixels. Must be an even integer.
@@ -10883,13 +12940,12 @@ pub mod video_stream {
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
-        /// less than or equal to 120. Will default to the input frame rate if larger
-        /// than the input frame rate. The API will generate an output FPS that is
-        /// divisible by the input FPS, and smaller or equal to the target FPS. See
-        /// [Calculating frame
-        /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
-        /// more information.
+        /// less than or equal to 120.
         pub frame_rate: f64,
+
+        /// Optional. Frame rate conversion strategy for desired frame rate. The
+        /// default is `DOWNSAMPLE`.
+        pub frame_rate_conversion_strategy: crate::model::video_stream::FrameRateConversionStrategy,
 
         /// Required. The video bitrate in bits per second. The minimum value is
         /// 1,000. The maximum value is 480,000,000.
@@ -10910,7 +12966,7 @@ pub mod video_stream {
         /// - `yuv444p12` 12-bit HDR pixel format
         pub pixel_format: std::string::String,
 
-        /// Specify the `rate_control_mode`. The default is `vbr`.
+        /// Specify the mode. The default is `vbr`.
         ///
         /// Supported rate control modes:
         ///
@@ -10941,6 +12997,10 @@ pub mod video_stream {
         /// GOP mode can be either by frame count or duration.
         pub gop_mode: std::option::Option<crate::model::video_stream::vp_9_codec_settings::GopMode>,
 
+        /// Color format can be sdr or hlg.
+        pub color_format:
+            std::option::Option<crate::model::video_stream::vp_9_codec_settings::ColorFormat>,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -10964,6 +13024,17 @@ pub mod video_stream {
         /// Sets the value of [frame_rate][crate::model::video_stream::Vp9CodecSettings::frame_rate].
         pub fn set_frame_rate<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.frame_rate = v.into();
+            self
+        }
+
+        /// Sets the value of [frame_rate_conversion_strategy][crate::model::video_stream::Vp9CodecSettings::frame_rate_conversion_strategy].
+        pub fn set_frame_rate_conversion_strategy<
+            T: std::convert::Into<crate::model::video_stream::FrameRateConversionStrategy>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.frame_rate_conversion_strategy = v.into();
             self
         }
 
@@ -11071,6 +13142,90 @@ pub mod video_stream {
             );
             self
         }
+
+        /// Sets the value of [color_format][crate::model::video_stream::Vp9CodecSettings::color_format].
+        ///
+        /// Note that all the setters affecting `color_format` are mutually
+        /// exclusive.
+        pub fn set_color_format<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::video_stream::vp_9_codec_settings::ColorFormat,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.color_format = v.into();
+            self
+        }
+
+        /// The value of [color_format][crate::model::video_stream::Vp9CodecSettings::color_format]
+        /// if it holds a `Sdr`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn sdr(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::Vp9ColorFormatSDR>>
+        {
+            #[allow(unreachable_patterns)]
+            self.color_format.as_ref().and_then(|v| match v {
+                crate::model::video_stream::vp_9_codec_settings::ColorFormat::Sdr(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [color_format][crate::model::video_stream::Vp9CodecSettings::color_format]
+        /// to hold a `Sdr`.
+        ///
+        /// Note that all the setters affecting `color_format` are
+        /// mutually exclusive.
+        pub fn set_sdr<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::Vp9ColorFormatSDR>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.color_format = std::option::Option::Some(
+                crate::model::video_stream::vp_9_codec_settings::ColorFormat::Sdr(v.into()),
+            );
+            self
+        }
+
+        /// The value of [color_format][crate::model::video_stream::Vp9CodecSettings::color_format]
+        /// if it holds a `Hlg`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn hlg(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::Vp9ColorFormatHLG>>
+        {
+            #[allow(unreachable_patterns)]
+            self.color_format.as_ref().and_then(|v| match v {
+                crate::model::video_stream::vp_9_codec_settings::ColorFormat::Hlg(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [color_format][crate::model::video_stream::Vp9CodecSettings::color_format]
+        /// to hold a `Hlg`.
+        ///
+        /// Note that all the setters affecting `color_format` are
+        /// mutually exclusive.
+        pub fn set_hlg<
+            T: std::convert::Into<std::boxed::Box<crate::model::video_stream::Vp9ColorFormatHLG>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.color_format = std::option::Option::Some(
+                crate::model::video_stream::vp_9_codec_settings::ColorFormat::Hlg(v.into()),
+            );
+            self
+        }
     }
 
     impl wkt::message::Message for Vp9CodecSettings {
@@ -11092,6 +13247,7 @@ pub mod video_stream {
                 __width_pixels,
                 __height_pixels,
                 __frame_rate,
+                __frame_rate_conversion_strategy,
                 __bitrate_bps,
                 __pixel_format,
                 __rate_control_mode,
@@ -11099,6 +13255,8 @@ pub mod video_stream {
                 __gop_frame_count,
                 __gop_duration,
                 __profile,
+                __sdr,
+                __hlg,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -11128,6 +13286,12 @@ pub mod video_stream {
                                 "height_pixels" => Ok(__FieldTag::__height_pixels),
                                 "frameRate" => Ok(__FieldTag::__frame_rate),
                                 "frame_rate" => Ok(__FieldTag::__frame_rate),
+                                "frameRateConversionStrategy" => {
+                                    Ok(__FieldTag::__frame_rate_conversion_strategy)
+                                }
+                                "frame_rate_conversion_strategy" => {
+                                    Ok(__FieldTag::__frame_rate_conversion_strategy)
+                                }
                                 "bitrateBps" => Ok(__FieldTag::__bitrate_bps),
                                 "bitrate_bps" => Ok(__FieldTag::__bitrate_bps),
                                 "pixelFormat" => Ok(__FieldTag::__pixel_format),
@@ -11141,6 +13305,8 @@ pub mod video_stream {
                                 "gopDuration" => Ok(__FieldTag::__gop_duration),
                                 "gop_duration" => Ok(__FieldTag::__gop_duration),
                                 "profile" => Ok(__FieldTag::__profile),
+                                "sdr" => Ok(__FieldTag::__sdr),
+                                "hlg" => Ok(__FieldTag::__hlg),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -11225,6 +13391,18 @@ pub mod video_stream {
                                 }
                                 result.frame_rate =
                                     map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__frame_rate_conversion_strategy => {
+                                if !fields.insert(__FieldTag::__frame_rate_conversion_strategy) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for frame_rate_conversion_strategy",
+                                    ));
+                                }
+                                result.frame_rate_conversion_strategy = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::video_stream::FrameRateConversionStrategy,
+                                    >>()?
+                                    .unwrap_or_default();
                             }
                             __FieldTag::__bitrate_bps => {
                                 if !fields.insert(__FieldTag::__bitrate_bps) {
@@ -11341,6 +13519,40 @@ pub mod video_stream {
                                     .next_value::<std::option::Option<std::string::String>>()?
                                     .unwrap_or_default();
                             }
+                            __FieldTag::__sdr => {
+                                if !fields.insert(__FieldTag::__sdr) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for sdr",
+                                    ));
+                                }
+                                if result.color_format.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `color_format`, a oneof with full ID .google.cloud.video.transcoder.v1.VideoStream.Vp9CodecSettings.sdr, latest field was sdr",
+                                    ));
+                                }
+                                result.color_format = std::option::Option::Some(
+                                    crate::model::video_stream::vp_9_codec_settings::ColorFormat::Sdr(
+                                        map.next_value::<std::option::Option<std::boxed::Box<crate::model::video_stream::Vp9ColorFormatSDR>>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::__hlg => {
+                                if !fields.insert(__FieldTag::__hlg) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for hlg",
+                                    ));
+                                }
+                                if result.color_format.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `color_format`, a oneof with full ID .google.cloud.video.transcoder.v1.VideoStream.Vp9CodecSettings.hlg, latest field was hlg",
+                                    ));
+                                }
+                                result.color_format = std::option::Option::Some(
+                                    crate::model::video_stream::vp_9_codec_settings::ColorFormat::Hlg(
+                                        map.next_value::<std::option::Option<std::boxed::Box<crate::model::video_stream::Vp9ColorFormatHLG>>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -11400,6 +13612,12 @@ pub mod video_stream {
                 }
                 state.serialize_entry("frameRate", &__With(&self.frame_rate))?;
             }
+            if !wkt::internal::is_default(&self.frame_rate_conversion_strategy) {
+                state.serialize_entry(
+                    "frameRateConversionStrategy",
+                    &self.frame_rate_conversion_strategy,
+                )?;
+            }
             if !wkt::internal::is_default(&self.bitrate_bps) {
                 struct __With<'a>(&'a i32);
                 impl<'a> serde::ser::Serialize for __With<'a> {
@@ -11448,12 +13666,42 @@ pub mod video_stream {
             if !self.profile.is_empty() {
                 state.serialize_entry("profile", &self.profile)?;
             }
+            if let Some(value) = self.sdr() {
+                state.serialize_entry("sdr", value)?;
+            }
+            if let Some(value) = self.hlg() {
+                state.serialize_entry("hlg", value)?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Vp9CodecSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Vp9CodecSettings");
+            debug_struct.field("width_pixels", &self.width_pixels);
+            debug_struct.field("height_pixels", &self.height_pixels);
+            debug_struct.field("frame_rate", &self.frame_rate);
+            debug_struct.field(
+                "frame_rate_conversion_strategy",
+                &self.frame_rate_conversion_strategy,
+            );
+            debug_struct.field("bitrate_bps", &self.bitrate_bps);
+            debug_struct.field("pixel_format", &self.pixel_format);
+            debug_struct.field("rate_control_mode", &self.rate_control_mode);
+            debug_struct.field("crf_level", &self.crf_level);
+            debug_struct.field("profile", &self.profile);
+            debug_struct.field("gop_mode", &self.gop_mode);
+            debug_struct.field("color_format", &self.color_format);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -11476,6 +13724,159 @@ pub mod video_stream {
             /// `gopDuration`.
             GopDuration(std::boxed::Box<wkt::Duration>),
         }
+
+        /// Color format can be sdr or hlg.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ColorFormat {
+            /// Optional. SDR color format setting for VP9.
+            Sdr(std::boxed::Box<crate::model::video_stream::Vp9ColorFormatSDR>),
+            /// Optional. HLG color format setting for VP9.
+            Hlg(std::boxed::Box<crate::model::video_stream::Vp9ColorFormatHLG>),
+        }
+    }
+
+    /// The conversion strategy for desired frame rate.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum FrameRateConversionStrategy {
+        /// Unspecified frame rate conversion strategy.
+        Unspecified,
+        /// Selectively retain frames to reduce the output frame rate.
+        /// Every _n_ th frame is kept, where `n = ceil(input frame rate / target
+        /// frame rate)`. When _n_ = 1 (that is, the target frame rate is greater
+        /// than the input frame rate), the output frame rate matches the input frame
+        /// rate. When _n_ > 1, frames are dropped and the output frame rate is
+        /// equal to `(input frame rate / n)`. For more information, see
+        /// [Calculate frame
+        /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate).
+        Downsample,
+        /// Drop or duplicate frames to match the specified frame rate.
+        DropDuplicate,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [FrameRateConversionStrategy::value] or
+        /// [FrameRateConversionStrategy::name].
+        UnknownValue(frame_rate_conversion_strategy::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod frame_rate_conversion_strategy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl FrameRateConversionStrategy {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Downsample => std::option::Option::Some(1),
+                Self::DropDuplicate => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("FRAME_RATE_CONVERSION_STRATEGY_UNSPECIFIED")
+                }
+                Self::Downsample => std::option::Option::Some("DOWNSAMPLE"),
+                Self::DropDuplicate => std::option::Option::Some("DROP_DUPLICATE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for FrameRateConversionStrategy {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for FrameRateConversionStrategy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for FrameRateConversionStrategy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Downsample,
+                2 => Self::DropDuplicate,
+                _ => Self::UnknownValue(frame_rate_conversion_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for FrameRateConversionStrategy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FRAME_RATE_CONVERSION_STRATEGY_UNSPECIFIED" => Self::Unspecified,
+                "DOWNSAMPLE" => Self::Downsample,
+                "DROP_DUPLICATE" => Self::DropDuplicate,
+                _ => Self::UnknownValue(frame_rate_conversion_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for FrameRateConversionStrategy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Downsample => serializer.serialize_i32(1),
+                Self::DropDuplicate => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FrameRateConversionStrategy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<FrameRateConversionStrategy>::new(
+                    ".google.cloud.video.transcoder.v1.VideoStream.FrameRateConversionStrategy",
+                ),
+            )
+        }
     }
 
     /// Codec settings can be h264, h265, or vp9.
@@ -11492,7 +13893,7 @@ pub mod video_stream {
 }
 
 /// Audio stream resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AudioStream {
     /// The codec for this audio stream. The default is `aac`.
@@ -11505,6 +13906,7 @@ pub struct AudioStream {
     /// - `mp3`
     /// - `ac3`
     /// - `eac3`
+    /// - `vorbis`
     pub codec: std::string::String,
 
     /// Required. Audio bitrate in bits per second. Must be between 1 and
@@ -11528,7 +13930,13 @@ pub struct AudioStream {
     /// - `lfe` - Low frequency
     pub channel_layout: std::vec::Vec<std::string::String>,
 
-    /// The mapping for the `Job.edit_list` atoms with audio `EditAtom.inputs`.
+    /// The mapping for the
+    /// [JobConfig.edit_list][google.cloud.video.transcoder.v1.JobConfig.edit_list]
+    /// atoms with audio
+    /// [EditAtom.inputs][google.cloud.video.transcoder.v1.EditAtom.inputs].
+    ///
+    /// [google.cloud.video.transcoder.v1.EditAtom.inputs]: crate::model::EditAtom::inputs
+    /// [google.cloud.video.transcoder.v1.JobConfig.edit_list]: crate::model::JobConfig::edit_list
     pub mapping: std::vec::Vec<crate::model::audio_stream::AudioMapping>,
 
     /// The audio sample rate in Hertz. The default is 48000 Hertz.
@@ -11886,20 +14294,52 @@ impl serde::ser::Serialize for AudioStream {
     }
 }
 
+impl std::fmt::Debug for AudioStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AudioStream");
+        debug_struct.field("codec", &self.codec);
+        debug_struct.field("bitrate_bps", &self.bitrate_bps);
+        debug_struct.field("channel_count", &self.channel_count);
+        debug_struct.field("channel_layout", &self.channel_layout);
+        debug_struct.field("mapping", &self.mapping);
+        debug_struct.field("sample_rate_hertz", &self.sample_rate_hertz);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AudioStream].
 pub mod audio_stream {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The mapping for the `Job.edit_list` atoms with audio `EditAtom.inputs`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    /// The mapping for the
+    /// [JobConfig.edit_list][google.cloud.video.transcoder.v1.JobConfig.edit_list]
+    /// atoms with audio
+    /// [EditAtom.inputs][google.cloud.video.transcoder.v1.EditAtom.inputs].
+    ///
+    /// [google.cloud.video.transcoder.v1.EditAtom.inputs]: crate::model::EditAtom::inputs
+    /// [google.cloud.video.transcoder.v1.JobConfig.edit_list]: crate::model::JobConfig::edit_list
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AudioMapping {
-        /// Required. The `EditAtom.key` that references the atom with audio inputs
-        /// in the `Job.edit_list`.
+        /// Required. The
+        /// [EditAtom.key][google.cloud.video.transcoder.v1.EditAtom.key] that
+        /// references the atom with audio inputs in the
+        /// [JobConfig.edit_list][google.cloud.video.transcoder.v1.JobConfig.edit_list].
+        ///
+        /// [google.cloud.video.transcoder.v1.EditAtom.key]: crate::model::EditAtom::key
+        /// [google.cloud.video.transcoder.v1.JobConfig.edit_list]: crate::model::JobConfig::edit_list
         pub atom_key: std::string::String,
 
-        /// Required. The `Input.key` that identifies the input file.
+        /// Required. The [Input.key][google.cloud.video.transcoder.v1.Input.key]
+        /// that identifies the input file.
+        ///
+        /// [google.cloud.video.transcoder.v1.Input.key]: crate::model::Input::key
         pub input_key: std::string::String,
 
         /// Required. The zero-based index of the track in the input file.
@@ -12226,10 +14666,26 @@ pub mod audio_stream {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AudioMapping {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AudioMapping");
+            debug_struct.field("atom_key", &self.atom_key);
+            debug_struct.field("input_key", &self.input_key);
+            debug_struct.field("input_track", &self.input_track);
+            debug_struct.field("input_channel", &self.input_channel);
+            debug_struct.field("output_channel", &self.output_channel);
+            debug_struct.field("gain_db", &self.gain_db);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Encoding of a text stream. For example, closed captions or subtitles.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextStream {
     /// The codec for this text stream. The default is `webvtt`.
@@ -12249,7 +14705,13 @@ pub struct TextStream {
     /// supported in MP4 files.
     pub language_code: std::string::String,
 
-    /// The mapping for the `Job.edit_list` atoms with text `EditAtom.inputs`.
+    /// The mapping for the
+    /// [JobConfig.edit_list][google.cloud.video.transcoder.v1.JobConfig.edit_list]
+    /// atoms with text
+    /// [EditAtom.inputs][google.cloud.video.transcoder.v1.EditAtom.inputs].
+    ///
+    /// [google.cloud.video.transcoder.v1.EditAtom.inputs]: crate::model::EditAtom::inputs
+    /// [google.cloud.video.transcoder.v1.JobConfig.edit_list]: crate::model::JobConfig::edit_list
     pub mapping: std::vec::Vec<crate::model::text_stream::TextMapping>,
 
     /// The name for this particular text stream that
@@ -12451,20 +14913,48 @@ impl serde::ser::Serialize for TextStream {
     }
 }
 
+impl std::fmt::Debug for TextStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextStream");
+        debug_struct.field("codec", &self.codec);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("mapping", &self.mapping);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TextStream].
 pub mod text_stream {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The mapping for the `Job.edit_list` atoms with text `EditAtom.inputs`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    /// The mapping for the
+    /// [JobConfig.edit_list][google.cloud.video.transcoder.v1.JobConfig.edit_list]
+    /// atoms with text
+    /// [EditAtom.inputs][google.cloud.video.transcoder.v1.EditAtom.inputs].
+    ///
+    /// [google.cloud.video.transcoder.v1.EditAtom.inputs]: crate::model::EditAtom::inputs
+    /// [google.cloud.video.transcoder.v1.JobConfig.edit_list]: crate::model::JobConfig::edit_list
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextMapping {
-        /// Required. The `EditAtom.key` that references atom with text inputs in the
-        /// `Job.edit_list`.
+        /// Required. The
+        /// [EditAtom.key][google.cloud.video.transcoder.v1.EditAtom.key] that
+        /// references atom with text inputs in the
+        /// [JobConfig.edit_list][google.cloud.video.transcoder.v1.JobConfig.edit_list].
+        ///
+        /// [google.cloud.video.transcoder.v1.EditAtom.key]: crate::model::EditAtom::key
+        /// [google.cloud.video.transcoder.v1.JobConfig.edit_list]: crate::model::JobConfig::edit_list
         pub atom_key: std::string::String,
 
-        /// Required. The `Input.key` that identifies the input file.
+        /// Required. The [Input.key][google.cloud.video.transcoder.v1.Input.key]
+        /// that identifies the input file.
+        ///
+        /// [google.cloud.video.transcoder.v1.Input.key]: crate::model::Input::key
         pub input_key: std::string::String,
 
         /// Required. The zero-based index of the track in the input file.
@@ -12659,10 +15149,23 @@ pub mod text_stream {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for TextMapping {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TextMapping");
+            debug_struct.field("atom_key", &self.atom_key);
+            debug_struct.field("input_key", &self.input_key);
+            debug_struct.field("input_track", &self.input_track);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Segment settings for `ts`, `fmp4` and `vtt`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SegmentSettings {
     /// Duration of the segments in seconds. The default is `6.0s`. Note that
@@ -12831,8 +15334,20 @@ impl serde::ser::Serialize for SegmentSettings {
     }
 }
 
+impl std::fmt::Debug for SegmentSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SegmentSettings");
+        debug_struct.field("segment_duration", &self.segment_duration);
+        debug_struct.field("individual_segments", &self.individual_segments);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Encryption settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Encryption {
     /// Required. Identifier for this set of encryption options.
@@ -13264,13 +15779,27 @@ impl serde::ser::Serialize for Encryption {
     }
 }
 
+impl std::fmt::Debug for Encryption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Encryption");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("drm_systems", &self.drm_systems);
+        debug_struct.field("encryption_mode", &self.encryption_mode);
+        debug_struct.field("secret_source", &self.secret_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Encryption].
 pub mod encryption {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for AES-128 encryption.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Aes128Encryption {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13375,8 +15904,18 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Aes128Encryption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Aes128Encryption");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for SAMPLE-AES encryption.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SampleAesEncryption {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13481,8 +16020,18 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for SampleAesEncryption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SampleAesEncryption");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for MPEG Common Encryption (MPEG-CENC).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MpegCommonEncryption {
         /// Required. Specify the encryption scheme.
@@ -13619,8 +16168,19 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for MpegCommonEncryption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MpegCommonEncryption");
+            debug_struct.field("scheme", &self.scheme);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for secrets stored in Google Secret Manager.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SecretManagerSource {
         /// Required. The name of the Secret Version containing the encryption key in
@@ -13761,8 +16321,19 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for SecretManagerSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SecretManagerSource");
+            debug_struct.field("secret_version", &self.secret_version);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Widevine configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Widevine {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13867,8 +16438,18 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Widevine {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Widevine");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Fairplay configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Fairplay {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13973,8 +16554,18 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Fairplay {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Fairplay");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Playready configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Playready {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -14079,8 +16670,18 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Playready {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Playready");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Clearkey configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Clearkey {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -14185,8 +16786,18 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for Clearkey {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Clearkey");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines configuration for DRM systems in use.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DrmSystems {
         /// Widevine configuration.
@@ -14434,6 +17045,20 @@ pub mod encryption {
         }
     }
 
+    impl std::fmt::Debug for DrmSystems {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DrmSystems");
+            debug_struct.field("widevine", &self.widevine);
+            debug_struct.field("fairplay", &self.fairplay);
+            debug_struct.field("playready", &self.playready);
+            debug_struct.field("clearkey", &self.clearkey);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Encryption mode can be either `aes` or `cenc`.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -14456,7 +17081,7 @@ pub mod encryption {
 }
 
 /// Request message for `TranscoderService.CreateJob`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateJobRequest {
     /// Required. The parent location to create and process this job.
@@ -14621,9 +17246,21 @@ impl serde::ser::Serialize for CreateJobRequest {
     }
 }
 
+impl std::fmt::Debug for CreateJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateJobRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("job", &self.job);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.ListJobs`.
 /// The parent location from which to retrieve the collection of jobs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsRequest {
     /// Required. Format: `projects/{project}/locations/{location}`
@@ -14872,8 +17509,23 @@ impl serde::ser::Serialize for ListJobsRequest {
     }
 }
 
+impl std::fmt::Debug for ListJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.GetJob`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobRequest {
     /// Required. The name of the job to retrieve.
@@ -15003,8 +17655,19 @@ impl serde::ser::Serialize for GetJobRequest {
     }
 }
 
+impl std::fmt::Debug for GetJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetJobRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.DeleteJob`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobRequest {
     /// Required. The name of the job to delete.
@@ -15160,8 +17823,20 @@ impl serde::ser::Serialize for DeleteJobRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteJobRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `TranscoderService.ListJobs`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsResponse {
     /// List of jobs in the specified region.
@@ -15359,8 +18034,21 @@ impl serde::ser::Serialize for ListJobsResponse {
     }
 }
 
+impl std::fmt::Debug for ListJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobsResponse");
+        debug_struct.field("jobs", &self.jobs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.CreateJobTemplate`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateJobTemplateRequest {
     /// Required. The parent location to create this job template.
@@ -15555,8 +18243,21 @@ impl serde::ser::Serialize for CreateJobTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateJobTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateJobTemplateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("job_template", &self.job_template);
+        debug_struct.field("job_template_id", &self.job_template_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.ListJobTemplates`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobTemplatesRequest {
     /// Required. The parent location from which to retrieve the collection of job
@@ -15806,8 +18507,23 @@ impl serde::ser::Serialize for ListJobTemplatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListJobTemplatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobTemplatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.GetJobTemplate`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobTemplateRequest {
     /// Required. The name of the job template to retrieve.
@@ -15938,8 +18654,19 @@ impl serde::ser::Serialize for GetJobTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for GetJobTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetJobTemplateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `TranscoderService.DeleteJobTemplate`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobTemplateRequest {
     /// Required. The name of the job template to delete.
@@ -16095,8 +18822,20 @@ impl serde::ser::Serialize for DeleteJobTemplateRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteJobTemplateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteJobTemplateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `TranscoderService.ListJobTemplates`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobTemplatesResponse {
     /// List of job templates in the specified region.
@@ -16292,5 +19031,18 @@ impl serde::ser::Serialize for ListJobTemplatesResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ListJobTemplatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobTemplatesResponse");
+        debug_struct.field("job_templates", &self.job_templates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

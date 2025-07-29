@@ -31,7 +31,6 @@ func createRustCodec() *codec {
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "types",
-		path:        "../../types",
 	}
 
 	return &codec{
@@ -49,9 +48,9 @@ func TestParseOptionsProtobuf(t *testing.T) {
 		"package-name-override":     "test-only",
 		"copyright-year":            "2035",
 		"module-path":               "alternative::generated",
-		"package:wkt":               "package=types,path=src/wkt,source=google.protobuf,source=test-only",
-		"package:gax":               "package=gax,path=src/gax,feature=unstable-sdk-client",
-		"package:serde_with":        "package=serde_with,version=2.3.4,default-features=false",
+		"package:wkt":               "package=types,source=google.protobuf,source=test-only",
+		"package:gax":               "package=gax,feature=unstable-sdk-client",
+		"package:serde_with":        "package=serde_with",
 		"include-grpc-only-methods": "true",
 		"per-service-features":      "true",
 	}
@@ -60,10 +59,8 @@ func TestParseOptionsProtobuf(t *testing.T) {
 		t.Fatal(err)
 	}
 	gp := &packagez{
-		name:            "wkt",
-		packageName:     "types",
-		path:            "src/wkt",
-		defaultFeatures: true,
+		name:        "wkt",
+		packageName: "types",
 	}
 	want := &codec{
 		version:             "1.2.3",
@@ -76,17 +73,13 @@ func TestParseOptionsProtobuf(t *testing.T) {
 			{
 				name:        "gax",
 				packageName: "gax",
-				path:        "src/gax",
 				features: []string{
 					"unstable-sdk-client",
 				},
-				defaultFeatures: true,
 			},
 			{
-				name:            "serde_with",
-				packageName:     "serde_with",
-				version:         "2.3.4",
-				defaultFeatures: false,
+				name:        "serde_with",
+				packageName: "serde_with",
 			},
 		},
 		packageMapping: map[string]*packagez{
@@ -1250,34 +1243,40 @@ func TestFormatDocCommentsCrossLinks(t *testing.T) {
 [unmangled field][test.v1.SomeMessage.type] - normally r#type, but not in links
 [SomeMessage.error][test.v1.SomeMessage.error]
 [ExternalMessage][google.iam.v1.SetIamPolicyRequest]
-[ExternalService][google.iam.v1.Iampolicy]
+[ExternalService][google.iam.v1.IAMPolicy]
 [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]
 [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]
 [SomeService.CreateBar][test.v1.SomeService.CreateBar]
 [a method][test.v1.YELL.CreateThing]
 [the service name][test.v1.YELL]
+[renamed service][test.v1.RenamedService]
+[method of renamed service][test.v1.RenamedService.CreateFoo]
 `
 	want := []string{
 		"/// [Any][google.protobuf.Any]",
 		"/// [Message][test.v1.SomeMessage]",
 		"/// [Enum][test.v1.SomeMessage.SomeEnum]",
 		"/// [Message][test.v1.SomeMessage] repeated",
-		"/// [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]",
+		"/// [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]", // multiple links on one line
 		"/// [oneof group][test.v1.SomeMessage.result]",
 		"/// [oneof field][test.v1.SomeMessage.error]",
 		"/// [unmangled field][test.v1.SomeMessage.type] - normally r#type, but not in links",
 		"/// [SomeMessage.error][test.v1.SomeMessage.error]",
 		"/// [ExternalMessage][google.iam.v1.SetIamPolicyRequest]",
-		"/// [ExternalService][google.iam.v1.Iampolicy]",
+		"/// [ExternalService][google.iam.v1.IAMPolicy]",
 		"/// [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]",
 		"/// [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]",
 		"/// [SomeService.CreateBar][test.v1.SomeService.CreateBar]",
 		"/// [a method][test.v1.YELL.CreateThing]",
 		"/// [the service name][test.v1.YELL]",
+		"/// [renamed service][test.v1.RenamedService]",
+		"/// [method of renamed service][test.v1.RenamedService.CreateFoo]",
 		"///",
-		"/// [google.iam.v1.Iampolicy]: iam_v1::client::Iampolicy",
+		"/// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy",
 		"/// [google.iam.v1.SetIamPolicyRequest]: iam_v1::model::SetIamPolicyRequest",
 		"/// [google.protobuf.Any]: wkt::Any",
+		"/// [test.v1.RenamedService]: crate::client::NewName",
+		"/// [test.v1.RenamedService.CreateFoo]: crate::client::NewName::create_foo",
 		"/// [test.v1.SomeMessage]: crate::model::SomeMessage",
 		"/// [test.v1.SomeMessage.SomeEnum]: crate::model::some_message::SomeEnum",
 		"/// [test.v1.SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::SomeEnum::EnumValue",
@@ -1297,18 +1296,19 @@ func TestFormatDocCommentsCrossLinks(t *testing.T) {
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "google-cloud-wkt",
-		path:        "src/wkt",
 	}
 	iam := &packagez{
 		name:        "iam_v1",
 		packageName: "gcp-sdk-iam-v1",
-		path:        "src/generated/iam/v1",
 	}
 	c := &codec{
 		modulePath: "crate::model",
 		packageMapping: map[string]*packagez{
 			"google.protobuf": wkt,
 			"google.iam.v1":   iam,
+		},
+		nameOverrides: map[string]string{
+			".test.v1.RenamedService": "NewName",
 		},
 	}
 
@@ -1359,12 +1359,10 @@ func TestFormatDocCommentsRelativeCrossLinks(t *testing.T) {
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "google-cloud-wkt",
-		path:        "src/wkt",
 	}
 	iam := &packagez{
 		name:        "iam_v1",
 		packageName: "gcp-sdk-iam-v1",
-		path:        "src/generated/iam/v1",
 	}
 	c := &codec{
 		modulePath: "crate::model",
@@ -1421,12 +1419,10 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "google-cloud-wkt",
-		path:        "src/wkt",
 	}
 	iam := &packagez{
 		name:        "iam_v1",
 		packageName: "gcp-sdk-iam-v1",
-		path:        "src/generated/iam/v1",
 	}
 	c := &codec{
 		modulePath: "crate::model",
@@ -1530,7 +1526,8 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 		Package: "test.v1",
 		Methods: []*api.Method{
 			{
-				Name: "CreateFoo", ID: ".test.v1.SomeService.CreateFoo",
+				Name: "CreateFoo",
+				ID:   ".test.v1.SomeService.CreateFoo",
 				PathInfo: &api.PathInfo{
 					Bindings: []*api.PathBinding{
 						{
@@ -1542,7 +1539,31 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 					},
 				},
 			},
-			{Name: "CreateBar", ID: ".test.v1.SomeService.CreateBar"},
+			{
+				Name: "CreateBar",
+				ID:   ".test.v1.SomeService.CreateBar",
+			},
+		},
+	}
+	renamedService := &api.Service{
+		Name:    "RenamedService",
+		ID:      ".test.v1.RenamedService",
+		Package: "test.v1",
+		Methods: []*api.Method{
+			{
+				Name: "CreateFoo",
+				ID:   ".test.v1.RenamedService.CreateFoo",
+				PathInfo: &api.PathInfo{
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithLiteral("foo"),
+						},
+					},
+				},
+			},
 		},
 	}
 	yellyService := &api.Service{
@@ -1569,17 +1590,17 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 	a := api.NewTestAPI(
 		[]*api.Message{someMessage},
 		[]*api.Enum{someEnum},
-		[]*api.Service{someService, yellyService})
+		[]*api.Service{someService, renamedService, yellyService})
 	a.PackageName = "test.v1"
 	a.State.MessageByID[".google.iam.v1.SetIamPolicyRequest"] = &api.Message{
 		Name:    "SetIamPolicyRequest",
 		Package: "google.iam.v1",
 		ID:      ".google.iam.v1.SetIamPolicyRequest",
 	}
-	a.State.ServiceByID[".google.iam.v1.Iampolicy"] = &api.Service{
-		Name:    "Iampolicy",
+	a.State.ServiceByID[".google.iam.v1.IAMPolicy"] = &api.Service{
+		Name:    "IAMPolicy",
 		Package: "google.iam.v1",
-		ID:      ".google.iam.v1.Iampolicy",
+		ID:      ".google.iam.v1.IAMPolicy",
 	}
 	return a
 }
@@ -1622,12 +1643,10 @@ Hyperlink: <a href="https://hyperlink.com">Content</a>`
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "google-cloud-wkt",
-		path:        "src/wkt",
 	}
 	iam := &packagez{
 		name:        "iam_v1",
 		packageName: "gcp-sdk-iam-v1",
-		path:        "src/generated/iam/v1",
 	}
 	c := &codec{
 		modulePath: "model",
@@ -1837,206 +1856,4 @@ func TestPathFmt(t *testing.T) {
 		}
 	}
 
-}
-
-func TestPathArgs(t *testing.T) {
-	subMessage := &api.Message{
-		Name: "Body",
-		ID:   ".test.Body",
-		Fields: []*api.Field{
-			{Name: "a", Typez: api.STRING_TYPE},
-			{Name: "b", Typez: api.STRING_TYPE, Optional: true},
-			{Name: "c", Typez: api.ENUM_TYPE},
-			{Name: "d", Typez: api.ENUM_TYPE, Optional: true},
-		},
-	}
-	message := &api.Message{
-		Name: "CreateResourceRequest",
-		ID:   ".test.CreateResourceRequest",
-		Fields: []*api.Field{
-			{Name: "v", Typez: api.STRING_TYPE},
-			{Name: "w", Typez: api.STRING_TYPE, Optional: true},
-			{Name: "x", Typez: api.ENUM_TYPE},
-			{Name: "y", Typez: api.ENUM_TYPE, Optional: true},
-			{Name: "z", Typez: api.MESSAGE_TYPE, TypezID: ".test.Body", Optional: true},
-		},
-	}
-	method := &api.Method{
-		Name:        "CreateResource",
-		InputTypeID: ".test.CreateResourceRequest",
-	}
-	service := &api.Service{
-		Name:    "TestService",
-		ID:      ".test.Service",
-		Methods: []*api.Method{method},
-	}
-	model := api.NewTestAPI([]*api.Message{subMessage, message}, []*api.Enum{}, []*api.Service{service})
-
-	for _, test := range []struct {
-		want     []pathArg
-		pathInfo *api.PathInfo
-	}{
-		{
-			[]pathArg{{Name: "v", Accessor: ".v", CheckForEmpty: true}},
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						PathTemplate: api.NewPathTemplate().
-							WithLiteral("v1").
-							WithVariableNamed("v"),
-					},
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name:          "w",
-					Accessor:      `.w.as_ref().ok_or_else(|| gaxi::path_parameter::missing("w"))?`,
-					CheckForEmpty: true,
-				},
-			},
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						PathTemplate: api.NewPathTemplate().
-							WithLiteral("v1").
-							WithVariableNamed("w"),
-					},
-				},
-			},
-		},
-		{
-			[]pathArg{{Name: "x", Accessor: `.x`}},
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						PathTemplate: api.NewPathTemplate().
-							WithLiteral("v1").
-							WithVariableNamed("x"),
-					},
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name:     "y",
-					Accessor: `.y.as_ref().ok_or_else(|| gaxi::path_parameter::missing("y"))?`,
-				},
-			},
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						PathTemplate: api.NewPathTemplate().
-							WithLiteral("v1").
-							WithVariableNamed("y"),
-					},
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name:          "z.a",
-					Accessor:      `.z.as_ref().ok_or_else(|| gaxi::path_parameter::missing("z"))?.a`,
-					CheckForEmpty: true,
-				},
-			},
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						PathTemplate: api.NewPathTemplate().
-							WithLiteral("v1").
-							WithVariableNamed("z", "a"),
-					},
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name: "z.b",
-					Accessor: `.z.as_ref().ok_or_else(|| gaxi::path_parameter::missing("z"))?` +
-						`.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
-					CheckForEmpty: true,
-				},
-			},
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						PathTemplate: api.NewPathTemplate().
-							WithLiteral("v1").
-							WithVariableNamed("z", "b"),
-					},
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name:     "z.c",
-					Accessor: `.z.as_ref().ok_or_else(|| gaxi::path_parameter::missing("z"))?.c`,
-				},
-			},
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						PathTemplate: api.NewPathTemplate().
-							WithLiteral("v1").
-							WithVariableNamed("z", "c"),
-					},
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name: "z.d",
-					Accessor: `.z.as_ref().ok_or_else(|| gaxi::path_parameter::missing("z"))?` +
-						`.d.as_ref().ok_or_else(|| gaxi::path_parameter::missing("d"))?`,
-				},
-			},
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						PathTemplate: api.NewPathTemplate().
-							WithLiteral("v1").
-							WithVariableNamed("z", "d"),
-					},
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name:          "v",
-					Accessor:      ".v",
-					CheckForEmpty: true,
-				},
-				{
-					Name:          "w",
-					Accessor:      `.w.as_ref().ok_or_else(|| gaxi::path_parameter::missing("w"))?`,
-					CheckForEmpty: true,
-				},
-			},
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						PathTemplate: api.NewPathTemplate().
-							WithLiteral("v1").
-							WithVariableNamed("v").
-							WithVariableNamed("w"),
-					},
-				},
-			},
-		},
-	} {
-		// Modify the method to match the test case.
-		method.PathInfo = test.pathInfo
-		got := httpPathArgs(test.pathInfo, method, model.State)
-		if diff := cmp.Diff(test.want, got); diff != "" {
-			t.Errorf("mismatched path info args (-want, +got):\n%s", diff)
-		}
-	}
 }

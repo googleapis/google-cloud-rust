@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-vmwareengine-v1"
-version                = "0.4.0"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - VMware Engine API"
 edition.workspace      = true
 authors.workspace      = true

@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request for creating a workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkloadRequest {
     /// Required. The resource name of the new Workload's parent.
@@ -226,8 +226,21 @@ impl serde::ser::Serialize for CreateWorkloadRequest {
     }
 }
 
+impl std::fmt::Debug for CreateWorkloadRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWorkloadRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("workload", &self.workload);
+        debug_struct.field("external_id", &self.external_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for Updating a workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkloadRequest {
     /// Required. The workload to update.
@@ -406,8 +419,20 @@ impl serde::ser::Serialize for UpdateWorkloadRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateWorkloadRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateWorkloadRequest");
+        debug_struct.field("workload", &self.workload);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for deleting a Workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkloadRequest {
     /// Required. The `name` field is used to identify the workload.
@@ -563,8 +588,20 @@ impl serde::ser::Serialize for DeleteWorkloadRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteWorkloadRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWorkloadRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for fetching a workload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkloadRequest {
     /// Required. The resource name of the Workload to fetch. This is the workload's
@@ -697,8 +734,19 @@ impl serde::ser::Serialize for GetWorkloadRequest {
     }
 }
 
+impl std::fmt::Debug for GetWorkloadRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWorkloadRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for fetching workloads in an organization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkloadsRequest {
     /// Required. Parent Resource to list workloads from.
@@ -923,8 +971,22 @@ impl serde::ser::Serialize for ListWorkloadsRequest {
     }
 }
 
+impl std::fmt::Debug for ListWorkloadsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkloadsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of ListWorkloads endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkloadsResponse {
     /// List of Workloads under a given parent.
@@ -1095,9 +1157,21 @@ impl serde::ser::Serialize for ListWorkloadsResponse {
     }
 }
 
+impl std::fmt::Debug for ListWorkloadsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkloadsResponse");
+        debug_struct.field("workloads", &self.workloads);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Workload object for managing highly regulated workloads of cloud
 /// customers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Workload {
     /// Optional. The resource name of the workload.
@@ -1730,13 +1804,45 @@ impl serde::ser::Serialize for Workload {
     }
 }
 
+impl std::fmt::Debug for Workload {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Workload");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("resources", &self.resources);
+        debug_struct.field("compliance_regime", &self.compliance_regime);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("billing_account", &self.billing_account);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field(
+            "provisioned_resources_parent",
+            &self.provisioned_resources_parent,
+        );
+        debug_struct.field("kms_settings", &self.kms_settings);
+        debug_struct.field("resource_settings", &self.resource_settings);
+        debug_struct.field("kaj_enrollment_state", &self.kaj_enrollment_state);
+        debug_struct.field("enable_sovereign_controls", &self.enable_sovereign_controls);
+        debug_struct.field("saa_enrollment_response", &self.saa_enrollment_response);
+        debug_struct.field(
+            "compliant_but_disallowed_services",
+            &self.compliant_but_disallowed_services,
+        );
+        debug_struct.field("partner", &self.partner);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Workload].
 pub mod workload {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represent the resources that are children of this Workload.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceInfo {
         /// Resource identifier.
@@ -1921,6 +2027,18 @@ pub mod workload {
         }
     }
 
+    impl std::fmt::Debug for ResourceInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResourceInfo");
+            debug_struct.field("resource_id", &self.resource_id);
+            debug_struct.field("resource_type", &self.resource_type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ResourceInfo].
     pub mod resource_info {
         #[allow(unused_imports)]
@@ -2087,7 +2205,7 @@ pub mod workload {
     /// This message is deprecated.
     /// In order to create a Keyring, callers should specify,
     /// ENCRYPTION_KEYS_PROJECT or KEYRING in ResourceSettings.resource_type field.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     #[deprecated]
     pub struct KMSSettings {
@@ -2271,8 +2389,20 @@ pub mod workload {
         }
     }
 
+    impl std::fmt::Debug for KMSSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("KMSSettings");
+            debug_struct.field("next_rotation_time", &self.next_rotation_time);
+            debug_struct.field("rotation_period", &self.rotation_period);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represent the custom settings for the resources to be created.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceSettings {
         /// Resource identifier.
@@ -2473,8 +2603,21 @@ pub mod workload {
         }
     }
 
+    impl std::fmt::Debug for ResourceSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResourceSettings");
+            debug_struct.field("resource_id", &self.resource_id);
+            debug_struct.field("resource_type", &self.resource_type);
+            debug_struct.field("display_name", &self.display_name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Signed Access Approvals (SAA) enrollment response.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SaaEnrollmentResponse {
         /// Indicates SAA enrollment status of a given workload.
@@ -2646,6 +2789,18 @@ pub mod workload {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for SaaEnrollmentResponse {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SaaEnrollmentResponse");
+            debug_struct.field("setup_status", &self.setup_status);
+            debug_struct.field("setup_errors", &self.setup_errors);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -3417,7 +3572,7 @@ pub mod workload {
 }
 
 /// Operation metadata to give request details of CreateWorkload.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkloadOperationMetadata {
     /// Optional. Time when the operation was created.
@@ -3636,8 +3791,22 @@ impl serde::ser::Serialize for CreateWorkloadOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateWorkloadOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWorkloadOperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("compliance_regime", &self.compliance_regime);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for restricting list of available resources in Workload environment.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestrictAllowedResourcesRequest {
     /// Required. The resource name of the Workload. This is the workloads's
@@ -3798,6 +3967,18 @@ impl serde::ser::Serialize for RestrictAllowedResourcesRequest {
     }
 }
 
+impl std::fmt::Debug for RestrictAllowedResourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestrictAllowedResourcesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("restriction_type", &self.restriction_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RestrictAllowedResourcesRequest].
 pub mod restrict_allowed_resources_request {
     #[allow(unused_imports)]
@@ -3943,7 +4124,7 @@ pub mod restrict_allowed_resources_request {
 }
 
 /// Response for restricting the list of allowed resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestrictAllowedResourcesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4045,9 +4226,19 @@ impl serde::ser::Serialize for RestrictAllowedResourcesResponse {
     }
 }
 
+impl std::fmt::Debug for RestrictAllowedResourcesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestrictAllowedResourcesResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for acknowledging the violation
 /// Next Id: 4
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcknowledgeViolationRequest {
     /// Required. The resource name of the Violation to acknowledge.
@@ -4240,8 +4431,21 @@ impl serde::ser::Serialize for AcknowledgeViolationRequest {
     }
 }
 
+impl std::fmt::Debug for AcknowledgeViolationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcknowledgeViolationRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("comment", &self.comment);
+        debug_struct.field("non_compliant_org_policy", &self.non_compliant_org_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for violation acknowledgement
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcknowledgeViolationResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4343,8 +4547,18 @@ impl serde::ser::Serialize for AcknowledgeViolationResponse {
     }
 }
 
+impl std::fmt::Debug for AcknowledgeViolationResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcknowledgeViolationResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Interval defining a time window.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeWindow {
     /// The start of the time window.
@@ -4521,8 +4735,20 @@ impl serde::ser::Serialize for TimeWindow {
     }
 }
 
+impl std::fmt::Debug for TimeWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeWindow");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for fetching violations in an organization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListViolationsRequest {
     /// Required. The Workload name.
@@ -4781,8 +5007,23 @@ impl serde::ser::Serialize for ListViolationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListViolationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListViolationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("interval", &self.interval);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of ListViolations endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListViolationsResponse {
     /// List of Violations under a Workload.
@@ -4953,8 +5194,20 @@ impl serde::ser::Serialize for ListViolationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListViolationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListViolationsResponse");
+        debug_struct.field("violations", &self.violations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for fetching a Workload Violation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetViolationRequest {
     /// Required. The resource name of the Violation to fetch (ie. Violation.name).
@@ -5085,8 +5338,19 @@ impl serde::ser::Serialize for GetViolationRequest {
     }
 }
 
+impl std::fmt::Debug for GetViolationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetViolationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Workload monitoring Violation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Violation {
     /// Output only. Immutable. Name of the Violation.
@@ -5623,6 +5887,30 @@ impl serde::ser::Serialize for Violation {
     }
 }
 
+impl std::fmt::Debug for Violation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Violation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("begin_time", &self.begin_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("resolve_time", &self.resolve_time);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("org_policy_constraint", &self.org_policy_constraint);
+        debug_struct.field("audit_log_link", &self.audit_log_link);
+        debug_struct.field("non_compliant_org_policy", &self.non_compliant_org_policy);
+        debug_struct.field("remediation", &self.remediation);
+        debug_struct.field("acknowledged", &self.acknowledged);
+        debug_struct.field("acknowledgement_time", &self.acknowledgement_time);
+        debug_struct.field("exception_audit_log_link", &self.exception_audit_log_link);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Violation].
 pub mod violation {
     #[allow(unused_imports)]
@@ -5630,7 +5918,7 @@ pub mod violation {
 
     /// Represents remediation guidance to resolve compliance violation for
     /// AssuredWorkload
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Remediation {
         /// Required. Remediation instructions to resolve violations
@@ -5836,13 +6124,26 @@ pub mod violation {
         }
     }
 
+    impl std::fmt::Debug for Remediation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Remediation");
+            debug_struct.field("instructions", &self.instructions);
+            debug_struct.field("compliant_values", &self.compliant_values);
+            debug_struct.field("remediation_type", &self.remediation_type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Remediation].
     pub mod remediation {
         #[allow(unused_imports)]
         use super::*;
 
         /// Instructions to remediate violation
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Instructions {
             /// Remediation instructions to resolve violation via gcloud cli
@@ -6039,13 +6340,25 @@ pub mod violation {
             }
         }
 
+        impl std::fmt::Debug for Instructions {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Instructions");
+                debug_struct.field("gcloud_instructions", &self.gcloud_instructions);
+                debug_struct.field("console_instructions", &self.console_instructions);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Instructions].
         pub mod instructions {
             #[allow(unused_imports)]
             use super::*;
 
             /// Remediation instructions to resolve violation via gcloud cli
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Gcloud {
                 /// Gcloud command to resolve violation
@@ -6263,8 +6576,21 @@ pub mod violation {
                 }
             }
 
+            impl std::fmt::Debug for Gcloud {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Gcloud");
+                    debug_struct.field("gcloud_commands", &self.gcloud_commands);
+                    debug_struct.field("steps", &self.steps);
+                    debug_struct.field("additional_links", &self.additional_links);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Remediation instructions to resolve violation via cloud console
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Console {
                 /// Link to console page where violations can be resolved
@@ -6479,6 +6805,19 @@ pub mod violation {
                         }
                     }
                     state.end()
+                }
+            }
+
+            impl std::fmt::Debug for Console {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Console");
+                    debug_struct.field("console_uris", &self.console_uris);
+                    debug_struct.field("steps", &self.steps);
+                    debug_struct.field("additional_links", &self.additional_links);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
                 }
             }
         }

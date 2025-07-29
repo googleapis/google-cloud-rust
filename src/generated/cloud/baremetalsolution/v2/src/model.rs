@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Represents the metadata from a long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The time the operation was created.
@@ -340,8 +340,25 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message from resetting a server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetInstanceResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -443,8 +460,18 @@ impl serde::ser::Serialize for ResetInstanceResponse {
     }
 }
 
+impl std::fmt::Debug for ResetInstanceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetInstanceResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
     /// Immutable. The resource name of this `Instance`.
@@ -1104,6 +1131,38 @@ impl serde::ser::Serialize for Instance {
     }
 }
 
+impl std::fmt::Debug for Instance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instance");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("machine_type", &self.machine_type);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("hyperthreading_enabled", &self.hyperthreading_enabled);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("luns", &self.luns);
+        debug_struct.field("volumes", &self.volumes);
+        debug_struct.field("networks", &self.networks);
+        debug_struct.field(
+            "interactive_serial_console_enabled",
+            &self.interactive_serial_console_enabled,
+        );
+        debug_struct.field("os_image", &self.os_image);
+        debug_struct.field("pod", &self.pod);
+        debug_struct.field("network_template", &self.network_template);
+        debug_struct.field("logical_interfaces", &self.logical_interfaces);
+        debug_struct.field("login_info", &self.login_info);
+        debug_struct.field("workload_profile", &self.workload_profile);
+        debug_struct.field("firmware_version", &self.firmware_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
@@ -1278,7 +1337,7 @@ pub mod instance {
 }
 
 /// Message for requesting server information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
     /// Required. Name of the resource.
@@ -1407,8 +1466,19 @@ impl serde::ser::Serialize for GetInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstanceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting the list of servers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
     /// Required. Parent value for ListInstancesRequest.
@@ -1630,8 +1700,22 @@ impl serde::ser::Serialize for ListInstancesRequest {
     }
 }
 
+impl std::fmt::Debug for ListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the list of servers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
     /// The list of servers.
@@ -1829,8 +1913,21 @@ impl serde::ser::Serialize for ListInstancesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesResponse");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message requesting to updating a server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
     /// Required. The server to update.
@@ -2013,8 +2110,20 @@ impl serde::ser::Serialize for UpdateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstanceRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message requesting rename of a server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameInstanceRequest {
     /// Required. The `name` field is used to identify the instance.
@@ -2169,8 +2278,20 @@ impl serde::ser::Serialize for RenameInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for RenameInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RenameInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("new_instance_id", &self.new_instance_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message requesting to reset a server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetInstanceRequest {
     /// Required. Name of the resource.
@@ -2299,8 +2420,19 @@ impl serde::ser::Serialize for ResetInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for ResetInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetInstanceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message requesting to start a server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartInstanceRequest {
     /// Required. Name of the resource.
@@ -2429,8 +2561,19 @@ impl serde::ser::Serialize for StartInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for StartInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartInstanceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message from starting a server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartInstanceResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2532,8 +2675,18 @@ impl serde::ser::Serialize for StartInstanceResponse {
     }
 }
 
+impl std::fmt::Debug for StartInstanceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartInstanceResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message requesting to stop a server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopInstanceRequest {
     /// Required. Name of the resource.
@@ -2662,8 +2815,19 @@ impl serde::ser::Serialize for StopInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for StopInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopInstanceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message from stopping a server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopInstanceResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2765,8 +2929,18 @@ impl serde::ser::Serialize for StopInstanceResponse {
     }
 }
 
+impl std::fmt::Debug for StopInstanceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopInstanceResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for enabling the interactive serial console on an instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableInteractiveSerialConsoleRequest {
     /// Required. Name of the resource.
@@ -2896,8 +3070,19 @@ impl serde::ser::Serialize for EnableInteractiveSerialConsoleRequest {
     }
 }
 
+impl std::fmt::Debug for EnableInteractiveSerialConsoleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableInteractiveSerialConsoleRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response of EnableInteractiveSerialConsole.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableInteractiveSerialConsoleResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3000,8 +3185,18 @@ impl serde::ser::Serialize for EnableInteractiveSerialConsoleResponse {
     }
 }
 
+impl std::fmt::Debug for EnableInteractiveSerialConsoleResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableInteractiveSerialConsoleResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for disabling the interactive serial console on an instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableInteractiveSerialConsoleRequest {
     /// Required. Name of the resource.
@@ -3131,8 +3326,19 @@ impl serde::ser::Serialize for DisableInteractiveSerialConsoleRequest {
     }
 }
 
+impl std::fmt::Debug for DisableInteractiveSerialConsoleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableInteractiveSerialConsoleRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response of DisableInteractiveSerialConsole.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableInteractiveSerialConsoleResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3235,8 +3441,18 @@ impl serde::ser::Serialize for DisableInteractiveSerialConsoleResponse {
     }
 }
 
+impl std::fmt::Debug for DisableInteractiveSerialConsoleResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableInteractiveSerialConsoleResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for detach specific LUN from an Instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetachLunRequest {
     /// Required. Name of the instance.
@@ -3414,8 +3630,21 @@ impl serde::ser::Serialize for DetachLunRequest {
     }
 }
 
+impl std::fmt::Debug for DetachLunRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetachLunRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("lun", &self.lun);
+        debug_struct.field("skip_reboot", &self.skip_reboot);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Network template.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServerNetworkTemplate {
     /// Output only. Template's unique name. The full resource name follows the
@@ -3614,13 +3843,26 @@ impl serde::ser::Serialize for ServerNetworkTemplate {
     }
 }
 
+impl std::fmt::Debug for ServerNetworkTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServerNetworkTemplate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("applicable_instance_types", &self.applicable_instance_types);
+        debug_struct.field("logical_interfaces", &self.logical_interfaces);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServerNetworkTemplate].
 pub mod server_network_template {
     #[allow(unused_imports)]
     use super::*;
 
     /// Logical interface.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LogicalInterface {
         /// Interface name.
@@ -3809,6 +4051,19 @@ pub mod server_network_template {
         }
     }
 
+    impl std::fmt::Debug for LogicalInterface {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LogicalInterface");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("required", &self.required);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [LogicalInterface].
     pub mod logical_interface {
         #[allow(unused_imports)]
@@ -3951,7 +4206,7 @@ pub mod server_network_template {
 }
 
 /// A storage volume logical unit number (LUN).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Lun {
     /// Output only. The name of the LUN.
@@ -4389,6 +4644,28 @@ impl serde::ser::Serialize for Lun {
     }
 }
 
+impl std::fmt::Debug for Lun {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Lun");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("size_gb", &self.size_gb);
+        debug_struct.field("multiprotocol_type", &self.multiprotocol_type);
+        debug_struct.field("storage_volume", &self.storage_volume);
+        debug_struct.field("shareable", &self.shareable);
+        debug_struct.field("boot_lun", &self.boot_lun);
+        debug_struct.field("storage_type", &self.storage_type);
+        debug_struct.field("wwid", &self.wwid);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("instances", &self.instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Lun].
 pub mod lun {
     #[allow(unused_imports)]
@@ -4806,7 +5083,7 @@ pub mod lun {
 }
 
 /// Message for requesting storage lun information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLunRequest {
     /// Required. Name of the resource.
@@ -4935,8 +5212,19 @@ impl serde::ser::Serialize for GetLunRequest {
     }
 }
 
+impl std::fmt::Debug for GetLunRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLunRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting a list of storage volume luns.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLunsRequest {
     /// Required. Parent value for ListLunsRequest.
@@ -5134,8 +5422,21 @@ impl serde::ser::Serialize for ListLunsRequest {
     }
 }
 
+impl std::fmt::Debug for ListLunsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLunsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message containing the list of storage volume luns.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLunsResponse {
     /// The list of luns.
@@ -5333,8 +5634,21 @@ impl serde::ser::Serialize for ListLunsResponse {
     }
 }
 
+impl std::fmt::Debug for ListLunsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLunsResponse");
+        debug_struct.field("luns", &self.luns);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for skip lun cooloff and delete it.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvictLunRequest {
     /// Required. The name of the lun.
@@ -5463,8 +5777,19 @@ impl serde::ser::Serialize for EvictLunRequest {
     }
 }
 
+impl std::fmt::Debug for EvictLunRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvictLunRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Network.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Network {
     /// Output only. The resource name of this `Network`.
@@ -6005,6 +6330,32 @@ impl serde::ser::Serialize for Network {
     }
 }
 
+impl std::fmt::Debug for Network {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Network");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("ip_address", &self.ip_address);
+        debug_struct.field("mac_address", &self.mac_address);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("vlan_id", &self.vlan_id);
+        debug_struct.field("cidr", &self.cidr);
+        debug_struct.field("vrf", &self.vrf);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("services_cidr", &self.services_cidr);
+        debug_struct.field("reservations", &self.reservations);
+        debug_struct.field("pod", &self.pod);
+        debug_struct.field("mount_points", &self.mount_points);
+        debug_struct.field("jumbo_frames_enabled", &self.jumbo_frames_enabled);
+        debug_struct.field("gateway_ip", &self.gateway_ip);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Network].
 pub mod network {
     #[allow(unused_imports)]
@@ -6290,7 +6641,7 @@ pub mod network {
 }
 
 /// A reservation of one or more addresses in a network.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkAddressReservation {
     /// The first address of this reservation block.
@@ -6473,8 +6824,21 @@ impl serde::ser::Serialize for NetworkAddressReservation {
     }
 }
 
+impl std::fmt::Debug for NetworkAddressReservation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkAddressReservation");
+        debug_struct.field("start_address", &self.start_address);
+        debug_struct.field("end_address", &self.end_address);
+        debug_struct.field("note", &self.note);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A network VRF.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Vrf {
     /// The name of the VRF.
@@ -6699,13 +7063,27 @@ impl serde::ser::Serialize for Vrf {
     }
 }
 
+impl std::fmt::Debug for Vrf {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Vrf");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("qos_policy", &self.qos_policy);
+        debug_struct.field("vlan_attachments", &self.vlan_attachments);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VRF].
 pub mod vrf {
     #[allow(unused_imports)]
     use super::*;
 
     /// QOS policy parameters.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QosPolicy {
         /// The bandwidth permitted by the QOS policy, in gbps.
@@ -6857,8 +7235,19 @@ pub mod vrf {
         }
     }
 
+    impl std::fmt::Debug for QosPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QosPolicy");
+            debug_struct.field("bandwidth_gbps", &self.bandwidth_gbps);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// VLAN attachment details.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VlanAttachment {
         /// The peer vlan ID of the attachment.
@@ -7179,6 +7568,23 @@ pub mod vrf {
         }
     }
 
+    impl std::fmt::Debug for VlanAttachment {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VlanAttachment");
+            debug_struct.field("peer_vlan_id", &self.peer_vlan_id);
+            debug_struct.field("peer_ip", &self.peer_ip);
+            debug_struct.field("router_ip", &self.router_ip);
+            debug_struct.field("pairing_key", &self.pairing_key);
+            debug_struct.field("qos_policy", &self.qos_policy);
+            debug_struct.field("id", &self.id);
+            debug_struct.field("interconnect_attachment", &self.interconnect_attachment);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The possible states for this VRF.
     ///
     /// # Working with unknown values
@@ -7316,7 +7722,7 @@ pub mod vrf {
 /// physical interface (for eg. bond, nic) of the instance. Each logical
 /// interface can effectively map to multiple network-IP pairs and still be
 /// mapped to one underlying physical interface.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogicalInterface {
     /// List of logical network interfaces within a logical interface.
@@ -7532,13 +7938,29 @@ impl serde::ser::Serialize for LogicalInterface {
     }
 }
 
+impl std::fmt::Debug for LogicalInterface {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogicalInterface");
+        debug_struct.field(
+            "logical_network_interfaces",
+            &self.logical_network_interfaces,
+        );
+        debug_struct.field("name", &self.name);
+        debug_struct.field("interface_index", &self.interface_index);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LogicalInterface].
 pub mod logical_interface {
     #[allow(unused_imports)]
     use super::*;
 
     /// Each logical network interface is effectively a network and IP pair.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LogicalNetworkInterface {
         /// Name of the network
@@ -7773,10 +8195,25 @@ pub mod logical_interface {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for LogicalNetworkInterface {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LogicalNetworkInterface");
+            debug_struct.field("network", &self.network);
+            debug_struct.field("ip_address", &self.ip_address);
+            debug_struct.field("default_gateway", &self.default_gateway);
+            debug_struct.field("network_type", &self.network_type);
+            debug_struct.field("id", &self.id);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Message for requesting network information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNetworkRequest {
     /// Required. Name of the resource.
@@ -7905,8 +8342,19 @@ impl serde::ser::Serialize for GetNetworkRequest {
     }
 }
 
+impl std::fmt::Debug for GetNetworkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNetworkRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting a list of networks.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworksRequest {
     /// Required. Parent value for ListNetworksRequest.
@@ -8128,8 +8576,22 @@ impl serde::ser::Serialize for ListNetworksRequest {
     }
 }
 
+impl std::fmt::Debug for ListNetworksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNetworksRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message containing the list of networks.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworksResponse {
     /// The list of networks.
@@ -8327,8 +8789,21 @@ impl serde::ser::Serialize for ListNetworksResponse {
     }
 }
 
+impl std::fmt::Debug for ListNetworksResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNetworksResponse");
+        debug_struct.field("networks", &self.networks);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message requesting to updating a network.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNetworkRequest {
     /// Required. The network to update.
@@ -8509,8 +8984,20 @@ impl serde::ser::Serialize for UpdateNetworkRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateNetworkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateNetworkRequest");
+        debug_struct.field("network", &self.network);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Network with all used IP addresses.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkUsage {
     /// Network.
@@ -8678,8 +9165,20 @@ impl serde::ser::Serialize for NetworkUsage {
     }
 }
 
+impl std::fmt::Debug for NetworkUsage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkUsage");
+        debug_struct.field("network", &self.network);
+        debug_struct.field("used_ips", &self.used_ips);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to get networks with IPs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworkUsageRequest {
     /// Required. Parent value (project and location).
@@ -8808,8 +9307,19 @@ impl serde::ser::Serialize for ListNetworkUsageRequest {
     }
 }
 
+impl std::fmt::Debug for ListNetworkUsageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNetworkUsageRequest");
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response with Networks with IPs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworkUsageResponse {
     /// Networks with IPs.
@@ -8941,8 +9451,19 @@ impl serde::ser::Serialize for ListNetworkUsageResponse {
     }
 }
 
+impl std::fmt::Debug for ListNetworkUsageResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNetworkUsageResponse");
+        debug_struct.field("networks", &self.networks);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Mount point for a network.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkMountPoint {
     /// Instance to attach network to.
@@ -9149,8 +9670,22 @@ impl serde::ser::Serialize for NetworkMountPoint {
     }
 }
 
+impl std::fmt::Debug for NetworkMountPoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkMountPoint");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("logical_interface", &self.logical_interface);
+        debug_struct.field("default_gateway", &self.default_gateway);
+        debug_struct.field("ip_address", &self.ip_address);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message requesting rename of a server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameNetworkRequest {
     /// Required. The `name` field is used to identify the network.
@@ -9305,8 +9840,20 @@ impl serde::ser::Serialize for RenameNetworkRequest {
     }
 }
 
+impl std::fmt::Debug for RenameNetworkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RenameNetworkRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("new_network_id", &self.new_network_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An NFS share.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NfsShare {
     /// Immutable. The name of the NFS share.
@@ -9676,13 +10223,32 @@ impl serde::ser::Serialize for NfsShare {
     }
 }
 
+impl std::fmt::Debug for NfsShare {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NfsShare");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("nfs_share_id", &self.nfs_share_id);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("volume", &self.volume);
+        debug_struct.field("allowed_clients", &self.allowed_clients);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("requested_size_gib", &self.requested_size_gib);
+        debug_struct.field("storage_type", &self.storage_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NfsShare].
 pub mod nfs_share {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents an 'access point' for the share.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AllowedClient {
         /// The network the access point sits on.
@@ -10001,6 +10567,24 @@ pub mod nfs_share {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for AllowedClient {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AllowedClient");
+            debug_struct.field("network", &self.network);
+            debug_struct.field("share_ip", &self.share_ip);
+            debug_struct.field("allowed_clients_cidr", &self.allowed_clients_cidr);
+            debug_struct.field("mount_permissions", &self.mount_permissions);
+            debug_struct.field("allow_dev", &self.allow_dev);
+            debug_struct.field("allow_suid", &self.allow_suid);
+            debug_struct.field("no_root_squash", &self.no_root_squash);
+            debug_struct.field("nfs_path", &self.nfs_path);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -10416,7 +11000,7 @@ pub mod nfs_share {
 }
 
 /// Message for requesting NFS share information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNfsShareRequest {
     /// Required. Name of the resource.
@@ -10545,8 +11129,19 @@ impl serde::ser::Serialize for GetNfsShareRequest {
     }
 }
 
+impl std::fmt::Debug for GetNfsShareRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNfsShareRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting a list of NFS shares.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNfsSharesRequest {
     /// Required. Parent value for ListNfsSharesRequest.
@@ -10768,8 +11363,22 @@ impl serde::ser::Serialize for ListNfsSharesRequest {
     }
 }
 
+impl std::fmt::Debug for ListNfsSharesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNfsSharesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message containing the list of NFS shares.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNfsSharesResponse {
     /// The list of NFS shares.
@@ -10968,8 +11577,21 @@ impl serde::ser::Serialize for ListNfsSharesResponse {
     }
 }
 
+impl std::fmt::Debug for ListNfsSharesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNfsSharesResponse");
+        debug_struct.field("nfs_shares", &self.nfs_shares);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message requesting to updating an NFS share.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNfsShareRequest {
     /// Required. The NFS share to update.
@@ -11152,8 +11774,20 @@ impl serde::ser::Serialize for UpdateNfsShareRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateNfsShareRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateNfsShareRequest");
+        debug_struct.field("nfs_share", &self.nfs_share);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message requesting rename of a server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameNfsShareRequest {
     /// Required. The `name` field is used to identify the nfsshare.
@@ -11308,8 +11942,20 @@ impl serde::ser::Serialize for RenameNfsShareRequest {
     }
 }
 
+impl std::fmt::Debug for RenameNfsShareRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RenameNfsShareRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("new_nfsshare_id", &self.new_nfsshare_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating an NFS share.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNfsShareRequest {
     /// Required. The parent project and location.
@@ -11474,8 +12120,20 @@ impl serde::ser::Serialize for CreateNfsShareRequest {
     }
 }
 
+impl std::fmt::Debug for CreateNfsShareRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateNfsShareRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("nfs_share", &self.nfs_share);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting an NFS share.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNfsShareRequest {
     /// Required. The name of the NFS share to delete.
@@ -11604,8 +12262,19 @@ impl serde::ser::Serialize for DeleteNfsShareRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteNfsShareRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteNfsShareRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Operation System image.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OSImage {
     /// Output only. OS Image's unique name.
@@ -11851,8 +12520,26 @@ impl serde::ser::Serialize for OSImage {
     }
 }
 
+impl std::fmt::Debug for OSImage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OSImage");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("code", &self.code);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("applicable_instance_types", &self.applicable_instance_types);
+        debug_struct.field(
+            "supported_network_templates",
+            &self.supported_network_templates,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for getting all available OS images.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOSImagesRequest {
     /// Required. Parent value for ListProvisioningQuotasRequest.
@@ -12052,8 +12739,21 @@ impl serde::ser::Serialize for ListOSImagesRequest {
     }
 }
 
+impl std::fmt::Debug for ListOSImagesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOSImagesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for getting all available OS images.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOSImagesResponse {
     /// The OS images available.
@@ -12226,8 +12926,20 @@ impl serde::ser::Serialize for ListOSImagesResponse {
     }
 }
 
+impl std::fmt::Debug for ListOSImagesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOSImagesResponse");
+        debug_struct.field("os_images", &self.os_images);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A provisioning configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProvisioningConfig {
     /// Output only. The system-generated name of the provisioning config. This
@@ -12714,6 +13426,30 @@ impl serde::ser::Serialize for ProvisioningConfig {
     }
 }
 
+impl std::fmt::Debug for ProvisioningConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProvisioningConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("networks", &self.networks);
+        debug_struct.field("volumes", &self.volumes);
+        debug_struct.field("ticket_id", &self.ticket_id);
+        debug_struct.field("handover_service_account", &self.handover_service_account);
+        debug_struct.field("email", &self.email);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("cloud_console_uri", &self.cloud_console_uri);
+        debug_struct.field("vpc_sc_enabled", &self.vpc_sc_enabled);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("custom_id", &self.custom_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ProvisioningConfig].
 pub mod provisioning_config {
     #[allow(unused_imports)]
@@ -12891,7 +13627,7 @@ pub mod provisioning_config {
 }
 
 /// Request for SubmitProvisioningConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitProvisioningConfigRequest {
     /// Required. The parent project and location containing the
@@ -13082,8 +13818,21 @@ impl serde::ser::Serialize for SubmitProvisioningConfigRequest {
     }
 }
 
+impl std::fmt::Debug for SubmitProvisioningConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubmitProvisioningConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("provisioning_config", &self.provisioning_config);
+        debug_struct.field("email", &self.email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for SubmitProvisioningConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitProvisioningConfigResponse {
     /// The submitted provisioning config.
@@ -13224,8 +13973,19 @@ impl serde::ser::Serialize for SubmitProvisioningConfigResponse {
     }
 }
 
+impl std::fmt::Debug for SubmitProvisioningConfigResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubmitProvisioningConfigResponse");
+        debug_struct.field("provisioning_config", &self.provisioning_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A provisioning quota for a given project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProvisioningQuota {
     /// Output only. The name of the provisioning quota.
@@ -13773,6 +14533,23 @@ impl serde::ser::Serialize for ProvisioningQuota {
     }
 }
 
+impl std::fmt::Debug for ProvisioningQuota {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProvisioningQuota");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("asset_type", &self.asset_type);
+        debug_struct.field("gcp_service", &self.gcp_service);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("available_count", &self.available_count);
+        debug_struct.field("quota", &self.quota);
+        debug_struct.field("availability", &self.availability);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ProvisioningQuota].
 pub mod provisioning_quota {
     #[allow(unused_imports)]
@@ -13939,7 +14716,7 @@ pub mod provisioning_quota {
 }
 
 /// Message for requesting the list of provisioning quotas.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProvisioningQuotasRequest {
     /// Required. Parent value for ListProvisioningQuotasRequest.
@@ -14139,8 +14916,21 @@ impl serde::ser::Serialize for ListProvisioningQuotasRequest {
     }
 }
 
+impl std::fmt::Debug for ListProvisioningQuotasRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProvisioningQuotasRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for the list of provisioning quotas.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProvisioningQuotasResponse {
     /// The provisioning quotas registered in this project.
@@ -14317,8 +15107,20 @@ impl serde::ser::Serialize for ListProvisioningQuotasResponse {
     }
 }
 
+impl std::fmt::Debug for ListProvisioningQuotasResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProvisioningQuotasResponse");
+        debug_struct.field("provisioning_quotas", &self.provisioning_quotas);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration parameters for a new instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceConfig {
     /// Output only. The name of the instance config.
@@ -14807,13 +15609,36 @@ impl serde::ser::Serialize for InstanceConfig {
     }
 }
 
+impl std::fmt::Debug for InstanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("instance_type", &self.instance_type);
+        debug_struct.field("hyperthreading", &self.hyperthreading);
+        debug_struct.field("os_image", &self.os_image);
+        debug_struct.field("client_network", &self.client_network);
+        debug_struct.field("private_network", &self.private_network);
+        debug_struct.field("user_note", &self.user_note);
+        debug_struct.field("account_networks_enabled", &self.account_networks_enabled);
+        debug_struct.field("network_config", &self.network_config);
+        debug_struct.field("network_template", &self.network_template);
+        debug_struct.field("logical_interfaces", &self.logical_interfaces);
+        debug_struct.field("ssh_key_names", &self.ssh_key_names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InstanceConfig].
 pub mod instance_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// A network.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NetworkAddress {
         /// Id of the network to use, within the same ProvisioningConfig request.
@@ -14998,6 +15823,19 @@ pub mod instance_config {
         }
     }
 
+    impl std::fmt::Debug for NetworkAddress {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NetworkAddress");
+            debug_struct.field("network_id", &self.network_id);
+            debug_struct.field("address", &self.address);
+            debug_struct.field("existing_network_id", &self.existing_network_id);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The network configuration of the instance.
     ///
     /// # Working with unknown values
@@ -15135,7 +15973,7 @@ pub mod instance_config {
 }
 
 /// Configuration parameters for a new volume.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeConfig {
     /// Output only. The name of the volume config.
@@ -15579,13 +16417,35 @@ impl serde::ser::Serialize for VolumeConfig {
     }
 }
 
+impl std::fmt::Debug for VolumeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VolumeConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("snapshots_enabled", &self.snapshots_enabled);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("protocol", &self.protocol);
+        debug_struct.field("size_gb", &self.size_gb);
+        debug_struct.field("lun_ranges", &self.lun_ranges);
+        debug_struct.field("machine_ids", &self.machine_ids);
+        debug_struct.field("nfs_exports", &self.nfs_exports);
+        debug_struct.field("user_note", &self.user_note);
+        debug_struct.field("gcp_service", &self.gcp_service);
+        debug_struct.field("performance_tier", &self.performance_tier);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VolumeConfig].
 pub mod volume_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// A LUN(Logical Unit Number) range.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LunRange {
         /// Number of LUNs to create.
@@ -15778,8 +16638,20 @@ pub mod volume_config {
         }
     }
 
+    impl std::fmt::Debug for LunRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LunRange");
+            debug_struct.field("quantity", &self.quantity);
+            debug_struct.field("size_gb", &self.size_gb);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A NFS export entry.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NfsExport {
         /// Network to use to publish the export.
@@ -16135,6 +17007,22 @@ pub mod volume_config {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for NfsExport {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NfsExport");
+            debug_struct.field("network_id", &self.network_id);
+            debug_struct.field("permissions", &self.permissions);
+            debug_struct.field("no_root_squash", &self.no_root_squash);
+            debug_struct.field("allow_suid", &self.allow_suid);
+            debug_struct.field("allow_dev", &self.allow_dev);
+            debug_struct.field("client", &self.client);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -16556,7 +17444,7 @@ pub mod volume_config {
 }
 
 /// Configuration parameters for a new network.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
     /// Output only. The name of the network config.
@@ -16947,13 +17835,34 @@ impl serde::ser::Serialize for NetworkConfig {
     }
 }
 
+impl std::fmt::Debug for NetworkConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("bandwidth", &self.bandwidth);
+        debug_struct.field("vlan_attachments", &self.vlan_attachments);
+        debug_struct.field("cidr", &self.cidr);
+        debug_struct.field("service_cidr", &self.service_cidr);
+        debug_struct.field("user_note", &self.user_note);
+        debug_struct.field("gcp_service", &self.gcp_service);
+        debug_struct.field("vlan_same_project", &self.vlan_same_project);
+        debug_struct.field("jumbo_frames_enabled", &self.jumbo_frames_enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NetworkConfig].
 pub mod network_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// A GCP vlan attachment.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IntakeVlanAttachment {
         /// Identifier of the VLAN attachment.
@@ -17107,6 +18016,18 @@ pub mod network_config {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for IntakeVlanAttachment {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IntakeVlanAttachment");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("pairing_key", &self.pairing_key);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -17536,7 +18457,7 @@ pub mod network_config {
 }
 
 /// A resource budget.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceQuota {
     /// Output only. The name of the instance quota.
@@ -17790,8 +18711,23 @@ impl serde::ser::Serialize for InstanceQuota {
     }
 }
 
+impl std::fmt::Debug for InstanceQuota {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceQuota");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("instance_type", &self.instance_type);
+        debug_struct.field("gcp_service", &self.gcp_service);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("available_machine_count", &self.available_machine_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for GetProvisioningConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProvisioningConfigRequest {
     /// Required. Name of the ProvisioningConfig.
@@ -17920,8 +18856,19 @@ impl serde::ser::Serialize for GetProvisioningConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetProvisioningConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProvisioningConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for CreateProvisioningConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProvisioningConfigRequest {
     /// Required. The parent project and location containing the
@@ -18112,8 +19059,21 @@ impl serde::ser::Serialize for CreateProvisioningConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateProvisioningConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateProvisioningConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("provisioning_config", &self.provisioning_config);
+        debug_struct.field("email", &self.email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a ProvisioningConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProvisioningConfigRequest {
     /// Required. The ProvisioningConfig to update.
@@ -18315,8 +19275,21 @@ impl serde::ser::Serialize for UpdateProvisioningConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateProvisioningConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateProvisioningConfigRequest");
+        debug_struct.field("provisioning_config", &self.provisioning_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("email", &self.email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An SSH key, used for authorizing with the interactive serial console feature.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SSHKey {
     /// Output only. The name of this SSH key.
@@ -18471,8 +19444,20 @@ impl serde::ser::Serialize for SSHKey {
     }
 }
 
+impl std::fmt::Debug for SSHKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SSHKey");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("public_key", &self.public_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for listing the public SSH keys in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSSHKeysRequest {
     /// Required. The parent containing the SSH keys.
@@ -18670,8 +19655,21 @@ impl serde::ser::Serialize for ListSSHKeysRequest {
     }
 }
 
+impl std::fmt::Debug for ListSSHKeysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSSHKeysRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response of ListSSHKeys.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSSHKeysResponse {
     /// The SSH keys registered in the project.
@@ -18844,8 +19842,20 @@ impl serde::ser::Serialize for ListSSHKeysResponse {
     }
 }
 
+impl std::fmt::Debug for ListSSHKeysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSSHKeysResponse");
+        debug_struct.field("ssh_keys", &self.ssh_keys);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for registering a public SSH key in a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSSHKeyRequest {
     /// Required. The parent containing the SSH keys.
@@ -19039,8 +20049,21 @@ impl serde::ser::Serialize for CreateSSHKeyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSSHKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSSHKeyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("ssh_key", &self.ssh_key);
+        debug_struct.field("ssh_key_id", &self.ssh_key_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting an SSH key from a project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSSHKeyRequest {
     /// Required. The name of the SSH key to delete.
@@ -19170,8 +20193,19 @@ impl serde::ser::Serialize for DeleteSSHKeyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSSHKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSSHKeyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A storage volume.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Volume {
     /// Output only. The resource name of this `Volume`.
@@ -20089,13 +21123,56 @@ impl serde::ser::Serialize for Volume {
     }
 }
 
+impl std::fmt::Debug for Volume {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Volume");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("storage_type", &self.storage_type);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("requested_size_gib", &self.requested_size_gib);
+        debug_struct.field(
+            "originally_requested_size_gib",
+            &self.originally_requested_size_gib,
+        );
+        debug_struct.field("current_size_gib", &self.current_size_gib);
+        debug_struct.field("emergency_size_gib", &self.emergency_size_gib);
+        debug_struct.field("max_size_gib", &self.max_size_gib);
+        debug_struct.field("auto_grown_size_gib", &self.auto_grown_size_gib);
+        debug_struct.field("remaining_space_gib", &self.remaining_space_gib);
+        debug_struct.field(
+            "snapshot_reservation_detail",
+            &self.snapshot_reservation_detail,
+        );
+        debug_struct.field(
+            "snapshot_auto_delete_behavior",
+            &self.snapshot_auto_delete_behavior,
+        );
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("snapshot_enabled", &self.snapshot_enabled);
+        debug_struct.field("pod", &self.pod);
+        debug_struct.field("protocol", &self.protocol);
+        debug_struct.field("boot_volume", &self.boot_volume);
+        debug_struct.field("performance_tier", &self.performance_tier);
+        debug_struct.field("notes", &self.notes);
+        debug_struct.field("workload_profile", &self.workload_profile);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("attached", &self.attached);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Volume].
 pub mod volume {
     #[allow(unused_imports)]
     use super::*;
 
     /// Details about snapshot space reservation and usage on the storage volume.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SnapshotReservationDetail {
         /// The space on this storage volume reserved for snapshots, shown in GiB.
@@ -20406,6 +21483,26 @@ pub mod volume {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for SnapshotReservationDetail {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SnapshotReservationDetail");
+            debug_struct.field("reserved_space_gib", &self.reserved_space_gib);
+            debug_struct.field(
+                "reserved_space_used_percent",
+                &self.reserved_space_used_percent,
+            );
+            debug_struct.field(
+                "reserved_space_remaining_gib",
+                &self.reserved_space_remaining_gib,
+            );
+            debug_struct.field("reserved_space_percent", &self.reserved_space_percent);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -21107,7 +22204,7 @@ pub mod volume {
 }
 
 /// Message for requesting storage volume information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVolumeRequest {
     /// Required. Name of the resource.
@@ -21236,8 +22333,19 @@ impl serde::ser::Serialize for GetVolumeRequest {
     }
 }
 
+impl std::fmt::Debug for GetVolumeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVolumeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting a list of storage volumes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumesRequest {
     /// Required. Parent value for ListVolumesRequest.
@@ -21459,8 +22567,22 @@ impl serde::ser::Serialize for ListVolumesRequest {
     }
 }
 
+impl std::fmt::Debug for ListVolumesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVolumesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message containing the list of storage volumes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumesResponse {
     /// The list of storage volumes.
@@ -21658,8 +22780,21 @@ impl serde::ser::Serialize for ListVolumesResponse {
     }
 }
 
+impl std::fmt::Debug for ListVolumesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVolumesResponse");
+        debug_struct.field("volumes", &self.volumes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a volume.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVolumeRequest {
     /// Required. The volume to update.
@@ -21840,8 +22975,20 @@ impl serde::ser::Serialize for UpdateVolumeRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateVolumeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateVolumeRequest");
+        debug_struct.field("volume", &self.volume);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message requesting rename of a server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenameVolumeRequest {
     /// Required. The `name` field is used to identify the volume.
@@ -21996,8 +23143,20 @@ impl serde::ser::Serialize for RenameVolumeRequest {
     }
 }
 
+impl std::fmt::Debug for RenameVolumeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RenameVolumeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("new_volume_id", &self.new_volume_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for skip volume cooloff and delete it.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvictVolumeRequest {
     /// Required. The name of the Volume.
@@ -22126,8 +23285,19 @@ impl serde::ser::Serialize for EvictVolumeRequest {
     }
 }
 
+impl std::fmt::Debug for EvictVolumeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvictVolumeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for emergency resize Volume.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResizeVolumeRequest {
     /// Required. Volume to resize.
@@ -22299,8 +23469,20 @@ impl serde::ser::Serialize for ResizeVolumeRequest {
     }
 }
 
+impl std::fmt::Debug for ResizeVolumeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResizeVolumeRequest");
+        debug_struct.field("volume", &self.volume);
+        debug_struct.field("size_gib", &self.size_gib);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A snapshot of a volume. Only boot volumes can have snapshots.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeSnapshot {
     /// The name of the snapshot.
@@ -22568,6 +23750,22 @@ impl serde::ser::Serialize for VolumeSnapshot {
     }
 }
 
+impl std::fmt::Debug for VolumeSnapshot {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VolumeSnapshot");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("storage_volume", &self.storage_volume);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VolumeSnapshot].
 pub mod volume_snapshot {
     #[allow(unused_imports)]
@@ -22707,7 +23905,7 @@ pub mod volume_snapshot {
 }
 
 /// Message for requesting volume snapshot information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVolumeSnapshotRequest {
     /// Required. The name of the snapshot.
@@ -22836,8 +24034,19 @@ impl serde::ser::Serialize for GetVolumeSnapshotRequest {
     }
 }
 
+impl std::fmt::Debug for GetVolumeSnapshotRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVolumeSnapshotRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting a list of volume snapshots.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumeSnapshotsRequest {
     /// Required. Parent value for ListVolumesRequest.
@@ -23035,8 +24244,21 @@ impl serde::ser::Serialize for ListVolumeSnapshotsRequest {
     }
 }
 
+impl std::fmt::Debug for ListVolumeSnapshotsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVolumeSnapshotsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message containing the list of volume snapshots.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumeSnapshotsResponse {
     /// The list of snapshots.
@@ -23239,8 +24461,21 @@ impl serde::ser::Serialize for ListVolumeSnapshotsResponse {
     }
 }
 
+impl std::fmt::Debug for ListVolumeSnapshotsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVolumeSnapshotsResponse");
+        debug_struct.field("volume_snapshots", &self.volume_snapshots);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting named Volume snapshot.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVolumeSnapshotRequest {
     /// Required. The name of the snapshot to delete.
@@ -23369,8 +24604,19 @@ impl serde::ser::Serialize for DeleteVolumeSnapshotRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteVolumeSnapshotRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteVolumeSnapshotRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a volume snapshot.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVolumeSnapshotRequest {
     /// Required. The volume to snapshot.
@@ -23536,8 +24782,20 @@ impl serde::ser::Serialize for CreateVolumeSnapshotRequest {
     }
 }
 
+impl std::fmt::Debug for CreateVolumeSnapshotRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVolumeSnapshotRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("volume_snapshot", &self.volume_snapshot);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for restoring a volume snapshot.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreVolumeSnapshotRequest {
     /// Required. Name of the snapshot which will be used to restore its parent
@@ -23665,6 +24923,17 @@ impl serde::ser::Serialize for RestoreVolumeSnapshotRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for RestoreVolumeSnapshotRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreVolumeSnapshotRequest");
+        debug_struct.field("volume_snapshot", &self.volume_snapshot);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

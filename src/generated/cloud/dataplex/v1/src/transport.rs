@@ -1520,6 +1520,7 @@ impl super::stub::CatalogService for CatalogService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("scope", &req.scope)]);
+                let builder = builder.query(&[("semanticSearch", &req.semantic_search)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, reqwest::Method::POST)))
             })

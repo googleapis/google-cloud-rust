@@ -36,7 +36,7 @@ extern crate wkt;
 
 /// The full representation of a Service that is managed by
 /// Google Service Management.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedService {
     /// The name of the service. See the
@@ -196,8 +196,20 @@ impl serde::ser::Serialize for ManagedService {
     }
 }
 
+impl std::fmt::Debug for ManagedService {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagedService");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("producer_project_id", &self.producer_project_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The metadata associated with a long running operation resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The full name of the resources that this operation is directly
@@ -442,13 +454,27 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("resource_names", &self.resource_names);
+        debug_struct.field("steps", &self.steps);
+        debug_struct.field("progress_percentage", &self.progress_percentage);
+        debug_struct.field("start_time", &self.start_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents the status of one operation step.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Step {
         /// The short description of the step.
@@ -609,6 +635,18 @@ pub mod operation_metadata {
         }
     }
 
+    impl std::fmt::Debug for Step {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Step");
+            debug_struct.field("description", &self.description);
+            debug_struct.field("status", &self.status);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Code describes the status of the operation (or one of its steps).
     ///
     /// # Working with unknown values
@@ -765,7 +803,7 @@ pub mod operation_metadata {
 }
 
 /// Represents a diagnostic message (error or warning)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Diagnostic {
     /// File name and line number of the error or warning.
@@ -943,6 +981,19 @@ impl serde::ser::Serialize for Diagnostic {
     }
 }
 
+impl std::fmt::Debug for Diagnostic {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Diagnostic");
+        debug_struct.field("location", &self.location);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Diagnostic].
 pub mod diagnostic {
     #[allow(unused_imports)]
@@ -1076,7 +1127,7 @@ pub mod diagnostic {
 
 /// Represents a source file which is used to generate the service configuration
 /// defined by `google.api.Service`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigSource {
     /// A unique ID for a specific instance of this message, typically assigned
@@ -1235,8 +1286,20 @@ impl serde::ser::Serialize for ConfigSource {
     }
 }
 
+impl std::fmt::Debug for ConfigSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigSource");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("files", &self.files);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Generic specification of a source configuration file
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigFile {
     /// The file name of the configuration file (full or relative path).
@@ -1436,6 +1499,19 @@ impl serde::ser::Serialize for ConfigFile {
     }
 }
 
+impl std::fmt::Debug for ConfigFile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigFile");
+        debug_struct.field("file_path", &self.file_path);
+        debug_struct.field("file_contents", &self.file_contents);
+        debug_struct.field("file_type", &self.file_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConfigFile].
 pub mod config_file {
     #[allow(unused_imports)]
@@ -1607,7 +1683,7 @@ pub mod config_file {
 }
 
 /// Represents a service configuration with its name and id.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigRef {
     /// Resource name of a service config. It must have the following
@@ -1737,11 +1813,22 @@ impl serde::ser::Serialize for ConfigRef {
     }
 }
 
+impl std::fmt::Debug for ConfigRef {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigRef");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Change report associated with a particular service configuration.
 ///
 /// It contains a list of ConfigChanges based on the comparison between
 /// two service configurations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChangeReport {
     /// List of changes between two service configurations.
@@ -1878,10 +1965,21 @@ impl serde::ser::Serialize for ChangeReport {
     }
 }
 
+impl std::fmt::Debug for ChangeReport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChangeReport");
+        debug_struct.field("config_changes", &self.config_changes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A rollout resource that defines how service configuration versions are pushed
 /// to control plane systems. Typically, you create a new version of the
 /// service config, and then create a Rollout to push the service config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rollout {
     /// Optional. Unique identifier of this Rollout. Must be no longer than 63
@@ -2273,6 +2371,22 @@ impl serde::ser::Serialize for Rollout {
     }
 }
 
+impl std::fmt::Debug for Rollout {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Rollout");
+        debug_struct.field("rollout_id", &self.rollout_id);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("created_by", &self.created_by);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("strategy", &self.strategy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Rollout].
 pub mod rollout {
     #[allow(unused_imports)]
@@ -2312,7 +2426,7 @@ pub mod rollout {
     ///   }
     /// }
     /// ```
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TrafficPercentStrategy {
         /// Maps service configuration IDs to their corresponding traffic percentage.
@@ -2487,9 +2601,20 @@ pub mod rollout {
         }
     }
 
+    impl std::fmt::Debug for TrafficPercentStrategy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TrafficPercentStrategy");
+            debug_struct.field("percentages", &self.percentages);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Strategy used to delete a service. This strategy is a placeholder only
     /// used by the system generated rollout to delete a service.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DeleteServiceStrategy {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2591,6 +2716,16 @@ pub mod rollout {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for DeleteServiceStrategy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DeleteServiceStrategy");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -2772,7 +2907,7 @@ pub mod rollout {
 }
 
 /// Request message for `ListServices` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
     /// Include services produced by the specified project.
@@ -3007,8 +3142,22 @@ impl serde::ser::Serialize for ListServicesRequest {
     }
 }
 
+impl std::fmt::Debug for ListServicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesRequest");
+        debug_struct.field("producer_project_id", &self.producer_project_id);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("consumer_id", &self.consumer_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for `ListServices` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
     /// The returned services will only have the name field set.
@@ -3183,8 +3332,20 @@ impl serde::ser::Serialize for ListServicesResponse {
     }
 }
 
+impl std::fmt::Debug for ListServicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServicesResponse");
+        debug_struct.field("services", &self.services);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for `GetService` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRequest {
     /// Required. The name of the service.  See the `ServiceManager` overview for
@@ -3315,8 +3476,19 @@ impl serde::ser::Serialize for GetServiceRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceRequest");
+        debug_struct.field("service_name", &self.service_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateService method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceRequest {
     /// Required. Initial values for the service resource.
@@ -3457,8 +3629,19 @@ impl serde::ser::Serialize for CreateServiceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceRequest");
+        debug_struct.field("service", &self.service);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteService method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceRequest {
     /// Required. The name of the service.  See the
@@ -3590,8 +3773,19 @@ impl serde::ser::Serialize for DeleteServiceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteServiceRequest");
+        debug_struct.field("service_name", &self.service_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UndeleteService method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteServiceRequest {
     /// Required. The name of the service. See the
@@ -3723,8 +3917,19 @@ impl serde::ser::Serialize for UndeleteServiceRequest {
     }
 }
 
+impl std::fmt::Debug for UndeleteServiceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteServiceRequest");
+        debug_struct.field("service_name", &self.service_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for UndeleteService method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteServiceResponse {
     /// Revived service resource.
@@ -3865,8 +4070,19 @@ impl serde::ser::Serialize for UndeleteServiceResponse {
     }
 }
 
+impl std::fmt::Debug for UndeleteServiceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UndeleteServiceResponse");
+        debug_struct.field("service", &self.service);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetServiceConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceConfigRequest {
     /// Required. The name of the service.  See the
@@ -4056,6 +4272,19 @@ impl serde::ser::Serialize for GetServiceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceConfigRequest");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("config_id", &self.config_id);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GetServiceConfigRequest].
 pub mod get_service_config_request {
     #[allow(unused_imports)]
@@ -4190,7 +4419,7 @@ pub mod get_service_config_request {
 }
 
 /// Request message for ListServiceConfigs method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceConfigsRequest {
     /// Required. The name of the service.  See the
@@ -4391,8 +4620,21 @@ impl serde::ser::Serialize for ListServiceConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListServiceConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceConfigsRequest");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListServiceConfigs method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceConfigsResponse {
     /// The list of service configuration resources.
@@ -4564,8 +4806,20 @@ impl serde::ser::Serialize for ListServiceConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListServiceConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceConfigsResponse");
+        debug_struct.field("service_configs", &self.service_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for CreateServiceConfig method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceConfigRequest {
     /// Required. The name of the service.  See the
@@ -4733,8 +4987,20 @@ impl serde::ser::Serialize for CreateServiceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceConfigRequest");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("service_config", &self.service_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for SubmitConfigSource method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitConfigSourceRequest {
     /// Required. The name of the service.  See the
@@ -4929,8 +5195,21 @@ impl serde::ser::Serialize for SubmitConfigSourceRequest {
     }
 }
 
+impl std::fmt::Debug for SubmitConfigSourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubmitConfigSourceRequest");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("config_source", &self.config_source);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for SubmitConfigSource method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitConfigSourceResponse {
     /// The generated service configuration.
@@ -5071,8 +5350,19 @@ impl serde::ser::Serialize for SubmitConfigSourceResponse {
     }
 }
 
+impl std::fmt::Debug for SubmitConfigSourceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubmitConfigSourceResponse");
+        debug_struct.field("service_config", &self.service_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'CreateServiceRollout'
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceRolloutRequest {
     /// Required. The name of the service.  See the
@@ -5239,8 +5529,20 @@ impl serde::ser::Serialize for CreateServiceRolloutRequest {
     }
 }
 
+impl std::fmt::Debug for CreateServiceRolloutRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateServiceRolloutRequest");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("rollout", &self.rollout);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for 'ListServiceRollouts'
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceRolloutsRequest {
     /// Required. The name of the service.  See the
@@ -5474,8 +5776,22 @@ impl serde::ser::Serialize for ListServiceRolloutsRequest {
     }
 }
 
+impl std::fmt::Debug for ListServiceRolloutsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceRolloutsRequest");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListServiceRollouts method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServiceRolloutsResponse {
     /// The list of rollout resources.
@@ -5646,8 +5962,20 @@ impl serde::ser::Serialize for ListServiceRolloutsResponse {
     }
 }
 
+impl std::fmt::Debug for ListServiceRolloutsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListServiceRolloutsResponse");
+        debug_struct.field("rollouts", &self.rollouts);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetServiceRollout method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRolloutRequest {
     /// Required. The name of the service.  See the
@@ -5804,8 +6132,20 @@ impl serde::ser::Serialize for GetServiceRolloutRequest {
     }
 }
 
+impl std::fmt::Debug for GetServiceRolloutRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServiceRolloutRequest");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("rollout_id", &self.rollout_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Operation payload for EnableService method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableServiceResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5907,8 +6247,18 @@ impl serde::ser::Serialize for EnableServiceResponse {
     }
 }
 
+impl std::fmt::Debug for EnableServiceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableServiceResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GenerateConfigReport method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateConfigReportRequest {
     /// Required. Service configuration for which we want to generate the report.
@@ -6101,8 +6451,20 @@ impl serde::ser::Serialize for GenerateConfigReportRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateConfigReportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateConfigReportRequest");
+        debug_struct.field("new_config", &self.new_config);
+        debug_struct.field("old_config", &self.old_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for GenerateConfigReport method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateConfigReportResponse {
     /// Name of the service this report belongs to.
@@ -6311,5 +6673,19 @@ impl serde::ser::Serialize for GenerateConfigReportResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GenerateConfigReportResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateConfigReportResponse");
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("change_reports", &self.change_reports);
+        debug_struct.field("diagnostics", &self.diagnostics);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

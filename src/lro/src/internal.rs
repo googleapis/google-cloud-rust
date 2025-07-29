@@ -138,7 +138,7 @@ where
         self.poller.until_done().await.map(|_| ())
     }
     #[cfg(feature = "unstable-stream")]
-    fn into_stream(self) -> impl futures::Stream<Item = PollingResult<(), M>> {
+    fn into_stream(self) -> impl futures::Stream<Item = PollingResult<(), M>> + Unpin {
         use futures::StreamExt;
         self.poller.into_stream().map(self::map_polling_result)
     }
@@ -167,7 +167,7 @@ where
         self.poller.until_done().await
     }
     #[cfg(feature = "unstable-stream")]
-    fn into_stream(self) -> impl futures::Stream<Item = PollingResult<R, ()>> {
+    fn into_stream(self) -> impl futures::Stream<Item = PollingResult<R, ()>> + Unpin {
         use futures::StreamExt;
         self.poller.into_stream().map(self::map_polling_metadata)
     }
@@ -323,20 +323,22 @@ where
     }
 
     #[cfg(feature = "unstable-stream")]
-    fn into_stream(self) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>>
+    fn into_stream(
+        self,
+    ) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>> + Unpin
     where
         ResponseType: wkt::message::Message + serde::de::DeserializeOwned,
         MetadataType: wkt::message::Message + serde::de::DeserializeOwned,
     {
         use futures::stream::unfold;
-        unfold(Some(self), move |state| async move {
+        Box::pin(unfold(Some(self), move |state| async move {
             if let Some(mut poller) = state {
                 if let Some(pr) = poller.poll().await {
                     return Some((pr, Some(poller)));
                 }
             };
             None
-        })
+        }))
     }
 }
 
@@ -359,7 +361,7 @@ where
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::super::Error;
     use super::*;
     use gax::error::rpc::{Code, Status};
@@ -454,14 +456,13 @@ mod test {
         };
 
         use futures::StreamExt;
-        let stream = new_poller(
+        let mut stream = new_poller(
             Arc::new(AlwaysContinue),
             Arc::new(ExponentialBackoff::default()),
             start,
             query,
         )
         .into_stream();
-        let mut stream = std::pin::pin!(stream);
         let p0 = stream.next().await;
         match p0.unwrap() {
             PollingResult::InProgress(m) => {
@@ -607,14 +608,13 @@ mod test {
         };
 
         use futures::StreamExt;
-        let stream = new_unit_response_poller(
+        let mut stream = new_unit_response_poller(
             Arc::new(AlwaysContinue),
             Arc::new(ExponentialBackoff::default()),
             start,
             query,
         )
         .into_stream();
-        let mut stream = std::pin::pin!(stream);
         let p0 = stream.next().await;
         match p0.unwrap() {
             PollingResult::InProgress(m) => {
@@ -758,14 +758,13 @@ mod test {
         };
 
         use futures::StreamExt;
-        let stream = new_unit_metadata_poller(
+        let mut stream = new_unit_metadata_poller(
             Arc::new(AlwaysContinue),
             Arc::new(ExponentialBackoff::default()),
             start,
             query,
         )
         .into_stream();
-        let mut stream = std::pin::pin!(stream);
         let p0 = stream.next().await;
         match p0.unwrap() {
             PollingResult::InProgress(m) => {

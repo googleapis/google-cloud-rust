@@ -30,7 +30,7 @@ extern crate std;
 extern crate tracing;
 extern crate wkt;
 
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAccessTokenRequest {
     /// Required. The resource name of the service account for which the credentials
@@ -266,7 +266,21 @@ impl serde::ser::Serialize for GenerateAccessTokenRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for GenerateAccessTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAccessTokenRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("delegates", &self.delegates);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("lifetime", &self.lifetime);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAccessTokenResponse {
     /// The OAuth 2.0 access token.
@@ -433,7 +447,19 @@ impl serde::ser::Serialize for GenerateAccessTokenResponse {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for GenerateAccessTokenResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAccessTokenResponse");
+        debug_struct.field("access_token", &self.access_token);
+        debug_struct.field("expire_time", &self.expire_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignBlobRequest {
     /// Required. The resource name of the service account for which the credentials
@@ -643,7 +669,20 @@ impl serde::ser::Serialize for SignBlobRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for SignBlobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SignBlobRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("delegates", &self.delegates);
+        debug_struct.field("payload", &self.payload);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignBlobResponse {
     /// The ID of the key used to sign the blob.
@@ -816,7 +855,19 @@ impl serde::ser::Serialize for SignBlobResponse {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for SignBlobResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SignBlobResponse");
+        debug_struct.field("key_id", &self.key_id);
+        debug_struct.field("signed_blob", &self.signed_blob);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignJwtRequest {
     /// Required. The resource name of the service account for which the credentials
@@ -1008,7 +1059,20 @@ impl serde::ser::Serialize for SignJwtRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for SignJwtRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SignJwtRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("delegates", &self.delegates);
+        debug_struct.field("payload", &self.payload);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignJwtResponse {
     /// The ID of the key used to sign the JWT.
@@ -1163,7 +1227,19 @@ impl serde::ser::Serialize for SignJwtResponse {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for SignJwtResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SignJwtResponse");
+        debug_struct.field("key_id", &self.key_id);
+        debug_struct.field("signed_jwt", &self.signed_jwt);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateIdTokenRequest {
     /// Required. The resource name of the service account for which the credentials
@@ -1382,7 +1458,21 @@ impl serde::ser::Serialize for GenerateIdTokenRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for GenerateIdTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateIdTokenRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("delegates", &self.delegates);
+        debug_struct.field("audience", &self.audience);
+        debug_struct.field("include_email", &self.include_email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateIdTokenResponse {
     /// The OpenId Connect ID token.
@@ -1508,5 +1598,16 @@ impl serde::ser::Serialize for GenerateIdTokenResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GenerateIdTokenResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateIdTokenResponse");
+        debug_struct.field("token", &self.token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

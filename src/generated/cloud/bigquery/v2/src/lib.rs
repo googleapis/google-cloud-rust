@@ -38,6 +38,7 @@
 //! More specifically:
 //!
 //! * [DatasetService](client/struct.DatasetService.html)
+//! * [JobService](client/struct.JobService.html)
 //! * [ModelService](client/struct.ModelService.html)
 //! * [ProjectService](client/struct.ProjectService.html)
 //! * [RoutineService](client/struct.RoutineService.html)

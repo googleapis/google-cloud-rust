@@ -38,7 +38,7 @@ extern crate wkt;
 ///
 /// Defines a group of workstations in a particular region and the
 /// VPC network they're attached to.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkstationCluster {
     /// Full name of this workstation cluster.
@@ -626,13 +626,39 @@ impl serde::ser::Serialize for WorkstationCluster {
     }
 }
 
+impl std::fmt::Debug for WorkstationCluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkstationCluster");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("subnetwork", &self.subnetwork);
+        debug_struct.field("control_plane_ip", &self.control_plane_ip);
+        debug_struct.field("private_cluster_config", &self.private_cluster_config);
+        debug_struct.field("degraded", &self.degraded);
+        debug_struct.field("conditions", &self.conditions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WorkstationCluster].
 pub mod workstation_cluster {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration options for private workstation clusters.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrivateClusterConfig {
         /// Immutable. Whether Workstations endpoint is private.
@@ -864,6 +890,20 @@ pub mod workstation_cluster {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for PrivateClusterConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PrivateClusterConfig");
+            debug_struct.field("enable_private_endpoint", &self.enable_private_endpoint);
+            debug_struct.field("cluster_hostname", &self.cluster_hostname);
+            debug_struct.field("service_attachment_uri", &self.service_attachment_uri);
+            debug_struct.field("allowed_projects", &self.allowed_projects);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A workstation configuration resource in the Cloud Workstations API.
@@ -875,7 +915,7 @@ pub mod workstation_cluster {
 /// can also use [Identity and Access Management
 /// (IAM)](https://cloud.google.com/iam/docs/overview) rules to grant access to
 /// teams or to individual developers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkstationConfig {
     /// Full name of this workstation configuration.
@@ -1679,13 +1719,43 @@ impl serde::ser::Serialize for WorkstationConfig {
     }
 }
 
+impl std::fmt::Debug for WorkstationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkstationConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("idle_timeout", &self.idle_timeout);
+        debug_struct.field("running_timeout", &self.running_timeout);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("persistent_directories", &self.persistent_directories);
+        debug_struct.field("container", &self.container);
+        debug_struct.field("encryption_key", &self.encryption_key);
+        debug_struct.field("readiness_checks", &self.readiness_checks);
+        debug_struct.field("replica_zones", &self.replica_zones);
+        debug_struct.field("degraded", &self.degraded);
+        debug_struct.field("conditions", &self.conditions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WorkstationConfig].
 pub mod workstation_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Runtime host for a workstation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Host {
         /// Type of host that will be used for the workstation's runtime.
@@ -1874,13 +1944,24 @@ pub mod workstation_config {
         }
     }
 
+    impl std::fmt::Debug for Host {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Host");
+            debug_struct.field("config", &self.config);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Host].
     pub mod host {
         #[allow(unused_imports)]
         use super::*;
 
         /// A runtime using a Compute Engine instance.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GceInstance {
             /// Optional. The type of machine to use for VM instances—for example,
@@ -2500,13 +2581,43 @@ pub mod workstation_config {
             }
         }
 
+        impl std::fmt::Debug for GceInstance {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("GceInstance");
+                debug_struct.field("machine_type", &self.machine_type);
+                debug_struct.field("service_account", &self.service_account);
+                debug_struct.field("service_account_scopes", &self.service_account_scopes);
+                debug_struct.field("tags", &self.tags);
+                debug_struct.field("pool_size", &self.pool_size);
+                debug_struct.field("pooled_instances", &self.pooled_instances);
+                debug_struct.field(
+                    "disable_public_ip_addresses",
+                    &self.disable_public_ip_addresses,
+                );
+                debug_struct.field(
+                    "enable_nested_virtualization",
+                    &self.enable_nested_virtualization,
+                );
+                debug_struct.field("shielded_instance_config", &self.shielded_instance_config);
+                debug_struct.field(
+                    "confidential_instance_config",
+                    &self.confidential_instance_config,
+                );
+                debug_struct.field("boot_disk_size_gb", &self.boot_disk_size_gb);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [GceInstance].
         pub mod gce_instance {
             #[allow(unused_imports)]
             use super::*;
 
             /// A set of Compute Engine Shielded instance options.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct GceShieldedInstanceConfig {
                 /// Optional. Whether the instance has Secure Boot enabled.
@@ -2718,8 +2829,24 @@ pub mod workstation_config {
                 }
             }
 
+            impl std::fmt::Debug for GceShieldedInstanceConfig {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("GceShieldedInstanceConfig");
+                    debug_struct.field("enable_secure_boot", &self.enable_secure_boot);
+                    debug_struct.field("enable_vtpm", &self.enable_vtpm);
+                    debug_struct.field(
+                        "enable_integrity_monitoring",
+                        &self.enable_integrity_monitoring,
+                    );
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// A set of Compute Engine Confidential VM instance options.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct GceConfidentialInstanceConfig {
                 /// Optional. Whether the instance has confidential compute enabled.
@@ -2874,6 +3001,20 @@ pub mod workstation_config {
                     state.end()
                 }
             }
+
+            impl std::fmt::Debug for GceConfidentialInstanceConfig {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("GceConfidentialInstanceConfig");
+                    debug_struct.field(
+                        "enable_confidential_compute",
+                        &self.enable_confidential_compute,
+                    );
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
         }
 
         /// Type of host that will be used for the workstation's runtime.
@@ -2886,7 +3027,7 @@ pub mod workstation_config {
     }
 
     /// A directory to persist across workstation sessions.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PersistentDirectory {
         /// Optional. Location of this directory in the running workstation.
@@ -3098,6 +3239,18 @@ pub mod workstation_config {
         }
     }
 
+    impl std::fmt::Debug for PersistentDirectory {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PersistentDirectory");
+            debug_struct.field("mount_path", &self.mount_path);
+            debug_struct.field("directory_type", &self.directory_type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [PersistentDirectory].
     pub mod persistent_directory {
         #[allow(unused_imports)]
@@ -3115,7 +3268,7 @@ pub mod workstation_config {
         /// directory.
         ///
         /// [google.cloud.workstations.v1.WorkstationConfig.persistent_directories]: crate::model::WorkstationConfig::persistent_directories
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GceRegionalPersistentDisk {
 
@@ -3418,6 +3571,21 @@ pub mod workstation_config {
             }
         }
 
+        impl std::fmt::Debug for GceRegionalPersistentDisk {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("GceRegionalPersistentDisk");
+                debug_struct.field("size_gb", &self.size_gb);
+                debug_struct.field("fs_type", &self.fs_type);
+                debug_struct.field("disk_type", &self.disk_type);
+                debug_struct.field("source_snapshot", &self.source_snapshot);
+                debug_struct.field("reclaim_policy", &self.reclaim_policy);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [GceRegionalPersistentDisk].
         pub mod gce_regional_persistent_disk {
             #[allow(unused_imports)]
@@ -3572,7 +3740,7 @@ pub mod workstation_config {
     }
 
     /// A Docker container.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Container {
         /// Optional. A Docker container image that defines a custom environment.
@@ -3875,13 +4043,29 @@ pub mod workstation_config {
         }
     }
 
+    impl std::fmt::Debug for Container {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Container");
+            debug_struct.field("image", &self.image);
+            debug_struct.field("command", &self.command);
+            debug_struct.field("args", &self.args);
+            debug_struct.field("env", &self.env);
+            debug_struct.field("working_dir", &self.working_dir);
+            debug_struct.field("run_as_user", &self.run_as_user);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A customer-managed encryption key (CMEK) for the Compute Engine
     /// resources of the associated workstation configuration. Specify the name of
     /// your Cloud KMS encryption key and the default service account.
     /// We recommend that you use a separate service account and follow
     /// [Cloud KMS best
     /// practices](https://cloud.google.com/kms/docs/separation-of-duties).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomerEncryptionKey {
         /// Immutable. The name of the Google Cloud KMS encryption key. For example,
@@ -4052,8 +4236,20 @@ pub mod workstation_config {
         }
     }
 
+    impl std::fmt::Debug for CustomerEncryptionKey {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CustomerEncryptionKey");
+            debug_struct.field("kms_key", &self.kms_key);
+            debug_struct.field("kms_key_service_account", &self.kms_key_service_account);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A readiness check to be performed on a workstation.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReadinessCheck {
         /// Optional. Path to which the request should be sent.
@@ -4226,10 +4422,22 @@ pub mod workstation_config {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ReadinessCheck {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ReadinessCheck");
+            debug_struct.field("path", &self.path);
+            debug_struct.field("port", &self.port);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A single instance of a developer workstation with its own persistent storage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Workstation {
     /// Full name of this workstation.
@@ -4729,6 +4937,29 @@ impl serde::ser::Serialize for Workstation {
     }
 }
 
+impl std::fmt::Debug for Workstation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Workstation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("host", &self.host);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Workstation].
 pub mod workstation {
     #[allow(unused_imports)]
@@ -4884,7 +5115,7 @@ pub mod workstation {
 }
 
 /// Request message for GetWorkstationCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkstationClusterRequest {
     /// Required. Name of the requested resource.
@@ -5013,8 +5244,19 @@ impl serde::ser::Serialize for GetWorkstationClusterRequest {
     }
 }
 
+impl std::fmt::Debug for GetWorkstationClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWorkstationClusterRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListWorkstationClusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkstationClustersRequest {
     /// Required. Parent resource name.
@@ -5212,8 +5454,21 @@ impl serde::ser::Serialize for ListWorkstationClustersRequest {
     }
 }
 
+impl std::fmt::Debug for ListWorkstationClustersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkstationClustersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListWorkstationClusters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkstationClustersResponse {
     /// The requested workstation clusters.
@@ -5417,8 +5672,21 @@ impl serde::ser::Serialize for ListWorkstationClustersResponse {
     }
 }
 
+impl std::fmt::Debug for ListWorkstationClustersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkstationClustersResponse");
+        debug_struct.field("workstation_clusters", &self.workstation_clusters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a CreateWorkstationCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkstationClusterRequest {
     /// Required. Parent resource name.
@@ -5637,8 +5905,22 @@ impl serde::ser::Serialize for CreateWorkstationClusterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateWorkstationClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWorkstationClusterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("workstation_cluster_id", &self.workstation_cluster_id);
+        debug_struct.field("workstation_cluster", &self.workstation_cluster);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateWorkstationCluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkstationClusterRequest {
     /// Required. Workstation cluster to update.
@@ -5869,8 +6151,22 @@ impl serde::ser::Serialize for UpdateWorkstationClusterRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateWorkstationClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateWorkstationClusterRequest");
+        debug_struct.field("workstation_cluster", &self.workstation_cluster);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a workstation cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkstationClusterRequest {
     /// Required. Name of the workstation cluster to delete.
@@ -6076,8 +6372,22 @@ impl serde::ser::Serialize for DeleteWorkstationClusterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteWorkstationClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWorkstationClusterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetWorkstationConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkstationConfigRequest {
     /// Required. Name of the requested resource.
@@ -6206,8 +6516,19 @@ impl serde::ser::Serialize for GetWorkstationConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetWorkstationConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWorkstationConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListWorkstationConfigs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkstationConfigsRequest {
     /// Required. Parent resource name.
@@ -6405,8 +6726,21 @@ impl serde::ser::Serialize for ListWorkstationConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListWorkstationConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkstationConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListWorkstationConfigs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkstationConfigsResponse {
     /// The requested configs.
@@ -6610,8 +6944,21 @@ impl serde::ser::Serialize for ListWorkstationConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListWorkstationConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkstationConfigsResponse");
+        debug_struct.field("workstation_configs", &self.workstation_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListUsableWorkstationConfigs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUsableWorkstationConfigsRequest {
     /// Required. Parent resource name.
@@ -6809,8 +7156,21 @@ impl serde::ser::Serialize for ListUsableWorkstationConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListUsableWorkstationConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUsableWorkstationConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListUsableWorkstationConfigs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUsableWorkstationConfigsResponse {
     /// The requested configs.
@@ -7014,8 +7374,21 @@ impl serde::ser::Serialize for ListUsableWorkstationConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListUsableWorkstationConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUsableWorkstationConfigsResponse");
+        debug_struct.field("workstation_configs", &self.workstation_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a CreateWorkstationConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkstationConfigRequest {
     /// Required. Parent resource name.
@@ -7235,8 +7608,22 @@ impl serde::ser::Serialize for CreateWorkstationConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateWorkstationConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWorkstationConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("workstation_config_id", &self.workstation_config_id);
+        debug_struct.field("workstation_config", &self.workstation_config);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateWorkstationConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkstationConfigRequest {
     /// Required. Config to update.
@@ -7468,8 +7855,22 @@ impl serde::ser::Serialize for UpdateWorkstationConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateWorkstationConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateWorkstationConfigRequest");
+        debug_struct.field("workstation_config", &self.workstation_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a workstation configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkstationConfigRequest {
     /// Required. Name of the workstation configuration to delete.
@@ -7675,8 +8076,22 @@ impl serde::ser::Serialize for DeleteWorkstationConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteWorkstationConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWorkstationConfigRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GetWorkstation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkstationRequest {
     /// Required. Name of the requested resource.
@@ -7805,8 +8220,19 @@ impl serde::ser::Serialize for GetWorkstationRequest {
     }
 }
 
+impl std::fmt::Debug for GetWorkstationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWorkstationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListWorkstations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkstationsRequest {
     /// Required. Parent resource name.
@@ -8004,8 +8430,21 @@ impl serde::ser::Serialize for ListWorkstationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListWorkstationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkstationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListWorkstations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkstationsResponse {
     /// The requested workstations.
@@ -8204,8 +8643,21 @@ impl serde::ser::Serialize for ListWorkstationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListWorkstationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWorkstationsResponse");
+        debug_struct.field("workstations", &self.workstations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for ListUsableWorkstations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUsableWorkstationsRequest {
     /// Required. Parent resource name.
@@ -8403,8 +8855,21 @@ impl serde::ser::Serialize for ListUsableWorkstationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListUsableWorkstationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUsableWorkstationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for ListUsableWorkstations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUsableWorkstationsResponse {
     /// The requested workstations.
@@ -8603,8 +9068,21 @@ impl serde::ser::Serialize for ListUsableWorkstationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListUsableWorkstationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListUsableWorkstationsResponse");
+        debug_struct.field("workstations", &self.workstations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a CreateWorkstation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkstationRequest {
     /// Required. Parent resource name.
@@ -8819,8 +9297,22 @@ impl serde::ser::Serialize for CreateWorkstationRequest {
     }
 }
 
+impl std::fmt::Debug for CreateWorkstationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWorkstationRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("workstation_id", &self.workstation_id);
+        debug_struct.field("workstation", &self.workstation);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for UpdateWorkstation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkstationRequest {
     /// Required. Workstation to update.
@@ -9050,8 +9542,22 @@ impl serde::ser::Serialize for UpdateWorkstationRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateWorkstationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateWorkstationRequest");
+        debug_struct.field("workstation", &self.workstation);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for DeleteWorkstation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkstationRequest {
     /// Required. Name of the workstation to delete.
@@ -9231,8 +9737,21 @@ impl serde::ser::Serialize for DeleteWorkstationRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteWorkstationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWorkstationRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for StartWorkstation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartWorkstationRequest {
     /// Required. Name of the workstation to start.
@@ -9412,8 +9931,21 @@ impl serde::ser::Serialize for StartWorkstationRequest {
     }
 }
 
+impl std::fmt::Debug for StartWorkstationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartWorkstationRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for StopWorkstation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopWorkstationRequest {
     /// Required. Name of the workstation to stop.
@@ -9593,8 +10125,21 @@ impl serde::ser::Serialize for StopWorkstationRequest {
     }
 }
 
+impl std::fmt::Debug for StopWorkstationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopWorkstationRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for GenerateAccessToken.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAccessTokenRequest {
     /// Required. Name of the workstation for which the access token should be
@@ -9841,6 +10386,18 @@ impl serde::ser::Serialize for GenerateAccessTokenRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateAccessTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAccessTokenRequest");
+        debug_struct.field("workstation", &self.workstation);
+        debug_struct.field("expiration", &self.expiration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GenerateAccessTokenRequest].
 pub mod generate_access_token_request {
     #[allow(unused_imports)]
@@ -9863,7 +10420,7 @@ pub mod generate_access_token_request {
 }
 
 /// Response message for GenerateAccessToken.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAccessTokenResponse {
     /// The generated bearer access token. To use this token, include it in an
@@ -10032,8 +10589,20 @@ impl serde::ser::Serialize for GenerateAccessTokenResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateAccessTokenResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAccessTokenResponse");
+        debug_struct.field("access_token", &self.access_token);
+        debug_struct.field("expire_time", &self.expire_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for long-running operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. Time that the operation was created.
@@ -10331,5 +10900,22 @@ impl serde::ser::Serialize for OperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

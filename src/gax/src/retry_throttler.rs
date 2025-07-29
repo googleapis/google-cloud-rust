@@ -114,8 +114,8 @@ pub trait RetryThrottler: Send + Sync + std::fmt::Debug {
 pub type SharedRetryThrottler = Arc<Mutex<dyn RetryThrottler>>;
 
 /// A helper type to use [RetryThrottler] in client and request options.
-#[derive(Clone)]
-pub struct RetryThrottlerArg(pub(crate) SharedRetryThrottler);
+#[derive(Clone, Debug)]
+pub struct RetryThrottlerArg(SharedRetryThrottler);
 
 impl<T: RetryThrottler + 'static> From<T> for RetryThrottlerArg {
     fn from(value: T) -> Self {
@@ -126,6 +126,12 @@ impl<T: RetryThrottler + 'static> From<T> for RetryThrottlerArg {
 impl From<SharedRetryThrottler> for RetryThrottlerArg {
     fn from(value: SharedRetryThrottler) -> Self {
         Self(value)
+    }
+}
+
+impl From<RetryThrottlerArg> for SharedRetryThrottler {
+    fn from(value: RetryThrottlerArg) -> SharedRetryThrottler {
+        value.0
     }
 }
 
@@ -394,8 +400,9 @@ impl RetryThrottler for CircuitBreaker {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
+    use crate::mock_rng::MockRng;
     use rand::Rng;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -460,11 +467,11 @@ mod test {
 
         // StepRng::new(x, 0) always produces the same value. We pick the values
         // to trigger the desired behavior.
-        let mut rng = rand::rngs::mock::StepRng::new(0, 0);
+        let mut rng = MockRng::new(0);
         assert_eq!(rng.random_range(0.0..=1.0), 0.0);
         assert!(throttler.throttle(&mut rng), "{throttler:?}");
 
-        let mut rng = rand::rngs::mock::StepRng::new(u64::MAX - u64::MAX / 4, 0);
+        let mut rng = MockRng::new(u64::MAX - u64::MAX / 4);
         assert!(
             rng.random_range(0.0..=1.0) > 0.5,
             "{}",

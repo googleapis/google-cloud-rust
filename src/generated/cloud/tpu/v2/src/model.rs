@@ -36,7 +36,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A guest attributes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GuestAttributes {
     /// The path to be queried. This can be the default namespace ('/') or a
@@ -204,8 +204,20 @@ impl serde::ser::Serialize for GuestAttributes {
     }
 }
 
+impl std::fmt::Debug for GuestAttributes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GuestAttributes");
+        debug_struct.field("query_path", &self.query_path);
+        debug_struct.field("query_value", &self.query_value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Array of guest attribute namespace/key/value tuples.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GuestAttributesValue {
     /// The list of guest attributes entries.
@@ -341,8 +353,19 @@ impl serde::ser::Serialize for GuestAttributesValue {
     }
 }
 
+impl std::fmt::Debug for GuestAttributesValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GuestAttributesValue");
+        debug_struct.field("items", &self.items);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A guest attributes namespace/key/value entry.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GuestAttributesEntry {
     /// Namespace for the guest attribute entry.
@@ -519,9 +542,22 @@ impl serde::ser::Serialize for GuestAttributesEntry {
     }
 }
 
+impl std::fmt::Debug for GuestAttributesEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GuestAttributesEntry");
+        debug_struct.field("namespace", &self.namespace);
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A node-attached disk resource.
 /// Next ID: 8;
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttachedDisk {
     /// Specifies the full path to an existing disk.
@@ -679,6 +715,18 @@ impl serde::ser::Serialize for AttachedDisk {
     }
 }
 
+impl std::fmt::Debug for AttachedDisk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttachedDisk");
+        debug_struct.field("source_disk", &self.source_disk);
+        debug_struct.field("mode", &self.mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AttachedDisk].
 pub mod attached_disk {
     #[allow(unused_imports)]
@@ -820,7 +868,7 @@ pub mod attached_disk {
 }
 
 /// Sets the scheduling options for this node.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchedulingConfig {
     /// Defines whether the node is preemptible.
@@ -997,8 +1045,21 @@ impl serde::ser::Serialize for SchedulingConfig {
     }
 }
 
+impl std::fmt::Debug for SchedulingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchedulingConfig");
+        debug_struct.field("preemptible", &self.preemptible);
+        debug_struct.field("reserved", &self.reserved);
+        debug_struct.field("spot", &self.spot);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A network endpoint over which a TPU worker can be reached.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkEndpoint {
     /// The internal IP address of this network endpoint.
@@ -1206,8 +1267,21 @@ impl serde::ser::Serialize for NetworkEndpoint {
     }
 }
 
+impl std::fmt::Debug for NetworkEndpoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkEndpoint");
+        debug_struct.field("ip_address", &self.ip_address);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("access_config", &self.access_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An access config attached to the TPU worker.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessConfig {
     /// Output only. An external IP address associated with the TPU worker.
@@ -1337,8 +1411,19 @@ impl serde::ser::Serialize for AccessConfig {
     }
 }
 
+impl std::fmt::Debug for AccessConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessConfig");
+        debug_struct.field("external_ip", &self.external_ip);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Network related configurations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
     /// The name of the network for the TPU node. It must be a preexisting Google
@@ -1592,8 +1677,23 @@ impl serde::ser::Serialize for NetworkConfig {
     }
 }
 
+impl std::fmt::Debug for NetworkConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkConfig");
+        debug_struct.field("network", &self.network);
+        debug_struct.field("subnetwork", &self.subnetwork);
+        debug_struct.field("enable_external_ips", &self.enable_external_ips);
+        debug_struct.field("can_ip_forward", &self.can_ip_forward);
+        debug_struct.field("queue_count", &self.queue_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A service account.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceAccount {
     /// Email address of the service account. If empty, default Compute service
@@ -1751,8 +1851,20 @@ impl serde::ser::Serialize for ServiceAccount {
     }
 }
 
+impl std::fmt::Debug for ServiceAccount {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceAccount");
+        debug_struct.field("email", &self.email);
+        debug_struct.field("scope", &self.scope);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A TPU instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Node {
     /// Output only. Immutable. The name of the TPU.
@@ -2632,6 +2744,41 @@ impl serde::ser::Serialize for Node {
     }
 }
 
+impl std::fmt::Debug for Node {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Node");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("accelerator_type", &self.accelerator_type);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("health_description", &self.health_description);
+        debug_struct.field("runtime_version", &self.runtime_version);
+        debug_struct.field("network_config", &self.network_config);
+        debug_struct.field("network_configs", &self.network_configs);
+        debug_struct.field("cidr_block", &self.cidr_block);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("scheduling_config", &self.scheduling_config);
+        debug_struct.field("network_endpoints", &self.network_endpoints);
+        debug_struct.field("health", &self.health);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("data_disks", &self.data_disks);
+        debug_struct.field("api_version", &self.api_version);
+        debug_struct.field("symptoms", &self.symptoms);
+        debug_struct.field("shielded_instance_config", &self.shielded_instance_config);
+        debug_struct.field("accelerator_config", &self.accelerator_config);
+        debug_struct.field("queued_resource", &self.queued_resource);
+        debug_struct.field("multislice_node", &self.multislice_node);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Node].
 pub mod node {
     #[allow(unused_imports)]
@@ -3159,7 +3306,7 @@ pub mod node {
 
 /// A QueuedResource represents a request for resources that will be placed
 /// in a queue and fulfilled when the necessary resources are available.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueuedResource {
     /// Output only. Immutable. The name of the QueuedResource.
@@ -3615,13 +3762,30 @@ impl serde::ser::Serialize for QueuedResource {
     }
 }
 
+impl std::fmt::Debug for QueuedResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueuedResource");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("queueing_policy", &self.queueing_policy);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("reservation_name", &self.reservation_name);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("tier", &self.tier);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QueuedResource].
 pub mod queued_resource {
     #[allow(unused_imports)]
     use super::*;
 
     /// Details of the TPU resource(s) being requested.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Tpu {
         /// Optional. The TPU node(s) being requested.
@@ -3761,6 +3925,17 @@ pub mod queued_resource {
         }
     }
 
+    impl std::fmt::Debug for Tpu {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Tpu");
+            debug_struct.field("node_spec", &self.node_spec);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Tpu].
     pub mod tpu {
         #[allow(unused_imports)]
@@ -3769,7 +3944,7 @@ pub mod queued_resource {
         /// Details of the TPU node(s) being requested. Users can request either a
         /// single node or multiple nodes.
         /// NodeSpec provides the specification for node(s) to be created.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NodeSpec {
             /// Required. The parent resource name.
@@ -4078,6 +4253,19 @@ pub mod queued_resource {
             }
         }
 
+        impl std::fmt::Debug for NodeSpec {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("NodeSpec");
+                debug_struct.field("parent", &self.parent);
+                debug_struct.field("node", &self.node);
+                debug_struct.field("name_strategy", &self.name_strategy);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [NodeSpec].
         pub mod node_spec {
             #[allow(unused_imports)]
@@ -4086,7 +4274,7 @@ pub mod queued_resource {
             /// Parameters to specify for multislice QueuedResource requests. This
             /// message must be populated in case of multislice requests instead of
             /// node_id.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct MultisliceParams {
                 /// Required. Number of nodes with this spec. The system will attempt
@@ -4294,6 +4482,18 @@ pub mod queued_resource {
                 }
             }
 
+            impl std::fmt::Debug for MultisliceParams {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("MultisliceParams");
+                    debug_struct.field("node_count", &self.node_count);
+                    debug_struct.field("node_id_prefix", &self.node_id_prefix);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Either a node_id or multislice_params.
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -4314,7 +4514,7 @@ pub mod queued_resource {
     }
 
     /// Spot tier definition.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Spot {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4419,8 +4619,18 @@ pub mod queued_resource {
         }
     }
 
+    impl std::fmt::Debug for Spot {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Spot");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Guaranteed tier definition.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Guaranteed {
         /// Optional. Defines the minimum duration of the guarantee. If specified,
@@ -4566,8 +4776,19 @@ pub mod queued_resource {
         }
     }
 
+    impl std::fmt::Debug for Guaranteed {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Guaranteed");
+            debug_struct.field("min_duration", &self.min_duration);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines the policy of the QueuedRequest.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct QueueingPolicy {
         /// Time flexibility specification.
@@ -4957,6 +5178,17 @@ pub mod queued_resource {
         }
     }
 
+    impl std::fmt::Debug for QueueingPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("QueueingPolicy");
+            debug_struct.field("start_timing_constraints", &self.start_timing_constraints);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [QueueingPolicy].
     pub mod queueing_policy {
         #[allow(unused_imports)]
@@ -5004,7 +5236,7 @@ pub mod queued_resource {
 }
 
 /// QueuedResourceState defines the details of the QueuedResource request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueuedResourceState {
     /// Output only. State of the QueuedResource request.
@@ -5673,13 +5905,26 @@ impl serde::ser::Serialize for QueuedResourceState {
     }
 }
 
+impl std::fmt::Debug for QueuedResourceState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueuedResourceState");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_initiator", &self.state_initiator);
+        debug_struct.field("state_data", &self.state_data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QueuedResourceState].
 pub mod queued_resource_state {
     #[allow(unused_imports)]
     use super::*;
 
     /// Further data for the creating state.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CreatingData {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5784,8 +6029,18 @@ pub mod queued_resource_state {
         }
     }
 
+    impl std::fmt::Debug for CreatingData {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CreatingData");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Further data for the accepted state.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AcceptedData {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5890,8 +6145,18 @@ pub mod queued_resource_state {
         }
     }
 
+    impl std::fmt::Debug for AcceptedData {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AcceptedData");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Further data for the provisioning state.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProvisioningData {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5996,8 +6261,18 @@ pub mod queued_resource_state {
         }
     }
 
+    impl std::fmt::Debug for ProvisioningData {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ProvisioningData");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Further data for the failed state.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FailedData {
         /// Output only. The error that caused the queued resource to enter the
@@ -6141,8 +6416,19 @@ pub mod queued_resource_state {
         }
     }
 
+    impl std::fmt::Debug for FailedData {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FailedData");
+            debug_struct.field("error", &self.error);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Further data for the deleting state.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DeletingData {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6247,8 +6533,18 @@ pub mod queued_resource_state {
         }
     }
 
+    impl std::fmt::Debug for DeletingData {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DeletingData");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Further data for the active state.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ActiveData {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6353,8 +6649,18 @@ pub mod queued_resource_state {
         }
     }
 
+    impl std::fmt::Debug for ActiveData {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ActiveData");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Further data for the suspending state.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SuspendingData {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6459,8 +6765,18 @@ pub mod queued_resource_state {
         }
     }
 
+    impl std::fmt::Debug for SuspendingData {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SuspendingData");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Further data for the suspended state.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SuspendedData {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6562,6 +6878,16 @@ pub mod queued_resource_state {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for SuspendedData {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SuspendedData");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -6923,7 +7249,7 @@ pub mod queued_resource_state {
 /// Request for [ListNodes][google.cloud.tpu.v2.Tpu.ListNodes].
 ///
 /// [google.cloud.tpu.v2.Tpu.ListNodes]: crate::client::Tpu::list_nodes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodesRequest {
     /// Required. The parent resource name.
@@ -7120,10 +7446,23 @@ impl serde::ser::Serialize for ListNodesRequest {
     }
 }
 
+impl std::fmt::Debug for ListNodesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNodesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for [ListNodes][google.cloud.tpu.v2.Tpu.ListNodes].
 ///
 /// [google.cloud.tpu.v2.Tpu.ListNodes]: crate::client::Tpu::list_nodes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodesResponse {
     /// The listed nodes.
@@ -7321,10 +7660,23 @@ impl serde::ser::Serialize for ListNodesResponse {
     }
 }
 
+impl std::fmt::Debug for ListNodesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNodesResponse");
+        debug_struct.field("nodes", &self.nodes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [GetNode][google.cloud.tpu.v2.Tpu.GetNode].
 ///
 /// [google.cloud.tpu.v2.Tpu.GetNode]: crate::client::Tpu::get_node
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNodeRequest {
     /// Required. The resource name.
@@ -7453,10 +7805,21 @@ impl serde::ser::Serialize for GetNodeRequest {
     }
 }
 
+impl std::fmt::Debug for GetNodeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNodeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [CreateNode][google.cloud.tpu.v2.Tpu.CreateNode].
 ///
 /// [google.cloud.tpu.v2.Tpu.CreateNode]: crate::client::Tpu::create_node
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNodeRequest {
     /// Required. The parent resource name.
@@ -7645,10 +8008,23 @@ impl serde::ser::Serialize for CreateNodeRequest {
     }
 }
 
+impl std::fmt::Debug for CreateNodeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateNodeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("node_id", &self.node_id);
+        debug_struct.field("node", &self.node);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [DeleteNode][google.cloud.tpu.v2.Tpu.DeleteNode].
 ///
 /// [google.cloud.tpu.v2.Tpu.DeleteNode]: crate::client::Tpu::delete_node
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNodeRequest {
     /// Required. The resource name.
@@ -7777,10 +8153,21 @@ impl serde::ser::Serialize for DeleteNodeRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteNodeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteNodeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [StopNode][google.cloud.tpu.v2.Tpu.StopNode].
 ///
 /// [google.cloud.tpu.v2.Tpu.StopNode]: crate::client::Tpu::stop_node
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopNodeRequest {
     /// Required. The resource name.
@@ -7909,10 +8296,21 @@ impl serde::ser::Serialize for StopNodeRequest {
     }
 }
 
+impl std::fmt::Debug for StopNodeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopNodeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [StartNode][google.cloud.tpu.v2.Tpu.StartNode].
 ///
 /// [google.cloud.tpu.v2.Tpu.StartNode]: crate::client::Tpu::start_node
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartNodeRequest {
     /// Required. The resource name.
@@ -8041,10 +8439,21 @@ impl serde::ser::Serialize for StartNodeRequest {
     }
 }
 
+impl std::fmt::Debug for StartNodeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartNodeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [UpdateNode][google.cloud.tpu.v2.Tpu.UpdateNode].
 ///
 /// [google.cloud.tpu.v2.Tpu.UpdateNode]: crate::client::Tpu::update_node
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNodeRequest {
     /// Required. Mask of fields from [Node][Tpu.Node] to update.
@@ -8222,11 +8631,23 @@ impl serde::ser::Serialize for UpdateNodeRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateNodeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateNodeRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("node", &self.node);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [ListQueuedResources][google.cloud.tpu.v2.Tpu.ListQueuedResources].
 ///
 /// [google.cloud.tpu.v2.Tpu.ListQueuedResources]: crate::client::Tpu::list_queued_resources
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQueuedResourcesRequest {
     /// Required. The parent resource name.
@@ -8424,11 +8845,24 @@ impl serde::ser::Serialize for ListQueuedResourcesRequest {
     }
 }
 
+impl std::fmt::Debug for ListQueuedResourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListQueuedResourcesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [ListQueuedResources][google.cloud.tpu.v2.Tpu.ListQueuedResources].
 ///
 /// [google.cloud.tpu.v2.Tpu.ListQueuedResources]: crate::client::Tpu::list_queued_resources
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQueuedResourcesResponse {
     /// The listed queued resources.
@@ -8631,10 +9065,23 @@ impl serde::ser::Serialize for ListQueuedResourcesResponse {
     }
 }
 
+impl std::fmt::Debug for ListQueuedResourcesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListQueuedResourcesResponse");
+        debug_struct.field("queued_resources", &self.queued_resources);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [GetQueuedResource][google.cloud.tpu.v2.Tpu.GetQueuedResource]
 ///
 /// [google.cloud.tpu.v2.Tpu.GetQueuedResource]: crate::client::Tpu::get_queued_resource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetQueuedResourceRequest {
     /// Required. The resource name.
@@ -8763,11 +9210,22 @@ impl serde::ser::Serialize for GetQueuedResourceRequest {
     }
 }
 
+impl std::fmt::Debug for GetQueuedResourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetQueuedResourceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [CreateQueuedResource][google.cloud.tpu.v2.Tpu.CreateQueuedResource].
 ///
 /// [google.cloud.tpu.v2.Tpu.CreateQueuedResource]: crate::client::Tpu::create_queued_resource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateQueuedResourceRequest {
     /// Required. The parent resource name.
@@ -8987,11 +9445,25 @@ impl serde::ser::Serialize for CreateQueuedResourceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateQueuedResourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateQueuedResourceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("queued_resource_id", &self.queued_resource_id);
+        debug_struct.field("queued_resource", &self.queued_resource);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [DeleteQueuedResource][google.cloud.tpu.v2.Tpu.DeleteQueuedResource].
 ///
 /// [google.cloud.tpu.v2.Tpu.DeleteQueuedResource]: crate::client::Tpu::delete_queued_resource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteQueuedResourceRequest {
     /// Required. The resource name.
@@ -9173,11 +9645,24 @@ impl serde::ser::Serialize for DeleteQueuedResourceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteQueuedResourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteQueuedResourceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [ResetQueuedResource][google.cloud.tpu.v2.Tpu.ResetQueuedResource].
 ///
 /// [google.cloud.tpu.v2.Tpu.ResetQueuedResource]: crate::client::Tpu::reset_queued_resource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetQueuedResourceRequest {
     /// Required. The name of the queued resource.
@@ -9306,8 +9791,19 @@ impl serde::ser::Serialize for ResetQueuedResourceRequest {
     }
 }
 
+impl std::fmt::Debug for ResetQueuedResourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetQueuedResourceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The per-product per-project service identity for Cloud TPU service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceIdentity {
     /// The email address of the service identity.
@@ -9436,11 +9932,22 @@ impl serde::ser::Serialize for ServiceIdentity {
     }
 }
 
+impl std::fmt::Debug for ServiceIdentity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceIdentity");
+        debug_struct.field("email", &self.email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [GenerateServiceIdentity][google.cloud.tpu.v2.Tpu.GenerateServiceIdentity].
 ///
 /// [google.cloud.tpu.v2.Tpu.GenerateServiceIdentity]: crate::client::Tpu::generate_service_identity
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateServiceIdentityRequest {
     /// Required. The parent resource name.
@@ -9569,11 +10076,22 @@ impl serde::ser::Serialize for GenerateServiceIdentityRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateServiceIdentityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateServiceIdentityRequest");
+        debug_struct.field("parent", &self.parent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [GenerateServiceIdentity][google.cloud.tpu.v2.Tpu.GenerateServiceIdentity].
 ///
 /// [google.cloud.tpu.v2.Tpu.GenerateServiceIdentity]: crate::client::Tpu::generate_service_identity
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateServiceIdentityResponse {
     /// ServiceIdentity that was created or retrieved.
@@ -9714,8 +10232,19 @@ impl serde::ser::Serialize for GenerateServiceIdentityResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateServiceIdentityResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateServiceIdentityResponse");
+        debug_struct.field("identity", &self.identity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A accelerator type that a Node can be configured with.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcceleratorType {
     /// The resource name.
@@ -9900,10 +10429,23 @@ impl serde::ser::Serialize for AcceleratorType {
     }
 }
 
+impl std::fmt::Debug for AcceleratorType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcceleratorType");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("accelerator_configs", &self.accelerator_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [GetAcceleratorType][google.cloud.tpu.v2.Tpu.GetAcceleratorType].
 ///
 /// [google.cloud.tpu.v2.Tpu.GetAcceleratorType]: crate::client::Tpu::get_accelerator_type
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAcceleratorTypeRequest {
     /// Required. The resource name.
@@ -10032,11 +10574,22 @@ impl serde::ser::Serialize for GetAcceleratorTypeRequest {
     }
 }
 
+impl std::fmt::Debug for GetAcceleratorTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAcceleratorTypeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [ListAcceleratorTypes][google.cloud.tpu.v2.Tpu.ListAcceleratorTypes].
 ///
 /// [google.cloud.tpu.v2.Tpu.ListAcceleratorTypes]: crate::client::Tpu::list_accelerator_types
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAcceleratorTypesRequest {
     /// Required. The parent resource name.
@@ -10282,11 +10835,26 @@ impl serde::ser::Serialize for ListAcceleratorTypesRequest {
     }
 }
 
+impl std::fmt::Debug for ListAcceleratorTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAcceleratorTypesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [ListAcceleratorTypes][google.cloud.tpu.v2.Tpu.ListAcceleratorTypes].
 ///
 /// [google.cloud.tpu.v2.Tpu.ListAcceleratorTypes]: crate::client::Tpu::list_accelerator_types
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAcceleratorTypesResponse {
     /// The listed nodes.
@@ -10489,8 +11057,21 @@ impl serde::ser::Serialize for ListAcceleratorTypesResponse {
     }
 }
 
+impl std::fmt::Debug for ListAcceleratorTypesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAcceleratorTypesResponse");
+        debug_struct.field("accelerator_types", &self.accelerator_types);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A runtime version that a Node can be configured with.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeVersion {
     /// The resource name.
@@ -10643,10 +11224,22 @@ impl serde::ser::Serialize for RuntimeVersion {
     }
 }
 
+impl std::fmt::Debug for RuntimeVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RuntimeVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [GetRuntimeVersion][google.cloud.tpu.v2.Tpu.GetRuntimeVersion].
 ///
 /// [google.cloud.tpu.v2.Tpu.GetRuntimeVersion]: crate::client::Tpu::get_runtime_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRuntimeVersionRequest {
     /// Required. The resource name.
@@ -10775,11 +11368,22 @@ impl serde::ser::Serialize for GetRuntimeVersionRequest {
     }
 }
 
+impl std::fmt::Debug for GetRuntimeVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRuntimeVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [ListRuntimeVersions][google.cloud.tpu.v2.Tpu.ListRuntimeVersions].
 ///
 /// [google.cloud.tpu.v2.Tpu.ListRuntimeVersions]: crate::client::Tpu::list_runtime_versions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeVersionsRequest {
     /// Required. The parent resource name.
@@ -11025,11 +11629,26 @@ impl serde::ser::Serialize for ListRuntimeVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListRuntimeVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRuntimeVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [ListRuntimeVersions][google.cloud.tpu.v2.Tpu.ListRuntimeVersions].
 ///
 /// [google.cloud.tpu.v2.Tpu.ListRuntimeVersions]: crate::client::Tpu::list_runtime_versions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimeVersionsResponse {
     /// The listed nodes.
@@ -11232,10 +11851,23 @@ impl serde::ser::Serialize for ListRuntimeVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListRuntimeVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRuntimeVersionsResponse");
+        debug_struct.field("runtime_versions", &self.runtime_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata describing an [Operation][google.longrunning.Operation]
 ///
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The time the operation was created.
@@ -11536,8 +12168,25 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_detail", &self.status_detail);
+        debug_struct.field("cancel_requested", &self.cancel_requested);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Symptom instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Symptom {
     /// Timestamp when the Symptom is created.
@@ -11753,6 +12402,20 @@ impl serde::ser::Serialize for Symptom {
     }
 }
 
+impl std::fmt::Debug for Symptom {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Symptom");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("symptom_type", &self.symptom_type);
+        debug_struct.field("details", &self.details);
+        debug_struct.field("worker_id", &self.worker_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Symptom].
 pub mod symptom {
     #[allow(unused_imports)]
@@ -11924,7 +12587,7 @@ pub mod symptom {
 /// Request for [GetGuestAttributes][google.cloud.tpu.v2.Tpu.GetGuestAttributes].
 ///
 /// [google.cloud.tpu.v2.Tpu.GetGuestAttributes]: crate::client::Tpu::get_guest_attributes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGuestAttributesRequest {
     /// Required. The resource name.
@@ -12107,11 +12770,24 @@ impl serde::ser::Serialize for GetGuestAttributesRequest {
     }
 }
 
+impl std::fmt::Debug for GetGuestAttributesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGuestAttributesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("query_path", &self.query_path);
+        debug_struct.field("worker_ids", &self.worker_ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [GetGuestAttributes][google.cloud.tpu.v2.Tpu.GetGuestAttributes].
 ///
 /// [google.cloud.tpu.v2.Tpu.GetGuestAttributes]: crate::client::Tpu::get_guest_attributes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGuestAttributesResponse {
     /// The guest attributes for the TPU workers.
@@ -12248,8 +12924,19 @@ impl serde::ser::Serialize for GetGuestAttributesResponse {
     }
 }
 
+impl std::fmt::Debug for GetGuestAttributesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGuestAttributesResponse");
+        debug_struct.field("guest_attributes", &self.guest_attributes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A TPU accelerator configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcceleratorConfig {
     /// Required. Type of TPU.
@@ -12400,6 +13087,18 @@ impl serde::ser::Serialize for AcceleratorConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AcceleratorConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AcceleratorConfig");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("topology", &self.topology);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -12570,7 +13269,7 @@ pub mod accelerator_config {
 }
 
 /// A set of Shielded Instance options.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShieldedInstanceConfig {
     /// Defines whether the instance has Secure Boot enabled.
@@ -12697,5 +13396,16 @@ impl serde::ser::Serialize for ShieldedInstanceConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ShieldedInstanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ShieldedInstanceConfig");
+        debug_struct.field("enable_secure_boot", &self.enable_secure_boot);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

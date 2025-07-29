@@ -54,7 +54,7 @@ extern crate wkt;
     feature = "test-cases",
     feature = "transition-route-groups",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdvancedSettings {
     /// If present, incoming audio is exported by Dialogflow to the configured
@@ -368,6 +368,31 @@ impl serde::ser::Serialize for AdvancedSettings {
     }
 }
 
+#[cfg(any(
+    feature = "agents",
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
+impl std::fmt::Debug for AdvancedSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdvancedSettings");
+        debug_struct.field(
+            "audio_export_gcs_destination",
+            &self.audio_export_gcs_destination,
+        );
+        debug_struct.field("speech_settings", &self.speech_settings);
+        debug_struct.field("dtmf_settings", &self.dtmf_settings);
+        debug_struct.field("logging_settings", &self.logging_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AdvancedSettings].
 #[cfg(any(
     feature = "agents",
@@ -390,7 +415,7 @@ pub mod advanced_settings {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SpeechSettings {
         /// Sensitivity of the speech model that detects the end of speech.
@@ -691,6 +716,31 @@ pub mod advanced_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "agents",
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for SpeechSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SpeechSettings");
+            debug_struct.field("endpointer_sensitivity", &self.endpointer_sensitivity);
+            debug_struct.field("no_speech_timeout", &self.no_speech_timeout);
+            debug_struct.field(
+                "use_timeout_based_endpointing",
+                &self.use_timeout_based_endpointing,
+            );
+            debug_struct.field("models", &self.models);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Define behaviors for DTMF (dual tone multi frequency).
     #[cfg(any(
         feature = "agents",
@@ -700,7 +750,7 @@ pub mod advanced_settings {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DtmfSettings {
         /// If true, incoming audio is processed for DTMF (dual tone multi frequency)
@@ -1033,6 +1083,35 @@ pub mod advanced_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "agents",
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for DtmfSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DtmfSettings");
+            debug_struct.field("enabled", &self.enabled);
+            debug_struct.field("max_digits", &self.max_digits);
+            debug_struct.field("finish_digit", &self.finish_digit);
+            debug_struct.field(
+                "interdigit_timeout_duration",
+                &self.interdigit_timeout_duration,
+            );
+            debug_struct.field(
+                "endpointing_timeout_duration",
+                &self.endpointing_timeout_duration,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Define behaviors on logging.
     #[cfg(any(
         feature = "agents",
@@ -1042,7 +1121,7 @@ pub mod advanced_settings {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LoggingSettings {
         /// Enables Google Cloud Logging.
@@ -1282,11 +1361,41 @@ pub mod advanced_settings {
             state.end()
         }
     }
+
+    #[cfg(any(
+        feature = "agents",
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for LoggingSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LoggingSettings");
+            debug_struct.field(
+                "enable_stackdriver_logging",
+                &self.enable_stackdriver_logging,
+            );
+            debug_struct.field(
+                "enable_interaction_logging",
+                &self.enable_interaction_logging,
+            );
+            debug_struct.field(
+                "enable_consent_based_redaction",
+                &self.enable_consent_based_redaction,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Settings related to speech recognition.
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechToTextSettings {
     /// Whether to use speech adaptation for speech recognition.
@@ -1422,6 +1531,18 @@ impl serde::ser::Serialize for SpeechToTextSettings {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for SpeechToTextSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeechToTextSettings");
+        debug_struct.field("enable_speech_adaptation", &self.enable_speech_adaptation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Agents are best described as Natural Language Understanding (NLU) modules
 /// that transform user requests into actionable data. You can include agents
 /// in your app, product, or service to determine user intent and respond to the
@@ -1443,7 +1564,7 @@ impl serde::ser::Serialize for SpeechToTextSettings {
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroup]: crate::model::TransitionRouteGroup
 /// [google.cloud.dialogflow.cx.v3.Webhook]: crate::model::Webhook
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Agent {
     /// The unique identifier of the agent.
@@ -2325,6 +2446,49 @@ impl serde::ser::Serialize for Agent {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for Agent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Agent");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("default_language_code", &self.default_language_code);
+        debug_struct.field("supported_language_codes", &self.supported_language_codes);
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("avatar_uri", &self.avatar_uri);
+        debug_struct.field("speech_to_text_settings", &self.speech_to_text_settings);
+        debug_struct.field("start_flow", &self.start_flow);
+        debug_struct.field("security_settings", &self.security_settings);
+        debug_struct.field(
+            "enable_stackdriver_logging",
+            &self.enable_stackdriver_logging,
+        );
+        debug_struct.field("enable_spell_correction", &self.enable_spell_correction);
+        debug_struct.field(
+            "enable_multi_language_training",
+            &self.enable_multi_language_training,
+        );
+        debug_struct.field("locked", &self.locked);
+        debug_struct.field("advanced_settings", &self.advanced_settings);
+        debug_struct.field("git_integration_settings", &self.git_integration_settings);
+        debug_struct.field("text_to_speech_settings", &self.text_to_speech_settings);
+        debug_struct.field("gen_app_builder_settings", &self.gen_app_builder_settings);
+        debug_struct.field("answer_feedback_settings", &self.answer_feedback_settings);
+        debug_struct.field("personalization_settings", &self.personalization_settings);
+        debug_struct.field(
+            "client_certificate_settings",
+            &self.client_certificate_settings,
+        );
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Agent].
 #[cfg(feature = "agents")]
 pub mod agent {
@@ -2333,7 +2497,7 @@ pub mod agent {
 
     /// Settings for connecting to Git repository for an agent.
     #[cfg(feature = "agents")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GitIntegrationSettings {
         /// The git settings to specific systems.
@@ -2526,6 +2690,18 @@ pub mod agent {
         }
     }
 
+    #[cfg(feature = "agents")]
+    impl std::fmt::Debug for GitIntegrationSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GitIntegrationSettings");
+            debug_struct.field("git_settings", &self.git_settings);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [GitIntegrationSettings].
     #[cfg(feature = "agents")]
     pub mod git_integration_settings {
@@ -2534,7 +2710,7 @@ pub mod agent {
 
         /// Settings of integration with GitHub.
         #[cfg(feature = "agents")]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GithubSettings {
             /// The unique repository display name for the GitHub repository.
@@ -2799,6 +2975,22 @@ pub mod agent {
             }
         }
 
+        #[cfg(feature = "agents")]
+        impl std::fmt::Debug for GithubSettings {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("GithubSettings");
+                debug_struct.field("display_name", &self.display_name);
+                debug_struct.field("repository_uri", &self.repository_uri);
+                debug_struct.field("tracking_branch", &self.tracking_branch);
+                debug_struct.field("access_token", &self.access_token);
+                debug_struct.field("branches", &self.branches);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The git settings to specific systems.
         #[cfg(feature = "agents")]
         #[derive(Clone, Debug, PartialEq)]
@@ -2813,7 +3005,7 @@ pub mod agent {
 
     /// Settings for Gen App Builder.
     #[cfg(feature = "agents")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GenAppBuilderSettings {
         /// Required. The full name of the Gen App Builder engine related to this
@@ -2951,9 +3143,21 @@ pub mod agent {
         }
     }
 
+    #[cfg(feature = "agents")]
+    impl std::fmt::Debug for GenAppBuilderSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GenAppBuilderSettings");
+            debug_struct.field("engine", &self.engine);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Settings for answer feedback collection.
     #[cfg(feature = "agents")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnswerFeedbackSettings {
         /// Optional. If enabled, end users will be able to provide
@@ -3097,9 +3301,21 @@ pub mod agent {
         }
     }
 
+    #[cfg(feature = "agents")]
+    impl std::fmt::Debug for AnswerFeedbackSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnswerFeedbackSettings");
+            debug_struct.field("enable_answer_feedback", &self.enable_answer_feedback);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Settings for end user personalization.
     #[cfg(feature = "agents")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PersonalizationSettings {
         /// Optional. Default end user metadata, used when processing DetectIntent
@@ -3264,9 +3480,21 @@ pub mod agent {
         }
     }
 
+    #[cfg(feature = "agents")]
+    impl std::fmt::Debug for PersonalizationSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PersonalizationSettings");
+            debug_struct.field("default_end_user_metadata", &self.default_end_user_metadata);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Settings for custom client certificates.
     #[cfg(feature = "agents")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClientCertificateSettings {
         /// Required. The ssl certificate encoded in PEM format. This string must
@@ -3460,6 +3688,20 @@ pub mod agent {
             state.end()
         }
     }
+
+    #[cfg(feature = "agents")]
+    impl std::fmt::Debug for ClientCertificateSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ClientCertificateSettings");
+            debug_struct.field("ssl_certificate", &self.ssl_certificate);
+            debug_struct.field("private_key", &self.private_key);
+            debug_struct.field("passphrase", &self.passphrase);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The request message for
@@ -3467,7 +3709,7 @@ pub mod agent {
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.ListAgents]: crate::client::Agents::list_agents
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAgentsRequest {
     /// Required. The location to list all agents for.
@@ -3670,12 +3912,26 @@ impl serde::ser::Serialize for ListAgentsRequest {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for ListAgentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAgentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Agents.ListAgents][google.cloud.dialogflow.cx.v3.Agents.ListAgents].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.ListAgents]: crate::client::Agents::list_agents
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAgentsResponse {
     /// The list of agents. There will be a maximum number of items returned based
@@ -3853,12 +4109,25 @@ impl serde::ser::Serialize for ListAgentsResponse {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for ListAgentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAgentsResponse");
+        debug_struct.field("agents", &self.agents);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Agents.GetAgent][google.cloud.dialogflow.cx.v3.Agents.GetAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.GetAgent]: crate::client::Agents::get_agent
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAgentRequest {
     /// Required. The name of the agent.
@@ -3992,12 +4261,24 @@ impl serde::ser::Serialize for GetAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for GetAgentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAgentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Agents.CreateAgent][google.cloud.dialogflow.cx.v3.Agents.CreateAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.CreateAgent]: crate::client::Agents::create_agent
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAgentRequest {
     /// Required. The location to create a agent for.
@@ -4166,12 +4447,25 @@ impl serde::ser::Serialize for CreateAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for CreateAgentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAgentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("agent", &self.agent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Agents.UpdateAgent][google.cloud.dialogflow.cx.v3.Agents.UpdateAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.UpdateAgent]: crate::client::Agents::update_agent
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAgentRequest {
     /// Required. The agent to update.
@@ -4352,12 +4646,25 @@ impl serde::ser::Serialize for UpdateAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for UpdateAgentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAgentRequest");
+        debug_struct.field("agent", &self.agent);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Agents.DeleteAgent][google.cloud.dialogflow.cx.v3.Agents.DeleteAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.DeleteAgent]: crate::client::Agents::delete_agent
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAgentRequest {
     /// Required. The name of the agent to delete.
@@ -4491,12 +4798,24 @@ impl serde::ser::Serialize for DeleteAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for DeleteAgentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAgentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Agents.ExportAgent][google.cloud.dialogflow.cx.v3.Agents.ExportAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.ExportAgent]: crate::client::Agents::export_agent
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportAgentRequest {
     /// Required. The name of the agent to export.
@@ -4795,6 +5114,26 @@ impl serde::ser::Serialize for ExportAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for ExportAgentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportAgentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("agent_uri", &self.agent_uri);
+        debug_struct.field("data_format", &self.data_format);
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("git_destination", &self.git_destination);
+        debug_struct.field(
+            "include_bigquery_export_settings",
+            &self.include_bigquery_export_settings,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportAgentRequest].
 #[cfg(feature = "agents")]
 pub mod export_agent_request {
@@ -4803,7 +5142,7 @@ pub mod export_agent_request {
 
     /// Settings for exporting to a git branch.
     #[cfg(feature = "agents")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GitDestination {
         /// Tracking branch for the git push.
@@ -4971,6 +5310,19 @@ pub mod export_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
+    impl std::fmt::Debug for GitDestination {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GitDestination");
+            debug_struct.field("tracking_branch", &self.tracking_branch);
+            debug_struct.field("commit_message", &self.commit_message);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Data format of the exported agent.
     ///
     /// # Working with unknown values
@@ -5118,7 +5470,7 @@ pub mod export_agent_request {
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.ExportAgent]: crate::client::Agents::export_agent
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportAgentResponse {
     /// The exported agent.
@@ -5408,6 +5760,18 @@ impl serde::ser::Serialize for ExportAgentResponse {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for ExportAgentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportAgentResponse");
+        debug_struct.field("agent", &self.agent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportAgentResponse].
 #[cfg(feature = "agents")]
 pub mod export_agent_response {
@@ -5445,7 +5809,7 @@ pub mod export_agent_response {
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.RestoreAgent]: crate::client::Agents::restore_agent
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreAgentRequest {
     /// Required. The name of the agent to restore into.
@@ -5803,6 +6167,20 @@ impl serde::ser::Serialize for RestoreAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for RestoreAgentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreAgentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("restore_option", &self.restore_option);
+        debug_struct.field("agent", &self.agent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RestoreAgentRequest].
 #[cfg(feature = "agents")]
 pub mod restore_agent_request {
@@ -5811,7 +6189,7 @@ pub mod restore_agent_request {
 
     /// Settings for restoring from a git branch
     #[cfg(feature = "agents")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GitSource {
         /// tracking branch for the git pull
@@ -5948,6 +6326,18 @@ pub mod restore_agent_request {
                 }
             }
             state.end()
+        }
+    }
+
+    #[cfg(feature = "agents")]
+    impl std::fmt::Debug for GitSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GitSource");
+            debug_struct.field("tracking_branch", &self.tracking_branch);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -6122,7 +6512,7 @@ pub mod restore_agent_request {
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.ValidateAgent]: crate::client::Agents::validate_agent
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateAgentRequest {
     /// Required. The agent to validate.
@@ -6281,12 +6671,25 @@ impl serde::ser::Serialize for ValidateAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for ValidateAgentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValidateAgentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Agents.GetAgentValidationResult][google.cloud.dialogflow.cx.v3.Agents.GetAgentValidationResult].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.GetAgentValidationResult]: crate::client::Agents::get_agent_validation_result
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAgentValidationResultRequest {
     /// Required. The agent name.
@@ -6446,12 +6849,25 @@ impl serde::ser::Serialize for GetAgentValidationResultRequest {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for GetAgentValidationResultRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAgentValidationResultRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Agents.GetAgentValidationResult][google.cloud.dialogflow.cx.v3.Agents.GetAgentValidationResult].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.GetAgentValidationResult]: crate::client::Agents::get_agent_validation_result
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AgentValidationResult {
     /// The unique identifier of the agent validation result.
@@ -6618,13 +7034,26 @@ impl serde::ser::Serialize for AgentValidationResult {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for AgentValidationResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentValidationResult");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("flow_validation_results", &self.flow_validation_results);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [GetGenerativeSettings][google.cloud.dialogflow.cx.v3.Agents.GetGenerativeSettings]
 /// RPC.
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.GetGenerativeSettings]: crate::client::Agents::get_generative_settings
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGenerativeSettingsRequest {
     /// Required. Format:
@@ -6783,13 +7212,26 @@ impl serde::ser::Serialize for GetGenerativeSettingsRequest {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for GetGenerativeSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGenerativeSettingsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for
 /// [UpdateGenerativeSettings][google.cloud.dialogflow.cx.v3.Agents.UpdateGenerativeSettings]
 /// RPC.
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.UpdateGenerativeSettings]: crate::client::Agents::update_generative_settings
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGenerativeSettingsRequest {
     /// Required. Generative settings to update.
@@ -6971,9 +7413,22 @@ impl serde::ser::Serialize for UpdateGenerativeSettingsRequest {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for UpdateGenerativeSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGenerativeSettingsRequest");
+        debug_struct.field("generative_settings", &self.generative_settings);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information for a word recognized by the speech recognizer.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechWordInfo {
     /// The word this info is for.
@@ -7230,6 +7685,21 @@ impl serde::ser::Serialize for SpeechWordInfo {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for SpeechWordInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeechWordInfo");
+        debug_struct.field("word", &self.word);
+        debug_struct.field("start_offset", &self.start_offset);
+        debug_struct.field("end_offset", &self.end_offset);
+        debug_struct.field("confidence", &self.confidence);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration of the barge-in behavior. Barge-in instructs the API to return
 /// a detected utterance at a proper time while the client is playing back the
 /// response audio from a previous request. When the client sees the
@@ -7256,7 +7726,7 @@ impl serde::ser::Serialize for SpeechWordInfo {
 /// No-speech event is a response with END_OF_UTTERANCE without any transcript
 /// following up.
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BargeInConfig {
     /// Duration that is not eligible for barge-in at the beginning of the input
@@ -7438,9 +7908,22 @@ impl serde::ser::Serialize for BargeInConfig {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for BargeInConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BargeInConfig");
+        debug_struct.field("no_barge_in_duration", &self.no_barge_in_duration);
+        debug_struct.field("total_duration", &self.total_duration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Instructs the speech recognizer on how to process the audio content.
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InputAudioConfig {
     /// Required. Audio encoding of the audio content to process.
@@ -7853,9 +8336,32 @@ impl serde::ser::Serialize for InputAudioConfig {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for InputAudioConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InputAudioConfig");
+        debug_struct.field("audio_encoding", &self.audio_encoding);
+        debug_struct.field("sample_rate_hertz", &self.sample_rate_hertz);
+        debug_struct.field("enable_word_info", &self.enable_word_info);
+        debug_struct.field("phrase_hints", &self.phrase_hints);
+        debug_struct.field("model", &self.model);
+        debug_struct.field("model_variant", &self.model_variant);
+        debug_struct.field("single_utterance", &self.single_utterance);
+        debug_struct.field("barge_in_config", &self.barge_in_config);
+        debug_struct.field(
+            "opt_out_conformer_model_migration",
+            &self.opt_out_conformer_model_migration,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Description of which voice to use for speech synthesis.
 #[cfg(any(feature = "agents", feature = "sessions",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VoiceSelectionParams {
     /// Optional. The name of the voice. If not set, the service will choose a
@@ -8030,9 +8536,22 @@ impl serde::ser::Serialize for VoiceSelectionParams {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
+impl std::fmt::Debug for VoiceSelectionParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VoiceSelectionParams");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ssml_gender", &self.ssml_gender);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration of how speech should be synthesized.
 #[cfg(any(feature = "agents", feature = "sessions",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeSpeechConfig {
     /// Optional. Speaking rate/speed, in the range [0.25, 4.0]. 1.0 is the normal
@@ -8348,9 +8867,25 @@ impl serde::ser::Serialize for SynthesizeSpeechConfig {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
+impl std::fmt::Debug for SynthesizeSpeechConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SynthesizeSpeechConfig");
+        debug_struct.field("speaking_rate", &self.speaking_rate);
+        debug_struct.field("pitch", &self.pitch);
+        debug_struct.field("volume_gain_db", &self.volume_gain_db);
+        debug_struct.field("effects_profile_id", &self.effects_profile_id);
+        debug_struct.field("voice", &self.voice);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Instructs the speech synthesizer how to generate the output audio content.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputAudioConfig {
     /// Required. Audio encoding of the synthesized audio content.
@@ -8576,9 +9111,23 @@ impl serde::ser::Serialize for OutputAudioConfig {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for OutputAudioConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputAudioConfig");
+        debug_struct.field("audio_encoding", &self.audio_encoding);
+        debug_struct.field("sample_rate_hertz", &self.sample_rate_hertz);
+        debug_struct.field("synthesize_speech_config", &self.synthesize_speech_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings related to speech synthesizing.
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextToSpeechSettings {
     /// Configuration of how speech should be synthesized, mapping from language
@@ -8749,12 +9298,24 @@ impl serde::ser::Serialize for TextToSpeechSettings {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for TextToSpeechSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextToSpeechSettings");
+        debug_struct.field("synthesize_speech_configs", &self.synthesize_speech_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Changelogs.ListChangelogs][google.cloud.dialogflow.cx.v3.Changelogs.ListChangelogs].
 ///
 /// [google.cloud.dialogflow.cx.v3.Changelogs.ListChangelogs]: crate::client::Changelogs::list_changelogs
 #[cfg(feature = "changelogs")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListChangelogsRequest {
     /// Required. The agent containing the changelogs.
@@ -9001,12 +9562,27 @@ impl serde::ser::Serialize for ListChangelogsRequest {
     }
 }
 
+#[cfg(feature = "changelogs")]
+impl std::fmt::Debug for ListChangelogsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListChangelogsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Changelogs.ListChangelogs][google.cloud.dialogflow.cx.v3.Changelogs.ListChangelogs].
 ///
 /// [google.cloud.dialogflow.cx.v3.Changelogs.ListChangelogs]: crate::client::Changelogs::list_changelogs
 #[cfg(feature = "changelogs")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListChangelogsResponse {
     /// The list of changelogs. There will be a maximum number of items returned
@@ -9185,12 +9761,25 @@ impl serde::ser::Serialize for ListChangelogsResponse {
     }
 }
 
+#[cfg(feature = "changelogs")]
+impl std::fmt::Debug for ListChangelogsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListChangelogsResponse");
+        debug_struct.field("changelogs", &self.changelogs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Changelogs.GetChangelog][google.cloud.dialogflow.cx.v3.Changelogs.GetChangelog].
 ///
 /// [google.cloud.dialogflow.cx.v3.Changelogs.GetChangelog]: crate::client::Changelogs::get_changelog
 #[cfg(feature = "changelogs")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetChangelogRequest {
     /// Required. The name of the changelog to get.
@@ -9325,9 +9914,21 @@ impl serde::ser::Serialize for GetChangelogRequest {
     }
 }
 
+#[cfg(feature = "changelogs")]
+impl std::fmt::Debug for GetChangelogRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetChangelogRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Changelogs represents a change made to a given agent.
 #[cfg(feature = "changelogs")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Changelog {
     /// The unique identifier of the changelog.
@@ -9645,6 +10246,25 @@ impl serde::ser::Serialize for Changelog {
     }
 }
 
+#[cfg(feature = "changelogs")]
+impl std::fmt::Debug for Changelog {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Changelog");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("user_email", &self.user_email);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A data store connection. It represents a data store in Discovery Engine and
 /// the type of the contents it contains.
 #[cfg(any(
@@ -9653,7 +10273,7 @@ impl serde::ser::Serialize for Changelog {
     feature = "sessions",
     feature = "test-cases",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataStoreConnection {
     /// The type of the connected data store.
@@ -9870,12 +10490,31 @@ impl serde::ser::Serialize for DataStoreConnection {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl std::fmt::Debug for DataStoreConnection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataStoreConnection");
+        debug_struct.field("data_store_type", &self.data_store_type);
+        debug_struct.field("data_store", &self.data_store);
+        debug_struct.field("document_processing_mode", &self.document_processing_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Data store connection feature output signals.
 /// Might be only partially field if processing stop before the final answer.
 /// Reasons for this can be, but are not limited to: empty UCS search results,
 /// positive RAI check outcome, grounding failure, ...
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataStoreConnectionSignals {
     /// Optional. Diagnostic info related to the rewriter model call.
@@ -10314,6 +10953,32 @@ impl serde::ser::Serialize for DataStoreConnectionSignals {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for DataStoreConnectionSignals {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataStoreConnectionSignals");
+        debug_struct.field(
+            "rewriter_model_call_signals",
+            &self.rewriter_model_call_signals,
+        );
+        debug_struct.field("rewritten_query", &self.rewritten_query);
+        debug_struct.field("search_snippets", &self.search_snippets);
+        debug_struct.field(
+            "answer_generation_model_call_signals",
+            &self.answer_generation_model_call_signals,
+        );
+        debug_struct.field("answer", &self.answer);
+        debug_struct.field("answer_parts", &self.answer_parts);
+        debug_struct.field("cited_snippets", &self.cited_snippets);
+        debug_struct.field("grounding_signals", &self.grounding_signals);
+        debug_struct.field("safety_signals", &self.safety_signals);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataStoreConnectionSignals].
 #[cfg(feature = "sessions")]
 pub mod data_store_connection_signals {
@@ -10322,7 +10987,7 @@ pub mod data_store_connection_signals {
 
     /// Diagnostic info related to the rewriter model call.
     #[cfg(feature = "sessions")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RewriterModelCallSignals {
         /// Prompt as sent to the model.
@@ -10515,9 +11180,23 @@ pub mod data_store_connection_signals {
         }
     }
 
+    #[cfg(feature = "sessions")]
+    impl std::fmt::Debug for RewriterModelCallSignals {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RewriterModelCallSignals");
+            debug_struct.field("rendered_prompt", &self.rendered_prompt);
+            debug_struct.field("model_output", &self.model_output);
+            debug_struct.field("model", &self.model);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Search snippet details.
     #[cfg(feature = "sessions")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SearchSnippet {
         /// Title of the enclosing document.
@@ -10709,9 +11388,23 @@ pub mod data_store_connection_signals {
         }
     }
 
+    #[cfg(feature = "sessions")]
+    impl std::fmt::Debug for SearchSnippet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SearchSnippet");
+            debug_struct.field("document_title", &self.document_title);
+            debug_struct.field("document_uri", &self.document_uri);
+            debug_struct.field("text", &self.text);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Diagnostic info related to the answer generation model call.
     #[cfg(feature = "sessions")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnswerGenerationModelCallSignals {
         /// Prompt as sent to the model.
@@ -10904,9 +11597,23 @@ pub mod data_store_connection_signals {
         }
     }
 
+    #[cfg(feature = "sessions")]
+    impl std::fmt::Debug for AnswerGenerationModelCallSignals {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnswerGenerationModelCallSignals");
+            debug_struct.field("rendered_prompt", &self.rendered_prompt);
+            debug_struct.field("model_output", &self.model_output);
+            debug_struct.field("model", &self.model);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Answer part with citation.
     #[cfg(feature = "sessions")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnswerPart {
         /// Substring of the answer.
@@ -11098,9 +11805,22 @@ pub mod data_store_connection_signals {
         }
     }
 
+    #[cfg(feature = "sessions")]
+    impl std::fmt::Debug for AnswerPart {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnswerPart");
+            debug_struct.field("text", &self.text);
+            debug_struct.field("supporting_indices", &self.supporting_indices);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Snippet cited by the answer generation model.
     #[cfg(feature = "sessions")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CitedSnippet {
         /// Details of the snippet.
@@ -11294,9 +12014,22 @@ pub mod data_store_connection_signals {
         }
     }
 
+    #[cfg(feature = "sessions")]
+    impl std::fmt::Debug for CitedSnippet {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CitedSnippet");
+            debug_struct.field("search_snippet", &self.search_snippet);
+            debug_struct.field("snippet_index", &self.snippet_index);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Grounding signals.
     #[cfg(feature = "sessions")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GroundingSignals {
         /// Represents the decision of the grounding check.
@@ -11451,6 +12184,19 @@ pub mod data_store_connection_signals {
                 }
             }
             state.end()
+        }
+    }
+
+    #[cfg(feature = "sessions")]
+    impl std::fmt::Debug for GroundingSignals {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GroundingSignals");
+            debug_struct.field("decision", &self.decision);
+            debug_struct.field("score", &self.score);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -11774,7 +12520,7 @@ pub mod data_store_connection_signals {
 
     /// Safety check results.
     #[cfg(feature = "sessions")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SafetySignals {
         /// Safety decision.
@@ -11971,6 +12717,20 @@ pub mod data_store_connection_signals {
                 }
             }
             state.end()
+        }
+    }
+
+    #[cfg(feature = "sessions")]
+    impl std::fmt::Debug for SafetySignals {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SafetySignals");
+            debug_struct.field("decision", &self.decision);
+            debug_struct.field("banned_phrase_match", &self.banned_phrase_match);
+            debug_struct.field("matched_banned_phrase", &self.matched_banned_phrase);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -12288,7 +13048,7 @@ pub mod data_store_connection_signals {
 /// pre-deployment steps, e.g. running validation test cases, experiment
 /// auto-rollout, etc.
 #[cfg(feature = "deployments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Deployment {
     /// The name of the deployment.
@@ -12585,6 +13345,23 @@ impl serde::ser::Serialize for Deployment {
     }
 }
 
+#[cfg(feature = "deployments")]
+impl std::fmt::Debug for Deployment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Deployment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("flow_version", &self.flow_version);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("result", &self.result);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Deployment].
 #[cfg(feature = "deployments")]
 pub mod deployment {
@@ -12593,7 +13370,7 @@ pub mod deployment {
 
     /// Result of the deployment.
     #[cfg(feature = "deployments")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Result {
         /// Results of test cases running before the deployment.
@@ -12765,6 +13542,19 @@ pub mod deployment {
         }
     }
 
+    #[cfg(feature = "deployments")]
+    impl std::fmt::Debug for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Result");
+            debug_struct.field("deployment_test_results", &self.deployment_test_results);
+            debug_struct.field("experiment", &self.experiment);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The state of the deployment.
     ///
     /// # Working with unknown values
@@ -12919,7 +13709,7 @@ pub mod deployment {
 ///
 /// [google.cloud.dialogflow.cx.v3.Deployments.ListDeployments]: crate::client::Deployments::list_deployments
 #[cfg(feature = "deployments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeploymentsRequest {
     /// Required. The [Environment][google.cloud.dialogflow.cx.v3.Environment] to
@@ -13125,12 +13915,26 @@ impl serde::ser::Serialize for ListDeploymentsRequest {
     }
 }
 
+#[cfg(feature = "deployments")]
+impl std::fmt::Debug for ListDeploymentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeploymentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Deployments.ListDeployments][google.cloud.dialogflow.cx.v3.Deployments.ListDeployments].
 ///
 /// [google.cloud.dialogflow.cx.v3.Deployments.ListDeployments]: crate::client::Deployments::list_deployments
 #[cfg(feature = "deployments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeploymentsResponse {
     /// The list of deployments. There will be a maximum number of items
@@ -13310,12 +14114,25 @@ impl serde::ser::Serialize for ListDeploymentsResponse {
     }
 }
 
+#[cfg(feature = "deployments")]
+impl std::fmt::Debug for ListDeploymentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeploymentsResponse");
+        debug_struct.field("deployments", &self.deployments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Deployments.GetDeployment][google.cloud.dialogflow.cx.v3.Deployments.GetDeployment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Deployments.GetDeployment]: crate::client::Deployments::get_deployment
 #[cfg(feature = "deployments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDeploymentRequest {
     /// Required. The name of the
@@ -13452,6 +14269,18 @@ impl serde::ser::Serialize for GetDeploymentRequest {
     }
 }
 
+#[cfg(feature = "deployments")]
+impl std::fmt::Debug for GetDeploymentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDeploymentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Entities are extracted from user input and represent parameters that are
 /// meaningful to your application. For example, a date range, a proper name
 /// such as a geographic location or landmark, and so on. Entities represent
@@ -13489,7 +14318,7 @@ impl serde::ser::Serialize for GetDeploymentRequest {
     feature = "session-entity-types",
     feature = "sessions",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityType {
     /// The unique identifier of the entity type.
@@ -13848,6 +14677,29 @@ impl serde::ser::Serialize for EntityType {
     }
 }
 
+#[cfg(any(
+    feature = "entity-types",
+    feature = "session-entity-types",
+    feature = "sessions",
+))]
+impl std::fmt::Debug for EntityType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityType");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("auto_expansion_mode", &self.auto_expansion_mode);
+        debug_struct.field("entities", &self.entities);
+        debug_struct.field("excluded_phrases", &self.excluded_phrases);
+        debug_struct.field("enable_fuzzy_extraction", &self.enable_fuzzy_extraction);
+        debug_struct.field("redact", &self.redact);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EntityType].
 #[cfg(any(
     feature = "entity-types",
@@ -13864,7 +14716,7 @@ pub mod entity_type {
         feature = "session-entity-types",
         feature = "sessions",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Entity {
         /// Required. The primary value associated with this entity entry.
@@ -14060,13 +14912,30 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
+    impl std::fmt::Debug for Entity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Entity");
+            debug_struct.field("value", &self.value);
+            debug_struct.field("synonyms", &self.synonyms);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// An excluded entity phrase that should not be matched.
     #[cfg(any(
         feature = "entity-types",
         feature = "session-entity-types",
         feature = "sessions",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExcludedPhrase {
         /// Required. The word or phrase to be excluded.
@@ -14215,6 +15084,22 @@ pub mod entity_type {
                 }
             }
             state.end()
+        }
+    }
+
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
+    impl std::fmt::Debug for ExcludedPhrase {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ExcludedPhrase");
+            debug_struct.field("value", &self.value);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -14585,7 +15470,7 @@ pub mod entity_type {
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ExportEntityTypes]: crate::client::EntityTypes::export_entity_types
 #[cfg(feature = "entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportEntityTypesRequest {
     /// Required. The name of the parent agent to export entity types.
@@ -14942,6 +15827,22 @@ impl serde::ser::Serialize for ExportEntityTypesRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
+impl std::fmt::Debug for ExportEntityTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportEntityTypesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("entity_types", &self.entity_types);
+        debug_struct.field("data_format", &self.data_format);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportEntityTypesRequest].
 #[cfg(feature = "entity-types")]
 pub mod export_entity_types_request {
@@ -15115,7 +16016,7 @@ pub mod export_entity_types_request {
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ExportEntityTypes]: crate::client::EntityTypes::export_entity_types
 #[cfg(feature = "entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportEntityTypesResponse {
     /// Exported entity types can be either in cloud storage or local download.
@@ -15356,6 +16257,18 @@ impl serde::ser::Serialize for ExportEntityTypesResponse {
     }
 }
 
+#[cfg(feature = "entity-types")]
+impl std::fmt::Debug for ExportEntityTypesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportEntityTypesResponse");
+        debug_struct.field("exported_entity_types", &self.exported_entity_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportEntityTypesResponse].
 #[cfg(feature = "entity-types")]
 pub mod export_entity_types_response {
@@ -15388,7 +16301,7 @@ pub mod export_entity_types_response {
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ExportEntityTypes]: crate::client::EntityTypes::export_entity_types
 #[cfg(feature = "entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportEntityTypesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15494,12 +16407,23 @@ impl serde::ser::Serialize for ExportEntityTypesMetadata {
     }
 }
 
+#[cfg(feature = "entity-types")]
+impl std::fmt::Debug for ExportEntityTypesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportEntityTypesMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [EntityTypes.ImportEntityTypes][google.cloud.dialogflow.cx.v3.EntityTypes.ImportEntityTypes].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ImportEntityTypes]: crate::client::EntityTypes::import_entity_types
 #[cfg(feature = "entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportEntityTypesRequest {
     /// Required. The agent to import the entity types into.
@@ -15828,6 +16752,21 @@ impl serde::ser::Serialize for ImportEntityTypesRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
+impl std::fmt::Debug for ImportEntityTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportEntityTypesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("merge_option", &self.merge_option);
+        debug_struct.field("target_entity_type", &self.target_entity_type);
+        debug_struct.field("entity_types", &self.entity_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportEntityTypesRequest].
 #[cfg(feature = "entity-types")]
 pub mod import_entity_types_request {
@@ -16026,7 +16965,7 @@ pub mod import_entity_types_request {
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ImportEntityTypes]: crate::client::EntityTypes::import_entity_types
 #[cfg(feature = "entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportEntityTypesResponse {
     /// The unique identifier of the imported entity types.
@@ -16205,6 +17144,19 @@ impl serde::ser::Serialize for ImportEntityTypesResponse {
     }
 }
 
+#[cfg(feature = "entity-types")]
+impl std::fmt::Debug for ImportEntityTypesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportEntityTypesResponse");
+        debug_struct.field("entity_types", &self.entity_types);
+        debug_struct.field("conflicting_resources", &self.conflicting_resources);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportEntityTypesResponse].
 #[cfg(feature = "entity-types")]
 pub mod import_entity_types_response {
@@ -16215,7 +17167,7 @@ pub mod import_entity_types_response {
     /// [REPORT_CONFLICT][ImportEntityTypesResponse.REPORT_CONFLICT] is set in the
     /// request and there are conflicts in the display names.
     #[cfg(feature = "entity-types")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConflictingResources {
         /// Display names of conflicting entity types.
@@ -16386,6 +17338,19 @@ pub mod import_entity_types_response {
             state.end()
         }
     }
+
+    #[cfg(feature = "entity-types")]
+    impl std::fmt::Debug for ConflictingResources {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConflictingResources");
+            debug_struct.field("entity_type_display_names", &self.entity_type_display_names);
+            debug_struct.field("entity_display_names", &self.entity_display_names);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Metadata returned for the
@@ -16394,7 +17359,7 @@ pub mod import_entity_types_response {
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ImportEntityTypes]: crate::client::EntityTypes::import_entity_types
 #[cfg(feature = "entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportEntityTypesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16500,12 +17465,23 @@ impl serde::ser::Serialize for ImportEntityTypesMetadata {
     }
 }
 
+#[cfg(feature = "entity-types")]
+impl std::fmt::Debug for ImportEntityTypesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportEntityTypesMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [EntityTypes.ListEntityTypes][google.cloud.dialogflow.cx.v3.EntityTypes.ListEntityTypes].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ListEntityTypes]: crate::client::EntityTypes::list_entity_types
 #[cfg(feature = "entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEntityTypesRequest {
     /// Required. The agent to list all entity types for.
@@ -16744,12 +17720,27 @@ impl serde::ser::Serialize for ListEntityTypesRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
+impl std::fmt::Debug for ListEntityTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEntityTypesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [EntityTypes.ListEntityTypes][google.cloud.dialogflow.cx.v3.EntityTypes.ListEntityTypes].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ListEntityTypes]: crate::client::EntityTypes::list_entity_types
 #[cfg(feature = "entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEntityTypesResponse {
     /// The list of entity types. There will be a maximum number of items returned
@@ -16928,12 +17919,25 @@ impl serde::ser::Serialize for ListEntityTypesResponse {
     }
 }
 
+#[cfg(feature = "entity-types")]
+impl std::fmt::Debug for ListEntityTypesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEntityTypesResponse");
+        debug_struct.field("entity_types", &self.entity_types);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [EntityTypes.GetEntityType][google.cloud.dialogflow.cx.v3.EntityTypes.GetEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.GetEntityType]: crate::client::EntityTypes::get_entity_type
 #[cfg(feature = "entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEntityTypeRequest {
     /// Required. The name of the entity type.
@@ -17104,12 +18108,25 @@ impl serde::ser::Serialize for GetEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
+impl std::fmt::Debug for GetEntityTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEntityTypeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [EntityTypes.CreateEntityType][google.cloud.dialogflow.cx.v3.EntityTypes.CreateEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.CreateEntityType]: crate::client::EntityTypes::create_entity_type
 #[cfg(feature = "entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEntityTypeRequest {
     /// Required. The agent to create a entity type for.
@@ -17314,12 +18331,26 @@ impl serde::ser::Serialize for CreateEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
+impl std::fmt::Debug for CreateEntityTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateEntityTypeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("entity_type", &self.entity_type);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [EntityTypes.UpdateEntityType][google.cloud.dialogflow.cx.v3.EntityTypes.UpdateEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.UpdateEntityType]: crate::client::EntityTypes::update_entity_type
 #[cfg(feature = "entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEntityTypeRequest {
     /// Required. The entity type to update.
@@ -17535,12 +18566,26 @@ impl serde::ser::Serialize for UpdateEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
+impl std::fmt::Debug for UpdateEntityTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateEntityTypeRequest");
+        debug_struct.field("entity_type", &self.entity_type);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [EntityTypes.DeleteEntityType][google.cloud.dialogflow.cx.v3.EntityTypes.DeleteEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.DeleteEntityType]: crate::client::EntityTypes::delete_entity_type
 #[cfg(feature = "entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEntityTypeRequest {
     /// Required. The name of the entity type to delete.
@@ -17713,6 +18758,19 @@ impl serde::ser::Serialize for DeleteEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
+impl std::fmt::Debug for DeleteEntityTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteEntityTypeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents an environment for an agent. You can create multiple versions
 /// of your agent and publish them to separate environments. When you edit an
 /// agent, you are editing the draft agent. At any point, you can save the draft
@@ -17722,7 +18780,7 @@ impl serde::ser::Serialize for DeleteEntityTypeRequest {
 /// can create a variety of custom environments for testing, development,
 /// production, etc.
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Environment {
     /// The name of the environment.
@@ -18053,6 +19111,24 @@ impl serde::ser::Serialize for Environment {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for Environment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Environment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("version_configs", &self.version_configs);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("test_cases_config", &self.test_cases_config);
+        debug_struct.field("webhook_config", &self.webhook_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Environment].
 #[cfg(feature = "environments")]
 pub mod environment {
@@ -18061,7 +19137,7 @@ pub mod environment {
 
     /// Configuration for the version.
     #[cfg(feature = "environments")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VersionConfig {
         /// Required. Both flow and playbook versions are supported.
@@ -18201,9 +19277,21 @@ pub mod environment {
         }
     }
 
+    #[cfg(feature = "environments")]
+    impl std::fmt::Debug for VersionConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VersionConfig");
+            debug_struct.field("version", &self.version);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The configuration for continuous tests.
     #[cfg(feature = "environments")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TestCasesConfig {
         /// A list of test case names to run. They should be under the same agent.
@@ -18407,9 +19495,23 @@ pub mod environment {
         }
     }
 
+    #[cfg(feature = "environments")]
+    impl std::fmt::Debug for TestCasesConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TestCasesConfig");
+            debug_struct.field("test_cases", &self.test_cases);
+            debug_struct.field("enable_continuous_run", &self.enable_continuous_run);
+            debug_struct.field("enable_predeployment_run", &self.enable_predeployment_run);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for webhooks.
     #[cfg(feature = "environments")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WebhookConfig {
         /// The list of webhooks to override for the agent environment. The webhook
@@ -18555,6 +19657,18 @@ pub mod environment {
             state.end()
         }
     }
+
+    #[cfg(feature = "environments")]
+    impl std::fmt::Debug for WebhookConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("WebhookConfig");
+            debug_struct.field("webhook_overrides", &self.webhook_overrides);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The request message for
@@ -18562,7 +19676,7 @@ pub mod environment {
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.ListEnvironments]: crate::client::Environments::list_environments
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEnvironmentsRequest {
     /// Required. The [Agent][google.cloud.dialogflow.cx.v3.Agent] to list all
@@ -18768,12 +19882,26 @@ impl serde::ser::Serialize for ListEnvironmentsRequest {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for ListEnvironmentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEnvironmentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Environments.ListEnvironments][google.cloud.dialogflow.cx.v3.Environments.ListEnvironments].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.ListEnvironments]: crate::client::Environments::list_environments
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEnvironmentsResponse {
     /// The list of environments. There will be a maximum number of items
@@ -18953,12 +20081,25 @@ impl serde::ser::Serialize for ListEnvironmentsResponse {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for ListEnvironmentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListEnvironmentsResponse");
+        debug_struct.field("environments", &self.environments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Environments.GetEnvironment][google.cloud.dialogflow.cx.v3.Environments.GetEnvironment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.GetEnvironment]: crate::client::Environments::get_environment
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEnvironmentRequest {
     /// Required. The name of the
@@ -19095,12 +20236,24 @@ impl serde::ser::Serialize for GetEnvironmentRequest {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for GetEnvironmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetEnvironmentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Environments.CreateEnvironment][google.cloud.dialogflow.cx.v3.Environments.CreateEnvironment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.CreateEnvironment]: crate::client::Environments::create_environment
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEnvironmentRequest {
     /// Required. The [Agent][google.cloud.dialogflow.cx.v3.Agent] to create an
@@ -19273,12 +20426,25 @@ impl serde::ser::Serialize for CreateEnvironmentRequest {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for CreateEnvironmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateEnvironmentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("environment", &self.environment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Environments.UpdateEnvironment][google.cloud.dialogflow.cx.v3.Environments.UpdateEnvironment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.UpdateEnvironment]: crate::client::Environments::update_environment
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEnvironmentRequest {
     /// Required. The environment to update.
@@ -19458,12 +20624,25 @@ impl serde::ser::Serialize for UpdateEnvironmentRequest {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for UpdateEnvironmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateEnvironmentRequest");
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Environments.DeleteEnvironment][google.cloud.dialogflow.cx.v3.Environments.DeleteEnvironment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.DeleteEnvironment]: crate::client::Environments::delete_environment
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEnvironmentRequest {
     /// Required. The name of the
@@ -19600,12 +20779,24 @@ impl serde::ser::Serialize for DeleteEnvironmentRequest {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for DeleteEnvironmentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteEnvironmentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Environments.LookupEnvironmentHistory][google.cloud.dialogflow.cx.v3.Environments.LookupEnvironmentHistory].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.LookupEnvironmentHistory]: crate::client::Environments::lookup_environment_history
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupEnvironmentHistoryRequest {
     /// Required. Resource name of the environment to look up the history for.
@@ -19809,12 +21000,26 @@ impl serde::ser::Serialize for LookupEnvironmentHistoryRequest {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for LookupEnvironmentHistoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupEnvironmentHistoryRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Environments.LookupEnvironmentHistory][google.cloud.dialogflow.cx.v3.Environments.LookupEnvironmentHistory].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.LookupEnvironmentHistory]: crate::client::Environments::lookup_environment_history
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LookupEnvironmentHistoryResponse {
     /// Represents a list of snapshots for an environment. Time of the snapshots is
@@ -19995,9 +21200,22 @@ impl serde::ser::Serialize for LookupEnvironmentHistoryResponse {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for LookupEnvironmentHistoryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupEnvironmentHistoryResponse");
+        debug_struct.field("environments", &self.environments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a result from running a test case in an agent environment.
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContinuousTestResult {
     /// The resource name for the continuous test result. Format:
@@ -20227,6 +21445,21 @@ impl serde::ser::Serialize for ContinuousTestResult {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for ContinuousTestResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContinuousTestResult");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("result", &self.result);
+        debug_struct.field("test_case_results", &self.test_case_results);
+        debug_struct.field("run_time", &self.run_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ContinuousTestResult].
 #[cfg(feature = "environments")]
 pub mod continuous_test_result {
@@ -20382,7 +21615,7 @@ pub mod continuous_test_result {
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.RunContinuousTest]: crate::client::Environments::run_continuous_test
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunContinuousTestRequest {
     /// Required. Format:
@@ -20516,12 +21749,24 @@ impl serde::ser::Serialize for RunContinuousTestRequest {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for RunContinuousTestRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunContinuousTestRequest");
+        debug_struct.field("environment", &self.environment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Environments.RunContinuousTest][google.cloud.dialogflow.cx.v3.Environments.RunContinuousTest].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.RunContinuousTest]: crate::client::Environments::run_continuous_test
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunContinuousTestResponse {
     /// The result for a continuous test run.
@@ -20666,13 +21911,25 @@ impl serde::ser::Serialize for RunContinuousTestResponse {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for RunContinuousTestResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunContinuousTestResponse");
+        debug_struct.field("continuous_test_result", &self.continuous_test_result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata returned for the
 /// [Environments.RunContinuousTest][google.cloud.dialogflow.cx.v3.Environments.RunContinuousTest]
 /// long running operation.
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.RunContinuousTest]: crate::client::Environments::run_continuous_test
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunContinuousTestMetadata {
     /// The test errors.
@@ -20808,12 +22065,24 @@ impl serde::ser::Serialize for RunContinuousTestMetadata {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for RunContinuousTestMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunContinuousTestMetadata");
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Environments.ListContinuousTestResults][google.cloud.dialogflow.cx.v3.Environments.ListContinuousTestResults].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.ListContinuousTestResults]: crate::client::Environments::list_continuous_test_results
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListContinuousTestResultsRequest {
     /// Required. The environment to list results for.
@@ -21017,9 +22286,23 @@ impl serde::ser::Serialize for ListContinuousTestResultsRequest {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for ListContinuousTestResultsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListContinuousTestResultsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for [Environments.ListTestCaseResults][].
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListContinuousTestResultsResponse {
     /// The list of continuous test results.
@@ -21201,12 +22484,25 @@ impl serde::ser::Serialize for ListContinuousTestResultsResponse {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for ListContinuousTestResultsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListContinuousTestResultsResponse");
+        debug_struct.field("continuous_test_results", &self.continuous_test_results);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Environments.DeployFlow][google.cloud.dialogflow.cx.v3.Environments.DeployFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.DeployFlow]: crate::client::Environments::deploy_flow
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployFlowRequest {
     /// Required. The environment to deploy the flow to.
@@ -21368,12 +22664,25 @@ impl serde::ser::Serialize for DeployFlowRequest {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for DeployFlowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeployFlowRequest");
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("flow_version", &self.flow_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Environments.DeployFlow][google.cloud.dialogflow.cx.v3.Environments.DeployFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.DeployFlow]: crate::client::Environments::deploy_flow
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployFlowResponse {
     /// The updated environment where the flow is deployed.
@@ -21545,13 +22854,26 @@ impl serde::ser::Serialize for DeployFlowResponse {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for DeployFlowResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeployFlowResponse");
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("deployment", &self.deployment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata returned for the
 /// [Environments.DeployFlow][google.cloud.dialogflow.cx.v3.Environments.DeployFlow]
 /// long running operation.
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.DeployFlow]: crate::client::Environments::deploy_flow
 #[cfg(feature = "environments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeployFlowMetadata {
     /// Errors of running deployment tests.
@@ -21688,9 +23010,21 @@ impl serde::ser::Serialize for DeployFlowMetadata {
     }
 }
 
+#[cfg(feature = "environments")]
+impl std::fmt::Debug for DeployFlowMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeployFlowMetadata");
+        debug_struct.field("test_errors", &self.test_errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents an experiment in an environment.
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Experiment {
     /// The name of the experiment.
@@ -22295,6 +23629,32 @@ impl serde::ser::Serialize for Experiment {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for Experiment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Experiment");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("definition", &self.definition);
+        debug_struct.field("rollout_config", &self.rollout_config);
+        debug_struct.field("rollout_state", &self.rollout_state);
+        debug_struct.field("rollout_failure_reason", &self.rollout_failure_reason);
+        debug_struct.field("result", &self.result);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("last_update_time", &self.last_update_time);
+        debug_struct.field("experiment_length", &self.experiment_length);
+        debug_struct.field("variants_history", &self.variants_history);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Experiment].
 #[cfg(feature = "experiments")]
 pub mod experiment {
@@ -22303,7 +23663,7 @@ pub mod experiment {
 
     /// Definition of the experiment.
     #[cfg(feature = "experiments")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Definition {
         /// The condition defines which subset of sessions are selected for
@@ -22518,6 +23878,19 @@ pub mod experiment {
         }
     }
 
+    #[cfg(feature = "experiments")]
+    impl std::fmt::Debug for Definition {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Definition");
+            debug_struct.field("condition", &self.condition);
+            debug_struct.field("variants", &self.variants);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Definition].
     #[cfg(feature = "experiments")]
     pub mod definition {
@@ -22538,7 +23911,7 @@ pub mod experiment {
     /// The inference result which includes an objective metric to optimize and the
     /// confidence interval.
     #[cfg(feature = "experiments")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Result {
         /// Version variants and metrics.
@@ -22721,6 +24094,19 @@ pub mod experiment {
         }
     }
 
+    #[cfg(feature = "experiments")]
+    impl std::fmt::Debug for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Result");
+            debug_struct.field("version_metrics", &self.version_metrics);
+            debug_struct.field("last_update_time", &self.last_update_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Result].
     #[cfg(feature = "experiments")]
     pub mod result {
@@ -22730,7 +24116,7 @@ pub mod experiment {
         /// A confidence interval is a range of possible values for the experiment
         /// objective you are trying to measure.
         #[cfg(feature = "experiments")]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ConfidenceInterval {
             /// The confidence level used to construct the interval, i.e. there is X%
@@ -23040,9 +24426,24 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
+        impl std::fmt::Debug for ConfidenceInterval {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ConfidenceInterval");
+                debug_struct.field("confidence_level", &self.confidence_level);
+                debug_struct.field("ratio", &self.ratio);
+                debug_struct.field("lower_bound", &self.lower_bound);
+                debug_struct.field("upper_bound", &self.upper_bound);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Metric and corresponding confidence intervals.
         #[cfg(feature = "experiments")]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Metric {
             /// Ratio-based metric type. Only one of type or count_type is specified in
@@ -23427,6 +24828,21 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
+        impl std::fmt::Debug for Metric {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Metric");
+                debug_struct.field("r#type", &self.r#type);
+                debug_struct.field("count_type", &self.count_type);
+                debug_struct.field("confidence_interval", &self.confidence_interval);
+                debug_struct.field("value", &self.value);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Metric].
         #[cfg(feature = "experiments")]
         pub mod metric {
@@ -23447,7 +24863,7 @@ pub mod experiment {
 
         /// Version variant and associated metrics.
         #[cfg(feature = "experiments")]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct VersionMetrics {
             /// The name of the flow [Version][google.cloud.dialogflow.cx.v3.Version].
@@ -23672,6 +25088,20 @@ pub mod experiment {
                     }
                 }
                 state.end()
+            }
+        }
+
+        #[cfg(feature = "experiments")]
+        impl std::fmt::Debug for VersionMetrics {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("VersionMetrics");
+                debug_struct.field("version", &self.version);
+                debug_struct.field("metrics", &self.metrics);
+                debug_struct.field("session_count", &self.session_count);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -24157,7 +25587,7 @@ pub mod experiment {
 
 /// A list of flow version variants.
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VersionVariants {
     /// A list of flow version variants.
@@ -24297,6 +25727,18 @@ impl serde::ser::Serialize for VersionVariants {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for VersionVariants {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VersionVariants");
+        debug_struct.field("variants", &self.variants);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VersionVariants].
 #[cfg(feature = "experiments")]
 pub mod version_variants {
@@ -24305,7 +25747,7 @@ pub mod version_variants {
 
     /// A single flow version with specified traffic allocation.
     #[cfg(feature = "experiments")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Variant {
         /// The name of the flow version.
@@ -24512,11 +25954,25 @@ pub mod version_variants {
             state.end()
         }
     }
+
+    #[cfg(feature = "experiments")]
+    impl std::fmt::Debug for Variant {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Variant");
+            debug_struct.field("version", &self.version);
+            debug_struct.field("traffic_allocation", &self.traffic_allocation);
+            debug_struct.field("is_control_group", &self.is_control_group);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The history of variants update.
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VariantsHistory {
     /// Update time of the variants.
@@ -24737,6 +26193,19 @@ impl serde::ser::Serialize for VariantsHistory {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for VariantsHistory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VariantsHistory");
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("variants", &self.variants);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VariantsHistory].
 #[cfg(feature = "experiments")]
 pub mod variants_history {
@@ -24756,7 +26225,7 @@ pub mod variants_history {
 
 /// The configuration for auto rollout.
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutConfig {
     /// Steps to roll out a flow version. Steps should be sorted by percentage in
@@ -24961,6 +26430,20 @@ impl serde::ser::Serialize for RolloutConfig {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for RolloutConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutConfig");
+        debug_struct.field("rollout_steps", &self.rollout_steps);
+        debug_struct.field("rollout_condition", &self.rollout_condition);
+        debug_struct.field("failure_condition", &self.failure_condition);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RolloutConfig].
 #[cfg(feature = "experiments")]
 pub mod rollout_config {
@@ -24969,7 +26452,7 @@ pub mod rollout_config {
 
     /// A single rollout step with specified traffic allocation.
     #[cfg(feature = "experiments")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RolloutStep {
         /// The name of the rollout step;
@@ -25191,11 +26674,25 @@ pub mod rollout_config {
             state.end()
         }
     }
+
+    #[cfg(feature = "experiments")]
+    impl std::fmt::Debug for RolloutStep {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RolloutStep");
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("traffic_percent", &self.traffic_percent);
+            debug_struct.field("min_duration", &self.min_duration);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// State of the auto-rollout process.
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutState {
     /// Display name of the current auto rollout step.
@@ -25407,12 +26904,26 @@ impl serde::ser::Serialize for RolloutState {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for RolloutState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RolloutState");
+        debug_struct.field("step", &self.step);
+        debug_struct.field("step_index", &self.step_index);
+        debug_struct.field("start_time", &self.start_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Experiments.ListExperiments][google.cloud.dialogflow.cx.v3.Experiments.ListExperiments].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.ListExperiments]: crate::client::Experiments::list_experiments
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExperimentsRequest {
     /// Required. The [Environment][google.cloud.dialogflow.cx.v3.Environment] to
@@ -25618,12 +27129,26 @@ impl serde::ser::Serialize for ListExperimentsRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for ListExperimentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExperimentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Experiments.ListExperiments][google.cloud.dialogflow.cx.v3.Experiments.ListExperiments].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.ListExperiments]: crate::client::Experiments::list_experiments
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExperimentsResponse {
     /// The list of experiments. There will be a maximum number of items
@@ -25803,12 +27328,25 @@ impl serde::ser::Serialize for ListExperimentsResponse {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for ListExperimentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExperimentsResponse");
+        debug_struct.field("experiments", &self.experiments);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Experiments.GetExperiment][google.cloud.dialogflow.cx.v3.Experiments.GetExperiment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.GetExperiment]: crate::client::Experiments::get_experiment
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetExperimentRequest {
     /// Required. The name of the
@@ -25945,12 +27483,24 @@ impl serde::ser::Serialize for GetExperimentRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for GetExperimentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetExperimentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Experiments.CreateExperiment][google.cloud.dialogflow.cx.v3.Experiments.CreateExperiment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.CreateExperiment]: crate::client::Experiments::create_experiment
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateExperimentRequest {
     /// Required. The [Agent][google.cloud.dialogflow.cx.v3.Agent] to create an
@@ -26123,12 +27673,25 @@ impl serde::ser::Serialize for CreateExperimentRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for CreateExperimentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateExperimentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("experiment", &self.experiment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Experiments.UpdateExperiment][google.cloud.dialogflow.cx.v3.Experiments.UpdateExperiment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.UpdateExperiment]: crate::client::Experiments::update_experiment
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateExperimentRequest {
     /// Required. The experiment to update.
@@ -26308,12 +27871,25 @@ impl serde::ser::Serialize for UpdateExperimentRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for UpdateExperimentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateExperimentRequest");
+        debug_struct.field("experiment", &self.experiment);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Experiments.DeleteExperiment][google.cloud.dialogflow.cx.v3.Experiments.DeleteExperiment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.DeleteExperiment]: crate::client::Experiments::delete_experiment
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteExperimentRequest {
     /// Required. The name of the
@@ -26450,12 +28026,24 @@ impl serde::ser::Serialize for DeleteExperimentRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for DeleteExperimentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteExperimentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Experiments.StartExperiment][google.cloud.dialogflow.cx.v3.Experiments.StartExperiment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.StartExperiment]: crate::client::Experiments::start_experiment
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartExperimentRequest {
     /// Required. Resource name of the experiment to start.
@@ -26590,12 +28178,24 @@ impl serde::ser::Serialize for StartExperimentRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for StartExperimentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartExperimentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Experiments.StopExperiment][google.cloud.dialogflow.cx.v3.Experiments.StopExperiment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.StopExperiment]: crate::client::Experiments::stop_experiment
 #[cfg(feature = "experiments")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopExperimentRequest {
     /// Required. Resource name of the experiment to stop.
@@ -26730,6 +28330,18 @@ impl serde::ser::Serialize for StopExperimentRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
+impl std::fmt::Debug for StopExperimentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopExperimentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings related to NLU.
 #[cfg(any(
     feature = "flows",
@@ -26737,7 +28349,7 @@ impl serde::ser::Serialize for StopExperimentRequest {
     feature = "test-cases",
     feature = "versions",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NluSettings {
     /// Indicates the type of NLU model.
@@ -26976,6 +28588,25 @@ impl serde::ser::Serialize for NluSettings {
             }
         }
         state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "versions",
+))]
+impl std::fmt::Debug for NluSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NluSettings");
+        debug_struct.field("model_type", &self.model_type);
+        debug_struct.field("classification_threshold", &self.classification_threshold);
+        debug_struct.field("model_training_mode", &self.model_training_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -27380,7 +29011,7 @@ pub mod nlu_settings {
 /// session into a different flow, the matched intent can be carried over and to
 /// be consumed in the target flow.
 #[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Flow {
     /// The unique identifier of the flow.
@@ -27877,6 +29508,31 @@ impl serde::ser::Serialize for Flow {
     }
 }
 
+#[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for Flow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Flow");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("transition_routes", &self.transition_routes);
+        debug_struct.field("event_handlers", &self.event_handlers);
+        debug_struct.field("transition_route_groups", &self.transition_route_groups);
+        debug_struct.field("nlu_settings", &self.nlu_settings);
+        debug_struct.field("advanced_settings", &self.advanced_settings);
+        debug_struct.field(
+            "knowledge_connector_settings",
+            &self.knowledge_connector_settings,
+        );
+        debug_struct.field("multi_language_settings", &self.multi_language_settings);
+        debug_struct.field("locked", &self.locked);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Flow].
 #[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
 pub mod flow {
@@ -27885,7 +29541,7 @@ pub mod flow {
 
     /// Settings for multi-lingual agents.
     #[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MultiLanguageSettings {
         /// Optional. Enable multi-language detection for this flow. This can be set
@@ -28080,6 +29736,25 @@ pub mod flow {
             state.end()
         }
     }
+
+    #[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
+    impl std::fmt::Debug for MultiLanguageSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MultiLanguageSettings");
+            debug_struct.field(
+                "enable_multi_language_detection",
+                &self.enable_multi_language_detection,
+            );
+            debug_struct.field(
+                "supported_response_language_codes",
+                &self.supported_response_language_codes,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The request message for
@@ -28087,7 +29762,7 @@ pub mod flow {
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.CreateFlow]: crate::client::Flows::create_flow
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFlowRequest {
     /// Required. The agent to create a flow for.
@@ -28292,12 +29967,26 @@ impl serde::ser::Serialize for CreateFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for CreateFlowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateFlowRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("flow", &self.flow);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Flows.DeleteFlow][google.cloud.dialogflow.cx.v3.Flows.DeleteFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.DeleteFlow]: crate::client::Flows::delete_flow
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFlowRequest {
     /// Required. The name of the flow to delete.
@@ -28468,12 +30157,25 @@ impl serde::ser::Serialize for DeleteFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for DeleteFlowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFlowRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Flows.ListFlows][google.cloud.dialogflow.cx.v3.Flows.ListFlows].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ListFlows]: crate::client::Flows::list_flows
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFlowsRequest {
     /// Required. The agent containing the flows.
@@ -28713,12 +30415,27 @@ impl serde::ser::Serialize for ListFlowsRequest {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for ListFlowsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFlowsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Flows.ListFlows][google.cloud.dialogflow.cx.v3.Flows.ListFlows].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ListFlows]: crate::client::Flows::list_flows
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFlowsResponse {
     /// The list of flows. There will be a maximum number of items returned based
@@ -28896,12 +30613,25 @@ impl serde::ser::Serialize for ListFlowsResponse {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for ListFlowsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFlowsResponse");
+        debug_struct.field("flows", &self.flows);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Flows.GetFlow][google.cloud.dialogflow.cx.v3.Flows.GetFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.GetFlow]: crate::client::Flows::get_flow
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFlowRequest {
     /// Required. The name of the flow to get.
@@ -29073,12 +30803,25 @@ impl serde::ser::Serialize for GetFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for GetFlowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFlowRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Flows.UpdateFlow][google.cloud.dialogflow.cx.v3.Flows.UpdateFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.UpdateFlow]: crate::client::Flows::update_flow
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFlowRequest {
     /// Required. The flow to update.
@@ -29295,12 +31038,26 @@ impl serde::ser::Serialize for UpdateFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for UpdateFlowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFlowRequest");
+        debug_struct.field("flow", &self.flow);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Flows.TrainFlow][google.cloud.dialogflow.cx.v3.Flows.TrainFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.TrainFlow]: crate::client::Flows::train_flow
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrainFlowRequest {
     /// Required. The flow to train.
@@ -29435,12 +31192,24 @@ impl serde::ser::Serialize for TrainFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for TrainFlowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TrainFlowRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Flows.ValidateFlow][google.cloud.dialogflow.cx.v3.Flows.ValidateFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ValidateFlow]: crate::client::Flows::validate_flow
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateFlowRequest {
     /// Required. The flow to validate.
@@ -29600,12 +31369,25 @@ impl serde::ser::Serialize for ValidateFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for ValidateFlowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValidateFlowRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Flows.GetFlowValidationResult][google.cloud.dialogflow.cx.v3.Flows.GetFlowValidationResult].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.GetFlowValidationResult]: crate::client::Flows::get_flow_validation_result
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFlowValidationResultRequest {
     /// Required. The flow name.
@@ -29765,12 +31547,25 @@ impl serde::ser::Serialize for GetFlowValidationResultRequest {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for GetFlowValidationResultRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFlowValidationResultRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Flows.GetFlowValidationResult][google.cloud.dialogflow.cx.v3.Flows.GetFlowValidationResult].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.GetFlowValidationResult]: crate::client::Flows::get_flow_validation_result
 #[cfg(any(feature = "agents", feature = "flows",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FlowValidationResult {
     /// The unique identifier of the flow validation result.
@@ -29973,12 +31768,26 @@ impl serde::ser::Serialize for FlowValidationResult {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "flows",))]
+impl std::fmt::Debug for FlowValidationResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FlowValidationResult");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validation_messages", &self.validation_messages);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Flows.ImportFlow][google.cloud.dialogflow.cx.v3.Flows.ImportFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ImportFlow]: crate::client::Flows::import_flow
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportFlowRequest {
     /// Required. The agent to import the flow into.
@@ -30310,6 +32119,21 @@ impl serde::ser::Serialize for ImportFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for ImportFlowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportFlowRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("import_option", &self.import_option);
+        debug_struct.field("flow_import_strategy", &self.flow_import_strategy);
+        debug_struct.field("flow", &self.flow);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportFlowRequest].
 #[cfg(feature = "flows")]
 pub mod import_flow_request {
@@ -30486,7 +32310,7 @@ pub mod import_flow_request {
 ///
 /// [google.cloud.dialogflow.cx.v3.ImportFlowRequest]: crate::model::ImportFlowRequest
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FlowImportStrategy {
     /// Optional. Import strategy for resource conflict resolution, applied
@@ -30626,12 +32450,24 @@ impl serde::ser::Serialize for FlowImportStrategy {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for FlowImportStrategy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FlowImportStrategy");
+        debug_struct.field("global_import_strategy", &self.global_import_strategy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Flows.ImportFlow][google.cloud.dialogflow.cx.v3.Flows.ImportFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ImportFlow]: crate::client::Flows::import_flow
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportFlowResponse {
     /// The unique identifier of the new flow.
@@ -30766,12 +32602,24 @@ impl serde::ser::Serialize for ImportFlowResponse {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for ImportFlowResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportFlowResponse");
+        debug_struct.field("flow", &self.flow);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Flows.ExportFlow][google.cloud.dialogflow.cx.v3.Flows.ExportFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ExportFlow]: crate::client::Flows::export_flow
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportFlowRequest {
     /// Required. The name of the flow to export.
@@ -30967,12 +32815,26 @@ impl serde::ser::Serialize for ExportFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for ExportFlowRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportFlowRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("flow_uri", &self.flow_uri);
+        debug_struct.field("include_referenced_flows", &self.include_referenced_flows);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Flows.ExportFlow][google.cloud.dialogflow.cx.v3.Flows.ExportFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ExportFlow]: crate::client::Flows::export_flow
 #[cfg(feature = "flows")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportFlowResponse {
     /// The exported flow.
@@ -31212,6 +33074,18 @@ impl serde::ser::Serialize for ExportFlowResponse {
     }
 }
 
+#[cfg(feature = "flows")]
+impl std::fmt::Debug for ExportFlowResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportFlowResponse");
+        debug_struct.field("flow", &self.flow);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportFlowResponse].
 #[cfg(feature = "flows")]
 pub mod export_flow_response {
@@ -31262,7 +33136,7 @@ pub mod export_flow_response {
     feature = "test-cases",
     feature = "transition-route-groups",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Fulfillment {
     /// The list of rich message responses to present to the user.
@@ -31314,6 +33188,9 @@ pub struct Fulfillment {
     ///
     /// [google.cloud.dialogflow.cx.v3.Fulfillment.messages]: crate::model::Fulfillment::messages
     pub enable_generative_fallback: bool,
+
+    /// A list of Generators to be called during this fulfillment.
+    pub generators: std::vec::Vec<crate::model::fulfillment::GeneratorSettings>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -31404,6 +33281,17 @@ impl Fulfillment {
         self.enable_generative_fallback = v.into();
         self
     }
+
+    /// Sets the value of [generators][crate::model::Fulfillment::generators].
+    pub fn set_generators<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::fulfillment::GeneratorSettings>,
+    {
+        use std::iter::Iterator;
+        self.generators = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 #[cfg(any(
@@ -31444,6 +33332,7 @@ impl<'de> serde::de::Deserialize<'de> for Fulfillment {
             __conditional_cases,
             __advanced_settings,
             __enable_generative_fallback,
+            __generators,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -31483,6 +33372,7 @@ impl<'de> serde::de::Deserialize<'de> for Fulfillment {
                             "enable_generative_fallback" => {
                                 Ok(__FieldTag::__enable_generative_fallback)
                             }
+                            "generators" => Ok(__FieldTag::__generators),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -31594,6 +33484,18 @@ impl<'de> serde::de::Deserialize<'de> for Fulfillment {
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__generators => {
+                            if !fields.insert(__FieldTag::__generators) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for generators",
+                                ));
+                            }
+                            result.generators = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::fulfillment::GeneratorSettings>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -31648,12 +33550,44 @@ impl serde::ser::Serialize for Fulfillment {
         if !wkt::internal::is_default(&self.enable_generative_fallback) {
             state.serialize_entry("enableGenerativeFallback", &self.enable_generative_fallback)?;
         }
+        if !self.generators.is_empty() {
+            state.serialize_entry("generators", &self.generators)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
             }
         }
         state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
+impl std::fmt::Debug for Fulfillment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Fulfillment");
+        debug_struct.field("messages", &self.messages);
+        debug_struct.field("webhook", &self.webhook);
+        debug_struct.field("return_partial_responses", &self.return_partial_responses);
+        debug_struct.field("tag", &self.tag);
+        debug_struct.field("set_parameter_actions", &self.set_parameter_actions);
+        debug_struct.field("conditional_cases", &self.conditional_cases);
+        debug_struct.field("advanced_settings", &self.advanced_settings);
+        debug_struct.field(
+            "enable_generative_fallback",
+            &self.enable_generative_fallback,
+        );
+        debug_struct.field("generators", &self.generators);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -31677,7 +33611,7 @@ pub mod fulfillment {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SetParameterAction {
         /// Display name of the parameter.
@@ -31873,6 +33807,25 @@ pub mod fulfillment {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for SetParameterAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SetParameterAction");
+            debug_struct.field("parameter", &self.parameter);
+            debug_struct.field("value", &self.value);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A list of cascading if-else conditions. Cases are mutually exclusive.
     /// The first one with a matching condition is selected, all the rest ignored.
     #[cfg(any(
@@ -31882,7 +33835,7 @@ pub mod fulfillment {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConditionalCases {
         /// A list of cascading if-else conditions.
@@ -32051,6 +34004,24 @@ pub mod fulfillment {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for ConditionalCases {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConditionalCases");
+            debug_struct.field("cases", &self.cases);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ConditionalCases].
     #[cfg(any(
         feature = "flows",
@@ -32072,7 +34043,7 @@ pub mod fulfillment {
             feature = "test-cases",
             feature = "transition-route-groups",
         ))]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Case {
             /// The condition to activate and select this case. Empty means the
@@ -32282,6 +34253,25 @@ pub mod fulfillment {
             }
         }
 
+        #[cfg(any(
+            feature = "flows",
+            feature = "pages",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+        ))]
+        impl std::fmt::Debug for Case {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Case");
+                debug_struct.field("condition", &self.condition);
+                debug_struct.field("case_content", &self.case_content);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Case].
         #[cfg(any(
             feature = "flows",
@@ -32302,7 +34292,7 @@ pub mod fulfillment {
                 feature = "test-cases",
                 feature = "transition-route-groups",
             ))]
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct CaseContent {
 
@@ -32583,6 +34573,24 @@ pub mod fulfillment {
                 }
             }
 
+            #[cfg(any(
+                feature = "flows",
+                feature = "pages",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+            ))]
+            impl std::fmt::Debug for CaseContent {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("CaseContent");
+                    debug_struct.field("cases_or_message", &self.cases_or_message);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
+
             /// Defines additional types related to [CaseContent].
             #[cfg(any(
                 feature = "flows",
@@ -32614,6 +34622,272 @@ pub mod fulfillment {
             }
         }
     }
+
+    /// Generator settings used by the LLM to generate a text response.
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GeneratorSettings {
+        /// Required. The generator to call.
+        /// Format:
+        /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/generators/<GeneratorID>`.
+        pub generator: std::string::String,
+
+        /// Map from [placeholder parameter][Generator.Parameter.id] in the
+        /// [Generator][google.cloud.dialogflow.cx.v3.Generator] to corresponding
+        /// session parameters. By default, Dialogflow uses the session parameter
+        /// with the same name to fill in the generator template. e.g. If there is a
+        /// placeholder parameter `city` in the Generator, Dialogflow default to fill
+        /// in the `$city` with
+        /// `$session.params.city`. However, you may choose to fill `$city` with
+        /// `$session.params.desination-city`.
+        ///
+        /// - Map key: [parameter ID][Genrator.Parameter.id]
+        /// - Map value: session parameter name
+        ///
+        /// [google.cloud.dialogflow.cx.v3.Generator]: crate::model::Generator
+        pub input_parameters: std::collections::HashMap<std::string::String, std::string::String>,
+
+        /// Required. Output parameter which should contain the generator response.
+        pub output_parameter: std::string::String,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl GeneratorSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [generator][crate::model::fulfillment::GeneratorSettings::generator].
+        pub fn set_generator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.generator = v.into();
+            self
+        }
+
+        /// Sets the value of [input_parameters][crate::model::fulfillment::GeneratorSettings::input_parameters].
+        pub fn set_input_parameters<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.input_parameters = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [output_parameter][crate::model::fulfillment::GeneratorSettings::output_parameter].
+        pub fn set_output_parameter<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.output_parameter = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl wkt::message::Message for GeneratorSettings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.Fulfillment.GeneratorSettings"
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for GeneratorSettings {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __generator,
+                __input_parameters,
+                __output_parameter,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for GeneratorSettings")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "generator" => Ok(__FieldTag::__generator),
+                                "inputParameters" => Ok(__FieldTag::__input_parameters),
+                                "input_parameters" => Ok(__FieldTag::__input_parameters),
+                                "outputParameter" => Ok(__FieldTag::__output_parameter),
+                                "output_parameter" => Ok(__FieldTag::__output_parameter),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = GeneratorSettings;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct GeneratorSettings")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__generator => {
+                                if !fields.insert(__FieldTag::__generator) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for generator",
+                                    ));
+                                }
+                                result.generator = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__input_parameters => {
+                                if !fields.insert(__FieldTag::__input_parameters) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for input_parameters",
+                                    ));
+                                }
+                                result.input_parameters = map
+                                    .next_value::<std::option::Option<
+                                        std::collections::HashMap<
+                                            std::string::String,
+                                            std::string::String,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__output_parameter => {
+                                if !fields.insert(__FieldTag::__output_parameter) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for output_parameter",
+                                    ));
+                                }
+                                result.output_parameter = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    #[doc(hidden)]
+    impl serde::ser::Serialize for GeneratorSettings {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.generator.is_empty() {
+                state.serialize_entry("generator", &self.generator)?;
+            }
+            if !self.input_parameters.is_empty() {
+                state.serialize_entry("inputParameters", &self.input_parameters)?;
+            }
+            if !self.output_parameter.is_empty() {
+                state.serialize_entry("outputParameter", &self.output_parameter)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for GeneratorSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GeneratorSettings");
+            debug_struct.field("generator", &self.generator);
+            debug_struct.field("input_parameters", &self.input_parameters);
+            debug_struct.field("output_parameter", &self.output_parameter);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Google Cloud Storage location for a Dialogflow operation that writes or
@@ -32626,7 +34900,7 @@ pub mod fulfillment {
     feature = "test-cases",
     feature = "transition-route-groups",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDestination {
     /// Required. The Google Cloud Storage URI for the exported objects. A URI is
@@ -32789,9 +35063,28 @@ impl serde::ser::Serialize for GcsDestination {
     }
 }
 
+#[cfg(any(
+    feature = "agents",
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
+impl std::fmt::Debug for GcsDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsDestination");
+        debug_struct.field("uri", &self.uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings for Generative AI.
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerativeSettings {
     /// Format:
@@ -33074,6 +35367,28 @@ impl serde::ser::Serialize for GenerativeSettings {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for GenerativeSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerativeSettings");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("fallback_settings", &self.fallback_settings);
+        debug_struct.field(
+            "generative_safety_settings",
+            &self.generative_safety_settings,
+        );
+        debug_struct.field(
+            "knowledge_connector_settings",
+            &self.knowledge_connector_settings,
+        );
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GenerativeSettings].
 #[cfg(feature = "agents")]
 pub mod generative_settings {
@@ -33082,7 +35397,7 @@ pub mod generative_settings {
 
     /// Settings for Generative Fallback.
     #[cfg(feature = "agents")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FallbackSettings {
         /// Display name of the selected prompt.
@@ -33254,6 +35569,19 @@ pub mod generative_settings {
         }
     }
 
+    #[cfg(feature = "agents")]
+    impl std::fmt::Debug for FallbackSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FallbackSettings");
+            debug_struct.field("selected_prompt", &self.selected_prompt);
+            debug_struct.field("prompt_templates", &self.prompt_templates);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [FallbackSettings].
     #[cfg(feature = "agents")]
     pub mod fallback_settings {
@@ -33262,7 +35590,7 @@ pub mod generative_settings {
 
         /// Prompt template.
         #[cfg(feature = "agents")]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PromptTemplate {
             /// Prompt name.
@@ -33463,6 +35791,20 @@ pub mod generative_settings {
                 state.end()
             }
         }
+
+        #[cfg(feature = "agents")]
+        impl std::fmt::Debug for PromptTemplate {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("PromptTemplate");
+                debug_struct.field("display_name", &self.display_name);
+                debug_struct.field("prompt_text", &self.prompt_text);
+                debug_struct.field("frozen", &self.frozen);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Settings for knowledge connector. These parameters are used for LLM prompt
@@ -33470,7 +35812,7 @@ pub mod generative_settings {
     /// \<business\>, <business_description>. Your task is to help humans on
     /// <agent_scope>".
     #[cfg(feature = "agents")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KnowledgeConnectorSettings {
         /// Name of the company, organization or other entity that the agent
@@ -33750,6 +36092,26 @@ pub mod generative_settings {
             state.end()
         }
     }
+
+    #[cfg(feature = "agents")]
+    impl std::fmt::Debug for KnowledgeConnectorSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("KnowledgeConnectorSettings");
+            debug_struct.field("business", &self.business);
+            debug_struct.field("agent", &self.agent);
+            debug_struct.field("agent_identity", &self.agent_identity);
+            debug_struct.field("business_description", &self.business_description);
+            debug_struct.field("agent_scope", &self.agent_scope);
+            debug_struct.field(
+                "disable_data_store_fallback",
+                &self.disable_data_store_fallback,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Generators contain prompt to be sent to the LLM model to generate text. The
@@ -33757,7 +36119,7 @@ pub mod generative_settings {
 /// model. It can optionally contain banned phrases to ensure the model responses
 /// are safe.
 #[cfg(feature = "generators")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Generator {
     /// The unique identifier of the generator.
@@ -34028,6 +36390,22 @@ impl serde::ser::Serialize for Generator {
     }
 }
 
+#[cfg(feature = "generators")]
+impl std::fmt::Debug for Generator {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Generator");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("prompt_text", &self.prompt_text);
+        debug_struct.field("placeholders", &self.placeholders);
+        debug_struct.field("model_parameter", &self.model_parameter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Generator].
 #[cfg(feature = "generators")]
 pub mod generator {
@@ -34036,7 +36414,7 @@ pub mod generator {
 
     /// Represents a custom placeholder in the prompt text.
     #[cfg(feature = "generators")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Placeholder {
         /// Unique ID used to map custom placeholder to parameters in fulfillment.
@@ -34196,10 +36574,23 @@ pub mod generator {
         }
     }
 
+    #[cfg(feature = "generators")]
+    impl std::fmt::Debug for Placeholder {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Placeholder");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("name", &self.name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Parameters to be passed to the LLM. If not set, default values will be
     /// used.
     #[cfg(feature = "generators")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ModelParameter {
         /// The temperature used for sampling. Temperature sampling occurs after both
@@ -34548,11 +36939,26 @@ pub mod generator {
             state.end()
         }
     }
+
+    #[cfg(feature = "generators")]
+    impl std::fmt::Debug for ModelParameter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ModelParameter");
+            debug_struct.field("temperature", &self.temperature);
+            debug_struct.field("max_decode_steps", &self.max_decode_steps);
+            debug_struct.field("top_p", &self.top_p);
+            debug_struct.field("top_k", &self.top_k);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Text input which can be used for prompt or banned phrases.
 #[cfg(feature = "generators")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Phrase {
     /// Required. Text input which can be used for prompt or banned phrases.
@@ -34685,12 +37091,24 @@ impl serde::ser::Serialize for Phrase {
     }
 }
 
+#[cfg(feature = "generators")]
+impl std::fmt::Debug for Phrase {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Phrase");
+        debug_struct.field("text", &self.text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Generators.ListGenerators][google.cloud.dialogflow.cx.v3.Generators.ListGenerators].
 ///
 /// [google.cloud.dialogflow.cx.v3.Generators.ListGenerators]: crate::client::Generators::list_generators
 #[cfg(feature = "generators")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGeneratorsRequest {
     /// Required. The agent to list all generators for.
@@ -34918,12 +37336,27 @@ impl serde::ser::Serialize for ListGeneratorsRequest {
     }
 }
 
+#[cfg(feature = "generators")]
+impl std::fmt::Debug for ListGeneratorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGeneratorsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Generators.ListGenerators][google.cloud.dialogflow.cx.v3.Generators.ListGenerators].
 ///
 /// [google.cloud.dialogflow.cx.v3.Generators.ListGenerators]: crate::client::Generators::list_generators
 #[cfg(feature = "generators")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGeneratorsResponse {
     /// The list of generators. There will be a maximum number of items returned
@@ -35101,12 +37534,25 @@ impl serde::ser::Serialize for ListGeneratorsResponse {
     }
 }
 
+#[cfg(feature = "generators")]
+impl std::fmt::Debug for ListGeneratorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListGeneratorsResponse");
+        debug_struct.field("generators", &self.generators);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Generators.GetGenerator][google.cloud.dialogflow.cx.v3.Generators.GetGenerator].
 ///
 /// [google.cloud.dialogflow.cx.v3.Generators.GetGenerator]: crate::client::Generators::get_generator
 #[cfg(feature = "generators")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGeneratorRequest {
     /// Required. The name of the generator.
@@ -35266,12 +37712,25 @@ impl serde::ser::Serialize for GetGeneratorRequest {
     }
 }
 
+#[cfg(feature = "generators")]
+impl std::fmt::Debug for GetGeneratorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGeneratorRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Generators.CreateGenerator][google.cloud.dialogflow.cx.v3.Generators.CreateGenerator].
 ///
 /// [google.cloud.dialogflow.cx.v3.Generators.CreateGenerator]: crate::client::Generators::create_generator
 #[cfg(feature = "generators")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGeneratorRequest {
     /// Required. The agent to create a generator for.
@@ -35468,12 +37927,26 @@ impl serde::ser::Serialize for CreateGeneratorRequest {
     }
 }
 
+#[cfg(feature = "generators")]
+impl std::fmt::Debug for CreateGeneratorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateGeneratorRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("generator", &self.generator);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Generators.UpdateGenerator][google.cloud.dialogflow.cx.v3.Generators.UpdateGenerator].
 ///
 /// [google.cloud.dialogflow.cx.v3.Generators.UpdateGenerator]: crate::client::Generators::update_generator
 #[cfg(feature = "generators")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGeneratorRequest {
     /// Required. The generator to update.
@@ -35679,12 +38152,26 @@ impl serde::ser::Serialize for UpdateGeneratorRequest {
     }
 }
 
+#[cfg(feature = "generators")]
+impl std::fmt::Debug for UpdateGeneratorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateGeneratorRequest");
+        debug_struct.field("generator", &self.generator);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Generators.DeleteGenerator][google.cloud.dialogflow.cx.v3.Generators.DeleteGenerator].
 ///
 /// [google.cloud.dialogflow.cx.v3.Generators.DeleteGenerator]: crate::client::Generators::delete_generator
 #[cfg(feature = "generators")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGeneratorRequest {
     /// Required. The name of the generator to delete.
@@ -35850,12 +38337,25 @@ impl serde::ser::Serialize for DeleteGeneratorRequest {
     }
 }
 
+#[cfg(feature = "generators")]
+impl std::fmt::Debug for DeleteGeneratorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteGeneratorRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Inline destination for a Dialogflow operation that writes or exports objects
 /// (e.g. [intents][google.cloud.dialogflow.cx.v3.Intent]) outside of Dialogflow.
 ///
 /// [google.cloud.dialogflow.cx.v3.Intent]: crate::model::Intent
 #[cfg(any(feature = "entity-types", feature = "intents",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InlineDestination {
     /// Output only. The uncompressed byte content for the objects.
@@ -36007,12 +38507,24 @@ impl serde::ser::Serialize for InlineDestination {
     }
 }
 
+#[cfg(any(feature = "entity-types", feature = "intents",))]
+impl std::fmt::Debug for InlineDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InlineDestination");
+        debug_struct.field("content", &self.content);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Inline source for a Dialogflow operation that reads or imports objects
 /// (e.g. [intents][google.cloud.dialogflow.cx.v3.Intent]) into Dialogflow.
 ///
 /// [google.cloud.dialogflow.cx.v3.Intent]: crate::model::Intent
 #[cfg(any(feature = "entity-types", feature = "intents",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InlineSource {
     /// The uncompressed byte content for the objects.
@@ -36163,13 +38675,25 @@ impl serde::ser::Serialize for InlineSource {
     }
 }
 
+#[cfg(any(feature = "entity-types", feature = "intents",))]
+impl std::fmt::Debug for InlineSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InlineSource");
+        debug_struct.field("content", &self.content);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An intent represents a user's intent to interact with a conversational agent.
 ///
 /// You can provide information for the Dialogflow API to use to match user input
 /// to an intent by adding training phrases (i.e., examples of user input) to
 /// your intent.
 #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Intent {
     /// The unique identifier of the intent.
@@ -36552,6 +39076,25 @@ impl serde::ser::Serialize for Intent {
     }
 }
 
+#[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for Intent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Intent");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("training_phrases", &self.training_phrases);
+        debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("is_fallback", &self.is_fallback);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Intent].
 #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
 pub mod intent {
@@ -36560,7 +39103,7 @@ pub mod intent {
 
     /// Represents an example that the agent is trained on to identify the intent.
     #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TrainingPhrase {
         /// Output only. The unique identifier of the training phrase.
@@ -36792,6 +39335,20 @@ pub mod intent {
         }
     }
 
+    #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
+    impl std::fmt::Debug for TrainingPhrase {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TrainingPhrase");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("parts", &self.parts);
+            debug_struct.field("repeat_count", &self.repeat_count);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [TrainingPhrase].
     #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
     pub mod training_phrase {
@@ -36800,7 +39357,7 @@ pub mod intent {
 
         /// Represents a part of a training phrase.
         #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Part {
             /// Required. The text for this part.
@@ -36972,11 +39529,24 @@ pub mod intent {
                 state.end()
             }
         }
+
+        #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
+        impl std::fmt::Debug for Part {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Part");
+                debug_struct.field("text", &self.text);
+                debug_struct.field("parameter_id", &self.parameter_id);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Represents an intent parameter.
     #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Parameter {
         /// Required. The unique identifier of the parameter. This field
@@ -37204,6 +39774,21 @@ pub mod intent {
             state.end()
         }
     }
+
+    #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
+    impl std::fmt::Debug for Parameter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Parameter");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("entity_type", &self.entity_type);
+            debug_struct.field("is_list", &self.is_list);
+            debug_struct.field("redact", &self.redact);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The request message for
@@ -37211,7 +39796,7 @@ pub mod intent {
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ListIntents]: crate::client::Intents::list_intents
 #[cfg(feature = "intents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIntentsRequest {
     /// Required. The agent to list all intents for.
@@ -37476,12 +40061,28 @@ impl serde::ser::Serialize for ListIntentsRequest {
     }
 }
 
+#[cfg(feature = "intents")]
+impl std::fmt::Debug for ListIntentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIntentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("intent_view", &self.intent_view);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Intents.ListIntents][google.cloud.dialogflow.cx.v3.Intents.ListIntents].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ListIntents]: crate::client::Intents::list_intents
 #[cfg(feature = "intents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListIntentsResponse {
     /// The list of intents. There will be a maximum number of items returned based
@@ -37659,12 +40260,25 @@ impl serde::ser::Serialize for ListIntentsResponse {
     }
 }
 
+#[cfg(feature = "intents")]
+impl std::fmt::Debug for ListIntentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListIntentsResponse");
+        debug_struct.field("intents", &self.intents);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Intents.GetIntent][google.cloud.dialogflow.cx.v3.Intents.GetIntent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.GetIntent]: crate::client::Intents::get_intent
 #[cfg(feature = "intents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIntentRequest {
     /// Required. The name of the intent.
@@ -37833,12 +40447,25 @@ impl serde::ser::Serialize for GetIntentRequest {
     }
 }
 
+#[cfg(feature = "intents")]
+impl std::fmt::Debug for GetIntentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIntentRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Intents.CreateIntent][google.cloud.dialogflow.cx.v3.Intents.CreateIntent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.CreateIntent]: crate::client::Intents::create_intent
 #[cfg(feature = "intents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateIntentRequest {
     /// Required. The agent to create an intent for.
@@ -38040,12 +40667,26 @@ impl serde::ser::Serialize for CreateIntentRequest {
     }
 }
 
+#[cfg(feature = "intents")]
+impl std::fmt::Debug for CreateIntentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateIntentRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("intent", &self.intent);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Intents.UpdateIntent][google.cloud.dialogflow.cx.v3.Intents.UpdateIntent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.UpdateIntent]: crate::client::Intents::update_intent
 #[cfg(feature = "intents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateIntentRequest {
     /// Required. The intent to update.
@@ -38259,12 +40900,26 @@ impl serde::ser::Serialize for UpdateIntentRequest {
     }
 }
 
+#[cfg(feature = "intents")]
+impl std::fmt::Debug for UpdateIntentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateIntentRequest");
+        debug_struct.field("intent", &self.intent);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Intents.DeleteIntent][google.cloud.dialogflow.cx.v3.Intents.DeleteIntent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.DeleteIntent]: crate::client::Intents::delete_intent
 #[cfg(feature = "intents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteIntentRequest {
     /// Required. The name of the intent to delete.
@@ -38399,12 +41054,24 @@ impl serde::ser::Serialize for DeleteIntentRequest {
     }
 }
 
+#[cfg(feature = "intents")]
+impl std::fmt::Debug for DeleteIntentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteIntentRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Intents.ImportIntents][google.cloud.dialogflow.cx.v3.Intents.ImportIntents].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ImportIntents]: crate::client::Intents::import_intents
 #[cfg(feature = "intents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportIntentsRequest {
     /// Required. The agent to import the intents into.
@@ -38694,6 +41361,20 @@ impl serde::ser::Serialize for ImportIntentsRequest {
     }
 }
 
+#[cfg(feature = "intents")]
+impl std::fmt::Debug for ImportIntentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportIntentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("merge_option", &self.merge_option);
+        debug_struct.field("intents", &self.intents);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportIntentsRequest].
 #[cfg(feature = "intents")]
 pub mod import_intents_request {
@@ -38903,7 +41584,7 @@ pub mod import_intents_request {
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ImportIntents]: crate::client::Intents::import_intents
 #[cfg(feature = "intents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportIntentsResponse {
     /// The unique identifier of the imported intents.
@@ -39081,6 +41762,19 @@ impl serde::ser::Serialize for ImportIntentsResponse {
     }
 }
 
+#[cfg(feature = "intents")]
+impl std::fmt::Debug for ImportIntentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportIntentsResponse");
+        debug_struct.field("intents", &self.intents);
+        debug_struct.field("conflicting_resources", &self.conflicting_resources);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportIntentsResponse].
 #[cfg(feature = "intents")]
 pub mod import_intents_response {
@@ -39091,7 +41785,7 @@ pub mod import_intents_response {
     /// [REPORT_CONFLICT][ImportIntentsResponse.REPORT_CONFLICT] is set in the
     /// request and there are conflicts in the display names.
     #[cfg(feature = "intents")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConflictingResources {
         /// Display names of conflicting intents.
@@ -39258,6 +41952,19 @@ pub mod import_intents_response {
             state.end()
         }
     }
+
+    #[cfg(feature = "intents")]
+    impl std::fmt::Debug for ConflictingResources {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConflictingResources");
+            debug_struct.field("intent_display_names", &self.intent_display_names);
+            debug_struct.field("entity_display_names", &self.entity_display_names);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Metadata returned for the
@@ -39266,7 +41973,7 @@ pub mod import_intents_response {
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ImportIntents]: crate::client::Intents::import_intents
 #[cfg(feature = "intents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportIntentsMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -39372,12 +42079,23 @@ impl serde::ser::Serialize for ImportIntentsMetadata {
     }
 }
 
+#[cfg(feature = "intents")]
+impl std::fmt::Debug for ImportIntentsMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportIntentsMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Intents.ExportIntents][google.cloud.dialogflow.cx.v3.Intents.ExportIntents].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ExportIntents]: crate::client::Intents::export_intents
 #[cfg(feature = "intents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportIntentsRequest {
     /// Required. The name of the parent agent to export intents.
@@ -39687,6 +42405,21 @@ impl serde::ser::Serialize for ExportIntentsRequest {
     }
 }
 
+#[cfg(feature = "intents")]
+impl std::fmt::Debug for ExportIntentsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportIntentsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("intents", &self.intents);
+        debug_struct.field("data_format", &self.data_format);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportIntentsRequest].
 #[cfg(feature = "intents")]
 pub mod export_intents_request {
@@ -39867,7 +42600,7 @@ pub mod export_intents_request {
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ExportIntents]: crate::client::Intents::export_intents
 #[cfg(feature = "intents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportIntentsResponse {
     /// The exported intents.
@@ -40100,6 +42833,18 @@ impl serde::ser::Serialize for ExportIntentsResponse {
     }
 }
 
+#[cfg(feature = "intents")]
+impl std::fmt::Debug for ExportIntentsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportIntentsResponse");
+        debug_struct.field("intents", &self.intents);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportIntentsResponse].
 #[cfg(feature = "intents")]
 pub mod export_intents_response {
@@ -40132,7 +42877,7 @@ pub mod export_intents_response {
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ExportIntents]: crate::client::Intents::export_intents
 #[cfg(feature = "intents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportIntentsMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -40238,6 +42983,17 @@ impl serde::ser::Serialize for ExportIntentsMetadata {
     }
 }
 
+#[cfg(feature = "intents")]
+impl std::fmt::Debug for ExportIntentsMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportIntentsMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Dialogflow CX conversation (session) can be described and visualized as a
 /// state machine. The states of a CX session are represented by pages.
 ///
@@ -40255,7 +43011,7 @@ impl serde::ser::Serialize for ExportIntentsMetadata {
 /// For more information, see the
 /// [Page guide](https://cloud.google.com/dialogflow/cx/docs/concept/page).
 #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Page {
     /// The unique identifier of the page.
@@ -40732,6 +43488,30 @@ impl serde::ser::Serialize for Page {
     }
 }
 
+#[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for Page {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Page");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("entry_fulfillment", &self.entry_fulfillment);
+        debug_struct.field("form", &self.form);
+        debug_struct.field("transition_route_groups", &self.transition_route_groups);
+        debug_struct.field("transition_routes", &self.transition_routes);
+        debug_struct.field("event_handlers", &self.event_handlers);
+        debug_struct.field("advanced_settings", &self.advanced_settings);
+        debug_struct.field(
+            "knowledge_connector_settings",
+            &self.knowledge_connector_settings,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A form is a data model that groups related parameters that can be collected
 /// from the user. The process in which the agent prompts the user and collects
 /// parameter values from the user is called form filling. A form can be added to
@@ -40742,7 +43522,7 @@ impl serde::ser::Serialize for Page {
 /// [google.cloud.dialogflow.cx.v3.Page]: crate::model::Page
 /// [google.cloud.dialogflow.cx.v3.SessionInfo.parameters]: crate::model::SessionInfo::parameters
 #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Form {
     /// Parameters to collect from the user.
@@ -40882,6 +43662,18 @@ impl serde::ser::Serialize for Form {
     }
 }
 
+#[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for Form {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Form");
+        debug_struct.field("parameters", &self.parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Form].
 #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
 pub mod form {
@@ -40890,7 +43682,7 @@ pub mod form {
 
     /// Represents a form parameter.
     #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Parameter {
         /// Required. The human-readable name of the parameter, unique within the
@@ -41256,6 +44048,25 @@ pub mod form {
         }
     }
 
+    #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
+    impl std::fmt::Debug for Parameter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Parameter");
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("required", &self.required);
+            debug_struct.field("entity_type", &self.entity_type);
+            debug_struct.field("is_list", &self.is_list);
+            debug_struct.field("fill_behavior", &self.fill_behavior);
+            debug_struct.field("default_value", &self.default_value);
+            debug_struct.field("redact", &self.redact);
+            debug_struct.field("advanced_settings", &self.advanced_settings);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Parameter].
     #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
     pub mod parameter {
@@ -41264,7 +44075,7 @@ pub mod form {
 
         /// Configuration for how the filling of a parameter should be handled.
         #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FillBehavior {
             /// Required. The fulfillment to provide the initial prompt that the agent
@@ -41498,6 +44309,22 @@ pub mod form {
                 state.end()
             }
         }
+
+        #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
+        impl std::fmt::Debug for FillBehavior {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("FillBehavior");
+                debug_struct.field(
+                    "initial_prompt_fulfillment",
+                    &self.initial_prompt_fulfillment,
+                );
+                debug_struct.field("reprompt_event_handlers", &self.reprompt_event_handlers);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 }
 
@@ -41528,7 +44355,7 @@ pub mod form {
     feature = "sessions",
     feature = "test-cases",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventHandler {
     /// Output only. The unique identifier of this event handler.
@@ -41858,6 +44685,26 @@ impl serde::ser::Serialize for EventHandler {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl std::fmt::Debug for EventHandler {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventHandler");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("event", &self.event);
+        debug_struct.field("trigger_fulfillment", &self.trigger_fulfillment);
+        debug_struct.field("target", &self.target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EventHandler].
 #[cfg(any(
     feature = "flows",
@@ -41923,7 +44770,7 @@ pub mod event_handler {
     feature = "test-cases",
     feature = "transition-route-groups",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransitionRoute {
     /// Output only. The unique identifier of this transition route.
@@ -42325,6 +45172,29 @@ impl serde::ser::Serialize for TransitionRoute {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
+impl std::fmt::Debug for TransitionRoute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransitionRoute");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("intent", &self.intent);
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("trigger_fulfillment", &self.trigger_fulfillment);
+        debug_struct.field("target", &self.target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransitionRoute].
 #[cfg(any(
     feature = "flows",
@@ -42369,7 +45239,7 @@ pub mod transition_route {
 ///
 /// [google.cloud.dialogflow.cx.v3.Pages.ListPages]: crate::client::Pages::list_pages
 #[cfg(feature = "pages")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPagesRequest {
     /// Required. The flow to list all pages for.
@@ -42620,12 +45490,27 @@ impl serde::ser::Serialize for ListPagesRequest {
     }
 }
 
+#[cfg(feature = "pages")]
+impl std::fmt::Debug for ListPagesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPagesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Pages.ListPages][google.cloud.dialogflow.cx.v3.Pages.ListPages].
 ///
 /// [google.cloud.dialogflow.cx.v3.Pages.ListPages]: crate::client::Pages::list_pages
 #[cfg(feature = "pages")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPagesResponse {
     /// The list of pages. There will be a maximum number of items returned based
@@ -42803,12 +45688,25 @@ impl serde::ser::Serialize for ListPagesResponse {
     }
 }
 
+#[cfg(feature = "pages")]
+impl std::fmt::Debug for ListPagesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPagesResponse");
+        debug_struct.field("pages", &self.pages);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Pages.GetPage][google.cloud.dialogflow.cx.v3.Pages.GetPage].
 ///
 /// [google.cloud.dialogflow.cx.v3.Pages.GetPage]: crate::client::Pages::get_page
 #[cfg(feature = "pages")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPageRequest {
     /// Required. The name of the page.
@@ -42990,12 +45888,25 @@ impl serde::ser::Serialize for GetPageRequest {
     }
 }
 
+#[cfg(feature = "pages")]
+impl std::fmt::Debug for GetPageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPageRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Pages.CreatePage][google.cloud.dialogflow.cx.v3.Pages.CreatePage].
 ///
 /// [google.cloud.dialogflow.cx.v3.Pages.CreatePage]: crate::client::Pages::create_page
 #[cfg(feature = "pages")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePageRequest {
     /// Required. The flow to create a page for.
@@ -43211,12 +46122,26 @@ impl serde::ser::Serialize for CreatePageRequest {
     }
 }
 
+#[cfg(feature = "pages")]
+impl std::fmt::Debug for CreatePageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePageRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page", &self.page);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Pages.UpdatePage][google.cloud.dialogflow.cx.v3.Pages.UpdatePage].
 ///
 /// [google.cloud.dialogflow.cx.v3.Pages.UpdatePage]: crate::client::Pages::update_page
 #[cfg(feature = "pages")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePageRequest {
     /// Required. The page to update.
@@ -43443,12 +46368,26 @@ impl serde::ser::Serialize for UpdatePageRequest {
     }
 }
 
+#[cfg(feature = "pages")]
+impl std::fmt::Debug for UpdatePageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePageRequest");
+        debug_struct.field("page", &self.page);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Pages.DeletePage][google.cloud.dialogflow.cx.v3.Pages.DeletePage].
 ///
 /// [google.cloud.dialogflow.cx.v3.Pages.DeletePage]: crate::client::Pages::delete_page
 #[cfg(feature = "pages")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePageRequest {
     /// Required. The name of the page to delete.
@@ -43619,6 +46558,19 @@ impl serde::ser::Serialize for DeletePageRequest {
     }
 }
 
+#[cfg(feature = "pages")]
+impl std::fmt::Debug for DeletePageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePageRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Knowledge Connector settings for this page or flow.
 /// This includes information such as the attached Knowledge Bases, and the way
 /// to execute fulfillment.
@@ -43628,7 +46580,7 @@ impl serde::ser::Serialize for DeletePageRequest {
     feature = "sessions",
     feature = "test-cases",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KnowledgeConnectorSettings {
     /// Whether Knowledge Connector is enabled or not.
@@ -43975,6 +46927,26 @@ impl serde::ser::Serialize for KnowledgeConnectorSettings {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl std::fmt::Debug for KnowledgeConnectorSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KnowledgeConnectorSettings");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("trigger_fulfillment", &self.trigger_fulfillment);
+        debug_struct.field("data_store_connections", &self.data_store_connections);
+        debug_struct.field("target", &self.target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [KnowledgeConnectorSettings].
 #[cfg(any(
     feature = "flows",
@@ -44036,7 +47008,7 @@ pub mod knowledge_connector_settings {
     feature = "test-cases",
     feature = "transition-route-groups",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResponseMessage {
     /// Response type.
@@ -44824,6 +47796,26 @@ impl serde::ser::Serialize for ResponseMessage {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
+impl std::fmt::Debug for ResponseMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResponseMessage");
+        debug_struct.field("response_type", &self.response_type);
+        debug_struct.field("channel", &self.channel);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ResponseMessage].
 #[cfg(any(
     feature = "flows",
@@ -44844,7 +47836,7 @@ pub mod response_message {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Text {
         /// Required. A collection of text response variants. If multiple variants
@@ -45045,6 +48037,28 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for Text {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Text");
+            debug_struct.field("text", &self.text);
+            debug_struct.field(
+                "allow_playback_interruption",
+                &self.allow_playback_interruption,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Indicates that the conversation should be handed off to a live agent.
     ///
     /// Dialogflow only uses this to determine which conversations were handed off
@@ -45070,7 +48084,7 @@ pub mod response_message {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LiveAgentHandoff {
         /// Custom metadata for your handoff procedure. Dialogflow doesn't impose
@@ -45242,6 +48256,24 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for LiveAgentHandoff {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LiveAgentHandoff");
+            debug_struct.field("metadata", &self.metadata);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Indicates that the conversation succeeded, i.e., the bot handled the issue
     /// that the customer talked to it about.
     ///
@@ -45270,7 +48302,7 @@ pub mod response_message {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConversationSuccess {
         /// Custom metadata. Dialogflow doesn't impose any structure on this.
@@ -45441,6 +48473,24 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for ConversationSuccess {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConversationSuccess");
+            debug_struct.field("metadata", &self.metadata);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A text or ssml response that is preferentially used for TTS output audio
     /// synthesis, as described in the comment on the ResponseMessage message.
     #[cfg(any(
@@ -45450,7 +48500,7 @@ pub mod response_message {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OutputAudioText {
         /// Output only. Whether the playback of this message can be interrupted by
@@ -45740,6 +48790,28 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for OutputAudioText {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("OutputAudioText");
+            debug_struct.field(
+                "allow_playback_interruption",
+                &self.allow_playback_interruption,
+            );
+            debug_struct.field("source", &self.source);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [OutputAudioText].
     #[cfg(any(
         feature = "flows",
@@ -45781,7 +48853,7 @@ pub mod response_message {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EndInteraction {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -45914,6 +48986,23 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for EndInteraction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EndInteraction");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Specifies an audio clip to be played by the client as part of the response.
     #[cfg(any(
         feature = "flows",
@@ -45922,7 +49011,7 @@ pub mod response_message {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PlayAudio {
         /// Required. URI of the audio clip. Dialogflow does not impose any
@@ -46121,6 +49210,28 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for PlayAudio {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PlayAudio");
+            debug_struct.field("audio_uri", &self.audio_uri);
+            debug_struct.field(
+                "allow_playback_interruption",
+                &self.allow_playback_interruption,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents an audio message that is composed of both segments
     /// synthesized from the Dialogflow agent prompts and ones hosted externally
     /// at the specified URIs.
@@ -46137,7 +49248,7 @@ pub mod response_message {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MixedAudio {
         /// Segments this audio response is composed of.
@@ -46306,6 +49417,24 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for MixedAudio {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MixedAudio");
+            debug_struct.field("segments", &self.segments);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [MixedAudio].
     #[cfg(any(
         feature = "flows",
@@ -46326,7 +49455,7 @@ pub mod response_message {
             feature = "test-cases",
             feature = "transition-route-groups",
         ))]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Segment {
             /// Output only. Whether the playback of this segment can be interrupted by
@@ -46654,6 +49783,28 @@ pub mod response_message {
             }
         }
 
+        #[cfg(any(
+            feature = "flows",
+            feature = "pages",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+        ))]
+        impl std::fmt::Debug for Segment {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Segment");
+                debug_struct.field(
+                    "allow_playback_interruption",
+                    &self.allow_playback_interruption,
+                );
+                debug_struct.field("content", &self.content);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Segment].
         #[cfg(any(
             feature = "flows",
@@ -46696,7 +49847,7 @@ pub mod response_message {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TelephonyTransferCall {
         /// Endpoint to transfer the call to.
@@ -46907,6 +50058,24 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for TelephonyTransferCall {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TelephonyTransferCall");
+            debug_struct.field("endpoint", &self.endpoint);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [TelephonyTransferCall].
     #[cfg(any(
         feature = "flows",
@@ -46948,7 +50117,7 @@ pub mod response_message {
         feature = "test-cases",
         feature = "transition-route-groups",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KnowledgeInfoCard {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -47078,6 +50247,23 @@ pub mod response_message {
                 }
             }
             state.end()
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl std::fmt::Debug for KnowledgeInfoCard {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("KnowledgeInfoCard");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -47354,7 +50540,7 @@ pub mod response_message {
 
 /// Settings for Generative Safety.
 #[cfg(feature = "agents")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SafetySettings {
     /// Banned phrases for generated text.
@@ -47495,6 +50681,18 @@ impl serde::ser::Serialize for SafetySettings {
     }
 }
 
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for SafetySettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SafetySettings");
+        debug_struct.field("banned_phrases", &self.banned_phrases);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SafetySettings].
 #[cfg(feature = "agents")]
 pub mod safety_settings {
@@ -47503,7 +50701,7 @@ pub mod safety_settings {
 
     /// Text input which can be used for prompt or banned phrases.
     #[cfg(feature = "agents")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Phrase {
         /// Required. Text input which can be used for prompt or banned phrases.
@@ -47666,6 +50864,19 @@ pub mod safety_settings {
             state.end()
         }
     }
+
+    #[cfg(feature = "agents")]
+    impl std::fmt::Debug for Phrase {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Phrase");
+            debug_struct.field("text", &self.text);
+            debug_struct.field("language_code", &self.language_code);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The request message for
@@ -47673,7 +50884,7 @@ pub mod safety_settings {
 ///
 /// [google.cloud.dialogflow.cx.v3.SecuritySettingsService.GetSecuritySettings]: crate::client::SecuritySettingsService::get_security_settings
 #[cfg(feature = "security-settings-service")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSecuritySettingsRequest {
     /// Required. Resource name of the settings.
@@ -47808,12 +51019,24 @@ impl serde::ser::Serialize for GetSecuritySettingsRequest {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
+impl std::fmt::Debug for GetSecuritySettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSecuritySettingsRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [SecuritySettingsService.UpdateSecuritySettings][google.cloud.dialogflow.cx.v3.SecuritySettingsService.UpdateSecuritySettings].
 ///
 /// [google.cloud.dialogflow.cx.v3.SecuritySettingsService.UpdateSecuritySettings]: crate::client::SecuritySettingsService::update_security_settings
 #[cfg(feature = "security-settings-service")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSecuritySettingsRequest {
     /// Required. [SecuritySettings] object that contains values for each of the
@@ -47997,9 +51220,22 @@ impl serde::ser::Serialize for UpdateSecuritySettingsRequest {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
+impl std::fmt::Debug for UpdateSecuritySettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSecuritySettingsRequest");
+        debug_struct.field("security_settings", &self.security_settings);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for [SecuritySettings.ListSecuritySettings][].
 #[cfg(feature = "security-settings-service")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecuritySettingsRequest {
     /// Required. The location to list all security settings for.
@@ -48202,9 +51438,23 @@ impl serde::ser::Serialize for ListSecuritySettingsRequest {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
+impl std::fmt::Debug for ListSecuritySettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSecuritySettingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for [SecuritySettings.ListSecuritySettings][].
 #[cfg(feature = "security-settings-service")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecuritySettingsResponse {
     /// The list of security settings.
@@ -48386,9 +51636,22 @@ impl serde::ser::Serialize for ListSecuritySettingsResponse {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
+impl std::fmt::Debug for ListSecuritySettingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSecuritySettingsResponse");
+        debug_struct.field("security_settings", &self.security_settings);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for [SecuritySettings.CreateSecuritySettings][].
 #[cfg(feature = "security-settings-service")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSecuritySettingsRequest {
     /// Required. The location to create an
@@ -48562,9 +51825,22 @@ impl serde::ser::Serialize for CreateSecuritySettingsRequest {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
+impl std::fmt::Debug for CreateSecuritySettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSecuritySettingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("security_settings", &self.security_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for [SecuritySettings.DeleteSecuritySettings][].
 #[cfg(feature = "security-settings-service")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSecuritySettingsRequest {
     /// Required. The name of the
@@ -48702,11 +51978,23 @@ impl serde::ser::Serialize for DeleteSecuritySettingsRequest {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
+impl std::fmt::Debug for DeleteSecuritySettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSecuritySettingsRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the settings related to security issues, such as data redaction
 /// and data retention. It may take hours for updates on the settings to
 /// propagate to all the related components and take effect.
 #[cfg(feature = "security-settings-service")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecuritySettings {
     /// Resource name of the settings.
@@ -49311,6 +52599,27 @@ impl serde::ser::Serialize for SecuritySettings {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
+impl std::fmt::Debug for SecuritySettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecuritySettings");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("redaction_strategy", &self.redaction_strategy);
+        debug_struct.field("redaction_scope", &self.redaction_scope);
+        debug_struct.field("inspect_template", &self.inspect_template);
+        debug_struct.field("deidentify_template", &self.deidentify_template);
+        debug_struct.field("purge_data_types", &self.purge_data_types);
+        debug_struct.field("audio_export_settings", &self.audio_export_settings);
+        debug_struct.field("insights_export_settings", &self.insights_export_settings);
+        debug_struct.field("data_retention", &self.data_retention);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SecuritySettings].
 #[cfg(feature = "security-settings-service")]
 pub mod security_settings {
@@ -49319,7 +52628,7 @@ pub mod security_settings {
 
     /// Settings for exporting audio.
     #[cfg(feature = "security-settings-service")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AudioExportSettings {
         /// Cloud Storage bucket to export audio record to.
@@ -49572,6 +52881,22 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
+    impl std::fmt::Debug for AudioExportSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AudioExportSettings");
+            debug_struct.field("gcs_bucket", &self.gcs_bucket);
+            debug_struct.field("audio_export_pattern", &self.audio_export_pattern);
+            debug_struct.field("enable_audio_redaction", &self.enable_audio_redaction);
+            debug_struct.field("audio_format", &self.audio_format);
+            debug_struct.field("store_tts_audio", &self.store_tts_audio);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [AudioExportSettings].
     #[cfg(feature = "security-settings-service")]
     pub mod audio_export_settings {
@@ -49733,7 +53058,7 @@ pub mod security_settings {
     /// Settings for exporting conversations to
     /// [Insights](https://cloud.google.com/contact-center/insights/docs).
     #[cfg(feature = "security-settings-service")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InsightsExportSettings {
         /// If enabled, we will automatically exports
@@ -49870,6 +53195,18 @@ pub mod security_settings {
                 }
             }
             state.end()
+        }
+    }
+
+    #[cfg(feature = "security-settings-service")]
+    impl std::fmt::Debug for InsightsExportSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InsightsExportSettings");
+            debug_struct.field("enable_insights_export", &self.enable_insights_export);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -50442,7 +53779,7 @@ pub mod security_settings {
 
 /// Stores information about feedback provided by users about a response.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnswerFeedback {
     /// Optional. Rating from user for the specific Dialogflow response.
@@ -50642,6 +53979,20 @@ impl serde::ser::Serialize for AnswerFeedback {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for AnswerFeedback {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AnswerFeedback");
+        debug_struct.field("rating", &self.rating);
+        debug_struct.field("rating_reason", &self.rating_reason);
+        debug_struct.field("custom_rating", &self.custom_rating);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AnswerFeedback].
 #[cfg(feature = "sessions")]
 pub mod answer_feedback {
@@ -50650,7 +54001,7 @@ pub mod answer_feedback {
 
     /// Stores extra information about why users provided thumbs down rating.
     #[cfg(feature = "sessions")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RatingReason {
         /// Optional. Custom reason labels for thumbs down rating provided by the
@@ -50817,6 +54168,19 @@ pub mod answer_feedback {
         }
     }
 
+    #[cfg(feature = "sessions")]
+    impl std::fmt::Debug for RatingReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("RatingReason");
+            debug_struct.field("reason_labels", &self.reason_labels);
+            debug_struct.field("feedback", &self.feedback);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents thumbs up/down rating provided by user about a response.
     ///
     /// # Working with unknown values
@@ -50961,7 +54325,7 @@ pub mod answer_feedback {
 
 /// The request to set the feedback for a bot answer.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitAnswerFeedbackRequest {
     /// Required. The name of the session the feedback was sent to.
@@ -51194,9 +54558,24 @@ impl serde::ser::Serialize for SubmitAnswerFeedbackRequest {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for SubmitAnswerFeedbackRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SubmitAnswerFeedbackRequest");
+        debug_struct.field("session", &self.session);
+        debug_struct.field("response_id", &self.response_id);
+        debug_struct.field("answer_feedback", &self.answer_feedback);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request to detect user's intent.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectIntentRequest {
     /// Required. The name of the session this query is sent to.
@@ -51455,9 +54834,24 @@ impl serde::ser::Serialize for DetectIntentRequest {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for DetectIntentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetectIntentRequest");
+        debug_struct.field("session", &self.session);
+        debug_struct.field("query_params", &self.query_params);
+        debug_struct.field("query_input", &self.query_input);
+        debug_struct.field("output_audio_config", &self.output_audio_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The message returned from the DetectIntent method.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectIntentResponse {
     /// Output only. The unique identifier of the response. It can be used to
@@ -51779,6 +55173,23 @@ impl serde::ser::Serialize for DetectIntentResponse {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for DetectIntentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetectIntentResponse");
+        debug_struct.field("response_id", &self.response_id);
+        debug_struct.field("query_result", &self.query_result);
+        debug_struct.field("output_audio", &self.output_audio);
+        debug_struct.field("output_audio_config", &self.output_audio_config);
+        debug_struct.field("response_type", &self.response_type);
+        debug_struct.field("allow_cancellation", &self.allow_cancellation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DetectIntentResponse].
 #[cfg(feature = "sessions")]
 pub mod detect_intent_response {
@@ -51971,7 +55382,7 @@ pub mod detect_intent_response {
 /// [google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.query_params]: crate::model::StreamingDetectIntentRequest::query_params
 /// [google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.session]: crate::model::StreamingDetectIntentRequest::session
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingDetectIntentRequest {
     /// The name of the session this query is sent to.
@@ -52284,12 +55695,29 @@ impl serde::ser::Serialize for StreamingDetectIntentRequest {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for StreamingDetectIntentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingDetectIntentRequest");
+        debug_struct.field("session", &self.session);
+        debug_struct.field("query_params", &self.query_params);
+        debug_struct.field("query_input", &self.query_input);
+        debug_struct.field("output_audio_config", &self.output_audio_config);
+        debug_struct.field("enable_partial_response", &self.enable_partial_response);
+        debug_struct.field("enable_debugging_info", &self.enable_debugging_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Cloud conversation info for easier debugging.
 /// It will get populated in `StreamingDetectIntentResponse` or
 /// `StreamingAnalyzeContentResponse` when the flag `enable_debugging_info` is
 /// set to true in corresponding requests.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudConversationDebuggingInfo {
     /// Number of input audio data chunks in streaming requests.
@@ -53071,6 +56499,56 @@ impl serde::ser::Serialize for CloudConversationDebuggingInfo {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for CloudConversationDebuggingInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudConversationDebuggingInfo");
+        debug_struct.field("audio_data_chunks", &self.audio_data_chunks);
+        debug_struct.field("result_end_time_offset", &self.result_end_time_offset);
+        debug_struct.field("first_audio_duration", &self.first_audio_duration);
+        debug_struct.field("single_utterance", &self.single_utterance);
+        debug_struct.field(
+            "speech_partial_results_end_times",
+            &self.speech_partial_results_end_times,
+        );
+        debug_struct.field(
+            "speech_final_results_end_times",
+            &self.speech_final_results_end_times,
+        );
+        debug_struct.field("partial_responses", &self.partial_responses);
+        debug_struct.field(
+            "speaker_id_passive_latency_ms_offset",
+            &self.speaker_id_passive_latency_ms_offset,
+        );
+        debug_struct.field("bargein_event_triggered", &self.bargein_event_triggered);
+        debug_struct.field("speech_single_utterance", &self.speech_single_utterance);
+        debug_struct.field(
+            "dtmf_partial_results_times",
+            &self.dtmf_partial_results_times,
+        );
+        debug_struct.field("dtmf_final_results_times", &self.dtmf_final_results_times);
+        debug_struct.field(
+            "single_utterance_end_time_offset",
+            &self.single_utterance_end_time_offset,
+        );
+        debug_struct.field("no_speech_timeout", &self.no_speech_timeout);
+        debug_struct.field("endpointing_timeout", &self.endpointing_timeout);
+        debug_struct.field("is_input_text", &self.is_input_text);
+        debug_struct.field(
+            "client_half_close_time_offset",
+            &self.client_half_close_time_offset,
+        );
+        debug_struct.field(
+            "client_half_close_streaming_time_offset",
+            &self.client_half_close_streaming_time_offset,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The top-level message returned from the
 /// [StreamingDetectIntent][google.cloud.dialogflow.cx.v3.Sessions.StreamingDetectIntent]
 /// method.
@@ -53098,7 +56576,7 @@ impl serde::ser::Serialize for CloudConversationDebuggingInfo {
 ///
 /// [google.cloud.dialogflow.cx.v3.DetectIntentResponse.response_type]: crate::model::DetectIntentResponse::response_type
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingDetectIntentResponse {
     /// Debugging info that would get populated when
@@ -53377,6 +56855,19 @@ impl serde::ser::Serialize for StreamingDetectIntentResponse {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for StreamingDetectIntentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingDetectIntentResponse");
+        debug_struct.field("debugging_info", &self.debugging_info);
+        debug_struct.field("response", &self.response);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StreamingDetectIntentResponse].
 #[cfg(feature = "sessions")]
 pub mod streaming_detect_intent_response {
@@ -53433,7 +56924,7 @@ pub mod streaming_detect_intent_response {
 /// Concatenating the finalized transcripts with `is_final` set to true,
 /// the complete utterance becomes "to be or not to be that is the question".
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingRecognitionResult {
     /// Type of the result message.
@@ -53824,6 +57315,25 @@ impl serde::ser::Serialize for StreamingRecognitionResult {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for StreamingRecognitionResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingRecognitionResult");
+        debug_struct.field("message_type", &self.message_type);
+        debug_struct.field("transcript", &self.transcript);
+        debug_struct.field("is_final", &self.is_final);
+        debug_struct.field("confidence", &self.confidence);
+        debug_struct.field("stability", &self.stability);
+        debug_struct.field("speech_word_info", &self.speech_word_info);
+        debug_struct.field("speech_end_offset", &self.speech_end_offset);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StreamingRecognitionResult].
 #[cfg(feature = "sessions")]
 pub mod streaming_recognition_result {
@@ -53983,7 +57493,7 @@ pub mod streaming_recognition_result {
 
 /// Represents the parameters of a conversational query.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryParameters {
     /// The time zone of this conversational query from the [time zone
@@ -54679,9 +58189,41 @@ impl serde::ser::Serialize for QueryParameters {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for QueryParameters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryParameters");
+        debug_struct.field("time_zone", &self.time_zone);
+        debug_struct.field("geo_location", &self.geo_location);
+        debug_struct.field("session_entity_types", &self.session_entity_types);
+        debug_struct.field("payload", &self.payload);
+        debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("current_page", &self.current_page);
+        debug_struct.field("disable_webhook", &self.disable_webhook);
+        debug_struct.field(
+            "analyze_query_text_sentiment",
+            &self.analyze_query_text_sentiment,
+        );
+        debug_struct.field("webhook_headers", &self.webhook_headers);
+        debug_struct.field("flow_versions", &self.flow_versions);
+        debug_struct.field("channel", &self.channel);
+        debug_struct.field("session_ttl", &self.session_ttl);
+        debug_struct.field("end_user_metadata", &self.end_user_metadata);
+        debug_struct.field("search_config", &self.search_config);
+        debug_struct.field(
+            "populate_data_store_connection_signals",
+            &self.populate_data_store_connection_signals,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Search configuration for UCS search queries.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchConfig {
     /// Optional. Boosting configuration for the datastores.
@@ -54855,12 +58397,25 @@ impl serde::ser::Serialize for SearchConfig {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for SearchConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchConfig");
+        debug_struct.field("boost_specs", &self.boost_specs);
+        debug_struct.field("filter_specs", &self.filter_specs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Boost specification to boost certain documents.
 /// A copy of google.cloud.discoveryengine.v1main.BoostSpec, field documentation
 /// is available at
 /// <https://cloud.google.com/generative-ai-app-builder/docs/reference/rest/v1alpha/BoostSpec>
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BoostSpec {
     /// Optional. Condition boost specifications. If a document matches multiple
@@ -55004,6 +58559,18 @@ impl serde::ser::Serialize for BoostSpec {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for BoostSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BoostSpec");
+        debug_struct.field("condition_boost_specs", &self.condition_boost_specs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BoostSpec].
 #[cfg(feature = "sessions")]
 pub mod boost_spec {
@@ -55012,7 +58579,7 @@ pub mod boost_spec {
 
     /// Boost applies to documents which match a condition.
     #[cfg(feature = "sessions")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConditionBoostSpec {
         /// Optional. An expression which specifies a boost condition. The syntax and
@@ -55251,6 +58818,20 @@ pub mod boost_spec {
         }
     }
 
+    #[cfg(feature = "sessions")]
+    impl std::fmt::Debug for ConditionBoostSpec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConditionBoostSpec");
+            debug_struct.field("condition", &self.condition);
+            debug_struct.field("boost", &self.boost);
+            debug_struct.field("boost_control_spec", &self.boost_control_spec);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ConditionBoostSpec].
     #[cfg(feature = "sessions")]
     pub mod condition_boost_spec {
@@ -55261,7 +58842,7 @@ pub mod boost_spec {
         /// value. It provides more controls for customized ranking than the simple
         /// (condition, boost) combination above.
         #[cfg(feature = "sessions")]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BoostControlSpec {
 
@@ -55495,6 +59076,21 @@ pub mod boost_spec {
             }
         }
 
+        #[cfg(feature = "sessions")]
+        impl std::fmt::Debug for BoostControlSpec {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("BoostControlSpec");
+                debug_struct.field("field_name", &self.field_name);
+                debug_struct.field("attribute_type", &self.attribute_type);
+                debug_struct.field("interpolation_type", &self.interpolation_type);
+                debug_struct.field("control_points", &self.control_points);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [BoostControlSpec].
         #[cfg(feature = "sessions")]
         pub mod boost_control_spec {
@@ -55505,7 +59101,7 @@ pub mod boost_spec {
             /// through these control points can only be monotonically increasing
             /// or decreasing(constant values are acceptable).
             #[cfg(feature = "sessions")]
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct ControlPoint {
                 /// Optional. Can be one of:
@@ -55715,6 +59311,19 @@ pub mod boost_spec {
                         }
                     }
                     state.end()
+                }
+            }
+
+            #[cfg(feature = "sessions")]
+            impl std::fmt::Debug for ControlPoint {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("ControlPoint");
+                    debug_struct.field("attribute_value", &self.attribute_value);
+                    debug_struct.field("boost_amount", &self.boost_amount);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
                 }
             }
 
@@ -56017,7 +59626,7 @@ pub mod boost_spec {
 
 /// Boost specifications for data stores.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BoostSpecs {
     /// Optional. Data Stores where the boosting configuration is applied. The full
@@ -56184,9 +59793,22 @@ impl serde::ser::Serialize for BoostSpecs {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for BoostSpecs {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BoostSpecs");
+        debug_struct.field("data_stores", &self.data_stores);
+        debug_struct.field("spec", &self.spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Filter specifications for data stores.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FilterSpecs {
     /// Optional. Data Stores where the boosting configuration is applied. The full
@@ -56352,6 +59974,19 @@ impl serde::ser::Serialize for FilterSpecs {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for FilterSpecs {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FilterSpecs");
+        debug_struct.field("data_stores", &self.data_stores);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the query input. It can contain one of:
 ///
 /// 1. A conversational query in the form of text.
@@ -56367,7 +60002,7 @@ impl serde::ser::Serialize for FilterSpecs {
 /// 1. The results of a tool executed by the client.
 ///
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryInput {
     /// Required. The language of the input. See [Language
@@ -56762,6 +60397,19 @@ impl serde::ser::Serialize for QueryInput {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for QueryInput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryInput");
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("input", &self.input);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QueryInput].
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 pub mod query_input {
@@ -56788,7 +60436,7 @@ pub mod query_input {
 
 /// Represents the result of a conversational query.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryResult {
     /// The language that was triggered during intent detection.
@@ -57866,6 +61514,43 @@ impl serde::ser::Serialize for QueryResult {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for QueryResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryResult");
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("response_messages", &self.response_messages);
+        debug_struct.field("webhook_ids", &self.webhook_ids);
+        debug_struct.field("webhook_display_names", &self.webhook_display_names);
+        debug_struct.field("webhook_latencies", &self.webhook_latencies);
+        debug_struct.field("webhook_tags", &self.webhook_tags);
+        debug_struct.field("webhook_statuses", &self.webhook_statuses);
+        debug_struct.field("webhook_payloads", &self.webhook_payloads);
+        debug_struct.field("current_page", &self.current_page);
+        debug_struct.field("current_flow", &self.current_flow);
+        debug_struct.field("intent", &self.intent);
+        debug_struct.field(
+            "intent_detection_confidence",
+            &self.intent_detection_confidence,
+        );
+        debug_struct.field("r#match", &self.r#match);
+        debug_struct.field("diagnostic_info", &self.diagnostic_info);
+        debug_struct.field("sentiment_analysis_result", &self.sentiment_analysis_result);
+        debug_struct.field("advanced_settings", &self.advanced_settings);
+        debug_struct.field("allow_answer_feedback", &self.allow_answer_feedback);
+        debug_struct.field(
+            "data_store_connection_signals",
+            &self.data_store_connection_signals,
+        );
+        debug_struct.field("query", &self.query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QueryResult].
 #[cfg(feature = "sessions")]
 pub mod query_result {
@@ -57910,7 +61595,7 @@ pub mod query_result {
 
 /// Represents the natural language text to be processed.
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextInput {
     /// Required. The UTF-8 encoded natural language text to be processed.
@@ -58043,10 +61728,22 @@ impl serde::ser::Serialize for TextInput {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for TextInput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextInput");
+        debug_struct.field("text", &self.text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the intent to trigger programmatically rather than as a result of
 /// natural language processing.
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IntentInput {
     /// Required. The unique identifier of the intent.
@@ -58181,9 +61878,21 @@ impl serde::ser::Serialize for IntentInput {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for IntentInput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IntentInput");
+        debug_struct.field("intent", &self.intent);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the natural speech audio to be processed.
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AudioInput {
     /// Required. Instructs the speech recognizer how to process the speech audio.
@@ -58381,9 +62090,22 @@ impl serde::ser::Serialize for AudioInput {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for AudioInput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AudioInput");
+        debug_struct.field("config", &self.config);
+        debug_struct.field("audio", &self.audio);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the event to trigger.
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventInput {
     /// Name of the event.
@@ -58516,9 +62238,21 @@ impl serde::ser::Serialize for EventInput {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for EventInput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventInput");
+        debug_struct.field("event", &self.event);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the input for dtmf event.
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DtmfInput {
     /// The dtmf digits.
@@ -58676,9 +62410,22 @@ impl serde::ser::Serialize for DtmfInput {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for DtmfInput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DtmfInput");
+        debug_struct.field("digits", &self.digits);
+        debug_struct.field("finish_digit", &self.finish_digit);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents one match result of [MatchIntent][].
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Match {
     /// The [Intent][google.cloud.dialogflow.cx.v3.Intent] that matched the query.
@@ -59007,6 +62754,23 @@ impl serde::ser::Serialize for Match {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for Match {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Match");
+        debug_struct.field("intent", &self.intent);
+        debug_struct.field("event", &self.event);
+        debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("resolved_input", &self.resolved_input);
+        debug_struct.field("match_type", &self.match_type);
+        debug_struct.field("confidence", &self.confidence);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Match].
 #[cfg(feature = "sessions")]
 pub mod r#match {
@@ -59199,7 +62963,7 @@ pub mod r#match {
 
 /// Request of [MatchIntent][].
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MatchIntentRequest {
     /// Required. The name of the session this query is sent to.
@@ -59446,9 +63210,24 @@ impl serde::ser::Serialize for MatchIntentRequest {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for MatchIntentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MatchIntentRequest");
+        debug_struct.field("session", &self.session);
+        debug_struct.field("query_params", &self.query_params);
+        debug_struct.field("query_input", &self.query_input);
+        debug_struct.field("persist_parameter_changes", &self.persist_parameter_changes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of [MatchIntent][].
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MatchIntentResponse {
     /// Match results, if more than one, ordered descendingly by the confidence
@@ -59833,6 +63612,20 @@ impl serde::ser::Serialize for MatchIntentResponse {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for MatchIntentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MatchIntentResponse");
+        debug_struct.field("matches", &self.matches);
+        debug_struct.field("current_page", &self.current_page);
+        debug_struct.field("query", &self.query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MatchIntentResponse].
 #[cfg(feature = "sessions")]
 pub mod match_intent_response {
@@ -59871,7 +63664,7 @@ pub mod match_intent_response {
 
 /// Request of [FulfillIntent][]
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FulfillIntentRequest {
     /// Must be same as the corresponding MatchIntent request, otherwise the
@@ -60089,9 +63882,23 @@ impl serde::ser::Serialize for FulfillIntentRequest {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for FulfillIntentRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FulfillIntentRequest");
+        debug_struct.field("match_intent_request", &self.match_intent_request);
+        debug_struct.field("r#match", &self.r#match);
+        debug_struct.field("output_audio_config", &self.output_audio_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of [FulfillIntent][]
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FulfillIntentResponse {
     /// Output only. The unique identifier of the response. It can be used to
@@ -60354,11 +64161,26 @@ impl serde::ser::Serialize for FulfillIntentResponse {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for FulfillIntentResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FulfillIntentResponse");
+        debug_struct.field("response_id", &self.response_id);
+        debug_struct.field("query_result", &self.query_result);
+        debug_struct.field("output_audio", &self.output_audio);
+        debug_struct.field("output_audio_config", &self.output_audio_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The result of sentiment analysis. Sentiment analysis inspects user input
 /// and identifies the prevailing subjective opinion, especially to determine a
 /// user's attitude as positive, negative, or neutral.
 #[cfg(feature = "sessions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SentimentAnalysisResult {
     /// Sentiment score between -1.0 (negative sentiment) and 1.0 (positive
@@ -60553,6 +64375,19 @@ impl serde::ser::Serialize for SentimentAnalysisResult {
     }
 }
 
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for SentimentAnalysisResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SentimentAnalysisResult");
+        debug_struct.field("score", &self.score);
+        debug_struct.field("magnitude", &self.magnitude);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Session entity types are referred to as **User** entity types and are
 /// entities that are built for an individual user such as favorites,
 /// preferences, playlists, and so on.
@@ -60569,7 +64404,7 @@ impl serde::ser::Serialize for SentimentAnalysisResult {
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityType]: crate::model::EntityType
 #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SessionEntityType {
     /// Required. The unique identifier of the session entity type.
@@ -60773,6 +64608,20 @@ impl serde::ser::Serialize for SessionEntityType {
     }
 }
 
+#[cfg(any(feature = "session-entity-types", feature = "sessions",))]
+impl std::fmt::Debug for SessionEntityType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SessionEntityType");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("entity_override_mode", &self.entity_override_mode);
+        debug_struct.field("entities", &self.entities);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SessionEntityType].
 #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
 pub mod session_entity_type {
@@ -60938,7 +64787,7 @@ pub mod session_entity_type {
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityTypes.ListSessionEntityTypes]: crate::client::SessionEntityTypes::list_session_entity_types
 #[cfg(feature = "session-entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSessionEntityTypesRequest {
     /// Required. The session to list all session entity types from.
@@ -61146,12 +64995,26 @@ impl serde::ser::Serialize for ListSessionEntityTypesRequest {
     }
 }
 
+#[cfg(feature = "session-entity-types")]
+impl std::fmt::Debug for ListSessionEntityTypesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSessionEntityTypesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [SessionEntityTypes.ListSessionEntityTypes][google.cloud.dialogflow.cx.v3.SessionEntityTypes.ListSessionEntityTypes].
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityTypes.ListSessionEntityTypes]: crate::client::SessionEntityTypes::list_session_entity_types
 #[cfg(feature = "session-entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSessionEntityTypesResponse {
     /// The list of session entity types. There will be a maximum number of items
@@ -61334,12 +65197,25 @@ impl serde::ser::Serialize for ListSessionEntityTypesResponse {
     }
 }
 
+#[cfg(feature = "session-entity-types")]
+impl std::fmt::Debug for ListSessionEntityTypesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSessionEntityTypesResponse");
+        debug_struct.field("session_entity_types", &self.session_entity_types);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [SessionEntityTypes.GetSessionEntityType][google.cloud.dialogflow.cx.v3.SessionEntityTypes.GetSessionEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityTypes.GetSessionEntityType]: crate::client::SessionEntityTypes::get_session_entity_type
 #[cfg(feature = "session-entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSessionEntityTypeRequest {
     /// Required. The name of the session entity type.
@@ -61478,12 +65354,24 @@ impl serde::ser::Serialize for GetSessionEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "session-entity-types")]
+impl std::fmt::Debug for GetSessionEntityTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSessionEntityTypeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [SessionEntityTypes.CreateSessionEntityType][google.cloud.dialogflow.cx.v3.SessionEntityTypes.CreateSessionEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityTypes.CreateSessionEntityType]: crate::client::SessionEntityTypes::create_session_entity_type
 #[cfg(feature = "session-entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSessionEntityTypeRequest {
     /// Required. The session to create a session entity type for.
@@ -61659,12 +65547,25 @@ impl serde::ser::Serialize for CreateSessionEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "session-entity-types")]
+impl std::fmt::Debug for CreateSessionEntityTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSessionEntityTypeRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("session_entity_type", &self.session_entity_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [SessionEntityTypes.UpdateSessionEntityType][google.cloud.dialogflow.cx.v3.SessionEntityTypes.UpdateSessionEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityTypes.UpdateSessionEntityType]: crate::client::SessionEntityTypes::update_session_entity_type
 #[cfg(feature = "session-entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSessionEntityTypeRequest {
     /// Required. The session entity type to update.
@@ -61852,12 +65753,25 @@ impl serde::ser::Serialize for UpdateSessionEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "session-entity-types")]
+impl std::fmt::Debug for UpdateSessionEntityTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSessionEntityTypeRequest");
+        debug_struct.field("session_entity_type", &self.session_entity_type);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [SessionEntityTypes.DeleteSessionEntityType][google.cloud.dialogflow.cx.v3.SessionEntityTypes.DeleteSessionEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityTypes.DeleteSessionEntityType]: crate::client::SessionEntityTypes::delete_session_entity_type
 #[cfg(feature = "session-entity-types")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSessionEntityTypeRequest {
     /// Required. The name of the session entity type to delete.
@@ -61996,9 +65910,21 @@ impl serde::ser::Serialize for DeleteSessionEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "session-entity-types")]
+impl std::fmt::Debug for DeleteSessionEntityTypeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSessionEntityTypeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a test case.
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestCase {
     /// The unique identifier of the test case.
@@ -62365,9 +66291,31 @@ impl serde::ser::Serialize for TestCase {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for TestCase {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestCase");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("notes", &self.notes);
+        debug_struct.field("test_config", &self.test_config);
+        debug_struct.field(
+            "test_case_conversation_turns",
+            &self.test_case_conversation_turns,
+        );
+        debug_struct.field("creation_time", &self.creation_time);
+        debug_struct.field("last_test_result", &self.last_test_result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a result from running a test case in an agent environment.
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestCaseResult {
     /// The resource name for the test case result. Format:
@@ -62623,9 +66571,25 @@ impl serde::ser::Serialize for TestCaseResult {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for TestCaseResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestCaseResult");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("conversation_turns", &self.conversation_turns);
+        debug_struct.field("test_result", &self.test_result);
+        debug_struct.field("test_time", &self.test_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents configurations for a test case.
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestConfig {
     /// Session parameters to be compared when calculating differences.
@@ -62824,10 +66788,24 @@ impl serde::ser::Serialize for TestConfig {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for TestConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestConfig");
+        debug_struct.field("tracking_parameters", &self.tracking_parameters);
+        debug_struct.field("flow", &self.flow);
+        debug_struct.field("page", &self.page);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// One interaction between a human and virtual agent. The human provides some
 /// input and the virtual agent provides a response.
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConversationTurn {
     /// The user input.
@@ -63010,6 +66988,19 @@ impl serde::ser::Serialize for ConversationTurn {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for ConversationTurn {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConversationTurn");
+        debug_struct.field("user_input", &self.user_input);
+        debug_struct.field("virtual_agent_output", &self.virtual_agent_output);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConversationTurn].
 #[cfg(feature = "test-cases")]
 pub mod conversation_turn {
@@ -63018,7 +67009,7 @@ pub mod conversation_turn {
 
     /// The input from the human user.
     #[cfg(feature = "test-cases")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UserInput {
         /// Supports [text input][google.cloud.dialogflow.cx.v3.QueryInput.text],
@@ -63266,9 +67257,24 @@ pub mod conversation_turn {
         }
     }
 
+    #[cfg(feature = "test-cases")]
+    impl std::fmt::Debug for UserInput {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("UserInput");
+            debug_struct.field("input", &self.input);
+            debug_struct.field("injected_parameters", &self.injected_parameters);
+            debug_struct.field("is_webhook_enabled", &self.is_webhook_enabled);
+            debug_struct.field("enable_sentiment_analysis", &self.enable_sentiment_analysis);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The output from the virtual agent.
     #[cfg(feature = "test-cases")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VirtualAgentOutput {
         /// The session parameters available to the bot at this point.
@@ -63637,11 +67643,29 @@ pub mod conversation_turn {
             state.end()
         }
     }
+
+    #[cfg(feature = "test-cases")]
+    impl std::fmt::Debug for VirtualAgentOutput {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VirtualAgentOutput");
+            debug_struct.field("session_parameters", &self.session_parameters);
+            debug_struct.field("differences", &self.differences);
+            debug_struct.field("diagnostic_info", &self.diagnostic_info);
+            debug_struct.field("triggered_intent", &self.triggered_intent);
+            debug_struct.field("current_page", &self.current_page);
+            debug_struct.field("text_responses", &self.text_responses);
+            debug_struct.field("status", &self.status);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The description of differences between original and replayed agent output.
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestRunDifference {
     /// The type of diff.
@@ -63801,6 +67825,19 @@ impl serde::ser::Serialize for TestRunDifference {
             }
         }
         state.end()
+    }
+}
+
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for TestRunDifference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestRunDifference");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -63977,7 +68014,7 @@ pub mod test_run_difference {
 /// transitions (page-level transition routes and event handlers, excluding
 /// transition route groups) present within any of a parent's test cases.
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransitionCoverage {
     /// The list of Transitions present in the agent.
@@ -64161,6 +68198,19 @@ impl serde::ser::Serialize for TransitionCoverage {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for TransitionCoverage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransitionCoverage");
+        debug_struct.field("transitions", &self.transitions);
+        debug_struct.field("coverage_score", &self.coverage_score);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransitionCoverage].
 #[cfg(feature = "test-cases")]
 pub mod transition_coverage {
@@ -64169,7 +68219,7 @@ pub mod transition_coverage {
 
     /// The source or target of a transition.
     #[cfg(feature = "test-cases")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TransitionNode {
         /// A TransitionNode can be either a page or a flow.
@@ -64406,6 +68456,18 @@ pub mod transition_coverage {
         }
     }
 
+    #[cfg(feature = "test-cases")]
+    impl std::fmt::Debug for TransitionNode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TransitionNode");
+            debug_struct.field("kind", &self.kind);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [TransitionNode].
     #[cfg(feature = "test-cases")]
     pub mod transition_node {
@@ -64432,7 +68494,7 @@ pub mod transition_coverage {
 
     /// A transition in a page.
     #[cfg(feature = "test-cases")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Transition {
         /// The start node of a transition.
@@ -64812,6 +68874,22 @@ pub mod transition_coverage {
         }
     }
 
+    #[cfg(feature = "test-cases")]
+    impl std::fmt::Debug for Transition {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Transition");
+            debug_struct.field("source", &self.source);
+            debug_struct.field("index", &self.index);
+            debug_struct.field("target", &self.target);
+            debug_struct.field("covered", &self.covered);
+            debug_struct.field("detail", &self.detail);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Transition].
     #[cfg(feature = "test-cases")]
     pub mod transition {
@@ -64835,7 +68913,7 @@ pub mod transition_coverage {
 /// transition routes present within any of a parent's test cases. The results
 /// are grouped by the transition route group.
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransitionRouteGroupCoverage {
     /// Transition route group coverages.
@@ -65022,6 +69100,19 @@ impl serde::ser::Serialize for TransitionRouteGroupCoverage {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for TransitionRouteGroupCoverage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransitionRouteGroupCoverage");
+        debug_struct.field("coverages", &self.coverages);
+        debug_struct.field("coverage_score", &self.coverage_score);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransitionRouteGroupCoverage].
 #[cfg(feature = "test-cases")]
 pub mod transition_route_group_coverage {
@@ -65030,7 +69121,7 @@ pub mod transition_route_group_coverage {
 
     /// Coverage result message for one transition route group.
     #[cfg(feature = "test-cases")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Coverage {
         /// Transition route group metadata. Only name and displayName will be set.
@@ -65253,6 +69344,20 @@ pub mod transition_route_group_coverage {
         }
     }
 
+    #[cfg(feature = "test-cases")]
+    impl std::fmt::Debug for Coverage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Coverage");
+            debug_struct.field("route_group", &self.route_group);
+            debug_struct.field("transitions", &self.transitions);
+            debug_struct.field("coverage_score", &self.coverage_score);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Coverage].
     #[cfg(feature = "test-cases")]
     pub mod coverage {
@@ -65261,7 +69366,7 @@ pub mod transition_route_group_coverage {
 
         /// A transition coverage in a transition route group.
         #[cfg(feature = "test-cases")]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Transition {
             /// Intent route or condition route.
@@ -65440,13 +69545,26 @@ pub mod transition_route_group_coverage {
                 state.end()
             }
         }
+
+        #[cfg(feature = "test-cases")]
+        impl std::fmt::Debug for Transition {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Transition");
+                debug_struct.field("transition_route", &self.transition_route);
+                debug_struct.field("covered", &self.covered);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 }
 
 /// Intent coverage represents the percentage of all possible intents in the
 /// agent that are triggered in any of a parent's test cases.
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IntentCoverage {
     /// The list of Intents present in the agent
@@ -65630,6 +69748,19 @@ impl serde::ser::Serialize for IntentCoverage {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for IntentCoverage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IntentCoverage");
+        debug_struct.field("intents", &self.intents);
+        debug_struct.field("coverage_score", &self.coverage_score);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [IntentCoverage].
 #[cfg(feature = "test-cases")]
 pub mod intent_coverage {
@@ -65638,7 +69769,7 @@ pub mod intent_coverage {
 
     /// The agent's intent.
     #[cfg(feature = "test-cases")]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Intent {
         /// The intent full resource name
@@ -65798,6 +69929,19 @@ pub mod intent_coverage {
             state.end()
         }
     }
+
+    #[cfg(feature = "test-cases")]
+    impl std::fmt::Debug for Intent {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Intent");
+            debug_struct.field("intent", &self.intent);
+            debug_struct.field("covered", &self.covered);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The request message for
@@ -65805,7 +69949,7 @@ pub mod intent_coverage {
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.CalculateCoverage]: crate::client::TestCases::calculate_coverage
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CalculateCoverageRequest {
     /// Required. The agent to calculate coverage for.
@@ -65970,6 +70114,19 @@ impl serde::ser::Serialize for CalculateCoverageRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for CalculateCoverageRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CalculateCoverageRequest");
+        debug_struct.field("agent", &self.agent);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CalculateCoverageRequest].
 #[cfg(feature = "test-cases")]
 pub mod calculate_coverage_request {
@@ -66130,7 +70287,7 @@ pub mod calculate_coverage_request {
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.CalculateCoverage]: crate::client::TestCases::calculate_coverage
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CalculateCoverageResponse {
     /// The agent to calculate coverage for.
@@ -66448,6 +70605,19 @@ impl serde::ser::Serialize for CalculateCoverageResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for CalculateCoverageResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CalculateCoverageResponse");
+        debug_struct.field("agent", &self.agent);
+        debug_struct.field("coverage_type", &self.coverage_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CalculateCoverageResponse].
 #[cfg(feature = "test-cases")]
 pub mod calculate_coverage_response {
@@ -66473,7 +70643,7 @@ pub mod calculate_coverage_response {
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ListTestCases]: crate::client::TestCases::list_test_cases
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTestCasesRequest {
     /// Required. The agent to list all pages for.
@@ -66706,6 +70876,21 @@ impl serde::ser::Serialize for ListTestCasesRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for ListTestCasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTestCasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListTestCasesRequest].
 #[cfg(feature = "test-cases")]
 pub mod list_test_cases_request {
@@ -66861,7 +71046,7 @@ pub mod list_test_cases_request {
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ListTestCases]: crate::client::TestCases::list_test_cases
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTestCasesResponse {
     /// The list of test cases. There will be a maximum number of items returned
@@ -67040,12 +71225,25 @@ impl serde::ser::Serialize for ListTestCasesResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for ListTestCasesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTestCasesResponse");
+        debug_struct.field("test_cases", &self.test_cases);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TestCases.BatchDeleteTestCases][google.cloud.dialogflow.cx.v3.TestCases.BatchDeleteTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.BatchDeleteTestCases]: crate::client::TestCases::batch_delete_test_cases
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDeleteTestCasesRequest {
     /// Required. The agent to delete test cases from.
@@ -67207,12 +71405,25 @@ impl serde::ser::Serialize for BatchDeleteTestCasesRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for BatchDeleteTestCasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchDeleteTestCasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("names", &self.names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TestCases.CreateTestCase][google.cloud.dialogflow.cx.v3.TestCases.CreateTestCase].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.CreateTestCase]: crate::client::TestCases::create_test_case
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTestCaseRequest {
     /// Required. The agent to create the test case for.
@@ -67382,12 +71593,25 @@ impl serde::ser::Serialize for CreateTestCaseRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for CreateTestCaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTestCaseRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("test_case", &self.test_case);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TestCases.UpdateTestCase][google.cloud.dialogflow.cx.v3.TestCases.UpdateTestCase].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.UpdateTestCase]: crate::client::TestCases::update_test_case
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTestCaseRequest {
     /// Required. The test case to update.
@@ -67574,12 +71798,25 @@ impl serde::ser::Serialize for UpdateTestCaseRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for UpdateTestCaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTestCaseRequest");
+        debug_struct.field("test_case", &self.test_case);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TestCases.GetTestCase][google.cloud.dialogflow.cx.v3.TestCases.GetTestCase].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.GetTestCase]: crate::client::TestCases::get_test_case
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTestCaseRequest {
     /// Required. The name of the testcase.
@@ -67714,12 +71951,24 @@ impl serde::ser::Serialize for GetTestCaseRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for GetTestCaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTestCaseRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TestCases.RunTestCase][google.cloud.dialogflow.cx.v3.TestCases.RunTestCase].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.RunTestCase]: crate::client::TestCases::run_test_case
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunTestCaseRequest {
     /// Required. Format of test case name to run:
@@ -67879,12 +72128,25 @@ impl serde::ser::Serialize for RunTestCaseRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for RunTestCaseRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunTestCaseRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("environment", &self.environment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [TestCases.RunTestCase][google.cloud.dialogflow.cx.v3.TestCases.RunTestCase].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.RunTestCase]: crate::client::TestCases::run_test_case
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunTestCaseResponse {
     /// The result.
@@ -68029,13 +72291,25 @@ impl serde::ser::Serialize for RunTestCaseResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for RunTestCaseResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunTestCaseResponse");
+        debug_struct.field("result", &self.result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata returned for the
 /// [TestCases.RunTestCase][google.cloud.dialogflow.cx.v3.TestCases.RunTestCase]
 /// long running operation. This message currently has no fields.
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.RunTestCase]: crate::client::TestCases::run_test_case
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunTestCaseMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -68141,12 +72415,23 @@ impl serde::ser::Serialize for RunTestCaseMetadata {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for RunTestCaseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunTestCaseMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TestCases.BatchRunTestCases][google.cloud.dialogflow.cx.v3.TestCases.BatchRunTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.BatchRunTestCases]: crate::client::TestCases::batch_run_test_cases
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRunTestCasesRequest {
     /// Required. Agent name. Format:
@@ -68334,12 +72619,26 @@ impl serde::ser::Serialize for BatchRunTestCasesRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for BatchRunTestCasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchRunTestCasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("test_cases", &self.test_cases);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [TestCases.BatchRunTestCases][google.cloud.dialogflow.cx.v3.TestCases.BatchRunTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.BatchRunTestCases]: crate::client::TestCases::batch_run_test_cases
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRunTestCasesResponse {
     /// The test case results. The detailed
@@ -68484,13 +72783,25 @@ impl serde::ser::Serialize for BatchRunTestCasesResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for BatchRunTestCasesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchRunTestCasesResponse");
+        debug_struct.field("results", &self.results);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata returned for the
 /// [TestCases.BatchRunTestCases][google.cloud.dialogflow.cx.v3.TestCases.BatchRunTestCases]
 /// long running operation.
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.BatchRunTestCases]: crate::client::TestCases::batch_run_test_cases
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchRunTestCasesMetadata {
     /// The test errors.
@@ -68626,9 +72937,21 @@ impl serde::ser::Serialize for BatchRunTestCasesMetadata {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for BatchRunTestCasesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchRunTestCasesMetadata");
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Error info for running a test.
 #[cfg(any(feature = "environments", feature = "test-cases",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestError {
     /// The test case resource name.
@@ -68833,12 +73156,26 @@ impl serde::ser::Serialize for TestError {
     }
 }
 
+#[cfg(any(feature = "environments", feature = "test-cases",))]
+impl std::fmt::Debug for TestError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestError");
+        debug_struct.field("test_case", &self.test_case);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("test_time", &self.test_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TestCases.ImportTestCases][google.cloud.dialogflow.cx.v3.TestCases.ImportTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ImportTestCases]: crate::client::TestCases::import_test_cases
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportTestCasesRequest {
     /// Required. The agent to import test cases to.
@@ -69105,6 +73442,19 @@ impl serde::ser::Serialize for ImportTestCasesRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for ImportTestCasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportTestCasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ImportTestCasesRequest].
 #[cfg(feature = "test-cases")]
 pub mod import_test_cases_request {
@@ -69136,7 +73486,7 @@ pub mod import_test_cases_request {
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ImportTestCases]: crate::client::TestCases::import_test_cases
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportTestCasesResponse {
     /// The unique identifiers of the new test cases.
@@ -69274,13 +73624,25 @@ impl serde::ser::Serialize for ImportTestCasesResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for ImportTestCasesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportTestCasesResponse");
+        debug_struct.field("names", &self.names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata returned for the
 /// [TestCases.ImportTestCases][google.cloud.dialogflow.cx.v3.TestCases.ImportTestCases]
 /// long running operation.
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ImportTestCases]: crate::client::TestCases::import_test_cases
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportTestCasesMetadata {
     /// Errors for failed test cases.
@@ -69416,9 +73778,21 @@ impl serde::ser::Serialize for ImportTestCasesMetadata {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for ImportTestCasesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportTestCasesMetadata");
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Error info for importing a test.
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestCaseError {
     /// The test case.
@@ -69598,12 +73972,25 @@ impl serde::ser::Serialize for TestCaseError {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for TestCaseError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestCaseError");
+        debug_struct.field("test_case", &self.test_case);
+        debug_struct.field("status", &self.status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TestCases.ExportTestCases][google.cloud.dialogflow.cx.v3.TestCases.ExportTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ExportTestCases]: crate::client::TestCases::export_test_cases
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportTestCasesRequest {
     /// Required. The agent where to export test cases from.
@@ -69871,6 +74258,21 @@ impl serde::ser::Serialize for ExportTestCasesRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for ExportTestCasesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportTestCasesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("data_format", &self.data_format);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportTestCasesRequest].
 #[cfg(feature = "test-cases")]
 pub mod export_test_cases_request {
@@ -70042,7 +74444,7 @@ pub mod export_test_cases_request {
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ExportTestCases]: crate::client::TestCases::export_test_cases
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportTestCasesResponse {
     /// The exported test cases.
@@ -70286,6 +74688,18 @@ impl serde::ser::Serialize for ExportTestCasesResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for ExportTestCasesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportTestCasesResponse");
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExportTestCasesResponse].
 #[cfg(feature = "test-cases")]
 pub mod export_test_cases_response {
@@ -70314,7 +74728,7 @@ pub mod export_test_cases_response {
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ExportTestCases]: crate::client::TestCases::export_test_cases
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportTestCasesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -70420,12 +74834,23 @@ impl serde::ser::Serialize for ExportTestCasesMetadata {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for ExportTestCasesMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportTestCasesMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TestCases.ListTestCaseResults][google.cloud.dialogflow.cx.v3.TestCases.ListTestCaseResults].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ListTestCaseResults]: crate::client::TestCases::list_test_case_results
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTestCaseResultsRequest {
     /// Required. The test case to list results for.
@@ -70679,12 +75104,27 @@ impl serde::ser::Serialize for ListTestCaseResultsRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for ListTestCaseResultsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTestCaseResultsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [TestCases.ListTestCaseResults][google.cloud.dialogflow.cx.v3.TestCases.ListTestCaseResults].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ListTestCaseResults]: crate::client::TestCases::list_test_case_results
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTestCaseResultsResponse {
     /// The list of test case results.
@@ -70866,12 +75306,25 @@ impl serde::ser::Serialize for ListTestCaseResultsResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for ListTestCaseResultsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTestCaseResultsResponse");
+        debug_struct.field("test_case_results", &self.test_case_results);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TestCases.GetTestCaseResult][google.cloud.dialogflow.cx.v3.TestCases.GetTestCaseResult].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.GetTestCaseResult]: crate::client::TestCases::get_test_case_result
 #[cfg(feature = "test-cases")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTestCaseResultRequest {
     /// Required. The name of the testcase.
@@ -71006,6 +75459,18 @@ impl serde::ser::Serialize for GetTestCaseResultRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
+impl std::fmt::Debug for GetTestCaseResultRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTestCaseResultRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A TransitionRouteGroup represents a group of
 /// [`TransitionRoutes`][google.cloud.dialogflow.cx.v3.TransitionRoute] to be
 /// used by a [Page][google.cloud.dialogflow.cx.v3.Page].
@@ -71013,7 +75478,7 @@ impl serde::ser::Serialize for GetTestCaseResultRequest {
 /// [google.cloud.dialogflow.cx.v3.Page]: crate::model::Page
 /// [google.cloud.dialogflow.cx.v3.TransitionRoute]: crate::model::TransitionRoute
 #[cfg(any(feature = "test-cases", feature = "transition-route-groups",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransitionRouteGroup {
     /// The unique identifier of the transition route group.
@@ -71213,12 +75678,26 @@ impl serde::ser::Serialize for TransitionRouteGroup {
     }
 }
 
+#[cfg(any(feature = "test-cases", feature = "transition-route-groups",))]
+impl std::fmt::Debug for TransitionRouteGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransitionRouteGroup");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("transition_routes", &self.transition_routes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TransitionRouteGroups.ListTransitionRouteGroups][google.cloud.dialogflow.cx.v3.TransitionRouteGroups.ListTransitionRouteGroups].
 ///
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.ListTransitionRouteGroups]: crate::client::TransitionRouteGroups::list_transition_route_groups
 #[cfg(feature = "transition-route-groups")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransitionRouteGroupsRequest {
     /// Required. The flow to list all transition route groups for.
@@ -71459,12 +75938,27 @@ impl serde::ser::Serialize for ListTransitionRouteGroupsRequest {
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
+impl std::fmt::Debug for ListTransitionRouteGroupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTransitionRouteGroupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [TransitionRouteGroups.ListTransitionRouteGroups][google.cloud.dialogflow.cx.v3.TransitionRouteGroups.ListTransitionRouteGroups].
 ///
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.ListTransitionRouteGroups]: crate::client::TransitionRouteGroups::list_transition_route_groups
 #[cfg(feature = "transition-route-groups")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransitionRouteGroupsResponse {
     /// The list of transition route groups. There will be a maximum number of
@@ -71649,12 +76143,25 @@ impl serde::ser::Serialize for ListTransitionRouteGroupsResponse {
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
+impl std::fmt::Debug for ListTransitionRouteGroupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTransitionRouteGroupsResponse");
+        debug_struct.field("transition_route_groups", &self.transition_route_groups);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TransitionRouteGroups.GetTransitionRouteGroup][google.cloud.dialogflow.cx.v3.TransitionRouteGroups.GetTransitionRouteGroup].
 ///
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.GetTransitionRouteGroup]: crate::client::TransitionRouteGroups::get_transition_route_group
 #[cfg(feature = "transition-route-groups")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTransitionRouteGroupRequest {
     /// Required. The name of the
@@ -71830,12 +76337,25 @@ impl serde::ser::Serialize for GetTransitionRouteGroupRequest {
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
+impl std::fmt::Debug for GetTransitionRouteGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTransitionRouteGroupRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TransitionRouteGroups.CreateTransitionRouteGroup][google.cloud.dialogflow.cx.v3.TransitionRouteGroups.CreateTransitionRouteGroup].
 ///
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.CreateTransitionRouteGroup]: crate::client::TransitionRouteGroups::create_transition_route_group
 #[cfg(feature = "transition-route-groups")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTransitionRouteGroupRequest {
     /// Required. The flow to create an
@@ -72046,12 +76566,26 @@ impl serde::ser::Serialize for CreateTransitionRouteGroupRequest {
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
+impl std::fmt::Debug for CreateTransitionRouteGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTransitionRouteGroupRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("transition_route_group", &self.transition_route_group);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TransitionRouteGroups.UpdateTransitionRouteGroup][google.cloud.dialogflow.cx.v3.TransitionRouteGroups.UpdateTransitionRouteGroup].
 ///
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.UpdateTransitionRouteGroup]: crate::client::TransitionRouteGroups::update_transition_route_group
 #[cfg(feature = "transition-route-groups")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTransitionRouteGroupRequest {
     /// Required. The transition route group to update.
@@ -72267,12 +76801,26 @@ impl serde::ser::Serialize for UpdateTransitionRouteGroupRequest {
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
+impl std::fmt::Debug for UpdateTransitionRouteGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTransitionRouteGroupRequest");
+        debug_struct.field("transition_route_group", &self.transition_route_group);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [TransitionRouteGroups.DeleteTransitionRouteGroup][google.cloud.dialogflow.cx.v3.TransitionRouteGroups.DeleteTransitionRouteGroup].
 ///
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.DeleteTransitionRouteGroup]: crate::client::TransitionRouteGroups::delete_transition_route_group
 #[cfg(feature = "transition-route-groups")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTransitionRouteGroupRequest {
     /// Required. The name of the
@@ -72442,9 +76990,22 @@ impl serde::ser::Serialize for DeleteTransitionRouteGroupRequest {
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
+impl std::fmt::Debug for DeleteTransitionRouteGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTransitionRouteGroupRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Agent/flow validation message.
 #[cfg(any(feature = "agents", feature = "flows",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidationMessage {
     /// The type of the resources where the message is found.
@@ -72688,6 +77249,22 @@ impl serde::ser::Serialize for ValidationMessage {
             }
         }
         state.end()
+    }
+}
+
+#[cfg(any(feature = "agents", feature = "flows",))]
+impl std::fmt::Debug for ValidationMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValidationMessage");
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("resources", &self.resources);
+        debug_struct.field("resource_names", &self.resource_names);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("detail", &self.detail);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -73075,7 +77652,7 @@ pub mod validation_message {
 
 /// Resource name and display name.
 #[cfg(any(feature = "agents", feature = "flows",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceName {
     /// Name.
@@ -73233,12 +77810,25 @@ impl serde::ser::Serialize for ResourceName {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "flows",))]
+impl std::fmt::Debug for ResourceName {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceName");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata associated with the long running operation for
 /// [Versions.CreateVersion][google.cloud.dialogflow.cx.v3.Versions.CreateVersion].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.CreateVersion]: crate::client::Versions::create_version
 #[cfg(feature = "versions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVersionOperationMetadata {
     /// Name of the created version.
@@ -73373,9 +77963,21 @@ impl serde::ser::Serialize for CreateVersionOperationMetadata {
     }
 }
 
+#[cfg(feature = "versions")]
+impl std::fmt::Debug for CreateVersionOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVersionOperationMetadata");
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a version of a flow.
 #[cfg(feature = "versions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Version {
     /// Format:
@@ -73658,6 +78260,23 @@ impl serde::ser::Serialize for Version {
     }
 }
 
+#[cfg(feature = "versions")]
+impl std::fmt::Debug for Version {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Version");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("nlu_settings", &self.nlu_settings);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Version].
 #[cfg(feature = "versions")]
 pub mod version {
@@ -73818,7 +78437,7 @@ pub mod version {
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.ListVersions]: crate::client::Versions::list_versions
 #[cfg(feature = "versions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVersionsRequest {
     /// Required. The [Flow][google.cloud.dialogflow.cx.v3.Flow] to list all
@@ -74024,12 +78643,26 @@ impl serde::ser::Serialize for ListVersionsRequest {
     }
 }
 
+#[cfg(feature = "versions")]
+impl std::fmt::Debug for ListVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Versions.ListVersions][google.cloud.dialogflow.cx.v3.Versions.ListVersions].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.ListVersions]: crate::client::Versions::list_versions
 #[cfg(feature = "versions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVersionsResponse {
     /// A list of versions. There will be a maximum number of items returned based
@@ -74208,12 +78841,25 @@ impl serde::ser::Serialize for ListVersionsResponse {
     }
 }
 
+#[cfg(feature = "versions")]
+impl std::fmt::Debug for ListVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVersionsResponse");
+        debug_struct.field("versions", &self.versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Versions.GetVersion][google.cloud.dialogflow.cx.v3.Versions.GetVersion].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.GetVersion]: crate::client::Versions::get_version
 #[cfg(feature = "versions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVersionRequest {
     /// Required. The name of the [Version][google.cloud.dialogflow.cx.v3.Version].
@@ -74350,12 +78996,24 @@ impl serde::ser::Serialize for GetVersionRequest {
     }
 }
 
+#[cfg(feature = "versions")]
+impl std::fmt::Debug for GetVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Versions.CreateVersion][google.cloud.dialogflow.cx.v3.Versions.CreateVersion].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.CreateVersion]: crate::client::Versions::create_version
 #[cfg(feature = "versions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVersionRequest {
     /// Required. The [Flow][google.cloud.dialogflow.cx.v3.Flow] to create an
@@ -74528,12 +79186,25 @@ impl serde::ser::Serialize for CreateVersionRequest {
     }
 }
 
+#[cfg(feature = "versions")]
+impl std::fmt::Debug for CreateVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Versions.UpdateVersion][google.cloud.dialogflow.cx.v3.Versions.UpdateVersion].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.UpdateVersion]: crate::client::Versions::update_version
 #[cfg(feature = "versions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVersionRequest {
     /// Required. The version to update.
@@ -74714,12 +79385,25 @@ impl serde::ser::Serialize for UpdateVersionRequest {
     }
 }
 
+#[cfg(feature = "versions")]
+impl std::fmt::Debug for UpdateVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateVersionRequest");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Versions.DeleteVersion][google.cloud.dialogflow.cx.v3.Versions.DeleteVersion].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.DeleteVersion]: crate::client::Versions::delete_version
 #[cfg(feature = "versions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVersionRequest {
     /// Required. The name of the [Version][google.cloud.dialogflow.cx.v3.Version]
@@ -74856,12 +79540,24 @@ impl serde::ser::Serialize for DeleteVersionRequest {
     }
 }
 
+#[cfg(feature = "versions")]
+impl std::fmt::Debug for DeleteVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Versions.LoadVersion][google.cloud.dialogflow.cx.v3.Versions.LoadVersion].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.LoadVersion]: crate::client::Versions::load_version
 #[cfg(feature = "versions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoadVersionRequest {
     /// Required. The [Version][google.cloud.dialogflow.cx.v3.Version] to be loaded
@@ -75033,12 +79729,28 @@ impl serde::ser::Serialize for LoadVersionRequest {
     }
 }
 
+#[cfg(feature = "versions")]
+impl std::fmt::Debug for LoadVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoadVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "allow_override_agent_resources",
+            &self.allow_override_agent_resources,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Versions.CompareVersions][google.cloud.dialogflow.cx.v3.Versions.CompareVersions].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.CompareVersions]: crate::client::Versions::compare_versions
 #[cfg(feature = "versions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompareVersionsRequest {
     /// Required. Name of the base flow version to compare with the target version.
@@ -75235,12 +79947,26 @@ impl serde::ser::Serialize for CompareVersionsRequest {
     }
 }
 
+#[cfg(feature = "versions")]
+impl std::fmt::Debug for CompareVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompareVersionsRequest");
+        debug_struct.field("base_version", &self.base_version);
+        debug_struct.field("target_version", &self.target_version);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Versions.CompareVersions][google.cloud.dialogflow.cx.v3.Versions.CompareVersions].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.CompareVersions]: crate::client::Versions::compare_versions
 #[cfg(feature = "versions")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompareVersionsResponse {
     /// JSON representation of the base version content.
@@ -75450,12 +80176,29 @@ impl serde::ser::Serialize for CompareVersionsResponse {
     }
 }
 
+#[cfg(feature = "versions")]
+impl std::fmt::Debug for CompareVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompareVersionsResponse");
+        debug_struct.field("base_version_content_json", &self.base_version_content_json);
+        debug_struct.field(
+            "target_version_content_json",
+            &self.target_version_content_json,
+        );
+        debug_struct.field("compare_time", &self.compare_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Webhooks host the developer's business logic. During a session, webhooks
 /// allow the developer to use the data extracted by Dialogflow's natural
 /// language processing to generate dynamic responses, validate collected data,
 /// or trigger actions on the backend.
 #[cfg(any(feature = "environments", feature = "webhooks",))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Webhook {
     /// The unique identifier of the webhook.
@@ -75812,6 +80555,22 @@ impl serde::ser::Serialize for Webhook {
     }
 }
 
+#[cfg(any(feature = "environments", feature = "webhooks",))]
+impl std::fmt::Debug for Webhook {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Webhook");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("timeout", &self.timeout);
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("webhook", &self.webhook);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Webhook].
 #[cfg(any(feature = "environments", feature = "webhooks",))]
 pub mod webhook {
@@ -75820,7 +80579,7 @@ pub mod webhook {
 
     /// Represents configuration for a generic web service.
     #[cfg(any(feature = "environments", feature = "webhooks",))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GenericWebService {
         /// Required. The webhook URI for receiving POST requests. It must use https
@@ -76320,6 +81079,28 @@ pub mod webhook {
         }
     }
 
+    #[cfg(any(feature = "environments", feature = "webhooks",))]
+    impl std::fmt::Debug for GenericWebService {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GenericWebService");
+            debug_struct.field("uri", &self.uri);
+            debug_struct.field("username", &self.username);
+            debug_struct.field("password", &self.password);
+            debug_struct.field("request_headers", &self.request_headers);
+            debug_struct.field("allowed_ca_certs", &self.allowed_ca_certs);
+            debug_struct.field("oauth_config", &self.oauth_config);
+            debug_struct.field("service_agent_auth", &self.service_agent_auth);
+            debug_struct.field("webhook_type", &self.webhook_type);
+            debug_struct.field("http_method", &self.http_method);
+            debug_struct.field("request_body", &self.request_body);
+            debug_struct.field("parameter_mapping", &self.parameter_mapping);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [GenericWebService].
     #[cfg(any(feature = "environments", feature = "webhooks",))]
     pub mod generic_web_service {
@@ -76329,7 +81110,7 @@ pub mod webhook {
         /// Represents configuration of OAuth client credential flow for 3rd party
         /// API authentication.
         #[cfg(any(feature = "environments", feature = "webhooks",))]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct OAuthConfig {
             /// Required. The client ID provided by the 3rd party platform.
@@ -76559,6 +81340,21 @@ pub mod webhook {
                     }
                 }
                 state.end()
+            }
+        }
+
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
+        impl std::fmt::Debug for OAuthConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("OAuthConfig");
+                debug_struct.field("client_id", &self.client_id);
+                debug_struct.field("client_secret", &self.client_secret);
+                debug_struct.field("token_endpoint", &self.token_endpoint);
+                debug_struct.field("scopes", &self.scopes);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -77051,7 +81847,7 @@ pub mod webhook {
     /// Represents configuration for a [Service
     /// Directory](https://cloud.google.com/service-directory) service.
     #[cfg(any(feature = "environments", feature = "webhooks",))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ServiceDirectoryConfig {
         /// Required. The name of [Service
@@ -77230,6 +82026,19 @@ pub mod webhook {
         }
     }
 
+    #[cfg(any(feature = "environments", feature = "webhooks",))]
+    impl std::fmt::Debug for ServiceDirectoryConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ServiceDirectoryConfig");
+            debug_struct.field("service", &self.service);
+            debug_struct.field("generic_web_service", &self.generic_web_service);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Required. The webhook configuration.
     #[cfg(any(feature = "environments", feature = "webhooks",))]
     #[derive(Clone, Debug, PartialEq)]
@@ -77248,7 +82057,7 @@ pub mod webhook {
 ///
 /// [google.cloud.dialogflow.cx.v3.Webhooks.ListWebhooks]: crate::client::Webhooks::list_webhooks
 #[cfg(feature = "webhooks")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWebhooksRequest {
     /// Required. The agent to list all webhooks for.
@@ -77451,12 +82260,26 @@ impl serde::ser::Serialize for ListWebhooksRequest {
     }
 }
 
+#[cfg(feature = "webhooks")]
+impl std::fmt::Debug for ListWebhooksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWebhooksRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for
 /// [Webhooks.ListWebhooks][google.cloud.dialogflow.cx.v3.Webhooks.ListWebhooks].
 ///
 /// [google.cloud.dialogflow.cx.v3.Webhooks.ListWebhooks]: crate::client::Webhooks::list_webhooks
 #[cfg(feature = "webhooks")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWebhooksResponse {
     /// The list of webhooks. There will be a maximum number of items returned
@@ -77634,12 +82457,25 @@ impl serde::ser::Serialize for ListWebhooksResponse {
     }
 }
 
+#[cfg(feature = "webhooks")]
+impl std::fmt::Debug for ListWebhooksResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListWebhooksResponse");
+        debug_struct.field("webhooks", &self.webhooks);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Webhooks.GetWebhook][google.cloud.dialogflow.cx.v3.Webhooks.GetWebhook].
 ///
 /// [google.cloud.dialogflow.cx.v3.Webhooks.GetWebhook]: crate::client::Webhooks::get_webhook
 #[cfg(feature = "webhooks")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWebhookRequest {
     /// Required. The name of the webhook.
@@ -77774,12 +82610,24 @@ impl serde::ser::Serialize for GetWebhookRequest {
     }
 }
 
+#[cfg(feature = "webhooks")]
+impl std::fmt::Debug for GetWebhookRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetWebhookRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Webhooks.CreateWebhook][google.cloud.dialogflow.cx.v3.Webhooks.CreateWebhook].
 ///
 /// [google.cloud.dialogflow.cx.v3.Webhooks.CreateWebhook]: crate::client::Webhooks::create_webhook
 #[cfg(feature = "webhooks")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWebhookRequest {
     /// Required. The agent to create a webhook for.
@@ -77948,12 +82796,25 @@ impl serde::ser::Serialize for CreateWebhookRequest {
     }
 }
 
+#[cfg(feature = "webhooks")]
+impl std::fmt::Debug for CreateWebhookRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateWebhookRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("webhook", &self.webhook);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Webhooks.UpdateWebhook][google.cloud.dialogflow.cx.v3.Webhooks.UpdateWebhook].
 ///
 /// [google.cloud.dialogflow.cx.v3.Webhooks.UpdateWebhook]: crate::client::Webhooks::update_webhook
 #[cfg(feature = "webhooks")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWebhookRequest {
     /// Required. The webhook to update.
@@ -78134,12 +82995,25 @@ impl serde::ser::Serialize for UpdateWebhookRequest {
     }
 }
 
+#[cfg(feature = "webhooks")]
+impl std::fmt::Debug for UpdateWebhookRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateWebhookRequest");
+        debug_struct.field("webhook", &self.webhook);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for
 /// [Webhooks.DeleteWebhook][google.cloud.dialogflow.cx.v3.Webhooks.DeleteWebhook].
 ///
 /// [google.cloud.dialogflow.cx.v3.Webhooks.DeleteWebhook]: crate::client::Webhooks::delete_webhook
 #[cfg(feature = "webhooks")]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWebhookRequest {
     /// Required. The name of the webhook to delete.
@@ -78310,6 +83184,19 @@ impl serde::ser::Serialize for DeleteWebhookRequest {
     }
 }
 
+#[cfg(feature = "webhooks")]
+impl std::fmt::Debug for DeleteWebhookRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteWebhookRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for a webhook call. The request is sent as a JSON object
 /// and the field names will be presented in camel cases.
 ///
@@ -78334,7 +83221,7 @@ impl serde::ser::Serialize for DeleteWebhookRequest {
     feature = "versions",
     feature = "webhooks",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WebhookRequest {
     /// Always present. The unique identifier of the
@@ -79122,6 +84009,46 @@ impl serde::ser::Serialize for WebhookRequest {
     }
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
+impl std::fmt::Debug for WebhookRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WebhookRequest");
+        debug_struct.field("detect_intent_response_id", &self.detect_intent_response_id);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("fulfillment_info", &self.fulfillment_info);
+        debug_struct.field("intent_info", &self.intent_info);
+        debug_struct.field("page_info", &self.page_info);
+        debug_struct.field("session_info", &self.session_info);
+        debug_struct.field("messages", &self.messages);
+        debug_struct.field("payload", &self.payload);
+        debug_struct.field("sentiment_analysis_result", &self.sentiment_analysis_result);
+        debug_struct.field("language_info", &self.language_info);
+        debug_struct.field("query", &self.query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WebhookRequest].
 #[cfg(all(
     feature = "agents",
@@ -79166,7 +84093,7 @@ pub mod webhook_request {
         feature = "versions",
         feature = "webhooks",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FulfillmentInfo {
         /// Always present.
@@ -79382,6 +84309,36 @@ pub mod webhook_request {
         }
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
+    impl std::fmt::Debug for FulfillmentInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FulfillmentInfo");
+            debug_struct.field("tag", &self.tag);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents intent information communicated to the webhook.
     #[cfg(all(
         feature = "agents",
@@ -79402,7 +84359,7 @@ pub mod webhook_request {
         feature = "versions",
         feature = "webhooks",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IntentInfo {
         /// Always present. The unique identifier of the last matched
@@ -79728,6 +84685,39 @@ pub mod webhook_request {
         }
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
+    impl std::fmt::Debug for IntentInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("IntentInfo");
+            debug_struct.field("last_matched_intent", &self.last_matched_intent);
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("parameters", &self.parameters);
+            debug_struct.field("confidence", &self.confidence);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [IntentInfo].
     #[cfg(all(
         feature = "agents",
@@ -79772,7 +84762,7 @@ pub mod webhook_request {
             feature = "versions",
             feature = "webhooks",
         ))]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct IntentParameterValue {
             /// Always present. Original text value extracted from user utterance.
@@ -80028,6 +85018,37 @@ pub mod webhook_request {
                 state.end()
             }
         }
+
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
+        impl std::fmt::Debug for IntentParameterValue {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("IntentParameterValue");
+                debug_struct.field("original_value", &self.original_value);
+                debug_struct.field("resolved_value", &self.resolved_value);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Represents the result of sentiment analysis.
@@ -80050,7 +85071,7 @@ pub mod webhook_request {
         feature = "versions",
         feature = "webhooks",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SentimentAnalysisResult {
         /// Sentiment score between -1.0 (negative sentiment) and 1.0 (positive
@@ -80322,6 +85343,37 @@ pub mod webhook_request {
         }
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
+    impl std::fmt::Debug for SentimentAnalysisResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SentimentAnalysisResult");
+            debug_struct.field("score", &self.score);
+            debug_struct.field("magnitude", &self.magnitude);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The original conversational query.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -80376,7 +85428,7 @@ pub mod webhook_request {
     feature = "versions",
     feature = "webhooks",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WebhookResponse {
     /// The fulfillment response to send to the user. This field can be omitted by
@@ -80825,6 +85877,40 @@ impl serde::ser::Serialize for WebhookResponse {
     }
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
+impl std::fmt::Debug for WebhookResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WebhookResponse");
+        debug_struct.field("fulfillment_response", &self.fulfillment_response);
+        debug_struct.field("page_info", &self.page_info);
+        debug_struct.field("session_info", &self.session_info);
+        debug_struct.field("payload", &self.payload);
+        debug_struct.field("transition", &self.transition);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [WebhookResponse].
 #[cfg(all(
     feature = "agents",
@@ -80869,7 +85955,7 @@ pub mod webhook_response {
         feature = "versions",
         feature = "webhooks",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FulfillmentResponse {
         /// The list of rich message responses to present to the user.
@@ -81109,6 +86195,37 @@ pub mod webhook_response {
                 }
             }
             state.end()
+        }
+    }
+
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
+    impl std::fmt::Debug for FulfillmentResponse {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FulfillmentResponse");
+            debug_struct.field("messages", &self.messages);
+            debug_struct.field("merge_behavior", &self.merge_behavior);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -81481,7 +86598,7 @@ pub mod webhook_response {
     feature = "versions",
     feature = "webhooks",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PageInfo {
     /// Always present for
@@ -81767,6 +86884,38 @@ impl serde::ser::Serialize for PageInfo {
     }
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
+impl std::fmt::Debug for PageInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PageInfo");
+        debug_struct.field("current_page", &self.current_page);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("form_info", &self.form_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PageInfo].
 #[cfg(all(
     feature = "agents",
@@ -81811,7 +86960,7 @@ pub mod page_info {
         feature = "versions",
         feature = "webhooks",
     ))]
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FormInfo {
         /// Optional for both
@@ -82036,6 +87185,36 @@ pub mod page_info {
         }
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
+    impl std::fmt::Debug for FormInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FormInfo");
+            debug_struct.field("parameter_info", &self.parameter_info);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [FormInfo].
     #[cfg(all(
         feature = "agents",
@@ -82080,7 +87259,7 @@ pub mod page_info {
             feature = "versions",
             feature = "webhooks",
         ))]
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ParameterInfo {
             /// Always present for
@@ -82456,6 +87635,40 @@ pub mod page_info {
             }
         }
 
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
+        impl std::fmt::Debug for ParameterInfo {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ParameterInfo");
+                debug_struct.field("display_name", &self.display_name);
+                debug_struct.field("required", &self.required);
+                debug_struct.field("state", &self.state);
+                debug_struct.field("value", &self.value);
+                debug_struct.field("just_collected", &self.just_collected);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [ParameterInfo].
         #[cfg(all(
             feature = "agents",
@@ -82819,7 +88032,7 @@ pub mod page_info {
     feature = "versions",
     feature = "webhooks",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SessionInfo {
     /// Always present for
@@ -83080,6 +88293,37 @@ impl serde::ser::Serialize for SessionInfo {
     }
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
+impl std::fmt::Debug for SessionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SessionInfo");
+        debug_struct.field("session", &self.session);
+        debug_struct.field("parameters", &self.parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the language information of the request.
 #[cfg(all(
     feature = "agents",
@@ -83100,7 +88344,7 @@ impl serde::ser::Serialize for SessionInfo {
     feature = "versions",
     feature = "webhooks",
 ))]
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LanguageInfo {
     /// The language code specified in the original
@@ -83382,6 +88626,38 @@ impl serde::ser::Serialize for LanguageInfo {
             }
         }
         state.end()
+    }
+}
+
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
+impl std::fmt::Debug for LanguageInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LanguageInfo");
+        debug_struct.field("input_language_code", &self.input_language_code);
+        debug_struct.field("resolved_language_code", &self.resolved_language_code);
+        debug_struct.field("confidence_score", &self.confidence_score);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

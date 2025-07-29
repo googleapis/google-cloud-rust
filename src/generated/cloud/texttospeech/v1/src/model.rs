@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// The top-level message sent by the client for the `ListVoices` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVoicesRequest {
     /// Optional. Recommended.
@@ -170,8 +170,19 @@ impl serde::ser::Serialize for ListVoicesRequest {
     }
 }
 
+impl std::fmt::Debug for ListVoicesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVoicesRequest");
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The message returned to the client by the `ListVoices` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVoicesResponse {
     /// The list of voices.
@@ -303,8 +314,19 @@ impl serde::ser::Serialize for ListVoicesResponse {
     }
 }
 
+impl std::fmt::Debug for ListVoicesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVoicesResponse");
+        debug_struct.field("voices", &self.voices);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Description of a voice supported by the TTS service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Voice {
     /// The languages that this voice supports, expressed as
@@ -540,8 +562,22 @@ impl serde::ser::Serialize for Voice {
     }
 }
 
+impl std::fmt::Debug for Voice {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Voice");
+        debug_struct.field("language_codes", &self.language_codes);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ssml_gender", &self.ssml_gender);
+        debug_struct.field("natural_sample_rate_hertz", &self.natural_sample_rate_hertz);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Used for advanced voice options.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdvancedVoiceOptions {
     /// Only for Journey voices. If false, the synthesis is context aware
@@ -693,8 +729,22 @@ impl serde::ser::Serialize for AdvancedVoiceOptions {
     }
 }
 
+impl std::fmt::Debug for AdvancedVoiceOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdvancedVoiceOptions");
+        debug_struct.field(
+            "low_latency_journey_synthesis",
+            &self.low_latency_journey_synthesis,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The top-level message sent by the client for the `SynthesizeSpeech` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeSpeechRequest {
     /// Required. The Synthesizer requires either plain text or SSML as input.
@@ -942,8 +992,22 @@ impl serde::ser::Serialize for SynthesizeSpeechRequest {
     }
 }
 
+impl std::fmt::Debug for SynthesizeSpeechRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SynthesizeSpeechRequest");
+        debug_struct.field("input", &self.input);
+        debug_struct.field("voice", &self.voice);
+        debug_struct.field("audio_config", &self.audio_config);
+        debug_struct.field("advanced_voice_options", &self.advanced_voice_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Pronunciation customization for a phrase.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomPronunciationParams {
     /// The phrase to which the customization is applied.
@@ -1159,6 +1223,19 @@ impl serde::ser::Serialize for CustomPronunciationParams {
     }
 }
 
+impl std::fmt::Debug for CustomPronunciationParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomPronunciationParams");
+        debug_struct.field("phrase", &self.phrase);
+        debug_struct.field("phonetic_encoding", &self.phonetic_encoding);
+        debug_struct.field("pronunciation", &self.pronunciation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CustomPronunciationParams].
 pub mod custom_pronunciation_params {
     #[allow(unused_imports)]
@@ -1335,7 +1412,7 @@ pub mod custom_pronunciation_params {
 }
 
 /// A collection of pronunciation customizations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomPronunciations {
     /// The pronunciation customizations are applied.
@@ -1471,8 +1548,19 @@ impl serde::ser::Serialize for CustomPronunciations {
     }
 }
 
+impl std::fmt::Debug for CustomPronunciations {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomPronunciations");
+        debug_struct.field("pronunciations", &self.pronunciations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A collection of turns for multi-speaker synthesis.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MultiSpeakerMarkup {
     /// Required. Speaker turns.
@@ -1608,13 +1696,24 @@ impl serde::ser::Serialize for MultiSpeakerMarkup {
     }
 }
 
+impl std::fmt::Debug for MultiSpeakerMarkup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MultiSpeakerMarkup");
+        debug_struct.field("turns", &self.turns);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MultiSpeakerMarkup].
 pub mod multi_speaker_markup {
     #[allow(unused_imports)]
     use super::*;
 
     /// A multi-speaker turn.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Turn {
         /// Required. The speaker of the turn, for example, 'O' or 'Q'. Please refer
@@ -1770,13 +1869,25 @@ pub mod multi_speaker_markup {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Turn {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Turn");
+            debug_struct.field("speaker", &self.speaker);
+            debug_struct.field("text", &self.text);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Contains text input to be synthesized. Either `text` or `ssml` must be
 /// supplied. Supplying both or neither returns
 /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT]. The
 /// input size is limited to 5000 bytes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesisInput {
     /// Optional. The pronunciation customizations are applied to the input. If
@@ -2136,6 +2247,18 @@ impl serde::ser::Serialize for SynthesisInput {
     }
 }
 
+impl std::fmt::Debug for SynthesisInput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SynthesisInput");
+        debug_struct.field("custom_pronunciations", &self.custom_pronunciations);
+        debug_struct.field("input_source", &self.input_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SynthesisInput].
 pub mod synthesis_input {
     #[allow(unused_imports)]
@@ -2163,7 +2286,7 @@ pub mod synthesis_input {
 }
 
 /// Description of which voice to use for a synthesis request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VoiceSelectionParams {
     /// Required. The language (and potentially also the region) of the voice
@@ -2439,8 +2562,23 @@ impl serde::ser::Serialize for VoiceSelectionParams {
     }
 }
 
+impl std::fmt::Debug for VoiceSelectionParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VoiceSelectionParams");
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ssml_gender", &self.ssml_gender);
+        debug_struct.field("custom_voice", &self.custom_voice);
+        debug_struct.field("voice_clone", &self.voice_clone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Description of audio data to be synthesized.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AudioConfig {
     /// Required. The format of the audio byte stream.
@@ -2798,8 +2936,24 @@ impl serde::ser::Serialize for AudioConfig {
     }
 }
 
+impl std::fmt::Debug for AudioConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AudioConfig");
+        debug_struct.field("audio_encoding", &self.audio_encoding);
+        debug_struct.field("speaking_rate", &self.speaking_rate);
+        debug_struct.field("pitch", &self.pitch);
+        debug_struct.field("volume_gain_db", &self.volume_gain_db);
+        debug_struct.field("sample_rate_hertz", &self.sample_rate_hertz);
+        debug_struct.field("effects_profile_id", &self.effects_profile_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Description of the custom voice to be synthesized.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomVoiceParams {
     /// Required. The name of the AutoML model that synthesizes the custom voice.
@@ -2962,6 +3116,18 @@ impl serde::ser::Serialize for CustomVoiceParams {
     }
 }
 
+impl std::fmt::Debug for CustomVoiceParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomVoiceParams");
+        debug_struct.field("model", &self.model);
+        debug_struct.field("reported_usage", &self.reported_usage);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CustomVoiceParams].
 pub mod custom_voice_params {
     #[allow(unused_imports)]
@@ -3105,7 +3271,7 @@ pub mod custom_voice_params {
 }
 
 /// The configuration of Voice Clone feature.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VoiceCloneParams {
     /// Required. Created by GenerateVoiceCloningKey.
@@ -3238,8 +3404,19 @@ impl serde::ser::Serialize for VoiceCloneParams {
     }
 }
 
+impl std::fmt::Debug for VoiceCloneParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VoiceCloneParams");
+        debug_struct.field("voice_cloning_key", &self.voice_cloning_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The message returned to the client by the `SynthesizeSpeech` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeSpeechResponse {
     /// The audio data bytes encoded as specified in the request, including the
@@ -3392,8 +3569,19 @@ impl serde::ser::Serialize for SynthesizeSpeechResponse {
     }
 }
 
+impl std::fmt::Debug for SynthesizeSpeechResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SynthesizeSpeechResponse");
+        debug_struct.field("audio_content", &self.audio_content);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Description of the desired output audio data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingAudioConfig {
     /// Required. The format of the audio byte stream.
@@ -3619,8 +3807,21 @@ impl serde::ser::Serialize for StreamingAudioConfig {
     }
 }
 
+impl std::fmt::Debug for StreamingAudioConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingAudioConfig");
+        debug_struct.field("audio_encoding", &self.audio_encoding);
+        debug_struct.field("sample_rate_hertz", &self.sample_rate_hertz);
+        debug_struct.field("speaking_rate", &self.speaking_rate);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Provides configuration information for the StreamingSynthesize request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesizeConfig {
     /// Required. The desired voice of the synthesized audio.
@@ -3841,8 +4042,21 @@ impl serde::ser::Serialize for StreamingSynthesizeConfig {
     }
 }
 
+impl std::fmt::Debug for StreamingSynthesizeConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingSynthesizeConfig");
+        debug_struct.field("voice", &self.voice);
+        debug_struct.field("streaming_audio_config", &self.streaming_audio_config);
+        debug_struct.field("custom_pronunciations", &self.custom_pronunciations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Input to be synthesized.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesisInput {
     pub input_source: std::option::Option<crate::model::streaming_synthesis_input::InputSource>,
@@ -4061,6 +4275,17 @@ impl serde::ser::Serialize for StreamingSynthesisInput {
     }
 }
 
+impl std::fmt::Debug for StreamingSynthesisInput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingSynthesisInput");
+        debug_struct.field("input_source", &self.input_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StreamingSynthesisInput].
 pub mod streaming_synthesis_input {
     #[allow(unused_imports)]
@@ -4084,7 +4309,7 @@ pub mod streaming_synthesis_input {
 /// The first message must contain a `streaming_config` that
 /// fully specifies the request configuration and must not contain `input`. All
 /// subsequent messages must only have `input` set.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesizeRequest {
     /// The request to be sent, either a StreamingSynthesizeConfig or
@@ -4322,6 +4547,17 @@ impl serde::ser::Serialize for StreamingSynthesizeRequest {
     }
 }
 
+impl std::fmt::Debug for StreamingSynthesizeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingSynthesizeRequest");
+        debug_struct.field("streaming_request", &self.streaming_request);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StreamingSynthesizeRequest].
 pub mod streaming_synthesize_request {
     #[allow(unused_imports)]
@@ -4344,7 +4580,7 @@ pub mod streaming_synthesize_request {
 /// `StreamingSynthesizeResponse` is the only message returned to the
 /// client by `StreamingSynthesize` method. A series of zero or more
 /// `StreamingSynthesizeResponse` messages are streamed back to the client.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesizeResponse {
     /// The audio data bytes encoded as specified in the request. This is
@@ -4494,9 +4730,20 @@ impl serde::ser::Serialize for StreamingSynthesizeResponse {
     }
 }
 
+impl std::fmt::Debug for StreamingSynthesizeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StreamingSynthesizeResponse");
+        debug_struct.field("audio_content", &self.audio_content);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The top-level message sent by the client for the
 /// `SynthesizeLongAudio` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeLongAudioRequest {
     /// The resource states of the request in the form of
@@ -4760,8 +5007,23 @@ impl serde::ser::Serialize for SynthesizeLongAudioRequest {
     }
 }
 
+impl std::fmt::Debug for SynthesizeLongAudioRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SynthesizeLongAudioRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("input", &self.input);
+        debug_struct.field("audio_config", &self.audio_config);
+        debug_struct.field("output_gcs_uri", &self.output_gcs_uri);
+        debug_struct.field("voice", &self.voice);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The message returned to the client by the `SynthesizeLongAudio` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeLongAudioResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4863,8 +5125,18 @@ impl serde::ser::Serialize for SynthesizeLongAudioResponse {
     }
 }
 
+impl std::fmt::Debug for SynthesizeLongAudioResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SynthesizeLongAudioResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for response returned by the `SynthesizeLongAudio` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeLongAudioMetadata {
     /// Time when the request was received.
@@ -5085,6 +5357,19 @@ impl serde::ser::Serialize for SynthesizeLongAudioMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for SynthesizeLongAudioMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SynthesizeLongAudioMetadata");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("last_update_time", &self.last_update_time);
+        debug_struct.field("progress_percentage", &self.progress_percentage);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

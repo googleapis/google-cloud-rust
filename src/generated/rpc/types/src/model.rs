@@ -52,7 +52,7 @@ extern crate wkt;
 ///   }
 /// }
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorInfo {
     /// The reason of the error. This is a constant value that identifies the
@@ -257,6 +257,19 @@ impl serde::ser::Serialize for ErrorInfo {
     }
 }
 
+impl std::fmt::Debug for ErrorInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorInfo");
+        debug_struct.field("reason", &self.reason);
+        debug_struct.field("domain", &self.domain);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes when the clients can retry a failed request. Clients could ignore
 /// the recommendation here or retry when this information is missing from error
 /// responses.
@@ -270,7 +283,7 @@ impl serde::ser::Serialize for ErrorInfo {
 /// the delay between retries based on `retry_delay`, until either a maximum
 /// number of retries have been reached or a maximum retry delay cap has been
 /// reached.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryInfo {
     /// Clients should wait at least this long between retrying the same request.
@@ -411,8 +424,19 @@ impl serde::ser::Serialize for RetryInfo {
     }
 }
 
+impl std::fmt::Debug for RetryInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetryInfo");
+        debug_struct.field("retry_delay", &self.retry_delay);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes additional debugging info.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DebugInfo {
     /// The stack trace entries indicating where the error occurred.
@@ -569,6 +593,18 @@ impl serde::ser::Serialize for DebugInfo {
     }
 }
 
+impl std::fmt::Debug for DebugInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DebugInfo");
+        debug_struct.field("stack_entries", &self.stack_entries);
+        debug_struct.field("detail", &self.detail);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes how a quota check failed.
 ///
 /// For example if a daily limit was exceeded for the calling project,
@@ -580,7 +616,7 @@ impl serde::ser::Serialize for DebugInfo {
 ///
 /// Also see RetryInfo and Help types for other details about handling a
 /// quota failure.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaFailure {
     /// Describes all quota violations.
@@ -716,6 +752,17 @@ impl serde::ser::Serialize for QuotaFailure {
     }
 }
 
+impl std::fmt::Debug for QuotaFailure {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuotaFailure");
+        debug_struct.field("violations", &self.violations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [QuotaFailure].
 pub mod quota_failure {
     #[allow(unused_imports)]
@@ -723,7 +770,7 @@ pub mod quota_failure {
 
     /// A message type used to describe a single quota violation.  For example, a
     /// daily quota or a custom quota that was exceeded.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Violation {
         /// The subject on which the quota check failed.
@@ -1148,6 +1195,24 @@ pub mod quota_failure {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Violation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Violation");
+            debug_struct.field("subject", &self.subject);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("api_service", &self.api_service);
+            debug_struct.field("quota_metric", &self.quota_metric);
+            debug_struct.field("quota_id", &self.quota_id);
+            debug_struct.field("quota_dimensions", &self.quota_dimensions);
+            debug_struct.field("quota_value", &self.quota_value);
+            debug_struct.field("future_quota_value", &self.future_quota_value);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Describes what preconditions have failed.
@@ -1155,7 +1220,7 @@ pub mod quota_failure {
 /// For example, if an RPC failed because it required the Terms of Service to be
 /// acknowledged, it could list the terms of service violation in the
 /// PreconditionFailure message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PreconditionFailure {
     /// Describes all precondition violations.
@@ -1291,13 +1356,24 @@ impl serde::ser::Serialize for PreconditionFailure {
     }
 }
 
+impl std::fmt::Debug for PreconditionFailure {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PreconditionFailure");
+        debug_struct.field("violations", &self.violations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PreconditionFailure].
 pub mod precondition_failure {
     #[allow(unused_imports)]
     use super::*;
 
     /// A message type used to describe a single precondition failure.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Violation {
         /// The type of PreconditionFailure. We recommend using a service-specific
@@ -1483,11 +1559,24 @@ pub mod precondition_failure {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Violation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Violation");
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("subject", &self.subject);
+            debug_struct.field("description", &self.description);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Describes violations in a client request. This error type focuses on the
 /// syntactic aspects of the request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BadRequest {
     /// Describes all violations in a client request.
@@ -1624,13 +1713,24 @@ impl serde::ser::Serialize for BadRequest {
     }
 }
 
+impl std::fmt::Debug for BadRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BadRequest");
+        debug_struct.field("field_violations", &self.field_violations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BadRequest].
 pub mod bad_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// A message type used to describe a single bad request field.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FieldViolation {
         /// A path that leads to a field in the request body. The value will be a
@@ -1889,11 +1989,25 @@ pub mod bad_request {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for FieldViolation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FieldViolation");
+            debug_struct.field("field", &self.field);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("reason", &self.reason);
+            debug_struct.field("localized_message", &self.localized_message);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Contains metadata about the request that clients can attach when filing a bug
 /// or providing other forms of feedback.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RequestInfo {
     /// An opaque string that should only be interpreted by the service generating
@@ -2050,8 +2164,20 @@ impl serde::ser::Serialize for RequestInfo {
     }
 }
 
+impl std::fmt::Debug for RequestInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RequestInfo");
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("serving_data", &self.serving_data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes the resource that is being accessed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceInfo {
     /// A name for the type of resource being accessed, e.g. "sql table",
@@ -2265,12 +2391,26 @@ impl serde::ser::Serialize for ResourceInfo {
     }
 }
 
+impl std::fmt::Debug for ResourceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceInfo");
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("resource_name", &self.resource_name);
+        debug_struct.field("owner", &self.owner);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Provides links to documentation or for performing an out of band action.
 ///
 /// For example, if a quota check failed with an error indicating the calling
 /// project hasn't enabled the accessed service, this can contain a URL pointing
 /// directly to the right place in the developer console to flip the bit.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Help {
     /// URL(s) pointing to additional information on handling the current error.
@@ -2402,13 +2542,24 @@ impl serde::ser::Serialize for Help {
     }
 }
 
+impl std::fmt::Debug for Help {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Help");
+        debug_struct.field("links", &self.links);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Help].
 pub mod help {
     #[allow(unused_imports)]
     use super::*;
 
     /// Describes a URL link.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Link {
         /// Describes what the link offers.
@@ -2563,11 +2714,23 @@ pub mod help {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Link {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Link");
+            debug_struct.field("description", &self.description);
+            debug_struct.field("url", &self.url);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Provides a localized error message that is safe to return to the user
 /// which can be attached to an RPC error.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocalizedMessage {
     /// The locale used following the specification defined at
@@ -2722,8 +2885,20 @@ impl serde::ser::Serialize for LocalizedMessage {
     }
 }
 
+impl std::fmt::Debug for LocalizedMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocalizedMessage");
+        debug_struct.field("locale", &self.locale);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents an HTTP request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRequest {
     /// The HTTP request method.
@@ -2946,8 +3121,22 @@ impl serde::ser::Serialize for HttpRequest {
     }
 }
 
+impl std::fmt::Debug for HttpRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpRequest");
+        debug_struct.field("method", &self.method);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents an HTTP response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpResponse {
     /// The HTTP status code, such as 200 or 404.
@@ -3188,8 +3377,22 @@ impl serde::ser::Serialize for HttpResponse {
     }
 }
 
+impl std::fmt::Debug for HttpResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpResponse");
+        debug_struct.field("status", &self.status);
+        debug_struct.field("reason", &self.reason);
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents an HTTP header.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpHeader {
     /// The HTTP header key. It is case insensitive.
@@ -3342,6 +3545,18 @@ impl serde::ser::Serialize for HttpHeader {
     }
 }
 
+impl std::fmt::Debug for HttpHeader {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpHeader");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The `Status` type defines a logical error model that is suitable for
 /// different programming environments, including REST APIs and RPC APIs. It is
 /// used by [gRPC](https://github.com/grpc). Each `Status` message contains
@@ -3349,7 +3564,7 @@ impl serde::ser::Serialize for HttpHeader {
 ///
 /// You can find out more about this error model and how to work with it in the
 /// [API Design Guide](https://cloud.google.com/apis/design/errors).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Status {
     /// The status code, which should be an enum value of
@@ -3555,6 +3770,19 @@ impl serde::ser::Serialize for Status {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Status {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Status");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("message", &self.message);
+        debug_struct.field("details", &self.details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

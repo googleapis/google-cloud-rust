@@ -149,7 +149,13 @@ pub mod {{Codec.ModuleName}} {
                 traits (e.g. `std::clone::Clone`) making the call ambiguous.
                 Using `*self.0.stub` makes the call not-ambiguous.
             }}
+            {{#HasAutoPopulatedFields}}
+            let req = Self::auto_populate(self.0.request, false);
+            (*self.0.stub).{{Codec.Name}}(req, self.0.options).await.map(gax::response::Response::into_body)
+            {{/HasAutoPopulatedFields}}
+            {{^HasAutoPopulatedFields}}
             (*self.0.stub).{{Codec.Name}}(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            {{/HasAutoPopulatedFields}}
         }
         {{#Pagination}}
 
@@ -164,6 +170,19 @@ pub mod {{Codec.ModuleName}} {
             {{/Optional}}
             let execute = move |token: String| {
                 let mut builder = self.clone();
+                {{#HasAutoPopulatedFields}}
+                {{!
+                    If we have a new page token, this is a new request. New
+                    requests need new request IDs.
+                }}
+                {{^Optional}}
+                let initial = builder.0.request.{{Codec.FieldName}} == token;
+                {{/Optional}}
+                {{#Optional}}
+                let initial = builder.0.request.{{Codec.FieldName}}.as_deref().is_none_or(|s| s == token);
+                {{/Optional}}
+                builder.0.request = Self::auto_populate(builder.0.request, !initial);
+                {{/HasAutoPopulatedFields}}
                 builder.0.request = builder.0.request.set_{{Codec.SetterName}}(token);
                 builder.send()
             };
@@ -234,6 +253,22 @@ pub mod {{Codec.ModuleName}} {
             {{/Codec.BothAreEmpty}}
         }
         {{/OperationInfo}}
+        {{#HasAutoPopulatedFields}}
+
+        fn auto_populate(mut req: {{InputType.Codec.QualifiedName}}, force: bool) -> {{InputType.Codec.QualifiedName}} {
+            {{#AutoPopulated}}
+            {{#Optional}}
+            if force || req.{{Codec.FieldName}}.is_none() {
+            {{/Optional}}
+            {{^Optional}}
+            if force || req.{{Codec.FieldName}}.is_empty() {
+            {{/Optional}}
+                req = req.set_{{Codec.SetterName}}(uuid::Uuid::new_v4().to_string())
+            }
+            {{/AutoPopulated}}
+            req
+        }
+        {{/HasAutoPopulatedFields}}
         {{#InputType.Codec.BasicFields}}
 
         /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].

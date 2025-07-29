@@ -30,7 +30,7 @@ extern crate wkt;
 /// The sole purpose of this message is for the use of AlloyDB connectors.
 /// Clients should not rely on this message directly as there can be breaking
 /// changes in the future.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetadataExchangeRequest {
     /// Optional. Connector information.
@@ -218,6 +218,19 @@ impl serde::ser::Serialize for MetadataExchangeRequest {
     }
 }
 
+impl std::fmt::Debug for MetadataExchangeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetadataExchangeRequest");
+        debug_struct.field("user_agent", &self.user_agent);
+        debug_struct.field("auth_type", &self.auth_type);
+        debug_struct.field("oauth2_token", &self.oauth2_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MetadataExchangeRequest].
 pub mod metadata_exchange_request {
     #[allow(unused_imports)]
@@ -359,7 +372,7 @@ pub mod metadata_exchange_request {
 /// Message for response to metadata exchange request. The sole purpose of this
 /// message is for the use of AlloyDB connectors. Clients should not rely on this
 /// message directly as there can be breaking changes in the future.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetadataExchangeResponse {
     /// Response code.
@@ -517,6 +530,18 @@ impl serde::ser::Serialize for MetadataExchangeResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for MetadataExchangeResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetadataExchangeResponse");
+        debug_struct.field("response_code", &self.response_code);
+        debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

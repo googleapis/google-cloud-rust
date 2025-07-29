@@ -45,7 +45,7 @@ impl serde_with::SerializeAs<u32> for U32 {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use anyhow::Result;
     use serde_json::{Value, json};

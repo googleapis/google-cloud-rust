@@ -116,6 +116,7 @@ func serviceAnnotationsModel() *api.API {
 		[]*api.Message{request, response},
 		[]*api.Enum{},
 		[]*api.Service{service})
+	loadWellKnownTypes(model.State)
 	api.CrossReference(model)
 	return model
 }
@@ -238,11 +239,6 @@ func TestServiceAnnotationsLROTypes(t *testing.T) {
 		ID:      ".test.OperationMetadata",
 		Package: "test",
 	}
-	empty := &api.Message{
-		Name:    "Empty",
-		ID:      ".google.protobuf.Empty",
-		Package: "google.protobuf",
-	}
 	service := &api.Service{
 		Name:    "LroService",
 		ID:      ".test.LroService",
@@ -284,6 +280,7 @@ func TestServiceAnnotationsLROTypes(t *testing.T) {
 		t.Fatal(err)
 	}
 	annotateModel(model, codec)
+	empty := model.State.MessageByID[".google.protobuf.Empty"]
 	wantService := &serviceAnnotations{
 		Name:              "LroService",
 		PackageModuleName: "test",
@@ -1102,7 +1099,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 	api.CrossReference(model)
 	api.LabelRecursiveFields(model)
 	codec, err := newCodec(true, map[string]string{
-		"package:wkt": "force-used=true,package=google-cloud-wkt,path=src/wkt,source=google.protobuf,version=0.2",
+		"package:wkt": "force-used=true,package=google-cloud-wkt,source=google.protobuf",
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -1201,16 +1198,29 @@ func TestEnumFieldAnnotations(t *testing.T) {
 }
 
 func TestPathInfoAnnotations(t *testing.T) {
+	binding := func(verb string) *api.PathBinding {
+		return &api.PathBinding{
+			Verb: verb,
+			PathTemplate: api.NewPathTemplate().
+				WithLiteral("v1").
+				WithLiteral("resource"),
+		}
+	}
+
 	type TestCase struct {
-		Verb               string
+		Bindings           []*api.PathBinding
 		DefaultIdempotency string
 	}
 	testCases := []TestCase{
-		{"GET", "true"},
-		{"PUT", "true"},
-		{"DELETE", "true"},
-		{"POST", "false"},
-		{"PATCH", "false"},
+		{[]*api.PathBinding{}, "false"},
+		{[]*api.PathBinding{binding("GET")}, "true"},
+		{[]*api.PathBinding{binding("PUT")}, "true"},
+		{[]*api.PathBinding{binding("DELETE")}, "true"},
+		{[]*api.PathBinding{binding("POST")}, "false"},
+		{[]*api.PathBinding{binding("PATCH")}, "false"},
+		{[]*api.PathBinding{binding("GET"), binding("GET")}, "true"},
+		{[]*api.PathBinding{binding("GET"), binding("POST")}, "false"},
+		{[]*api.PathBinding{binding("POST"), binding("POST")}, "false"},
 	}
 	for _, testCase := range testCases {
 		request := &api.Message{
@@ -1229,14 +1239,7 @@ func TestPathInfoAnnotations(t *testing.T) {
 			InputTypeID:  ".test.v1.Request",
 			OutputTypeID: ".test.v1.Response",
 			PathInfo: &api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						Verb: testCase.Verb,
-						PathTemplate: api.NewPathTemplate().
-							WithLiteral("v1").
-							WithLiteral("resource"),
-					},
-				},
+				Bindings: testCase.Bindings,
 			},
 		}
 		service := &api.Service{
@@ -1251,14 +1254,16 @@ func TestPathInfoAnnotations(t *testing.T) {
 			[]*api.Enum{},
 			[]*api.Service{service})
 		api.CrossReference(model)
-		codec, err := newCodec(true, map[string]string{})
+		codec, err := newCodec(true, map[string]string{
+			"include-grpc-only-methods": "true",
+		})
 		if err != nil {
 			t.Fatal(err)
 		}
 		annotateModel(model, codec)
 
 		pathInfoAnn := method.PathInfo.Codec.(*pathInfoAnnotation)
-		if pathInfoAnn.IsIdempotent() != testCase.DefaultIdempotency {
+		if pathInfoAnn.IsIdempotent != testCase.DefaultIdempotency {
 			t.Errorf("fail")
 		}
 	}
@@ -1496,5 +1501,75 @@ func TestBindingSubstitutionTemplates(t *testing.T) {
 
 	if want != got {
 		t.Errorf("TemplateAsArray() failed. want=`%s`, got=`%s`", want, got)
+	}
+}
+
+func TestInternalMessageOverrides(t *testing.T) {
+	public := &api.Message{
+		Name: "Public",
+		ID:   ".test.Public",
+	}
+	private1 := &api.Message{
+		Name: "Private1",
+		ID:   ".test.Private1",
+	}
+	private2 := &api.Message{
+		Name: "Private2",
+		ID:   ".test.Private2",
+	}
+	model := api.NewTestAPI([]*api.Message{public, private1, private2},
+		[]*api.Enum{},
+		[]*api.Service{})
+	codec, err := newCodec(true, map[string]string{
+		"internal-types": ".test.Private1,.test.Private2",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec)
+
+	if public.Codec.(*messageAnnotation).Internal {
+		t.Errorf("Public method should not be flagged as internal")
+	}
+	if !private1.Codec.(*messageAnnotation).Internal {
+		t.Errorf("Private method should not be flagged as internal")
+	}
+	if !private2.Codec.(*messageAnnotation).Internal {
+		t.Errorf("Private method should not be flagged as internal")
+	}
+}
+
+func TestRoutingRequired(t *testing.T) {
+	message := &api.Message{
+		Name: "Message",
+		ID:   ".test.Message",
+	}
+	method := &api.Method{
+		Name:         "DoFoo",
+		ID:           ".test.Service.DoFoo",
+		InputTypeID:  ".test.Message",
+		OutputTypeID: ".test.Message",
+		PathInfo:     &api.PathInfo{},
+	}
+	service := &api.Service{
+		Name:    "FooService",
+		ID:      ".test.FooService",
+		Package: "test",
+		Methods: []*api.Method{method},
+	}
+	model := api.NewTestAPI([]*api.Message{message},
+		[]*api.Enum{},
+		[]*api.Service{service})
+	codec, err := newCodec(true, map[string]string{
+		"include-grpc-only-methods": "true",
+		"routing-required":          "true",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec)
+
+	if !method.Codec.(*methodAnnotation).RoutingRequired {
+		t.Errorf("codec setting `routing-required` not respected")
 	}
 }

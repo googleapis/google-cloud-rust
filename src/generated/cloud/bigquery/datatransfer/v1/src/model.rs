@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A parameter used to define custom fields in a data source definition.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataSourceParameter {
     /// Parameter identifier.
@@ -616,6 +616,32 @@ impl serde::ser::Serialize for DataSourceParameter {
     }
 }
 
+impl std::fmt::Debug for DataSourceParameter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataSourceParameter");
+        debug_struct.field("param_id", &self.param_id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("required", &self.required);
+        debug_struct.field("repeated", &self.repeated);
+        debug_struct.field("validation_regex", &self.validation_regex);
+        debug_struct.field("allowed_values", &self.allowed_values);
+        debug_struct.field("min_value", &self.min_value);
+        debug_struct.field("max_value", &self.max_value);
+        debug_struct.field("fields", &self.fields);
+        debug_struct.field("validation_description", &self.validation_description);
+        debug_struct.field("validation_help_url", &self.validation_help_url);
+        debug_struct.field("immutable", &self.immutable);
+        debug_struct.field("recurse", &self.recurse);
+        debug_struct.field("deprecated", &self.deprecated);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataSourceParameter].
 pub mod data_source_parameter {
     #[allow(unused_imports)]
@@ -791,7 +817,7 @@ pub mod data_source_parameter {
 }
 
 /// Defines the properties and custom parameters for a data source.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataSource {
     /// Output only. Data source resource name.
@@ -1461,6 +1487,40 @@ impl serde::ser::Serialize for DataSource {
     }
 }
 
+impl std::fmt::Debug for DataSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataSource");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data_source_id", &self.data_source_id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("client_id", &self.client_id);
+        debug_struct.field("scopes", &self.scopes);
+        debug_struct.field("transfer_type", &self.transfer_type);
+        debug_struct.field(
+            "supports_multiple_transfers",
+            &self.supports_multiple_transfers,
+        );
+        debug_struct.field("update_deadline_seconds", &self.update_deadline_seconds);
+        debug_struct.field("default_schedule", &self.default_schedule);
+        debug_struct.field("supports_custom_schedule", &self.supports_custom_schedule);
+        debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("help_url", &self.help_url);
+        debug_struct.field("authorization_type", &self.authorization_type);
+        debug_struct.field("data_refresh_type", &self.data_refresh_type);
+        debug_struct.field(
+            "default_data_refresh_window_days",
+            &self.default_data_refresh_window_days,
+        );
+        debug_struct.field("manual_runs_disabled", &self.manual_runs_disabled);
+        debug_struct.field("minimum_schedule_interval", &self.minimum_schedule_interval);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataSource].
 pub mod data_source {
     #[allow(unused_imports)]
@@ -1747,7 +1807,7 @@ pub mod data_source {
 }
 
 /// A request to get data source info.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDataSourceRequest {
     /// Required. The field will contain name of the resource requested, for
@@ -1878,8 +1938,19 @@ impl serde::ser::Serialize for GetDataSourceRequest {
     }
 }
 
+impl std::fmt::Debug for GetDataSourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDataSourceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to list supported data sources and their data transfer settings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataSourcesRequest {
     /// Required. The BigQuery project id for which data sources should be
@@ -2082,8 +2153,21 @@ impl serde::ser::Serialize for ListDataSourcesRequest {
     }
 }
 
+impl std::fmt::Debug for ListDataSourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataSourcesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Returns list of supported data sources and their metadata.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataSourcesResponse {
     /// List of supported data sources and their transfer settings.
@@ -2258,6 +2342,18 @@ impl serde::ser::Serialize for ListDataSourcesResponse {
     }
 }
 
+impl std::fmt::Debug for ListDataSourcesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataSourcesResponse");
+        debug_struct.field("data_sources", &self.data_sources);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to create a data transfer configuration. If new credentials are
 /// needed for this transfer configuration, authorization info must be provided.
 /// If authorization info is provided, the transfer configuration will be
@@ -2269,7 +2365,7 @@ impl serde::ser::Serialize for ListDataSourcesResponse {
 /// you must enable cross project service account usage. For more information,
 /// see [Disable attachment of service accounts to resources in other
 /// projects](https://cloud.google.com/resource-manager/docs/organization-policy/restricting-service-accounts#disable_cross_project_service_accounts).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTransferConfigRequest {
     /// Required. The BigQuery project id where the transfer configuration should
@@ -2557,6 +2653,21 @@ impl serde::ser::Serialize for CreateTransferConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTransferConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTransferConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("transfer_config", &self.transfer_config);
+        debug_struct.field("authorization_code", &self.authorization_code);
+        debug_struct.field("version_info", &self.version_info);
+        debug_struct.field("service_account_name", &self.service_account_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to update a transfer configuration. To update the user id of the
 /// transfer configuration, authorization info needs to be provided.
 ///
@@ -2564,7 +2675,7 @@ impl serde::ser::Serialize for CreateTransferConfigRequest {
 /// you must enable cross project service account usage. For more information,
 /// see [Disable attachment of service accounts to resources in other
 /// projects](https://cloud.google.com/resource-manager/docs/organization-policy/restricting-service-accounts#disable_cross_project_service_accounts).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTransferConfigRequest {
     /// Required. Data transfer configuration to create.
@@ -2860,8 +2971,23 @@ impl serde::ser::Serialize for UpdateTransferConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTransferConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTransferConfigRequest");
+        debug_struct.field("transfer_config", &self.transfer_config);
+        debug_struct.field("authorization_code", &self.authorization_code);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("version_info", &self.version_info);
+        debug_struct.field("service_account_name", &self.service_account_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get data transfer information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTransferConfigRequest {
     /// Required. The field will contain name of the resource requested, for
@@ -2992,9 +3118,20 @@ impl serde::ser::Serialize for GetTransferConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetTransferConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTransferConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete data transfer information. All associated transfer runs
 /// and log messages will be deleted as well.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTransferConfigRequest {
     /// Required. The field will contain name of the resource requested, for
@@ -3125,8 +3262,19 @@ impl serde::ser::Serialize for DeleteTransferConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTransferConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTransferConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get data transfer run information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTransferRunRequest {
     /// Required. The field will contain name of the resource requested, for
@@ -3258,8 +3406,19 @@ impl serde::ser::Serialize for GetTransferRunRequest {
     }
 }
 
+impl std::fmt::Debug for GetTransferRunRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTransferRunRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to delete data transfer run information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTransferRunRequest {
     /// Required. The field will contain name of the resource requested, for
@@ -3391,8 +3550,19 @@ impl serde::ser::Serialize for DeleteTransferRunRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTransferRunRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTransferRunRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list data transfers configured for a BigQuery project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferConfigsRequest {
     /// Required. The BigQuery project id for which transfer configs
@@ -3623,8 +3793,22 @@ impl serde::ser::Serialize for ListTransferConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListTransferConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTransferConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("data_source_ids", &self.data_source_ids);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The returned list of pipelines in the project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferConfigsResponse {
     /// Output only. The stored pipeline transfer configurations.
@@ -3803,8 +3987,20 @@ impl serde::ser::Serialize for ListTransferConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListTransferConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTransferConfigsResponse");
+        debug_struct.field("transfer_configs", &self.transfer_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to list data transfer runs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferRunsRequest {
     /// Required. Name of transfer configuration for which transfer runs should be
@@ -4067,6 +4263,21 @@ impl serde::ser::Serialize for ListTransferRunsRequest {
     }
 }
 
+impl std::fmt::Debug for ListTransferRunsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTransferRunsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("states", &self.states);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("run_attempt", &self.run_attempt);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListTransferRunsRequest].
 pub mod list_transfer_runs_request {
     #[allow(unused_imports)]
@@ -4199,7 +4410,7 @@ pub mod list_transfer_runs_request {
 }
 
 /// The returned list of pipelines in the project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferRunsResponse {
     /// Output only. The stored pipeline transfer runs.
@@ -4374,8 +4585,20 @@ impl serde::ser::Serialize for ListTransferRunsResponse {
     }
 }
 
+impl std::fmt::Debug for ListTransferRunsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTransferRunsResponse");
+        debug_struct.field("transfer_runs", &self.transfer_runs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to get user facing log messages associated with data transfer run.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferLogsRequest {
     /// Required. Transfer run name in the form:
@@ -4611,8 +4834,22 @@ impl serde::ser::Serialize for ListTransferLogsRequest {
     }
 }
 
+impl std::fmt::Debug for ListTransferLogsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTransferLogsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("message_types", &self.message_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The returned list transfer run messages.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferLogsResponse {
     /// Output only. The stored pipeline transfer messages.
@@ -4791,13 +5028,25 @@ impl serde::ser::Serialize for ListTransferLogsResponse {
     }
 }
 
+impl std::fmt::Debug for ListTransferLogsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTransferLogsResponse");
+        debug_struct.field("transfer_messages", &self.transfer_messages);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to determine whether the user has valid credentials. This method
 /// is used to limit the number of OAuth popups in the user interface. The
 /// user id is inferred from the API call context.
 /// If the data source has the Google+ authorization type, this method
 /// returns false, as it cannot be determined whether the credentials are
 /// already valid merely based on the user id.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckValidCredsRequest {
     /// Required. The data source in the form:
@@ -4928,8 +5177,19 @@ impl serde::ser::Serialize for CheckValidCredsRequest {
     }
 }
 
+impl std::fmt::Debug for CheckValidCredsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckValidCredsRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response indicating whether the credentials exist and are valid.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckValidCredsResponse {
     /// If set to `true`, the credentials exist and are valid.
@@ -5059,8 +5319,19 @@ impl serde::ser::Serialize for CheckValidCredsResponse {
     }
 }
 
+impl std::fmt::Debug for CheckValidCredsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CheckValidCredsResponse");
+        debug_struct.field("has_valid_creds", &self.has_valid_creds);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to schedule transfer runs for a time range.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScheduleTransferRunsRequest {
     /// Required. Transfer configuration name in the form:
@@ -5265,8 +5536,21 @@ impl serde::ser::Serialize for ScheduleTransferRunsRequest {
     }
 }
 
+impl std::fmt::Debug for ScheduleTransferRunsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScheduleTransferRunsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A response to schedule transfer runs for a time range.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScheduleTransferRunsResponse {
     /// The transfer runs that were scheduled.
@@ -5398,8 +5682,19 @@ impl serde::ser::Serialize for ScheduleTransferRunsResponse {
     }
 }
 
+impl std::fmt::Debug for ScheduleTransferRunsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScheduleTransferRunsResponse");
+        debug_struct.field("runs", &self.runs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to start manual transfer runs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartManualTransferRunsRequest {
     /// Required. Transfer configuration name in the form:
@@ -5660,6 +5955,18 @@ impl serde::ser::Serialize for StartManualTransferRunsRequest {
     }
 }
 
+impl std::fmt::Debug for StartManualTransferRunsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartManualTransferRunsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("time", &self.time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StartManualTransferRunsRequest].
 pub mod start_manual_transfer_runs_request {
     #[allow(unused_imports)]
@@ -5667,7 +5974,7 @@ pub mod start_manual_transfer_runs_request {
 
     /// A specification for a time range, this will request transfer runs with
     /// run_time between start_time (inclusive) and end_time (exclusive).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TimeRange {
         /// Start time of the range of transfer runs. For example,
@@ -5853,6 +6160,18 @@ pub mod start_manual_transfer_runs_request {
         }
     }
 
+    impl std::fmt::Debug for TimeRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TimeRange");
+            debug_struct.field("start_time", &self.start_time);
+            debug_struct.field("end_time", &self.end_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The requested time specification - this can be a time range or a specific
     /// run_time.
     #[derive(Clone, Debug, PartialEq)]
@@ -5874,7 +6193,7 @@ pub mod start_manual_transfer_runs_request {
 }
 
 /// A response to start manual transfer runs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartManualTransferRunsResponse {
     /// The transfer runs that were created.
@@ -6006,9 +6325,20 @@ impl serde::ser::Serialize for StartManualTransferRunsResponse {
     }
 }
 
+impl std::fmt::Debug for StartManualTransferRunsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartManualTransferRunsResponse");
+        debug_struct.field("runs", &self.runs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to enroll a set of data sources so they are visible in the
 /// BigQuery UI's `Transfer` tab.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnrollDataSourcesRequest {
     /// Required. The name of the project resource in the form:
@@ -6167,9 +6497,21 @@ impl serde::ser::Serialize for EnrollDataSourcesRequest {
     }
 }
 
+impl std::fmt::Debug for EnrollDataSourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnrollDataSourcesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data_source_ids", &self.data_source_ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A request to unenroll a set of data sources so they are no longer visible in
 /// the BigQuery UI's `Transfer` tab.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnenrollDataSourcesRequest {
     /// Required. The name of the project resource in the form:
@@ -6328,9 +6670,21 @@ impl serde::ser::Serialize for UnenrollDataSourcesRequest {
     }
 }
 
+impl std::fmt::Debug for UnenrollDataSourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UnenrollDataSourcesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data_source_ids", &self.data_source_ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents preferences for sending email notifications for transfer run
 /// events.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EmailPreferences {
     /// If true, email notifications will be sent on transfer run failures.
@@ -6460,8 +6814,19 @@ impl serde::ser::Serialize for EmailPreferences {
     }
 }
 
+impl std::fmt::Debug for EmailPreferences {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EmailPreferences");
+        debug_struct.field("enable_failure_email", &self.enable_failure_email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options customizing the data transfer schedule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScheduleOptions {
     /// If true, automatic scheduling of data transfer runs for this configuration
@@ -6673,11 +7038,24 @@ impl serde::ser::Serialize for ScheduleOptions {
     }
 }
 
+impl std::fmt::Debug for ScheduleOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScheduleOptions");
+        debug_struct.field("disable_auto_scheduling", &self.disable_auto_scheduling);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// V2 options customizing different types of data transfer schedule.
 /// This field supports existing time-based and manual transfer schedule. Also
 /// supports Event-Driven transfer schedule. ScheduleOptionsV2 cannot be used
 /// together with ScheduleOptions/Schedule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScheduleOptionsV2 {
     /// Data transfer schedules.
@@ -6973,6 +7351,17 @@ impl serde::ser::Serialize for ScheduleOptionsV2 {
     }
 }
 
+impl std::fmt::Debug for ScheduleOptionsV2 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScheduleOptionsV2");
+        debug_struct.field("schedule", &self.schedule);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ScheduleOptionsV2].
 pub mod schedule_options_v_2 {
     #[allow(unused_imports)]
@@ -6998,7 +7387,7 @@ pub mod schedule_options_v_2 {
 
 /// Options customizing the time based transfer schedule.
 /// Options are migrated from the original ScheduleOptions message.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeBasedSchedule {
     /// Data transfer schedule.
@@ -7216,8 +7605,21 @@ impl serde::ser::Serialize for TimeBasedSchedule {
     }
 }
 
+impl std::fmt::Debug for TimeBasedSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeBasedSchedule");
+        debug_struct.field("schedule", &self.schedule);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options customizing manual transfers schedule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManualSchedule {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7319,8 +7721,18 @@ impl serde::ser::Serialize for ManualSchedule {
     }
 }
 
+impl std::fmt::Debug for ManualSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManualSchedule");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options customizing EventDriven transfers schedule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventDrivenSchedule {
     /// Pub/Sub subscription name used to receive events.
@@ -7455,8 +7867,19 @@ impl serde::ser::Serialize for EventDrivenSchedule {
     }
 }
 
+impl std::fmt::Debug for EventDrivenSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventDrivenSchedule");
+        debug_struct.field("pubsub_subscription", &self.pubsub_subscription);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about a user.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserInfo {
     /// E-mail address of the user.
@@ -7596,13 +8019,24 @@ impl serde::ser::Serialize for UserInfo {
     }
 }
 
+impl std::fmt::Debug for UserInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserInfo");
+        debug_struct.field("email", &self.email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a data transfer configuration. A transfer configuration
 /// contains all metadata needed to perform a data transfer. For example,
 /// `destination_dataset_id` specifies where data should be stored.
 /// When a new transfer configuration is created, the specified
 /// `destination_dataset_id` is created when needed and shared with the
 /// appropriate data source service account.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferConfig {
     /// Identifier. The resource name of the transfer config.
@@ -8440,6 +8874,36 @@ impl serde::ser::Serialize for TransferConfig {
     }
 }
 
+impl std::fmt::Debug for TransferConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("data_source_id", &self.data_source_id);
+        debug_struct.field("params", &self.params);
+        debug_struct.field("schedule", &self.schedule);
+        debug_struct.field("schedule_options", &self.schedule_options);
+        debug_struct.field("schedule_options_v2", &self.schedule_options_v2);
+        debug_struct.field("data_refresh_window_days", &self.data_refresh_window_days);
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("next_run_time", &self.next_run_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("user_id", &self.user_id);
+        debug_struct.field("dataset_region", &self.dataset_region);
+        debug_struct.field("notification_pubsub_topic", &self.notification_pubsub_topic);
+        debug_struct.field("email_preferences", &self.email_preferences);
+        debug_struct.field("owner_info", &self.owner_info);
+        debug_struct.field("encryption_configuration", &self.encryption_configuration);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransferConfig].
 pub mod transfer_config {
     #[allow(unused_imports)]
@@ -8455,7 +8919,7 @@ pub mod transfer_config {
 }
 
 /// Represents the encryption configuration for a transfer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionConfiguration {
     /// The name of the KMS key used for encrypting BigQuery data.
@@ -8596,8 +9060,19 @@ impl serde::ser::Serialize for EncryptionConfiguration {
     }
 }
 
+impl std::fmt::Debug for EncryptionConfiguration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionConfiguration");
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a data transfer run.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferRun {
     /// Identifier. The resource name of the transfer run.
@@ -9250,6 +9725,31 @@ impl serde::ser::Serialize for TransferRun {
     }
 }
 
+impl std::fmt::Debug for TransferRun {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferRun");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("schedule_time", &self.schedule_time);
+        debug_struct.field("run_time", &self.run_time);
+        debug_struct.field("error_status", &self.error_status);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("params", &self.params);
+        debug_struct.field("data_source_id", &self.data_source_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("user_id", &self.user_id);
+        debug_struct.field("schedule", &self.schedule);
+        debug_struct.field("notification_pubsub_topic", &self.notification_pubsub_topic);
+        debug_struct.field("email_preferences", &self.email_preferences);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransferRun].
 pub mod transfer_run {
     #[allow(unused_imports)]
@@ -9265,7 +9765,7 @@ pub mod transfer_run {
 }
 
 /// Represents a user facing message for a particular data transfer run.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferMessage {
     /// Time when message was logged.
@@ -9457,6 +9957,19 @@ impl serde::ser::Serialize for TransferMessage {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for TransferMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferMessage");
+        debug_struct.field("message_time", &self.message_time);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("message_text", &self.message_text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

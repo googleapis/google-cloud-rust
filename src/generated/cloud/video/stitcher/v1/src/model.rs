@@ -35,7 +35,7 @@ extern crate wkt;
 /// Information related to the details for one ad tag. This resource is only
 /// available for live sessions that do not implement Google Ad Manager ad
 /// insertion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LiveAdTagDetail {
     /// The resource name in the form of
@@ -193,10 +193,22 @@ impl serde::ser::Serialize for LiveAdTagDetail {
     }
 }
 
+impl std::fmt::Debug for LiveAdTagDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LiveAdTagDetail");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ad_requests", &self.ad_requests);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information related to the details for one ad tag. This resource is only
 /// available for VOD sessions that do not implement Google Ad Manager ad
 /// insertion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodAdTagDetail {
     /// The name of the ad tag detail for the specified VOD session, in the form of
@@ -354,8 +366,20 @@ impl serde::ser::Serialize for VodAdTagDetail {
     }
 }
 
+impl std::fmt::Debug for VodAdTagDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VodAdTagDetail");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ad_requests", &self.ad_requests);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details of an ad request to an ad server.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdRequest {
     /// The ad tag URI processed with integrated macros.
@@ -558,8 +582,21 @@ impl serde::ser::Serialize for AdRequest {
     }
 }
 
+impl std::fmt::Debug for AdRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdRequest");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("request_metadata", &self.request_metadata);
+        debug_struct.field("response_metadata", &self.response_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for an ad request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RequestMetadata {
     /// The HTTP headers of the ad request.
@@ -699,8 +736,19 @@ impl serde::ser::Serialize for RequestMetadata {
     }
 }
 
+impl std::fmt::Debug for RequestMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RequestMetadata");
+        debug_struct.field("headers", &self.headers);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for the response of an ad request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResponseMetadata {
     /// Error message received when making the ad request.
@@ -991,10 +1039,26 @@ impl serde::ser::Serialize for ResponseMetadata {
     }
 }
 
+impl std::fmt::Debug for ResponseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResponseMetadata");
+        debug_struct.field("error", &self.error);
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field("status_code", &self.status_code);
+        debug_struct.field("size_bytes", &self.size_bytes);
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for a CDN key. Used by the Video Stitcher
 /// to sign URIs for fetching video manifests and signing
 /// media segments for playback.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CdnKey {
     /// The resource name of the CDN key, in the form of
@@ -1329,6 +1393,19 @@ impl serde::ser::Serialize for CdnKey {
     }
 }
 
+impl std::fmt::Debug for CdnKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CdnKey");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("hostname", &self.hostname);
+        debug_struct.field("cdn_key_config", &self.cdn_key_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CdnKey].
 pub mod cdn_key {
     #[allow(unused_imports)]
@@ -1348,7 +1425,7 @@ pub mod cdn_key {
 }
 
 /// Configuration for a Google Cloud CDN key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GoogleCdnKey {
     /// Input only. Secret for this Google Cloud CDN key.
@@ -1521,8 +1598,20 @@ impl serde::ser::Serialize for GoogleCdnKey {
     }
 }
 
+impl std::fmt::Debug for GoogleCdnKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoogleCdnKey");
+        debug_struct.field("private_key", &self.private_key);
+        debug_struct.field("key_name", &self.key_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for an Akamai CDN key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AkamaiCdnKey {
     /// Input only. Token key for the Akamai CDN edge configuration.
@@ -1670,8 +1759,19 @@ impl serde::ser::Serialize for AkamaiCdnKey {
     }
 }
 
+impl std::fmt::Debug for AkamaiCdnKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AkamaiCdnKey");
+        debug_struct.field("token_key", &self.token_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for a Media CDN key.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MediaCdnKey {
     /// Input only. 64-byte ed25519 private key for this Media CDN key.
@@ -1881,13 +1981,26 @@ impl serde::ser::Serialize for MediaCdnKey {
     }
 }
 
+impl std::fmt::Debug for MediaCdnKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MediaCdnKey");
+        debug_struct.field("private_key", &self.private_key);
+        debug_struct.field("key_name", &self.key_name);
+        debug_struct.field("token_config", &self.token_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MediaCdnKey].
 pub mod media_cdn_key {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for a Media CDN token.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TokenConfig {
         /// Optional. The query parameter in which to find the token.
@@ -2029,10 +2142,21 @@ pub mod media_cdn_key {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for TokenConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TokenConfig");
+            debug_struct.field("query_parameter", &self.query_parameter);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Metadata for companion ads.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompanionAds {
     /// Indicates how many of the companions should be displayed with the ad.
@@ -2196,6 +2320,18 @@ impl serde::ser::Serialize for CompanionAds {
     }
 }
 
+impl std::fmt::Debug for CompanionAds {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompanionAds");
+        debug_struct.field("display_requirement", &self.display_requirement);
+        debug_struct.field("companions", &self.companions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CompanionAds].
 pub mod companion_ads {
     #[allow(unused_imports)]
@@ -2342,7 +2478,7 @@ pub mod companion_ads {
 }
 
 /// Metadata for a companion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Companion {
     /// The API necessary to communicate with the creative if available.
@@ -2977,6 +3113,26 @@ impl serde::ser::Serialize for Companion {
     }
 }
 
+impl std::fmt::Debug for Companion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Companion");
+        debug_struct.field("api_framework", &self.api_framework);
+        debug_struct.field("height_px", &self.height_px);
+        debug_struct.field("width_px", &self.width_px);
+        debug_struct.field("asset_height_px", &self.asset_height_px);
+        debug_struct.field("expanded_height_px", &self.expanded_height_px);
+        debug_struct.field("asset_width_px", &self.asset_width_px);
+        debug_struct.field("expanded_width_px", &self.expanded_width_px);
+        debug_struct.field("ad_slot_id", &self.ad_slot_id);
+        debug_struct.field("events", &self.events);
+        debug_struct.field("ad_resource", &self.ad_resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Companion].
 pub mod companion {
     #[allow(unused_imports)]
@@ -2996,7 +3152,7 @@ pub mod companion {
 }
 
 /// Metadata for an HTML ad resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HtmlAdResource {
     /// The HTML to display for the ad resource.
@@ -3126,8 +3282,19 @@ impl serde::ser::Serialize for HtmlAdResource {
     }
 }
 
+impl std::fmt::Debug for HtmlAdResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HtmlAdResource");
+        debug_struct.field("html_source", &self.html_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for an IFrame ad resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IframeAdResource {
     /// URI source for an IFrame to display for the ad resource.
@@ -3256,8 +3423,19 @@ impl serde::ser::Serialize for IframeAdResource {
     }
 }
 
+impl std::fmt::Debug for IframeAdResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IframeAdResource");
+        debug_struct.field("uri", &self.uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for a static ad resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StaticAdResource {
     /// URI to the static file for the ad resource.
@@ -3411,8 +3589,20 @@ impl serde::ser::Serialize for StaticAdResource {
     }
 }
 
+impl std::fmt::Debug for StaticAdResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StaticAdResource");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("creative_type", &self.creative_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes an event and a trigger URI.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Event {
     /// Describes the event that occurred.
@@ -3622,6 +3812,20 @@ impl serde::ser::Serialize for Event {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Event {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Event");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("offset", &self.offset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -3919,7 +4123,7 @@ pub mod event {
 
 /// Indicates a time in which a list of events should be triggered
 /// during media playback.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProgressEvent {
     /// The time when the following tracking events occurs. The time is in
@@ -4091,8 +4295,20 @@ impl serde::ser::Serialize for ProgressEvent {
     }
 }
 
+impl std::fmt::Debug for ProgressEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProgressEvent");
+        debug_struct.field("time_offset", &self.time_offset);
+        debug_struct.field("events", &self.events);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Options on how fetches should be made.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchOptions {
     /// Custom headers to pass into fetch request.
@@ -4235,8 +4451,19 @@ impl serde::ser::Serialize for FetchOptions {
     }
 }
 
+impl std::fmt::Debug for FetchOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchOptions");
+        debug_struct.field("headers", &self.headers);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for used to register live configs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LiveConfig {
     /// Output only. The resource name of the live config, in the form of
@@ -4636,6 +4863,26 @@ impl serde::ser::Serialize for LiveConfig {
     }
 }
 
+impl std::fmt::Debug for LiveConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LiveConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source_uri", &self.source_uri);
+        debug_struct.field("ad_tag_uri", &self.ad_tag_uri);
+        debug_struct.field("gam_live_config", &self.gam_live_config);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("ad_tracking", &self.ad_tracking);
+        debug_struct.field("default_slate", &self.default_slate);
+        debug_struct.field("stitching_policy", &self.stitching_policy);
+        debug_struct.field("prefetch_config", &self.prefetch_config);
+        debug_struct.field("source_fetch_options", &self.source_fetch_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LiveConfig].
 pub mod live_config {
     #[allow(unused_imports)]
@@ -4916,7 +5163,7 @@ pub mod live_config {
 }
 
 /// The configuration for prefetch ads.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrefetchConfig {
     /// Required. Indicates whether the option to prefetch ad requests is enabled.
@@ -5093,8 +5340,23 @@ impl serde::ser::Serialize for PrefetchConfig {
     }
 }
 
+impl std::fmt::Debug for PrefetchConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrefetchConfig");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field(
+            "initial_ad_request_duration",
+            &self.initial_ad_request_duration,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata used to register a live stream with Google Ad Manager (GAM)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GamLiveConfig {
     /// Required. Ad Manager network code to associate with the live config.
@@ -5277,8 +5539,21 @@ impl serde::ser::Serialize for GamLiveConfig {
     }
 }
 
+impl std::fmt::Debug for GamLiveConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GamLiveConfig");
+        debug_struct.field("network_code", &self.network_code);
+        debug_struct.field("asset_key", &self.asset_key);
+        debug_struct.field("custom_asset_key", &self.custom_asset_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for a VOD session. The session expires 4 hours after its creation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodSession {
     /// Output only. The name of the VOD session, in the form of
@@ -5727,6 +6002,27 @@ impl serde::ser::Serialize for VodSession {
     }
 }
 
+impl std::fmt::Debug for VodSession {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VodSession");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("interstitials", &self.interstitials);
+        debug_struct.field("play_uri", &self.play_uri);
+        debug_struct.field("source_uri", &self.source_uri);
+        debug_struct.field("ad_tag_uri", &self.ad_tag_uri);
+        debug_struct.field("ad_tag_macro_map", &self.ad_tag_macro_map);
+        debug_struct.field("manifest_options", &self.manifest_options);
+        debug_struct.field("asset_id", &self.asset_id);
+        debug_struct.field("ad_tracking", &self.ad_tracking);
+        debug_struct.field("gam_settings", &self.gam_settings);
+        debug_struct.field("vod_config", &self.vod_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VodSession].
 pub mod vod_session {
     #[allow(unused_imports)]
@@ -5734,7 +6030,7 @@ pub mod vod_session {
 
     /// Defines fields related to Google Ad Manager (GAM). This should be set if
     /// GAM is being used for ads.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GamSettings {
         /// Required. Ad Manager network code.
@@ -5894,10 +6190,22 @@ pub mod vod_session {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for GamSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GamSettings");
+            debug_struct.field("network_code", &self.network_code);
+            debug_struct.field("stream_id", &self.stream_id);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Describes what was stitched into a VOD session's manifest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Interstitials {
     /// List of ad breaks ordered by time.
@@ -6071,8 +6379,20 @@ impl serde::ser::Serialize for Interstitials {
     }
 }
 
+impl std::fmt::Debug for Interstitials {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Interstitials");
+        debug_struct.field("ad_breaks", &self.ad_breaks);
+        debug_struct.field("session_content", &self.session_content);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for an inserted ad in a VOD session.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodSessionAd {
     /// Duration in seconds of the ad.
@@ -6280,8 +6600,21 @@ impl serde::ser::Serialize for VodSessionAd {
     }
 }
 
+impl std::fmt::Debug for VodSessionAd {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VodSessionAd");
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("companion_ads", &self.companion_ads);
+        debug_struct.field("activity_events", &self.activity_events);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for the entire stitched content in a VOD session.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodSessionContent {
     /// The total duration in seconds of the content including the ads stitched
@@ -6422,8 +6755,19 @@ impl serde::ser::Serialize for VodSessionContent {
     }
 }
 
+impl std::fmt::Debug for VodSessionContent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VodSessionContent");
+        debug_struct.field("duration", &self.duration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for an inserted ad break.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodSessionAdBreak {
     /// List of events that are expected to be triggered, ordered by time.
@@ -6655,9 +6999,23 @@ impl serde::ser::Serialize for VodSessionAdBreak {
     }
 }
 
+impl std::fmt::Debug for VodSessionAdBreak {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VodSessionAdBreak");
+        debug_struct.field("progress_events", &self.progress_events);
+        debug_struct.field("ads", &self.ads);
+        debug_struct.field("end_time_offset", &self.end_time_offset);
+        debug_struct.field("start_time_offset", &self.start_time_offset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for a live session. The session expires 5 minutes after the client
 /// stops fetching the session's playlists.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LiveSession {
     /// Output only. The name of the live session, in the form of
@@ -6989,13 +7347,30 @@ impl serde::ser::Serialize for LiveSession {
     }
 }
 
+impl std::fmt::Debug for LiveSession {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LiveSession");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("play_uri", &self.play_uri);
+        debug_struct.field("ad_tag_macros", &self.ad_tag_macros);
+        debug_struct.field("manifest_options", &self.manifest_options);
+        debug_struct.field("gam_settings", &self.gam_settings);
+        debug_struct.field("live_config", &self.live_config);
+        debug_struct.field("ad_tracking", &self.ad_tracking);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LiveSession].
 pub mod live_session {
     #[allow(unused_imports)]
     use super::*;
 
     /// Defines fields related to Google Ad Manager (GAM).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GamSettings {
         /// Required. The stream ID generated by Ad Manager. This must be set if GAM
@@ -7168,10 +7543,22 @@ pub mod live_session {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for GamSettings {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GamSettings");
+            debug_struct.field("stream_id", &self.stream_id);
+            debug_struct.field("targeting_parameters", &self.targeting_parameters);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Options for manifest generation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManifestOptions {
     /// If specified, the output manifest will only return renditions matching the
@@ -7340,6 +7727,18 @@ impl serde::ser::Serialize for ManifestOptions {
     }
 }
 
+impl std::fmt::Debug for ManifestOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManifestOptions");
+        debug_struct.field("include_renditions", &self.include_renditions);
+        debug_struct.field("bitrate_order", &self.bitrate_order);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ManifestOptions].
 pub mod manifest_options {
     #[allow(unused_imports)]
@@ -7479,7 +7878,7 @@ pub mod manifest_options {
 }
 
 /// Filters for a video or muxed redition.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenditionFilter {
     /// Bitrate in bits per second for the rendition. If set, only renditions with
@@ -7653,8 +8052,20 @@ impl serde::ser::Serialize for RenditionFilter {
     }
 }
 
+impl std::fmt::Debug for RenditionFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RenditionFilter");
+        debug_struct.field("bitrate_bps", &self.bitrate_bps);
+        debug_struct.field("codecs", &self.codecs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Slate object
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Slate {
     /// Output only. The name of the slate, in the form of
@@ -7846,6 +8257,19 @@ impl serde::ser::Serialize for Slate {
     }
 }
 
+impl std::fmt::Debug for Slate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Slate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("gam_slate", &self.gam_slate);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Slate].
 pub mod slate {
     #[allow(unused_imports)]
@@ -7853,7 +8277,7 @@ pub mod slate {
 
     /// GamSlate object has Google Ad Manager (GAM) related properties for the
     /// slate.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GamSlate {
         /// Required. Ad Manager network code to associate with the live config.
@@ -8032,12 +8456,24 @@ pub mod slate {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for GamSlate {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GamSlate");
+            debug_struct.field("network_code", &self.network_code);
+            debug_struct.field("gam_slate_id", &self.gam_slate_id);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Information related to the interstitial of a VOD session. This resource is
 /// only available for VOD sessions that do not implement Google Ad Manager ad
 /// insertion.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodStitchDetail {
     /// The name of the stitch detail in the specified VOD session, in the form of
@@ -8199,8 +8635,20 @@ impl serde::ser::Serialize for VodStitchDetail {
     }
 }
 
+impl std::fmt::Debug for VodStitchDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VodStitchDetail");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("ad_stitch_details", &self.ad_stitch_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for a stitched ad.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdStitchDetail {
     /// Required. The ad break ID of the processed ad.
@@ -8448,8 +8896,23 @@ impl serde::ser::Serialize for AdStitchDetail {
     }
 }
 
+impl std::fmt::Debug for AdStitchDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdStitchDetail");
+        debug_struct.field("ad_break_id", &self.ad_break_id);
+        debug_struct.field("ad_id", &self.ad_id);
+        debug_struct.field("ad_time_offset", &self.ad_time_offset);
+        debug_struct.field("skip_reason", &self.skip_reason);
+        debug_struct.field("media", &self.media);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.createCdnKey.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCdnKeyRequest {
     /// Required. The project in which the CDN key should be created, in the form
@@ -8645,8 +9108,21 @@ impl serde::ser::Serialize for CreateCdnKeyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCdnKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCdnKeyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("cdn_key", &self.cdn_key);
+        debug_struct.field("cdn_key_id", &self.cdn_key_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.listCdnKeys.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCdnKeysRequest {
     /// Required. The project that contains the list of CDN keys, in the form of
@@ -8894,8 +9370,23 @@ impl serde::ser::Serialize for ListCdnKeysRequest {
     }
 }
 
+impl std::fmt::Debug for ListCdnKeysRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCdnKeysRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for VideoStitcher.ListCdnKeys.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCdnKeysResponse {
     /// List of CDN keys.
@@ -9094,8 +9585,21 @@ impl serde::ser::Serialize for ListCdnKeysResponse {
     }
 }
 
+impl std::fmt::Debug for ListCdnKeysResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCdnKeysResponse");
+        debug_struct.field("cdn_keys", &self.cdn_keys);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.getCdnKey.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCdnKeyRequest {
     /// Required. The name of the CDN key to be retrieved, in the form of
@@ -9225,8 +9729,19 @@ impl serde::ser::Serialize for GetCdnKeyRequest {
     }
 }
 
+impl std::fmt::Debug for GetCdnKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCdnKeyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.deleteCdnKey.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCdnKeyRequest {
     /// Required. The name of the CDN key to be deleted, in the form of
@@ -9356,8 +9871,19 @@ impl serde::ser::Serialize for DeleteCdnKeyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCdnKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCdnKeyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.updateCdnKey.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCdnKeyRequest {
     /// Required. The CDN key resource which replaces the resource on the server.
@@ -9536,8 +10062,20 @@ impl serde::ser::Serialize for UpdateCdnKeyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCdnKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCdnKeyRequest");
+        debug_struct.field("cdn_key", &self.cdn_key);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.createVodSession
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVodSessionRequest {
     /// Required. The project and location in which the VOD session should be
@@ -9703,8 +10241,20 @@ impl serde::ser::Serialize for CreateVodSessionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateVodSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVodSessionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("vod_session", &self.vod_session);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.getVodSession
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVodSessionRequest {
     /// Required. The name of the VOD session to be retrieved, in the form of
@@ -9834,8 +10384,19 @@ impl serde::ser::Serialize for GetVodSessionRequest {
     }
 }
 
+impl std::fmt::Debug for GetVodSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVodSessionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.listVodStitchDetails.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVodStitchDetailsRequest {
     /// Required. The VOD session where the stitch details belong to, in the form
@@ -10033,8 +10594,21 @@ impl serde::ser::Serialize for ListVodStitchDetailsRequest {
     }
 }
 
+impl std::fmt::Debug for ListVodStitchDetailsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVodStitchDetailsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for VideoStitcherService.listVodStitchDetails.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVodStitchDetailsResponse {
     /// A List of stitch Details.
@@ -10210,8 +10784,20 @@ impl serde::ser::Serialize for ListVodStitchDetailsResponse {
     }
 }
 
+impl std::fmt::Debug for ListVodStitchDetailsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVodStitchDetailsResponse");
+        debug_struct.field("vod_stitch_details", &self.vod_stitch_details);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.getVodStitchDetail.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVodStitchDetailRequest {
     /// Required. The name of the stitch detail in the specified VOD session, in
@@ -10342,8 +10928,19 @@ impl serde::ser::Serialize for GetVodStitchDetailRequest {
     }
 }
 
+impl std::fmt::Debug for GetVodStitchDetailRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVodStitchDetailRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.listVodAdTagDetails.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVodAdTagDetailsRequest {
     /// Required. The VOD session which the ad tag details belong to, in the form
@@ -10541,8 +11138,21 @@ impl serde::ser::Serialize for ListVodAdTagDetailsRequest {
     }
 }
 
+impl std::fmt::Debug for ListVodAdTagDetailsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVodAdTagDetailsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for VideoStitcherService.listVodAdTagDetails.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVodAdTagDetailsResponse {
     /// A List of ad tag details.
@@ -10718,8 +11328,20 @@ impl serde::ser::Serialize for ListVodAdTagDetailsResponse {
     }
 }
 
+impl std::fmt::Debug for ListVodAdTagDetailsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVodAdTagDetailsResponse");
+        debug_struct.field("vod_ad_tag_details", &self.vod_ad_tag_details);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.getVodAdTagDetail
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVodAdTagDetailRequest {
     /// Required. The name of the ad tag detail for the specified VOD session, in
@@ -10850,8 +11472,19 @@ impl serde::ser::Serialize for GetVodAdTagDetailRequest {
     }
 }
 
+impl std::fmt::Debug for GetVodAdTagDetailRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVodAdTagDetailRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.listLiveAdTagDetails.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLiveAdTagDetailsRequest {
     /// Required. The resource parent in the form of
@@ -11049,8 +11682,21 @@ impl serde::ser::Serialize for ListLiveAdTagDetailsRequest {
     }
 }
 
+impl std::fmt::Debug for ListLiveAdTagDetailsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLiveAdTagDetailsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for VideoStitcherService.listLiveAdTagDetails.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLiveAdTagDetailsResponse {
     /// A list of live session ad tag details.
@@ -11226,8 +11872,20 @@ impl serde::ser::Serialize for ListLiveAdTagDetailsResponse {
     }
 }
 
+impl std::fmt::Debug for ListLiveAdTagDetailsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLiveAdTagDetailsResponse");
+        debug_struct.field("live_ad_tag_details", &self.live_ad_tag_details);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.getLiveAdTagDetail
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLiveAdTagDetailRequest {
     /// Required. The resource name in the form of
@@ -11357,8 +12015,19 @@ impl serde::ser::Serialize for GetLiveAdTagDetailRequest {
     }
 }
 
+impl std::fmt::Debug for GetLiveAdTagDetailRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLiveAdTagDetailRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.createSlate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSlateRequest {
     /// Required. The project in which the slate should be created, in the form of
@@ -11588,8 +12257,22 @@ impl serde::ser::Serialize for CreateSlateRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSlateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSlateRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("slate_id", &self.slate_id);
+        debug_struct.field("slate", &self.slate);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.getSlate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSlateRequest {
     /// Required. The name of the slate to be retrieved, of the slate, in the form
@@ -11719,8 +12402,19 @@ impl serde::ser::Serialize for GetSlateRequest {
     }
 }
 
+impl std::fmt::Debug for GetSlateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSlateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.listSlates.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSlatesRequest {
     /// Required. The project to list slates, in the form of
@@ -11968,8 +12662,23 @@ impl serde::ser::Serialize for ListSlatesRequest {
     }
 }
 
+impl std::fmt::Debug for ListSlatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSlatesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for VideoStitcherService.listSlates.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSlatesResponse {
     /// The list of slates
@@ -12167,8 +12876,21 @@ impl serde::ser::Serialize for ListSlatesResponse {
     }
 }
 
+impl std::fmt::Debug for ListSlatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSlatesResponse");
+        debug_struct.field("slates", &self.slates);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.updateSlate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSlateRequest {
     /// Required. The resource with updated fields.
@@ -12344,8 +13066,20 @@ impl serde::ser::Serialize for UpdateSlateRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSlateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSlateRequest");
+        debug_struct.field("slate", &self.slate);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.deleteSlate.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSlateRequest {
     /// Required. The name of the slate to be deleted, in the form of
@@ -12475,8 +13209,19 @@ impl serde::ser::Serialize for DeleteSlateRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSlateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSlateRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.createLiveSession.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLiveSessionRequest {
     /// Required. The project and location in which the live session should be
@@ -12642,8 +13387,20 @@ impl serde::ser::Serialize for CreateLiveSessionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateLiveSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateLiveSessionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("live_session", &self.live_session);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.getSession.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLiveSessionRequest {
     /// Required. The name of the live session, in the form of
@@ -12773,8 +13530,19 @@ impl serde::ser::Serialize for GetLiveSessionRequest {
     }
 }
 
+impl std::fmt::Debug for GetLiveSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLiveSessionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.createLiveConfig
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLiveConfigRequest {
     /// Required. The project in which the live config should be created, in
@@ -13002,8 +13770,22 @@ impl serde::ser::Serialize for CreateLiveConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateLiveConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateLiveConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("live_config_id", &self.live_config_id);
+        debug_struct.field("live_config", &self.live_config);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.listLiveConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLiveConfigsRequest {
     /// Required. The project that contains the list of live configs, in the
@@ -13253,8 +14035,23 @@ impl serde::ser::Serialize for ListLiveConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListLiveConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLiveConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for VideoStitcher.ListLiveConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLiveConfigsResponse {
     /// List of live configs.
@@ -13453,8 +14250,21 @@ impl serde::ser::Serialize for ListLiveConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListLiveConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLiveConfigsResponse");
+        debug_struct.field("live_configs", &self.live_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.getLiveConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLiveConfigRequest {
     /// Required. The name of the live config to be retrieved, in the form
@@ -13585,8 +14395,19 @@ impl serde::ser::Serialize for GetLiveConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetLiveConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLiveConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.deleteLiveConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLiveConfigRequest {
     /// Required. The name of the live config to be deleted, in the form of
@@ -13716,8 +14537,19 @@ impl serde::ser::Serialize for DeleteLiveConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteLiveConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteLiveConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.updateLiveConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateLiveConfigRequest {
     /// Required. The LiveConfig resource which replaces the resource on the
@@ -13897,8 +14729,20 @@ impl serde::ser::Serialize for UpdateLiveConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateLiveConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateLiveConfigRequest");
+        debug_struct.field("live_config", &self.live_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.createVodConfig
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVodConfigRequest {
     /// Required. The project in which the VOD config should be created, in
@@ -14126,8 +14970,22 @@ impl serde::ser::Serialize for CreateVodConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateVodConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVodConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("vod_config_id", &self.vod_config_id);
+        debug_struct.field("vod_config", &self.vod_config);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.listVodConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVodConfigsRequest {
     /// Required. The project that contains the list of VOD configs, in the
@@ -14378,8 +15236,23 @@ impl serde::ser::Serialize for ListVodConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListVodConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVodConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for VideoStitcher.ListVodConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVodConfigsResponse {
     /// List of VOD configs.
@@ -14578,8 +15451,21 @@ impl serde::ser::Serialize for ListVodConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListVodConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVodConfigsResponse");
+        debug_struct.field("vod_configs", &self.vod_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.getVodConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVodConfigRequest {
     /// Required. The name of the VOD config to be retrieved, in the form
@@ -14709,8 +15595,19 @@ impl serde::ser::Serialize for GetVodConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetVodConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVodConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.deleteVodConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVodConfigRequest {
     /// Required. The name of the VOD config to be deleted, in the form of
@@ -14840,8 +15737,19 @@ impl serde::ser::Serialize for DeleteVodConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteVodConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteVodConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for VideoStitcherService.updateVodConfig.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVodConfigRequest {
     /// Required. The VOD config resource which replaces the resource on the
@@ -15021,8 +15929,20 @@ impl serde::ser::Serialize for UpdateVodConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateVodConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateVodConfigRequest");
+        debug_struct.field("vod_config", &self.vod_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The time the operation was created.
@@ -15247,8 +16167,22 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata used to register VOD configs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodConfig {
     /// Output only. The resource name of the VOD config, in the form of
@@ -15528,6 +16462,22 @@ impl serde::ser::Serialize for VodConfig {
     }
 }
 
+impl std::fmt::Debug for VodConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VodConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source_uri", &self.source_uri);
+        debug_struct.field("ad_tag_uri", &self.ad_tag_uri);
+        debug_struct.field("gam_vod_config", &self.gam_vod_config);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("source_fetch_options", &self.source_fetch_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VodConfig].
 pub mod vod_config {
     #[allow(unused_imports)]
@@ -15674,7 +16624,7 @@ pub mod vod_config {
 }
 
 /// Metadata used for GAM ad decisioning.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GamVodConfig {
     /// Required. Ad Manager network code to associate with the VOD config.
@@ -15801,6 +16751,17 @@ impl serde::ser::Serialize for GamVodConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GamVodConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GamVodConfig");
+        debug_struct.field("network_code", &self.network_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

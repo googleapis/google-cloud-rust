@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Message representing a period of time between two timestamps.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimestampRange {
     /// Begin of the period (inclusive).
@@ -212,8 +212,20 @@ impl serde::ser::Serialize for TimestampRange {
     }
 }
 
+impl std::fmt::Debug for TimestampRange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimestampRange");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A resource that represents a location with full geographic information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Location {
     /// The type of a location, which corresponds to the address lines field of
@@ -477,6 +489,20 @@ impl serde::ser::Serialize for Location {
     }
 }
 
+impl std::fmt::Debug for Location {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Location");
+        debug_struct.field("location_type", &self.location_type);
+        debug_struct.field("postal_address", &self.postal_address);
+        debug_struct.field("lat_lng", &self.lat_lng);
+        debug_struct.field("radius_miles", &self.radius_miles);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Location].
 pub mod location {
     #[allow(unused_imports)]
@@ -678,7 +704,7 @@ pub mod location {
 /// Meta information related to the job searcher or entity
 /// conducting the job search. This information is used to improve the
 /// performance of the service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RequestMetadata {
     /// Required if
@@ -979,8 +1005,23 @@ impl serde::ser::Serialize for RequestMetadata {
     }
 }
 
+impl std::fmt::Debug for RequestMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RequestMetadata");
+        debug_struct.field("domain", &self.domain);
+        debug_struct.field("session_id", &self.session_id);
+        debug_struct.field("user_id", &self.user_id);
+        debug_struct.field("allow_missing_ids", &self.allow_missing_ids);
+        debug_struct.field("device_info", &self.device_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Additional information returned to client, such as debugging information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResponseMetadata {
     /// A unique id associated with this call.
@@ -1111,10 +1152,21 @@ impl serde::ser::Serialize for ResponseMetadata {
     }
 }
 
+impl std::fmt::Debug for ResponseMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResponseMetadata");
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Device information collected from the job seeker, candidate, or
 /// other entity conducting the job search. Providing this information improves
 /// the quality of the search results across devices.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeviceInfo {
     /// Type of the device.
@@ -1267,6 +1319,18 @@ impl serde::ser::Serialize for DeviceInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DeviceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeviceInfo");
+        debug_struct.field("device_type", &self.device_type);
+        debug_struct.field("id", &self.id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -1440,7 +1504,7 @@ pub mod device_info {
 }
 
 /// Custom attribute values that are either filterable or non-filterable.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomAttribute {
     /// Exactly one of
@@ -1714,8 +1778,22 @@ impl serde::ser::Serialize for CustomAttribute {
     }
 }
 
+impl std::fmt::Debug for CustomAttribute {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomAttribute");
+        debug_struct.field("string_values", &self.string_values);
+        debug_struct.field("long_values", &self.long_values);
+        debug_struct.field("filterable", &self.filterable);
+        debug_struct.field("keyword_searchable", &self.keyword_searchable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Spell check result.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpellingCorrection {
     /// Indicates if the query was corrected by the spell checker.
@@ -1900,8 +1978,21 @@ impl serde::ser::Serialize for SpellingCorrection {
     }
 }
 
+impl std::fmt::Debug for SpellingCorrection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpellingCorrection");
+        debug_struct.field("corrected", &self.corrected);
+        debug_struct.field("corrected_text", &self.corrected_text);
+        debug_struct.field("corrected_html", &self.corrected_html);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Job compensation details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompensationInfo {
     /// Job compensation information.
@@ -2167,6 +2258,25 @@ impl serde::ser::Serialize for CompensationInfo {
     }
 }
 
+impl std::fmt::Debug for CompensationInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompensationInfo");
+        debug_struct.field("entries", &self.entries);
+        debug_struct.field(
+            "annualized_base_compensation_range",
+            &self.annualized_base_compensation_range,
+        );
+        debug_struct.field(
+            "annualized_total_compensation_range",
+            &self.annualized_total_compensation_range,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CompensationInfo].
 pub mod compensation_info {
     #[allow(unused_imports)]
@@ -2193,7 +2303,7 @@ pub mod compensation_info {
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.amount]: crate::model::compensation_info::CompensationEntry::compensation_amount
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.expected_units_per_year]: crate::model::compensation_info::CompensationEntry::expected_units_per_year
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.range]: crate::model::compensation_info::CompensationEntry::compensation_amount
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CompensationEntry {
         /// Compensation type.
@@ -2606,6 +2716,21 @@ pub mod compensation_info {
         }
     }
 
+    impl std::fmt::Debug for CompensationEntry {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CompensationEntry");
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("unit", &self.unit);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("expected_units_per_year", &self.expected_units_per_year);
+            debug_struct.field("compensation_amount", &self.compensation_amount);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [CompensationEntry].
     pub mod compensation_entry {
         #[allow(unused_imports)]
@@ -2623,7 +2748,7 @@ pub mod compensation_info {
     }
 
     /// Compensation range.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CompensationRange {
         /// The maximum amount of compensation. If left empty, the value is set
@@ -2809,6 +2934,18 @@ pub mod compensation_info {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for CompensationRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CompensationRange");
+            debug_struct.field("max_compensation", &self.max_compensation);
+            debug_struct.field("min_compensation", &self.min_compensation);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -3193,7 +3330,7 @@ pub mod compensation_info {
 /// [google.longrunning.Operation.metadata][google.longrunning.Operation.metadata].
 ///
 /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchOperationMetadata {
     /// The state of a long running operation.
@@ -3602,6 +3739,24 @@ impl serde::ser::Serialize for BatchOperationMetadata {
     }
 }
 
+impl std::fmt::Debug for BatchOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchOperationMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("state_description", &self.state_description);
+        debug_struct.field("success_count", &self.success_count);
+        debug_struct.field("failure_count", &self.failure_count);
+        debug_struct.field("total_count", &self.total_count);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BatchOperationMetadata].
 pub mod batch_operation_metadata {
     #[allow(unused_imports)]
@@ -3776,7 +3931,7 @@ pub mod batch_operation_metadata {
 /// A Company resource represents a company in the service. A company is the
 /// entity that owns job postings, that is, the hiring entity responsible for
 /// employing applicants for the job position.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Company {
     /// Required during company update.
@@ -4273,13 +4428,39 @@ impl serde::ser::Serialize for Company {
     }
 }
 
+impl std::fmt::Debug for Company {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Company");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("external_id", &self.external_id);
+        debug_struct.field("size", &self.size);
+        debug_struct.field("headquarters_address", &self.headquarters_address);
+        debug_struct.field("hiring_agency", &self.hiring_agency);
+        debug_struct.field("eeo_text", &self.eeo_text);
+        debug_struct.field("website_uri", &self.website_uri);
+        debug_struct.field("career_site_uri", &self.career_site_uri);
+        debug_struct.field("image_uri", &self.image_uri);
+        debug_struct.field(
+            "keyword_searchable_job_custom_attributes",
+            &self.keyword_searchable_job_custom_attributes,
+        );
+        debug_struct.field("derived_info", &self.derived_info);
+        debug_struct.field("suspended", &self.suspended);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Company].
 pub mod company {
     #[allow(unused_imports)]
     use super::*;
 
     /// Derived details about the company.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DerivedInfo {
         /// A structured headquarters location of the company, resolved from
@@ -4426,10 +4607,21 @@ pub mod company {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for DerivedInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DerivedInfo");
+            debug_struct.field("headquarters_location", &self.headquarters_location);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// The Request of the CreateCompany method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCompanyRequest {
     /// Required. Resource name of the tenant under which the company is created.
@@ -4596,8 +4788,20 @@ impl serde::ser::Serialize for CreateCompanyRequest {
     }
 }
 
+impl std::fmt::Debug for CreateCompanyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCompanyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("company", &self.company);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for getting a company by name.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCompanyRequest {
     /// Required. The resource name of the company to be retrieved.
@@ -4730,8 +4934,19 @@ impl serde::ser::Serialize for GetCompanyRequest {
     }
 }
 
+impl std::fmt::Debug for GetCompanyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetCompanyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for updating a specified company.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCompanyRequest {
     /// Required. The company resource to replace the current resource in the
@@ -4921,8 +5136,20 @@ impl serde::ser::Serialize for UpdateCompanyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateCompanyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCompanyRequest");
+        debug_struct.field("company", &self.company);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to delete a company.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCompanyRequest {
     /// Required. The resource name of the company to be deleted.
@@ -5055,8 +5282,19 @@ impl serde::ser::Serialize for DeleteCompanyRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteCompanyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCompanyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List companies for which the client has ACL visibility.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCompaniesRequest {
     /// Required. Resource name of the tenant under which the company is created.
@@ -5290,8 +5528,22 @@ impl serde::ser::Serialize for ListCompaniesRequest {
     }
 }
 
+impl std::fmt::Debug for ListCompaniesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCompaniesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("require_open_jobs", &self.require_open_jobs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The List companies response object.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCompaniesResponse {
     /// Companies for the current client.
@@ -5499,8 +5751,21 @@ impl serde::ser::Serialize for ListCompaniesResponse {
     }
 }
 
+impl std::fmt::Debug for ListCompaniesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCompaniesResponse");
+        debug_struct.field("companies", &self.companies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Auto-complete parameters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompleteQueryRequest {
     /// Required. Resource name of tenant the completion is performed within.
@@ -5830,6 +6095,23 @@ impl serde::ser::Serialize for CompleteQueryRequest {
     }
 }
 
+impl std::fmt::Debug for CompleteQueryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompleteQueryRequest");
+        debug_struct.field("tenant", &self.tenant);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("language_codes", &self.language_codes);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("company", &self.company);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CompleteQueryRequest].
 pub mod complete_query_request {
     #[allow(unused_imports)]
@@ -6138,7 +6420,7 @@ pub mod complete_query_request {
 }
 
 /// Response of auto-complete query.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompleteQueryResponse {
     /// Results of the matching job/company candidates.
@@ -6314,13 +6596,25 @@ impl serde::ser::Serialize for CompleteQueryResponse {
     }
 }
 
+impl std::fmt::Debug for CompleteQueryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompleteQueryResponse");
+        debug_struct.field("completion_results", &self.completion_results);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CompleteQueryResponse].
 pub mod complete_query_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Resource that represents completion results.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CompletionResult {
         /// The suggestion for the query.
@@ -6510,6 +6804,19 @@ pub mod complete_query_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for CompletionResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CompletionResult");
+            debug_struct.field("suggestion", &self.suggestion);
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("image_uri", &self.image_uri);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// An event issued when an end user interacts with the application that
@@ -6517,7 +6824,7 @@ pub mod complete_query_response {
 /// quality of results for the API clients, enabling the
 /// service to perform optimally. The number of events sent must be consistent
 /// with other calls, such as job searches, issued to the service by the client.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientEvent {
     /// Strongly recommended for the best service experience.
@@ -6809,6 +7116,21 @@ impl serde::ser::Serialize for ClientEvent {
     }
 }
 
+impl std::fmt::Debug for ClientEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClientEvent");
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("event_id", &self.event_id);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("event_notes", &self.event_notes);
+        debug_struct.field("event", &self.event);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ClientEvent].
 pub mod client_event {
     #[allow(unused_imports)]
@@ -6828,7 +7150,7 @@ pub mod client_event {
 
 /// An event issued when a job seeker interacts with the application that
 /// implements Cloud Talent Solution.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobEvent {
     /// Required. The type of the event (see
@@ -6999,6 +7321,18 @@ impl serde::ser::Serialize for JobEvent {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for JobEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobEvent");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("jobs", &self.jobs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -7297,7 +7631,7 @@ pub mod job_event {
 }
 
 /// The report event request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClientEventRequest {
     /// Required. Resource name of the tenant under which the event is created.
@@ -7466,8 +7800,20 @@ impl serde::ser::Serialize for CreateClientEventRequest {
     }
 }
 
+impl std::fmt::Debug for CreateClientEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateClientEventRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("client_event", &self.client_event);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The query required to perform a search query.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobQuery {
     /// The query string that matches against the job title, description, and
@@ -8132,8 +8478,32 @@ impl serde::ser::Serialize for JobQuery {
     }
 }
 
+impl std::fmt::Debug for JobQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobQuery");
+        debug_struct.field("query", &self.query);
+        debug_struct.field("query_language_code", &self.query_language_code);
+        debug_struct.field("companies", &self.companies);
+        debug_struct.field("location_filters", &self.location_filters);
+        debug_struct.field("job_categories", &self.job_categories);
+        debug_struct.field("commute_filter", &self.commute_filter);
+        debug_struct.field("company_display_names", &self.company_display_names);
+        debug_struct.field("compensation_filter", &self.compensation_filter);
+        debug_struct.field("custom_attribute_filter", &self.custom_attribute_filter);
+        debug_struct.field("disable_spell_check", &self.disable_spell_check);
+        debug_struct.field("employment_types", &self.employment_types);
+        debug_struct.field("language_codes", &self.language_codes);
+        debug_struct.field("publish_time_range", &self.publish_time_range);
+        debug_struct.field("excluded_jobs", &self.excluded_jobs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Geographic region of the search.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationFilter {
     /// The address name, such as "Mountain View" or "Bay Area".
@@ -8450,6 +8820,21 @@ impl serde::ser::Serialize for LocationFilter {
     }
 }
 
+impl std::fmt::Debug for LocationFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationFilter");
+        debug_struct.field("address", &self.address);
+        debug_struct.field("region_code", &self.region_code);
+        debug_struct.field("lat_lng", &self.lat_lng);
+        debug_struct.field("distance_in_miles", &self.distance_in_miles);
+        debug_struct.field("telecommute_preference", &self.telecommute_preference);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LocationFilter].
 pub mod location_filter {
     #[allow(unused_imports)]
@@ -8602,7 +8987,7 @@ pub mod location_filter {
 }
 
 /// Filter on job compensation type and amount.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompensationFilter {
     /// Required. Type of filter.
@@ -8846,6 +9231,23 @@ impl serde::ser::Serialize for CompensationFilter {
     }
 }
 
+impl std::fmt::Debug for CompensationFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompensationFilter");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("units", &self.units);
+        debug_struct.field("range", &self.range);
+        debug_struct.field(
+            "include_jobs_with_unspecified_compensation_range",
+            &self.include_jobs_with_unspecified_compensation_range,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CompensationFilter].
 pub mod compensation_filter {
     #[allow(unused_imports)]
@@ -9040,7 +9442,7 @@ pub mod compensation_filter {
 }
 
 /// Parameters needed for commute search.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommuteFilter {
     /// Required. The method of transportation to calculate the commute time for.
@@ -9405,6 +9807,21 @@ impl serde::ser::Serialize for CommuteFilter {
     }
 }
 
+impl std::fmt::Debug for CommuteFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CommuteFilter");
+        debug_struct.field("commute_method", &self.commute_method);
+        debug_struct.field("start_coordinates", &self.start_coordinates);
+        debug_struct.field("travel_duration", &self.travel_duration);
+        debug_struct.field("allow_imprecise_addresses", &self.allow_imprecise_addresses);
+        debug_struct.field("traffic_option", &self.traffic_option);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CommuteFilter].
 pub mod commute_filter {
     #[allow(unused_imports)]
@@ -9559,7 +9976,7 @@ pub mod commute_filter {
 }
 
 /// The histogram request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HistogramQuery {
     /// An expression specifies a histogram request against matching jobs for
@@ -9696,12 +10113,23 @@ impl serde::ser::Serialize for HistogramQuery {
     }
 }
 
+impl std::fmt::Debug for HistogramQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HistogramQuery");
+        debug_struct.field("histogram_query", &self.histogram_query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Histogram result that matches
 /// [HistogramQuery][google.cloud.talent.v4.HistogramQuery] specified in
 /// searches.
 ///
 /// [google.cloud.talent.v4.HistogramQuery]: crate::model::HistogramQuery
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HistogramQueryResult {
     /// Requested histogram expression.
@@ -9900,13 +10328,25 @@ impl serde::ser::Serialize for HistogramQueryResult {
     }
 }
 
+impl std::fmt::Debug for HistogramQueryResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HistogramQueryResult");
+        debug_struct.field("histogram_query", &self.histogram_query);
+        debug_struct.field("histogram", &self.histogram);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Job resource represents a job posting (also referred to as a "job listing"
 /// or "job requisition"). A job belongs to a
 /// [Company][google.cloud.talent.v4.Company], which is the hiring entity
 /// responsible for the job.
 ///
 /// [google.cloud.talent.v4.Company]: crate::model::Company
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Job {
     /// Required during job update.
@@ -11154,13 +11594,53 @@ impl serde::ser::Serialize for Job {
     }
 }
 
+impl std::fmt::Debug for Job {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Job");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("company", &self.company);
+        debug_struct.field("requisition_id", &self.requisition_id);
+        debug_struct.field("title", &self.title);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("addresses", &self.addresses);
+        debug_struct.field("application_info", &self.application_info);
+        debug_struct.field("job_benefits", &self.job_benefits);
+        debug_struct.field("compensation_info", &self.compensation_info);
+        debug_struct.field("custom_attributes", &self.custom_attributes);
+        debug_struct.field("degree_types", &self.degree_types);
+        debug_struct.field("department", &self.department);
+        debug_struct.field("employment_types", &self.employment_types);
+        debug_struct.field("incentives", &self.incentives);
+        debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("job_level", &self.job_level);
+        debug_struct.field("promotion_value", &self.promotion_value);
+        debug_struct.field("qualifications", &self.qualifications);
+        debug_struct.field("responsibilities", &self.responsibilities);
+        debug_struct.field("posting_region", &self.posting_region);
+        debug_struct.field("visibility", &self.visibility);
+        debug_struct.field("job_start_time", &self.job_start_time);
+        debug_struct.field("job_end_time", &self.job_end_time);
+        debug_struct.field("posting_publish_time", &self.posting_publish_time);
+        debug_struct.field("posting_expire_time", &self.posting_expire_time);
+        debug_struct.field("posting_create_time", &self.posting_create_time);
+        debug_struct.field("posting_update_time", &self.posting_update_time);
+        debug_struct.field("company_display_name", &self.company_display_name);
+        debug_struct.field("derived_info", &self.derived_info);
+        debug_struct.field("processing_options", &self.processing_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Job].
 pub mod job {
     #[allow(unused_imports)]
     use super::*;
 
     /// Application related details of a job posting.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ApplicationInfo {
         /// Use this field to specify email address(es) to which resumes or
@@ -11358,8 +11838,21 @@ pub mod job {
         }
     }
 
+    impl std::fmt::Debug for ApplicationInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ApplicationInfo");
+            debug_struct.field("emails", &self.emails);
+            debug_struct.field("instruction", &self.instruction);
+            debug_struct.field("uris", &self.uris);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Derived details about the job posting.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DerivedInfo {
         /// Structured locations of the job, resolved from
@@ -11538,8 +12031,20 @@ pub mod job {
         }
     }
 
+    impl std::fmt::Debug for DerivedInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DerivedInfo");
+            debug_struct.field("locations", &self.locations);
+            debug_struct.field("job_categories", &self.job_categories);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Options for job processing.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProcessingOptions {
         /// If set to `true`, the service does not attempt to resolve a
@@ -11722,10 +12227,25 @@ pub mod job {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for ProcessingOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ProcessingOptions");
+            debug_struct.field(
+                "disable_street_address_resolution",
+                &self.disable_street_address_resolution,
+            );
+            debug_struct.field("html_sanitization", &self.html_sanitization);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Create job request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateJobRequest {
     /// Required. The resource name of the tenant under which the job is created.
@@ -11892,8 +12412,20 @@ impl serde::ser::Serialize for CreateJobRequest {
     }
 }
 
+impl std::fmt::Debug for CreateJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateJobRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("job", &self.job);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Get job request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobRequest {
     /// Required. The resource name of the job to retrieve.
@@ -12026,8 +12558,19 @@ impl serde::ser::Serialize for GetJobRequest {
     }
 }
 
+impl std::fmt::Debug for GetJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetJobRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Update job request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateJobRequest {
     /// Required. The Job to be updated.
@@ -12215,8 +12758,20 @@ impl serde::ser::Serialize for UpdateJobRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateJobRequest");
+        debug_struct.field("job", &self.job);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Delete job request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobRequest {
     /// Required. The resource name of the job to be deleted.
@@ -12349,8 +12904,19 @@ impl serde::ser::Serialize for DeleteJobRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteJobRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List jobs request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsRequest {
     /// Required. The resource name of the tenant under which the job is created.
@@ -12636,8 +13202,23 @@ impl serde::ser::Serialize for ListJobsRequest {
     }
 }
 
+impl std::fmt::Debug for ListJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("job_view", &self.job_view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List jobs response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsResponse {
     /// The Jobs for a given company.
@@ -12848,8 +13429,21 @@ impl serde::ser::Serialize for ListJobsResponse {
     }
 }
 
+impl std::fmt::Debug for ListJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobsResponse");
+        debug_struct.field("jobs", &self.jobs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Request body of the `SearchJobs` call.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchJobsRequest {
     /// Required. The resource name of the tenant to search within.
@@ -13749,6 +14343,32 @@ impl serde::ser::Serialize for SearchJobsRequest {
     }
 }
 
+impl std::fmt::Debug for SearchJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("search_mode", &self.search_mode);
+        debug_struct.field("request_metadata", &self.request_metadata);
+        debug_struct.field("job_query", &self.job_query);
+        debug_struct.field("enable_broadening", &self.enable_broadening);
+        debug_struct.field("histogram_queries", &self.histogram_queries);
+        debug_struct.field("job_view", &self.job_view);
+        debug_struct.field("offset", &self.offset);
+        debug_struct.field("max_page_size", &self.max_page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("diversification_level", &self.diversification_level);
+        debug_struct.field("custom_ranking_info", &self.custom_ranking_info);
+        debug_struct.field("disable_keyword_match", &self.disable_keyword_match);
+        debug_struct.field("keyword_match_mode", &self.keyword_match_mode);
+        debug_struct.field("relevance_threshold", &self.relevance_threshold);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SearchJobsRequest].
 pub mod search_jobs_request {
     #[allow(unused_imports)]
@@ -13758,7 +14378,7 @@ pub mod search_jobs_request {
     /// [SearchJobsRequest][google.cloud.talent.v4.SearchJobsRequest].
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest]: crate::model::SearchJobsRequest
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomRankingInfo {
         /// Required. Controls over how important the score of
@@ -13952,6 +14572,18 @@ pub mod search_jobs_request {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for CustomRankingInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CustomRankingInfo");
+            debug_struct.field("importance_level", &self.importance_level);
+            debug_struct.field("ranking_expression", &self.ranking_expression);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -14794,7 +15426,7 @@ pub mod search_jobs_request {
 }
 
 /// Response for SearchJob method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchJobsResponse {
     /// The Job entities that match the specified
@@ -15204,6 +15836,27 @@ impl serde::ser::Serialize for SearchJobsResponse {
     }
 }
 
+impl std::fmt::Debug for SearchJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchJobsResponse");
+        debug_struct.field("matching_jobs", &self.matching_jobs);
+        debug_struct.field("histogram_query_results", &self.histogram_query_results);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("location_filters", &self.location_filters);
+        debug_struct.field("total_size", &self.total_size);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field(
+            "broadened_query_jobs_count",
+            &self.broadened_query_jobs_count,
+        );
+        debug_struct.field("spell_correction", &self.spell_correction);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SearchJobsResponse].
 pub mod search_jobs_response {
     #[allow(unused_imports)]
@@ -15213,7 +15866,7 @@ pub mod search_jobs_response {
     /// [SearchJobsResponse][google.cloud.talent.v4.SearchJobsResponse].
     ///
     /// [google.cloud.talent.v4.SearchJobsResponse]: crate::model::SearchJobsResponse
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MatchingJob {
         /// Job resource that matches the specified
@@ -15492,8 +16145,23 @@ pub mod search_jobs_response {
         }
     }
 
+    impl std::fmt::Debug for MatchingJob {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MatchingJob");
+            debug_struct.field("job", &self.job);
+            debug_struct.field("job_summary", &self.job_summary);
+            debug_struct.field("job_title_snippet", &self.job_title_snippet);
+            debug_struct.field("search_text_snippet", &self.search_text_snippet);
+            debug_struct.field("commute_info", &self.commute_info);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Commute details related to this job.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CommuteInfo {
         /// Location used as the destination in the commute calculation.
@@ -15675,10 +16343,22 @@ pub mod search_jobs_response {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for CommuteInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CommuteInfo");
+            debug_struct.field("job_location", &self.job_location);
+            debug_struct.field("travel_duration", &self.travel_duration);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request to create a batch of jobs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchCreateJobsRequest {
     /// Required. The resource name of the tenant under which the job is created.
@@ -15838,8 +16518,20 @@ impl serde::ser::Serialize for BatchCreateJobsRequest {
     }
 }
 
+impl std::fmt::Debug for BatchCreateJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchCreateJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("jobs", &self.jobs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to update a batch of jobs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchUpdateJobsRequest {
     /// Required. The resource name of the tenant under which the job is created.
@@ -16054,8 +16746,21 @@ impl serde::ser::Serialize for BatchUpdateJobsRequest {
     }
 }
 
+impl std::fmt::Debug for BatchUpdateJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchUpdateJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("jobs", &self.jobs);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to delete a batch of jobs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDeleteJobsRequest {
     /// Required. The resource name of the tenant under which the job is created.
@@ -16221,8 +16926,20 @@ impl serde::ser::Serialize for BatchDeleteJobsRequest {
     }
 }
 
+impl std::fmt::Debug for BatchDeleteJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchDeleteJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("names", &self.names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Mutation result of a job from a batch operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobResult {
     /// Here [Job][google.cloud.talent.v4.Job] only contains basic information
@@ -16411,6 +17128,18 @@ impl serde::ser::Serialize for JobResult {
     }
 }
 
+impl std::fmt::Debug for JobResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("JobResult");
+        debug_struct.field("job", &self.job);
+        debug_struct.field("status", &self.status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The result of
 /// [JobService.BatchCreateJobs][google.cloud.talent.v4.JobService.BatchCreateJobs].
 /// It's used to replace
@@ -16419,7 +17148,7 @@ impl serde::ser::Serialize for JobResult {
 ///
 /// [google.cloud.talent.v4.JobService.BatchCreateJobs]: crate::client::JobService::batch_create_jobs
 /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchCreateJobsResponse {
     /// List of job mutation results from a batch create operation. It can change
@@ -16553,6 +17282,17 @@ impl serde::ser::Serialize for BatchCreateJobsResponse {
     }
 }
 
+impl std::fmt::Debug for BatchCreateJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchCreateJobsResponse");
+        debug_struct.field("job_results", &self.job_results);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The result of
 /// [JobService.BatchUpdateJobs][google.cloud.talent.v4.JobService.BatchUpdateJobs].
 /// It's used to replace
@@ -16561,7 +17301,7 @@ impl serde::ser::Serialize for BatchCreateJobsResponse {
 ///
 /// [google.cloud.talent.v4.JobService.BatchUpdateJobs]: crate::client::JobService::batch_update_jobs
 /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchUpdateJobsResponse {
     /// List of job mutation results from a batch update operation. It can change
@@ -16695,6 +17435,17 @@ impl serde::ser::Serialize for BatchUpdateJobsResponse {
     }
 }
 
+impl std::fmt::Debug for BatchUpdateJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchUpdateJobsResponse");
+        debug_struct.field("job_results", &self.job_results);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The result of
 /// [JobService.BatchDeleteJobs][google.cloud.talent.v4.JobService.BatchDeleteJobs].
 /// It's used to replace
@@ -16703,7 +17454,7 @@ impl serde::ser::Serialize for BatchUpdateJobsResponse {
 ///
 /// [google.cloud.talent.v4.JobService.BatchDeleteJobs]: crate::client::JobService::batch_delete_jobs
 /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchDeleteJobsResponse {
     /// List of job mutation results from a batch delete operation. It can change
@@ -16837,11 +17588,22 @@ impl serde::ser::Serialize for BatchDeleteJobsResponse {
     }
 }
 
+impl std::fmt::Debug for BatchDeleteJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchDeleteJobsResponse");
+        debug_struct.field("job_results", &self.job_results);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Tenant resource represents a tenant in the service. A tenant is a group or
 /// entity that shares common access with specific privileges for resources like
 /// jobs. Customer may create multiple tenants to provide data isolation for
 /// different groups.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Tenant {
     /// Required during tenant update.
@@ -17004,8 +17766,20 @@ impl serde::ser::Serialize for Tenant {
     }
 }
 
+impl std::fmt::Debug for Tenant {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Tenant");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("external_id", &self.external_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Request of the CreateTenant method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTenantRequest {
     /// Required. Resource name of the project under which the tenant is created.
@@ -17172,8 +17946,20 @@ impl serde::ser::Serialize for CreateTenantRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTenantRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTenantRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("tenant", &self.tenant);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for getting a tenant by name.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTenantRequest {
     /// Required. The resource name of the tenant to be retrieved.
@@ -17305,8 +18091,19 @@ impl serde::ser::Serialize for GetTenantRequest {
     }
 }
 
+impl std::fmt::Debug for GetTenantRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTenantRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for updating a specified tenant.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTenantRequest {
     /// Required. The tenant resource to replace the current resource in the
@@ -17495,8 +18292,20 @@ impl serde::ser::Serialize for UpdateTenantRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTenantRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTenantRequest");
+        debug_struct.field("tenant", &self.tenant);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to delete a tenant.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTenantRequest {
     /// Required. The resource name of the tenant to be deleted.
@@ -17628,8 +18437,19 @@ impl serde::ser::Serialize for DeleteTenantRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTenantRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTenantRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List tenants for which the client has ACL visibility.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTenantsRequest {
     /// Required. Resource name of the project under which the tenant is created.
@@ -17830,8 +18650,21 @@ impl serde::ser::Serialize for ListTenantsRequest {
     }
 }
 
+impl std::fmt::Debug for ListTenantsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTenantsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The List tenants response object.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTenantsResponse {
     /// Tenants for the current client.
@@ -18036,6 +18869,19 @@ impl serde::ser::Serialize for ListTenantsResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ListTenantsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTenantsResponse");
+        debug_struct.field("tenants", &self.tenants);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

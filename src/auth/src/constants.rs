@@ -17,9 +17,15 @@ pub(crate) const GOOGLE_CLOUD_QUOTA_PROJECT_VAR: &str = "GOOGLE_CLOUD_QUOTA_PROJ
 /// Token Exchange OAuth Grant Type
 pub(crate) const TOKEN_EXCHANGE_GRANT_TYPE: &str =
     "urn:ietf:params:oauth:grant-type:token-exchange";
+pub(crate) const STS_TOKEN_URL: &str = "https://sts.googleapis.com/v1/token";
+
 /// Access Token Oauth Token Type
 pub(crate) const ACCESS_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:access_token";
 /// JWT OAuth Token Type
 pub(crate) const JWT_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:jwt";
 /// SAML2 Token OAuth Token Type
 pub(crate) const SAML2_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:saml2";
+
+pub(crate) const RETRY_EXHAUSTED_ERROR: &str = "All retry attempts to fetch the token were exhausted. Subsequent calls with this credential will also fail.";
+pub(crate) const TOKEN_FETCH_FAILED_ERROR: &str =
+    "Request to fetch the token failed. Subsequent calls with this credential will also fail.";

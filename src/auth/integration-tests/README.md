@@ -13,17 +13,26 @@ env GOOGLE_CLOUD_PROJECT=rust-auth-testing \
 
 ### Workload Identity integration tests
 
-These tests requires a more complex setup to run, like running from an Azure/AWS
-VM and having Workload Identity Pools set up. For now, we only run those tests
-locally and under a feature (`run-byoid-integration-tests`). Some extra
-environment variables with the workload identity pool configuration are required
-to run the tests.
+These tests use service account impersonation to generate an OIDC ID token for a
+service account in a different project (`rust-external-account-joonix`). This ID
+token acts as the source credential for testing WIF flow.
+
+To run these tests locally, first, ensure your local Application Default
+Credentials are up to date by running:
 
 ```sh
-env GOOGLE_CLOUD_PROJECT=cloud-sdk-auth-test-project \
-    GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT=[SERVICE ACCOUNT PLACEHOLDER] \
-    GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=[AUDIENCE PLACEHOLDER] \
-  cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
+gcloud auth login --update-adc
+```
+
+Then, set the following environment variables and run the tests.
+
+```sh
+GOOGLE_CLOUD_PROJECT=rust-external-account-joonix
+GOOGLE_PROJECT_NUMBER=$(gcloud projects describe ${GOOGLE_CLOUD_PROJECT} --format='value(projectNumber)')
+env GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT} \
+EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
+GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/${GOOGLE_PROJECT_NUMBER}/locations/global/workloadIdentityPools/google-idp/providers/google-idp \
+cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
 ```
 
 #### Rotating the service account key
@@ -107,6 +116,67 @@ terraform plan \
     -out="/tmp/builds.plan" \
     -target="module.api_key_test" \
     -target="module.service_account_test" \
+    -destroy
+
+terraform apply "/tmp/builds.plan"
+```
+
+#### Create external account resources
+
+Set up a project for the external account.
+
+```sh
+EXTERNAL_PROJECT=<your-external-project>
+```
+
+Create the service accounts in the external project.
+
+```sh
+gcloud iam service-accounts create testsa --project=${EXTERNAL_PROJECT}
+gcloud iam service-accounts create impersonation-target --project=${EXTERNAL_PROJECT}
+```
+
+The terraform configuration also needs a service account in the main project
+that will run the tests.
+
+```sh
+gcloud iam service-accounts create integration-test-runner --project=${PROJECT}
+```
+
+Create the external account resources.
+
+```sh
+terraform plan \
+    -var="project=${PROJECT}" \
+    -var="external_account_project=${EXTERNAL_PROJECT}" \
+    -out="/tmp/builds.plan" \
+    -target="module.external_account_test"
+
+terraform apply "/tmp/builds.plan"
+```
+
+Run the tests:
+
+The following command assumes the default workload identity pool and provider ID
+(`google-idp`) are used.
+
+```sh
+GOOGLE_CLOUD_PROJECT=${EXTERNAL_PROJECT}
+GOOGLE_PROJECT_NUMBER=$(gcloud projects describe ${GOOGLE_CLOUD_PROJECT} --format='value(projectNumber)')
+env GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT} \
+    EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
+    GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/${GOOGLE_PROJECT_NUMBER}/locations/global/workloadIdentityPools/google-idp/providers/google-idp \
+    cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
+```
+
+If you are done with the resources, you can destroy them with:
+
+```sh
+terraform plan \
+    -var="project=${PROJECT}" \
+    -var="external_account_project=${EXTERNAL_PROJECT}" \
+    -out="/tmp/builds.plan" \
+    -target="module.external_account_test" \
     -destroy
 
 terraform apply "/tmp/builds.plan"

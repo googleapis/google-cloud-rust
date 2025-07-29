@@ -26,6 +26,111 @@
 
 pub(crate) mod dynamic;
 
+/// Defines the trait used to implement [super::client::OrgPolicyViolationsPreviewService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::OrgPolicyViolationsPreviewService`.  In other use-cases, application developers only
+/// use `client::OrgPolicyViolationsPreviewService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait OrgPolicyViolationsPreviewService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::OrgPolicyViolationsPreviewService::list_org_policy_violations_previews].
+    fn list_org_policy_violations_previews(
+        &self,
+        _req: crate::model::ListOrgPolicyViolationsPreviewsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListOrgPolicyViolationsPreviewsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OrgPolicyViolationsPreviewService::get_org_policy_violations_preview].
+    fn get_org_policy_violations_preview(
+        &self,
+        _req: crate::model::GetOrgPolicyViolationsPreviewRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OrgPolicyViolationsPreview>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OrgPolicyViolationsPreviewService::create_org_policy_violations_preview].
+    fn create_org_policy_violations_preview(
+        &self,
+        _req: crate::model::CreateOrgPolicyViolationsPreviewRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OrgPolicyViolationsPreviewService::list_org_policy_violations].
+    fn list_org_policy_violations(
+        &self,
+        _req: crate::model::ListOrgPolicyViolationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListOrgPolicyViolationsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OrgPolicyViolationsPreviewService::list_operations].
+    fn list_operations(
+        &self,
+        _req: longrunning::model::ListOperationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OrgPolicyViolationsPreviewService::get_operation].
+    fn get_operation(
+        &self,
+        _req: longrunning::model::GetOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
 /// Defines the trait used to implement [super::client::Simulator].
 ///
 /// Application developers may need to implement this trait to mock

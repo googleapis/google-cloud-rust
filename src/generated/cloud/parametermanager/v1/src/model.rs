@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Message describing Parameter resource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Parameter {
     /// Identifier. [Output only] The resource name of the Parameter in the format
@@ -374,8 +374,25 @@ impl serde::ser::Serialize for Parameter {
     }
 }
 
+impl std::fmt::Debug for Parameter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Parameter");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("format", &self.format);
+        debug_struct.field("policy_member", &self.policy_member);
+        debug_struct.field("kms_key", &self.kms_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of Parameters
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListParametersRequest {
     /// Required. Parent value for ListParametersRequest in the format
@@ -623,8 +640,23 @@ impl serde::ser::Serialize for ListParametersRequest {
     }
 }
 
+impl std::fmt::Debug for ListParametersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListParametersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing Parameters
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListParametersResponse {
     /// The list of Parameters
@@ -822,8 +854,21 @@ impl serde::ser::Serialize for ListParametersResponse {
     }
 }
 
+impl std::fmt::Debug for ListParametersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListParametersResponse");
+        debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a Parameter
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetParameterRequest {
     /// Required. Name of the resource in the format
@@ -953,8 +998,19 @@ impl serde::ser::Serialize for GetParameterRequest {
     }
 }
 
+impl std::fmt::Debug for GetParameterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetParameterRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a Parameter
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateParameterRequest {
     /// Required. Value for parent in the format
@@ -1181,8 +1237,22 @@ impl serde::ser::Serialize for CreateParameterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateParameterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateParameterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("parameter_id", &self.parameter_id);
+        debug_struct.field("parameter", &self.parameter);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a Parameter
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateParameterRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -1400,8 +1470,21 @@ impl serde::ser::Serialize for UpdateParameterRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateParameterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateParameterRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("parameter", &self.parameter);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a Parameter
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteParameterRequest {
     /// Required. Name of the resource in the format
@@ -1568,8 +1651,20 @@ impl serde::ser::Serialize for DeleteParameterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteParameterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteParameterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message describing ParameterVersion resource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParameterVersion {
     /// Identifier. [Output only] The resource name of the ParameterVersion in the
@@ -1875,8 +1970,24 @@ impl serde::ser::Serialize for ParameterVersion {
     }
 }
 
+impl std::fmt::Debug for ParameterVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ParameterVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("payload", &self.payload);
+        debug_struct.field("kms_key_version", &self.kms_key_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for storing a ParameterVersion resource's payload data
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParameterVersionPayload {
     /// Required. bytes data for storing payload.
@@ -2023,8 +2134,19 @@ impl serde::ser::Serialize for ParameterVersionPayload {
     }
 }
 
+impl std::fmt::Debug for ParameterVersionPayload {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ParameterVersionPayload");
+        debug_struct.field("data", &self.data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for requesting list of ParameterVersions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListParameterVersionsRequest {
     /// Required. Parent value for ListParameterVersionsRequest in the format
@@ -2272,8 +2394,23 @@ impl serde::ser::Serialize for ListParameterVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListParameterVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListParameterVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing ParameterVersions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListParameterVersionsResponse {
     /// The list of ParameterVersions
@@ -2476,8 +2613,21 @@ impl serde::ser::Serialize for ListParameterVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListParameterVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListParameterVersionsResponse");
+        debug_struct.field("parameter_versions", &self.parameter_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a ParameterVersion
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetParameterVersionRequest {
     /// Required. Name of the resource in the format
@@ -2633,8 +2783,20 @@ impl serde::ser::Serialize for GetParameterVersionRequest {
     }
 }
 
+impl std::fmt::Debug for GetParameterVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetParameterVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("view", &self.view);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a ParameterVersionRender
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenderParameterVersionRequest {
     /// Required. Name of the resource
@@ -2763,8 +2925,19 @@ impl serde::ser::Serialize for RenderParameterVersionRequest {
     }
 }
 
+impl std::fmt::Debug for RenderParameterVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RenderParameterVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message describing RenderParameterVersionResponse resource
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenderParameterVersionResponse {
     /// Output only. Resource identifier of a ParameterVersion in the format
@@ -2980,8 +3153,21 @@ impl serde::ser::Serialize for RenderParameterVersionResponse {
     }
 }
 
+impl std::fmt::Debug for RenderParameterVersionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RenderParameterVersionResponse");
+        debug_struct.field("parameter_version", &self.parameter_version);
+        debug_struct.field("payload", &self.payload);
+        debug_struct.field("rendered_payload", &self.rendered_payload);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a ParameterVersion
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateParameterVersionRequest {
     /// Required. Value for parent in the format
@@ -3213,8 +3399,22 @@ impl serde::ser::Serialize for CreateParameterVersionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateParameterVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateParameterVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("parameter_version_id", &self.parameter_version_id);
+        debug_struct.field("parameter_version", &self.parameter_version);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for updating a ParameterVersion
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateParameterVersionRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
@@ -3434,8 +3634,21 @@ impl serde::ser::Serialize for UpdateParameterVersionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateParameterVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateParameterVersionRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("parameter_version", &self.parameter_version);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a ParameterVersion
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteParameterVersionRequest {
     /// Required. Name of the resource in the format
@@ -3599,6 +3812,18 @@ impl serde::ser::Serialize for DeleteParameterVersionRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DeleteParameterVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteParameterVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Assignment protocol for a license pool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssignmentProtocol {
     /// The type of assignment protocol.
@@ -270,13 +270,24 @@ impl serde::ser::Serialize for AssignmentProtocol {
     }
 }
 
+impl std::fmt::Debug for AssignmentProtocol {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AssignmentProtocol");
+        debug_struct.field("assignment_type", &self.assignment_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AssignmentProtocol].
 pub mod assignment_protocol {
     #[allow(unused_imports)]
     use super::*;
 
     /// Allow manual assignments triggered by administrative operations only.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ManualAssignmentType {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -381,8 +392,18 @@ pub mod assignment_protocol {
         }
     }
 
+    impl std::fmt::Debug for ManualAssignmentType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ManualAssignmentType");
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for automatic assignments handled by data plane operations.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AutoAssignmentType {
         /// Optional. The time to live for an inactive license. After this time has
@@ -528,6 +549,17 @@ pub mod assignment_protocol {
         }
     }
 
+    impl std::fmt::Debug for AutoAssignmentType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AutoAssignmentType");
+            debug_struct.field("inactive_license_ttl", &self.inactive_license_ttl);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The type of assignment protocol.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -542,7 +574,7 @@ pub mod assignment_protocol {
 }
 
 /// A license pool represents a pool of licenses that can be assigned to users.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LicensePool {
     /// Identifier. Format:
@@ -806,8 +838,25 @@ impl serde::ser::Serialize for LicensePool {
     }
 }
 
+impl std::fmt::Debug for LicensePool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LicensePool");
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "license_assignment_protocol",
+            &self.license_assignment_protocol,
+        );
+        debug_struct.field("available_license_count", &self.available_license_count);
+        debug_struct.field("total_license_count", &self.total_license_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for getting a license pool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLicensePoolRequest {
     /// Required. The name of the license pool to get.
@@ -937,8 +986,19 @@ impl serde::ser::Serialize for GetLicensePoolRequest {
     }
 }
 
+impl std::fmt::Debug for GetLicensePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLicensePoolRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for updating a license pool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateLicensePoolRequest {
     /// Required. The license pool to update.
@@ -1119,11 +1179,23 @@ impl serde::ser::Serialize for UpdateLicensePoolRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateLicensePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateLicensePoolRequest");
+        debug_struct.field("license_pool", &self.license_pool);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [LicenseManagementService.Assign][google.cloud.commerce.consumer.procurement.v1.LicenseManagementService.Assign].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.LicenseManagementService.Assign]: crate::client::LicenseManagementService::assign
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssignRequest {
     /// Required. License pool name.
@@ -1280,11 +1352,23 @@ impl serde::ser::Serialize for AssignRequest {
     }
 }
 
+impl std::fmt::Debug for AssignRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AssignRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("usernames", &self.usernames);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [LicenseManagementService.Assign][google.cloud.commerce.consumer.procurement.v1.LicenseManagementService.Assign].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.LicenseManagementService.Assign]: crate::client::LicenseManagementService::assign
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AssignResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1386,11 +1470,21 @@ impl serde::ser::Serialize for AssignResponse {
     }
 }
 
+impl std::fmt::Debug for AssignResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AssignResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [LicenseManagementService.Unassign][google.cloud.commerce.consumer.procurement.v1.LicenseManagementService.Unassign].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.LicenseManagementService.Unassign]: crate::client::LicenseManagementService::unassign
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnassignRequest {
     /// Required. License pool name.
@@ -1547,11 +1641,23 @@ impl serde::ser::Serialize for UnassignRequest {
     }
 }
 
+impl std::fmt::Debug for UnassignRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UnassignRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("usernames", &self.usernames);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [LicenseManagementService.Unassign][google.cloud.commerce.consumer.procurement.v1.LicenseManagementService.Unassign].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.LicenseManagementService.Unassign]: crate::client::LicenseManagementService::unassign
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnassignResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1653,11 +1759,21 @@ impl serde::ser::Serialize for UnassignResponse {
     }
 }
 
+impl std::fmt::Debug for UnassignResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UnassignResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [LicenseManagementService.EnumerateLicensedUsers][google.cloud.commerce.consumer.procurement.v1.LicenseManagementService.EnumerateLicensedUsers].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.LicenseManagementService.EnumerateLicensedUsers]: crate::client::LicenseManagementService::enumerate_licensed_users
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumerateLicensedUsersRequest {
     /// Required. License pool name.
@@ -1856,8 +1972,21 @@ impl serde::ser::Serialize for EnumerateLicensedUsersRequest {
     }
 }
 
+impl std::fmt::Debug for EnumerateLicensedUsersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnumerateLicensedUsersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A licensed user.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LicensedUser {
     /// Username.
@@ -2061,11 +2190,24 @@ impl serde::ser::Serialize for LicensedUser {
     }
 }
 
+impl std::fmt::Debug for LicensedUser {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LicensedUser");
+        debug_struct.field("username", &self.username);
+        debug_struct.field("assign_time", &self.assign_time);
+        debug_struct.field("recent_usage_time", &self.recent_usage_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [LicenseManagementService.EnumerateLicensedUsers][google.cloud.commerce.consumer.procurement.v1.LicenseManagementService.EnumerateLicensedUsers].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.LicenseManagementService.EnumerateLicensedUsers]: crate::client::LicenseManagementService::enumerate_licensed_users
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumerateLicensedUsersResponse {
     /// The list of licensed users.
@@ -2238,6 +2380,18 @@ impl serde::ser::Serialize for EnumerateLicensedUsersResponse {
     }
 }
 
+impl std::fmt::Debug for EnumerateLicensedUsersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnumerateLicensedUsersResponse");
+        debug_struct.field("licensed_users", &self.licensed_users);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a purchase made by a customer on Cloud Marketplace.
 /// Creating an order makes sure that both the Google backend systems
 /// as well as external service provider's systems (if needed) allow use of
@@ -2248,7 +2402,7 @@ impl serde::ser::Serialize for EnumerateLicensedUsersResponse {
 ///
 /// Customers typically choose a price plan for each Product purchased when
 /// they create an order and can change their plan later, if the product allows.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Order {
     /// Output only. The resource name of the order.
@@ -2556,8 +2710,25 @@ impl serde::ser::Serialize for Order {
     }
 }
 
+impl std::fmt::Debug for Order {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Order");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("line_items", &self.line_items);
+        debug_struct.field("cancelled_line_items", &self.cancelled_line_items);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A single item within an order.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LineItem {
     /// Output only. Line item ID.
@@ -2798,8 +2969,22 @@ impl serde::ser::Serialize for LineItem {
     }
 }
 
+impl std::fmt::Debug for LineItem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LineItem");
+        debug_struct.field("line_item_id", &self.line_item_id);
+        debug_struct.field("line_item_info", &self.line_item_info);
+        debug_struct.field("pending_change", &self.pending_change);
+        debug_struct.field("change_history", &self.change_history);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A change made on a line item.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LineItemChange {
     /// Output only. Change ID.
@@ -3230,8 +3415,28 @@ impl serde::ser::Serialize for LineItemChange {
     }
 }
 
+impl std::fmt::Debug for LineItemChange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LineItemChange");
+        debug_struct.field("change_id", &self.change_id);
+        debug_struct.field("change_type", &self.change_type);
+        debug_struct.field("old_line_item_info", &self.old_line_item_info);
+        debug_struct.field("new_line_item_info", &self.new_line_item_info);
+        debug_struct.field("change_state", &self.change_state);
+        debug_struct.field("state_reason", &self.state_reason);
+        debug_struct.field("change_state_reason_type", &self.change_state_reason_type);
+        debug_struct.field("change_effective_time", &self.change_effective_time);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Line item information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LineItemInfo {
     /// Optional. The name of the offer can have either of these formats:
@@ -3424,8 +3629,21 @@ impl serde::ser::Serialize for LineItemInfo {
     }
 }
 
+impl std::fmt::Debug for LineItemInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LineItemInfo");
+        debug_struct.field("offer", &self.offer);
+        debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("subscription", &self.subscription);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// User-provided Parameters.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Parameter {
     /// Name of the parameter.
@@ -3590,12 +3808,24 @@ impl serde::ser::Serialize for Parameter {
     }
 }
 
+impl std::fmt::Debug for Parameter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Parameter");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Parameter].
 pub mod parameter {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Value {
         /// The kind of value.
@@ -3907,6 +4137,17 @@ pub mod parameter {
         }
     }
 
+    impl std::fmt::Debug for Value {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Value");
+            debug_struct.field("kind", &self.kind);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Value].
     pub mod value {
         #[allow(unused_imports)]
@@ -3927,7 +4168,7 @@ pub mod parameter {
 }
 
 /// Subscription information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subscription {
     /// The timestamp when the subscription begins, if applicable.
@@ -4131,11 +4372,24 @@ impl serde::ser::Serialize for Subscription {
     }
 }
 
+impl std::fmt::Debug for Subscription {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Subscription");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("auto_renewal_enabled", &self.auto_renewal_enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ConsumerProcurementService.PlaceOrder][google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.PlaceOrder].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.PlaceOrder]: crate::client::ConsumerProcurementService::place_order
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PlaceOrderRequest {
     /// Required. The resource name of the parent resource.
@@ -4349,11 +4603,25 @@ impl serde::ser::Serialize for PlaceOrderRequest {
     }
 }
 
+impl std::fmt::Debug for PlaceOrderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PlaceOrderRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("line_item_info", &self.line_item_info);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message stored in the metadata field of the Operation returned by
 /// [ConsumerProcurementService.PlaceOrder][google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.PlaceOrder].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.PlaceOrder]: crate::client::ConsumerProcurementService::place_order
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PlaceOrderMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4455,11 +4723,21 @@ impl serde::ser::Serialize for PlaceOrderMetadata {
     }
 }
 
+impl std::fmt::Debug for PlaceOrderMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PlaceOrderMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ConsumerProcurementService.GetOrder][google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.GetOrder]
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.GetOrder]: crate::client::ConsumerProcurementService::get_order
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOrderRequest {
     /// Required. The name of the order to retrieve.
@@ -4588,11 +4866,22 @@ impl serde::ser::Serialize for GetOrderRequest {
     }
 }
 
+impl std::fmt::Debug for GetOrderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetOrderRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ConsumerProcurementService.ListOrders][google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.ListOrders].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.ListOrders]: crate::client::ConsumerProcurementService::list_orders
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrdersRequest {
     /// Required. The parent resource to query for orders.
@@ -4830,11 +5119,25 @@ impl serde::ser::Serialize for ListOrdersRequest {
     }
 }
 
+impl std::fmt::Debug for ListOrdersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOrdersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ConsumerProcurementService.ListOrders][google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.ListOrders].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.ListOrders]: crate::client::ConsumerProcurementService::list_orders
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrdersResponse {
     /// The list of orders in this response.
@@ -5005,11 +5308,23 @@ impl serde::ser::Serialize for ListOrdersResponse {
     }
 }
 
+impl std::fmt::Debug for ListOrdersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListOrdersResponse");
+        debug_struct.field("orders", &self.orders);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ConsumerProcurementService.ModifyOrder][google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.ModifyOrder].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.ModifyOrder]: crate::client::ConsumerProcurementService::modify_order
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModifyOrderRequest {
     /// Required. Name of the order to update.
@@ -5223,13 +5538,27 @@ impl serde::ser::Serialize for ModifyOrderRequest {
     }
 }
 
+impl std::fmt::Debug for ModifyOrderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ModifyOrderRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("modifications", &self.modifications);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ModifyOrderRequest].
 pub mod modify_order_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Modifications to make on the order.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Modification {
         /// Required. ID of the existing line item to make change to.
@@ -5464,13 +5793,27 @@ pub mod modify_order_request {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Modification {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Modification");
+            debug_struct.field("line_item_id", &self.line_item_id);
+            debug_struct.field("change_type", &self.change_type);
+            debug_struct.field("new_line_item_info", &self.new_line_item_info);
+            debug_struct.field("auto_renewal_behavior", &self.auto_renewal_behavior);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Message stored in the metadata field of the Operation returned by
 /// [ConsumerProcurementService.ModifyOrder][google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.ModifyOrder].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.ModifyOrder]: crate::client::ConsumerProcurementService::modify_order
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModifyOrderMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5572,11 +5915,21 @@ impl serde::ser::Serialize for ModifyOrderMetadata {
     }
 }
 
+impl std::fmt::Debug for ModifyOrderMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ModifyOrderMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ConsumerProcurementService.CancelOrder][google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.CancelOrder].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.CancelOrder]: crate::client::ConsumerProcurementService::cancel_order
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelOrderRequest {
     /// Required. The resource name of the order.
@@ -5763,6 +6116,19 @@ impl serde::ser::Serialize for CancelOrderRequest {
     }
 }
 
+impl std::fmt::Debug for CancelOrderRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelOrderRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("cancellation_policy", &self.cancellation_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CancelOrderRequest].
 pub mod cancel_order_request {
     #[allow(unused_imports)]
@@ -5914,7 +6280,7 @@ pub mod cancel_order_request {
 /// [ConsumerProcurementService.CancelOrder][google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.CancelOrder].
 ///
 /// [google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService.CancelOrder]: crate::client::ConsumerProcurementService::cancel_order
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelOrderMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6013,6 +6379,16 @@ impl serde::ser::Serialize for CancelOrderMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for CancelOrderMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelOrderMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

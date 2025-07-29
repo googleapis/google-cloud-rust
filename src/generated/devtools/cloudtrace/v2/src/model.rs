@@ -39,7 +39,7 @@ extern crate wkt;
 /// A trace can also contain multiple root spans, or none at all.
 /// Spans do not need to be contiguous. There might be
 /// gaps or overlaps between spans in a trace.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Span {
     /// Required. The resource name of the span in the following format:
@@ -661,13 +661,40 @@ impl serde::ser::Serialize for Span {
     }
 }
 
+impl std::fmt::Debug for Span {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Span");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("span_id", &self.span_id);
+        debug_struct.field("parent_span_id", &self.parent_span_id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("stack_trace", &self.stack_trace);
+        debug_struct.field("time_events", &self.time_events);
+        debug_struct.field("links", &self.links);
+        debug_struct.field("status", &self.status);
+        debug_struct.field(
+            "same_process_as_parent_span",
+            &self.same_process_as_parent_span,
+        );
+        debug_struct.field("child_span_count", &self.child_span_count);
+        debug_struct.field("span_kind", &self.span_kind);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Span].
 pub mod span {
     #[allow(unused_imports)]
     use super::*;
 
     /// A set of attributes as key-value pairs.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Attributes {
         /// A set of attributes. Each attribute's key can be up to 128 bytes
@@ -873,8 +900,20 @@ pub mod span {
         }
     }
 
+    impl std::fmt::Debug for Attributes {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Attributes");
+            debug_struct.field("attribute_map", &self.attribute_map);
+            debug_struct.field("dropped_attributes_count", &self.dropped_attributes_count);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A time-stamped annotation or message event in the Span.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TimeEvent {
         /// The timestamp indicating the time the event occurred.
@@ -1156,13 +1195,25 @@ pub mod span {
         }
     }
 
+    impl std::fmt::Debug for TimeEvent {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TimeEvent");
+            debug_struct.field("time", &self.time);
+            debug_struct.field("value", &self.value);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [TimeEvent].
     pub mod time_event {
         #[allow(unused_imports)]
         use super::*;
 
         /// Text annotation with a set of attributes.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Annotation {
             /// A user-supplied message describing the event. The maximum length for
@@ -1349,8 +1400,20 @@ pub mod span {
             }
         }
 
+        impl std::fmt::Debug for Annotation {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Annotation");
+                debug_struct.field("description", &self.description);
+                debug_struct.field("attributes", &self.attributes);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// An event describing a message sent/received between Spans.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MessageEvent {
             /// Type of MessageEvent. Indicates whether the message was sent or
@@ -1653,6 +1716,20 @@ pub mod span {
             }
         }
 
+        impl std::fmt::Debug for MessageEvent {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("MessageEvent");
+                debug_struct.field("r#type", &self.r#type);
+                debug_struct.field("id", &self.id);
+                debug_struct.field("uncompressed_size_bytes", &self.uncompressed_size_bytes);
+                debug_struct.field("compressed_size_bytes", &self.compressed_size_bytes);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [MessageEvent].
         pub mod message_event {
             #[allow(unused_imports)]
@@ -1809,7 +1886,7 @@ pub mod span {
     /// A collection of `TimeEvent`s. A `TimeEvent` is a time-stamped annotation
     /// on the span, consisting of either user-supplied key:value pairs, or
     /// details of a message sent/received between Spans.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TimeEvents {
         /// A collection of `TimeEvent`s.
@@ -2056,11 +2133,27 @@ pub mod span {
         }
     }
 
+    impl std::fmt::Debug for TimeEvents {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TimeEvents");
+            debug_struct.field("time_event", &self.time_event);
+            debug_struct.field("dropped_annotations_count", &self.dropped_annotations_count);
+            debug_struct.field(
+                "dropped_message_events_count",
+                &self.dropped_message_events_count,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A pointer from the current span to another span in the same trace or in a
     /// different trace. For example, this can be used in batching operations,
     /// where a single batch handler processes multiple requests from different
     /// traces or when the handler receives a request from a different project.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Link {
         /// The `[TRACE_ID]` for a trace within a project.
@@ -2279,6 +2372,20 @@ pub mod span {
         }
     }
 
+    impl std::fmt::Debug for Link {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Link");
+            debug_struct.field("trace_id", &self.trace_id);
+            debug_struct.field("span_id", &self.span_id);
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("attributes", &self.attributes);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Link].
     pub mod link {
         #[allow(unused_imports)]
@@ -2423,7 +2530,7 @@ pub mod span {
 
     /// A collection of links, which are references from this span to a span
     /// in the same or different trace.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Links {
         /// A collection of links.
@@ -2607,6 +2714,18 @@ pub mod span {
         }
     }
 
+    impl std::fmt::Debug for Links {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Links");
+            debug_struct.field("link", &self.link);
+            debug_struct.field("dropped_links_count", &self.dropped_links_count);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Type of span. Can be used to specify additional relationships between spans
     /// in addition to a parent/child relationship.
     ///
@@ -2772,7 +2891,7 @@ pub mod span {
 }
 
 /// The allowed types for `[VALUE]` in a `[KEY]:[VALUE]` attribute.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttributeValue {
     /// The type of the value.
@@ -3060,6 +3179,17 @@ impl serde::ser::Serialize for AttributeValue {
     }
 }
 
+impl std::fmt::Debug for AttributeValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttributeValue");
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AttributeValue].
 pub mod attribute_value {
     #[allow(unused_imports)]
@@ -3079,7 +3209,7 @@ pub mod attribute_value {
 }
 
 /// A call stack appearing in a trace.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StackTrace {
     /// Stack frames in this stack trace. A maximum of 128 frames are allowed.
@@ -3272,13 +3402,25 @@ impl serde::ser::Serialize for StackTrace {
     }
 }
 
+impl std::fmt::Debug for StackTrace {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StackTrace");
+        debug_struct.field("stack_frames", &self.stack_frames);
+        debug_struct.field("stack_trace_hash_id", &self.stack_trace_hash_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StackTrace].
 pub mod stack_trace {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents a single stack frame in a stack trace.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StackFrame {
         /// The fully-qualified name that uniquely identifies the function or
@@ -3662,8 +3804,25 @@ pub mod stack_trace {
         }
     }
 
+    impl std::fmt::Debug for StackFrame {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StackFrame");
+            debug_struct.field("function_name", &self.function_name);
+            debug_struct.field("original_function_name", &self.original_function_name);
+            debug_struct.field("file_name", &self.file_name);
+            debug_struct.field("line_number", &self.line_number);
+            debug_struct.field("column_number", &self.column_number);
+            debug_struct.field("load_module", &self.load_module);
+            debug_struct.field("source_version", &self.source_version);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A collection of stack frames, which can be truncated.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StackFrames {
         /// Stack frames in this call stack.
@@ -3847,10 +4006,22 @@ pub mod stack_trace {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for StackFrames {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StackFrames");
+            debug_struct.field("frame", &self.frame);
+            debug_struct.field("dropped_frames_count", &self.dropped_frames_count);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Binary module.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Module {
     /// For example: main binary, kernel modules, and dynamic libraries
@@ -4030,8 +4201,20 @@ impl serde::ser::Serialize for Module {
     }
 }
 
+impl std::fmt::Debug for Module {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Module");
+        debug_struct.field("module", &self.module);
+        debug_struct.field("build_id", &self.build_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a string that might be shortened to a specified length.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TruncatableString {
     /// The shortened string. For example, if the original string is 500
@@ -4211,8 +4394,20 @@ impl serde::ser::Serialize for TruncatableString {
     }
 }
 
+impl std::fmt::Debug for TruncatableString {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TruncatableString");
+        debug_struct.field("value", &self.value);
+        debug_struct.field("truncated_byte_count", &self.truncated_byte_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for the `BatchWriteSpans` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchWriteSpansRequest {
     /// Required. The name of the project where the spans belong. The format is
@@ -4367,5 +4562,17 @@ impl serde::ser::Serialize for BatchWriteSpansRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for BatchWriteSpansRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchWriteSpansRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("spans", &self.spans);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

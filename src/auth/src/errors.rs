@@ -19,6 +19,60 @@ use std::error::Error;
 
 pub use gax::error::CredentialsError;
 
+/// Represents an error using [SubjectTokenProvider].
+///
+/// The Google Cloud client libraries may experience problems when
+/// fetching the subject token. For example, a temporary error may occur
+/// when [SubjectTokenProvider] tries to fetch the token from a third party service.
+///
+/// Applications rarely need to create instances of this error type. The
+/// exception may be when they are providing their own custom [SubjectTokenProvider]
+/// implementation.
+///
+/// # Example
+///
+/// ```
+/// # use std::error::Error;
+/// # use std::fmt;
+/// # use google_cloud_auth::errors::SubjectTokenProviderError;
+/// #[derive(Debug)]
+/// struct CustomTokenError {
+///     message: String,
+///     is_transient: bool,
+/// }
+///
+/// impl fmt::Display for CustomTokenError {
+///     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+///         write!(f, "{}", self.message)
+///     }
+/// }
+///
+/// impl Error for CustomTokenError {}
+///
+/// impl SubjectTokenProviderError for CustomTokenError {
+///     fn is_transient(&self) -> bool {
+///         self.is_transient
+///     }
+/// }
+/// ```
+/// [SubjectTokenProvider]: crate::credentials::subject_token::SubjectTokenProvider
+pub trait SubjectTokenProviderError: Error + Send + Sync + 'static {
+    /// Return true if the error is transient and the call may succeed in the future.
+    ///
+    /// Applications should only return true if the error automatically
+    /// recovers, without the need for any human action.
+    ///
+    /// Timeouts and network problems are good candidates for `is_transient() == true`.
+    /// Configuration errors that require changing a file, or installing an executable are not.
+    fn is_transient(&self) -> bool;
+}
+
+impl SubjectTokenProviderError for CredentialsError {
+    fn is_transient(&self) -> bool {
+        self.is_transient()
+    }
+}
+
 pub(crate) fn from_http_error(err: reqwest::Error, msg: &str) -> CredentialsError {
     let transient = self::is_retryable(&err);
     CredentialsError::new(transient, msg, err)
@@ -72,7 +126,7 @@ fn is_retryable_code(code: StatusCode) -> bool {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use std::num::ParseIntError;
     use test_case::test_case;

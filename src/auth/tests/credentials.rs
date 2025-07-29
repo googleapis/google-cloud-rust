@@ -13,7 +13,16 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
+    use std::error::Error;
+    use std::fmt;
+
+    use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    use google_cloud_auth::credentials::subject_token::{
+        Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
+    };
+    use google_cloud_auth::errors::SubjectTokenProviderError;
+
     use google_cloud_auth::credentials::EntityTag;
     use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
     use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
@@ -29,12 +38,34 @@ mod test {
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serde_json::json;
+    use serial_test::serial;
+    use test_case::test_case;
 
     type Result<T> = anyhow::Result<T>;
     type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
 
+    fn find_source_error<'a, T: Error + 'static>(
+        error: &'a (dyn Error + 'static),
+    ) -> Option<&'a T> {
+        let mut source = error.source();
+        while let Some(err) = source {
+            if let Some(target_err) = err.downcast_ref::<T>() {
+                return Some(target_err);
+            }
+            source = err.source();
+        }
+        None
+    }
+
+    fn write_cred_json(contents: &str) -> tempfile::TempPath {
+        let file = tempfile::NamedTempFile::new().unwrap();
+        let path = file.into_temp_path();
+        std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+        path
+    }
+
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_fallback_to_mds() {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
@@ -46,7 +77,7 @@ mod test {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_errors_if_adc_env_is_not_a_file() {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
         let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
@@ -57,12 +88,10 @@ mod test {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_malformed_adc_is_error() {
         for contents in ["{}", r#"{"type": 42}"#] {
-            let file = tempfile::NamedTempFile::new().unwrap();
-            let path = file.into_temp_path();
-            std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+            let path = write_cred_json(contents);
             let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
             let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
@@ -72,15 +101,13 @@ mod test {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_adc_unimplemented_credential_type() {
         let contents = r#"{
             "type": "some_unknown_credential_type"
         }"#;
 
-        let file = tempfile::NamedTempFile::new().unwrap();
-        let path = file.into_temp_path();
-        std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+        let path = write_cred_json(contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
@@ -92,7 +119,7 @@ mod test {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_adc_user_credentials() {
         let contents = r#"{
             "client_id": "test-client-id",
@@ -101,9 +128,7 @@ mod test {
             "type": "authorized_user"
         }"#;
 
-        let file = tempfile::NamedTempFile::new().unwrap();
-        let path = file.into_temp_path();
-        std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+        let path = write_cred_json(contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let uc = AccessTokenCredentialBuilder::default().build().unwrap();
@@ -112,6 +137,7 @@ mod test {
     }
 
     #[tokio::test]
+    #[serial]
     async fn create_access_token_credentials_json_user_credentials() {
         let contents = r#"{
             "client_id": "test-client-id",
@@ -122,7 +148,10 @@ mod test {
 
         let quota_project = "test-quota-project";
 
-        let uc = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
+        let path = write_cred_json(contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let uc = AccessTokenCredentialBuilder::default()
             .with_quota_project_id(quota_project)
             .build()
             .unwrap();
@@ -133,7 +162,7 @@ mod test {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_adc_impersonated_service_account() {
         let contents = json!({
             "type": "impersonated_service_account",
@@ -146,9 +175,7 @@ mod test {
             }
         }).to_string();
 
-        let file = tempfile::NamedTempFile::new().unwrap();
-        let path = file.into_temp_path();
-        std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+        let path = write_cred_json(&contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let ic = AccessTokenCredentialBuilder::default().build().unwrap();
@@ -157,6 +184,7 @@ mod test {
     }
 
     #[tokio::test]
+    #[serial]
     async fn create_access_token_credentials_json_impersonated_service_account() {
         let contents = json!({
             "type": "impersonated_service_account",
@@ -171,7 +199,10 @@ mod test {
 
         let quota_project = "test-quota-project";
 
-        let ic = AccessTokenCredentialBuilder::new(contents)
+        let path = write_cred_json(&contents.to_string());
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let ic = AccessTokenCredentialBuilder::default()
             .with_quota_project_id(quota_project)
             .build()
             .unwrap();
@@ -182,7 +213,7 @@ mod test {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_adc_service_account_credentials() {
         let contents = r#"{
             "type": "service_account",
@@ -193,9 +224,7 @@ mod test {
             "universe_domain": "test-universe-domain"
         }"#;
 
-        let file = tempfile::NamedTempFile::new().unwrap();
-        let path = file.into_temp_path();
-        std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+        let path = write_cred_json(contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let sac = AccessTokenCredentialBuilder::default().build().unwrap();
@@ -204,6 +233,7 @@ mod test {
     }
 
     #[tokio::test]
+    #[serial]
     async fn create_access_token_credentials_json_service_account_credentials() {
         let contents = r#"{
             "type": "service_account",
@@ -216,7 +246,10 @@ mod test {
 
         let quota_project = "test-quota-project";
 
-        let sac = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
+        let path = write_cred_json(contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let sac = AccessTokenCredentialBuilder::default()
             .with_quota_project_id(quota_project)
             .build()
             .unwrap();
@@ -234,6 +267,7 @@ mod test {
     }
 
     #[tokio::test]
+    #[serial]
     async fn create_external_account_access_token() -> TestResult {
         let source_token_response_body = json!({
             "access_token":"an_example_token",
@@ -293,10 +327,10 @@ mod test {
         })
         .to_string();
 
-        let creds =
-            AccessTokenCredentialBuilder::new(serde_json::from_str(contents.as_str()).unwrap())
-                .build()
-                .unwrap();
+        let path = write_cred_json(&contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let creds = AccessTokenCredentialBuilder::default().build().unwrap();
 
         // Use the debug output to verify the right kind of credentials are created.
         let fmt = format!("{creds:?}");
@@ -316,6 +350,54 @@ mod test {
                 unreachable!("Expecting a header to be present");
             }
         };
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn create_external_account_access_token_fail() -> TestResult {
+        let source_token_response_body = json!({
+            "error":"invalid_token",
+        })
+        .to_string();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/source_token"),
+                request::headers(contains(("metadata", "True",))),
+            ])
+            .respond_with(status_code(400).body(source_token_response_body)),
+        );
+
+        let contents = json!({
+          "type": "external_account",
+          "audience": "some-audience",
+          "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+          "token_url": server.url("/token").to_string(),
+          "credential_source": {
+            "url": server.url("/source_token").to_string(),
+            "headers": {
+              "Metadata": "True"
+            },
+            "format": {
+              "type": "json",
+              "subject_token_field_name": "access_token"
+            }
+          }
+        })
+        .to_string();
+
+        let path = write_cred_json(&contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let creds = AccessTokenCredentialBuilder::default().build().unwrap();
+
+        let error = creds.headers(Extensions::new()).await.unwrap_err();
+        let original_error = find_source_error::<CredentialsError>(&error)
+            .expect("source should be a CredentialsError");
+        assert!(!original_error.is_transient());
 
         Ok(())
     }
@@ -479,6 +561,122 @@ mod test {
         let fmt = format!("{user_account:?}");
         assert!(fmt.contains("UserCredentials"), "{fmt:?}");
         assert!(fmt.contains(test_quota_project));
+        Ok(())
+    }
+
+    #[derive(Debug)]
+    struct TestProviderError;
+
+    impl fmt::Display for TestProviderError {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            write!(f, "TestProviderError")
+        }
+    }
+
+    impl Error for TestProviderError {}
+
+    impl SubjectTokenProviderError for TestProviderError {
+        fn is_transient(&self) -> bool {
+            false
+        }
+    }
+
+    #[derive(Debug)]
+    struct TestSubjectTokenProvider;
+
+    impl SubjectTokenProvider for TestSubjectTokenProvider {
+        type Error = TestProviderError;
+
+        async fn subject_token(&self) -> std::result::Result<SubjectToken, Self::Error> {
+            Ok(SubjectTokenBuilder::new("test-subject-token".to_string()).build())
+        }
+    }
+
+    #[test_case(Some(vec!["scope1".to_string(), "scope2".to_string()]), vec!["scope1", "scope2"]; "with custom scopes")]
+    #[test_case(None, vec!["https://www.googleapis.com/auth/cloud-platform"]; "with default scopes")]
+    #[tokio::test]
+    async fn create_programmatic_external_account_access_token(
+        scopes: Option<Vec<String>>,
+        expected_scopes: Vec<&str>,
+    ) -> TestResult {
+        let token_response_body = json!({
+            "access_token":"an_exchanged_token",
+            "issued_token_type":"urn:ietf:params:oauth:token-type:access_token",
+            "token_type":"Bearer",
+            "expires_in":3600,
+            "scope": expected_scopes.join(" "),
+        })
+        .to_string();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(url_decoded(all_of![
+                    contains(("subject_token", "test-subject-token")),
+                    contains(("scope", expected_scopes.join(" "))),
+                ]))
+            ])
+            .respond_with(status_code(200).body(token_response_body)),
+        );
+
+        let provider = TestSubjectTokenProvider;
+        let mut builder = ProgrammaticBuilder::new(std::sync::Arc::new(provider))
+            .with_audience("some-audience")
+            .with_subject_token_type("urn:ietf:params:oauth:token-type:jwt")
+            .with_token_url(server.url("/token").to_string());
+
+        if let Some(scopes) = scopes {
+            builder = builder.with_scopes(scopes);
+        }
+
+        let creds = builder.build().unwrap();
+
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        match cached_headers {
+            CacheableResource::New { data, .. } => {
+                let token = data
+                    .get(AUTHORIZATION)
+                    .and_then(|token_value| token_value.to_str().ok())
+                    .map(|s| s.to_string())
+                    .unwrap();
+                assert_eq!(token, "Bearer an_exchanged_token");
+            }
+            CacheableResource::NotModified => {
+                unreachable!("Expecting a header to be present");
+            }
+        };
+
+        Ok(())
+    }
+
+    #[derive(Debug)]
+    struct FailingSubjectTokenProvider;
+
+    impl SubjectTokenProvider for FailingSubjectTokenProvider {
+        type Error = TestProviderError;
+
+        async fn subject_token(&self) -> std::result::Result<SubjectToken, Self::Error> {
+            Err(TestProviderError)
+        }
+    }
+
+    #[tokio::test]
+    async fn create_programmatic_token_provider_user_error() -> TestResult {
+        let provider = FailingSubjectTokenProvider;
+        let creds = ProgrammaticBuilder::new(std::sync::Arc::new(provider))
+            .with_audience("some-audience")
+            .with_subject_token_type("urn:ietf:params:oauth:token-type:jwt")
+            .with_token_url("http://dummy.com/token")
+            .build()
+            .unwrap();
+
+        let error = creds.headers(Extensions::new()).await.unwrap_err();
+
+        assert!(!error.is_transient(), "Error should not be transient");
+        let original_error = find_source_error::<TestProviderError>(&error)
+            .expect("source should be a TestProviderError");
+        assert!(original_error.to_string().contains("TestProviderError"));
         Ok(())
     }
 }

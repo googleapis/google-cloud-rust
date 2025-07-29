@@ -2444,10 +2444,24 @@ pub mod echo {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EchoResponse> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .echo(self.0.request, self.0.options)
+                .echo(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::EchoRequest,
+            force: bool,
+        ) -> crate::model::EchoRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            if force || req.other_request_id.is_none() {
+                req = req.set_other_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [severity][crate::model::EchoRequest::severity].

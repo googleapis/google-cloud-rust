@@ -13,4 +13,6 @@
 // limitations under the License.
 
 pub mod executable_sourced;
+pub mod file_sourced;
+pub mod programmatic_sourced;
 pub mod url_sourced;

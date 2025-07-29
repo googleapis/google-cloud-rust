@@ -35,7 +35,7 @@ extern crate wkt;
 
 /// Encapsulates progress related information for a Cloud Spanner long
 /// running instance operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationProgress {
     /// Percent completion of the operation.
@@ -258,8 +258,21 @@ impl serde::ser::Serialize for OperationProgress {
     }
 }
 
+impl std::fmt::Debug for OperationProgress {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationProgress");
+        debug_struct.field("progress_percent", &self.progress_percent);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// ReplicaSelection identifies replicas with common properties.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicaSelection {
     /// Required. Name of the location of the replicas (e.g., "us-central1").
@@ -388,7 +401,18 @@ impl serde::ser::Serialize for ReplicaSelection {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for ReplicaSelection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplicaSelection");
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicaInfo {
     /// The location of the serving resources, e.g., "us-central1".
@@ -570,6 +594,19 @@ impl serde::ser::Serialize for ReplicaInfo {
     }
 }
 
+impl std::fmt::Debug for ReplicaInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplicaInfo");
+        debug_struct.field("location", &self.location);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("default_leader_location", &self.default_leader_location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReplicaInfo].
 pub mod replica_info {
     #[allow(unused_imports)]
@@ -736,7 +773,7 @@ pub mod replica_info {
 
 /// A possible configuration for a Cloud Spanner instance. Configurations
 /// define the geographic placement of nodes and their replication.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceConfig {
     /// A unique identifier for the instance configuration.  Values
@@ -1295,6 +1332,36 @@ impl serde::ser::Serialize for InstanceConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for InstanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("config_type", &self.config_type);
+        debug_struct.field("replicas", &self.replicas);
+        debug_struct.field("optional_replicas", &self.optional_replicas);
+        debug_struct.field("base_config", &self.base_config);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("leader_options", &self.leader_options);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("state", &self.state);
+        debug_struct.field(
+            "free_instance_availability",
+            &self.free_instance_availability,
+        );
+        debug_struct.field("quorum_type", &self.quorum_type);
+        debug_struct.field(
+            "storage_limit_per_processing_unit",
+            &self.storage_limit_per_processing_unit,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -1874,7 +1941,7 @@ pub mod instance_config {
 
 /// ReplicaComputeCapacity describes the amount of server resources that are
 /// allocated to each replica identified by the replica selection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicaComputeCapacity {
     /// Required. Identifies replicas by specified properties.
@@ -2177,6 +2244,18 @@ impl serde::ser::Serialize for ReplicaComputeCapacity {
     }
 }
 
+impl std::fmt::Debug for ReplicaComputeCapacity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplicaComputeCapacity");
+        debug_struct.field("replica_selection", &self.replica_selection);
+        debug_struct.field("compute_capacity", &self.compute_capacity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReplicaComputeCapacity].
 pub mod replica_compute_capacity {
     #[allow(unused_imports)]
@@ -2204,7 +2283,7 @@ pub mod replica_compute_capacity {
 }
 
 /// Autoscaling configuration for an instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoscalingConfig {
     /// Required. Autoscaling limits for an instance.
@@ -2429,6 +2508,22 @@ impl serde::ser::Serialize for AutoscalingConfig {
     }
 }
 
+impl std::fmt::Debug for AutoscalingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutoscalingConfig");
+        debug_struct.field("autoscaling_limits", &self.autoscaling_limits);
+        debug_struct.field("autoscaling_targets", &self.autoscaling_targets);
+        debug_struct.field(
+            "asymmetric_autoscaling_options",
+            &self.asymmetric_autoscaling_options,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AutoscalingConfig].
 pub mod autoscaling_config {
     #[allow(unused_imports)]
@@ -2439,7 +2534,7 @@ pub mod autoscaling_config {
     /// only scale within that range. Users can either use nodes or processing
     /// units to specify the limits, but should use the same unit to set both the
     /// min_limit and max_limit.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AutoscalingLimits {
         /// The minimum compute capacity for the instance.
@@ -2865,6 +2960,18 @@ pub mod autoscaling_config {
         }
     }
 
+    impl std::fmt::Debug for AutoscalingLimits {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AutoscalingLimits");
+            debug_struct.field("min_limit", &self.min_limit);
+            debug_struct.field("max_limit", &self.max_limit);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [AutoscalingLimits].
     pub mod autoscaling_limits {
         #[allow(unused_imports)]
@@ -2899,7 +3006,7 @@ pub mod autoscaling_config {
     }
 
     /// The autoscaling targets for an instance.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AutoscalingTargets {
         /// Required. The target high priority cpu utilization percentage that the
@@ -3120,9 +3227,27 @@ pub mod autoscaling_config {
         }
     }
 
+    impl std::fmt::Debug for AutoscalingTargets {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AutoscalingTargets");
+            debug_struct.field(
+                "high_priority_cpu_utilization_percent",
+                &self.high_priority_cpu_utilization_percent,
+            );
+            debug_struct.field(
+                "storage_utilization_percent",
+                &self.storage_utilization_percent,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// AsymmetricAutoscalingOption specifies the scaling of replicas identified by
     /// the given selection.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AsymmetricAutoscalingOption {
 
@@ -3302,6 +3427,18 @@ pub mod autoscaling_config {
         }
     }
 
+    impl std::fmt::Debug for AsymmetricAutoscalingOption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AsymmetricAutoscalingOption");
+            debug_struct.field("replica_selection", &self.replica_selection);
+            debug_struct.field("overrides", &self.overrides);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [AsymmetricAutoscalingOption].
     pub mod asymmetric_autoscaling_option {
         #[allow(unused_imports)]
@@ -3311,7 +3448,7 @@ pub mod autoscaling_config {
         /// identified by `replica_selection`. All fields in this message are
         /// optional. Any unspecified fields will use the corresponding values from
         /// the top-level autoscaling configuration.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AutoscalingConfigOverrides {
             /// Optional. If specified, overrides the min/max limit in the top-level
@@ -3511,11 +3648,26 @@ pub mod autoscaling_config {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for AutoscalingConfigOverrides {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("AutoscalingConfigOverrides");
+                debug_struct.field("autoscaling_limits", &self.autoscaling_limits);
+                debug_struct.field(
+                    "autoscaling_target_high_priority_cpu_utilization_percent",
+                    &self.autoscaling_target_high_priority_cpu_utilization_percent,
+                );
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 }
 
 /// An isolated set of Cloud Spanner resources on which databases can be hosted.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
     /// Required. A unique identifier for the instance, which cannot be changed
@@ -4219,6 +4371,35 @@ impl serde::ser::Serialize for Instance {
     }
 }
 
+impl std::fmt::Debug for Instance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instance");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("node_count", &self.node_count);
+        debug_struct.field("processing_units", &self.processing_units);
+        debug_struct.field("replica_compute_capacity", &self.replica_compute_capacity);
+        debug_struct.field("autoscaling_config", &self.autoscaling_config);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("instance_type", &self.instance_type);
+        debug_struct.field("endpoint_uris", &self.endpoint_uris);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("free_instance_metadata", &self.free_instance_metadata);
+        debug_struct.field("edition", &self.edition);
+        debug_struct.field(
+            "default_backup_schedule_type",
+            &self.default_backup_schedule_type,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
@@ -4785,7 +4966,7 @@ pub mod instance {
 /// [ListInstanceConfigs][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::client::InstanceAdmin::list_instance_configs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstanceConfigsRequest {
     /// Required. The name of the project for which a list of supported instance
@@ -4991,11 +5172,24 @@ impl serde::ser::Serialize for ListInstanceConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListInstanceConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstanceConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListInstanceConfigs][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::client::InstanceAdmin::list_instance_configs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstanceConfigsResponse {
     /// The list of requested instance configurations.
@@ -5175,11 +5369,23 @@ impl serde::ser::Serialize for ListInstanceConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstanceConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstanceConfigsResponse");
+        debug_struct.field("instance_configs", &self.instance_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [GetInstanceConfigRequest][google.spanner.admin.instance.v1.InstanceAdmin.GetInstanceConfig].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.GetInstanceConfig]: crate::client::InstanceAdmin::get_instance_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceConfigRequest {
     /// Required. The name of the requested instance configuration. Values are of
@@ -5309,11 +5515,22 @@ impl serde::ser::Serialize for GetInstanceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstanceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstanceConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [CreateInstanceConfig][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig]: crate::client::InstanceAdmin::create_instance_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceConfigRequest {
     /// Required. The name of the project in which to create the instance
@@ -5541,11 +5758,25 @@ impl serde::ser::Serialize for CreateInstanceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateInstanceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstanceConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("instance_config_id", &self.instance_config_id);
+        debug_struct.field("instance_config", &self.instance_config);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [UpdateInstanceConfig][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig]: crate::client::InstanceAdmin::update_instance_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceConfigRequest {
     /// Required. The user instance configuration to update, which must always
@@ -5765,11 +5996,24 @@ impl serde::ser::Serialize for UpdateInstanceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateInstanceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstanceConfigRequest");
+        debug_struct.field("instance_config", &self.instance_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [DeleteInstanceConfig][google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstanceConfig].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstanceConfig]: crate::client::InstanceAdmin::delete_instance_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceConfigRequest {
     /// Required. The name of the instance configuration to be deleted.
@@ -5956,11 +6200,24 @@ impl serde::ser::Serialize for DeleteInstanceConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInstanceConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstanceConfigRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ListInstanceConfigOperations][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations]: crate::client::InstanceAdmin::list_instance_config_operations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstanceConfigOperationsRequest {
     /// Required. The project of the instance configuration operations.
@@ -6233,11 +6490,25 @@ impl serde::ser::Serialize for ListInstanceConfigOperationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListInstanceConfigOperationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstanceConfigOperationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListInstanceConfigOperations][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations]: crate::client::InstanceAdmin::list_instance_config_operations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstanceConfigOperationsResponse {
     /// The list of matching instance configuration long-running operations. Each
@@ -6420,11 +6691,23 @@ impl serde::ser::Serialize for ListInstanceConfigOperationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstanceConfigOperationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstanceConfigOperationsResponse");
+        debug_struct.field("operations", &self.operations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [GetInstance][google.spanner.admin.instance.v1.InstanceAdmin.GetInstance].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.GetInstance]: crate::client::InstanceAdmin::get_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
     /// Required. The name of the requested instance. Values are of the form
@@ -6595,11 +6878,23 @@ impl serde::ser::Serialize for GetInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("field_mask", &self.field_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [CreateInstance][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]: crate::client::InstanceAdmin::create_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
     /// Required. The name of the project in which to create the instance. Values
@@ -6792,11 +7087,24 @@ impl serde::ser::Serialize for CreateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstanceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("instance", &self.instance);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ListInstances][google.spanner.admin.instance.v1.InstanceAdmin.ListInstances].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstances]: crate::client::InstanceAdmin::list_instances
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
     /// Required. The name of the project for which a list of instances is
@@ -7087,11 +7395,26 @@ impl serde::ser::Serialize for ListInstancesRequest {
     }
 }
 
+impl std::fmt::Debug for ListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance_deadline", &self.instance_deadline);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListInstances][google.spanner.admin.instance.v1.InstanceAdmin.ListInstances].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstances]: crate::client::InstanceAdmin::list_instances
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
     /// The list of requested instances.
@@ -7298,11 +7621,24 @@ impl serde::ser::Serialize for ListInstancesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesResponse");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [UpdateInstance][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]: crate::client::InstanceAdmin::update_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
     /// Required. The instance to update, which must always include the instance
@@ -7489,11 +7825,23 @@ impl serde::ser::Serialize for UpdateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstanceRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("field_mask", &self.field_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [DeleteInstance][google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstance].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstance]: crate::client::InstanceAdmin::delete_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
     /// Required. The name of the instance to be deleted. Values are of the form
@@ -7623,11 +7971,22 @@ impl serde::ser::Serialize for DeleteInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstanceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [CreateInstance][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]: crate::client::InstanceAdmin::create_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceMetadata {
     /// The instance being created.
@@ -7919,11 +8278,29 @@ impl serde::ser::Serialize for CreateInstanceMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateInstanceMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstanceMetadata");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("cancel_time", &self.cancel_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field(
+            "expected_fulfillment_period",
+            &self.expected_fulfillment_period,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [UpdateInstance][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]: crate::client::InstanceAdmin::update_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceMetadata {
     /// The desired end state of the update.
@@ -8215,9 +8592,27 @@ impl serde::ser::Serialize for UpdateInstanceMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateInstanceMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstanceMetadata");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("cancel_time", &self.cancel_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field(
+            "expected_fulfillment_period",
+            &self.expected_fulfillment_period,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Free instance specific metadata that is kept even after an instance has been
 /// upgraded for tracking purposes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FreeInstanceMetadata {
     /// Output only. Timestamp after which the instance will either be upgraded or
@@ -8432,6 +8827,19 @@ impl serde::ser::Serialize for FreeInstanceMetadata {
     }
 }
 
+impl std::fmt::Debug for FreeInstanceMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FreeInstanceMetadata");
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("upgrade_time", &self.upgrade_time);
+        debug_struct.field("expire_behavior", &self.expire_behavior);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FreeInstanceMetadata].
 pub mod free_instance_metadata {
     #[allow(unused_imports)]
@@ -8578,7 +8986,7 @@ pub mod free_instance_metadata {
 /// [CreateInstanceConfig][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig]: crate::client::InstanceAdmin::create_instance_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceConfigMetadata {
     /// The target instance configuration end state.
@@ -8796,11 +9204,24 @@ impl serde::ser::Serialize for CreateInstanceConfigMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateInstanceConfigMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstanceConfigMetadata");
+        debug_struct.field("instance_config", &self.instance_config);
+        debug_struct.field("progress", &self.progress);
+        debug_struct.field("cancel_time", &self.cancel_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [UpdateInstanceConfig][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig]: crate::client::InstanceAdmin::update_instance_config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceConfigMetadata {
     /// The desired instance configuration after updating.
@@ -9018,9 +9439,22 @@ impl serde::ser::Serialize for UpdateInstanceConfigMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateInstanceConfigMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstanceConfigMetadata");
+        debug_struct.field("instance_config", &self.instance_config);
+        debug_struct.field("progress", &self.progress);
+        debug_struct.field("cancel_time", &self.cancel_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An isolated set of Cloud Spanner resources that databases can define
 /// placements on.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancePartition {
     /// Required. A unique identifier for the instance partition. Values are of the
@@ -9564,6 +9998,26 @@ impl serde::ser::Serialize for InstancePartition {
     }
 }
 
+impl std::fmt::Debug for InstancePartition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstancePartition");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("config", &self.config);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("referencing_databases", &self.referencing_databases);
+        debug_struct.field("referencing_backups", &self.referencing_backups);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("compute_capacity", &self.compute_capacity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [InstancePartition].
 pub mod instance_partition {
     #[allow(unused_imports)]
@@ -9736,7 +10190,7 @@ pub mod instance_partition {
 /// [CreateInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition]: crate::client::InstanceAdmin::create_instance_partition
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstancePartitionMetadata {
     /// The instance partition being created.
@@ -9992,11 +10446,25 @@ impl serde::ser::Serialize for CreateInstancePartitionMetadata {
     }
 }
 
+impl std::fmt::Debug for CreateInstancePartitionMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstancePartitionMetadata");
+        debug_struct.field("instance_partition", &self.instance_partition);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("cancel_time", &self.cancel_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [CreateInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition]: crate::client::InstanceAdmin::create_instance_partition
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstancePartitionRequest {
     /// Required. The name of the instance in which to create the instance
@@ -10196,11 +10664,24 @@ impl serde::ser::Serialize for CreateInstancePartitionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateInstancePartitionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstancePartitionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("instance_partition_id", &self.instance_partition_id);
+        debug_struct.field("instance_partition", &self.instance_partition);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [DeleteInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstancePartition].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstancePartition]: crate::client::InstanceAdmin::delete_instance_partition
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstancePartitionRequest {
     /// Required. The name of the instance partition to be deleted.
@@ -10358,11 +10839,23 @@ impl serde::ser::Serialize for DeleteInstancePartitionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInstancePartitionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstancePartitionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [GetInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.GetInstancePartition].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.GetInstancePartition]: crate::client::InstanceAdmin::get_instance_partition
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstancePartitionRequest {
     /// Required. The name of the requested instance partition. Values are of
@@ -10493,11 +10986,22 @@ impl serde::ser::Serialize for GetInstancePartitionRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstancePartitionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstancePartitionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [UpdateInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition]: crate::client::InstanceAdmin::update_instance_partition
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstancePartitionRequest {
     /// Required. The instance partition to update, which must always include the
@@ -10687,11 +11191,23 @@ impl serde::ser::Serialize for UpdateInstancePartitionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateInstancePartitionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstancePartitionRequest");
+        debug_struct.field("instance_partition", &self.instance_partition);
+        debug_struct.field("field_mask", &self.field_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [UpdateInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition]: crate::client::InstanceAdmin::update_instance_partition
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstancePartitionMetadata {
     /// The desired end state of the update.
@@ -10947,11 +11463,25 @@ impl serde::ser::Serialize for UpdateInstancePartitionMetadata {
     }
 }
 
+impl std::fmt::Debug for UpdateInstancePartitionMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstancePartitionMetadata");
+        debug_struct.field("instance_partition", &self.instance_partition);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("cancel_time", &self.cancel_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ListInstancePartitions][google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions]: crate::client::InstanceAdmin::list_instance_partitions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancePartitionsRequest {
     /// Required. The instance whose instance partitions should be listed. Values
@@ -11209,11 +11739,28 @@ impl serde::ser::Serialize for ListInstancePartitionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListInstancePartitionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancePartitionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field(
+            "instance_partition_deadline",
+            &self.instance_partition_deadline,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListInstancePartitions][google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions]: crate::client::InstanceAdmin::list_instance_partitions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancePartitionsResponse {
     /// The list of requested instancePartitions.
@@ -11425,11 +11972,24 @@ impl serde::ser::Serialize for ListInstancePartitionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstancePartitionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancePartitionsResponse");
+        debug_struct.field("instance_partitions", &self.instance_partitions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [ListInstancePartitionOperations][google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations]: crate::client::InstanceAdmin::list_instance_partition_operations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancePartitionOperationsRequest {
     /// Required. The parent instance of the instance partition operations.
@@ -11754,11 +12314,29 @@ impl serde::ser::Serialize for ListInstancePartitionOperationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListInstancePartitionOperationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancePartitionOperationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field(
+            "instance_partition_deadline",
+            &self.instance_partition_deadline,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [ListInstancePartitionOperations][google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations]: crate::client::InstanceAdmin::list_instance_partition_operations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancePartitionOperationsResponse {
     /// The list of matching instance partition long-running operations. Each
@@ -11982,11 +12560,27 @@ impl serde::ser::Serialize for ListInstancePartitionOperationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstancePartitionOperationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancePartitionOperationsResponse");
+        debug_struct.field("operations", &self.operations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field(
+            "unreachable_instance_partitions",
+            &self.unreachable_instance_partitions,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request for
 /// [MoveInstance][google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance]: crate::client::InstanceAdmin::move_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveInstanceRequest {
     /// Required. The instance to move.
@@ -12142,11 +12736,23 @@ impl serde::ser::Serialize for MoveInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for MoveInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("target_config", &self.target_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response for
 /// [MoveInstance][google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance]: crate::client::InstanceAdmin::move_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveInstanceResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -12248,11 +12854,21 @@ impl serde::ser::Serialize for MoveInstanceResponse {
     }
 }
 
+impl std::fmt::Debug for MoveInstanceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveInstanceResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata type for the operation returned by
 /// [MoveInstance][google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance].
 ///
 /// [google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance]: crate::client::InstanceAdmin::move_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveInstanceMetadata {
     /// The target instance configuration where to move the instance.
@@ -12459,6 +13075,19 @@ impl serde::ser::Serialize for MoveInstanceMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for MoveInstanceMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveInstanceMetadata");
+        debug_struct.field("target_config", &self.target_config);
+        debug_struct.field("progress", &self.progress);
+        debug_struct.field("cancel_time", &self.cancel_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

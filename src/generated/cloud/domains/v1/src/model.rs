@@ -49,7 +49,7 @@ extern crate wkt;
 /// the domain for transfer and retrieve the domain's transfer authorization
 /// code. Then call `RetrieveTransferParameters` to confirm that the domain is
 /// unlocked and to get values needed to build a call to `TransferDomain`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Registration {
     /// Output only. Name of the `Registration` resource, in the format
@@ -561,6 +561,28 @@ impl serde::ser::Serialize for Registration {
     }
 }
 
+impl std::fmt::Debug for Registration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Registration");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("domain_name", &self.domain_name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("issues", &self.issues);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("management_settings", &self.management_settings);
+        debug_struct.field("dns_settings", &self.dns_settings);
+        debug_struct.field("contact_settings", &self.contact_settings);
+        debug_struct.field("pending_contact_settings", &self.pending_contact_settings);
+        debug_struct.field("supported_privacy", &self.supported_privacy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Registration].
 pub mod registration {
     #[allow(unused_imports)]
@@ -883,7 +905,7 @@ pub mod registration {
 }
 
 /// Defines renewal, billing, and transfer settings for a `Registration`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagementSettings {
     /// Output only. The renewal method for this `Registration`.
@@ -1049,6 +1071,18 @@ impl serde::ser::Serialize for ManagementSettings {
     }
 }
 
+impl std::fmt::Debug for ManagementSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ManagementSettings");
+        debug_struct.field("renewal_method", &self.renewal_method);
+        debug_struct.field("transfer_lock_state", &self.transfer_lock_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ManagementSettings].
 pub mod management_settings {
     #[allow(unused_imports)]
@@ -1197,7 +1231,7 @@ pub mod management_settings {
 
 /// Defines the DNS configuration of a `Registration`, including name servers,
 /// DNSSEC, and glue records.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DnsSettings {
     /// The list of glue records for this `Registration`. Commonly empty.
@@ -1466,13 +1500,25 @@ impl serde::ser::Serialize for DnsSettings {
     }
 }
 
+impl std::fmt::Debug for DnsSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DnsSettings");
+        debug_struct.field("glue_records", &self.glue_records);
+        debug_struct.field("dns_provider", &self.dns_provider);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DnsSettings].
 pub mod dns_settings {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for an arbitrary DNS provider.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomDns {
         /// Required. A list of name servers that store the DNS zone for this domain. Each name
@@ -1644,11 +1690,23 @@ pub mod dns_settings {
         }
     }
 
+    impl std::fmt::Debug for CustomDns {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CustomDns");
+            debug_struct.field("name_servers", &self.name_servers);
+            debug_struct.field("ds_records", &self.ds_records);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for using the free DNS zone provided by Google Domains as a
     /// `Registration`'s `dns_provider`. You cannot configure the DNS zone itself
     /// using the API. To configure the DNS zone, go to
     /// [Google Domains](https://domains.google/).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GoogleDomainsDns {
         /// Output only. A list of name servers that store the DNS zone for this domain. Each name
@@ -1848,10 +1906,23 @@ pub mod dns_settings {
         }
     }
 
+    impl std::fmt::Debug for GoogleDomainsDns {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GoogleDomainsDns");
+            debug_struct.field("name_servers", &self.name_servers);
+            debug_struct.field("ds_state", &self.ds_state);
+            debug_struct.field("ds_records", &self.ds_records);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines a Delegation Signer (DS) record, which is needed to enable DNSSEC
     /// for a domain. It contains a digest (hash) of a DNSKEY record that must be
     /// present in the domain's DNS zone.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DsRecord {
         /// The key tag of the record. Must be set in range 0 -- 65535.
@@ -2086,6 +2157,20 @@ pub mod dns_settings {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for DsRecord {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DsRecord");
+            debug_struct.field("key_tag", &self.key_tag);
+            debug_struct.field("algorithm", &self.algorithm);
+            debug_struct.field("digest_type", &self.digest_type);
+            debug_struct.field("digest", &self.digest);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -2492,7 +2577,7 @@ pub mod dns_settings {
     /// For example, when `ns.example.com` is a name server for `example.com`, the
     /// host `ns.example.com` must have a glue record to break the circular DNS
     /// reference.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GlueRecord {
         /// Required. Domain name of the host in Punycode format.
@@ -2685,6 +2770,19 @@ pub mod dns_settings {
         }
     }
 
+    impl std::fmt::Debug for GlueRecord {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("GlueRecord");
+            debug_struct.field("host_name", &self.host_name);
+            debug_struct.field("ipv4_addresses", &self.ipv4_addresses);
+            debug_struct.field("ipv6_addresses", &self.ipv6_addresses);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The publication state of DS records for a `Registration`.
     ///
     /// # Working with unknown values
@@ -2838,7 +2936,7 @@ pub mod dns_settings {
 /// [ICANN](https://icann.org/) requires all domain names to have associated
 /// contact information. The `registrant_contact` is considered the
 /// domain's legal owner, and often the other contacts are identical.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContactSettings {
     /// Required. Privacy setting for the contacts associated with the `Registration`.
@@ -3085,13 +3183,27 @@ impl serde::ser::Serialize for ContactSettings {
     }
 }
 
+impl std::fmt::Debug for ContactSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContactSettings");
+        debug_struct.field("privacy", &self.privacy);
+        debug_struct.field("registrant_contact", &self.registrant_contact);
+        debug_struct.field("admin_contact", &self.admin_contact);
+        debug_struct.field("technical_contact", &self.technical_contact);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ContactSettings].
 pub mod contact_settings {
     #[allow(unused_imports)]
     use super::*;
 
     /// Details required for a contact associated with a `Registration`.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Contact {
         /// Required. Postal address of the contact.
@@ -3314,10 +3426,24 @@ pub mod contact_settings {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Contact {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Contact");
+            debug_struct.field("postal_address", &self.postal_address);
+            debug_struct.field("email", &self.email);
+            debug_struct.field("phone_number", &self.phone_number);
+            debug_struct.field("fax_number", &self.fax_number);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request for the `SearchDomains` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchDomainsRequest {
     /// Required. String used to search for available domain names.
@@ -3470,8 +3596,20 @@ impl serde::ser::Serialize for SearchDomainsRequest {
     }
 }
 
+impl std::fmt::Debug for SearchDomainsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchDomainsRequest");
+        debug_struct.field("query", &self.query);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `SearchDomains` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchDomainsResponse {
     /// Results of the domain name search.
@@ -3608,8 +3746,19 @@ impl serde::ser::Serialize for SearchDomainsResponse {
     }
 }
 
+impl std::fmt::Debug for SearchDomainsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchDomainsResponse");
+        debug_struct.field("register_parameters", &self.register_parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `RetrieveRegisterParameters` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveRegisterParametersRequest {
     /// Required. The domain name. Unicode domain names must be expressed in Punycode format.
@@ -3763,8 +3912,20 @@ impl serde::ser::Serialize for RetrieveRegisterParametersRequest {
     }
 }
 
+impl std::fmt::Debug for RetrieveRegisterParametersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrieveRegisterParametersRequest");
+        debug_struct.field("domain_name", &self.domain_name);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `RetrieveRegisterParameters` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveRegisterParametersResponse {
     /// Parameters to use when calling the `RegisterDomain` method.
@@ -3905,8 +4066,19 @@ impl serde::ser::Serialize for RetrieveRegisterParametersResponse {
     }
 }
 
+impl std::fmt::Debug for RetrieveRegisterParametersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrieveRegisterParametersResponse");
+        debug_struct.field("register_parameters", &self.register_parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `RegisterDomain` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RegisterDomainRequest {
     /// Required. The parent resource of the `Registration`. Must be in the
@@ -4195,8 +4367,24 @@ impl serde::ser::Serialize for RegisterDomainRequest {
     }
 }
 
+impl std::fmt::Debug for RegisterDomainRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegisterDomainRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("registration", &self.registration);
+        debug_struct.field("domain_notices", &self.domain_notices);
+        debug_struct.field("contact_notices", &self.contact_notices);
+        debug_struct.field("yearly_price", &self.yearly_price);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `RetrieveTransferParameters` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveTransferParametersRequest {
     /// Required. The domain name. Unicode domain names must be expressed in Punycode format.
@@ -4350,8 +4538,20 @@ impl serde::ser::Serialize for RetrieveTransferParametersRequest {
     }
 }
 
+impl std::fmt::Debug for RetrieveTransferParametersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrieveTransferParametersRequest");
+        debug_struct.field("domain_name", &self.domain_name);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `RetrieveTransferParameters` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveTransferParametersResponse {
     /// Parameters to use when calling the `TransferDomain` method.
@@ -4492,8 +4692,19 @@ impl serde::ser::Serialize for RetrieveTransferParametersResponse {
     }
 }
 
+impl std::fmt::Debug for RetrieveTransferParametersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrieveTransferParametersResponse");
+        debug_struct.field("transfer_parameters", &self.transfer_parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `TransferDomain` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferDomainRequest {
     /// Required. The parent resource of the `Registration`. Must be in the
@@ -4795,8 +5006,24 @@ impl serde::ser::Serialize for TransferDomainRequest {
     }
 }
 
+impl std::fmt::Debug for TransferDomainRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferDomainRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("registration", &self.registration);
+        debug_struct.field("contact_notices", &self.contact_notices);
+        debug_struct.field("yearly_price", &self.yearly_price);
+        debug_struct.field("authorization_code", &self.authorization_code);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListRegistrations` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRegistrationsRequest {
     /// Required. The project and location from which to list `Registration`s, specified in
@@ -5034,8 +5261,22 @@ impl serde::ser::Serialize for ListRegistrationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListRegistrationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRegistrationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListRegistrations` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRegistrationsResponse {
     /// A list of `Registration`s.
@@ -5207,8 +5448,20 @@ impl serde::ser::Serialize for ListRegistrationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListRegistrationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRegistrationsResponse");
+        debug_struct.field("registrations", &self.registrations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetRegistration` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRegistrationRequest {
     /// Required. The name of the `Registration` to get, in the format
@@ -5338,8 +5591,19 @@ impl serde::ser::Serialize for GetRegistrationRequest {
     }
 }
 
+impl std::fmt::Debug for GetRegistrationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRegistrationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `UpdateRegistration` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRegistrationRequest {
     /// Fields of the `Registration` to update.
@@ -5517,8 +5781,20 @@ impl serde::ser::Serialize for UpdateRegistrationRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateRegistrationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRegistrationRequest");
+        debug_struct.field("registration", &self.registration);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ConfigureManagementSettings` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigureManagementSettingsRequest {
     /// Required. The name of the `Registration` whose management settings are being updated,
@@ -5722,8 +5998,21 @@ impl serde::ser::Serialize for ConfigureManagementSettingsRequest {
     }
 }
 
+impl std::fmt::Debug for ConfigureManagementSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigureManagementSettingsRequest");
+        debug_struct.field("registration", &self.registration);
+        debug_struct.field("management_settings", &self.management_settings);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ConfigureDnsSettings` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigureDnsSettingsRequest {
     /// Required. The name of the `Registration` whose DNS settings are being updated,
@@ -5958,8 +6247,22 @@ impl serde::ser::Serialize for ConfigureDnsSettingsRequest {
     }
 }
 
+impl std::fmt::Debug for ConfigureDnsSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigureDnsSettingsRequest");
+        debug_struct.field("registration", &self.registration);
+        debug_struct.field("dns_settings", &self.dns_settings);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ConfigureContactSettings` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigureContactSettingsRequest {
     /// Required. The name of the `Registration` whose contact settings are being updated,
@@ -6218,8 +6521,23 @@ impl serde::ser::Serialize for ConfigureContactSettingsRequest {
     }
 }
 
+impl std::fmt::Debug for ConfigureContactSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigureContactSettingsRequest");
+        debug_struct.field("registration", &self.registration);
+        debug_struct.field("contact_settings", &self.contact_settings);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("contact_notices", &self.contact_notices);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ExportRegistration` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportRegistrationRequest {
     /// Required. The name of the `Registration` to export,
@@ -6349,8 +6667,19 @@ impl serde::ser::Serialize for ExportRegistrationRequest {
     }
 }
 
+impl std::fmt::Debug for ExportRegistrationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportRegistrationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `DeleteRegistration` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRegistrationRequest {
     /// Required. The name of the `Registration` to delete,
@@ -6480,8 +6809,19 @@ impl serde::ser::Serialize for DeleteRegistrationRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteRegistrationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRegistrationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `RetrieveAuthorizationCode` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveAuthorizationCodeRequest {
     /// Required. The name of the `Registration` whose authorization code is being retrieved,
@@ -6611,8 +6951,19 @@ impl serde::ser::Serialize for RetrieveAuthorizationCodeRequest {
     }
 }
 
+impl std::fmt::Debug for RetrieveAuthorizationCodeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrieveAuthorizationCodeRequest");
+        debug_struct.field("registration", &self.registration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ResetAuthorizationCode` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetAuthorizationCodeRequest {
     /// Required. The name of the `Registration` whose authorization code is being reset,
@@ -6742,8 +7093,19 @@ impl serde::ser::Serialize for ResetAuthorizationCodeRequest {
     }
 }
 
+impl std::fmt::Debug for ResetAuthorizationCodeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResetAuthorizationCodeRequest");
+        debug_struct.field("registration", &self.registration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parameters required to register a new domain.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RegisterParameters {
     /// The domain name. Unicode domain names are expressed in Punycode format.
@@ -7002,6 +7364,21 @@ impl serde::ser::Serialize for RegisterParameters {
     }
 }
 
+impl std::fmt::Debug for RegisterParameters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegisterParameters");
+        debug_struct.field("domain_name", &self.domain_name);
+        debug_struct.field("availability", &self.availability);
+        debug_struct.field("supported_privacy", &self.supported_privacy);
+        debug_struct.field("domain_notices", &self.domain_notices);
+        debug_struct.field("yearly_price", &self.yearly_price);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RegisterParameters].
 pub mod register_parameters {
     #[allow(unused_imports)]
@@ -7158,7 +7535,7 @@ pub mod register_parameters {
 }
 
 /// Parameters required to transfer a domain from another registrar.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferParameters {
     /// The domain name. Unicode domain names are expressed in Punycode format.
@@ -7443,8 +7820,24 @@ impl serde::ser::Serialize for TransferParameters {
     }
 }
 
+impl std::fmt::Debug for TransferParameters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferParameters");
+        debug_struct.field("domain_name", &self.domain_name);
+        debug_struct.field("current_registrar", &self.current_registrar);
+        debug_struct.field("name_servers", &self.name_servers);
+        debug_struct.field("transfer_lock_state", &self.transfer_lock_state);
+        debug_struct.field("supported_privacy", &self.supported_privacy);
+        debug_struct.field("yearly_price", &self.yearly_price);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines an authorization code.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthorizationCode {
     /// The Authorization Code in ASCII. It can be used to transfer the domain
@@ -7574,8 +7967,19 @@ impl serde::ser::Serialize for AuthorizationCode {
     }
 }
 
+impl std::fmt::Debug for AuthorizationCode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuthorizationCode");
+        debug_struct.field("code", &self.code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation. Output only.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The time the operation was created.
@@ -7847,6 +8251,22 @@ impl serde::ser::Serialize for OperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_detail", &self.status_detail);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

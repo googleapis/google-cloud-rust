@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-showcase-v1beta1"
-version                = "0.4.0"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - Client Libraries Showcase API"
 edition.workspace      = true
 authors.workspace      = true
@@ -43,6 +43,7 @@ serde.workspace      = true
 serde_json.workspace = true
 serde_with.workspace = true
 tracing.workspace    = true
+uuid.workspace       = true
 wkt.workspace        = true
 
 [dev-dependencies]

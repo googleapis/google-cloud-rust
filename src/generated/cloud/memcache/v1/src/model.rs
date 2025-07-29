@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A Memorystore for Memcached instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
     /// Required. Unique name of the resource in this scope including project and
@@ -741,13 +741,41 @@ impl serde::ser::Serialize for Instance {
     }
 }
 
+impl std::fmt::Debug for Instance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instance");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("authorized_network", &self.authorized_network);
+        debug_struct.field("zones", &self.zones);
+        debug_struct.field("node_count", &self.node_count);
+        debug_struct.field("node_config", &self.node_config);
+        debug_struct.field("memcache_version", &self.memcache_version);
+        debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("memcache_nodes", &self.memcache_nodes);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("memcache_full_version", &self.memcache_full_version);
+        debug_struct.field("instance_messages", &self.instance_messages);
+        debug_struct.field("discovery_endpoint", &self.discovery_endpoint);
+        debug_struct.field("maintenance_policy", &self.maintenance_policy);
+        debug_struct.field("maintenance_schedule", &self.maintenance_schedule);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Instance].
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for a Memcached Node.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NodeConfig {
         /// Required. Number of cpus per Memcached node.
@@ -943,7 +971,19 @@ pub mod instance {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq)]
+    impl std::fmt::Debug for NodeConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NodeConfig");
+            debug_struct.field("cpu_count", &self.cpu_count);
+            debug_struct.field("memory_size_mb", &self.memory_size_mb);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Node {
         /// Output only. Identifier of the Memcached node. The node id does not
@@ -1228,6 +1268,22 @@ pub mod instance {
         }
     }
 
+    impl std::fmt::Debug for Node {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Node");
+            debug_struct.field("node_id", &self.node_id);
+            debug_struct.field("zone", &self.zone);
+            debug_struct.field("state", &self.state);
+            debug_struct.field("host", &self.host);
+            debug_struct.field("port", &self.port);
+            debug_struct.field("parameters", &self.parameters);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Node].
     pub mod node {
         #[allow(unused_imports)]
@@ -1383,7 +1439,7 @@ pub mod instance {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InstanceMessage {
         /// A code that correspond to one type of user-facing message.
@@ -1541,6 +1597,18 @@ pub mod instance {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for InstanceMessage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("InstanceMessage");
+            debug_struct.field("code", &self.code);
+            debug_struct.field("message", &self.message);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -1835,7 +1903,7 @@ pub mod instance {
 }
 
 /// Maintenance policy per instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenancePolicy {
     /// Output only. The time when the policy was created.
@@ -2075,8 +2143,22 @@ impl serde::ser::Serialize for MaintenancePolicy {
     }
 }
 
+impl std::fmt::Debug for MaintenancePolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaintenancePolicy");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("weekly_maintenance_window", &self.weekly_maintenance_window);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Time window specified for weekly operations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WeeklyMaintenanceWindow {
     /// Required. Allows to define schedule that runs specified day of the week.
@@ -2276,8 +2358,21 @@ impl serde::ser::Serialize for WeeklyMaintenanceWindow {
     }
 }
 
+impl std::fmt::Debug for WeeklyMaintenanceWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WeeklyMaintenanceWindow");
+        debug_struct.field("day", &self.day);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("duration", &self.duration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Upcoming maintenance schedule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenanceSchedule {
     /// Output only. The start time of any upcoming scheduled maintenance for this instance.
@@ -2491,10 +2586,23 @@ impl serde::ser::Serialize for MaintenanceSchedule {
     }
 }
 
+impl std::fmt::Debug for MaintenanceSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaintenanceSchedule");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("schedule_deadline_time", &self.schedule_deadline_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [RescheduleMaintenance][google.cloud.memcache.v1.CloudMemcache.RescheduleMaintenance].
 ///
 /// [google.cloud.memcache.v1.CloudMemcache.RescheduleMaintenance]: crate::client::CloudMemcache::reschedule_maintenance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RescheduleMaintenanceRequest {
     /// Required. Memcache instance resource name using the form:
@@ -2695,6 +2803,19 @@ impl serde::ser::Serialize for RescheduleMaintenanceRequest {
     }
 }
 
+impl std::fmt::Debug for RescheduleMaintenanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RescheduleMaintenanceRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("reschedule_type", &self.reschedule_type);
+        debug_struct.field("schedule_time", &self.schedule_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RescheduleMaintenanceRequest].
 pub mod reschedule_maintenance_request {
     #[allow(unused_imports)]
@@ -2844,7 +2965,7 @@ pub mod reschedule_maintenance_request {
 /// Request for [ListInstances][google.cloud.memcache.v1.CloudMemcache.ListInstances].
 ///
 /// [google.cloud.memcache.v1.CloudMemcache.ListInstances]: crate::client::CloudMemcache::list_instances
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
     /// Required. The resource name of the instance location using the form:
@@ -3101,10 +3222,25 @@ impl serde::ser::Serialize for ListInstancesRequest {
     }
 }
 
+impl std::fmt::Debug for ListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for [ListInstances][google.cloud.memcache.v1.CloudMemcache.ListInstances].
 ///
 /// [google.cloud.memcache.v1.CloudMemcache.ListInstances]: crate::client::CloudMemcache::list_instances
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
     /// A list of Memcached instances in the project in the specified location,
@@ -3307,10 +3443,23 @@ impl serde::ser::Serialize for ListInstancesResponse {
     }
 }
 
+impl std::fmt::Debug for ListInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesResponse");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [GetInstance][google.cloud.memcache.v1.CloudMemcache.GetInstance].
 ///
 /// [google.cloud.memcache.v1.CloudMemcache.GetInstance]: crate::client::CloudMemcache::get_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
     /// Required. Memcached instance resource name in the format:
@@ -3441,10 +3590,21 @@ impl serde::ser::Serialize for GetInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for GetInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstanceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [CreateInstance][google.cloud.memcache.v1.CloudMemcache.CreateInstance].
 ///
 /// [google.cloud.memcache.v1.CloudMemcache.CreateInstance]: crate::client::CloudMemcache::create_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
     /// Required. The resource name of the instance location using the form:
@@ -3644,10 +3804,23 @@ impl serde::ser::Serialize for CreateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstanceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("instance", &self.instance);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [UpdateInstance][google.cloud.memcache.v1.CloudMemcache.UpdateInstance].
 ///
 /// [google.cloud.memcache.v1.CloudMemcache.UpdateInstance]: crate::client::CloudMemcache::update_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
     /// Required. Mask of fields to update.
@@ -3826,10 +3999,22 @@ impl serde::ser::Serialize for UpdateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstanceRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("instance", &self.instance);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [DeleteInstance][google.cloud.memcache.v1.CloudMemcache.DeleteInstance].
 ///
 /// [google.cloud.memcache.v1.CloudMemcache.DeleteInstance]: crate::client::CloudMemcache::delete_instance
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
     /// Required. Memcached instance resource name in the format:
@@ -3960,10 +4145,21 @@ impl serde::ser::Serialize for DeleteInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstanceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [ApplyParameters][google.cloud.memcache.v1.CloudMemcache.ApplyParameters].
 ///
 /// [google.cloud.memcache.v1.CloudMemcache.ApplyParameters]: crate::client::CloudMemcache::apply_parameters
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApplyParametersRequest {
     /// Required. Resource name of the Memcached instance for which parameter group updates
@@ -4148,10 +4344,23 @@ impl serde::ser::Serialize for ApplyParametersRequest {
     }
 }
 
+impl std::fmt::Debug for ApplyParametersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApplyParametersRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("node_ids", &self.node_ids);
+        debug_struct.field("apply_all", &self.apply_all);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for [UpdateParameters][google.cloud.memcache.v1.CloudMemcache.UpdateParameters].
 ///
 /// [google.cloud.memcache.v1.CloudMemcache.UpdateParameters]: crate::client::CloudMemcache::update_parameters
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateParametersRequest {
     /// Required. Resource name of the Memcached instance for which the parameters should be
@@ -4352,7 +4561,20 @@ impl serde::ser::Serialize for UpdateParametersRequest {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for UpdateParametersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateParametersRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("parameters", &self.parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MemcacheParameters {
     /// Output only. The unique ID associated with this set of parameters. Users
@@ -4520,8 +4742,20 @@ impl serde::ser::Serialize for MemcacheParameters {
     }
 }
 
+impl std::fmt::Debug for MemcacheParameters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MemcacheParameters");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("params", &self.params);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of a long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. Time when the operation was created.
@@ -4826,10 +5060,27 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_detail", &self.status_detail);
+        debug_struct.field("cancel_requested", &self.cancel_requested);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata for the given [google.cloud.location.Location][google.cloud.location.Location].
 ///
 /// [google.cloud.location.Location]: location::model::Location
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     /// Output only. The set of available zones in the location. The map is keyed
@@ -4972,7 +5223,18 @@ impl serde::ser::Serialize for LocationMetadata {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq)]
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+        debug_struct.field("available_zones", &self.available_zones);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ZoneMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5071,6 +5333,16 @@ impl serde::ser::Serialize for ZoneMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ZoneMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ZoneMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

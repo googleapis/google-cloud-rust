@@ -17,21 +17,41 @@ let x_goog_request_params = {
     use gaxi::routing_parameter::Segment;
     gaxi::routing_parameter::format(&[
         {{#Routing}}
+        None
         {{#Variants}}
-        {{^Codec.FirstVariant}}
-        .or_else(||
-        {{/Codec.FirstVariant}}
-        gaxi::routing_parameter::value(
+        .or_else(|| gaxi::routing_parameter::value(
             Some(&req){{#Codec.FieldAccessors}}{{{.}}}{{/Codec.FieldAccessors}},
             &[ {{#Codec.PrefixSegments}}{{{.}}}, {{/Codec.PrefixSegments}} ],
             &[ {{#Codec.MatchingSegments}}{{{.}}}, {{/Codec.MatchingSegments}} ],
             &[ {{#Codec.SuffixSegments}}{{{.}}}, {{/Codec.SuffixSegments}} ],
-        )
-        {{^Codec.FirstVariant}}
-        )
-        {{/Codec.FirstVariant}}
+        ))
         {{/Variants}}
         .map(|v| ("{{Name}}", v)),
         {{/Routing}}
     ])
 };
+{{#Codec.RoutingRequired}}
+if x_goog_request_params.is_empty() {
+    use gax::error::binding::BindingError;
+    use gaxi::routing_parameter::Segment;
+    use gaxi::path_parameter::PathMismatchBuilder;
+    let mut paths = Vec::new();
+    {{#Routing}}
+    {{#Variants}}
+    {
+        let builder = PathMismatchBuilder::default().maybe_add(
+            Some(&req){{#Codec.FieldAccessors}}{{{.}}}{{/Codec.FieldAccessors}},
+            &[
+                {{#Codec.PrefixSegments}}{{{.}}}, {{/Codec.PrefixSegments}}
+                {{#Codec.MatchingSegments}}{{{.}}}, {{/Codec.MatchingSegments}}
+                {{#Codec.SuffixSegments}}{{{.}}}, {{/Codec.SuffixSegments}}
+            ],
+            "{{FieldName}}",
+            "{{{TemplateAsString}}}");
+        paths.push(builder.build());
+    }
+    {{/Variants}}
+    {{/Routing}}
+    return Err(gax::error::Error::binding(BindingError { paths }))
+}
+{{/Codec.RoutingRequired}}

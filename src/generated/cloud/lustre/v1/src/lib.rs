@@ -31,6 +31,8 @@
 //!
 //! * [Lustre](client/struct.Lustre.html)
 
+#![allow(deprecated)]
+
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
 pub mod model;

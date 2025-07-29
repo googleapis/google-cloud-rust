@@ -32,7 +32,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Mapping of BigQuery columns to timestamp, group_id and dimensions.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigqueryMapping {
     /// The column which should be used as the event timestamps. If not specified
@@ -226,12 +226,25 @@ impl serde::ser::Serialize for BigqueryMapping {
     }
 }
 
+impl std::fmt::Debug for BigqueryMapping {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigqueryMapping");
+        debug_struct.field("timestamp_column", &self.timestamp_column);
+        debug_struct.field("group_id_column", &self.group_id_column);
+        debug_struct.field("dimension_column", &self.dimension_column);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A data source consists of multiple [Event][google.cloud.timeseriesinsights.v1.Event] objects stored on
 /// Cloud Storage.  Each Event should be in JSON format, with one Event
 /// per line, also known as JSON Lines format.
 ///
 /// [google.cloud.timeseriesinsights.v1.Event]: crate::model::Event
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataSource {
     /// Data source URI.
@@ -402,8 +415,20 @@ impl serde::ser::Serialize for DataSource {
     }
 }
 
+impl std::fmt::Debug for DataSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataSource");
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("bq_mapping", &self.bq_mapping);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A collection of data sources sent for processing.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataSet {
     /// The dataset name, which will be used for querying, status and unload
@@ -691,6 +716,22 @@ impl serde::ser::Serialize for DataSet {
     }
 }
 
+impl std::fmt::Debug for DataSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataSet");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("data_names", &self.data_names);
+        debug_struct.field("data_sources", &self.data_sources);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("ttl", &self.ttl);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataSet].
 pub mod data_set {
     #[allow(unused_imports)]
@@ -866,7 +907,7 @@ pub mod data_set {
 }
 
 /// Represents an event dimension.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventDimension {
     /// Dimension name.
@@ -1241,6 +1282,18 @@ impl serde::ser::Serialize for EventDimension {
     }
 }
 
+impl std::fmt::Debug for EventDimension {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventDimension");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EventDimension].
 pub mod event_dimension {
     #[allow(unused_imports)]
@@ -1290,7 +1343,7 @@ pub mod event_dimension {
 ///   interest to be queried, use a user ID `dimension` instead.
 ///
 /// [google.cloud.timeseriesinsights.v1.TimeseriesPoint.value]: crate::model::TimeseriesPoint::value
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Event {
     /// Event dimensions.
@@ -1508,8 +1561,21 @@ impl serde::ser::Serialize for Event {
     }
 }
 
+impl std::fmt::Debug for Event {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Event");
+        debug_struct.field("dimensions", &self.dimensions);
+        debug_struct.field("group_id", &self.group_id);
+        debug_struct.field("event_time", &self.event_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Appends events to an existing DataSet.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppendEventsRequest {
     /// Events to be appended.
@@ -1685,8 +1751,20 @@ impl serde::ser::Serialize for AppendEventsRequest {
     }
 }
 
+impl std::fmt::Debug for AppendEventsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppendEventsRequest");
+        debug_struct.field("events", &self.events);
+        debug_struct.field("dataset", &self.dataset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for an AppendEvents RPC.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppendEventsResponse {
     /// Dropped events; empty if all events are successfully added.
@@ -1819,8 +1897,19 @@ impl serde::ser::Serialize for AppendEventsResponse {
     }
 }
 
+impl std::fmt::Debug for AppendEventsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppendEventsResponse");
+        debug_struct.field("dropped_events", &self.dropped_events);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Create a DataSet request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDataSetRequest {
     /// Required. Client project name which will own this DataSet in the format of
@@ -1985,8 +2074,20 @@ impl serde::ser::Serialize for CreateDataSetRequest {
     }
 }
 
+impl std::fmt::Debug for CreateDataSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDataSetRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("dataset", &self.dataset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Unload DataSet request from the serving system.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDataSetRequest {
     /// Required. Dataset name in the format of "projects/{project}/datasets/{dataset}"
@@ -2115,8 +2216,19 @@ impl serde::ser::Serialize for DeleteDataSetRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteDataSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDataSetRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List the DataSets created by the current project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataSetsRequest {
     /// Required. Project owning the DataSet in the format of "projects/{project}".
@@ -2313,8 +2425,21 @@ impl serde::ser::Serialize for ListDataSetsRequest {
     }
 }
 
+impl std::fmt::Debug for ListDataSetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataSetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Created DataSets list response.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataSetsResponse {
     /// The list of created DataSets.
@@ -2485,8 +2610,20 @@ impl serde::ser::Serialize for ListDataSetsResponse {
     }
 }
 
+impl std::fmt::Debug for ListDataSetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataSetsResponse");
+        debug_struct.field("datasets", &self.datasets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A categorical dimension fixed to a certain value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PinnedDimension {
     /// The name of the dimension for which we are fixing its value.
@@ -2727,6 +2864,18 @@ impl serde::ser::Serialize for PinnedDimension {
     }
 }
 
+impl std::fmt::Debug for PinnedDimension {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PinnedDimension");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PinnedDimension].
 pub mod pinned_dimension {
     #[allow(unused_imports)]
@@ -2756,7 +2905,7 @@ pub mod pinned_dimension {
 
 /// Parameters that control the sensitivity and other options for the time series
 /// forecast.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ForecastParams {
     /// Optional. Penalize variations between the actual and forecasted values smaller than
@@ -3021,6 +3170,19 @@ impl serde::ser::Serialize for ForecastParams {
     }
 }
 
+impl std::fmt::Debug for ForecastParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ForecastParams");
+        debug_struct.field("noise_threshold", &self.noise_threshold);
+        debug_struct.field("seasonality_hint", &self.seasonality_hint);
+        debug_struct.field("horizon_duration", &self.horizon_duration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ForecastParams].
 pub mod forecast_params {
     #[allow(unused_imports)]
@@ -3181,7 +3343,7 @@ pub mod forecast_params {
 }
 
 /// A point in a time series.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeseriesPoint {
     /// The timestamp of this point.
@@ -3385,8 +3547,20 @@ impl serde::ser::Serialize for TimeseriesPoint {
     }
 }
 
+impl std::fmt::Debug for TimeseriesPoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeseriesPoint");
+        debug_struct.field("time", &self.time);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A time series.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Timeseries {
     /// The points in this time series, ordered by their timestamp.
@@ -3522,8 +3696,19 @@ impl serde::ser::Serialize for Timeseries {
     }
 }
 
+impl std::fmt::Debug for Timeseries {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Timeseries");
+        debug_struct.field("point", &self.point);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Forecast result for a given slice.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvaluatedSlice {
     /// Values for all categorical dimensions that uniquely identify this slice.
@@ -4085,9 +4270,27 @@ impl serde::ser::Serialize for EvaluatedSlice {
     }
 }
 
+impl std::fmt::Debug for EvaluatedSlice {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluatedSlice");
+        debug_struct.field("dimensions", &self.dimensions);
+        debug_struct.field("detection_point_actual", &self.detection_point_actual);
+        debug_struct.field("detection_point_forecast", &self.detection_point_forecast);
+        debug_struct.field("expected_deviation", &self.expected_deviation);
+        debug_struct.field("anomaly_score", &self.anomaly_score);
+        debug_struct.field("history", &self.history);
+        debug_struct.field("forecast", &self.forecast);
+        debug_struct.field("status", &self.status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parameters that control how we slice the dataset and, optionally, filter
 /// slices that have some specific values on some dimensions (pinned dimensions).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SlicingParams {
     /// Required. Dimensions over which we will group the events in slices. The names
@@ -4300,8 +4503,20 @@ impl serde::ser::Serialize for SlicingParams {
     }
 }
 
+impl std::fmt::Debug for SlicingParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SlicingParams");
+        debug_struct.field("dimension_names", &self.dimension_names);
+        debug_struct.field("pinned_dimensions", &self.pinned_dimensions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Parameters that control how we construct the time series for each slice.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeseriesParams {
     /// Required. How long should we go in the past when fetching the timeline used for
@@ -4664,6 +4879,20 @@ impl serde::ser::Serialize for TimeseriesParams {
     }
 }
 
+impl std::fmt::Debug for TimeseriesParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeseriesParams");
+        debug_struct.field("forecast_history", &self.forecast_history);
+        debug_struct.field("granularity", &self.granularity);
+        debug_struct.field("metric", &self.metric);
+        debug_struct.field("metric_aggregation_method", &self.metric_aggregation_method);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TimeseriesParams].
 pub mod timeseries_params {
     #[allow(unused_imports)]
@@ -4812,7 +5041,7 @@ pub mod timeseries_params {
 }
 
 /// Request for performing a query against a loaded DataSet.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryDataSetRequest {
     /// Required. Loaded DataSet to be queried in the format of
@@ -5208,8 +5437,25 @@ impl serde::ser::Serialize for QueryDataSetRequest {
     }
 }
 
+impl std::fmt::Debug for QueryDataSetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryDataSetRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("detection_time", &self.detection_time);
+        debug_struct.field("num_returned_slices", &self.num_returned_slices);
+        debug_struct.field("slicing_params", &self.slicing_params);
+        debug_struct.field("timeseries_params", &self.timeseries_params);
+        debug_struct.field("forecast_params", &self.forecast_params);
+        debug_struct.field("return_timeseries", &self.return_timeseries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for a query executed by the system.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryDataSetResponse {
     /// Loaded DataSet that was queried.
@@ -5376,8 +5622,20 @@ impl serde::ser::Serialize for QueryDataSetResponse {
     }
 }
 
+impl std::fmt::Debug for QueryDataSetResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryDataSetResponse");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("slices", &self.slices);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for evaluateSlice.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvaluateSliceRequest {
     /// Required. Loaded DataSet to be queried in the format of
@@ -5659,8 +5917,23 @@ impl serde::ser::Serialize for EvaluateSliceRequest {
     }
 }
 
+impl std::fmt::Debug for EvaluateSliceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluateSliceRequest");
+        debug_struct.field("dataset", &self.dataset);
+        debug_struct.field("pinned_dimensions", &self.pinned_dimensions);
+        debug_struct.field("detection_time", &self.detection_time);
+        debug_struct.field("timeseries_params", &self.timeseries_params);
+        debug_struct.field("forecast_params", &self.forecast_params);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for evaluateTimeseries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EvaluateTimeseriesRequest {
     /// Required. Client project name in the format of 'projects/{project}'.
@@ -5914,5 +6187,19 @@ impl serde::ser::Serialize for EvaluateTimeseriesRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for EvaluateTimeseriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluateTimeseriesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("timeseries", &self.timeseries);
+        debug_struct.field("granularity", &self.granularity);
+        debug_struct.field("forecast_params", &self.forecast_params);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

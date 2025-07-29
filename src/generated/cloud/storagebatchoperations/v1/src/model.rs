@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Message for request to list Jobs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsRequest {
     /// Required. Format: projects/{project_id}/locations/global.
@@ -281,8 +281,23 @@ impl serde::ser::Serialize for ListJobsRequest {
     }
 }
 
+impl std::fmt::Debug for ListJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to listing Jobs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsResponse {
     /// A list of storage batch jobs.
@@ -480,8 +495,21 @@ impl serde::ser::Serialize for ListJobsResponse {
     }
 }
 
+impl std::fmt::Debug for ListJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListJobsResponse");
+        debug_struct.field("jobs", &self.jobs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for getting a Job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobRequest {
     /// Required. `name` of the job to retrieve.
@@ -611,8 +639,19 @@ impl serde::ser::Serialize for GetJobRequest {
     }
 }
 
+impl std::fmt::Debug for GetJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetJobRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for creating a Job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateJobRequest {
     /// Required. Value for parent.
@@ -833,8 +872,22 @@ impl serde::ser::Serialize for CreateJobRequest {
     }
 }
 
+impl std::fmt::Debug for CreateJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateJobRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("job_id", &self.job_id);
+        debug_struct.field("job", &self.job);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for Job to Cancel
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelJobRequest {
     /// Required. The `name` of the job to cancel.
@@ -993,8 +1046,20 @@ impl serde::ser::Serialize for CancelJobRequest {
     }
 }
 
+impl std::fmt::Debug for CancelJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelJobRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for deleting a Job
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobRequest {
     /// Required. The `name` of the job to delete.
@@ -1153,8 +1218,20 @@ impl serde::ser::Serialize for DeleteJobRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteJobRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Message for response to cancel Job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelJobResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1256,8 +1333,18 @@ impl serde::ser::Serialize for CancelJobResponse {
     }
 }
 
+impl std::fmt::Debug for CancelJobResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelJobResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The unique operation resource name.
@@ -1554,8 +1641,24 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        debug_struct.field("job", &self.job);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The Storage Batch Operations Job description.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Job {
     /// Identifier. The resource name of the Job. job_id is unique
@@ -2239,6 +2342,27 @@ impl serde::ser::Serialize for Job {
     }
 }
 
+impl std::fmt::Debug for Job {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Job");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("schedule_time", &self.schedule_time);
+        debug_struct.field("complete_time", &self.complete_time);
+        debug_struct.field("counters", &self.counters);
+        debug_struct.field("error_summaries", &self.error_summaries);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("transformation", &self.transformation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Job].
 pub mod job {
     #[allow(unused_imports)]
@@ -2416,7 +2540,7 @@ pub mod job {
 }
 
 /// Describes list of buckets and their objects to be transformed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BucketList {
     /// Required. List of buckets and their objects to be transformed. Currently,
@@ -2554,6 +2678,17 @@ impl serde::ser::Serialize for BucketList {
     }
 }
 
+impl std::fmt::Debug for BucketList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BucketList");
+        debug_struct.field("buckets", &self.buckets);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BucketList].
 pub mod bucket_list {
     #[allow(unused_imports)]
@@ -2561,7 +2696,7 @@ pub mod bucket_list {
 
     /// Describes configuration of a single bucket and its objects to be
     /// transformed.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Bucket {
         /// Required. Bucket name for the objects to be transformed.
@@ -2816,6 +2951,18 @@ pub mod bucket_list {
         }
     }
 
+    impl std::fmt::Debug for Bucket {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Bucket");
+            debug_struct.field("bucket", &self.bucket);
+            debug_struct.field("object_configuration", &self.object_configuration);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Bucket].
     pub mod bucket {
         #[allow(unused_imports)]
@@ -2834,7 +2981,7 @@ pub mod bucket_list {
 }
 
 /// Describes list of objects to be transformed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Manifest {
     /// Required. `manifest_location` must contain the manifest source file that is
@@ -2979,8 +3126,19 @@ impl serde::ser::Serialize for Manifest {
     }
 }
 
+impl std::fmt::Debug for Manifest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Manifest");
+        debug_struct.field("manifest_location", &self.manifest_location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes prefixes of objects to be transformed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrefixList {
     /// Optional. Include prefixes of the objects to be transformed.
@@ -3120,8 +3278,19 @@ impl serde::ser::Serialize for PrefixList {
     }
 }
 
+impl std::fmt::Debug for PrefixList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PrefixList");
+        debug_struct.field("included_object_prefixes", &self.included_object_prefixes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes options to update object hold.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PutObjectHold {
     /// Required. Updates object temporary holds state. When object temporary hold
@@ -3283,6 +3452,18 @@ impl serde::ser::Serialize for PutObjectHold {
     }
 }
 
+impl std::fmt::Debug for PutObjectHold {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PutObjectHold");
+        debug_struct.field("temporary_hold", &self.temporary_hold);
+        debug_struct.field("event_based_hold", &self.event_based_hold);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [PutObjectHold].
 pub mod put_object_hold {
     #[allow(unused_imports)]
@@ -3422,7 +3603,7 @@ pub mod put_object_hold {
 }
 
 /// Describes options to delete an object.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteObject {
     /// Required. Controls deletion behavior when versioning is enabled for the
@@ -3570,8 +3751,22 @@ impl serde::ser::Serialize for DeleteObject {
     }
 }
 
+impl std::fmt::Debug for DeleteObject {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteObject");
+        debug_struct.field(
+            "permanent_object_deletion_enabled",
+            &self.permanent_object_deletion_enabled,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes options for object rewrite.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RewriteObject {
     /// Required. Resource name of the Cloud KMS key that will be used to encrypt
@@ -3720,8 +3915,19 @@ impl serde::ser::Serialize for RewriteObject {
     }
 }
 
+impl std::fmt::Debug for RewriteObject {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RewriteObject");
+        debug_struct.field("kms_key", &self.kms_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes options for object metadata update.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PutMetadata {
     /// Optional. Updates objects Content-Disposition fixed metadata. Unset values
@@ -4102,9 +4308,26 @@ impl serde::ser::Serialize for PutMetadata {
     }
 }
 
+impl std::fmt::Debug for PutMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PutMetadata");
+        debug_struct.field("content_disposition", &self.content_disposition);
+        debug_struct.field("content_encoding", &self.content_encoding);
+        debug_struct.field("content_language", &self.content_language);
+        debug_struct.field("content_type", &self.content_type);
+        debug_struct.field("cache_control", &self.cache_control);
+        debug_struct.field("custom_time", &self.custom_time);
+        debug_struct.field("custom_metadata", &self.custom_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A summary of errors by error code, plus a count and sample error log
 /// entries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorSummary {
     /// Required. The canonical error code.
@@ -4305,8 +4528,21 @@ impl serde::ser::Serialize for ErrorSummary {
     }
 }
 
+impl std::fmt::Debug for ErrorSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorSummary");
+        debug_struct.field("error_code", &self.error_code);
+        debug_struct.field("error_count", &self.error_count);
+        debug_struct.field("error_log_entries", &self.error_log_entries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An entry describing an error that has occurred.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorLogEntry {
     /// Required. Output only. Object URL. e.g. gs://my_bucket/object.txt
@@ -4465,8 +4701,20 @@ impl serde::ser::Serialize for ErrorLogEntry {
     }
 }
 
+impl std::fmt::Debug for ErrorLogEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorLogEntry");
+        debug_struct.field("object_uri", &self.object_uri);
+        debug_struct.field("error_details", &self.error_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes details about the progress of the job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Counters {
     /// Output only. Number of objects listed.
@@ -4706,8 +4954,21 @@ impl serde::ser::Serialize for Counters {
     }
 }
 
+impl std::fmt::Debug for Counters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Counters");
+        debug_struct.field("total_object_count", &self.total_object_count);
+        debug_struct.field("succeeded_object_count", &self.succeeded_object_count);
+        debug_struct.field("failed_object_count", &self.failed_object_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the Cloud Logging behavior.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingConfig {
     /// Required. Specifies the actions to be logged.
@@ -4876,6 +5137,18 @@ impl serde::ser::Serialize for LoggingConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LoggingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoggingConfig");
+        debug_struct.field("log_actions", &self.log_actions);
+        debug_struct.field("log_action_states", &self.log_action_states);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

@@ -34,7 +34,7 @@ extern crate wkt;
 /// A [policy][google.cloud.binaryauthorization.v1.Policy] for container image binary authorization.
 ///
 /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
     /// Output only. The resource name, in the format `projects/*/policy`. There is
@@ -531,6 +531,41 @@ impl serde::ser::Serialize for Policy {
     }
 }
 
+impl std::fmt::Debug for Policy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Policy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field(
+            "global_policy_evaluation_mode",
+            &self.global_policy_evaluation_mode,
+        );
+        debug_struct.field(
+            "admission_whitelist_patterns",
+            &self.admission_whitelist_patterns,
+        );
+        debug_struct.field("cluster_admission_rules", &self.cluster_admission_rules);
+        debug_struct.field(
+            "kubernetes_namespace_admission_rules",
+            &self.kubernetes_namespace_admission_rules,
+        );
+        debug_struct.field(
+            "kubernetes_service_account_admission_rules",
+            &self.kubernetes_service_account_admission_rules,
+        );
+        debug_struct.field(
+            "istio_service_identity_admission_rules",
+            &self.istio_service_identity_admission_rules,
+        );
+        debug_struct.field("default_admission_rule", &self.default_admission_rule);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Policy].
 pub mod policy {
     #[allow(unused_imports)]
@@ -677,7 +712,7 @@ pub mod policy {
 ///
 /// [google.cloud.binaryauthorization.v1.AdmissionRule]: crate::model::AdmissionRule
 /// [google.cloud.binaryauthorization.v1.AdmissionWhitelistPattern]: crate::model::AdmissionWhitelistPattern
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdmissionWhitelistPattern {
     /// An image name pattern to allowlist, in the form `registry/path/to/image`.
@@ -810,6 +845,17 @@ impl serde::ser::Serialize for AdmissionWhitelistPattern {
     }
 }
 
+impl std::fmt::Debug for AdmissionWhitelistPattern {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdmissionWhitelistPattern");
+        debug_struct.field("name_pattern", &self.name_pattern);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An [admission rule][google.cloud.binaryauthorization.v1.AdmissionRule] specifies either that all container images
 /// used in a pod creation request must be attested to by one or more
 /// [attestors][google.cloud.binaryauthorization.v1.Attestor], that all pod creations will be allowed, or that all
@@ -821,7 +867,7 @@ impl serde::ser::Serialize for AdmissionWhitelistPattern {
 /// [google.cloud.binaryauthorization.v1.AdmissionRule]: crate::model::AdmissionRule
 /// [google.cloud.binaryauthorization.v1.AdmissionWhitelistPattern]: crate::model::AdmissionWhitelistPattern
 /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdmissionRule {
     /// Required. How this admission rule will be evaluated.
@@ -1022,6 +1068,19 @@ impl serde::ser::Serialize for AdmissionRule {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AdmissionRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdmissionRule");
+        debug_struct.field("evaluation_mode", &self.evaluation_mode);
+        debug_struct.field("require_attestations_by", &self.require_attestations_by);
+        debug_struct.field("enforcement_mode", &self.enforcement_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -1312,7 +1371,7 @@ pub mod admission_rule {
 /// indicated.
 ///
 /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Attestor {
     /// Required. The resource name, in the format:
@@ -1577,6 +1636,20 @@ impl serde::ser::Serialize for Attestor {
     }
 }
 
+impl std::fmt::Debug for Attestor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Attestor");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("attestor_type", &self.attestor_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Attestor].
 pub mod attestor {
     #[allow(unused_imports)]
@@ -1595,7 +1668,7 @@ pub mod attestor {
 /// Attestation.Authority Note created by the user.
 ///
 /// [google.cloud.binaryauthorization.v1.UserOwnedGrafeasNote]: crate::model::UserOwnedGrafeasNote
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserOwnedGrafeasNote {
     /// Required. The Grafeas resource name of a Attestation.Authority Note,
@@ -1814,11 +1887,27 @@ impl serde::ser::Serialize for UserOwnedGrafeasNote {
     }
 }
 
+impl std::fmt::Debug for UserOwnedGrafeasNote {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserOwnedGrafeasNote");
+        debug_struct.field("note_reference", &self.note_reference);
+        debug_struct.field("public_keys", &self.public_keys);
+        debug_struct.field(
+            "delegation_service_account_email",
+            &self.delegation_service_account_email,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A public key in the PkixPublicKey format (see
 /// <https://tools.ietf.org/html/rfc5280#section-4.1.2.7> for details).
 /// Public keys of this type are typically textually encoded using the PEM
 /// format.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PkixPublicKey {
     /// A PEM-encoded public key, as described in
@@ -1982,6 +2071,18 @@ impl serde::ser::Serialize for PkixPublicKey {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for PkixPublicKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PkixPublicKey");
+        debug_struct.field("public_key_pem", &self.public_key_pem);
+        debug_struct.field("signature_algorithm", &self.signature_algorithm);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -2221,7 +2322,7 @@ pub mod pkix_public_key {
 /// attestations signed by this attestor.
 ///
 /// [google.cloud.binaryauthorization.v1.AttestorPublicKey]: crate::model::AttestorPublicKey
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttestorPublicKey {
     /// Optional. A descriptive comment. This field may be updated.
@@ -2509,6 +2610,19 @@ impl serde::ser::Serialize for AttestorPublicKey {
     }
 }
 
+impl std::fmt::Debug for AttestorPublicKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttestorPublicKey");
+        debug_struct.field("comment", &self.comment);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("public_key", &self.public_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AttestorPublicKey].
 pub mod attestor_public_key {
     #[allow(unused_imports)]
@@ -2537,7 +2651,7 @@ pub mod attestor_public_key {
 }
 
 /// Request message for [BinauthzManagementService.GetPolicy][].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPolicyRequest {
     /// Required. The resource name of the [policy][google.cloud.binaryauthorization.v1.Policy] to retrieve,
@@ -2669,8 +2783,19 @@ impl serde::ser::Serialize for GetPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for [BinauthzManagementService.UpdatePolicy][].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePolicyRequest {
     /// Required. A new or updated [policy][google.cloud.binaryauthorization.v1.Policy] value. The service will
@@ -2815,8 +2940,19 @@ impl serde::ser::Serialize for UpdatePolicyRequest {
     }
 }
 
+impl std::fmt::Debug for UpdatePolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePolicyRequest");
+        debug_struct.field("policy", &self.policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for [BinauthzManagementService.CreateAttestor][].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAttestorRequest {
     /// Required. The parent of this [attestor][google.cloud.binaryauthorization.v1.Attestor].
@@ -3014,8 +3150,21 @@ impl serde::ser::Serialize for CreateAttestorRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAttestorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAttestorRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("attestor_id", &self.attestor_id);
+        debug_struct.field("attestor", &self.attestor);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for [BinauthzManagementService.GetAttestor][].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAttestorRequest {
     /// Required. The name of the [attestor][google.cloud.binaryauthorization.v1.Attestor] to retrieve, in the format
@@ -3147,8 +3296,19 @@ impl serde::ser::Serialize for GetAttestorRequest {
     }
 }
 
+impl std::fmt::Debug for GetAttestorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAttestorRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for [BinauthzManagementService.UpdateAttestor][].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAttestorRequest {
     /// Required. The updated [attestor][google.cloud.binaryauthorization.v1.Attestor] value. The service will
@@ -3293,8 +3453,19 @@ impl serde::ser::Serialize for UpdateAttestorRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAttestorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAttestorRequest");
+        debug_struct.field("attestor", &self.attestor);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for [BinauthzManagementService.ListAttestors][].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttestorsRequest {
     /// Required. The resource name of the project associated with the
@@ -3499,8 +3670,21 @@ impl serde::ser::Serialize for ListAttestorsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAttestorsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAttestorsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for [BinauthzManagementService.ListAttestors][].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttestorsResponse {
     /// The list of [attestors][google.cloud.binaryauthorization.v1.Attestor].
@@ -3677,8 +3861,20 @@ impl serde::ser::Serialize for ListAttestorsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAttestorsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAttestorsResponse");
+        debug_struct.field("attestors", &self.attestors);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for [BinauthzManagementService.DeleteAttestor][].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAttestorRequest {
     /// Required. The name of the [attestors][google.cloud.binaryauthorization.v1.Attestor] to delete, in the format
@@ -3810,8 +4006,19 @@ impl serde::ser::Serialize for DeleteAttestorRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAttestorRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAttestorRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request to read the current system policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSystemPolicyRequest {
     /// Required. The resource name, in the format `locations/*/policy`.
@@ -3941,11 +4148,22 @@ impl serde::ser::Serialize for GetSystemPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for GetSystemPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSystemPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ValidationHelperV1.ValidateAttestationOccurrence][google.cloud.binaryauthorization.v1.ValidationHelperV1.ValidateAttestationOccurrence].
 ///
 /// [google.cloud.binaryauthorization.v1.ValidationHelperV1.ValidateAttestationOccurrence]: crate::client::ValidationHelperV1::validate_attestation_occurrence
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateAttestationOccurrenceRequest {
     /// Required. The resource name of the [Attestor][google.cloud.binaryauthorization.v1.Attestor] of the
@@ -4173,11 +4391,25 @@ impl serde::ser::Serialize for ValidateAttestationOccurrenceRequest {
     }
 }
 
+impl std::fmt::Debug for ValidateAttestationOccurrenceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValidateAttestationOccurrenceRequest");
+        debug_struct.field("attestor", &self.attestor);
+        debug_struct.field("attestation", &self.attestation);
+        debug_struct.field("occurrence_note", &self.occurrence_note);
+        debug_struct.field("occurrence_resource_uri", &self.occurrence_resource_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ValidationHelperV1.ValidateAttestationOccurrence][google.cloud.binaryauthorization.v1.ValidationHelperV1.ValidateAttestationOccurrence].
 ///
 /// [google.cloud.binaryauthorization.v1.ValidationHelperV1.ValidateAttestationOccurrence]: crate::client::ValidationHelperV1::validate_attestation_occurrence
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateAttestationOccurrenceResponse {
     /// The result of the Attestation validation.
@@ -4336,6 +4568,18 @@ impl serde::ser::Serialize for ValidateAttestationOccurrenceResponse {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ValidateAttestationOccurrenceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValidateAttestationOccurrenceResponse");
+        debug_struct.field("result", &self.result);
+        debug_struct.field("denial_reason", &self.denial_reason);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

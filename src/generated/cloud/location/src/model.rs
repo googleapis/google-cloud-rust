@@ -33,7 +33,7 @@ extern crate wkt;
 /// The request message for [Locations.ListLocations][google.cloud.location.Locations.ListLocations].
 ///
 /// [google.cloud.location.Locations.ListLocations]: crate::client::Locations::list_locations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLocationsRequest {
     /// The resource that owns the locations collection, if applicable.
@@ -254,10 +254,24 @@ impl serde::ser::Serialize for ListLocationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListLocationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLocationsRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The response message for [Locations.ListLocations][google.cloud.location.Locations.ListLocations].
 ///
 /// [google.cloud.location.Locations.ListLocations]: crate::client::Locations::list_locations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLocationsResponse {
     /// A list of locations that matches the specified filter in the request.
@@ -428,10 +442,22 @@ impl serde::ser::Serialize for ListLocationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListLocationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLocationsResponse");
+        debug_struct.field("locations", &self.locations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request message for [Locations.GetLocation][google.cloud.location.Locations.GetLocation].
 ///
 /// [google.cloud.location.Locations.GetLocation]: crate::client::Locations::get_location
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLocationRequest {
     /// Resource name for the location.
@@ -560,8 +586,19 @@ impl serde::ser::Serialize for GetLocationRequest {
     }
 }
 
+impl std::fmt::Debug for GetLocationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLocationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A resource that represents Google Cloud Platform location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Location {
     /// Resource name for the location, which may vary between implementations.
@@ -813,5 +850,20 @@ impl serde::ser::Serialize for Location {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Location {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Location");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("location_id", &self.location_id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("metadata", &self.metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

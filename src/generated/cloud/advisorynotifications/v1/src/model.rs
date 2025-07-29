@@ -32,7 +32,7 @@ extern crate wkt;
 
 /// A notification object for notifying customers about security and privacy
 /// issues.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Notification {
     /// The resource name of the notification.
@@ -291,8 +291,23 @@ impl serde::ser::Serialize for Notification {
     }
 }
 
+impl std::fmt::Debug for Notification {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Notification");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("subject", &self.subject);
+        debug_struct.field("messages", &self.messages);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("notification_type", &self.notification_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A text object containing the English text and its localized copies.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Text {
     /// The English copy.
@@ -476,8 +491,21 @@ impl serde::ser::Serialize for Text {
     }
 }
 
+impl std::fmt::Debug for Text {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Text");
+        debug_struct.field("en_text", &self.en_text);
+        debug_struct.field("localized_text", &self.localized_text);
+        debug_struct.field("localization_state", &self.localization_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A subject line of a notification.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subject {
     /// The text content.
@@ -617,8 +645,19 @@ impl serde::ser::Serialize for Subject {
     }
 }
 
+impl std::fmt::Debug for Subject {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Subject");
+        debug_struct.field("text", &self.text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A message which contains notification details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Message {
     /// The message content.
@@ -857,13 +896,27 @@ impl serde::ser::Serialize for Message {
     }
 }
 
+impl std::fmt::Debug for Message {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Message");
+        debug_struct.field("body", &self.body);
+        debug_struct.field("attachments", &self.attachments);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("localization_time", &self.localization_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Message].
 pub mod message {
     #[allow(unused_imports)]
     use super::*;
 
     /// A message body containing text.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Body {
         /// The text content of the message body.
@@ -1005,10 +1058,21 @@ pub mod message {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Body {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Body");
+            debug_struct.field("text", &self.text);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Attachment with specific information about the issue.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Attachment {
     /// The title of the attachment.
@@ -1199,6 +1263,18 @@ impl serde::ser::Serialize for Attachment {
     }
 }
 
+impl std::fmt::Debug for Attachment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Attachment");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("data", &self.data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Attachment].
 pub mod attachment {
     #[allow(unused_imports)]
@@ -1215,7 +1291,7 @@ pub mod attachment {
 
 /// A representation of a CSV file attachment, as a list of column headers and
 /// a list of data rows.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Csv {
     /// The list of headers for data columns in a CSV file.
@@ -1376,13 +1452,25 @@ impl serde::ser::Serialize for Csv {
     }
 }
 
+impl std::fmt::Debug for Csv {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Csv");
+        debug_struct.field("headers", &self.headers);
+        debug_struct.field("data_rows", &self.data_rows);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Csv].
 pub mod csv {
     #[allow(unused_imports)]
     use super::*;
 
     /// A representation of a single data row in a CSV file.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CsvRow {
         /// The data entries in a CSV file row, as a string array rather than a
@@ -1517,10 +1605,21 @@ pub mod csv {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for CsvRow {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CsvRow");
+            debug_struct.field("entries", &self.entries);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request for fetching all notifications for a given parent.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationsRequest {
     /// Required. The parent, which owns this collection of notifications.
@@ -1779,8 +1878,23 @@ impl serde::ser::Serialize for ListNotificationsRequest {
     }
 }
 
+impl std::fmt::Debug for ListNotificationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNotificationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("view", &self.view);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of ListNotifications endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationsResponse {
     /// List of notifications under a given parent.
@@ -1995,8 +2109,21 @@ impl serde::ser::Serialize for ListNotificationsResponse {
     }
 }
 
+impl std::fmt::Debug for ListNotificationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNotificationsResponse");
+        debug_struct.field("notifications", &self.notifications);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for fetching a notification.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNotificationRequest {
     /// Required. A name of the notification to retrieve.
@@ -2157,8 +2284,20 @@ impl serde::ser::Serialize for GetNotificationRequest {
     }
 }
 
+impl std::fmt::Debug for GetNotificationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNotificationRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings for Advisory Notifications.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Settings {
     /// Identifier. The resource name of the settings to retrieve.
@@ -2356,8 +2495,21 @@ impl serde::ser::Serialize for Settings {
     }
 }
 
+impl std::fmt::Debug for Settings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Settings");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("notification_settings", &self.notification_settings);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Settings for each NotificationType.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotificationSettings {
     /// Whether the associated NotificationType is enabled.
@@ -2486,8 +2638,19 @@ impl serde::ser::Serialize for NotificationSettings {
     }
 }
 
+impl std::fmt::Debug for NotificationSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NotificationSettings");
+        debug_struct.field("enabled", &self.enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request of GetSettings endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSettingsRequest {
     /// Required. The resource name of the settings to retrieve.
@@ -2619,8 +2782,19 @@ impl serde::ser::Serialize for GetSettingsRequest {
     }
 }
 
+impl std::fmt::Debug for GetSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSettingsRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request of UpdateSettings endpoint.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSettingsRequest {
     /// Required. New settings.
@@ -2757,6 +2931,17 @@ impl serde::ser::Serialize for UpdateSettingsRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for UpdateSettingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSettingsRequest");
+        debug_struct.field("settings", &self.settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

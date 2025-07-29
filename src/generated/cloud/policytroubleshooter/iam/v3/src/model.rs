@@ -38,7 +38,7 @@ extern crate wkt;
 /// [TroubleshootIamPolicy][google.cloud.policytroubleshooter.iam.v3.PolicyTroubleshooter.TroubleshootIamPolicy].
 ///
 /// [google.cloud.policytroubleshooter.iam.v3.PolicyTroubleshooter.TroubleshootIamPolicy]: crate::client::PolicyTroubleshooter::troubleshoot_iam_policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TroubleshootIamPolicyRequest {
     /// The information to use for checking whether a principal has a permission
@@ -180,11 +180,22 @@ impl serde::ser::Serialize for TroubleshootIamPolicyRequest {
     }
 }
 
+impl std::fmt::Debug for TroubleshootIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TroubleshootIamPolicyRequest");
+        debug_struct.field("access_tuple", &self.access_tuple);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for
 /// [TroubleshootIamPolicy][google.cloud.policytroubleshooter.iam.v3.PolicyTroubleshooter.TroubleshootIamPolicy].
 ///
 /// [google.cloud.policytroubleshooter.iam.v3.PolicyTroubleshooter.TroubleshootIamPolicy]: crate::client::PolicyTroubleshooter::troubleshoot_iam_policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TroubleshootIamPolicyResponse {
     /// Indicates whether the principal has the specified permission for the
@@ -432,6 +443,20 @@ impl serde::ser::Serialize for TroubleshootIamPolicyResponse {
     }
 }
 
+impl std::fmt::Debug for TroubleshootIamPolicyResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TroubleshootIamPolicyResponse");
+        debug_struct.field("overall_access_state", &self.overall_access_state);
+        debug_struct.field("access_tuple", &self.access_tuple);
+        debug_struct.field("allow_policy_explanation", &self.allow_policy_explanation);
+        debug_struct.field("deny_policy_explanation", &self.deny_policy_explanation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TroubleshootIamPolicyResponse].
 pub mod troubleshoot_iam_policy_response {
     #[allow(unused_imports)]
@@ -587,7 +612,7 @@ pub mod troubleshoot_iam_policy_response {
 }
 
 /// Information about the principal, resource, and permission to check.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessTuple {
     /// Required. The email address of the principal whose access you want to
@@ -852,9 +877,24 @@ impl serde::ser::Serialize for AccessTuple {
     }
 }
 
+impl std::fmt::Debug for AccessTuple {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessTuple");
+        debug_struct.field("principal", &self.principal);
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+        debug_struct.field("permission", &self.permission);
+        debug_struct.field("permission_fqdn", &self.permission_fqdn);
+        debug_struct.field("condition_context", &self.condition_context);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Additional context for troubleshooting conditional role bindings and deny
 /// rules.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConditionContext {
     /// Represents a target resource that is involved with a network activity.
@@ -1101,6 +1141,20 @@ impl serde::ser::Serialize for ConditionContext {
     }
 }
 
+impl std::fmt::Debug for ConditionContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConditionContext");
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("destination", &self.destination);
+        debug_struct.field("request", &self.request);
+        debug_struct.field("effective_tags", &self.effective_tags);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConditionContext].
 pub mod condition_context {
     #[allow(unused_imports)]
@@ -1109,7 +1163,7 @@ pub mod condition_context {
     /// Core attributes for a resource. A resource is an
     /// addressable (named) entity provided by the destination service. For
     /// example, a Compute Engine instance.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Resource {
         /// The name of the service that this resource belongs to, such as
@@ -1303,11 +1357,24 @@ pub mod condition_context {
         }
     }
 
+    impl std::fmt::Debug for Resource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Resource");
+            debug_struct.field("service", &self.service);
+            debug_struct.field("name", &self.name);
+            debug_struct.field("r#type", &self.r#type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// This message defines attributes for a node that handles a network request.
     /// The node can be either a service or an application that sends, forwards,
     /// or receives the request. Service peers should fill in
     /// `principal` and `labels` as appropriate.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Peer {
         /// The IPv4 or IPv6 address of the peer.
@@ -1481,10 +1548,22 @@ pub mod condition_context {
         }
     }
 
+    impl std::fmt::Debug for Peer {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Peer");
+            debug_struct.field("ip", &self.ip);
+            debug_struct.field("port", &self.port);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// This message defines attributes for an HTTP request. If the actual
     /// request is not an HTTP request, the runtime system should try to map
     /// the actual request to an equivalent HTTP request.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Request {
         /// Optional. The timestamp when the destination service receives the first
@@ -1629,12 +1708,23 @@ pub mod condition_context {
         }
     }
 
+    impl std::fmt::Debug for Request {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Request");
+            debug_struct.field("receive_time", &self.receive_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A tag that applies to a resource during policy evaluation. Tags can be
     /// either directly bound to a resource or inherited from its ancestor.
     /// `EffectiveTag` contains the `name` and `namespaced_name` of the tag value
     /// and tag key, with additional fields of `inherited` to indicate the
     /// inheritance status of the effective tag.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EffectiveTag {
         /// Output only. Resource name for TagValue in the format `tagValues/456`.
@@ -1911,11 +2001,27 @@ pub mod condition_context {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for EffectiveTag {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EffectiveTag");
+            debug_struct.field("tag_value", &self.tag_value);
+            debug_struct.field("namespaced_tag_value", &self.namespaced_tag_value);
+            debug_struct.field("tag_key", &self.tag_key);
+            debug_struct.field("namespaced_tag_key", &self.namespaced_tag_key);
+            debug_struct.field("tag_key_parent_name", &self.tag_key_parent_name);
+            debug_struct.field("inherited", &self.inherited);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Details about how the relevant IAM allow policies affect the final access
 /// state.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllowPolicyExplanation {
     /// Indicates whether the principal has the specified permission for the
@@ -2116,9 +2222,22 @@ impl serde::ser::Serialize for AllowPolicyExplanation {
     }
 }
 
+impl std::fmt::Debug for AllowPolicyExplanation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AllowPolicyExplanation");
+        debug_struct.field("allow_access_state", &self.allow_access_state);
+        debug_struct.field("explained_policies", &self.explained_policies);
+        debug_struct.field("relevance", &self.relevance);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about how a specific IAM allow policy contributed to the final access
 /// state.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedAllowPolicy {
     /// Required. Indicates whether _this policy_ provides the specified permission
@@ -2402,9 +2521,24 @@ impl serde::ser::Serialize for ExplainedAllowPolicy {
     }
 }
 
+impl std::fmt::Debug for ExplainedAllowPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExplainedAllowPolicy");
+        debug_struct.field("allow_access_state", &self.allow_access_state);
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+        debug_struct.field("binding_explanations", &self.binding_explanations);
+        debug_struct.field("relevance", &self.relevance);
+        debug_struct.field("policy", &self.policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about how a role binding in an allow policy affects a principal's
 /// ability to use a permission.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllowBindingExplanation {
     /// Required. Indicates whether _this role binding_ gives the specified
@@ -2826,13 +2960,32 @@ impl serde::ser::Serialize for AllowBindingExplanation {
     }
 }
 
+impl std::fmt::Debug for AllowBindingExplanation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AllowBindingExplanation");
+        debug_struct.field("allow_access_state", &self.allow_access_state);
+        debug_struct.field("role", &self.role);
+        debug_struct.field("role_permission", &self.role_permission);
+        debug_struct.field("role_permission_relevance", &self.role_permission_relevance);
+        debug_struct.field("combined_membership", &self.combined_membership);
+        debug_struct.field("memberships", &self.memberships);
+        debug_struct.field("relevance", &self.relevance);
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("condition_explanation", &self.condition_explanation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AllowBindingExplanation].
 pub mod allow_binding_explanation {
     #[allow(unused_imports)]
     use super::*;
 
     /// Details about whether the role binding includes the principal.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnnotatedAllowMembership {
         /// Indicates whether the role binding includes the principal.
@@ -2990,11 +3143,23 @@ pub mod allow_binding_explanation {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AnnotatedAllowMembership {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnnotatedAllowMembership");
+            debug_struct.field("membership", &self.membership);
+            debug_struct.field("relevance", &self.relevance);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Details about how the relevant IAM deny policies affect the final access
 /// state.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DenyPolicyExplanation {
     /// Indicates whether the principal is denied the specified permission for
@@ -3223,9 +3388,23 @@ impl serde::ser::Serialize for DenyPolicyExplanation {
     }
 }
 
+impl std::fmt::Debug for DenyPolicyExplanation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DenyPolicyExplanation");
+        debug_struct.field("deny_access_state", &self.deny_access_state);
+        debug_struct.field("explained_resources", &self.explained_resources);
+        debug_struct.field("relevance", &self.relevance);
+        debug_struct.field("permission_deniable", &self.permission_deniable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about how a specific resource contributed to the deny policy
 /// evaluation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedDenyResource {
     /// Required. Indicates whether any policies attached to _this resource_ deny
@@ -3468,11 +3647,25 @@ impl serde::ser::Serialize for ExplainedDenyResource {
     }
 }
 
+impl std::fmt::Debug for ExplainedDenyResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExplainedDenyResource");
+        debug_struct.field("deny_access_state", &self.deny_access_state);
+        debug_struct.field("full_resource_name", &self.full_resource_name);
+        debug_struct.field("explained_policies", &self.explained_policies);
+        debug_struct.field("relevance", &self.relevance);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about how a specific IAM deny policy [Policy][google.iam.v2.Policy]
 /// contributed to the access check.
 ///
 /// [google.iam.v2.Policy]: iam_v2::model::Policy
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedDenyPolicy {
     /// Required. Indicates whether _this policy_ denies the specified permission
@@ -3720,9 +3913,23 @@ impl serde::ser::Serialize for ExplainedDenyPolicy {
     }
 }
 
+impl std::fmt::Debug for ExplainedDenyPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExplainedDenyPolicy");
+        debug_struct.field("deny_access_state", &self.deny_access_state);
+        debug_struct.field("policy", &self.policy);
+        debug_struct.field("rule_explanations", &self.rule_explanations);
+        debug_struct.field("relevance", &self.relevance);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about how a deny rule in a deny policy affects a principal's ability
 /// to use a permission.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DenyRuleExplanation {
     /// Required. Indicates whether _this rule_ denies the specified permission to
@@ -4304,6 +4511,37 @@ impl serde::ser::Serialize for DenyRuleExplanation {
     }
 }
 
+impl std::fmt::Debug for DenyRuleExplanation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DenyRuleExplanation");
+        debug_struct.field("deny_access_state", &self.deny_access_state);
+        debug_struct.field(
+            "combined_denied_permission",
+            &self.combined_denied_permission,
+        );
+        debug_struct.field("denied_permissions", &self.denied_permissions);
+        debug_struct.field(
+            "combined_exception_permission",
+            &self.combined_exception_permission,
+        );
+        debug_struct.field("exception_permissions", &self.exception_permissions);
+        debug_struct.field("combined_denied_principal", &self.combined_denied_principal);
+        debug_struct.field("denied_principals", &self.denied_principals);
+        debug_struct.field(
+            "combined_exception_principal",
+            &self.combined_exception_principal,
+        );
+        debug_struct.field("exception_principals", &self.exception_principals);
+        debug_struct.field("relevance", &self.relevance);
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("condition_explanation", &self.condition_explanation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DenyRuleExplanation].
 pub mod deny_rule_explanation {
     #[allow(unused_imports)]
@@ -4311,7 +4549,7 @@ pub mod deny_rule_explanation {
 
     /// Details about whether the permission in the request is denied by the
     /// deny rule.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnnotatedPermissionMatching {
         /// Indicates whether the permission in the request is denied by the deny
@@ -4483,10 +4721,22 @@ pub mod deny_rule_explanation {
         }
     }
 
+    impl std::fmt::Debug for AnnotatedPermissionMatching {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnnotatedPermissionMatching");
+            debug_struct.field("permission_matching_state", &self.permission_matching_state);
+            debug_struct.field("relevance", &self.relevance);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Details about whether the principal in the request is listed as a denied
     /// principal in the deny rule, either directly or through membership in a
     /// principal set.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnnotatedDenyPrincipalMatching {
         /// Indicates whether the principal is listed as a denied principal in the
@@ -4645,10 +4895,22 @@ pub mod deny_rule_explanation {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AnnotatedDenyPrincipalMatching {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AnnotatedDenyPrincipalMatching");
+            debug_struct.field("membership", &self.membership);
+            debug_struct.field("relevance", &self.relevance);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Explanation for how a condition affects a principal's access
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConditionExplanation {
     /// Value of the condition.
@@ -4852,13 +5114,26 @@ impl serde::ser::Serialize for ConditionExplanation {
     }
 }
 
+impl std::fmt::Debug for ConditionExplanation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConditionExplanation");
+        debug_struct.field("value", &self.value);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("evaluation_states", &self.evaluation_states);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConditionExplanation].
 pub mod condition_explanation {
     #[allow(unused_imports)]
     use super::*;
 
     /// Evaluated state of a condition expression.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EvaluationState {
         /// Start position of an expression in the condition, by character.
@@ -5113,6 +5388,20 @@ pub mod condition_explanation {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for EvaluationState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EvaluationState");
+            debug_struct.field("start", &self.start);
+            debug_struct.field("end", &self.end);
+            debug_struct.field("value", &self.value);
+            debug_struct.field("errors", &self.errors);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 }

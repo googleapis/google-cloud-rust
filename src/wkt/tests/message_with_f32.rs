@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use common::MessageWithF32;
     use serde_json::{Value, json};
     use test_case::test_case;

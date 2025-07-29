@@ -18,3 +18,4 @@ service-config = 'google/bigtable/admin/v2/bigtableadmin_v2.yaml'
 
 [codec]
 copyright-year = '2025'
+version        = "0.4.3"

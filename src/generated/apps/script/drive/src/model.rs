@@ -26,7 +26,7 @@ extern crate std;
 extern crate wkt;
 
 /// Drive add-on manifest.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DriveAddOnManifest {
     /// If present, this overrides the configuration from
@@ -208,9 +208,21 @@ impl serde::ser::Serialize for DriveAddOnManifest {
     }
 }
 
+impl std::fmt::Debug for DriveAddOnManifest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DriveAddOnManifest");
+        debug_struct.field("homepage_trigger", &self.homepage_trigger);
+        debug_struct.field("on_items_selected_trigger", &self.on_items_selected_trigger);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A generic extension point with common features, e.g. something that simply
 /// needs a corresponding run function to work.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DriveExtensionPoint {
     /// Required. The endpoint to execute when this extension point is
@@ -338,5 +350,16 @@ impl serde::ser::Serialize for DriveExtensionPoint {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DriveExtensionPoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DriveExtensionPoint");
+        debug_struct.field("run_function", &self.run_function);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

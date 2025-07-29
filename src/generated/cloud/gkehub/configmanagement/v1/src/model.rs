@@ -25,7 +25,7 @@ extern crate std;
 extern crate wkt;
 
 /// **Anthos Config Management**: State for a single cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipState {
     /// This field is set to the `cluster_name` field of the Membership Spec if it
@@ -344,9 +344,28 @@ impl serde::ser::Serialize for MembershipState {
     }
 }
 
+impl std::fmt::Debug for MembershipState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MembershipState");
+        debug_struct.field("cluster_name", &self.cluster_name);
+        debug_struct.field("membership_spec", &self.membership_spec);
+        debug_struct.field("operator_state", &self.operator_state);
+        debug_struct.field("config_sync_state", &self.config_sync_state);
+        debug_struct.field("policy_controller_state", &self.policy_controller_state);
+        debug_struct.field(
+            "hierarchy_controller_state",
+            &self.hierarchy_controller_state,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// **Anthos Config Management**: Configuration for a single cluster.
 /// Intended to parallel the ConfigManagement CR.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipSpec {
     /// Config Sync configuration for the cluster.
@@ -639,6 +658,22 @@ impl serde::ser::Serialize for MembershipSpec {
     }
 }
 
+impl std::fmt::Debug for MembershipSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MembershipSpec");
+        debug_struct.field("config_sync", &self.config_sync);
+        debug_struct.field("policy_controller", &self.policy_controller);
+        debug_struct.field("hierarchy_controller", &self.hierarchy_controller);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("management", &self.management);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MembershipSpec].
 pub mod membership_spec {
     #[allow(unused_imports)]
@@ -778,7 +813,7 @@ pub mod membership_spec {
 }
 
 /// Configuration for Config Sync
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigSync {
     /// Git repo configuration for the cluster.
@@ -1086,8 +1121,27 @@ impl serde::ser::Serialize for ConfigSync {
     }
 }
 
+impl std::fmt::Debug for ConfigSync {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigSync");
+        debug_struct.field("git", &self.git);
+        debug_struct.field("source_format", &self.source_format);
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("prevent_drift", &self.prevent_drift);
+        debug_struct.field("oci", &self.oci);
+        debug_struct.field(
+            "metrics_gcp_service_account_email",
+            &self.metrics_gcp_service_account_email,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Git repo configuration for a single cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitConfig {
     /// The URL of the Git repository to use as the source of truth.
@@ -1420,8 +1474,26 @@ impl serde::ser::Serialize for GitConfig {
     }
 }
 
+impl std::fmt::Debug for GitConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GitConfig");
+        debug_struct.field("sync_repo", &self.sync_repo);
+        debug_struct.field("sync_branch", &self.sync_branch);
+        debug_struct.field("policy_dir", &self.policy_dir);
+        debug_struct.field("sync_wait_secs", &self.sync_wait_secs);
+        debug_struct.field("sync_rev", &self.sync_rev);
+        debug_struct.field("secret_type", &self.secret_type);
+        debug_struct.field("https_proxy", &self.https_proxy);
+        debug_struct.field("gcp_service_account_email", &self.gcp_service_account_email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// OCI repo configuration for a single cluster
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OciConfig {
     /// The OCI image repository URL for the package to sync from.
@@ -1678,8 +1750,23 @@ impl serde::ser::Serialize for OciConfig {
     }
 }
 
+impl std::fmt::Debug for OciConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OciConfig");
+        debug_struct.field("sync_repo", &self.sync_repo);
+        debug_struct.field("policy_dir", &self.policy_dir);
+        debug_struct.field("sync_wait_secs", &self.sync_wait_secs);
+        debug_struct.field("secret_type", &self.secret_type);
+        debug_struct.field("gcp_service_account_email", &self.gcp_service_account_email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for Policy Controller
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyController {
     /// Enables the installation of Policy Controller.
@@ -1995,8 +2082,27 @@ impl serde::ser::Serialize for PolicyController {
     }
 }
 
+impl std::fmt::Debug for PolicyController {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PolicyController");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field(
+            "template_library_installed",
+            &self.template_library_installed,
+        );
+        debug_struct.field("audit_interval_seconds", &self.audit_interval_seconds);
+        debug_struct.field("exemptable_namespaces", &self.exemptable_namespaces);
+        debug_struct.field("referential_rules_enabled", &self.referential_rules_enabled);
+        debug_struct.field("log_denies_enabled", &self.log_denies_enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for Hierarchy Controller
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HierarchyControllerConfig {
     /// Whether Hierarchy Controller is enabled in this cluster.
@@ -2185,8 +2291,24 @@ impl serde::ser::Serialize for HierarchyControllerConfig {
     }
 }
 
+impl std::fmt::Debug for HierarchyControllerConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HierarchyControllerConfig");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("enable_pod_tree_labels", &self.enable_pod_tree_labels);
+        debug_struct.field(
+            "enable_hierarchical_resource_quota",
+            &self.enable_hierarchical_resource_quota,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Deployment state for Hierarchy Controller
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HierarchyControllerDeploymentState {
     /// The deployment state for open source HNC (e.g. v0.7.0-hc.0)
@@ -2342,8 +2464,20 @@ impl serde::ser::Serialize for HierarchyControllerDeploymentState {
     }
 }
 
+impl std::fmt::Debug for HierarchyControllerDeploymentState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HierarchyControllerDeploymentState");
+        debug_struct.field("hnc", &self.hnc);
+        debug_struct.field("extension", &self.extension);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Version for Hierarchy Controller
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HierarchyControllerVersion {
     /// Version for open source HNC
@@ -2496,8 +2630,20 @@ impl serde::ser::Serialize for HierarchyControllerVersion {
     }
 }
 
+impl std::fmt::Debug for HierarchyControllerVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HierarchyControllerVersion");
+        debug_struct.field("hnc", &self.hnc);
+        debug_struct.field("extension", &self.extension);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// State for Hierarchy Controller
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HierarchyControllerState {
     /// The version for Hierarchy Controller
@@ -2673,8 +2819,20 @@ impl serde::ser::Serialize for HierarchyControllerState {
     }
 }
 
+impl std::fmt::Debug for HierarchyControllerState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HierarchyControllerState");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// State information for an ACM's Operator
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperatorState {
     /// The semenatic version number of the operator
@@ -2858,8 +3016,21 @@ impl serde::ser::Serialize for OperatorState {
     }
 }
 
+impl std::fmt::Debug for OperatorState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperatorState");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("deployment_state", &self.deployment_state);
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Errors pertaining to the installation of ACM
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstallError {
     /// A string representing the user facing error message
@@ -2989,8 +3160,19 @@ impl serde::ser::Serialize for InstallError {
     }
 }
 
+impl std::fmt::Debug for InstallError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstallError");
+        debug_struct.field("error_message", &self.error_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// State information for ConfigSync
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigSyncState {
     /// The version of ConfigSync deployed
@@ -3313,6 +3495,23 @@ impl serde::ser::Serialize for ConfigSyncState {
     }
 }
 
+impl std::fmt::Debug for ConfigSyncState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigSyncState");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("deployment_state", &self.deployment_state);
+        debug_struct.field("sync_state", &self.sync_state);
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("rootsync_crd", &self.rootsync_crd);
+        debug_struct.field("reposync_crd", &self.reposync_crd);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ConfigSyncState].
 pub mod config_sync_state {
     #[allow(unused_imports)]
@@ -3613,7 +3812,7 @@ pub mod config_sync_state {
 }
 
 /// Errors pertaining to the installation of Config Sync
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigSyncError {
     /// A string representing the user facing error message
@@ -3743,8 +3942,19 @@ impl serde::ser::Serialize for ConfigSyncError {
     }
 }
 
+impl std::fmt::Debug for ConfigSyncError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigSyncError");
+        debug_struct.field("error_message", &self.error_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specific versioning information pertaining to ConfigSync's Pods
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigSyncVersion {
     /// Version of the deployed importer pod
@@ -4027,8 +4237,25 @@ impl serde::ser::Serialize for ConfigSyncVersion {
     }
 }
 
+impl std::fmt::Debug for ConfigSyncVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigSyncVersion");
+        debug_struct.field("importer", &self.importer);
+        debug_struct.field("syncer", &self.syncer);
+        debug_struct.field("git_sync", &self.git_sync);
+        debug_struct.field("monitor", &self.monitor);
+        debug_struct.field("reconciler_manager", &self.reconciler_manager);
+        debug_struct.field("root_reconciler", &self.root_reconciler);
+        debug_struct.field("admission_webhook", &self.admission_webhook);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The state of ConfigSync's deployment on a cluster
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigSyncDeploymentState {
     /// Deployment state of the importer pod
@@ -4326,8 +4553,25 @@ impl serde::ser::Serialize for ConfigSyncDeploymentState {
     }
 }
 
+impl std::fmt::Debug for ConfigSyncDeploymentState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigSyncDeploymentState");
+        debug_struct.field("importer", &self.importer);
+        debug_struct.field("syncer", &self.syncer);
+        debug_struct.field("git_sync", &self.git_sync);
+        debug_struct.field("monitor", &self.monitor);
+        debug_struct.field("reconciler_manager", &self.reconciler_manager);
+        debug_struct.field("root_reconciler", &self.root_reconciler);
+        debug_struct.field("admission_webhook", &self.admission_webhook);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// State indicating an ACM's progress syncing configurations to a cluster
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SyncState {
     /// Token indicating the state of the repo.
@@ -4626,6 +4870,23 @@ impl serde::ser::Serialize for SyncState {
     }
 }
 
+impl std::fmt::Debug for SyncState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SyncState");
+        debug_struct.field("source_token", &self.source_token);
+        debug_struct.field("import_token", &self.import_token);
+        debug_struct.field("sync_token", &self.sync_token);
+        debug_struct.field("last_sync", &self.last_sync);
+        debug_struct.field("last_sync_time", &self.last_sync_time);
+        debug_struct.field("code", &self.code);
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SyncState].
 pub mod sync_state {
     #[allow(unused_imports)]
@@ -4800,7 +5061,7 @@ pub mod sync_state {
 }
 
 /// An ACM created error representing a problem syncing configurations
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SyncError {
     /// An ACM defined error code
@@ -4982,8 +5243,21 @@ impl serde::ser::Serialize for SyncError {
     }
 }
 
+impl std::fmt::Debug for SyncError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SyncError");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("error_message", &self.error_message);
+        debug_struct.field("error_resources", &self.error_resources);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Model for a config file in the git repo with an associated Sync error
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorResource {
     /// Path in the git repo of the erroneous config
@@ -5203,8 +5477,22 @@ impl serde::ser::Serialize for ErrorResource {
     }
 }
 
+impl std::fmt::Debug for ErrorResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorResource");
+        debug_struct.field("source_path", &self.source_path);
+        debug_struct.field("resource_name", &self.resource_name);
+        debug_struct.field("resource_namespace", &self.resource_namespace);
+        debug_struct.field("resource_gvk", &self.resource_gvk);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Kubernetes object's GVK
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GroupVersionKind {
     /// Kubernetes Group
@@ -5381,8 +5669,21 @@ impl serde::ser::Serialize for GroupVersionKind {
     }
 }
 
+impl std::fmt::Debug for GroupVersionKind {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GroupVersionKind");
+        debug_struct.field("group", &self.group);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("kind", &self.kind);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// State for PolicyControllerState.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyControllerState {
     /// The version of Gatekeeper Policy Controller deployed.
@@ -5558,8 +5859,20 @@ impl serde::ser::Serialize for PolicyControllerState {
     }
 }
 
+impl std::fmt::Debug for PolicyControllerState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PolicyControllerState");
+        debug_struct.field("version", &self.version);
+        debug_struct.field("deployment_state", &self.deployment_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The build version of Gatekeeper Policy Controller is using.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyControllerVersion {
     /// The gatekeeper image tag that is composed of ACM version, git tag, build
@@ -5689,8 +6002,19 @@ impl serde::ser::Serialize for PolicyControllerVersion {
     }
 }
 
+impl std::fmt::Debug for PolicyControllerVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PolicyControllerVersion");
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// State of Policy Controller installation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GatekeeperDeploymentState {
     /// Status of gatekeeper-controller-manager pod.
@@ -5857,6 +6181,21 @@ impl serde::ser::Serialize for GatekeeperDeploymentState {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GatekeeperDeploymentState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GatekeeperDeploymentState");
+        debug_struct.field(
+            "gatekeeper_controller_manager_state",
+            &self.gatekeeper_controller_manager_state,
+        );
+        debug_struct.field("gatekeeper_audit", &self.gatekeeper_audit);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

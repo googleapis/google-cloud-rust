@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-retail-v2"
-version                = "0.4.0"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - Vertex AI Search for commerce API"
 edition.workspace      = true
 authors.workspace      = true

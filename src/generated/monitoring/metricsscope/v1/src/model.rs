@@ -36,7 +36,7 @@ extern crate wkt;
 /// Scope](https://cloud.google.com/monitoring/settings#concept-scope) in Cloud
 /// Monitoring, which specifies one or more Google projects and zero or more AWS
 /// accounts to monitor together.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetricsScope {
     /// Immutable. The resource name of the Monitoring Metrics Scope.
@@ -274,10 +274,24 @@ impl serde::ser::Serialize for MetricsScope {
     }
 }
 
+impl std::fmt::Debug for MetricsScope {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetricsScope");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("monitored_projects", &self.monitored_projects);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A [project being
 /// monitored](https://cloud.google.com/monitoring/settings/multiple-projects#create-multi)
 /// by a `Metrics Scope`.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonitoredProject {
     /// Immutable. The resource name of the `MonitoredProject`. On input, the resource name
@@ -446,8 +460,20 @@ impl serde::ser::Serialize for MonitoredProject {
     }
 }
 
+impl std::fmt::Debug for MonitoredProject {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MonitoredProject");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetMetricsScope` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMetricsScopeRequest {
     /// Required. The resource name of the `Metrics Scope`.
@@ -578,8 +604,19 @@ impl serde::ser::Serialize for GetMetricsScopeRequest {
     }
 }
 
+impl std::fmt::Debug for GetMetricsScopeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMetricsScopeRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListMetricsScopesByMonitoredProject` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMetricsScopesByMonitoredProjectRequest {
     /// Required. The resource name of the `Monitored Project` being requested.
@@ -723,8 +760,22 @@ impl serde::ser::Serialize for ListMetricsScopesByMonitoredProjectRequest {
     }
 }
 
+impl std::fmt::Debug for ListMetricsScopesByMonitoredProjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMetricsScopesByMonitoredProjectRequest");
+        debug_struct.field(
+            "monitored_resource_container",
+            &self.monitored_resource_container,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListMetricsScopesByMonitoredProject` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMetricsScopesByMonitoredProjectResponse {
     /// A set of all metrics scopes that the specified monitored project has been
@@ -860,8 +911,19 @@ impl serde::ser::Serialize for ListMetricsScopesByMonitoredProjectResponse {
     }
 }
 
+impl std::fmt::Debug for ListMetricsScopesByMonitoredProjectResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMetricsScopesByMonitoredProjectResponse");
+        debug_struct.field("metrics_scopes", &self.metrics_scopes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `CreateMonitoredProject` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMonitoredProjectRequest {
     /// Required. The resource name of the existing `Metrics Scope` that will monitor this
@@ -1033,8 +1095,20 @@ impl serde::ser::Serialize for CreateMonitoredProjectRequest {
     }
 }
 
+impl std::fmt::Debug for CreateMonitoredProjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMonitoredProjectRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("monitored_project", &self.monitored_project);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `DeleteMonitoredProject` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMonitoredProjectRequest {
     /// Required. The resource name of the `MonitoredProject`.
@@ -1169,9 +1243,20 @@ impl serde::ser::Serialize for DeleteMonitoredProjectRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteMonitoredProjectRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteMonitoredProjectRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains metadata for longrunning operation for the edit Metrics Scope
 /// endpoints.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Current state of the batch operation.
@@ -1370,6 +1455,19 @@ impl serde::ser::Serialize for OperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

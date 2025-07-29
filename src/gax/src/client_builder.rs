@@ -262,15 +262,14 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
-    /// use gax::retry_policy;
-    /// use gax::retry_policy::RetryPolicyExt;
+    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let client = Client::builder()
-    ///     .with_retry_policy(retry_policy::AlwaysRetry.with_attempt_limit(3))
+    ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
     ///     .build().await?;
     /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
-        self.config.retry_policy = Some(v.into().0);
+        self.config.retry_policy = Some(v.into().into());
         self
     }
 
@@ -285,20 +284,16 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
-    /// use gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// use gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
-    /// let policy = ExponentialBackoffBuilder::new()
-    ///     .with_initial_delay(Duration::from_millis(100))
-    ///     .with_maximum_delay(Duration::from_secs(5))
-    ///     .with_scaling(4.0)
-    ///     .build().expect("well-known policy values should succeed");
+    /// let policy = ExponentialBackoff::default();
     /// let client = Client::builder()
     ///     .with_backoff_policy(policy)
     ///     .build().await?;
     /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
-        self.config.backoff_policy = Some(v.into().0);
+        self.config.backoff_policy = Some(v.into().into());
         self
     }
 
@@ -321,13 +316,12 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// use examples::Client; // Placeholder for examples
     /// use gax::retry_throttler::AdaptiveThrottler;
     /// let client = Client::builder()
-    ///     .with_retry_throttler(AdaptiveThrottler::new(2.0)
-    ///         .expect("well-known policy values should succeed"))
+    ///     .with_retry_throttler(AdaptiveThrottler::default())
     ///     .build().await?;
     /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
-        self.config.retry_throttler = v.into().0;
+        self.config.retry_throttler = v.into().into();
         self
     }
 
@@ -374,13 +368,9 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
-    /// use gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// use gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
-    /// let policy = ExponentialBackoffBuilder::new()
-    ///     .with_initial_delay(Duration::from_millis(100))
-    ///     .with_maximum_delay(Duration::from_secs(5))
-    ///     .with_scaling(4.0)
-    ///     .build().expect("well-known policy values should succeed");
+    /// let policy = ExponentialBackoff::default();
     /// let client = Client::builder()
     ///     .with_polling_backoff_policy(policy)
     ///     .build().await?;
@@ -522,7 +512,7 @@ pub mod examples {
 
     // We use the examples as scaffolding for the tests.
     #[cfg(test)]
-    mod test {
+    mod tests {
         use super::*;
 
         #[tokio::test]
@@ -644,7 +634,7 @@ pub mod examples {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use std::error::Error as _;
 

@@ -16,6 +16,9 @@ variable "project" {}
 variable "region" {}
 variable "sa_adc_secret" {}
 variable "api_key_secret" {}
+variable "external_account_project" {}
+variable "external_account_service_account_id" {}
+variable "workload_identity_audience" {}
 
 # This is used to retrieve the project number. The project number is embedded in
 # certain P4 (Per-product per-project) service accounts.
@@ -106,7 +109,7 @@ resource "google_storage_bucket_iam_member" "sa-can-use-build-cache" {
 # The integration test runner needs access to the ADC JSON secrets
 resource "google_secret_manager_secret_iam_member" "test-adc-json-secret-member" {
   project   = var.project
-  secret_id = "${var.sa_adc_secret}".id
+  secret_id = var.sa_adc_secret.id
   role      = "roles/secretmanager.secretAccessor"
   member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
@@ -114,9 +117,17 @@ resource "google_secret_manager_secret_iam_member" "test-adc-json-secret-member"
 # The integration test runner needs access to the API key secret
 resource "google_secret_manager_secret_iam_member" "test-api-key-secret-member" {
   project   = var.project
-  secret_id = "${var.api_key_secret}".id
+  secret_id = var.api_key_secret.id
   role      = "roles/secretmanager.secretAccessor"
   member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
+}
+
+# The default Cloud Build service account needs permission to act as the
+# integration test runner service account.
+resource "google_service_account_iam_member" "cloudbuild_can_act_as_runner" {
+  service_account_id = data.google_service_account.integration-test-runner.name
+  role               = "roles/iam.serviceAccountUser"
+  member             = "serviceAccount:${data.google_project.project.number}@cloudbuild.gserviceaccount.com"
 }
 
 locals {
@@ -185,6 +196,11 @@ resource "google_cloudbuild_trigger" "pull-request" {
   tags     = ["pull-request", "name:${each.key}"]
 
   service_account = data.google_service_account.integration-test-runner.id
+  substitutions = {
+    _EXTERNAL_ACCOUNT_PROJECT               = var.external_account_project
+    _EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL = "${var.external_account_service_account_id}@${var.external_account_project}.iam.gserviceaccount.com"
+    _WORKLOAD_IDENTITY_AUDIENCE             = var.workload_identity_audience
+  }
 
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id
@@ -205,6 +221,11 @@ resource "google_cloudbuild_trigger" "post-merge" {
   tags     = ["post-merge", "push", "name:${each.key}"]
 
   service_account = data.google_service_account.integration-test-runner.id
+  substitutions = {
+    _EXTERNAL_ACCOUNT_PROJECT               = var.external_account_project
+    _EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL = "${var.external_account_service_account_id}@${var.external_account_project}.iam.gserviceaccount.com"
+    _WORKLOAD_IDENTITY_AUDIENCE             = var.workload_identity_audience
+  }
 
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id

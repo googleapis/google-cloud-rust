@@ -41,7 +41,7 @@ extern crate wkt;
 ///
 /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
 /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Secret {
     /// Output only. The resource name of the
@@ -769,6 +769,32 @@ impl serde::ser::Serialize for Secret {
     }
 }
 
+impl std::fmt::Debug for Secret {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Secret");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("replication", &self.replication);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("topics", &self.topics);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("rotation", &self.rotation);
+        debug_struct.field("version_aliases", &self.version_aliases);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("version_destroy_ttl", &self.version_destroy_ttl);
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("expiration", &self.expiration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Secret].
 pub mod secret {
     #[allow(unused_imports)]
@@ -806,7 +832,7 @@ pub mod secret {
 }
 
 /// A secret version resource in the Secret Manager API.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretVersion {
     /// Output only. The resource name of the
@@ -1258,6 +1284,31 @@ impl serde::ser::Serialize for SecretVersion {
     }
 }
 
+impl std::fmt::Debug for SecretVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecretVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("destroy_time", &self.destroy_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("replication_status", &self.replication_status);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field(
+            "client_specified_payload_checksum",
+            &self.client_specified_payload_checksum,
+        );
+        debug_struct.field("scheduled_destroy_time", &self.scheduled_destroy_time);
+        debug_struct.field(
+            "customer_managed_encryption",
+            &self.customer_managed_encryption,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SecretVersion].
 pub mod secret_version {
     #[allow(unused_imports)]
@@ -1422,7 +1473,7 @@ pub mod secret_version {
 }
 
 /// A policy that defines the replication and encryption configuration of data.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Replication {
     /// The replication policy for this secret.
@@ -1654,6 +1705,17 @@ impl serde::ser::Serialize for Replication {
     }
 }
 
+impl std::fmt::Debug for Replication {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Replication");
+        debug_struct.field("replication", &self.replication);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Replication].
 pub mod replication {
     #[allow(unused_imports)]
@@ -1664,7 +1726,7 @@ pub mod replication {
     /// restrictions.
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Automatic {
         /// Optional. The customer-managed encryption configuration of the
@@ -1832,6 +1894,20 @@ pub mod replication {
         }
     }
 
+    impl std::fmt::Debug for Automatic {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Automatic");
+            debug_struct.field(
+                "customer_managed_encryption",
+                &self.customer_managed_encryption,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A replication policy that replicates the
     /// [Secret][google.cloud.secretmanager.v1.Secret] payload into the locations
     /// specified in
@@ -1839,7 +1915,7 @@ pub mod replication {
     ///
     /// [google.cloud.secretmanager.v1.Replication.UserManaged.replicas]: crate::model::replication::UserManaged::replicas
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UserManaged {
         /// Required. The list of Replicas for this
@@ -1985,6 +2061,17 @@ pub mod replication {
         }
     }
 
+    impl std::fmt::Debug for UserManaged {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("UserManaged");
+            debug_struct.field("replicas", &self.replicas);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [UserManaged].
     pub mod user_managed {
         #[allow(unused_imports)]
@@ -1994,7 +2081,7 @@ pub mod replication {
         /// [Secret][google.cloud.secretmanager.v1.Secret].
         ///
         /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Replica {
             /// The canonical IDs of the location to replicate data.
@@ -2197,6 +2284,21 @@ pub mod replication {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for Replica {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Replica");
+                debug_struct.field("location", &self.location);
+                debug_struct.field(
+                    "customer_managed_encryption",
+                    &self.customer_managed_encryption,
+                );
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// The replication policy for this secret.
@@ -2218,7 +2320,7 @@ pub mod replication {
 
 /// Configuration for encrypting secret payloads using customer-managed
 /// encryption keys (CMEK).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomerManagedEncryption {
     /// Required. The resource name of the Cloud KMS CryptoKey used to encrypt
@@ -2363,11 +2465,22 @@ impl serde::ser::Serialize for CustomerManagedEncryption {
     }
 }
 
+impl std::fmt::Debug for CustomerManagedEncryption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomerManagedEncryption");
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The replication status of a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 ///
 /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicationStatus {
     /// The replication status of the
@@ -2616,6 +2729,17 @@ impl serde::ser::Serialize for ReplicationStatus {
     }
 }
 
+impl std::fmt::Debug for ReplicationStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplicationStatus");
+        debug_struct.field("replication_status", &self.replication_status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReplicationStatus].
 pub mod replication_status {
     #[allow(unused_imports)]
@@ -2630,7 +2754,7 @@ pub mod replication_status {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AutomaticStatus {
         /// Output only. The customer-managed encryption status of the
@@ -2791,6 +2915,20 @@ pub mod replication_status {
         }
     }
 
+    impl std::fmt::Debug for AutomaticStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AutomaticStatus");
+            debug_struct.field(
+                "customer_managed_encryption",
+                &self.customer_managed_encryption,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The replication status of a
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] using
     /// user-managed replication.
@@ -2800,7 +2938,7 @@ pub mod replication_status {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UserManagedStatus {
         /// Output only. The list of replica statuses for the
@@ -2941,6 +3079,17 @@ pub mod replication_status {
         }
     }
 
+    impl std::fmt::Debug for UserManagedStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("UserManagedStatus");
+            debug_struct.field("replicas", &self.replicas);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [UserManagedStatus].
     pub mod user_managed_status {
         #[allow(unused_imports)]
@@ -2950,7 +3099,7 @@ pub mod replication_status {
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ReplicaStatus {
             /// Output only. The canonical ID of the replica location.
@@ -3145,6 +3294,21 @@ pub mod replication_status {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for ReplicaStatus {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("ReplicaStatus");
+                debug_struct.field("location", &self.location);
+                debug_struct.field(
+                    "customer_managed_encryption",
+                    &self.customer_managed_encryption,
+                );
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// The replication status of the
@@ -3180,7 +3344,7 @@ pub mod replication_status {
 }
 
 /// Describes the status of customer-managed encryption.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomerManagedEncryptionStatus {
     /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to
@@ -3315,9 +3479,20 @@ impl serde::ser::Serialize for CustomerManagedEncryptionStatus {
     }
 }
 
+impl std::fmt::Debug for CustomerManagedEncryptionStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomerManagedEncryptionStatus");
+        debug_struct.field("kms_key_version_name", &self.kms_key_version_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Topic {
     /// Identifier. The resource name of the Pub/Sub topic that will be published
@@ -3450,6 +3625,17 @@ impl serde::ser::Serialize for Topic {
     }
 }
 
+impl std::fmt::Debug for Topic {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Topic");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The rotation time and period for a
 /// [Secret][google.cloud.secretmanager.v1.Secret]. At next_rotation_time, Secret
 /// Manager will send a Pub/Sub notification to the topics configured on the
@@ -3458,7 +3644,7 @@ impl serde::ser::Serialize for Topic {
 ///
 /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
 /// [google.cloud.secretmanager.v1.Secret.topics]: crate::model::Secret::topics
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rotation {
     /// Optional. Timestamp in UTC at which the
@@ -3660,12 +3846,24 @@ impl serde::ser::Serialize for Rotation {
     }
 }
 
+impl std::fmt::Debug for Rotation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Rotation");
+        debug_struct.field("next_rotation_time", &self.next_rotation_time);
+        debug_struct.field("rotation_period", &self.rotation_period);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A secret payload resource in the Secret Manager API. This contains the
 /// sensitive secret payload that is associated with a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 ///
 /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretPayload {
     /// The secret data. Must be no larger than 64KiB.
@@ -3889,11 +4087,23 @@ impl serde::ser::Serialize for SecretPayload {
     }
 }
 
+impl std::fmt::Debug for SecretPayload {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecretPayload");
+        debug_struct.field("data", &self.data);
+        debug_struct.field("data_crc32c", &self.data_crc32c);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.ListSecrets]: crate::client::SecretManagerService::list_secrets
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecretsRequest {
     /// Required. The resource name of the project associated with the
@@ -4127,11 +4337,25 @@ impl serde::ser::Serialize for ListSecretsRequest {
     }
 }
 
+impl std::fmt::Debug for ListSecretsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSecretsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.ListSecrets]: crate::client::SecretManagerService::list_secrets
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecretsResponse {
     /// The list of [Secrets][google.cloud.secretmanager.v1.Secret] sorted in
@@ -4358,11 +4582,24 @@ impl serde::ser::Serialize for ListSecretsResponse {
     }
 }
 
+impl std::fmt::Debug for ListSecretsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSecretsResponse");
+        debug_struct.field("secrets", &self.secrets);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.CreateSecret][google.cloud.secretmanager.v1.SecretManagerService.CreateSecret].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.CreateSecret]: crate::client::SecretManagerService::create_secret
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSecretRequest {
     /// Required. The resource name of the project to associate with the
@@ -4562,11 +4799,24 @@ impl serde::ser::Serialize for CreateSecretRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSecretRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("secret_id", &self.secret_id);
+        debug_struct.field("secret", &self.secret);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.AddSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion]: crate::client::SecretManagerService::add_secret_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddSecretVersionRequest {
     /// Required. The resource name of the
@@ -4739,11 +4989,23 @@ impl serde::ser::Serialize for AddSecretVersionRequest {
     }
 }
 
+impl std::fmt::Debug for AddSecretVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddSecretVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("payload", &self.payload);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.GetSecret][google.cloud.secretmanager.v1.SecretManagerService.GetSecret].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.GetSecret]: crate::client::SecretManagerService::get_secret
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSecretRequest {
     /// Required. The resource name of the
@@ -4876,11 +5138,22 @@ impl serde::ser::Serialize for GetSecretRequest {
     }
 }
 
+impl std::fmt::Debug for GetSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSecretRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions]: crate::client::SecretManagerService::list_secret_versions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecretVersionsRequest {
     /// Required. The resource name of the
@@ -5114,11 +5387,25 @@ impl serde::ser::Serialize for ListSecretVersionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListSecretVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSecretVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions]: crate::client::SecretManagerService::list_secret_versions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSecretVersionsResponse {
     /// The list of [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]
@@ -5346,11 +5633,24 @@ impl serde::ser::Serialize for ListSecretVersionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListSecretVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSecretVersionsResponse");
+        debug_struct.field("versions", &self.versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.GetSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion]: crate::client::SecretManagerService::get_secret_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSecretVersionRequest {
     /// Required. The resource name of the
@@ -5489,11 +5789,22 @@ impl serde::ser::Serialize for GetSecretVersionRequest {
     }
 }
 
+impl std::fmt::Debug for GetSecretVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSecretVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.UpdateSecret][google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret]: crate::client::SecretManagerService::update_secret
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSecretRequest {
     /// Required. [Secret][google.cloud.secretmanager.v1.Secret] with updated field
@@ -5672,11 +5983,23 @@ impl serde::ser::Serialize for UpdateSecretRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSecretRequest");
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion]: crate::client::SecretManagerService::access_secret_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessSecretVersionRequest {
     /// Required. The resource name of the
@@ -5815,11 +6138,22 @@ impl serde::ser::Serialize for AccessSecretVersionRequest {
     }
 }
 
+impl std::fmt::Debug for AccessSecretVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessSecretVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion]: crate::client::SecretManagerService::access_secret_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessSecretVersionResponse {
     /// The resource name of the
@@ -5988,11 +6322,23 @@ impl serde::ser::Serialize for AccessSecretVersionResponse {
     }
 }
 
+impl std::fmt::Debug for AccessSecretVersionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessSecretVersionResponse");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("payload", &self.payload);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.DeleteSecret][google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret]: crate::client::SecretManagerService::delete_secret
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSecretRequest {
     /// Required. The resource name of the
@@ -6153,11 +6499,23 @@ impl serde::ser::Serialize for DeleteSecretRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteSecretRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSecretRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.DisableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersion].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersion]: crate::client::SecretManagerService::disable_secret_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DisableSecretVersionRequest {
     /// Required. The resource name of the
@@ -6320,11 +6678,23 @@ impl serde::ser::Serialize for DisableSecretVersionRequest {
     }
 }
 
+impl std::fmt::Debug for DisableSecretVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableSecretVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.EnableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion]: crate::client::SecretManagerService::enable_secret_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnableSecretVersionRequest {
     /// Required. The resource name of the
@@ -6487,11 +6857,23 @@ impl serde::ser::Serialize for EnableSecretVersionRequest {
     }
 }
 
+impl std::fmt::Debug for EnableSecretVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableSecretVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.DestroySecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion].
 ///
 /// [google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion]: crate::client::SecretManagerService::destroy_secret_version
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestroySecretVersionRequest {
     /// Required. The resource name of the
@@ -6651,5 +7033,17 @@ impl serde::ser::Serialize for DestroySecretVersionRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DestroySecretVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DestroySecretVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }

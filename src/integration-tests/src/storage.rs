@@ -19,12 +19,91 @@ use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::RetryPolicyExt;
 use lro::Poller;
 use std::time::Duration;
-use storage_control::client::StorageControl;
-use storage_control::model::Bucket;
-use storage_control::model::bucket::iam_config::UniformBucketLevelAccess;
-use storage_control::model::bucket::{HierarchicalNamespace, IamConfig};
+use storage::client::StorageControl;
+use storage::model::Bucket;
+use storage::model::bucket::iam_config::UniformBucketLevelAccess;
+use storage::model::bucket::{HierarchicalNamespace, IamConfig};
 
-pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
+/// An upload data source used in tests.
+#[derive(Clone, Debug)]
+struct TestDataSource {
+    size: u64,
+    hint: (u64, Option<u64>),
+    offset: u64,
+    abort: u64,
+}
+
+impl TestDataSource {
+    const LINE_SIZE: u64 = 128;
+
+    fn new(size: u64) -> Self {
+        Self {
+            size,
+            hint: (size, Some(size)),
+            offset: 0,
+            abort: u64::MAX,
+        }
+    }
+
+    fn without_size_hint(mut self) -> Self {
+        self.hint = (0, None);
+        self
+    }
+
+    fn with_abort(mut self, abort: u64) -> Self {
+        self.abort = abort;
+        self
+    }
+}
+
+impl storage::upload_source::StreamingSource for TestDataSource {
+    type Error = std::io::Error;
+    async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
+        match self.offset {
+            n if n >= self.size => None,
+            n if n >= self.abort => {
+                self.offset = self.size; // Next call with return None
+                Some(Err(Self::Error::new(
+                    std::io::ErrorKind::ConnectionAborted,
+                    "simulated error",
+                )))
+            }
+            n if n + Self::LINE_SIZE < self.size => {
+                let line = self.offset / Self::LINE_SIZE;
+                let w = Self::LINE_SIZE as usize - 30 - 2;
+                let data =
+                    bytes::Bytes::from_owner(format!("{line:030} {:width$}\n", "", width = w));
+                self.offset += Self::LINE_SIZE;
+                Some(Ok(data))
+            }
+            n => {
+                let w = (self.size - n) as usize;
+                let data = bytes::Bytes::from_owner(format!("{:width$}", "", width = w));
+                self.offset = self.size;
+                Some(Ok(data))
+            }
+        }
+    }
+    async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), Self::Error> {
+        Ok(self.hint)
+    }
+}
+
+impl storage::upload_source::Seek for TestDataSource {
+    type Error = std::io::Error;
+    async fn seek(&mut self, offset: u64) -> std::result::Result<(), Self::Error> {
+        if offset % Self::LINE_SIZE != 0 {
+            return Err(Self::Error::new(
+                std::io::ErrorKind::InvalidInput,
+                "bad offset",
+            ));
+        }
+        self.offset = offset;
+        Ok(())
+    }
+}
+
+pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -47,10 +126,18 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     tracing::info!("testing insert_object()");
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let insert = client
-        .insert_object(&bucket.name, "quick.text", CONTENTS)
-        .send()
+        .upload_object(&bucket.name, "quick.text", CONTENTS)
+        .with_metadata([("verify-metadata-works", "yes")])
+        .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
+    assert_eq!(
+        insert
+            .metadata
+            .get("verify-metadata-works")
+            .map(String::as_str),
+        Some("yes")
+    );
 
     tracing::info!("testing read_object()");
     let contents = client
@@ -59,18 +146,6 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
         .await?
         .all_bytes()
         .await?;
-    assert_eq!(contents, CONTENTS.as_bytes());
-    tracing::info!("success with contents={contents:?}");
-
-    tracing::info!("testing read_object() streaming");
-    let mut contents = bytes::BytesMut::new();
-    let mut resp = client
-        .read_object(&bucket.name, &insert.name)
-        .send()
-        .await?;
-    while let Some(chunk) = resp.next().await? {
-        contents.extend_from_slice(&chunk);
-    }
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
@@ -91,7 +166,7 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
 }
 
 pub async fn objects_customer_supplied_encryption(
-    builder: storage::client::ClientBuilder,
+    builder: storage::builder::storage::ClientBuilder,
 ) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
@@ -116,9 +191,9 @@ pub async fn objects_customer_supplied_encryption(
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let key = vec![b'a'; 32];
     let insert = client
-        .insert_object(&bucket.name, "quick.text", CONTENTS)
+        .upload_object(&bucket.name, "quick.text", CONTENTS)
         .with_key(storage::client::KeyAes256::new(&key)?)
-        .send()
+        .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
 
@@ -145,6 +220,531 @@ pub async fn objects_customer_supplied_encryption(
         .set_name(&bucket.name)
         .send()
         .await?;
+
+    Ok(())
+}
+
+pub async fn objects_large_file(builder: storage::builder::storage::ClientBuilder) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    // Create a temporary bucket for the test.
+    let (control, bucket) = create_test_bucket().await?;
+
+    let client = builder.build().await?;
+
+    // Create a large enough file that will require multiple chunks to download.
+    const BLOCK_SIZE: usize = 500;
+    let mut contents = Vec::new();
+    for i in 0..16 {
+        contents.extend_from_slice(&[i as u8; BLOCK_SIZE]);
+    }
+
+    tracing::info!("testing insert_object()");
+    let insert = client
+        .upload_object(
+            &bucket.name,
+            "quick.text",
+            bytes::Bytes::from_owner(contents.clone()),
+        )
+        .send_unbuffered()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+
+    tracing::info!("testing read_object() streaming");
+    let mut resp = client
+        .read_object(&bucket.name, &insert.name)
+        .send()
+        .await?;
+
+    // This should take multiple chunks to download.
+    let mut got = bytes::BytesMut::new();
+    let mut count = 0;
+    while let Some(chunk) = resp.next().await.transpose()? {
+        got.extend_from_slice(&chunk);
+        count += 1;
+    }
+    assert_eq!(got, contents);
+    assert!(count > 1, "{count:?}");
+    tracing::info!("success with large contents");
+
+    // Use futures::StreamExt for the download.
+    tracing::info!("testing read_object() using into_stream()");
+    use futures::StreamExt;
+    let mut stream = client
+        .read_object(&bucket.name, &insert.name)
+        .send()
+        .await?
+        .into_stream()
+        .enumerate();
+
+    // This should take multiple chunks to download.
+    got.clear();
+    let mut iteration = 0;
+    while let Some((i, chunk)) = stream.next().await {
+        got.extend_from_slice(&chunk?);
+        iteration = i;
+    }
+    assert_eq!(got, contents);
+    assert!(iteration > 1, "{iteration:?}");
+    tracing::info!("success with into_stream() large contents");
+
+    control
+        .delete_object()
+        .set_bucket(&insert.bucket)
+        .set_object(&insert.name)
+        .set_generation(insert.generation)
+        .send()
+        .await?;
+    control
+        .delete_bucket()
+        .set_name(&bucket.name)
+        .send()
+        .await?;
+
+    Ok(())
+}
+
+pub async fn upload_buffered(builder: storage::builder::storage::ClientBuilder) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    // Create a temporary bucket for the test.
+    let (control, bucket) = create_test_bucket().await?;
+    let client = builder.build().await?;
+
+    tracing::info!("testing upload_object_buffered() [1]");
+    let insert = client
+        .upload_object(&bucket.name, "empty.txt", "")
+        .with_if_generation_match(0)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 0_i64);
+
+    let payload = bytes::Bytes::from_owner(Vec::from_iter((0..128 * 1024).map(|_| 0_u8)));
+    tracing::info!("testing upload_object_buffered() [2]");
+    let insert = client
+        .upload_object(&bucket.name, "128K.txt", payload)
+        .with_if_generation_match(0)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 128 * 1024_i64);
+
+    let payload = bytes::Bytes::from_owner(Vec::from_iter((0..512 * 1024).map(|_| 0_u8)));
+    tracing::info!("testing upload_object_buffered() [3]");
+    let insert = client
+        .upload_object(&bucket.name, "512K.txt", payload)
+        .with_if_generation_match(0)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 512 * 1024_i64);
+
+    cleanup_bucket(control, bucket.name).await?;
+
+    Ok(())
+}
+
+pub async fn upload_buffered_resumable_known_size(
+    builder: storage::builder::storage::ClientBuilder,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    // Create a temporary bucket for the test.
+    let (control, bucket) = create_test_bucket().await?;
+    let client = builder.build().await?;
+
+    tracing::info!("testing send_unbuffered() [1]");
+    let payload = TestDataSource::new(0_u64);
+    let insert = client
+        .upload_object(&bucket.name, "empty.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 0_i64);
+
+    let payload = TestDataSource::new(128 * 1024_u64);
+    tracing::info!("testing upload_object_buffered() [2]");
+    let insert = client
+        .upload_object(&bucket.name, "128K.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 128 * 1024_i64);
+
+    let payload = TestDataSource::new(512 * 1024_u64);
+    tracing::info!("testing upload_object_buffered() [3]");
+    let insert = client
+        .upload_object(&bucket.name, "512K.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 512 * 1024_i64);
+
+    cleanup_bucket(control, bucket.name).await?;
+
+    Ok(())
+}
+
+pub async fn upload_buffered_resumable_unknown_size(
+    builder: storage::builder::storage::ClientBuilder,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    // Create a temporary bucket for the test.
+    let (control, bucket) = create_test_bucket().await?;
+    let client = builder.build().await?;
+
+    tracing::info!("testing send_unbuffered() [1]");
+    let payload = TestDataSource::new(0_u64).without_size_hint();
+    let insert = client
+        .upload_object(&bucket.name, "empty.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 0_i64);
+
+    let payload = TestDataSource::new(128 * 1024_u64).without_size_hint();
+    tracing::info!("testing upload_object_buffered() [2]");
+    let insert = client
+        .upload_object(&bucket.name, "128K.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 128 * 1024_i64);
+
+    let payload = TestDataSource::new(512 * 1024_u64).without_size_hint();
+    tracing::info!("testing upload_object_buffered() [3]");
+    let insert = client
+        .upload_object(&bucket.name, "512K.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 512 * 1024_i64);
+
+    let payload = TestDataSource::new(500 * 1024_u64).without_size_hint();
+    tracing::info!("testing upload_object_buffered() [4]");
+    let insert = client
+        .upload_object(&bucket.name, "500K.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 500 * 1024_i64);
+
+    cleanup_bucket(control, bucket.name).await?;
+
+    Ok(())
+}
+
+pub async fn upload_unbuffered_resumable_known_size(
+    builder: storage::builder::storage::ClientBuilder,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    // Create a temporary bucket for the test.
+    let (control, bucket) = create_test_bucket().await?;
+    let client = builder.build().await?;
+
+    tracing::info!("testing send_unbuffered() [1]");
+    let payload = TestDataSource::new(0_u64);
+    let insert = client
+        .upload_object(&bucket.name, "empty.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 0_i64);
+
+    let payload = TestDataSource::new(128 * 1024_u64);
+    tracing::info!("testing upload_object_buffered() [2]");
+    let insert = client
+        .upload_object(&bucket.name, "128K.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 128 * 1024_i64);
+
+    let payload = TestDataSource::new(512 * 1024_u64);
+    tracing::info!("testing upload_object_buffered() [3]");
+    let insert = client
+        .upload_object(&bucket.name, "512K.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 512 * 1024_i64);
+
+    cleanup_bucket(control, bucket.name).await?;
+
+    Ok(())
+}
+
+pub async fn upload_unbuffered_resumable_unknown_size(
+    builder: storage::builder::storage::ClientBuilder,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    // Create a temporary bucket for the test.
+    let (control, bucket) = create_test_bucket().await?;
+    let client = builder.build().await?;
+
+    tracing::info!("testing send_unbuffered() [1]");
+    let payload = TestDataSource::new(0_u64).without_size_hint();
+    let insert = client
+        .upload_object(&bucket.name, "empty.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 0_i64);
+
+    let payload = TestDataSource::new(128 * 1024_u64).without_size_hint();
+    tracing::info!("testing upload_object_buffered() [2]");
+    let insert = client
+        .upload_object(&bucket.name, "128K.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 128 * 1024_i64);
+
+    let payload = TestDataSource::new(512 * 1024_u64).without_size_hint();
+    tracing::info!("testing upload_object_buffered() [3]");
+    let insert = client
+        .upload_object(&bucket.name, "512K.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 512 * 1024_i64);
+
+    let payload = TestDataSource::new(500 * 1024_u64).without_size_hint();
+    tracing::info!("testing upload_object_buffered() [4]");
+    let insert = client
+        .upload_object(&bucket.name, "500K.txt", payload)
+        .with_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 500 * 1024_i64);
+
+    cleanup_bucket(control, bucket.name).await?;
+
+    Ok(())
+}
+
+const ABORT_TEST_STOP: u64 = 512 * 1024;
+const ABORT_TEST_SIZE: u64 = 1024 * 1024;
+
+pub async fn abort_upload(
+    builder: storage::builder::storage::ClientBuilder,
+    bucket_name: &str,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    tracing::info!("abort_upload test, using bucket {}", bucket_name);
+
+    // Create a temporary bucket for the test.
+    let client = builder.build().await?;
+
+    abort_upload_unbuffered(client.clone(), bucket_name).await?;
+    abort_upload_buffered(client.clone(), bucket_name).await?;
+    Ok(())
+}
+
+struct AbortUploadTestCase {
+    name: String,
+    upload: storage::builder::storage::UploadObject<TestDataSource>,
+}
+
+fn abort_upload_test_cases(
+    client: &storage::client::Storage,
+    bucket_name: &str,
+    prefix: &str,
+) -> Vec<AbortUploadTestCase> {
+    let sources = [
+        (
+            "known-size",
+            TestDataSource::new(ABORT_TEST_SIZE).with_abort(ABORT_TEST_STOP),
+        ),
+        (
+            "unknown-size",
+            TestDataSource::new(ABORT_TEST_SIZE)
+                .with_abort(ABORT_TEST_STOP)
+                .without_size_hint(),
+        ),
+    ];
+    let thresholds = [
+        ("single-shot", 2 * ABORT_TEST_SIZE as usize),
+        ("resumable", 0_usize),
+    ];
+    let mut uploads = Vec::new();
+    for s in sources.into_iter() {
+        for t in thresholds {
+            let name = format!("{prefix}-{}-{}.txt", s.0, t.0);
+            let upload = client
+                .upload_object(bucket_name, &name, s.1.clone())
+                .with_if_generation_match(0)
+                .with_resumable_upload_threshold(t.1);
+            uploads.push(AbortUploadTestCase { name, upload });
+        }
+    }
+    uploads
+}
+
+async fn abort_upload_unbuffered(
+    client: storage::client::Storage,
+    bucket_name: &str,
+) -> Result<()> {
+    let test_cases = abort_upload_test_cases(&client, bucket_name, "unbuffered");
+
+    for (number, AbortUploadTestCase { name, upload }) in test_cases.into_iter().enumerate() {
+        tracing::info!("[{number}] {name}");
+        let err = upload
+            .send_unbuffered()
+            .await
+            .expect_err(&format!("[{number}] {name} - expected error"));
+        tracing::info!("[{number}] {name} - got error {err:?}");
+        assert!(err.is_serialization(), "[{number}] {name} - {err:?}");
+        let err = client
+            .read_object(bucket_name, &name)
+            .send()
+            .await
+            .expect_err(&format!(
+                "[{number}] {name} - expected error on read_object()"
+            ));
+        assert_eq!(err.http_status_code(), Some(404), "{err:?}");
+    }
+
+    Ok(())
+}
+
+async fn abort_upload_buffered(client: storage::client::Storage, bucket_name: &str) -> Result<()> {
+    let test_cases = abort_upload_test_cases(&client, bucket_name, "buffered");
+
+    for (number, AbortUploadTestCase { name, upload }) in test_cases.into_iter().enumerate() {
+        tracing::info!("[{number}] {name}");
+        let err = upload
+            .send()
+            .await
+            .expect_err(&format!("[{number}] {name} - expected error"));
+        tracing::info!("[{number}] {name} - got error {err:?}");
+        assert!(err.is_serialization(), "[{number}] {name} - {err:?}");
+        let err = client
+            .read_object(bucket_name, &name)
+            .send()
+            .await
+            .expect_err(&format!(
+                "[{number}] {name} - expected error on read_object()"
+            ));
+        assert_eq!(err.http_status_code(), Some(404), "{err:?}");
+    }
 
     Ok(())
 }
@@ -189,7 +789,7 @@ pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
     Ok((client, create))
 }
 
-pub async fn buckets(builder: storage_control::client::ClientBuilder) -> Result<()> {
+pub async fn buckets(builder: storage::builder::storage_control::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -394,7 +994,7 @@ async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) -> Res
     Ok(())
 }
 
-async fn cleanup_bucket(client: StorageControl, name: String) -> Result<()> {
+pub async fn cleanup_bucket(client: StorageControl, name: String) -> Result<()> {
     let mut objects = client
         .list_objects()
         .set_parent(&name)

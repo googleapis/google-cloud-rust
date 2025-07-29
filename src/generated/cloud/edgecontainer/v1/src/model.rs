@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A Google Distributed Cloud Edge Kubernetes cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cluster {
     /// Required. The resource name of the cluster.
@@ -989,13 +989,54 @@ impl serde::ser::Serialize for Cluster {
     }
 }
 
+impl std::fmt::Debug for Cluster {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Cluster");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("fleet", &self.fleet);
+        debug_struct.field("networking", &self.networking);
+        debug_struct.field("authorization", &self.authorization);
+        debug_struct.field("default_max_pods_per_node", &self.default_max_pods_per_node);
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("cluster_ca_certificate", &self.cluster_ca_certificate);
+        debug_struct.field("maintenance_policy", &self.maintenance_policy);
+        debug_struct.field("control_plane_version", &self.control_plane_version);
+        debug_struct.field("node_version", &self.node_version);
+        debug_struct.field("control_plane", &self.control_plane);
+        debug_struct.field("system_addons_config", &self.system_addons_config);
+        debug_struct.field(
+            "external_load_balancer_ipv4_address_pools",
+            &self.external_load_balancer_ipv4_address_pools,
+        );
+        debug_struct.field("control_plane_encryption", &self.control_plane_encryption);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("maintenance_events", &self.maintenance_events);
+        debug_struct.field("target_version", &self.target_version);
+        debug_struct.field("release_channel", &self.release_channel);
+        debug_struct.field("survivability_config", &self.survivability_config);
+        debug_struct.field(
+            "external_load_balancer_ipv6_address_pools",
+            &self.external_load_balancer_ipv6_address_pools,
+        );
+        debug_struct.field("connection_state", &self.connection_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Cluster].
 pub mod cluster {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration of the cluster control plane.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ControlPlane {
         pub config: std::option::Option<crate::model::cluster::control_plane::Config>,
@@ -1239,13 +1280,24 @@ pub mod cluster {
         }
     }
 
+    impl std::fmt::Debug for ControlPlane {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ControlPlane");
+            debug_struct.field("config", &self.config);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ControlPlane].
     pub mod control_plane {
         #[allow(unused_imports)]
         use super::*;
 
         /// Configuration specific to clusters with a control plane hosted remotely.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Remote {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1353,6 +1405,16 @@ pub mod cluster {
             }
         }
 
+        impl std::fmt::Debug for Remote {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Remote");
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Configuration specific to clusters with a control plane hosted locally.
         ///
         /// Warning: Local control plane clusters must be created in their own
@@ -1360,7 +1422,7 @@ pub mod cluster {
         /// project with any other type of clusters, including non-GDCE clusters.
         /// Mixing local control plane GDCE clusters with any other type of
         /// clusters in the same project can result in data loss.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Local {
             /// Name of the Google Distributed Cloud Edge zones where this node pool
@@ -1666,6 +1728,24 @@ pub mod cluster {
             }
         }
 
+        impl std::fmt::Debug for Local {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Local");
+                debug_struct.field("node_location", &self.node_location);
+                debug_struct.field("node_count", &self.node_count);
+                debug_struct.field("machine_filter", &self.machine_filter);
+                debug_struct.field("shared_deployment_policy", &self.shared_deployment_policy);
+                debug_struct.field(
+                    "control_plane_node_storage_schema",
+                    &self.control_plane_node_storage_schema,
+                );
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Represents the policy configuration about how user applications are
         /// deployed.
         ///
@@ -1822,7 +1902,7 @@ pub mod cluster {
     }
 
     /// Config that customers are allowed to define for GDCE system add-ons.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SystemAddonsConfig {
         /// Optional. Config for Ingress.
@@ -2005,6 +2085,18 @@ pub mod cluster {
         }
     }
 
+    impl std::fmt::Debug for SystemAddonsConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SystemAddonsConfig");
+            debug_struct.field("ingress", &self.ingress);
+            debug_struct.field("vm_service_config", &self.vm_service_config);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [SystemAddonsConfig].
     pub mod system_addons_config {
         #[allow(unused_imports)]
@@ -2013,7 +2105,7 @@ pub mod cluster {
         /// Config for the Ingress add-on which allows customers to create an Ingress
         /// object to manage external access to the servers in a cluster. The add-on
         /// consists of istiod and istio-ingress.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Ingress {
             /// Optional. Whether Ingress is disabled.
@@ -2180,8 +2272,20 @@ pub mod cluster {
             }
         }
 
+        impl std::fmt::Debug for Ingress {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Ingress");
+                debug_struct.field("disabled", &self.disabled);
+                debug_struct.field("ipv4_vip", &self.ipv4_vip);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// VMServiceConfig defines the configuration for GDCE VM Service.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct VMServiceConfig {
             /// Optional. Whether VMM is enabled.
@@ -2318,10 +2422,21 @@ pub mod cluster {
                 state.end()
             }
         }
+
+        impl std::fmt::Debug for VMServiceConfig {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("VMServiceConfig");
+                debug_struct.field("vmm_enabled", &self.vmm_enabled);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
     }
 
     /// Configuration for Customer-managed KMS key support for control plane nodes.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ControlPlaneEncryption {
         /// Optional. The Cloud KMS CryptoKey e.g.
@@ -2587,11 +2702,26 @@ pub mod cluster {
         }
     }
 
+    impl std::fmt::Debug for ControlPlaneEncryption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ControlPlaneEncryption");
+            debug_struct.field("kms_key", &self.kms_key);
+            debug_struct.field("kms_key_active_version", &self.kms_key_active_version);
+            debug_struct.field("kms_key_state", &self.kms_key_state);
+            debug_struct.field("kms_status", &self.kms_status);
+            debug_struct.field("resource_state", &self.resource_state);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// A Maintenance Event is an operation that could cause temporary disruptions
     /// to the cluster workloads, including Google-driven or user-initiated cluster
     /// upgrades, user-initiated cluster configuration changes that require
     /// restarting nodes, etc.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MaintenanceEvent {
         /// Output only. UUID of the maintenance event.
@@ -3013,6 +3143,26 @@ pub mod cluster {
         }
     }
 
+    impl std::fmt::Debug for MaintenanceEvent {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MaintenanceEvent");
+            debug_struct.field("uuid", &self.uuid);
+            debug_struct.field("target_version", &self.target_version);
+            debug_struct.field("operation", &self.operation);
+            debug_struct.field("r#type", &self.r#type);
+            debug_struct.field("schedule", &self.schedule);
+            debug_struct.field("state", &self.state);
+            debug_struct.field("create_time", &self.create_time);
+            debug_struct.field("start_time", &self.start_time);
+            debug_struct.field("end_time", &self.end_time);
+            debug_struct.field("update_time", &self.update_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [MaintenanceEvent].
     pub mod maintenance_event {
         #[allow(unused_imports)]
@@ -3428,7 +3578,7 @@ pub mod cluster {
 
     /// Configuration of the cluster survivability, e.g., for the case when network
     /// connectivity is lost.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SurvivabilityConfig {
         /// Optional. Time period that allows the cluster nodes to be rebooted and
@@ -3574,9 +3724,20 @@ pub mod cluster {
         }
     }
 
+    impl std::fmt::Debug for SurvivabilityConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SurvivabilityConfig");
+            debug_struct.field("offline_reboot_ttl", &self.offline_reboot_ttl);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// ConnectionState holds the current connection state from the cluster to
     /// Google.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConnectionState {
         /// Output only. The current connection state.
@@ -3746,6 +3907,18 @@ pub mod cluster {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for ConnectionState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ConnectionState");
+            debug_struct.field("state", &self.state);
+            debug_struct.field("update_time", &self.update_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -4186,7 +4359,7 @@ pub mod cluster {
 }
 
 /// Cluster-wide networking configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterNetworking {
     /// Required. All pods in the cluster are assigned an RFC1918 IPv4 address from
@@ -4355,12 +4528,24 @@ impl serde::ser::Serialize for ClusterNetworking {
     }
 }
 
+impl std::fmt::Debug for ClusterNetworking {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClusterNetworking");
+        debug_struct.field("cluster_ipv4_cidr_blocks", &self.cluster_ipv4_cidr_blocks);
+        debug_struct.field("services_ipv4_cidr_blocks", &self.services_ipv4_cidr_blocks);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Fleet related configuration.
 ///
 /// Fleets are a Google Cloud concept for logically organizing clusters,
 /// letting you use and manage multi-cluster capabilities and apply
 /// consistent policies across your systems.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Fleet {
     /// Required. The name of the Fleet host project where this cluster will be
@@ -4521,8 +4706,20 @@ impl serde::ser::Serialize for Fleet {
     }
 }
 
+impl std::fmt::Debug for Fleet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Fleet");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("membership", &self.membership);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A user principal for an RBAC policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterUser {
     /// Required. An active Google username.
@@ -4651,8 +4848,19 @@ impl serde::ser::Serialize for ClusterUser {
     }
 }
 
+impl std::fmt::Debug for ClusterUser {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClusterUser");
+        debug_struct.field("username", &self.username);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// RBAC policy that will be applied and managed by GEC.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Authorization {
     /// Required. User that will be granted the cluster-admin role on the cluster,
@@ -4795,9 +5003,20 @@ impl serde::ser::Serialize for Authorization {
     }
 }
 
+impl std::fmt::Debug for Authorization {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Authorization");
+        debug_struct.field("admin_users", &self.admin_users);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A set of Kubernetes nodes in a cluster with common configuration and
 /// specification.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodePool {
     /// Required. The resource name of the node pool.
@@ -5229,13 +5448,33 @@ impl serde::ser::Serialize for NodePool {
     }
 }
 
+impl std::fmt::Debug for NodePool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodePool");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("node_location", &self.node_location);
+        debug_struct.field("node_count", &self.node_count);
+        debug_struct.field("machine_filter", &self.machine_filter);
+        debug_struct.field("local_disk_encryption", &self.local_disk_encryption);
+        debug_struct.field("node_version", &self.node_version);
+        debug_struct.field("node_config", &self.node_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NodePool].
 pub mod node_pool {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for CMEK support for edge machine local disk encryption.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LocalDiskEncryption {
         /// Optional. The Cloud KMS CryptoKey e.g.
@@ -5501,8 +5740,23 @@ pub mod node_pool {
         }
     }
 
+    impl std::fmt::Debug for LocalDiskEncryption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("LocalDiskEncryption");
+            debug_struct.field("kms_key", &self.kms_key);
+            debug_struct.field("kms_key_active_version", &self.kms_key_active_version);
+            debug_struct.field("kms_key_state", &self.kms_key_state);
+            debug_struct.field("kms_status", &self.kms_status);
+            debug_struct.field("resource_state", &self.resource_state);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Configuration for each node in the NodePool
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NodeConfig {
         /// Optional. The Kubernetes node labels
@@ -5676,11 +5930,23 @@ pub mod node_pool {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for NodeConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NodeConfig");
+            debug_struct.field("labels", &self.labels);
+            debug_struct.field("node_storage_schema", &self.node_storage_schema);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// A Google Distributed Cloud Edge machine capable of acting as a Kubernetes
 /// node.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Machine {
     /// Required. The resource name of the machine.
@@ -6021,8 +6287,26 @@ impl serde::ser::Serialize for Machine {
     }
 }
 
+impl std::fmt::Debug for Machine {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Machine");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("hosted_node", &self.hosted_node);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("disabled", &self.disabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A VPN connection .
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpnConnection {
     /// Required. The resource name of VPN connection
@@ -6492,13 +6776,35 @@ impl serde::ser::Serialize for VpnConnection {
     }
 }
 
+impl std::fmt::Debug for VpnConnection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VpnConnection");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("nat_gateway_ip", &self.nat_gateway_ip);
+        debug_struct.field("bgp_routing_mode", &self.bgp_routing_mode);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("vpc", &self.vpc);
+        debug_struct.field("vpc_project", &self.vpc_project);
+        debug_struct.field("enable_high_availability", &self.enable_high_availability);
+        debug_struct.field("router", &self.router);
+        debug_struct.field("details", &self.details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VpnConnection].
 pub mod vpn_connection {
     #[allow(unused_imports)]
     use super::*;
 
     /// Project detail of the VPC network.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VpcProject {
         /// The project of the VPC to connect to. If not specified, it is the same as
@@ -6662,8 +6968,20 @@ pub mod vpn_connection {
         }
     }
 
+    impl std::fmt::Debug for VpcProject {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("VpcProject");
+            debug_struct.field("project_id", &self.project_id);
+            debug_struct.field("service_account", &self.service_account);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The created connection details.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Details {
         /// The state of this connection.
@@ -6895,13 +7213,27 @@ pub mod vpn_connection {
         }
     }
 
+    impl std::fmt::Debug for Details {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Details");
+            debug_struct.field("state", &self.state);
+            debug_struct.field("error", &self.error);
+            debug_struct.field("cloud_router", &self.cloud_router);
+            debug_struct.field("cloud_vpns", &self.cloud_vpns);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Details].
     pub mod details {
         #[allow(unused_imports)]
         use super::*;
 
         /// The Cloud Router info.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CloudRouter {
             /// The associated Cloud Router name.
@@ -7036,8 +7368,19 @@ pub mod vpn_connection {
             }
         }
 
+        impl std::fmt::Debug for CloudRouter {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("CloudRouter");
+                debug_struct.field("name", &self.name);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The Cloud VPN info.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CloudVpn {
             /// The created Cloud VPN gateway name.
@@ -7171,6 +7514,17 @@ pub mod vpn_connection {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for CloudVpn {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("CloudVpn");
+                debug_struct.field("gateway", &self.gateway);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
 
@@ -7454,7 +7808,7 @@ pub mod vpn_connection {
 /// [google.cloud.location.Location][google.cloud.location.Location].
 ///
 /// [google.cloud.location.Location]: location::model::Location
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     /// The set of available Google Distributed Cloud Edge zones in the location.
@@ -7596,8 +7950,19 @@ impl serde::ser::Serialize for LocationMetadata {
     }
 }
 
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+        debug_struct.field("available_zones", &self.available_zones);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A Google Distributed Cloud Edge zone where edge machines are located.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ZoneMetadata {
     /// Quota for resources in this zone.
@@ -7802,6 +8167,19 @@ impl serde::ser::Serialize for ZoneMetadata {
     }
 }
 
+impl std::fmt::Debug for ZoneMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ZoneMetadata");
+        debug_struct.field("quota", &self.quota);
+        debug_struct.field("rack_types", &self.rack_types);
+        debug_struct.field("config_data", &self.config_data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ZoneMetadata].
 pub mod zone_metadata {
     #[allow(unused_imports)]
@@ -7943,7 +8321,7 @@ pub mod zone_metadata {
 }
 
 /// Config data holds all the config related data for the zone.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigData {
     /// list of available v4 ip pools for external loadbalancer
@@ -8118,8 +8496,26 @@ impl serde::ser::Serialize for ConfigData {
     }
 }
 
+impl std::fmt::Debug for ConfigData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfigData");
+        debug_struct.field(
+            "available_external_lb_pools_ipv4",
+            &self.available_external_lb_pools_ipv4,
+        );
+        debug_struct.field(
+            "available_external_lb_pools_ipv6",
+            &self.available_external_lb_pools_ipv6,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents quota for Edge Container resources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Quota {
     /// Name of the quota metric.
@@ -8332,8 +8728,21 @@ impl serde::ser::Serialize for Quota {
     }
 }
 
+impl std::fmt::Debug for Quota {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Quota");
+        debug_struct.field("metric", &self.metric);
+        debug_struct.field("limit", &self.limit);
+        debug_struct.field("usage", &self.usage);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Maintenance policy configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenancePolicy {
     /// Specifies the maintenance window in which maintenance may be performed.
@@ -8509,8 +8918,20 @@ impl serde::ser::Serialize for MaintenancePolicy {
     }
 }
 
+impl std::fmt::Debug for MaintenancePolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaintenancePolicy");
+        debug_struct.field("window", &self.window);
+        debug_struct.field("maintenance_exclusions", &self.maintenance_exclusions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Maintenance window configuration
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenanceWindow {
     /// Configuration of a recurring maintenance window.
@@ -8651,8 +9072,19 @@ impl serde::ser::Serialize for MaintenanceWindow {
     }
 }
 
+impl std::fmt::Debug for MaintenanceWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaintenanceWindow");
+        debug_struct.field("recurring_window", &self.recurring_window);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents an arbitrary window of time that recurs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecurringTimeWindow {
     /// The window of the first recurrence.
@@ -8818,8 +9250,20 @@ impl serde::ser::Serialize for RecurringTimeWindow {
     }
 }
 
+impl std::fmt::Debug for RecurringTimeWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecurringTimeWindow");
+        debug_struct.field("window", &self.window);
+        debug_struct.field("recurrence", &self.recurrence);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a maintenance exclusion window.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenanceExclusionWindow {
     /// Optional. The time window.
@@ -8983,8 +9427,20 @@ impl serde::ser::Serialize for MaintenanceExclusionWindow {
     }
 }
 
+impl std::fmt::Debug for MaintenanceExclusionWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MaintenanceExclusionWindow");
+        debug_struct.field("window", &self.window);
+        debug_struct.field("id", &self.id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents an arbitrary window of time.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeWindow {
     /// The time that the window first starts.
@@ -9162,8 +9618,20 @@ impl serde::ser::Serialize for TimeWindow {
     }
 }
 
+impl std::fmt::Debug for TimeWindow {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TimeWindow");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Server configuration for supported versions and release channels.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServerConfig {
     /// Output only. Mapping from release channel to channel config.
@@ -9355,8 +9823,21 @@ impl serde::ser::Serialize for ServerConfig {
     }
 }
 
+impl std::fmt::Debug for ServerConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServerConfig");
+        debug_struct.field("channels", &self.channels);
+        debug_struct.field("versions", &self.versions);
+        debug_struct.field("default_version", &self.default_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for a release channel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChannelConfig {
     /// Output only. Default version for this release channel, e.g.: "1.4.0".
@@ -9486,8 +9967,19 @@ impl serde::ser::Serialize for ChannelConfig {
     }
 }
 
+impl std::fmt::Debug for ChannelConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChannelConfig");
+        debug_struct.field("default_version", &self.default_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Version of a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Version {
     /// Output only. Name of the version, e.g.: "1.4.0".
@@ -9616,8 +10108,19 @@ impl serde::ser::Serialize for Version {
     }
 }
 
+impl std::fmt::Debug for Version {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Version");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Long-running operation metadata for Edge Container API methods.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The time the operation was created.
@@ -9982,6 +10485,25 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_message", &self.status_message);
+        debug_struct.field("requested_cancellation", &self.requested_cancellation);
+        debug_struct.field("api_version", &self.api_version);
+        debug_struct.field("warnings", &self.warnings);
+        debug_struct.field("status_reason", &self.status_reason);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [OperationMetadata].
 pub mod operation_metadata {
     #[allow(unused_imports)]
@@ -10114,7 +10636,7 @@ pub mod operation_metadata {
 }
 
 /// Lists clusters in a location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersRequest {
     /// Required. The parent location, which owns this collection of clusters.
@@ -10361,8 +10883,23 @@ impl serde::ser::Serialize for ListClustersRequest {
     }
 }
 
+impl std::fmt::Debug for ListClustersRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClustersRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List of clusters in a location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersResponse {
     /// Clusters in the location.
@@ -10560,8 +11097,21 @@ impl serde::ser::Serialize for ListClustersResponse {
     }
 }
 
+impl std::fmt::Debug for ListClustersResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListClustersResponse");
+        debug_struct.field("clusters", &self.clusters);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Gets a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClusterRequest {
     /// Required. The resource name of the cluster.
@@ -10690,8 +11240,19 @@ impl serde::ser::Serialize for GetClusterRequest {
     }
 }
 
+impl std::fmt::Debug for GetClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetClusterRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Creates a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClusterRequest {
     /// Required. The parent location where this cluster will be created.
@@ -10907,8 +11468,22 @@ impl serde::ser::Serialize for CreateClusterRequest {
     }
 }
 
+impl std::fmt::Debug for CreateClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateClusterRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("cluster_id", &self.cluster_id);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Updates a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateClusterRequest {
     /// Field mask is used to specify the fields to be overwritten in the
@@ -11115,8 +11690,21 @@ impl serde::ser::Serialize for UpdateClusterRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateClusterRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Upgrades a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpgradeClusterRequest {
     /// Required. The resource name of the cluster.
@@ -11326,6 +11914,20 @@ impl serde::ser::Serialize for UpgradeClusterRequest {
     }
 }
 
+impl std::fmt::Debug for UpgradeClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpgradeClusterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("target_version", &self.target_version);
+        debug_struct.field("schedule", &self.schedule);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [UpgradeClusterRequest].
 pub mod upgrade_cluster_request {
     #[allow(unused_imports)]
@@ -11460,7 +12062,7 @@ pub mod upgrade_cluster_request {
 }
 
 /// Deletes a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClusterRequest {
     /// Required. The resource name of the cluster.
@@ -11616,8 +12218,20 @@ impl serde::ser::Serialize for DeleteClusterRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteClusterRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteClusterRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Generates an access token for a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAccessTokenRequest {
     /// Required. The resource name of the cluster.
@@ -11746,8 +12360,19 @@ impl serde::ser::Serialize for GenerateAccessTokenRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateAccessTokenRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAccessTokenRequest");
+        debug_struct.field("cluster", &self.cluster);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An access token for a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAccessTokenResponse {
     /// Output only. Access token to authenticate to k8s api-server.
@@ -11913,8 +12538,20 @@ impl serde::ser::Serialize for GenerateAccessTokenResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateAccessTokenResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateAccessTokenResponse");
+        debug_struct.field("access_token", &self.access_token);
+        debug_struct.field("expire_time", &self.expire_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Generates an offline credential(offline) for a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateOfflineCredentialRequest {
     /// Required. The resource name of the cluster.
@@ -12043,8 +12680,19 @@ impl serde::ser::Serialize for GenerateOfflineCredentialRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateOfflineCredentialRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateOfflineCredentialRequest");
+        debug_struct.field("cluster", &self.cluster);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An offline credential for a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateOfflineCredentialResponse {
     /// Output only. Client certificate to authenticate to k8s api-server.
@@ -12263,8 +12911,22 @@ impl serde::ser::Serialize for GenerateOfflineCredentialResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateOfflineCredentialResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateOfflineCredentialResponse");
+        debug_struct.field("client_certificate", &self.client_certificate);
+        debug_struct.field("client_key", &self.client_key);
+        debug_struct.field("user_id", &self.user_id);
+        debug_struct.field("expire_time", &self.expire_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Lists node pools in a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodePoolsRequest {
     /// Required. The parent cluster, which owns this collection of node pools.
@@ -12510,8 +13172,23 @@ impl serde::ser::Serialize for ListNodePoolsRequest {
     }
 }
 
+impl std::fmt::Debug for ListNodePoolsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNodePoolsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List of node pools in a cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodePoolsResponse {
     /// Node pools in the cluster.
@@ -12710,8 +13387,21 @@ impl serde::ser::Serialize for ListNodePoolsResponse {
     }
 }
 
+impl std::fmt::Debug for ListNodePoolsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNodePoolsResponse");
+        debug_struct.field("node_pools", &self.node_pools);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Gets a node pool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNodePoolRequest {
     /// Required. The resource name of the node pool.
@@ -12840,8 +13530,19 @@ impl serde::ser::Serialize for GetNodePoolRequest {
     }
 }
 
+impl std::fmt::Debug for GetNodePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNodePoolRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Creates a node pool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNodePoolRequest {
     /// Required. The parent cluster where this node pool will be created.
@@ -13058,8 +13759,22 @@ impl serde::ser::Serialize for CreateNodePoolRequest {
     }
 }
 
+impl std::fmt::Debug for CreateNodePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateNodePoolRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("node_pool_id", &self.node_pool_id);
+        debug_struct.field("node_pool", &self.node_pool);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Updates a node pool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNodePoolRequest {
     /// Field mask is used to specify the fields to be overwritten in the
@@ -13267,8 +13982,21 @@ impl serde::ser::Serialize for UpdateNodePoolRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateNodePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateNodePoolRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("node_pool", &self.node_pool);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Deletes a node pool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNodePoolRequest {
     /// Required. The resource name of the node pool.
@@ -13424,8 +14152,20 @@ impl serde::ser::Serialize for DeleteNodePoolRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteNodePoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteNodePoolRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Lists machines in a site.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMachinesRequest {
     /// Required. The parent site, which owns this collection of machines.
@@ -13671,8 +14411,23 @@ impl serde::ser::Serialize for ListMachinesRequest {
     }
 }
 
+impl std::fmt::Debug for ListMachinesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMachinesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List of machines in a site.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMachinesResponse {
     /// Machines in the site.
@@ -13870,8 +14625,21 @@ impl serde::ser::Serialize for ListMachinesResponse {
     }
 }
 
+impl std::fmt::Debug for ListMachinesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMachinesResponse");
+        debug_struct.field("machines", &self.machines);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Gets a machine.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMachineRequest {
     /// Required. The resource name of the machine.
@@ -14000,8 +14768,19 @@ impl serde::ser::Serialize for GetMachineRequest {
     }
 }
 
+impl std::fmt::Debug for GetMachineRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMachineRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Lists VPN connections.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVpnConnectionsRequest {
     /// Required. The parent location, which owns this collection of VPN
@@ -14248,8 +15027,23 @@ impl serde::ser::Serialize for ListVpnConnectionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListVpnConnectionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVpnConnectionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// List of VPN connections in a location.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVpnConnectionsResponse {
     /// VpnConnections in the location.
@@ -14448,8 +15242,21 @@ impl serde::ser::Serialize for ListVpnConnectionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListVpnConnectionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVpnConnectionsResponse");
+        debug_struct.field("vpn_connections", &self.vpn_connections);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Gets a VPN connection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVpnConnectionRequest {
     /// Required. The resource name of the vpn connection.
@@ -14578,8 +15385,19 @@ impl serde::ser::Serialize for GetVpnConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for GetVpnConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVpnConnectionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Creates a VPN connection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVpnConnectionRequest {
     /// Required. The parent location where this vpn connection will be created.
@@ -14799,8 +15617,22 @@ impl serde::ser::Serialize for CreateVpnConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateVpnConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVpnConnectionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("vpn_connection_id", &self.vpn_connection_id);
+        debug_struct.field("vpn_connection", &self.vpn_connection);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Deletes a vpn connection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVpnConnectionRequest {
     /// Required. The resource name of the vpn connection.
@@ -14956,8 +15788,20 @@ impl serde::ser::Serialize for DeleteVpnConnectionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteVpnConnectionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteVpnConnectionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Gets the server config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServerConfigRequest {
     /// Required. The name (project and location) of the server config to get,
@@ -15084,6 +15928,17 @@ impl serde::ser::Serialize for GetServerConfigRequest {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GetServerConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetServerConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

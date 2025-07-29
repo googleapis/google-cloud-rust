@@ -37,7 +37,7 @@ extern crate wkt;
 
 /// Describes a Cloud Function that contains user computation executed in
 /// response to an event. It encapsulates function and trigger configurations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Function {
     /// A user-defined name of the function. Function names must be unique
@@ -567,6 +567,30 @@ impl serde::ser::Serialize for Function {
     }
 }
 
+impl std::fmt::Debug for Function {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Function");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("build_config", &self.build_config);
+        debug_struct.field("service_config", &self.service_config);
+        debug_struct.field("event_trigger", &self.event_trigger);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("state_messages", &self.state_messages);
+        debug_struct.field("environment", &self.environment);
+        debug_struct.field("url", &self.url);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("create_time", &self.create_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Function].
 pub mod function {
     #[allow(unused_imports)]
@@ -728,7 +752,7 @@ pub mod function {
 }
 
 /// Informational messages about the state of the Cloud Function or Operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StateMessage {
     /// Severity of the state message.
@@ -906,6 +930,19 @@ impl serde::ser::Serialize for StateMessage {
     }
 }
 
+impl std::fmt::Debug for StateMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StateMessage");
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [StateMessage].
 pub mod state_message {
     #[allow(unused_imports)]
@@ -1052,7 +1089,7 @@ pub mod state_message {
 }
 
 /// Location of the source in an archive file in Google Cloud Storage.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageSource {
     /// Google Cloud Storage bucket containing the source (see
@@ -1283,8 +1320,22 @@ impl serde::ser::Serialize for StorageSource {
     }
 }
 
+impl std::fmt::Debug for StorageSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StorageSource");
+        debug_struct.field("bucket", &self.bucket);
+        debug_struct.field("object", &self.object);
+        debug_struct.field("generation", &self.generation);
+        debug_struct.field("source_upload_url", &self.source_upload_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Location of the source in a Google Cloud Source Repository.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepoSource {
     /// ID of the project that owns the Cloud Source Repository. If omitted, the
@@ -1650,6 +1701,21 @@ impl serde::ser::Serialize for RepoSource {
     }
 }
 
+impl std::fmt::Debug for RepoSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RepoSource");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("repo_name", &self.repo_name);
+        debug_struct.field("dir", &self.dir);
+        debug_struct.field("invert_regex", &self.invert_regex);
+        debug_struct.field("revision", &self.revision);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RepoSource].
 pub mod repo_source {
     #[allow(unused_imports)]
@@ -1676,7 +1742,7 @@ pub mod repo_source {
 }
 
 /// The location of the function source code.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Source {
     /// Location of the source.
@@ -1946,6 +2012,17 @@ impl serde::ser::Serialize for Source {
     }
 }
 
+impl std::fmt::Debug for Source {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Source");
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Source].
 pub mod source {
     #[allow(unused_imports)]
@@ -1970,7 +2047,7 @@ pub mod source {
 
 /// Provenance of the source. Ways to find the original source, or verify that
 /// some source was used for this build.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceProvenance {
     /// A copy of the build's `source.storage_source`, if exists, with any
@@ -2175,9 +2252,22 @@ impl serde::ser::Serialize for SourceProvenance {
     }
 }
 
+impl std::fmt::Debug for SourceProvenance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceProvenance");
+        debug_struct.field("resolved_storage_source", &self.resolved_storage_source);
+        debug_struct.field("resolved_repo_source", &self.resolved_repo_source);
+        debug_struct.field("git_uri", &self.git_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes the Build step of the function that builds a container from the
 /// given source.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BuildConfig {
     /// Output only. The Cloud Build name of the latest successful deployment of
@@ -2738,6 +2828,27 @@ impl serde::ser::Serialize for BuildConfig {
     }
 }
 
+impl std::fmt::Debug for BuildConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BuildConfig");
+        debug_struct.field("build", &self.build);
+        debug_struct.field("runtime", &self.runtime);
+        debug_struct.field("entry_point", &self.entry_point);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("source_provenance", &self.source_provenance);
+        debug_struct.field("worker_pool", &self.worker_pool);
+        debug_struct.field("environment_variables", &self.environment_variables);
+        debug_struct.field("docker_registry", &self.docker_registry);
+        debug_struct.field("docker_repository", &self.docker_repository);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("runtime_update_policy", &self.runtime_update_policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BuildConfig].
 pub mod build_config {
     #[allow(unused_imports)]
@@ -2891,7 +3002,7 @@ pub mod build_config {
 
 /// Describes the Service being deployed.
 /// Currently Supported : Cloud Run (fully managed).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceConfig {
     /// Output only. Name of the service associated with a Function.
@@ -3674,6 +3785,50 @@ impl serde::ser::Serialize for ServiceConfig {
     }
 }
 
+impl std::fmt::Debug for ServiceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceConfig");
+        debug_struct.field("service", &self.service);
+        debug_struct.field("timeout_seconds", &self.timeout_seconds);
+        debug_struct.field("available_memory", &self.available_memory);
+        debug_struct.field("available_cpu", &self.available_cpu);
+        debug_struct.field("environment_variables", &self.environment_variables);
+        debug_struct.field("max_instance_count", &self.max_instance_count);
+        debug_struct.field("min_instance_count", &self.min_instance_count);
+        debug_struct.field("vpc_connector", &self.vpc_connector);
+        debug_struct.field(
+            "vpc_connector_egress_settings",
+            &self.vpc_connector_egress_settings,
+        );
+        debug_struct.field("ingress_settings", &self.ingress_settings);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("service_account_email", &self.service_account_email);
+        debug_struct.field(
+            "all_traffic_on_latest_revision",
+            &self.all_traffic_on_latest_revision,
+        );
+        debug_struct.field(
+            "secret_environment_variables",
+            &self.secret_environment_variables,
+        );
+        debug_struct.field("secret_volumes", &self.secret_volumes);
+        debug_struct.field("revision", &self.revision);
+        debug_struct.field(
+            "max_instance_request_concurrency",
+            &self.max_instance_request_concurrency,
+        );
+        debug_struct.field("security_level", &self.security_level);
+        debug_struct.field(
+            "binary_authorization_policy",
+            &self.binary_authorization_policy,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ServiceConfig].
 pub mod service_config {
     #[allow(unused_imports)]
@@ -4107,7 +4262,7 @@ pub mod service_config {
 /// Configuration for a secret environment variable. It has the information
 /// necessary to fetch the secret value from secret manager and expose it as an
 /// environment variable.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretEnvVar {
     /// Name of the environment variable.
@@ -4314,10 +4469,24 @@ impl serde::ser::Serialize for SecretEnvVar {
     }
 }
 
+impl std::fmt::Debug for SecretEnvVar {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecretEnvVar");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configuration for a secret volume. It has the information necessary to fetch
 /// the secret value from secret manager and make it available as files mounted
 /// at the requested paths within the application container.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretVolume {
     /// The path within the container to mount the secret volume. For example,
@@ -4535,13 +4704,27 @@ impl serde::ser::Serialize for SecretVolume {
     }
 }
 
+impl std::fmt::Debug for SecretVolume {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecretVolume");
+        debug_struct.field("mount_path", &self.mount_path);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("secret", &self.secret);
+        debug_struct.field("versions", &self.versions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SecretVolume].
 pub mod secret_volume {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for a single version.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SecretVersion {
         /// Version of the secret (version number or the string 'latest'). It is
@@ -4701,11 +4884,23 @@ pub mod secret_volume {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for SecretVersion {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SecretVersion");
+            debug_struct.field("version", &self.version);
+            debug_struct.field("path", &self.path);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Describes EventTrigger, used to request events to be sent from another
 /// service.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventTrigger {
     /// Output only. The resource name of the Eventarc trigger. The format of this
@@ -5065,6 +5260,25 @@ impl serde::ser::Serialize for EventTrigger {
     }
 }
 
+impl std::fmt::Debug for EventTrigger {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventTrigger");
+        debug_struct.field("trigger", &self.trigger);
+        debug_struct.field("trigger_region", &self.trigger_region);
+        debug_struct.field("event_type", &self.event_type);
+        debug_struct.field("event_filters", &self.event_filters);
+        debug_struct.field("pubsub_topic", &self.pubsub_topic);
+        debug_struct.field("service_account_email", &self.service_account_email);
+        debug_struct.field("retry_policy", &self.retry_policy);
+        debug_struct.field("channel", &self.channel);
+        debug_struct.field("service", &self.service);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [EventTrigger].
 pub mod event_trigger {
     #[allow(unused_imports)]
@@ -5206,7 +5420,7 @@ pub mod event_trigger {
 }
 
 /// Filters events based on exact matches on the CloudEvents attributes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventFilter {
     /// Required. The name of a CloudEvents attribute.
@@ -5386,8 +5600,21 @@ impl serde::ser::Serialize for EventFilter {
     }
 }
 
+impl std::fmt::Debug for EventFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventFilter");
+        debug_struct.field("attribute", &self.attribute);
+        debug_struct.field("value", &self.value);
+        debug_struct.field("operator", &self.operator);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetFunction` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFunctionRequest {
     /// Required. The name of the function which details should be obtained.
@@ -5545,8 +5772,20 @@ impl serde::ser::Serialize for GetFunctionRequest {
     }
 }
 
+impl std::fmt::Debug for GetFunctionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetFunctionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("revision", &self.revision);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListFunctions` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFunctionsRequest {
     /// Required. The project and location from which the function should be
@@ -5806,8 +6045,23 @@ impl serde::ser::Serialize for ListFunctionsRequest {
     }
 }
 
+impl std::fmt::Debug for ListFunctionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFunctionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListFunctions` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFunctionsResponse {
     /// The functions that match the request.
@@ -6007,8 +6261,21 @@ impl serde::ser::Serialize for ListFunctionsResponse {
     }
 }
 
+impl std::fmt::Debug for ListFunctionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFunctionsResponse");
+        debug_struct.field("functions", &self.functions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `CreateFunction` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFunctionRequest {
     /// Required. The project and location in which the function should be created,
@@ -6202,8 +6469,21 @@ impl serde::ser::Serialize for CreateFunctionRequest {
     }
 }
 
+impl std::fmt::Debug for CreateFunctionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateFunctionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("function", &self.function);
+        debug_struct.field("function_id", &self.function_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `UpdateFunction` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFunctionRequest {
     /// Required. New version of the function.
@@ -6380,8 +6660,20 @@ impl serde::ser::Serialize for UpdateFunctionRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateFunctionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFunctionRequest");
+        debug_struct.field("function", &self.function);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `DeleteFunction` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFunctionRequest {
     /// Required. The name of the function which should be deleted.
@@ -6510,8 +6802,19 @@ impl serde::ser::Serialize for DeleteFunctionRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteFunctionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFunctionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request of `GenerateSourceUploadUrl` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateUploadUrlRequest {
     /// Required. The project and location in which the Google Cloud Storage signed
@@ -6710,8 +7013,21 @@ impl serde::ser::Serialize for GenerateUploadUrlRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateUploadUrlRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateUploadUrlRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("kms_key_name", &self.kms_key_name);
+        debug_struct.field("environment", &self.environment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of `GenerateSourceUploadUrl` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateUploadUrlResponse {
     /// The generated Google Cloud Storage signed URL that should be used for a
@@ -6886,8 +7202,20 @@ impl serde::ser::Serialize for GenerateUploadUrlResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateUploadUrlResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateUploadUrlResponse");
+        debug_struct.field("upload_url", &self.upload_url);
+        debug_struct.field("storage_source", &self.storage_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request of `GenerateDownloadUrl` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateDownloadUrlRequest {
     /// Required. The name of function for which source code Google Cloud Storage
@@ -7017,8 +7345,19 @@ impl serde::ser::Serialize for GenerateDownloadUrlRequest {
     }
 }
 
+impl std::fmt::Debug for GenerateDownloadUrlRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateDownloadUrlRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response of `GenerateDownloadUrl` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateDownloadUrlResponse {
     /// The generated Google Cloud Storage signed URL that should be used for
@@ -7149,8 +7488,19 @@ impl serde::ser::Serialize for GenerateDownloadUrlResponse {
     }
 }
 
+impl std::fmt::Debug for GenerateDownloadUrlResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenerateDownloadUrlResponse");
+        debug_struct.field("download_url", &self.download_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListRuntimes` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimesRequest {
     /// Required. The project and location from which the runtimes should be
@@ -7305,8 +7655,20 @@ impl serde::ser::Serialize for ListRuntimesRequest {
     }
 }
 
+impl std::fmt::Debug for ListRuntimesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRuntimesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListRuntimes` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRuntimesResponse {
     /// The runtimes that match the request.
@@ -7442,6 +7804,17 @@ impl serde::ser::Serialize for ListRuntimesResponse {
     }
 }
 
+impl std::fmt::Debug for ListRuntimesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRuntimesResponse");
+        debug_struct.field("runtimes", &self.runtimes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListRuntimesResponse].
 pub mod list_runtimes_response {
     #[allow(unused_imports)]
@@ -7449,7 +7822,7 @@ pub mod list_runtimes_response {
 
     /// Describes a runtime and any special information (e.g., deprecation status)
     /// related to it.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Runtime {
         /// The name of the runtime, e.g., 'go113', 'nodejs12', etc.
@@ -7766,6 +8139,23 @@ pub mod list_runtimes_response {
         }
     }
 
+    impl std::fmt::Debug for Runtime {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Runtime");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("stage", &self.stage);
+            debug_struct.field("warnings", &self.warnings);
+            debug_struct.field("environment", &self.environment);
+            debug_struct.field("deprecation_date", &self.deprecation_date);
+            debug_struct.field("decommission_date", &self.decommission_date);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The various stages that a runtime can be in.
     ///
     /// # Working with unknown values
@@ -7929,7 +8319,7 @@ pub mod list_runtimes_response {
 
 /// Security patches are applied automatically to the runtime without requiring
 /// the function to be redeployed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutomaticUpdatePolicy {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8031,8 +8421,18 @@ impl serde::ser::Serialize for AutomaticUpdatePolicy {
     }
 }
 
+impl std::fmt::Debug for AutomaticUpdatePolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutomaticUpdatePolicy");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Security patches are only applied when a function is redeployed.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OnDeployUpdatePolicy {
     /// Output only. contains the runtime version which was used during latest
@@ -8163,8 +8563,19 @@ impl serde::ser::Serialize for OnDeployUpdatePolicy {
     }
 }
 
+impl std::fmt::Debug for OnDeployUpdatePolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OnDeployUpdatePolicy");
+        debug_struct.field("runtime_version", &self.runtime_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents the metadata of the long-running operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The time the operation was created.
@@ -8614,8 +9025,30 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_detail", &self.status_detail);
+        debug_struct.field("cancel_requested", &self.cancel_requested);
+        debug_struct.field("api_version", &self.api_version);
+        debug_struct.field("request_resource", &self.request_resource);
+        debug_struct.field("stages", &self.stages);
+        debug_struct.field("source_token", &self.source_token);
+        debug_struct.field("build_name", &self.build_name);
+        debug_struct.field("operation_type", &self.operation_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Extra GCF specific location information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
     /// The Cloud Function environments this location supports.
@@ -8747,8 +9180,19 @@ impl serde::ser::Serialize for LocationMetadata {
     }
 }
 
+impl std::fmt::Debug for LocationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationMetadata");
+        debug_struct.field("environments", &self.environments);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Each Stage of the deployment process
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Stage {
     /// Name of the Stage. This will be unique for each Stage.
@@ -8999,6 +9443,22 @@ impl serde::ser::Serialize for Stage {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Stage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Stage");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("message", &self.message);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("resource_uri", &self.resource_uri);
+        debug_struct.field("state_messages", &self.state_messages);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

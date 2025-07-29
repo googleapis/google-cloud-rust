@@ -46,9 +46,6 @@ type modelAnnotations struct {
 	Services          []*api.Service
 	NameToLower       string
 	NotForPublication bool
-	// When bootstrapping the well-known types crate the templates add some
-	// ad-hoc code.
-	IsWktCrate bool
 	// If true, disable rustdoc warnings known to be triggered by our generated
 	// documentation.
 	DisabledRustdocWarnings []string
@@ -60,9 +57,21 @@ type modelAnnotations struct {
 	Incomplete bool
 }
 
+// When bootstrapping the well-known types crate the templates add some
+// ad-hoc code.
+func (m *modelAnnotations) IsWktCrate() bool {
+	return m.PackageName == "google-cloud-wkt"
+}
+
 // HasServices returns true if there are any services in the model
 func (m *modelAnnotations) HasServices() bool {
 	return len(m.Services) > 0
+}
+
+// We handle references to `gaxi` traits from within the `gaxi` crate, by
+// injecting some ad-hoc code.
+func (m *modelAnnotations) IsGaxiCrate() bool {
+	return m.PackageName == "google-cloud-gax-internal"
 }
 
 type serviceAnnotations struct {
@@ -160,6 +169,8 @@ type messageAnnotation struct {
 	// If set, this message is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
+	// If true, this message's visibility should only be `pub(crate)`
+	Internal bool
 }
 
 type methodAnnotation struct {
@@ -176,19 +187,27 @@ type methodAnnotation struct {
 	ReturnType          string
 	HasVeneer           bool
 	Attributes          []string
+	RoutingRequired     bool
 }
 
 type pathInfoAnnotation struct {
-	Method      string
-	PathArgs    []pathArg
-	HasPathArgs bool
-	HasBody     bool
-}
+	// Whether the request has a body or not
+	HasBody bool
 
-// Returns true if the HTTP request requires a payload. This is relevant for
-// POST and PUT requests that do not have a body parameter.
-func (a *pathInfoAnnotation) RequiresContentLength() bool {
-	return a.Method == "POST" || a.Method == "PUT"
+	// A list of possible request parameters
+	//
+	// This is only used for gRPC-based clients, where we must consider all
+	// possible request parameters.
+	//
+	// https://google.aip.dev/client-libraries/4222
+	//
+	// Templates are ignored. We only care about the FieldName and FieldAccessor.
+	UniqueParameters []*bindingSubstitution
+
+	// Whether this is idempotent by default
+	//
+	// This is only used for gRPC-based clients.
+	IsIdempotent string
 }
 
 type operationInfo struct {
@@ -214,7 +233,6 @@ func (info *operationInfo) NoneAreEmpty() bool {
 }
 
 type routingVariantAnnotations struct {
-	FirstVariant     bool
 	FieldAccessors   []string
 	PrefixSegments   []string
 	MatchingSegments []string
@@ -469,7 +487,6 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		Services:                servicesSubset,
 		NameToLower:             strings.ToLower(model.Name),
 		NotForPublication:       codec.doNotPublish,
-		IsWktCrate:              model.PackageName == "google.protobuf",
 		DisabledRustdocWarnings: codec.disabledRustdocWarnings,
 		PerServiceFeatures:      codec.perServiceFeatures && len(servicesSubset) > 0,
 		Incomplete: slices.ContainsFunc(model.Services, func(s *api.Service) bool {
@@ -637,30 +654,15 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
 		HasSyntheticFields: hasSyntheticFields,
+		Internal:           slices.Contains(c.internalTypes, m.ID),
 	}
 }
 
 func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIState, sourceSpecificationPackageName string, packageNamespace string) {
-	// TODO(#2317) - move to pathBindingAnnotation
-	if len(m.PathInfo.Bindings) != 0 {
-		pathInfoAnnotation := &pathInfoAnnotation{
-			Method:   m.PathInfo.Bindings[0].Verb,
-			PathArgs: httpPathArgs(m.PathInfo, m, state),
-			HasBody:  m.PathInfo.BodyFieldPath != "",
-		}
-		pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
-		m.PathInfo.Codec = pathInfoAnnotation
-	} else {
-		// Even when there are no bindings, we still want a concrete
-		// annotation, which we use to determine the default idempotency
-		// of the method. An empty annotation yields `false`.
-		m.PathInfo.Codec = &pathInfoAnnotation{}
-	}
-
+	annotatePathInfo(m.PathInfo, m, state)
 	for _, routing := range m.Routing {
-		for index, variant := range routing.Variants {
+		for _, variant := range routing.Variants {
 			routingVariantAnnotations := &routingVariantAnnotations{
-				FirstVariant:     index == 0,
 				FieldAccessors:   c.annotateRoutingAccessors(variant, m, state),
 				PrefixSegments:   annotateSegments(variant.Prefix.Segments),
 				MatchingSegments: annotateSegments(variant.Matching.Segments),
@@ -668,10 +670,6 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 			}
 			variant.Codec = routingVariantAnnotations
 		}
-	}
-
-	for _, b := range m.PathInfo.Bindings {
-		annotatePathBinding(b, m, state)
 	}
 	returnType := c.methodInOutTypeName(m.OutputTypeID, state, sourceSpecificationPackageName)
 	if m.ReturnsEmpty {
@@ -690,6 +688,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		SystemParameters:    c.systemParameters,
 		ReturnType:          returnType,
 		HasVeneer:           c.hasVeneer,
+		RoutingRequired:     c.routingRequired,
 	}
 	if annotation.Name == "clone" {
 		// Some methods look too similar to standard Rust traits. Clippy makes
@@ -759,7 +758,7 @@ func annotateSegments(segments []string) []string {
 	}
 	for index, segment := range segments {
 		switch {
-		case segment == api.RoutingMultiSegmentWildcard:
+		case segment == api.MultiSegmentWildcard:
 			flushBuffer()
 			if len(segments) == 1 {
 				ann = append(ann, "Segment::MultiWildcard")
@@ -768,7 +767,7 @@ func annotateSegments(segments []string) []string {
 			} else {
 				ann = append(ann, "Segment::TrailingMultiWildcard")
 			}
-		case segment == api.RoutingSingleSegmentWildcard:
+		case segment == api.SingleSegmentWildcard:
 			if index != 0 {
 				literalBuffer += "/"
 			}
@@ -790,25 +789,14 @@ func makeBindingSubstitution(v *api.PathVariable, m *api.Method, state *api.APIS
 	for _, a := range makeAccessors(v.FieldPath, m, state) {
 		fieldAccessor += a
 	}
-	var segments []string
-	for _, s := range v.Segments {
-		if s.Literal != nil {
-			segments = append(segments, *s.Literal)
-		} else if s.Match != nil {
-			segments = append(segments, "*")
-		} else if s.MatchRecursive != nil {
-			segments = append(segments, "**")
-		}
-	}
-
 	return bindingSubstitution{
 		FieldAccessor: fieldAccessor,
 		FieldName:     strings.Join(v.FieldPath, "."),
-		Template:      segments,
+		Template:      v.Segments,
 	}
 }
 
-func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState) {
+func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState) *pathBindingAnnotation {
 	var subs []*bindingSubstitution
 	for _, s := range b.PathTemplate.Segments {
 		if s.Variable != nil {
@@ -816,10 +804,39 @@ func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState)
 			subs = append(subs, &sub)
 		}
 	}
-	b.Codec = &pathBindingAnnotation{
+	return &pathBindingAnnotation{
 		PathFmt:       httpPathFmt(b.PathTemplate),
 		QueryParams:   language.QueryParams(m, b),
 		Substitutions: subs,
+	}
+}
+
+// Annotates the `PathInfo` and all of its `PathBinding`s.
+func annotatePathInfo(p *api.PathInfo, m *api.Method, state *api.APIState) {
+	seen := make(map[string]bool)
+	var uniqueParameters []*bindingSubstitution
+
+	for _, b := range p.Bindings {
+		ann := annotatePathBinding(b, m, state)
+
+		// We need to keep track of unique path parameters to support
+		// implicit routing over gRPC. This is go/aip/4222.
+		for _, s := range ann.Substitutions {
+			if _, ok := seen[s.FieldName]; !ok {
+				uniqueParameters = append(uniqueParameters, s)
+				seen[s.FieldName] = true
+			}
+		}
+
+		// Annotate the `PathBinding`
+		b.Codec = ann
+	}
+
+	// Annotate the `PathInfo`
+	p.Codec = &pathInfoAnnotation{
+		HasBody:          m.PathInfo.BodyFieldPath != "",
+		UniqueParameters: uniqueParameters,
+		IsIdempotent:     isIdempotent(p),
 	}
 }
 
@@ -993,9 +1010,14 @@ func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.API
 }
 
 // Returns "true" if the method is idempotent by default, and "false", if not.
-func (p *pathInfoAnnotation) IsIdempotent() string {
-	if p.Method == "GET" || p.Method == "PUT" || p.Method == "DELETE" {
-		return "true"
+func isIdempotent(p *api.PathInfo) string {
+	if len(p.Bindings) == 0 {
+		return "false"
 	}
-	return "false"
+	for _, b := range p.Bindings {
+		if b.Verb == "POST" || b.Verb == "PATCH" {
+			return "false"
+		}
+	}
+	return "true"
 }

@@ -35,7 +35,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Request passed to GetGoogleServiceAccount.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGoogleServiceAccountRequest {
     /// Required. The ID of the Google Cloud project that the Google service
@@ -166,8 +166,19 @@ impl serde::ser::Serialize for GetGoogleServiceAccountRequest {
     }
 }
 
+impl std::fmt::Debug for GetGoogleServiceAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetGoogleServiceAccountRequest");
+        debug_struct.field("project_id", &self.project_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request passed to CreateTransferJob.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTransferJobRequest {
     /// Required. The job to create.
@@ -308,8 +319,19 @@ impl serde::ser::Serialize for CreateTransferJobRequest {
     }
 }
 
+impl std::fmt::Debug for CreateTransferJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateTransferJobRequest");
+        debug_struct.field("transfer_job", &self.transfer_job);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request passed to UpdateTransferJob.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTransferJobRequest {
     /// Required. The name of job to update.
@@ -583,8 +605,25 @@ impl serde::ser::Serialize for UpdateTransferJobRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateTransferJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateTransferJobRequest");
+        debug_struct.field("job_name", &self.job_name);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("transfer_job", &self.transfer_job);
+        debug_struct.field(
+            "update_transfer_job_field_mask",
+            &self.update_transfer_job_field_mask,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request passed to GetTransferJob.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTransferJobRequest {
     /// Required. The job to get.
@@ -740,8 +779,20 @@ impl serde::ser::Serialize for GetTransferJobRequest {
     }
 }
 
+impl std::fmt::Debug for GetTransferJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetTransferJobRequest");
+        debug_struct.field("job_name", &self.job_name);
+        debug_struct.field("project_id", &self.project_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request passed to DeleteTransferJob.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTransferJobRequest {
     /// Required. The job to delete.
@@ -897,9 +948,21 @@ impl serde::ser::Serialize for DeleteTransferJobRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteTransferJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteTransferJobRequest");
+        debug_struct.field("job_name", &self.job_name);
+        debug_struct.field("project_id", &self.project_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// `projectId`, `jobNames`, and `jobStatuses` are query parameters that can
 /// be specified when listing transfer jobs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferJobsRequest {
     /// Required. A list of query parameters specified as JSON text in the form of:
@@ -1126,8 +1189,21 @@ impl serde::ser::Serialize for ListTransferJobsRequest {
     }
 }
 
+impl std::fmt::Debug for ListTransferJobsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTransferJobsRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response from ListTransferJobs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferJobsResponse {
     /// A list of transfer jobs.
@@ -1299,8 +1375,20 @@ impl serde::ser::Serialize for ListTransferJobsResponse {
     }
 }
 
+impl std::fmt::Debug for ListTransferJobsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListTransferJobsResponse");
+        debug_struct.field("transfer_jobs", &self.transfer_jobs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request passed to PauseTransferOperation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PauseTransferOperationRequest {
     /// Required. The name of the transfer operation.
@@ -1429,8 +1517,19 @@ impl serde::ser::Serialize for PauseTransferOperationRequest {
     }
 }
 
+impl std::fmt::Debug for PauseTransferOperationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PauseTransferOperationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request passed to ResumeTransferOperation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeTransferOperationRequest {
     /// Required. The name of the transfer operation.
@@ -1559,8 +1658,19 @@ impl serde::ser::Serialize for ResumeTransferOperationRequest {
     }
 }
 
+impl std::fmt::Debug for ResumeTransferOperationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResumeTransferOperationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request passed to RunTransferJob.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunTransferJobRequest {
     /// Required. The name of the transfer job.
@@ -1716,8 +1826,20 @@ impl serde::ser::Serialize for RunTransferJobRequest {
     }
 }
 
+impl std::fmt::Debug for RunTransferJobRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RunTransferJobRequest");
+        debug_struct.field("job_name", &self.job_name);
+        debug_struct.field("project_id", &self.project_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the request passed to CreateAgentPool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAgentPoolRequest {
     /// Required. The ID of the Google Cloud project that owns the
@@ -1921,8 +2043,21 @@ impl serde::ser::Serialize for CreateAgentPoolRequest {
     }
 }
 
+impl std::fmt::Debug for CreateAgentPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAgentPoolRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("agent_pool", &self.agent_pool);
+        debug_struct.field("agent_pool_id", &self.agent_pool_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the request passed to UpdateAgentPool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAgentPoolRequest {
     /// Required. The agent pool to update. `agent_pool` is expected to specify
@@ -2125,8 +2260,20 @@ impl serde::ser::Serialize for UpdateAgentPoolRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateAgentPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAgentPoolRequest");
+        debug_struct.field("agent_pool", &self.agent_pool);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the request passed to GetAgentPool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAgentPoolRequest {
     /// Required. The name of the agent pool to get.
@@ -2255,8 +2402,19 @@ impl serde::ser::Serialize for GetAgentPoolRequest {
     }
 }
 
+impl std::fmt::Debug for GetAgentPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAgentPoolRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the request passed to DeleteAgentPool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAgentPoolRequest {
     /// Required. The name of the agent pool to delete.
@@ -2385,8 +2543,19 @@ impl serde::ser::Serialize for DeleteAgentPoolRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteAgentPoolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAgentPoolRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The request passed to ListAgentPools.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAgentPoolsRequest {
     /// Required. The ID of the Google Cloud project that owns the job.
@@ -2615,8 +2784,22 @@ impl serde::ser::Serialize for ListAgentPoolsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAgentPoolsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAgentPoolsRequest");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response from ListAgentPools.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAgentPoolsResponse {
     /// A list of agent pools.
@@ -2788,8 +2971,20 @@ impl serde::ser::Serialize for ListAgentPoolsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAgentPoolsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAgentPoolsResponse");
+        debug_struct.field("agent_pools", &self.agent_pools);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Google service account
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GoogleServiceAccount {
     /// Email address of the service account.
@@ -2944,13 +3139,25 @@ impl serde::ser::Serialize for GoogleServiceAccount {
     }
 }
 
+impl std::fmt::Debug for GoogleServiceAccount {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoogleServiceAccount");
+        debug_struct.field("account_email", &self.account_email);
+        debug_struct.field("subject_id", &self.subject_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AWS access key (see
 /// [AWS Security
 /// Credentials](https://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)).
 ///
 /// For information on our data retention policy for user credentials, see
 /// [User credentials](/storage-transfer/docs/data-retention#user-credentials).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsAccessKey {
     /// Required. AWS access key ID.
@@ -3109,11 +3316,23 @@ impl serde::ser::Serialize for AwsAccessKey {
     }
 }
 
+impl std::fmt::Debug for AwsAccessKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsAccessKey");
+        debug_struct.field("access_key_id", &self.access_key_id);
+        debug_struct.field("secret_access_key", &self.secret_access_key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Azure credentials
 ///
 /// For information on our data retention policy for user credentials, see
 /// [User credentials](/storage-transfer/docs/data-retention#user-credentials).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureCredentials {
     /// Required. Azure shared access signature (SAS).
@@ -3248,6 +3467,17 @@ impl serde::ser::Serialize for AzureCredentials {
     }
 }
 
+impl std::fmt::Debug for AzureCredentials {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureCredentials");
+        debug_struct.field("sas_token", &self.sas_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Conditions that determine which objects are transferred. Applies only
 /// to Cloud Data Sources such as S3, Azure, and Cloud Storage.
 ///
@@ -3267,7 +3497,7 @@ impl serde::ser::Serialize for AzureCredentials {
 /// source or destination don't support `ObjectConditions`.
 ///
 /// [google.storagetransfer.v1.PosixFilesystem]: crate::model::PosixFilesystem
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectConditions {
     /// Ensures that objects are not transferred until a specific minimum time
@@ -3696,11 +3926,33 @@ impl serde::ser::Serialize for ObjectConditions {
     }
 }
 
+impl std::fmt::Debug for ObjectConditions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectConditions");
+        debug_struct.field(
+            "min_time_elapsed_since_last_modification",
+            &self.min_time_elapsed_since_last_modification,
+        );
+        debug_struct.field(
+            "max_time_elapsed_since_last_modification",
+            &self.max_time_elapsed_since_last_modification,
+        );
+        debug_struct.field("include_prefixes", &self.include_prefixes);
+        debug_struct.field("exclude_prefixes", &self.exclude_prefixes);
+        debug_struct.field("last_modified_since", &self.last_modified_since);
+        debug_struct.field("last_modified_before", &self.last_modified_before);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// In a GcsData resource, an object's name is the Cloud Storage object's
 /// name and its "last modification time" refers to the object's `updated`
 /// property of Cloud Storage objects, which changes when the content or the
 /// metadata of the object is updated.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsData {
     /// Required. Cloud Storage bucket name. Must meet
@@ -3909,9 +4161,25 @@ impl serde::ser::Serialize for GcsData {
     }
 }
 
+impl std::fmt::Debug for GcsData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcsData");
+        debug_struct.field("bucket_name", &self.bucket_name);
+        debug_struct.field("path", &self.path);
+        debug_struct.field(
+            "managed_folder_transfer_enabled",
+            &self.managed_folder_transfer_enabled,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An AwsS3Data resource can be a data source, but not a data sink.
 /// In an AwsS3Data resource, an object's name is the S3 object's key name.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsS3Data {
     /// Required. S3 Bucket name (see
@@ -4302,6 +4570,23 @@ impl serde::ser::Serialize for AwsS3Data {
     }
 }
 
+impl std::fmt::Debug for AwsS3Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsS3Data");
+        debug_struct.field("bucket_name", &self.bucket_name);
+        debug_struct.field("aws_access_key", &self.aws_access_key);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("role_arn", &self.role_arn);
+        debug_struct.field("cloudfront_domain", &self.cloudfront_domain);
+        debug_struct.field("credentials_secret", &self.credentials_secret);
+        debug_struct.field("private_network", &self.private_network);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AwsS3Data].
 pub mod aws_s_3_data {
     #[allow(unused_imports)]
@@ -4323,7 +4608,7 @@ pub mod aws_s_3_data {
 /// In an AzureBlobStorageData resource, a blobs's name is the [Azure Blob
 /// Storage blob's key
 /// name](https://docs.microsoft.com/en-us/rest/api/storageservices/naming-and-referencing-containers--blobs--and-metadata#blob-names).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureBlobStorageData {
     /// Required. The name of the Azure Storage account.
@@ -4646,6 +4931,22 @@ impl serde::ser::Serialize for AzureBlobStorageData {
     }
 }
 
+impl std::fmt::Debug for AzureBlobStorageData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureBlobStorageData");
+        debug_struct.field("storage_account", &self.storage_account);
+        debug_struct.field("azure_credentials", &self.azure_credentials);
+        debug_struct.field("container", &self.container);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("credentials_secret", &self.credentials_secret);
+        debug_struct.field("federated_identity_config", &self.federated_identity_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AzureBlobStorageData].
 pub mod azure_blob_storage_data {
     #[allow(unused_imports)]
@@ -4661,7 +4962,7 @@ pub mod azure_blob_storage_data {
     /// To configure federated identity, see
     /// [Configure access to Microsoft Azure
     /// Storage](https://cloud.google.com/storage-transfer/docs/source-microsoft-azure#option_3_authenticate_using_federated_identity).
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FederatedIdentityConfig {
         /// Required. The client (application) ID of the application with federated
@@ -4820,6 +5121,18 @@ pub mod azure_blob_storage_data {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for FederatedIdentityConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FederatedIdentityConfig");
+            debug_struct.field("client_id", &self.client_id);
+            debug_struct.field("tenant_id", &self.tenant_id);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// An HttpData resource specifies a list of objects on the web to be
@@ -4866,7 +5179,7 @@ pub mod azure_blob_storage_data {
 ///
 ///
 /// [google.storagetransfer.v1.ObjectConditions]: crate::model::ObjectConditions
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpData {
     /// Required. The URL that points to the file that stores the object list
@@ -4999,8 +5312,19 @@ impl serde::ser::Serialize for HttpData {
     }
 }
 
+impl std::fmt::Debug for HttpData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HttpData");
+        debug_struct.field("list_url", &self.list_url);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A POSIX filesystem resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PosixFilesystem {
     /// Root directory path to the filesystem.
@@ -5130,11 +5454,22 @@ impl serde::ser::Serialize for PosixFilesystem {
     }
 }
 
+impl std::fmt::Debug for PosixFilesystem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PosixFilesystem");
+        debug_struct.field("root_directory", &self.root_directory);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An HdfsData resource specifies a path within an HDFS entity (e.g. a cluster).
 /// All cluster-specific settings, such as namenodes and ports, are configured on
 /// the transfer agents servicing requests, so HdfsData only contains the root
 /// path to the data in our transfer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HdfsData {
     /// Root path to transfer files.
@@ -5263,8 +5598,19 @@ impl serde::ser::Serialize for HdfsData {
     }
 }
 
+impl std::fmt::Debug for HdfsData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HdfsData");
+        debug_struct.field("path", &self.path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An AwsS3CompatibleData resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsS3CompatibleData {
     /// Required. Specifies the name of the bucket.
@@ -5550,6 +5896,21 @@ impl serde::ser::Serialize for AwsS3CompatibleData {
     }
 }
 
+impl std::fmt::Debug for AwsS3CompatibleData {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsS3CompatibleData");
+        debug_struct.field("bucket_name", &self.bucket_name);
+        debug_struct.field("path", &self.path);
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("data_provider", &self.data_provider);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AwsS3CompatibleData].
 pub mod aws_s_3_compatible_data {
     #[allow(unused_imports)]
@@ -5568,7 +5929,7 @@ pub mod aws_s_3_compatible_data {
 
 /// S3CompatibleMetadata contains the metadata fields that apply to the basic
 /// types of S3-compatible data providers.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct S3CompatibleMetadata {
     /// Specifies the authentication and authorization method used by the storage
@@ -5801,6 +6162,20 @@ impl serde::ser::Serialize for S3CompatibleMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for S3CompatibleMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("S3CompatibleMetadata");
+        debug_struct.field("auth_method", &self.auth_method);
+        debug_struct.field("request_model", &self.request_model);
+        debug_struct.field("protocol", &self.protocol);
+        debug_struct.field("list_api", &self.list_api);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -6345,7 +6720,7 @@ pub mod s_3_compatible_metadata {
 }
 
 /// Represents an agent pool.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AgentPool {
     /// Required. Specifies a unique string that identifies the agent pool.
@@ -6566,13 +6941,27 @@ impl serde::ser::Serialize for AgentPool {
     }
 }
 
+impl std::fmt::Debug for AgentPool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentPool");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("bandwidth_limit", &self.bandwidth_limit);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AgentPool].
 pub mod agent_pool {
     #[allow(unused_imports)]
     use super::*;
 
     /// Specifies a bandwidth limit for an agent pool.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BandwidthLimit {
         /// Bandwidth rate in megabytes per second, distributed across all the agents
@@ -6725,6 +7114,17 @@ pub mod agent_pool {
         }
     }
 
+    impl std::fmt::Debug for BandwidthLimit {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("BandwidthLimit");
+            debug_struct.field("limit_mbps", &self.limit_mbps);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The state of an AgentPool.
     ///
     /// # Working with unknown values
@@ -6869,7 +7269,7 @@ pub mod agent_pool {
 }
 
 /// TransferOptions define the actions to be performed on objects in a transfer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferOptions {
     /// When to overwrite objects that already exist in the sink. The default is
@@ -7169,6 +7569,30 @@ impl serde::ser::Serialize for TransferOptions {
     }
 }
 
+impl std::fmt::Debug for TransferOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferOptions");
+        debug_struct.field(
+            "overwrite_objects_already_existing_in_sink",
+            &self.overwrite_objects_already_existing_in_sink,
+        );
+        debug_struct.field(
+            "delete_objects_unique_in_sink",
+            &self.delete_objects_unique_in_sink,
+        );
+        debug_struct.field(
+            "delete_objects_from_source_after_transfer",
+            &self.delete_objects_from_source_after_transfer,
+        );
+        debug_struct.field("overwrite_when", &self.overwrite_when);
+        debug_struct.field("metadata_options", &self.metadata_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransferOptions].
 pub mod transfer_options {
     #[allow(unused_imports)]
@@ -7319,7 +7743,7 @@ pub mod transfer_options {
 }
 
 /// Configuration for running a transfer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferSpec {
     /// Only objects that satisfy these object conditions are included in the set
@@ -8231,6 +8655,27 @@ impl serde::ser::Serialize for TransferSpec {
     }
 }
 
+impl std::fmt::Debug for TransferSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferSpec");
+        debug_struct.field("object_conditions", &self.object_conditions);
+        debug_struct.field("transfer_options", &self.transfer_options);
+        debug_struct.field("transfer_manifest", &self.transfer_manifest);
+        debug_struct.field("source_agent_pool_name", &self.source_agent_pool_name);
+        debug_struct.field("sink_agent_pool_name", &self.sink_agent_pool_name);
+        debug_struct.field("data_sink", &self.data_sink);
+        debug_struct.field("data_source", &self.data_source);
+        debug_struct.field(
+            "intermediate_data_location",
+            &self.intermediate_data_location,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransferSpec].
 pub mod transfer_spec {
     #[allow(unused_imports)]
@@ -8283,7 +8728,7 @@ pub mod transfer_spec {
 /// replication copies new or updated objects from a source Cloud Storage bucket
 /// to a destination Cloud Storage bucket. Existing objects in the source bucket
 /// are not copied by a new cross-bucket replication job.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicationSpec {
     /// Object conditions that determine which objects are transferred. For
@@ -8613,6 +9058,20 @@ impl serde::ser::Serialize for ReplicationSpec {
     }
 }
 
+impl std::fmt::Debug for ReplicationSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReplicationSpec");
+        debug_struct.field("object_conditions", &self.object_conditions);
+        debug_struct.field("transfer_options", &self.transfer_options);
+        debug_struct.field("data_source", &self.data_source);
+        debug_struct.field("data_sink", &self.data_sink);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReplicationSpec].
 pub mod replication_spec {
     #[allow(unused_imports)]
@@ -8636,7 +9095,7 @@ pub mod replication_spec {
 }
 
 /// Specifies the metadata options for running a transfer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetadataOptions {
     /// Specifies how symlinks should be handled by the transfer. By default,
@@ -9013,6 +9472,25 @@ impl serde::ser::Serialize for MetadataOptions {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for MetadataOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetadataOptions");
+        debug_struct.field("symlink", &self.symlink);
+        debug_struct.field("mode", &self.mode);
+        debug_struct.field("gid", &self.gid);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("acl", &self.acl);
+        debug_struct.field("storage_class", &self.storage_class);
+        debug_struct.field("temporary_hold", &self.temporary_hold);
+        debug_struct.field("kms_key", &self.kms_key);
+        debug_struct.field("time_created", &self.time_created);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -10260,7 +10738,7 @@ pub mod metadata_options {
 }
 
 /// Specifies where the manifest is located.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferManifest {
     /// Specifies the path to the manifest in Cloud Storage. The Google-managed
@@ -10392,8 +10870,19 @@ impl serde::ser::Serialize for TransferManifest {
     }
 }
 
+impl std::fmt::Debug for TransferManifest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferManifest");
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Transfers can be scheduled to recur or to run just once.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Schedule {
     /// Required. The start date of a transfer. Date boundaries are determined
@@ -10747,9 +11236,24 @@ impl serde::ser::Serialize for Schedule {
     }
 }
 
+impl std::fmt::Debug for Schedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Schedule");
+        debug_struct.field("schedule_start_date", &self.schedule_start_date);
+        debug_struct.field("schedule_end_date", &self.schedule_end_date);
+        debug_struct.field("start_time_of_day", &self.start_time_of_day);
+        debug_struct.field("end_time_of_day", &self.end_time_of_day);
+        debug_struct.field("repeat_interval", &self.repeat_interval);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specifies the Event-driven transfer options. Event-driven transfers listen to
 /// an event stream to transfer updated files.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventStream {
     /// Required. Specifies a unique name of the resource such as AWS SQS
@@ -10965,9 +11469,25 @@ impl serde::ser::Serialize for EventStream {
     }
 }
 
+impl std::fmt::Debug for EventStream {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventStream");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("event_stream_start_time", &self.event_stream_start_time);
+        debug_struct.field(
+            "event_stream_expiration_time",
+            &self.event_stream_expiration_time,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// This resource represents the configuration of a transfer job that runs
 /// periodically.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferJob {
     /// A unique name (within the transfer project) assigned when the job is
@@ -11605,6 +12125,31 @@ impl serde::ser::Serialize for TransferJob {
     }
 }
 
+impl std::fmt::Debug for TransferJob {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferJob");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("transfer_spec", &self.transfer_spec);
+        debug_struct.field("replication_spec", &self.replication_spec);
+        debug_struct.field("notification_config", &self.notification_config);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("schedule", &self.schedule);
+        debug_struct.field("event_stream", &self.event_stream);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("creation_time", &self.creation_time);
+        debug_struct.field("last_modification_time", &self.last_modification_time);
+        debug_struct.field("deletion_time", &self.deletion_time);
+        debug_struct.field("latest_operation_name", &self.latest_operation_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [TransferJob].
 pub mod transfer_job {
     #[allow(unused_imports)]
@@ -11754,7 +12299,7 @@ pub mod transfer_job {
 }
 
 /// An entry describing an error that has occurred.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorLogEntry {
     /// Required. A URL that refers to the target (a data source, a data sink,
@@ -11912,9 +12457,21 @@ impl serde::ser::Serialize for ErrorLogEntry {
     }
 }
 
+impl std::fmt::Debug for ErrorLogEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorLogEntry");
+        debug_struct.field("url", &self.url);
+        debug_struct.field("error_details", &self.error_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A summary of errors by error code, plus a count and sample error log
 /// entries.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorSummary {
     /// Required.
@@ -12118,8 +12675,21 @@ impl serde::ser::Serialize for ErrorSummary {
     }
 }
 
+impl std::fmt::Debug for ErrorSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ErrorSummary");
+        debug_struct.field("error_code", &self.error_code);
+        debug_struct.field("error_count", &self.error_count);
+        debug_struct.field("error_log_entries", &self.error_log_entries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A collection of counters that report the progress of a transfer operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferCounters {
     /// Objects found in the data source that are scheduled to be transferred,
@@ -13310,6 +13880,76 @@ impl serde::ser::Serialize for TransferCounters {
     }
 }
 
+impl std::fmt::Debug for TransferCounters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferCounters");
+        debug_struct.field("objects_found_from_source", &self.objects_found_from_source);
+        debug_struct.field("bytes_found_from_source", &self.bytes_found_from_source);
+        debug_struct.field(
+            "objects_found_only_from_sink",
+            &self.objects_found_only_from_sink,
+        );
+        debug_struct.field(
+            "bytes_found_only_from_sink",
+            &self.bytes_found_only_from_sink,
+        );
+        debug_struct.field(
+            "objects_from_source_skipped_by_sync",
+            &self.objects_from_source_skipped_by_sync,
+        );
+        debug_struct.field(
+            "bytes_from_source_skipped_by_sync",
+            &self.bytes_from_source_skipped_by_sync,
+        );
+        debug_struct.field("objects_copied_to_sink", &self.objects_copied_to_sink);
+        debug_struct.field("bytes_copied_to_sink", &self.bytes_copied_to_sink);
+        debug_struct.field(
+            "objects_deleted_from_source",
+            &self.objects_deleted_from_source,
+        );
+        debug_struct.field("bytes_deleted_from_source", &self.bytes_deleted_from_source);
+        debug_struct.field("objects_deleted_from_sink", &self.objects_deleted_from_sink);
+        debug_struct.field("bytes_deleted_from_sink", &self.bytes_deleted_from_sink);
+        debug_struct.field(
+            "objects_from_source_failed",
+            &self.objects_from_source_failed,
+        );
+        debug_struct.field("bytes_from_source_failed", &self.bytes_from_source_failed);
+        debug_struct.field(
+            "objects_failed_to_delete_from_sink",
+            &self.objects_failed_to_delete_from_sink,
+        );
+        debug_struct.field(
+            "bytes_failed_to_delete_from_sink",
+            &self.bytes_failed_to_delete_from_sink,
+        );
+        debug_struct.field(
+            "directories_found_from_source",
+            &self.directories_found_from_source,
+        );
+        debug_struct.field(
+            "directories_failed_to_list_from_source",
+            &self.directories_failed_to_list_from_source,
+        );
+        debug_struct.field(
+            "directories_successfully_listed_from_source",
+            &self.directories_successfully_listed_from_source,
+        );
+        debug_struct.field(
+            "intermediate_objects_cleaned_up",
+            &self.intermediate_objects_cleaned_up,
+        );
+        debug_struct.field(
+            "intermediate_objects_failed_cleaned_up",
+            &self.intermediate_objects_failed_cleaned_up,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Specification to configure notifications published to Pub/Sub.
 /// Notifications are published to the customer-provided topic using the
 /// following `PubsubMessage.attributes`:
@@ -13339,7 +13979,7 @@ impl serde::ser::Serialize for TransferCounters {
 /// [google.storagetransfer.v1.TransferOperation.name]: crate::model::TransferOperation::name
 /// [google.storagetransfer.v1.TransferOperation.project_id]: crate::model::TransferOperation::project_id
 /// [google.storagetransfer.v1.TransferOperation.transfer_job_name]: crate::model::TransferOperation::transfer_job_name
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotificationConfig {
     /// Required. The `Topic.name` of the Pub/Sub topic to which to publish
@@ -13536,6 +14176,19 @@ impl serde::ser::Serialize for NotificationConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for NotificationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NotificationConfig");
+        debug_struct.field("pubsub_topic", &self.pubsub_topic);
+        debug_struct.field("event_types", &self.event_types);
+        debug_struct.field("payload_format", &self.payload_format);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -13844,7 +14497,7 @@ pub mod notification_config {
 /// [Read transfer
 /// logs](https://cloud.google.com/storage-transfer/docs/read-transfer-logs) for
 /// details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingConfig {
     /// Specifies the actions to be logged. If empty, no logs are generated.
@@ -14053,6 +14706,22 @@ impl serde::ser::Serialize for LoggingConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LoggingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoggingConfig");
+        debug_struct.field("log_actions", &self.log_actions);
+        debug_struct.field("log_action_states", &self.log_action_states);
+        debug_struct.field(
+            "enable_onprem_gcs_transfer_logs",
+            &self.enable_onprem_gcs_transfer_logs,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -14345,7 +15014,7 @@ pub mod logging_config {
 }
 
 /// A description of the execution of a transfer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferOperation {
     /// A globally unique ID assigned by the system.
@@ -14793,6 +15462,27 @@ impl serde::ser::Serialize for TransferOperation {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for TransferOperation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferOperation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("transfer_spec", &self.transfer_spec);
+        debug_struct.field("notification_config", &self.notification_config);
+        debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("counters", &self.counters);
+        debug_struct.field("error_breakdowns", &self.error_breakdowns);
+        debug_struct.field("transfer_job_name", &self.transfer_job_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

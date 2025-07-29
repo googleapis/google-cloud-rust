@@ -159,10 +159,10 @@ async fn refresh_task<T>(
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::errors;
-    use crate::token::test::MockTokenProvider;
+    use crate::token::tests::MockTokenProvider;
     use gax::error::CredentialsError;
     use std::ops::{Add, Sub};
     use std::sync::{Arc, Mutex};

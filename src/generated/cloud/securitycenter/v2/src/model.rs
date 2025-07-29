@@ -34,7 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Represents an access event.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Access {
     /// Associated email, such as "foo@google.com".
@@ -478,8 +478,32 @@ impl serde::ser::Serialize for Access {
     }
 }
 
+impl std::fmt::Debug for Access {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Access");
+        debug_struct.field("principal_email", &self.principal_email);
+        debug_struct.field("caller_ip", &self.caller_ip);
+        debug_struct.field("caller_ip_geo", &self.caller_ip_geo);
+        debug_struct.field("user_agent_family", &self.user_agent_family);
+        debug_struct.field("user_agent", &self.user_agent);
+        debug_struct.field("service_name", &self.service_name);
+        debug_struct.field("method_name", &self.method_name);
+        debug_struct.field("principal_subject", &self.principal_subject);
+        debug_struct.field("service_account_key_name", &self.service_account_key_name);
+        debug_struct.field(
+            "service_account_delegation_info",
+            &self.service_account_delegation_info,
+        );
+        debug_struct.field("user_name", &self.user_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Identity delegation history of an authenticated service account.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceAccountDelegationInfo {
     /// The email address of a Google account.
@@ -643,8 +667,20 @@ impl serde::ser::Serialize for ServiceAccountDelegationInfo {
     }
 }
 
+impl std::fmt::Debug for ServiceAccountDelegationInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceAccountDelegationInfo");
+        debug_struct.field("principal_email", &self.principal_email);
+        debug_struct.field("principal_subject", &self.principal_subject);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a geographical location for a given access.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Geolocation {
     /// A CLDR.
@@ -774,8 +810,612 @@ impl serde::ser::Serialize for Geolocation {
     }
 }
 
+impl std::fmt::Debug for Geolocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Geolocation");
+        debug_struct.field("region_code", &self.region_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Details about resources affected by this finding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AffectedResources {
+    /// The count of resources affected by the finding.
+    pub count: i64,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AffectedResources {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [count][crate::model::AffectedResources::count].
+    pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AffectedResources {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.AffectedResources"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AffectedResources {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __count,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AffectedResources")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "count" => Ok(__FieldTag::__count),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AffectedResources;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AffectedResources")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__count => {
+                            if !fields.insert(__FieldTag::__count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.count = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AffectedResources {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("count", &__With(&self.count))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for AffectedResources {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AffectedResources");
+        debug_struct.field("count", &self.count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Contains information about the AI model associated with the finding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AiModel {
+    /// The name of the AI model, for example, "gemini:1.0.0".
+    pub name: std::string::String,
+
+    /// The domain of the model, for example, “image-classification”.
+    pub domain: std::string::String,
+
+    /// The name of the model library, for example, “transformers”.
+    pub library: std::string::String,
+
+    /// The region in which the model is used, for example, “us-central1”.
+    pub location: std::string::String,
+
+    /// The publisher of the model, for example, “google” or “nvidia”.
+    pub publisher: std::string::String,
+
+    /// The platform on which the model is deployed.
+    pub deployment_platform: crate::model::ai_model::DeploymentPlatform,
+
+    /// The user defined display name of model. Ex. baseline-classification-model
+    pub display_name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AiModel {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AiModel::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [domain][crate::model::AiModel::domain].
+    pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.domain = v.into();
+        self
+    }
+
+    /// Sets the value of [library][crate::model::AiModel::library].
+    pub fn set_library<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.library = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::AiModel::location].
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [publisher][crate::model::AiModel::publisher].
+    pub fn set_publisher<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.publisher = v.into();
+        self
+    }
+
+    /// Sets the value of [deployment_platform][crate::model::AiModel::deployment_platform].
+    pub fn set_deployment_platform<
+        T: std::convert::Into<crate::model::ai_model::DeploymentPlatform>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deployment_platform = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::AiModel::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AiModel {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.AiModel"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AiModel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __domain,
+            __library,
+            __location,
+            __publisher,
+            __deployment_platform,
+            __display_name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AiModel")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "domain" => Ok(__FieldTag::__domain),
+                            "library" => Ok(__FieldTag::__library),
+                            "location" => Ok(__FieldTag::__location),
+                            "publisher" => Ok(__FieldTag::__publisher),
+                            "deploymentPlatform" => Ok(__FieldTag::__deployment_platform),
+                            "deployment_platform" => Ok(__FieldTag::__deployment_platform),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AiModel;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AiModel")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__domain => {
+                            if !fields.insert(__FieldTag::__domain) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for domain",
+                                ));
+                            }
+                            result.domain = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__library => {
+                            if !fields.insert(__FieldTag::__library) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for library",
+                                ));
+                            }
+                            result.library = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__publisher => {
+                            if !fields.insert(__FieldTag::__publisher) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for publisher",
+                                ));
+                            }
+                            result.publisher = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deployment_platform => {
+                            if !fields.insert(__FieldTag::__deployment_platform) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deployment_platform",
+                                ));
+                            }
+                            result.deployment_platform = map.next_value::<std::option::Option<crate::model::ai_model::DeploymentPlatform>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AiModel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.domain.is_empty() {
+            state.serialize_entry("domain", &self.domain)?;
+        }
+        if !self.library.is_empty() {
+            state.serialize_entry("library", &self.library)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self.publisher.is_empty() {
+            state.serialize_entry("publisher", &self.publisher)?;
+        }
+        if !wkt::internal::is_default(&self.deployment_platform) {
+            state.serialize_entry("deploymentPlatform", &self.deployment_platform)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for AiModel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AiModel");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("domain", &self.domain);
+        debug_struct.field("library", &self.library);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("publisher", &self.publisher);
+        debug_struct.field("deployment_platform", &self.deployment_platform);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [AiModel].
+pub mod ai_model {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The platform on which the model is deployed.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DeploymentPlatform {
+        /// Unspecified deployment platform.
+        Unspecified,
+        /// Vertex AI.
+        VertexAi,
+        /// Google Kubernetes Engine.
+        Gke,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DeploymentPlatform::value] or
+        /// [DeploymentPlatform::name].
+        UnknownValue(deployment_platform::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod deployment_platform {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DeploymentPlatform {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::VertexAi => std::option::Option::Some(1),
+                Self::Gke => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DEPLOYMENT_PLATFORM_UNSPECIFIED"),
+                Self::VertexAi => std::option::Option::Some("VERTEX_AI"),
+                Self::Gke => std::option::Option::Some("GKE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for DeploymentPlatform {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DeploymentPlatform {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DeploymentPlatform {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::VertexAi,
+                2 => Self::Gke,
+                _ => Self::UnknownValue(deployment_platform::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DeploymentPlatform {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DEPLOYMENT_PLATFORM_UNSPECIFIED" => Self::Unspecified,
+                "VERTEX_AI" => Self::VertexAi,
+                "GKE" => Self::Gke,
+                _ => Self::UnknownValue(deployment_platform::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DeploymentPlatform {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::VertexAi => serializer.serialize_i32(1),
+                Self::Gke => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DeploymentPlatform {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DeploymentPlatform>::new(
+                ".google.cloud.securitycenter.v2.AiModel.DeploymentPlatform",
+            ))
+        }
+    }
+}
+
 /// Represents an application associated with a finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Application {
     /// The base URI that identifies the network location of the application in
@@ -932,8 +1572,20 @@ impl serde::ser::Serialize for Application {
     }
 }
 
+impl std::fmt::Debug for Application {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Application");
+        debug_struct.field("base_uri", &self.base_uri);
+        debug_struct.field("full_uri", &self.full_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An attack exposure contains the results of an attack path simulation run.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttackExposure {
     /// A number between 0 (inclusive) and infinity that represents how important
@@ -1339,6 +1991,32 @@ impl serde::ser::Serialize for AttackExposure {
     }
 }
 
+impl std::fmt::Debug for AttackExposure {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttackExposure");
+        debug_struct.field("score", &self.score);
+        debug_struct.field("latest_calculation_time", &self.latest_calculation_time);
+        debug_struct.field("attack_exposure_result", &self.attack_exposure_result);
+        debug_struct.field("state", &self.state);
+        debug_struct.field(
+            "exposed_high_value_resources_count",
+            &self.exposed_high_value_resources_count,
+        );
+        debug_struct.field(
+            "exposed_medium_value_resources_count",
+            &self.exposed_medium_value_resources_count,
+        );
+        debug_struct.field(
+            "exposed_low_value_resources_count",
+            &self.exposed_low_value_resources_count,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AttackExposure].
 pub mod attack_exposure {
     #[allow(unused_imports)]
@@ -1478,7 +2156,7 @@ pub mod attack_exposure {
 }
 
 /// A path that an attacker could take to reach an exposed resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttackPath {
     /// The attack path name, for example,
@@ -1671,13 +2349,26 @@ impl serde::ser::Serialize for AttackPath {
     }
 }
 
+impl std::fmt::Debug for AttackPath {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AttackPath");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("path_nodes", &self.path_nodes);
+        debug_struct.field("edges", &self.edges);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AttackPath].
 pub mod attack_path {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents one point that an attacker passes through in this attack path.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AttackPathNode {
         /// The name of the resource at this point in the attack path.
@@ -1953,13 +2644,29 @@ pub mod attack_path {
         }
     }
 
+    impl std::fmt::Debug for AttackPathNode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AttackPathNode");
+            debug_struct.field("resource", &self.resource);
+            debug_struct.field("resource_type", &self.resource_type);
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("associated_findings", &self.associated_findings);
+            debug_struct.field("uuid", &self.uuid);
+            debug_struct.field("attack_steps", &self.attack_steps);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [AttackPathNode].
     pub mod attack_path_node {
         #[allow(unused_imports)]
         use super::*;
 
         /// A finding that is associated with this node in the attack path.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PathNodeAssociatedFinding {
             /// Canonical name of the associated findings. Example:
@@ -2155,8 +2862,21 @@ pub mod attack_path {
             }
         }
 
+        impl std::fmt::Debug for PathNodeAssociatedFinding {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("PathNodeAssociatedFinding");
+                debug_struct.field("canonical_finding", &self.canonical_finding);
+                debug_struct.field("finding_category", &self.finding_category);
+                debug_struct.field("name", &self.name);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Detailed steps the attack can take between path nodes.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AttackStepNode {
             /// Unique ID for one Node
@@ -2416,6 +3136,21 @@ pub mod attack_path {
             }
         }
 
+        impl std::fmt::Debug for AttackStepNode {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("AttackStepNode");
+                debug_struct.field("uuid", &self.uuid);
+                debug_struct.field("r#type", &self.r#type);
+                debug_struct.field("display_name", &self.display_name);
+                debug_struct.field("labels", &self.labels);
+                debug_struct.field("description", &self.description);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The type of the incoming attack step node.
         ///
         /// # Working with unknown values
@@ -2568,7 +3303,7 @@ pub mod attack_path {
 
     /// Represents a connection between a source node and a destination node in
     /// this attack path.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AttackPathEdge {
         /// The attack node uuid of the source node.
@@ -2723,10 +3458,22 @@ pub mod attack_path {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AttackPathEdge {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AttackPathEdge");
+            debug_struct.field("source", &self.source);
+            debug_struct.field("destination", &self.destination);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Information related to Google Cloud Backup and DR Service findings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupDisasterRecovery {
     /// The name of a Backup and DR template which comprises one or more backup
@@ -3124,8 +3871,28 @@ impl serde::ser::Serialize for BackupDisasterRecovery {
     }
 }
 
+impl std::fmt::Debug for BackupDisasterRecovery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupDisasterRecovery");
+        debug_struct.field("backup_template", &self.backup_template);
+        debug_struct.field("policies", &self.policies);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("applications", &self.applications);
+        debug_struct.field("storage_pool", &self.storage_pool);
+        debug_struct.field("policy_options", &self.policy_options);
+        debug_struct.field("profile", &self.profile);
+        debug_struct.field("appliance", &self.appliance);
+        debug_struct.field("backup_type", &self.backup_type);
+        debug_struct.field("backup_create_time", &self.backup_create_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Configures how to deliver Findings to BigQuery Instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryExport {
     /// Identifier. The relative resource name of this export. See:
@@ -3491,8 +4258,175 @@ impl serde::ser::Serialize for BigQueryExport {
     }
 }
 
+impl std::fmt::Debug for BigQueryExport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryExport");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("dataset", &self.dataset);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("most_recent_editor", &self.most_recent_editor);
+        debug_struct.field("principal", &self.principal);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Contains details about a chokepoint, which is a resource or resource group
+/// where high-risk attack paths converge, based on [attack path simulations]
+/// (<https://cloud.google.com/security-command-center/docs/attack-exposure-learn#attack_path_simulations>).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Chokepoint {
+    /// List of resource names of findings associated with this chokepoint.
+    /// For example, organizations/123/sources/456/findings/789.
+    /// This list will have at most 100 findings.
+    pub related_findings: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Chokepoint {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [related_findings][crate::model::Chokepoint::related_findings].
+    pub fn set_related_findings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.related_findings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Chokepoint {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.Chokepoint"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Chokepoint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __related_findings,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Chokepoint")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "relatedFindings" => Ok(__FieldTag::__related_findings),
+                            "related_findings" => Ok(__FieldTag::__related_findings),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Chokepoint;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Chokepoint")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__related_findings => {
+                            if !fields.insert(__FieldTag::__related_findings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for related_findings",
+                                ));
+                            }
+                            result.related_findings = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Chokepoint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.related_findings.is_empty() {
+            state.serialize_entry("relatedFindings", &self.related_findings)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for Chokepoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Chokepoint");
+        debug_struct.field("related_findings", &self.related_findings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Fields related to Google Cloud Armor findings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudArmor {
     /// Information about the [Google Cloud Armor security
@@ -3809,10 +4743,26 @@ impl serde::ser::Serialize for CloudArmor {
     }
 }
 
+impl std::fmt::Debug for CloudArmor {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudArmor");
+        debug_struct.field("security_policy", &self.security_policy);
+        debug_struct.field("requests", &self.requests);
+        debug_struct.field("adaptive_protection", &self.adaptive_protection);
+        debug_struct.field("attack", &self.attack);
+        debug_struct.field("threat_vector", &self.threat_vector);
+        debug_struct.field("duration", &self.duration);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about the [Google Cloud Armor security
 /// policy](https://cloud.google.com/armor/docs/security-policy-overview)
 /// relevant to the finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityPolicy {
     /// The name of the Google Cloud Armor security policy, for example,
@@ -3992,8 +4942,21 @@ impl serde::ser::Serialize for SecurityPolicy {
     }
 }
 
+impl std::fmt::Debug for SecurityPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecurityPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("preview", &self.preview);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about the requests relevant to the finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Requests {
     /// For 'Increasing deny ratio', the ratio is the denied traffic divided by the
@@ -4274,9 +5237,23 @@ impl serde::ser::Serialize for Requests {
     }
 }
 
+impl std::fmt::Debug for Requests {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Requests");
+        debug_struct.field("ratio", &self.ratio);
+        debug_struct.field("short_term_allowed", &self.short_term_allowed);
+        debug_struct.field("long_term_allowed", &self.long_term_allowed);
+        debug_struct.field("long_term_denied", &self.long_term_denied);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about [Google Cloud Armor Adaptive
 /// Protection](https://cloud.google.com/armor/docs/cloud-armor-overview#google-cloud-armor-adaptive-protection).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdaptiveProtection {
     /// A score of 0 means that there is low confidence that the detected event is
@@ -4427,8 +5404,19 @@ impl serde::ser::Serialize for AdaptiveProtection {
     }
 }
 
+impl std::fmt::Debug for AdaptiveProtection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdaptiveProtection");
+        debug_struct.field("confidence", &self.confidence);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information about DDoS attack volume and classification.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Attack {
     /// Total PPS (packets per second) volume of attack.
@@ -4737,9 +5725,24 @@ impl serde::ser::Serialize for Attack {
     }
 }
 
+impl std::fmt::Debug for Attack {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Attack");
+        debug_struct.field("volume_pps_long", &self.volume_pps_long);
+        debug_struct.field("volume_bps_long", &self.volume_bps_long);
+        debug_struct.field("classification", &self.classification);
+        debug_struct.field("volume_pps", &self.volume_pps);
+        debug_struct.field("volume_bps", &self.volume_bps);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The [data profile](https://cloud.google.com/dlp/docs/data-profiles)
 /// associated with the finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudDlpDataProfile {
     /// Name of the data profile, for example,
@@ -4902,6 +5905,18 @@ impl serde::ser::Serialize for CloudDlpDataProfile {
     }
 }
 
+impl std::fmt::Debug for CloudDlpDataProfile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudDlpDataProfile");
+        debug_struct.field("data_profile", &self.data_profile);
+        debug_struct.field("parent_type", &self.parent_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [CloudDlpDataProfile].
 pub mod cloud_dlp_data_profile {
     #[allow(unused_imports)]
@@ -5043,7 +6058,7 @@ pub mod cloud_dlp_data_profile {
 /// Details about the Cloud Data Loss Prevention (Cloud DLP) [inspection
 /// job](https://cloud.google.com/dlp/docs/concepts-job-triggers) that produced
 /// the finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudDlpInspection {
     /// Name of the inspection job, for example,
@@ -5271,9 +6286,23 @@ impl serde::ser::Serialize for CloudDlpInspection {
     }
 }
 
+impl std::fmt::Debug for CloudDlpInspection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudDlpInspection");
+        debug_struct.field("inspect_job", &self.inspect_job);
+        debug_struct.field("info_type", &self.info_type);
+        debug_struct.field("info_type_count", &self.info_type_count);
+        debug_struct.field("full_scan", &self.full_scan);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains compliance information about a security standard indicating unmet
 /// recommendations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Compliance {
     /// Industry-wide compliance standards or benchmarks, such as CIS, PCI, and
@@ -5454,8 +6483,21 @@ impl serde::ser::Serialize for Compliance {
     }
 }
 
+impl std::fmt::Debug for Compliance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Compliance");
+        debug_struct.field("standard", &self.standard);
+        debug_struct.field("version", &self.version);
+        debug_struct.field("ids", &self.ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains information about the IP connection associated with the finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connection {
     /// Destination IP address. Not present for sockets that are listening and not
@@ -5724,6 +6766,21 @@ impl serde::ser::Serialize for Connection {
     }
 }
 
+impl std::fmt::Debug for Connection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Connection");
+        debug_struct.field("destination_ip", &self.destination_ip);
+        debug_struct.field("destination_port", &self.destination_port);
+        debug_struct.field("source_ip", &self.source_ip);
+        debug_struct.field("source_port", &self.source_port);
+        debug_struct.field("protocol", &self.protocol);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Connection].
 pub mod connection {
     #[allow(unused_imports)]
@@ -5884,7 +6941,7 @@ pub mod connection {
 }
 
 /// Details about specific contacts
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContactDetails {
     /// A list of contacts
@@ -6016,8 +7073,19 @@ impl serde::ser::Serialize for ContactDetails {
     }
 }
 
+impl std::fmt::Debug for ContactDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContactDetails");
+        debug_struct.field("contacts", &self.contacts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The email address of a contact.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Contact {
     /// An email address. For example, "`person123@company.com`".
@@ -6146,8 +7214,19 @@ impl serde::ser::Serialize for Contact {
     }
 }
 
+impl std::fmt::Debug for Contact {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Contact");
+        debug_struct.field("email", &self.email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Container associated with the finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Container {
     /// Name of the container.
@@ -6390,9 +7469,24 @@ impl serde::ser::Serialize for Container {
     }
 }
 
+impl std::fmt::Debug for Container {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Container");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("image_id", &self.image_id);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("create_time", &self.create_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details about a data access attempt made by a principal not authorized under
 /// applicable data security policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataAccessEvent {
     /// Unique identifier for data access event.
@@ -6609,6 +7703,20 @@ impl serde::ser::Serialize for DataAccessEvent {
     }
 }
 
+impl std::fmt::Debug for DataAccessEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataAccessEvent");
+        debug_struct.field("event_id", &self.event_id);
+        debug_struct.field("principal_email", &self.principal_email);
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("event_time", &self.event_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataAccessEvent].
 pub mod data_access_event {
     #[allow(unused_imports)]
@@ -6757,7 +7865,7 @@ pub mod data_access_event {
 /// Details about a data flow event, in which either the data is moved to or is
 /// accessed from a non-compliant geo-location, as defined in the applicable data
 /// security policy.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataFlowEvent {
     /// Unique identifier for data flow event.
@@ -7002,6 +8110,21 @@ impl serde::ser::Serialize for DataFlowEvent {
     }
 }
 
+impl std::fmt::Debug for DataFlowEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataFlowEvent");
+        debug_struct.field("event_id", &self.event_id);
+        debug_struct.field("principal_email", &self.principal_email);
+        debug_struct.field("operation", &self.operation);
+        debug_struct.field("violated_location", &self.violated_location);
+        debug_struct.field("event_time", &self.event_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataFlowEvent].
 pub mod data_flow_event {
     #[allow(unused_imports)]
@@ -7156,7 +8279,7 @@ pub mod data_flow_event {
 /// types: maximum storage length (max TTL) and minimum storage length (min TTL).
 /// Both are aimed at helping organizations meet regulatory and data management
 /// commitments.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataRetentionDeletionEvent {
     /// Timestamp indicating when the event was detected.
@@ -7417,6 +8540,20 @@ impl serde::ser::Serialize for DataRetentionDeletionEvent {
     }
 }
 
+impl std::fmt::Debug for DataRetentionDeletionEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataRetentionDeletionEvent");
+        debug_struct.field("event_detection_time", &self.event_detection_time);
+        debug_struct.field("data_object_count", &self.data_object_count);
+        debug_struct.field("max_retention_allowed", &self.max_retention_allowed);
+        debug_struct.field("event_type", &self.event_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [DataRetentionDeletionEvent].
 pub mod data_retention_deletion_event {
     #[allow(unused_imports)]
@@ -7555,7 +8692,7 @@ pub mod data_retention_deletion_event {
 /// name](https://google.aip.dev/122#full-resource-names) populated because these
 /// resource types, such as Cloud SQL databases, are not yet supported by Cloud
 /// Asset Inventory. In these cases only the display name is provided.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Database {
     /// Some database resources may not have the [full resource
@@ -7820,12 +8957,28 @@ impl serde::ser::Serialize for Database {
     }
 }
 
+impl std::fmt::Debug for Database {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Database");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("user_name", &self.user_name);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("grantees", &self.grantees);
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains information about the disk associated with the finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Disk {
     /// The name of the disk, for example,
-    /// `<https://www.googleapis.com/compute/v1/projects/{project-id}/zones/{zone-id}/disks/{disk-id}>`.
+    /// `https://www.googleapis.com/compute/v1/projects/{project-id}/zones/{zone-id}/disks/{disk-id}`.
     pub name: std::string::String,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7951,11 +9104,22 @@ impl serde::ser::Serialize for Disk {
     }
 }
 
+impl std::fmt::Debug for Disk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Disk");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Exfiltration represents a data exfiltration attempt from one or more sources
 /// to one or more targets. The `sources` attribute lists the sources of the
 /// exfiltrated data. The `targets` attribute lists the destinations the data was
 /// copied to.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Exfiltration {
     /// If there are multiple sources, then the data is considered "joined" between
@@ -8164,8 +9328,21 @@ impl serde::ser::Serialize for Exfiltration {
     }
 }
 
+impl std::fmt::Debug for Exfiltration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Exfiltration");
+        debug_struct.field("sources", &self.sources);
+        debug_struct.field("targets", &self.targets);
+        debug_struct.field("total_exfiltrated_bytes", &self.total_exfiltrated_bytes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Resource where data was exfiltrated from or exfiltrated to.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExfilResource {
     /// The resource's [full resource
@@ -8326,8 +9503,20 @@ impl serde::ser::Serialize for ExfilResource {
     }
 }
 
+impl std::fmt::Debug for ExfilResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExfilResource");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("components", &self.components);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Representation of third party SIEM/SOAR fields within SCC.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExternalSystem {
     /// Full resource name of the external system. The following list
@@ -8786,6 +9975,30 @@ impl serde::ser::Serialize for ExternalSystem {
     }
 }
 
+impl std::fmt::Debug for ExternalSystem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExternalSystem");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("assignees", &self.assignees);
+        debug_struct.field("external_uid", &self.external_uid);
+        debug_struct.field("status", &self.status);
+        debug_struct.field(
+            "external_system_update_time",
+            &self.external_system_update_time,
+        );
+        debug_struct.field("case_uri", &self.case_uri);
+        debug_struct.field("case_priority", &self.case_priority);
+        debug_struct.field("case_sla", &self.case_sla);
+        debug_struct.field("case_create_time", &self.case_create_time);
+        debug_struct.field("case_close_time", &self.case_close_time);
+        debug_struct.field("ticket_info", &self.ticket_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ExternalSystem].
 pub mod external_system {
     #[allow(unused_imports)]
@@ -8793,7 +10006,7 @@ pub mod external_system {
 
     /// Information about the ticket, if any, that is being used to track the
     /// resolution of the issue that is identified by this finding.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TicketInfo {
         /// The identifier of the ticket in the ticket system.
@@ -9057,11 +10270,27 @@ pub mod external_system {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for TicketInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("TicketInfo");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("assignee", &self.assignee);
+            debug_struct.field("description", &self.description);
+            debug_struct.field("uri", &self.uri);
+            debug_struct.field("status", &self.status);
+            debug_struct.field("update_time", &self.update_time);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// File information about the related binary/library used by an executable, or
 /// the script used by a script interpreter
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct File {
     /// Absolute path of the file as a JSON encoded string.
@@ -9088,6 +10317,9 @@ pub struct File {
 
     /// Path of the file in terms of underlying disk/partition identifiers.
     pub disk_path: std::option::Option<crate::model::file::DiskPath>,
+
+    /// Operation(s) performed on a file.
+    pub operations: std::vec::Vec<crate::model::file::FileOperation>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9150,6 +10382,17 @@ impl File {
         self.disk_path = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [operations][crate::model::File::operations].
+    pub fn set_operations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::file::FileOperation>,
+    {
+        use std::iter::Iterator;
+        self.operations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for File {
@@ -9175,6 +10418,7 @@ impl<'de> serde::de::Deserialize<'de> for File {
             __partially_hashed,
             __contents,
             __disk_path,
+            __operations,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9205,6 +10449,7 @@ impl<'de> serde::de::Deserialize<'de> for File {
                             "contents" => Ok(__FieldTag::__contents),
                             "diskPath" => Ok(__FieldTag::__disk_path),
                             "disk_path" => Ok(__FieldTag::__disk_path),
+                            "operations" => Ok(__FieldTag::__operations),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9318,6 +10563,18 @@ impl<'de> serde::de::Deserialize<'de> for File {
                                 .next_value::<std::option::Option<crate::model::file::DiskPath>>(
                                 )?;
                         }
+                        __FieldTag::__operations => {
+                            if !fields.insert(__FieldTag::__operations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for operations",
+                                ));
+                            }
+                            result.operations = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::file::FileOperation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -9380,6 +10637,9 @@ impl serde::ser::Serialize for File {
         if self.disk_path.is_some() {
             state.serialize_entry("diskPath", &self.disk_path)?;
         }
+        if !self.operations.is_empty() {
+            state.serialize_entry("operations", &self.operations)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -9389,13 +10649,31 @@ impl serde::ser::Serialize for File {
     }
 }
 
+impl std::fmt::Debug for File {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("File");
+        debug_struct.field("path", &self.path);
+        debug_struct.field("size", &self.size);
+        debug_struct.field("sha256", &self.sha256);
+        debug_struct.field("hashed_size", &self.hashed_size);
+        debug_struct.field("partially_hashed", &self.partially_hashed);
+        debug_struct.field("contents", &self.contents);
+        debug_struct.field("disk_path", &self.disk_path);
+        debug_struct.field("operations", &self.operations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [File].
 pub mod file {
     #[allow(unused_imports)]
     use super::*;
 
     /// Path of the file in terms of underlying disk/partition identifiers.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DiskPath {
         /// UUID of the partition (format
@@ -9560,6 +10838,331 @@ pub mod file {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for DiskPath {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("DiskPath");
+            debug_struct.field("partition_uuid", &self.partition_uuid);
+            debug_struct.field("relative_path", &self.relative_path);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Operation(s) performed on a file.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct FileOperation {
+        /// The type of the operation
+        pub r#type: crate::model::file::file_operation::OperationType,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl FileOperation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [r#type][crate::model::file::FileOperation::type].
+        pub fn set_type<
+            T: std::convert::Into<crate::model::file::file_operation::OperationType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for FileOperation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.securitycenter.v2.File.FileOperation"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for FileOperation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __type,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for FileOperation")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "type" => Ok(__FieldTag::__type),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = FileOperation;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct FileOperation")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__type => {
+                                if !fields.insert(__FieldTag::__type) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for type",
+                                    ));
+                                }
+                                result.r#type = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::file::file_operation::OperationType,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for FileOperation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.r#type) {
+                state.serialize_entry("type", &self.r#type)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for FileOperation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("FileOperation");
+            debug_struct.field("r#type", &self.r#type);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Defines additional types related to [FileOperation].
+    pub mod file_operation {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The type of the operation
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum OperationType {
+            /// The operation is unspecified.
+            Unspecified,
+            /// Represents an open operation.
+            Open,
+            /// Represents a read operation.
+            Read,
+            /// Represents a rename operation.
+            Rename,
+            /// Represents a write operation.
+            Write,
+            /// Represents an execute operation.
+            Execute,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [OperationType::value] or
+            /// [OperationType::name].
+            UnknownValue(operation_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod operation_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl OperationType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Open => std::option::Option::Some(1),
+                    Self::Read => std::option::Option::Some(2),
+                    Self::Rename => std::option::Option::Some(3),
+                    Self::Write => std::option::Option::Some(4),
+                    Self::Execute => std::option::Option::Some(5),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("OPERATION_TYPE_UNSPECIFIED"),
+                    Self::Open => std::option::Option::Some("OPEN"),
+                    Self::Read => std::option::Option::Some("READ"),
+                    Self::Rename => std::option::Option::Some("RENAME"),
+                    Self::Write => std::option::Option::Some("WRITE"),
+                    Self::Execute => std::option::Option::Some("EXECUTE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for OperationType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for OperationType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for OperationType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Open,
+                    2 => Self::Read,
+                    3 => Self::Rename,
+                    4 => Self::Write,
+                    5 => Self::Execute,
+                    _ => Self::UnknownValue(operation_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for OperationType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "OPERATION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "OPEN" => Self::Open,
+                    "READ" => Self::Read,
+                    "RENAME" => Self::Rename,
+                    "WRITE" => Self::Write,
+                    "EXECUTE" => Self::Execute,
+                    _ => Self::UnknownValue(operation_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for OperationType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Open => serializer.serialize_i32(1),
+                    Self::Read => serializer.serialize_i32(2),
+                    Self::Rename => serializer.serialize_i32(3),
+                    Self::Write => serializer.serialize_i32(4),
+                    Self::Execute => serializer.serialize_i32(5),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for OperationType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<OperationType>::new(
+                    ".google.cloud.securitycenter.v2.File.FileOperation.OperationType",
+                ))
+            }
+        }
+    }
 }
 
 /// Security Command Center finding.
@@ -9569,10 +11172,10 @@ pub mod file {
 /// notification, analysis, policy testing, and enforcement. For example, a
 /// cross-site scripting (XSS) vulnerability in an App Engine application is a
 /// finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Finding {
-    /// The [relative resource
+    /// Identifier. The [relative resource
     /// name](https://cloud.google.com/apis/design/resource_names#relative_resource_name)
     /// of the finding. The following list shows some examples:
     ///
@@ -9799,8 +11402,14 @@ pub struct Finding {
     /// Contains information about the org policies associated with the finding.
     pub org_policies: std::vec::Vec<crate::model::OrgPolicy>,
 
+    /// Job associated with the finding.
+    pub job: std::option::Option<crate::model::Job>,
+
     /// Represents an application associated with the finding.
     pub application: std::option::Option<crate::model::Application>,
+
+    /// IP rules associated with the finding.
+    pub ip_rules: std::option::Option<crate::model::IpRules>,
 
     /// Fields related to Backup and DR findings.
     pub backup_disaster_recovery: std::option::Option<crate::model::BackupDisasterRecovery>,
@@ -9841,8 +11450,26 @@ pub struct Finding {
     /// Data flow events associated with the finding.
     pub data_flow_events: std::vec::Vec<crate::model::DataFlowEvent>,
 
+    /// Represents the VPC networks that the resource is attached to.
+    pub networks: std::vec::Vec<crate::model::Network>,
+
     /// Data retention deletion events associated with the finding.
     pub data_retention_deletion_events: std::vec::Vec<crate::model::DataRetentionDeletionEvent>,
+
+    /// AffectedResources associated with the finding.
+    pub affected_resources: std::option::Option<crate::model::AffectedResources>,
+
+    /// The AI model associated with the finding.
+    pub ai_model: std::option::Option<crate::model::AiModel>,
+
+    /// Contains details about a chokepoint, which is a resource or resource group
+    /// where high-risk attack paths converge, based on [attack path simulations]
+    /// (<https://cloud.google.com/security-command-center/docs/attack-exposure-learn#attack_path_simulations>).
+    /// This field cannot be updated. Its value is ignored in all update requests.
+    pub chokepoint: std::option::Option<crate::model::Chokepoint>,
+
+    /// VertexAi associated with the finding.
+    pub vertex_ai: std::option::Option<crate::model::VertexAi>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10352,6 +11979,24 @@ impl Finding {
         self
     }
 
+    /// Sets the value of [job][crate::model::Finding::job].
+    pub fn set_job<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Job>,
+    {
+        self.job = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [job][crate::model::Finding::job].
+    pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Job>,
+    {
+        self.job = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [application][crate::model::Finding::application].
     pub fn set_application<T>(mut self, v: T) -> Self
     where
@@ -10367,6 +12012,24 @@ impl Finding {
         T: std::convert::Into<crate::model::Application>,
     {
         self.application = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ip_rules][crate::model::Finding::ip_rules].
+    pub fn set_ip_rules<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IpRules>,
+    {
+        self.ip_rules = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ip_rules][crate::model::Finding::ip_rules].
+    pub fn set_or_clear_ip_rules<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::IpRules>,
+    {
+        self.ip_rules = v.map(|x| x.into());
         self
     }
 
@@ -10533,6 +12196,17 @@ impl Finding {
         self
     }
 
+    /// Sets the value of [networks][crate::model::Finding::networks].
+    pub fn set_networks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Network>,
+    {
+        use std::iter::Iterator;
+        self.networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [data_retention_deletion_events][crate::model::Finding::data_retention_deletion_events].
     pub fn set_data_retention_deletion_events<T, V>(mut self, v: T) -> Self
     where
@@ -10541,6 +12215,78 @@ impl Finding {
     {
         use std::iter::Iterator;
         self.data_retention_deletion_events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [affected_resources][crate::model::Finding::affected_resources].
+    pub fn set_affected_resources<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AffectedResources>,
+    {
+        self.affected_resources = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [affected_resources][crate::model::Finding::affected_resources].
+    pub fn set_or_clear_affected_resources<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AffectedResources>,
+    {
+        self.affected_resources = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ai_model][crate::model::Finding::ai_model].
+    pub fn set_ai_model<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AiModel>,
+    {
+        self.ai_model = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ai_model][crate::model::Finding::ai_model].
+    pub fn set_or_clear_ai_model<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AiModel>,
+    {
+        self.ai_model = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [chokepoint][crate::model::Finding::chokepoint].
+    pub fn set_chokepoint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Chokepoint>,
+    {
+        self.chokepoint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [chokepoint][crate::model::Finding::chokepoint].
+    pub fn set_or_clear_chokepoint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Chokepoint>,
+    {
+        self.chokepoint = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [vertex_ai][crate::model::Finding::vertex_ai].
+    pub fn set_vertex_ai<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VertexAi>,
+    {
+        self.vertex_ai = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [vertex_ai][crate::model::Finding::vertex_ai].
+    pub fn set_or_clear_vertex_ai<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VertexAi>,
+    {
+        self.vertex_ai = v.map(|x| x.into());
         self
     }
 }
@@ -10602,7 +12348,9 @@ impl<'de> serde::de::Deserialize<'de> for Finding {
             __cloud_dlp_data_profile,
             __kernel_rootkit,
             __org_policies,
+            __job,
             __application,
+            __ip_rules,
             __backup_disaster_recovery,
             __security_posture,
             __log_entries,
@@ -10614,7 +12362,12 @@ impl<'de> serde::de::Deserialize<'de> for Finding {
             __disk,
             __data_access_events,
             __data_flow_events,
+            __networks,
             __data_retention_deletion_events,
+            __affected_resources,
+            __ai_model,
+            __chokepoint,
+            __vertex_ai,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10698,7 +12451,10 @@ impl<'de> serde::de::Deserialize<'de> for Finding {
                             "kernel_rootkit" => Ok(__FieldTag::__kernel_rootkit),
                             "orgPolicies" => Ok(__FieldTag::__org_policies),
                             "org_policies" => Ok(__FieldTag::__org_policies),
+                            "job" => Ok(__FieldTag::__job),
                             "application" => Ok(__FieldTag::__application),
+                            "ipRules" => Ok(__FieldTag::__ip_rules),
+                            "ip_rules" => Ok(__FieldTag::__ip_rules),
                             "backupDisasterRecovery" => Ok(__FieldTag::__backup_disaster_recovery),
                             "backup_disaster_recovery" => {
                                 Ok(__FieldTag::__backup_disaster_recovery)
@@ -10721,12 +12477,20 @@ impl<'de> serde::de::Deserialize<'de> for Finding {
                             "data_access_events" => Ok(__FieldTag::__data_access_events),
                             "dataFlowEvents" => Ok(__FieldTag::__data_flow_events),
                             "data_flow_events" => Ok(__FieldTag::__data_flow_events),
+                            "networks" => Ok(__FieldTag::__networks),
                             "dataRetentionDeletionEvents" => {
                                 Ok(__FieldTag::__data_retention_deletion_events)
                             }
                             "data_retention_deletion_events" => {
                                 Ok(__FieldTag::__data_retention_deletion_events)
                             }
+                            "affectedResources" => Ok(__FieldTag::__affected_resources),
+                            "affected_resources" => Ok(__FieldTag::__affected_resources),
+                            "aiModel" => Ok(__FieldTag::__ai_model),
+                            "ai_model" => Ok(__FieldTag::__ai_model),
+                            "chokepoint" => Ok(__FieldTag::__chokepoint),
+                            "vertexAi" => Ok(__FieldTag::__vertex_ai),
+                            "vertex_ai" => Ok(__FieldTag::__vertex_ai),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -11145,6 +12909,15 @@ impl<'de> serde::de::Deserialize<'de> for Finding {
                             }
                             result.org_policies = map.next_value::<std::option::Option<std::vec::Vec<crate::model::OrgPolicy>>>()?.unwrap_or_default();
                         }
+                        __FieldTag::__job => {
+                            if !fields.insert(__FieldTag::__job) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for job",
+                                ));
+                            }
+                            result.job =
+                                map.next_value::<std::option::Option<crate::model::Job>>()?;
+                        }
                         __FieldTag::__application => {
                             if !fields.insert(__FieldTag::__application) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -11153,6 +12926,15 @@ impl<'de> serde::de::Deserialize<'de> for Finding {
                             }
                             result.application =
                                 map.next_value::<std::option::Option<crate::model::Application>>()?;
+                        }
+                        __FieldTag::__ip_rules => {
+                            if !fields.insert(__FieldTag::__ip_rules) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ip_rules",
+                                ));
+                            }
+                            result.ip_rules =
+                                map.next_value::<std::option::Option<crate::model::IpRules>>()?;
                         }
                         __FieldTag::__backup_disaster_recovery => {
                             if !fields.insert(__FieldTag::__backup_disaster_recovery) {
@@ -11258,6 +13040,14 @@ impl<'de> serde::de::Deserialize<'de> for Finding {
                             }
                             result.data_flow_events = map.next_value::<std::option::Option<std::vec::Vec<crate::model::DataFlowEvent>>>()?.unwrap_or_default();
                         }
+                        __FieldTag::__networks => {
+                            if !fields.insert(__FieldTag::__networks) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for networks",
+                                ));
+                            }
+                            result.networks = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Network>>>()?.unwrap_or_default();
+                        }
                         __FieldTag::__data_retention_deletion_events => {
                             if !fields.insert(__FieldTag::__data_retention_deletion_events) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -11269,6 +13059,43 @@ impl<'de> serde::de::Deserialize<'de> for Finding {
                                     std::vec::Vec<crate::model::DataRetentionDeletionEvent>,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__affected_resources => {
+                            if !fields.insert(__FieldTag::__affected_resources) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for affected_resources",
+                                ));
+                            }
+                            result.affected_resources = map
+                                .next_value::<std::option::Option<crate::model::AffectedResources>>(
+                                )?;
+                        }
+                        __FieldTag::__ai_model => {
+                            if !fields.insert(__FieldTag::__ai_model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ai_model",
+                                ));
+                            }
+                            result.ai_model =
+                                map.next_value::<std::option::Option<crate::model::AiModel>>()?;
+                        }
+                        __FieldTag::__chokepoint => {
+                            if !fields.insert(__FieldTag::__chokepoint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for chokepoint",
+                                ));
+                            }
+                            result.chokepoint =
+                                map.next_value::<std::option::Option<crate::model::Chokepoint>>()?;
+                        }
+                        __FieldTag::__vertex_ai => {
+                            if !fields.insert(__FieldTag::__vertex_ai) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vertex_ai",
+                                ));
+                            }
+                            result.vertex_ai =
+                                map.next_value::<std::option::Option<crate::model::VertexAi>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -11416,8 +13243,14 @@ impl serde::ser::Serialize for Finding {
         if !self.org_policies.is_empty() {
             state.serialize_entry("orgPolicies", &self.org_policies)?;
         }
+        if self.job.is_some() {
+            state.serialize_entry("job", &self.job)?;
+        }
         if self.application.is_some() {
             state.serialize_entry("application", &self.application)?;
+        }
+        if self.ip_rules.is_some() {
+            state.serialize_entry("ipRules", &self.ip_rules)?;
         }
         if self.backup_disaster_recovery.is_some() {
             state.serialize_entry("backupDisasterRecovery", &self.backup_disaster_recovery)?;
@@ -11452,11 +13285,26 @@ impl serde::ser::Serialize for Finding {
         if !self.data_flow_events.is_empty() {
             state.serialize_entry("dataFlowEvents", &self.data_flow_events)?;
         }
+        if !self.networks.is_empty() {
+            state.serialize_entry("networks", &self.networks)?;
+        }
         if !self.data_retention_deletion_events.is_empty() {
             state.serialize_entry(
                 "dataRetentionDeletionEvents",
                 &self.data_retention_deletion_events,
             )?;
+        }
+        if self.affected_resources.is_some() {
+            state.serialize_entry("affectedResources", &self.affected_resources)?;
+        }
+        if self.ai_model.is_some() {
+            state.serialize_entry("aiModel", &self.ai_model)?;
+        }
+        if self.chokepoint.is_some() {
+            state.serialize_entry("chokepoint", &self.chokepoint)?;
+        }
+        if self.vertex_ai.is_some() {
+            state.serialize_entry("vertexAi", &self.vertex_ai)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -11467,6 +13315,80 @@ impl serde::ser::Serialize for Finding {
     }
 }
 
+impl std::fmt::Debug for Finding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Finding");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("canonical_name", &self.canonical_name);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("resource_name", &self.resource_name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("category", &self.category);
+        debug_struct.field("external_uri", &self.external_uri);
+        debug_struct.field("source_properties", &self.source_properties);
+        debug_struct.field("security_marks", &self.security_marks);
+        debug_struct.field("event_time", &self.event_time);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("severity", &self.severity);
+        debug_struct.field("mute", &self.mute);
+        debug_struct.field("mute_info", &self.mute_info);
+        debug_struct.field("finding_class", &self.finding_class);
+        debug_struct.field("indicator", &self.indicator);
+        debug_struct.field("vulnerability", &self.vulnerability);
+        debug_struct.field("mute_update_time", &self.mute_update_time);
+        debug_struct.field("external_systems", &self.external_systems);
+        debug_struct.field("mitre_attack", &self.mitre_attack);
+        debug_struct.field("access", &self.access);
+        debug_struct.field("connections", &self.connections);
+        debug_struct.field("mute_initiator", &self.mute_initiator);
+        debug_struct.field("processes", &self.processes);
+        debug_struct.field("contacts", &self.contacts);
+        debug_struct.field("compliances", &self.compliances);
+        debug_struct.field("parent_display_name", &self.parent_display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("exfiltration", &self.exfiltration);
+        debug_struct.field("iam_bindings", &self.iam_bindings);
+        debug_struct.field("next_steps", &self.next_steps);
+        debug_struct.field("module_name", &self.module_name);
+        debug_struct.field("containers", &self.containers);
+        debug_struct.field("kubernetes", &self.kubernetes);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("attack_exposure", &self.attack_exposure);
+        debug_struct.field("files", &self.files);
+        debug_struct.field("cloud_dlp_inspection", &self.cloud_dlp_inspection);
+        debug_struct.field("cloud_dlp_data_profile", &self.cloud_dlp_data_profile);
+        debug_struct.field("kernel_rootkit", &self.kernel_rootkit);
+        debug_struct.field("org_policies", &self.org_policies);
+        debug_struct.field("job", &self.job);
+        debug_struct.field("application", &self.application);
+        debug_struct.field("ip_rules", &self.ip_rules);
+        debug_struct.field("backup_disaster_recovery", &self.backup_disaster_recovery);
+        debug_struct.field("security_posture", &self.security_posture);
+        debug_struct.field("log_entries", &self.log_entries);
+        debug_struct.field("load_balancers", &self.load_balancers);
+        debug_struct.field("cloud_armor", &self.cloud_armor);
+        debug_struct.field("notebook", &self.notebook);
+        debug_struct.field("toxic_combination", &self.toxic_combination);
+        debug_struct.field("group_memberships", &self.group_memberships);
+        debug_struct.field("disk", &self.disk);
+        debug_struct.field("data_access_events", &self.data_access_events);
+        debug_struct.field("data_flow_events", &self.data_flow_events);
+        debug_struct.field("networks", &self.networks);
+        debug_struct.field(
+            "data_retention_deletion_events",
+            &self.data_retention_deletion_events,
+        );
+        debug_struct.field("affected_resources", &self.affected_resources);
+        debug_struct.field("ai_model", &self.ai_model);
+        debug_struct.field("chokepoint", &self.chokepoint);
+        debug_struct.field("vertex_ai", &self.vertex_ai);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Finding].
 pub mod finding {
     #[allow(unused_imports)]
@@ -11474,7 +13396,7 @@ pub mod finding {
 
     /// Mute information about the finding, including whether the finding has a
     /// static mute or any matching dynamic mute rules.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MuteInfo {
         /// If set, the static mute applied to this finding. Static mutes override
@@ -11655,6 +13577,18 @@ pub mod finding {
         }
     }
 
+    impl std::fmt::Debug for MuteInfo {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("MuteInfo");
+            debug_struct.field("static_mute", &self.static_mute);
+            debug_struct.field("dynamic_mute_records", &self.dynamic_mute_records);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [MuteInfo].
     pub mod mute_info {
         #[allow(unused_imports)]
@@ -11663,7 +13597,7 @@ pub mod finding {
         /// Information about the static mute state. A static mute state overrides
         /// any dynamic mute rules that apply to this finding. The static mute state
         /// can be set by a static mute rule or by muting the finding directly.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct StaticMute {
             /// The static mute state. If the value is `MUTED` or `UNMUTED`, then the
@@ -11838,8 +13772,20 @@ pub mod finding {
             }
         }
 
+        impl std::fmt::Debug for StaticMute {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("StaticMute");
+                debug_struct.field("state", &self.state);
+                debug_struct.field("apply_time", &self.apply_time);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// The record of a dynamic mute rule that matches the finding.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DynamicMuteRecord {
             /// The relative resource name of the mute rule, represented by a mute
@@ -12018,6 +13964,18 @@ pub mod finding {
                     }
                 }
                 state.end()
+            }
+        }
+
+        impl std::fmt::Debug for DynamicMuteRecord {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("DynamicMuteRecord");
+                debug_struct.field("mute_config", &self.mute_config);
+                debug_struct.field("match_time", &self.match_time);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
             }
         }
     }
@@ -12523,6 +14481,9 @@ pub mod finding {
         /// Describes a potential security risk to data assets that contain sensitive
         /// data.
         SensitiveDataRisk,
+        /// Describes a resource or resource group where high risk attack paths
+        /// converge, based on attack path simulations (APS).
+        Chokepoint,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [FindingClass::value] or
@@ -12554,6 +14515,7 @@ pub mod finding {
                 Self::PostureViolation => std::option::Option::Some(6),
                 Self::ToxicCombination => std::option::Option::Some(7),
                 Self::SensitiveDataRisk => std::option::Option::Some(8),
+                Self::Chokepoint => std::option::Option::Some(9),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -12573,6 +14535,7 @@ pub mod finding {
                 Self::PostureViolation => std::option::Option::Some("POSTURE_VIOLATION"),
                 Self::ToxicCombination => std::option::Option::Some("TOXIC_COMBINATION"),
                 Self::SensitiveDataRisk => std::option::Option::Some("SENSITIVE_DATA_RISK"),
+                Self::Chokepoint => std::option::Option::Some("CHOKEPOINT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -12603,6 +14566,7 @@ pub mod finding {
                 6 => Self::PostureViolation,
                 7 => Self::ToxicCombination,
                 8 => Self::SensitiveDataRisk,
+                9 => Self::Chokepoint,
                 _ => Self::UnknownValue(finding_class::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -12623,6 +14587,7 @@ pub mod finding {
                 "POSTURE_VIOLATION" => Self::PostureViolation,
                 "TOXIC_COMBINATION" => Self::ToxicCombination,
                 "SENSITIVE_DATA_RISK" => Self::SensitiveDataRisk,
+                "CHOKEPOINT" => Self::Chokepoint,
                 _ => Self::UnknownValue(finding_class::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -12645,6 +14610,7 @@ pub mod finding {
                 Self::PostureViolation => serializer.serialize_i32(6),
                 Self::ToxicCombination => serializer.serialize_i32(7),
                 Self::SensitiveDataRisk => serializer.serialize_i32(8),
+                Self::Chokepoint => serializer.serialize_i32(9),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -12664,7 +14630,7 @@ pub mod finding {
 
 /// Message that contains the resource name and display name of a folder
 /// resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Folder {
     /// Full resource name of this folder. See:
@@ -12830,9 +14796,24 @@ impl serde::ser::Serialize for Folder {
     }
 }
 
+impl std::fmt::Debug for Folder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Folder");
+        debug_struct.field("resource_folder", &self.resource_folder);
+        debug_struct.field(
+            "resource_folder_display_name",
+            &self.resource_folder_display_name,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains details about groups of which this finding is a member. A group is a
 /// collection of findings that are related in some way.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GroupMembership {
     /// Type of group.
@@ -12988,6 +14969,18 @@ impl serde::ser::Serialize for GroupMembership {
     }
 }
 
+impl std::fmt::Debug for GroupMembership {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GroupMembership");
+        debug_struct.field("group_type", &self.group_type);
+        debug_struct.field("group_id", &self.group_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [GroupMembership].
 pub mod group_membership {
     #[allow(unused_imports)]
@@ -13015,6 +15008,8 @@ pub mod group_membership {
         Unspecified,
         /// Group represents a toxic combination.
         ToxicCombination,
+        /// Group represents a chokepoint.
+        Chokepoint,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [GroupType::value] or
@@ -13039,6 +15034,7 @@ pub mod group_membership {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::ToxicCombination => std::option::Option::Some(1),
+                Self::Chokepoint => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -13051,6 +15047,7 @@ pub mod group_membership {
             match self {
                 Self::Unspecified => std::option::Option::Some("GROUP_TYPE_UNSPECIFIED"),
                 Self::ToxicCombination => std::option::Option::Some("GROUP_TYPE_TOXIC_COMBINATION"),
+                Self::Chokepoint => std::option::Option::Some("GROUP_TYPE_CHOKEPOINT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -13074,6 +15071,7 @@ pub mod group_membership {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::ToxicCombination,
+                3 => Self::Chokepoint,
                 _ => Self::UnknownValue(group_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -13087,6 +15085,7 @@ pub mod group_membership {
             match value {
                 "GROUP_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "GROUP_TYPE_TOXIC_COMBINATION" => Self::ToxicCombination,
+                "GROUP_TYPE_CHOKEPOINT" => Self::Chokepoint,
                 _ => Self::UnknownValue(group_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -13102,6 +15101,7 @@ pub mod group_membership {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::ToxicCombination => serializer.serialize_i32(1),
+                Self::Chokepoint => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -13121,7 +15121,7 @@ pub mod group_membership {
 
 /// Represents a particular IAM binding, which captures a member's role addition,
 /// removal, or state.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IamBinding {
     /// The action that was performed on a Binding.
@@ -13301,6 +15301,19 @@ impl serde::ser::Serialize for IamBinding {
     }
 }
 
+impl std::fmt::Debug for IamBinding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IamBinding");
+        debug_struct.field("action", &self.action);
+        debug_struct.field("role", &self.role);
+        debug_struct.field("member", &self.member);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [IamBinding].
 pub mod iam_binding {
     #[allow(unused_imports)]
@@ -13444,7 +15457,7 @@ pub mod iam_binding {
 /// operating system that, with high confidence, indicates a computer intrusion.
 /// For more information, see [Indicator of
 /// compromise](https://en.wikipedia.org/wiki/Indicator_of_compromise).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Indicator {
     /// The list of IP addresses that are associated with the finding.
@@ -13663,18 +15676,33 @@ impl serde::ser::Serialize for Indicator {
     }
 }
 
+impl std::fmt::Debug for Indicator {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Indicator");
+        debug_struct.field("ip_addresses", &self.ip_addresses);
+        debug_struct.field("domains", &self.domains);
+        debug_struct.field("signatures", &self.signatures);
+        debug_struct.field("uris", &self.uris);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Indicator].
 pub mod indicator {
     #[allow(unused_imports)]
     use super::*;
 
     /// Indicates what signature matched this process.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProcessSignature {
         /// Describes the type of resource associated with the signature.
         pub signature_type: crate::model::indicator::process_signature::SignatureType,
 
+        /// The signature.
         pub signature: std::option::Option<crate::model::indicator::process_signature::Signature>,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13949,13 +15977,25 @@ pub mod indicator {
         }
     }
 
+    impl std::fmt::Debug for ProcessSignature {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ProcessSignature");
+            debug_struct.field("signature_type", &self.signature_type);
+            debug_struct.field("signature", &self.signature);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ProcessSignature].
     pub mod process_signature {
         #[allow(unused_imports)]
         use super::*;
 
         /// A signature corresponding to memory page hashes.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MemoryHashSignature {
             /// The binary family.
@@ -14128,13 +16168,25 @@ pub mod indicator {
             }
         }
 
+        impl std::fmt::Debug for MemoryHashSignature {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("MemoryHashSignature");
+                debug_struct.field("binary_family", &self.binary_family);
+                debug_struct.field("detections", &self.detections);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [MemoryHashSignature].
         pub mod memory_hash_signature {
             #[allow(unused_imports)]
             use super::*;
 
             /// Memory hash detection contributing to the binary family match.
-            #[derive(Clone, Debug, Default, PartialEq)]
+            #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Detection {
                 /// The name of the binary associated with the memory hash
@@ -14346,10 +16398,22 @@ pub mod indicator {
                     state.end()
                 }
             }
+
+            impl std::fmt::Debug for Detection {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    let mut debug_struct = f.debug_struct("Detection");
+                    debug_struct.field("binary", &self.binary);
+                    debug_struct.field("percent_pages_matched", &self.percent_pages_matched);
+                    if !self._unknown_fields.is_empty() {
+                        debug_struct.field("_unknown_fields", &self._unknown_fields);
+                    }
+                    debug_struct.finish()
+                }
+            }
         }
 
         /// A signature corresponding to a YARA rule.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct YaraRuleSignature {
             /// The name of the YARA rule.
@@ -14490,6 +16554,17 @@ pub mod indicator {
             }
         }
 
+        impl std::fmt::Debug for YaraRuleSignature {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("YaraRuleSignature");
+                debug_struct.field("yara_rule", &self.yara_rule);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Possible resource types to be associated with a signature.
         ///
         /// # Working with unknown values
@@ -14625,6 +16700,7 @@ pub mod indicator {
             }
         }
 
+        /// The signature.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Signature {
@@ -14640,8 +16716,1430 @@ pub mod indicator {
     }
 }
 
+/// IP rules associated with the finding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct IpRules {
+    /// The direction that the rule is applicable to, one of ingress or egress.
+    pub direction: crate::model::ip_rules::Direction,
+
+    /// If source IP ranges are specified, the firewall rule applies only to
+    /// traffic that has a source IP address in these ranges. These ranges must be
+    /// expressed in CIDR format. Only supports IPv4.
+    pub source_ip_ranges: std::vec::Vec<std::string::String>,
+
+    /// If destination IP ranges are specified, the firewall rule applies only to
+    /// traffic that has a destination IP address in these ranges. These ranges
+    /// must be expressed in CIDR format. Only supports IPv4.
+    pub destination_ip_ranges: std::vec::Vec<std::string::String>,
+
+    /// Name of the network protocol service, such as FTP, that is exposed by the
+    /// open port. Follows the naming convention available at:
+    /// <https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml>.
+    pub exposed_services: std::vec::Vec<std::string::String>,
+
+    /// The list of allow rules specified by this firewall. Each rule specifies a
+    /// protocol and port-range tuple that describes a permitted connection.
+    pub rules: std::option::Option<crate::model::ip_rules::Rules>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IpRules {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [direction][crate::model::IpRules::direction].
+    pub fn set_direction<T: std::convert::Into<crate::model::ip_rules::Direction>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.direction = v.into();
+        self
+    }
+
+    /// Sets the value of [source_ip_ranges][crate::model::IpRules::source_ip_ranges].
+    pub fn set_source_ip_ranges<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.source_ip_ranges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [destination_ip_ranges][crate::model::IpRules::destination_ip_ranges].
+    pub fn set_destination_ip_ranges<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.destination_ip_ranges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [exposed_services][crate::model::IpRules::exposed_services].
+    pub fn set_exposed_services<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.exposed_services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::IpRules::rules].
+    ///
+    /// Note that all the setters affecting `rules` are mutually
+    /// exclusive.
+    pub fn set_rules<T: std::convert::Into<std::option::Option<crate::model::ip_rules::Rules>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rules = v.into();
+        self
+    }
+
+    /// The value of [rules][crate::model::IpRules::rules]
+    /// if it holds a `Allowed`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn allowed(&self) -> std::option::Option<&std::boxed::Box<crate::model::Allowed>> {
+        #[allow(unreachable_patterns)]
+        self.rules.as_ref().and_then(|v| match v {
+            crate::model::ip_rules::Rules::Allowed(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [rules][crate::model::IpRules::rules]
+    /// to hold a `Allowed`.
+    ///
+    /// Note that all the setters affecting `rules` are
+    /// mutually exclusive.
+    pub fn set_allowed<T: std::convert::Into<std::boxed::Box<crate::model::Allowed>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rules = std::option::Option::Some(crate::model::ip_rules::Rules::Allowed(v.into()));
+        self
+    }
+
+    /// The value of [rules][crate::model::IpRules::rules]
+    /// if it holds a `Denied`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn denied(&self) -> std::option::Option<&std::boxed::Box<crate::model::Denied>> {
+        #[allow(unreachable_patterns)]
+        self.rules.as_ref().and_then(|v| match v {
+            crate::model::ip_rules::Rules::Denied(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [rules][crate::model::IpRules::rules]
+    /// to hold a `Denied`.
+    ///
+    /// Note that all the setters affecting `rules` are
+    /// mutually exclusive.
+    pub fn set_denied<T: std::convert::Into<std::boxed::Box<crate::model::Denied>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rules = std::option::Option::Some(crate::model::ip_rules::Rules::Denied(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for IpRules {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.IpRules"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for IpRules {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __direction,
+            __allowed,
+            __denied,
+            __source_ip_ranges,
+            __destination_ip_ranges,
+            __exposed_services,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for IpRules")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "direction" => Ok(__FieldTag::__direction),
+                            "allowed" => Ok(__FieldTag::__allowed),
+                            "denied" => Ok(__FieldTag::__denied),
+                            "sourceIpRanges" => Ok(__FieldTag::__source_ip_ranges),
+                            "source_ip_ranges" => Ok(__FieldTag::__source_ip_ranges),
+                            "destinationIpRanges" => Ok(__FieldTag::__destination_ip_ranges),
+                            "destination_ip_ranges" => Ok(__FieldTag::__destination_ip_ranges),
+                            "exposedServices" => Ok(__FieldTag::__exposed_services),
+                            "exposed_services" => Ok(__FieldTag::__exposed_services),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = IpRules;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct IpRules")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__direction => {
+                            if !fields.insert(__FieldTag::__direction) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for direction",
+                                ));
+                            }
+                            result.direction = map.next_value::<std::option::Option<crate::model::ip_rules::Direction>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__allowed => {
+                            if !fields.insert(__FieldTag::__allowed) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allowed",
+                                ));
+                            }
+                            if result.rules.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `rules`, a oneof with full ID .google.cloud.securitycenter.v2.IpRules.allowed, latest field was allowed",
+                                ));
+                            }
+                            result.rules =
+                                std::option::Option::Some(
+                                    crate::model::ip_rules::Rules::Allowed(
+                                        map.next_value::<std::option::Option<
+                                            std::boxed::Box<crate::model::Allowed>,
+                                        >>()?
+                                        .unwrap_or_default(),
+                                    ),
+                                );
+                        }
+                        __FieldTag::__denied => {
+                            if !fields.insert(__FieldTag::__denied) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for denied",
+                                ));
+                            }
+                            if result.rules.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `rules`, a oneof with full ID .google.cloud.securitycenter.v2.IpRules.denied, latest field was denied",
+                                ));
+                            }
+                            result.rules =
+                                std::option::Option::Some(
+                                    crate::model::ip_rules::Rules::Denied(
+                                        map.next_value::<std::option::Option<
+                                            std::boxed::Box<crate::model::Denied>,
+                                        >>()?
+                                        .unwrap_or_default(),
+                                    ),
+                                );
+                        }
+                        __FieldTag::__source_ip_ranges => {
+                            if !fields.insert(__FieldTag::__source_ip_ranges) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for source_ip_ranges",
+                                ));
+                            }
+                            result.source_ip_ranges = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__destination_ip_ranges => {
+                            if !fields.insert(__FieldTag::__destination_ip_ranges) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for destination_ip_ranges",
+                                ));
+                            }
+                            result.destination_ip_ranges = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__exposed_services => {
+                            if !fields.insert(__FieldTag::__exposed_services) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for exposed_services",
+                                ));
+                            }
+                            result.exposed_services = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for IpRules {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.direction) {
+            state.serialize_entry("direction", &self.direction)?;
+        }
+        if let Some(value) = self.allowed() {
+            state.serialize_entry("allowed", value)?;
+        }
+        if let Some(value) = self.denied() {
+            state.serialize_entry("denied", value)?;
+        }
+        if !self.source_ip_ranges.is_empty() {
+            state.serialize_entry("sourceIpRanges", &self.source_ip_ranges)?;
+        }
+        if !self.destination_ip_ranges.is_empty() {
+            state.serialize_entry("destinationIpRanges", &self.destination_ip_ranges)?;
+        }
+        if !self.exposed_services.is_empty() {
+            state.serialize_entry("exposedServices", &self.exposed_services)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for IpRules {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IpRules");
+        debug_struct.field("direction", &self.direction);
+        debug_struct.field("source_ip_ranges", &self.source_ip_ranges);
+        debug_struct.field("destination_ip_ranges", &self.destination_ip_ranges);
+        debug_struct.field("exposed_services", &self.exposed_services);
+        debug_struct.field("rules", &self.rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [IpRules].
+pub mod ip_rules {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of direction that the rule is applicable to, one of ingress or
+    /// egress. Not applicable to OPEN_X_PORT findings.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Direction {
+        /// Unspecified direction value.
+        Unspecified,
+        /// Ingress direction value.
+        Ingress,
+        /// Egress direction value.
+        Egress,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Direction::value] or
+        /// [Direction::name].
+        UnknownValue(direction::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod direction {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Direction {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ingress => std::option::Option::Some(1),
+                Self::Egress => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DIRECTION_UNSPECIFIED"),
+                Self::Ingress => std::option::Option::Some("INGRESS"),
+                Self::Egress => std::option::Option::Some("EGRESS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Direction {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Direction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Direction {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Ingress,
+                2 => Self::Egress,
+                _ => Self::UnknownValue(direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Direction {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DIRECTION_UNSPECIFIED" => Self::Unspecified,
+                "INGRESS" => Self::Ingress,
+                "EGRESS" => Self::Egress,
+                _ => Self::UnknownValue(direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Direction {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ingress => serializer.serialize_i32(1),
+                Self::Egress => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Direction {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Direction>::new(
+                ".google.cloud.securitycenter.v2.IpRules.Direction",
+            ))
+        }
+    }
+
+    /// The list of allow rules specified by this firewall. Each rule specifies a
+    /// protocol and port-range tuple that describes a permitted connection.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Rules {
+        /// Tuple with allowed rules.
+        Allowed(std::boxed::Box<crate::model::Allowed>),
+        /// Tuple with denied rules.
+        Denied(std::boxed::Box<crate::model::Denied>),
+    }
+}
+
+/// IP rule information.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct IpRule {
+    /// The IP protocol this rule applies to. This value can either be one of the
+    /// following well known protocol strings (TCP, UDP, ICMP, ESP, AH, IPIP,
+    /// SCTP) or a string representation of the integer value.
+    pub protocol: std::string::String,
+
+    /// Optional. An optional list of ports to which this rule applies. This field
+    /// is only applicable for the UDP or (S)TCP protocols. Each entry must be
+    /// either an integer or a range including a min and max port number.
+    pub port_ranges: std::vec::Vec<crate::model::ip_rule::PortRange>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IpRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [protocol][crate::model::IpRule::protocol].
+    pub fn set_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.protocol = v.into();
+        self
+    }
+
+    /// Sets the value of [port_ranges][crate::model::IpRule::port_ranges].
+    pub fn set_port_ranges<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ip_rule::PortRange>,
+    {
+        use std::iter::Iterator;
+        self.port_ranges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for IpRule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.IpRule"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for IpRule {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __protocol,
+            __port_ranges,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for IpRule")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "protocol" => Ok(__FieldTag::__protocol),
+                            "portRanges" => Ok(__FieldTag::__port_ranges),
+                            "port_ranges" => Ok(__FieldTag::__port_ranges),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = IpRule;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct IpRule")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__protocol => {
+                            if !fields.insert(__FieldTag::__protocol) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for protocol",
+                                ));
+                            }
+                            result.protocol = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__port_ranges => {
+                            if !fields.insert(__FieldTag::__port_ranges) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for port_ranges",
+                                ));
+                            }
+                            result.port_ranges = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ip_rule::PortRange>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for IpRule {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.protocol.is_empty() {
+            state.serialize_entry("protocol", &self.protocol)?;
+        }
+        if !self.port_ranges.is_empty() {
+            state.serialize_entry("portRanges", &self.port_ranges)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for IpRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IpRule");
+        debug_struct.field("protocol", &self.protocol);
+        debug_struct.field("port_ranges", &self.port_ranges);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [IpRule].
+pub mod ip_rule {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A port range which is inclusive of the min and max values.
+    /// Values are between 0 and 2^16-1. The max can be equal / must be not smaller
+    /// than the min value. If min and max are equal this indicates that it is a
+    /// single port.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PortRange {
+        /// Minimum port value.
+        pub min: i64,
+
+        /// Maximum port value.
+        pub max: i64,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PortRange {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [min][crate::model::ip_rule::PortRange::min].
+        pub fn set_min<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.min = v.into();
+            self
+        }
+
+        /// Sets the value of [max][crate::model::ip_rule::PortRange::max].
+        pub fn set_max<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PortRange {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.securitycenter.v2.IpRule.PortRange"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for PortRange {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __min,
+                __max,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for PortRange")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "min" => Ok(__FieldTag::__min),
+                                "max" => Ok(__FieldTag::__max),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = PortRange;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct PortRange")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__min => {
+                                if !fields.insert(__FieldTag::__min) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for min",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.min = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__max => {
+                                if !fields.insert(__FieldTag::__max) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for max",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.max = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for PortRange {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.min) {
+                struct __With<'a>(&'a i64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("min", &__With(&self.min))?;
+            }
+            if !wkt::internal::is_default(&self.max) {
+                struct __With<'a>(&'a i64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("max", &__With(&self.max))?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for PortRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PortRange");
+            debug_struct.field("min", &self.min);
+            debug_struct.field("max", &self.max);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+}
+
+/// Allowed IP rule.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Allowed {
+    /// Optional. Optional list of allowed IP rules.
+    pub ip_rules: std::vec::Vec<crate::model::IpRule>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Allowed {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ip_rules][crate::model::Allowed::ip_rules].
+    pub fn set_ip_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::IpRule>,
+    {
+        use std::iter::Iterator;
+        self.ip_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Allowed {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.Allowed"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Allowed {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __ip_rules,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Allowed")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "ipRules" => Ok(__FieldTag::__ip_rules),
+                            "ip_rules" => Ok(__FieldTag::__ip_rules),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Allowed;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Allowed")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__ip_rules => {
+                            if !fields.insert(__FieldTag::__ip_rules) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ip_rules",
+                                ));
+                            }
+                            result.ip_rules = map.next_value::<std::option::Option<std::vec::Vec<crate::model::IpRule>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Allowed {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ip_rules.is_empty() {
+            state.serialize_entry("ipRules", &self.ip_rules)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for Allowed {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Allowed");
+        debug_struct.field("ip_rules", &self.ip_rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Denied IP rule.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Denied {
+    /// Optional. Optional list of denied IP rules.
+    pub ip_rules: std::vec::Vec<crate::model::IpRule>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Denied {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ip_rules][crate::model::Denied::ip_rules].
+    pub fn set_ip_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::IpRule>,
+    {
+        use std::iter::Iterator;
+        self.ip_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Denied {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.Denied"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Denied {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __ip_rules,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Denied")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "ipRules" => Ok(__FieldTag::__ip_rules),
+                            "ip_rules" => Ok(__FieldTag::__ip_rules),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Denied;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Denied")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__ip_rules => {
+                            if !fields.insert(__FieldTag::__ip_rules) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ip_rules",
+                                ));
+                            }
+                            result.ip_rules = map.next_value::<std::option::Option<std::vec::Vec<crate::model::IpRule>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Denied {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ip_rules.is_empty() {
+            state.serialize_entry("ipRules", &self.ip_rules)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for Denied {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Denied");
+        debug_struct.field("ip_rules", &self.ip_rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Describes a job
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Job {
+    /// The fully-qualified name for a job.
+    /// e.g. `projects/<project_id>/jobs/<job_id>`
+    pub name: std::string::String,
+
+    /// Output only. State of the job, such as `RUNNING` or `PENDING`.
+    pub state: crate::model::JobState,
+
+    /// Optional. If the job did not complete successfully, this field describes
+    /// why.
+    pub error_code: i32,
+
+    /// Optional. Gives the location where the job ran, such as `US` or
+    /// `europe-west1`
+    pub location: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Job {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Job::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Job::state].
+    pub fn set_state<T: std::convert::Into<crate::model::JobState>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [error_code][crate::model::Job::error_code].
+    pub fn set_error_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.error_code = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::Job::location].
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Job {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.Job"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Job {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __state,
+            __error_code,
+            __location,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Job")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "state" => Ok(__FieldTag::__state),
+                            "errorCode" => Ok(__FieldTag::__error_code),
+                            "error_code" => Ok(__FieldTag::__error_code),
+                            "location" => Ok(__FieldTag::__location),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Job;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Job")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map
+                                .next_value::<std::option::Option<crate::model::JobState>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__error_code => {
+                            if !fields.insert(__FieldTag::__error_code) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for error_code",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.error_code = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Job {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !wkt::internal::is_default(&self.error_code) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("errorCode", &__With(&self.error_code))?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for Job {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Job");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("error_code", &self.error_code);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Kernel mode rootkit signatures.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KernelRootkit {
     /// Rootkit name, when available.
@@ -15034,8 +18532,45 @@ impl serde::ser::Serialize for KernelRootkit {
     }
 }
 
+impl std::fmt::Debug for KernelRootkit {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KernelRootkit");
+        debug_struct.field("name", &self.name);
+        debug_struct.field(
+            "unexpected_code_modification",
+            &self.unexpected_code_modification,
+        );
+        debug_struct.field(
+            "unexpected_read_only_data_modification",
+            &self.unexpected_read_only_data_modification,
+        );
+        debug_struct.field("unexpected_ftrace_handler", &self.unexpected_ftrace_handler);
+        debug_struct.field("unexpected_kprobe_handler", &self.unexpected_kprobe_handler);
+        debug_struct.field(
+            "unexpected_kernel_code_pages",
+            &self.unexpected_kernel_code_pages,
+        );
+        debug_struct.field(
+            "unexpected_system_call_handler",
+            &self.unexpected_system_call_handler,
+        );
+        debug_struct.field(
+            "unexpected_interrupt_handler",
+            &self.unexpected_interrupt_handler,
+        );
+        debug_struct.field(
+            "unexpected_processes_in_runqueue",
+            &self.unexpected_processes_in_runqueue,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Kubernetes-related attributes.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Kubernetes {
     /// Kubernetes
@@ -15371,13 +18906,30 @@ impl serde::ser::Serialize for Kubernetes {
     }
 }
 
+impl std::fmt::Debug for Kubernetes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Kubernetes");
+        debug_struct.field("pods", &self.pods);
+        debug_struct.field("nodes", &self.nodes);
+        debug_struct.field("node_pools", &self.node_pools);
+        debug_struct.field("roles", &self.roles);
+        debug_struct.field("bindings", &self.bindings);
+        debug_struct.field("access_reviews", &self.access_reviews);
+        debug_struct.field("objects", &self.objects);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Kubernetes].
 pub mod kubernetes {
     #[allow(unused_imports)]
     use super::*;
 
     /// A Kubernetes Pod.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Pod {
         /// Kubernetes Pod namespace.
@@ -15588,8 +19140,22 @@ pub mod kubernetes {
         }
     }
 
+    impl std::fmt::Debug for Pod {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Pod");
+            debug_struct.field("ns", &self.ns);
+            debug_struct.field("name", &self.name);
+            debug_struct.field("labels", &self.labels);
+            debug_struct.field("containers", &self.containers);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Kubernetes nodes associated with the finding.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Node {
         /// [Full resource name](https://google.aip.dev/122#full-resource-names) of
@@ -15722,8 +19288,19 @@ pub mod kubernetes {
         }
     }
 
+    impl std::fmt::Debug for Node {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Node");
+            debug_struct.field("name", &self.name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Provides GKE node pool information.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NodePool {
         /// Kubernetes node pool name.
@@ -15886,8 +19463,20 @@ pub mod kubernetes {
         }
     }
 
+    impl std::fmt::Debug for NodePool {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("NodePool");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("nodes", &self.nodes);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Kubernetes Role or ClusterRole.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Role {
         /// Role type.
@@ -16068,6 +19657,19 @@ pub mod kubernetes {
         }
     }
 
+    impl std::fmt::Debug for Role {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Role");
+            debug_struct.field("kind", &self.kind);
+            debug_struct.field("ns", &self.ns);
+            debug_struct.field("name", &self.name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Role].
     pub mod role {
         #[allow(unused_imports)]
@@ -16210,7 +19812,7 @@ pub mod kubernetes {
     }
 
     /// Represents a Kubernetes RoleBinding or ClusterRoleBinding.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Binding {
         /// Namespace for the binding.
@@ -16433,8 +20035,22 @@ pub mod kubernetes {
         }
     }
 
+    impl std::fmt::Debug for Binding {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Binding");
+            debug_struct.field("ns", &self.ns);
+            debug_struct.field("name", &self.name);
+            debug_struct.field("role", &self.role);
+            debug_struct.field("subjects", &self.subjects);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents a Kubernetes subject.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Subject {
         /// Authentication type for the subject.
@@ -16619,6 +20235,19 @@ pub mod kubernetes {
         }
     }
 
+    impl std::fmt::Debug for Subject {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Subject");
+            debug_struct.field("kind", &self.kind);
+            debug_struct.field("ns", &self.ns);
+            debug_struct.field("name", &self.name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [Subject].
     pub mod subject {
         #[allow(unused_imports)]
@@ -16771,7 +20400,7 @@ pub mod kubernetes {
     /// by a [`kubectl auth
     /// can-i`](https://kubernetes.io/docs/reference/access-authn-authz/authorization/#checking-api-access)
     /// command) that was involved in a finding.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AccessReview {
         /// The API group of the resource. "*" means all.
@@ -17050,10 +20679,27 @@ pub mod kubernetes {
         }
     }
 
+    impl std::fmt::Debug for AccessReview {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AccessReview");
+            debug_struct.field("group", &self.group);
+            debug_struct.field("ns", &self.ns);
+            debug_struct.field("name", &self.name);
+            debug_struct.field("resource", &self.resource);
+            debug_struct.field("subresource", &self.subresource);
+            debug_struct.field("verb", &self.verb);
+            debug_struct.field("version", &self.version);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Kubernetes object related to the finding, uniquely identified by GKNN.
     /// Used if the object Kind is not one of Pod, Node, NodePool, Binding, or
     /// AccessReview.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Object {
         /// Kubernetes object group, such as "policy.k8s.io/v1".
@@ -17286,13 +20932,28 @@ pub mod kubernetes {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for Object {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Object");
+            debug_struct.field("group", &self.group);
+            debug_struct.field("kind", &self.kind);
+            debug_struct.field("ns", &self.ns);
+            debug_struct.field("name", &self.name);
+            debug_struct.field("containers", &self.containers);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Represents a generic name-value label. A label has separate name and value
 /// fields to support filtering with the `contains()` function. For more
 /// information, see [Filtering on array-type
 /// fields](https://cloud.google.com/security-command-center/docs/how-to-api-list-findings#array-contains-filtering).
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Label {
     /// Name of the label.
@@ -17445,9 +21106,21 @@ impl serde::ser::Serialize for Label {
     }
 }
 
+impl std::fmt::Debug for Label {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Label");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains information related to the load balancer associated with the
 /// finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoadBalancer {
     /// The name of the load balancer associated with the finding.
@@ -17576,10 +21249,22 @@ impl serde::ser::Serialize for LoadBalancer {
     }
 }
 
+impl std::fmt::Debug for LoadBalancer {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoadBalancer");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// An individual entry in a log.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogEntry {
+    /// The log entry.
     pub log_entry: std::option::Option<crate::model::log_entry::LogEntry>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -17754,11 +21439,23 @@ impl serde::ser::Serialize for LogEntry {
     }
 }
 
+impl std::fmt::Debug for LogEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LogEntry");
+        debug_struct.field("log_entry", &self.log_entry);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LogEntry].
 pub mod log_entry {
     #[allow(unused_imports)]
     use super::*;
 
+    /// The log entry.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum LogEntry {
@@ -17769,7 +21466,7 @@ pub mod log_entry {
 
 /// Metadata taken from a [Cloud Logging
 /// LogEntry](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry)
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudLoggingEntry {
     /// A unique identifier for the log entry.
@@ -17991,9 +21688,23 @@ impl serde::ser::Serialize for CloudLoggingEntry {
     }
 }
 
+impl std::fmt::Debug for CloudLoggingEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudLoggingEntry");
+        debug_struct.field("insert_id", &self.insert_id);
+        debug_struct.field("log_id", &self.log_id);
+        debug_struct.field("resource_container", &self.resource_container);
+        debug_struct.field("timestamp", &self.timestamp);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// MITRE ATT&CK tactics and techniques related to this finding.
 /// See: <https://attack.mitre.org>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MitreAttack {
     /// The MITRE ATT&CK tactic most closely represented by this finding, if any.
@@ -18250,6 +21961,21 @@ impl serde::ser::Serialize for MitreAttack {
     }
 }
 
+impl std::fmt::Debug for MitreAttack {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MitreAttack");
+        debug_struct.field("primary_tactic", &self.primary_tactic);
+        debug_struct.field("primary_techniques", &self.primary_techniques);
+        debug_struct.field("additional_tactics", &self.additional_tactics);
+        debug_struct.field("additional_techniques", &self.additional_techniques);
+        debug_struct.field("version", &self.version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MitreAttack].
 pub mod mitre_attack {
     #[allow(unused_imports)]
@@ -18472,8 +22198,8 @@ pub mod mitre_attack {
         }
     }
 
-    /// MITRE ATT&CK techniques that can be referenced by SCC findings.
-    /// See: <https://attack.mitre.org/techniques/enterprise/>
+    /// MITRE ATT&CK techniques that can be referenced by Security Command Center
+    /// findings. See: <https://attack.mitre.org/techniques/enterprise/>
     ///
     /// # Working with unknown values
     ///
@@ -18493,6 +22219,32 @@ pub mod mitre_attack {
     pub enum Technique {
         /// Unspecified value.
         Unspecified,
+        /// T1001
+        DataObfuscation,
+        /// T1001.002
+        DataObfuscationSteganography,
+        /// T1003
+        OsCredentialDumping,
+        /// T1003.007
+        OsCredentialDumpingProcFilesystem,
+        /// T1003.008
+        OsCredentialDumpingEtcPasswordAndEtcShadow,
+        /// T1005
+        DataFromLocalSystem,
+        /// T1020
+        AutomatedExfiltration,
+        /// T1027
+        ObfuscatedFilesOrInfo,
+        /// T1027.003
+        Steganography,
+        /// T1027.004
+        CompileAfterDelivery,
+        /// T1027.010
+        CommandObfuscation,
+        /// T1029
+        ScheduledTransfer,
+        /// T1033
+        SystemOwnerUserDiscovery,
         /// T1036
         Masquerading,
         /// T1036.005
@@ -18503,6 +22255,18 @@ pub mod mitre_attack {
         StartupItems,
         /// T1046
         NetworkServiceDiscovery,
+        /// T1053
+        ScheduledTaskJob,
+        /// T1053.003
+        ScheduledTaskJobCron,
+        /// T1053.007
+        ContainerOrchestrationJob,
+        /// T1055
+        ProcessInjection,
+        /// T1056
+        InputCapture,
+        /// T1056.001
+        InputCaptureKeylogging,
         /// T1057
         ProcessDiscovery,
         /// T1059
@@ -18517,8 +22281,18 @@ pub mod mitre_attack {
         PermissionGroupsDiscovery,
         /// T1069.003
         CloudGroups,
+        /// T1070
+        IndicatorRemoval,
+        /// T1070.002
+        IndicatorRemovalClearLinuxOrMacSystemLogs,
+        /// T1070.003
+        IndicatorRemovalClearCommandHistory,
         /// T1070.004
         IndicatorRemovalFileDeletion,
+        /// T1070.006
+        IndicatorRemovalTimestomp,
+        /// T1070.008
+        IndicatorRemovalClearMailboxData,
         /// T1071
         ApplicationLayerProtocol,
         /// T1071.004
@@ -18533,6 +22307,10 @@ pub mod mitre_attack {
         LocalAccounts,
         /// T1078.004
         CloudAccounts,
+        /// T1083
+        FileAndDirectoryDiscovery,
+        /// T1087.001
+        AccountDiscoveryLocalAccount,
         /// T1090
         Proxy,
         /// T1090.002
@@ -18543,32 +22321,62 @@ pub mod mitre_attack {
         AccountManipulation,
         /// T1098.001
         AdditionalCloudCredentials,
+        /// T1098.003
+        AdditionalCloudRoles,
         /// T1098.004
         SshAuthorizedKeys,
         /// T1098.006
         AdditionalContainerClusterRoles,
+        /// T1104
+        MultiStageChannels,
         /// T1105
         IngressToolTransfer,
         /// T1106
         NativeApi,
         /// T1110
         BruteForce,
+        /// T1119
+        AutomatedCollection,
         /// T1129
         SharedModules,
+        /// T1132
+        DataEncoding,
+        /// T1132.001
+        StandardEncoding,
         /// T1134
         AccessTokenManipulation,
         /// T1134.001
         TokenImpersonationOrTheft,
+        /// T1136
+        CreateAccount,
+        /// T1136.001
+        LocalAccount,
+        /// T1140
+        DeobfuscateDecodeFilesOrInfo,
         /// T1190
         ExploitPublicFacingApplication,
+        /// T1195
+        SupplyChainCompromise,
+        /// T1195.001
+        CompromiseSoftwareDependenciesAndDevelopmentTools,
+        /// T1203
+        ExploitationForClientExecution,
+        /// T1204
+        UserExecution,
+        /// T1222.002
+        LinuxAndMacFileAndDirectoryPermissionsModification,
         /// T1484
         DomainPolicyModification,
         /// T1485
         DataDestruction,
+        /// T1486
+        DataEncryptedForImpact,
         /// T1489
         ServiceStop,
         /// T1490
         InhibitSystemRecovery,
+        /// T1495
+        FirmwareCorruption,
         /// T1496
         ResourceHijacking,
         /// T1498
@@ -18579,22 +22387,62 @@ pub mod mitre_attack {
         StealApplicationAccessToken,
         /// T1531
         AccountAccessRemoval,
+        /// T1537
+        TransferDataToCloudAccount,
         /// T1539
         StealWebSessionCookie,
         /// T1543
         CreateOrModifySystemProcess,
         /// T1546
         EventTriggeredExecution,
+        /// T1547
+        BootOrLogonAutostartExecution,
+        /// T1547.006
+        KernelModulesAndExtensions,
+        /// T1547.009
+        ShortcutModification,
         /// T1548
         AbuseElevationControlMechanism,
+        /// T1548.001
+        AbuseElevationControlMechanismSetuidAndSetgid,
+        /// T1548.003
+        AbuseElevationControlMechanismSudoAndSudoCaching,
         /// T1552
         UnsecuredCredentials,
+        /// T1552.001
+        CredentialsInFiles,
+        /// T1552.003
+        BashHistory,
+        /// T1552.004
+        PrivateKeys,
+        /// T1553
+        SubvertTrustControl,
+        /// T1553.004
+        InstallRootCertificate,
+        /// T1554
+        CompromiseHostSoftwareBinary,
+        /// T1555
+        CredentialsFromPasswordStores,
         /// T1556
         ModifyAuthenticationProcess,
+        /// T1556.003
+        PluggableAuthenticationModules,
+        /// T1556.006
+        MultiFactorAuthentication,
         /// T1562
         ImpairDefenses,
         /// T1562.001
         DisableOrModifyTools,
+        /// T1562.006
+        IndicatorBlocking,
+        /// T1562.012
+        DisableOrModifyLinuxAuditSystem,
+        /// T1564
+        HideArtifacts,
+        /// T1564.001
+        HiddenFilesAndDirectories,
+        /// T1564.002
+        HiddenUsers,
         /// T1567
         ExfiltrationOverWebService,
         /// T1567.002
@@ -18603,18 +22451,34 @@ pub mod mitre_attack {
         DynamicResolution,
         /// T1570
         LateralToolTransfer,
+        /// T1574
+        HijackExecutionFlow,
+        /// T1574.006
+        HijackExecutionFlowDynamicLinkerHijacking,
         /// T1578
         ModifyCloudComputeInfrastructure,
         /// T1578.001
         CreateSnapshot,
         /// T1580
         CloudInfrastructureDiscovery,
+        /// T1587
+        DevelopCapabilities,
+        /// T1587.001
+        DevelopCapabilitiesMalware,
         /// T1588
         ObtainCapabilities,
+        /// T1588.001
+        ObtainCapabilitiesMalware,
+        /// T1588.006
+        ObtainCapabilitiesVulnerabilities,
         /// T1595
         ActiveScanning,
         /// T1595.001
         ScanningIpBlocks,
+        /// T1608
+        StageCapabilities,
+        /// T1608.001
+        UploadMalware,
         /// T1609
         ContainerAdministrationCommand,
         /// T1610
@@ -18623,8 +22487,12 @@ pub mod mitre_attack {
         EscapeToHost,
         /// T1613
         ContainerAndResourceDiscovery,
+        /// T1620
+        ReflectiveCodeLoading,
         /// T1649
         StealOrForgeAuthenticationCertificates,
+        /// T1657
+        FinancialTheft,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Technique::value] or
@@ -18648,11 +22516,30 @@ pub mod mitre_attack {
         pub fn value(&self) -> std::option::Option<i32> {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
+                Self::DataObfuscation => std::option::Option::Some(70),
+                Self::DataObfuscationSteganography => std::option::Option::Some(71),
+                Self::OsCredentialDumping => std::option::Option::Some(114),
+                Self::OsCredentialDumpingProcFilesystem => std::option::Option::Some(115),
+                Self::OsCredentialDumpingEtcPasswordAndEtcShadow => std::option::Option::Some(122),
+                Self::DataFromLocalSystem => std::option::Option::Some(117),
+                Self::AutomatedExfiltration => std::option::Option::Some(68),
+                Self::ObfuscatedFilesOrInfo => std::option::Option::Some(72),
+                Self::Steganography => std::option::Option::Some(73),
+                Self::CompileAfterDelivery => std::option::Option::Some(74),
+                Self::CommandObfuscation => std::option::Option::Some(75),
+                Self::ScheduledTransfer => std::option::Option::Some(120),
+                Self::SystemOwnerUserDiscovery => std::option::Option::Some(118),
                 Self::Masquerading => std::option::Option::Some(49),
                 Self::MatchLegitimateNameOrLocation => std::option::Option::Some(50),
                 Self::BootOrLogonInitializationScripts => std::option::Option::Some(37),
                 Self::StartupItems => std::option::Option::Some(38),
                 Self::NetworkServiceDiscovery => std::option::Option::Some(32),
+                Self::ScheduledTaskJob => std::option::Option::Some(89),
+                Self::ScheduledTaskJobCron => std::option::Option::Some(119),
+                Self::ContainerOrchestrationJob => std::option::Option::Some(90),
+                Self::ProcessInjection => std::option::Option::Some(93),
+                Self::InputCapture => std::option::Option::Some(103),
+                Self::InputCaptureKeylogging => std::option::Option::Some(104),
                 Self::ProcessDiscovery => std::option::Option::Some(56),
                 Self::CommandAndScriptingInterpreter => std::option::Option::Some(6),
                 Self::UnixShell => std::option::Option::Some(7),
@@ -18660,7 +22547,12 @@ pub mod mitre_attack {
                 Self::ExploitationForPrivilegeEscalation => std::option::Option::Some(63),
                 Self::PermissionGroupsDiscovery => std::option::Option::Some(18),
                 Self::CloudGroups => std::option::Option::Some(19),
+                Self::IndicatorRemoval => std::option::Option::Some(123),
+                Self::IndicatorRemovalClearLinuxOrMacSystemLogs => std::option::Option::Some(124),
+                Self::IndicatorRemovalClearCommandHistory => std::option::Option::Some(125),
                 Self::IndicatorRemovalFileDeletion => std::option::Option::Some(64),
+                Self::IndicatorRemovalTimestomp => std::option::Option::Some(128),
+                Self::IndicatorRemovalClearMailboxData => std::option::Option::Some(126),
                 Self::ApplicationLayerProtocol => std::option::Option::Some(45),
                 Self::Dns => std::option::Option::Some(46),
                 Self::SoftwareDeploymentTools => std::option::Option::Some(47),
@@ -18668,52 +22560,107 @@ pub mod mitre_attack {
                 Self::DefaultAccounts => std::option::Option::Some(35),
                 Self::LocalAccounts => std::option::Option::Some(15),
                 Self::CloudAccounts => std::option::Option::Some(16),
+                Self::FileAndDirectoryDiscovery => std::option::Option::Some(121),
+                Self::AccountDiscoveryLocalAccount => std::option::Option::Some(116),
                 Self::Proxy => std::option::Option::Some(9),
                 Self::ExternalProxy => std::option::Option::Some(10),
                 Self::MultiHopProxy => std::option::Option::Some(11),
                 Self::AccountManipulation => std::option::Option::Some(22),
                 Self::AdditionalCloudCredentials => std::option::Option::Some(40),
+                Self::AdditionalCloudRoles => std::option::Option::Some(67),
                 Self::SshAuthorizedKeys => std::option::Option::Some(23),
                 Self::AdditionalContainerClusterRoles => std::option::Option::Some(58),
+                Self::MultiStageChannels => std::option::Option::Some(76),
                 Self::IngressToolTransfer => std::option::Option::Some(3),
                 Self::NativeApi => std::option::Option::Some(4),
                 Self::BruteForce => std::option::Option::Some(44),
+                Self::AutomatedCollection => std::option::Option::Some(94),
                 Self::SharedModules => std::option::Option::Some(5),
+                Self::DataEncoding => std::option::Option::Some(77),
+                Self::StandardEncoding => std::option::Option::Some(78),
                 Self::AccessTokenManipulation => std::option::Option::Some(33),
                 Self::TokenImpersonationOrTheft => std::option::Option::Some(39),
+                Self::CreateAccount => std::option::Option::Some(79),
+                Self::LocalAccount => std::option::Option::Some(80),
+                Self::DeobfuscateDecodeFilesOrInfo => std::option::Option::Some(95),
                 Self::ExploitPublicFacingApplication => std::option::Option::Some(27),
+                Self::SupplyChainCompromise => std::option::Option::Some(129),
+                Self::CompromiseSoftwareDependenciesAndDevelopmentTools => {
+                    std::option::Option::Some(130)
+                }
+                Self::ExploitationForClientExecution => std::option::Option::Some(134),
+                Self::UserExecution => std::option::Option::Some(69),
+                Self::LinuxAndMacFileAndDirectoryPermissionsModification => {
+                    std::option::Option::Some(135)
+                }
                 Self::DomainPolicyModification => std::option::Option::Some(30),
                 Self::DataDestruction => std::option::Option::Some(29),
+                Self::DataEncryptedForImpact => std::option::Option::Some(132),
                 Self::ServiceStop => std::option::Option::Some(52),
                 Self::InhibitSystemRecovery => std::option::Option::Some(36),
+                Self::FirmwareCorruption => std::option::Option::Some(81),
                 Self::ResourceHijacking => std::option::Option::Some(8),
                 Self::NetworkDenialOfService => std::option::Option::Some(17),
                 Self::CloudServiceDiscovery => std::option::Option::Some(48),
                 Self::StealApplicationAccessToken => std::option::Option::Some(42),
                 Self::AccountAccessRemoval => std::option::Option::Some(51),
+                Self::TransferDataToCloudAccount => std::option::Option::Some(91),
                 Self::StealWebSessionCookie => std::option::Option::Some(25),
                 Self::CreateOrModifySystemProcess => std::option::Option::Some(24),
                 Self::EventTriggeredExecution => std::option::Option::Some(65),
+                Self::BootOrLogonAutostartExecution => std::option::Option::Some(82),
+                Self::KernelModulesAndExtensions => std::option::Option::Some(83),
+                Self::ShortcutModification => std::option::Option::Some(127),
                 Self::AbuseElevationControlMechanism => std::option::Option::Some(34),
+                Self::AbuseElevationControlMechanismSetuidAndSetgid => {
+                    std::option::Option::Some(136)
+                }
+                Self::AbuseElevationControlMechanismSudoAndSudoCaching => {
+                    std::option::Option::Some(109)
+                }
                 Self::UnsecuredCredentials => std::option::Option::Some(13),
+                Self::CredentialsInFiles => std::option::Option::Some(105),
+                Self::BashHistory => std::option::Option::Some(96),
+                Self::PrivateKeys => std::option::Option::Some(97),
+                Self::SubvertTrustControl => std::option::Option::Some(106),
+                Self::InstallRootCertificate => std::option::Option::Some(107),
+                Self::CompromiseHostSoftwareBinary => std::option::Option::Some(84),
+                Self::CredentialsFromPasswordStores => std::option::Option::Some(98),
                 Self::ModifyAuthenticationProcess => std::option::Option::Some(28),
+                Self::PluggableAuthenticationModules => std::option::Option::Some(108),
+                Self::MultiFactorAuthentication => std::option::Option::Some(137),
                 Self::ImpairDefenses => std::option::Option::Some(31),
                 Self::DisableOrModifyTools => std::option::Option::Some(55),
+                Self::IndicatorBlocking => std::option::Option::Some(110),
+                Self::DisableOrModifyLinuxAuditSystem => std::option::Option::Some(111),
+                Self::HideArtifacts => std::option::Option::Some(85),
+                Self::HiddenFilesAndDirectories => std::option::Option::Some(86),
+                Self::HiddenUsers => std::option::Option::Some(87),
                 Self::ExfiltrationOverWebService => std::option::Option::Some(20),
                 Self::ExfiltrationToCloudStorage => std::option::Option::Some(21),
                 Self::DynamicResolution => std::option::Option::Some(12),
                 Self::LateralToolTransfer => std::option::Option::Some(41),
+                Self::HijackExecutionFlow => std::option::Option::Some(112),
+                Self::HijackExecutionFlowDynamicLinkerHijacking => std::option::Option::Some(113),
                 Self::ModifyCloudComputeInfrastructure => std::option::Option::Some(26),
                 Self::CreateSnapshot => std::option::Option::Some(54),
                 Self::CloudInfrastructureDiscovery => std::option::Option::Some(53),
+                Self::DevelopCapabilities => std::option::Option::Some(99),
+                Self::DevelopCapabilitiesMalware => std::option::Option::Some(100),
                 Self::ObtainCapabilities => std::option::Option::Some(43),
+                Self::ObtainCapabilitiesMalware => std::option::Option::Some(101),
+                Self::ObtainCapabilitiesVulnerabilities => std::option::Option::Some(133),
                 Self::ActiveScanning => std::option::Option::Some(1),
                 Self::ScanningIpBlocks => std::option::Option::Some(2),
+                Self::StageCapabilities => std::option::Option::Some(88),
+                Self::UploadMalware => std::option::Option::Some(102),
                 Self::ContainerAdministrationCommand => std::option::Option::Some(60),
                 Self::DeployContainer => std::option::Option::Some(66),
                 Self::EscapeToHost => std::option::Option::Some(61),
                 Self::ContainerAndResourceDiscovery => std::option::Option::Some(57),
+                Self::ReflectiveCodeLoading => std::option::Option::Some(92),
                 Self::StealOrForgeAuthenticationCertificates => std::option::Option::Some(62),
+                Self::FinancialTheft => std::option::Option::Some(131),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -18725,6 +22672,29 @@ pub mod mitre_attack {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("TECHNIQUE_UNSPECIFIED"),
+                Self::DataObfuscation => std::option::Option::Some("DATA_OBFUSCATION"),
+                Self::DataObfuscationSteganography => {
+                    std::option::Option::Some("DATA_OBFUSCATION_STEGANOGRAPHY")
+                }
+                Self::OsCredentialDumping => std::option::Option::Some("OS_CREDENTIAL_DUMPING"),
+                Self::OsCredentialDumpingProcFilesystem => {
+                    std::option::Option::Some("OS_CREDENTIAL_DUMPING_PROC_FILESYSTEM")
+                }
+                Self::OsCredentialDumpingEtcPasswordAndEtcShadow => {
+                    std::option::Option::Some("OS_CREDENTIAL_DUMPING_ETC_PASSWORD_AND_ETC_SHADOW")
+                }
+                Self::DataFromLocalSystem => std::option::Option::Some("DATA_FROM_LOCAL_SYSTEM"),
+                Self::AutomatedExfiltration => std::option::Option::Some("AUTOMATED_EXFILTRATION"),
+                Self::ObfuscatedFilesOrInfo => {
+                    std::option::Option::Some("OBFUSCATED_FILES_OR_INFO")
+                }
+                Self::Steganography => std::option::Option::Some("STEGANOGRAPHY"),
+                Self::CompileAfterDelivery => std::option::Option::Some("COMPILE_AFTER_DELIVERY"),
+                Self::CommandObfuscation => std::option::Option::Some("COMMAND_OBFUSCATION"),
+                Self::ScheduledTransfer => std::option::Option::Some("SCHEDULED_TRANSFER"),
+                Self::SystemOwnerUserDiscovery => {
+                    std::option::Option::Some("SYSTEM_OWNER_USER_DISCOVERY")
+                }
                 Self::Masquerading => std::option::Option::Some("MASQUERADING"),
                 Self::MatchLegitimateNameOrLocation => {
                     std::option::Option::Some("MATCH_LEGITIMATE_NAME_OR_LOCATION")
@@ -18735,6 +22705,16 @@ pub mod mitre_attack {
                 Self::StartupItems => std::option::Option::Some("STARTUP_ITEMS"),
                 Self::NetworkServiceDiscovery => {
                     std::option::Option::Some("NETWORK_SERVICE_DISCOVERY")
+                }
+                Self::ScheduledTaskJob => std::option::Option::Some("SCHEDULED_TASK_JOB"),
+                Self::ScheduledTaskJobCron => std::option::Option::Some("SCHEDULED_TASK_JOB_CRON"),
+                Self::ContainerOrchestrationJob => {
+                    std::option::Option::Some("CONTAINER_ORCHESTRATION_JOB")
+                }
+                Self::ProcessInjection => std::option::Option::Some("PROCESS_INJECTION"),
+                Self::InputCapture => std::option::Option::Some("INPUT_CAPTURE"),
+                Self::InputCaptureKeylogging => {
+                    std::option::Option::Some("INPUT_CAPTURE_KEYLOGGING")
                 }
                 Self::ProcessDiscovery => std::option::Option::Some("PROCESS_DISCOVERY"),
                 Self::CommandAndScriptingInterpreter => {
@@ -18749,8 +22729,21 @@ pub mod mitre_attack {
                     std::option::Option::Some("PERMISSION_GROUPS_DISCOVERY")
                 }
                 Self::CloudGroups => std::option::Option::Some("CLOUD_GROUPS"),
+                Self::IndicatorRemoval => std::option::Option::Some("INDICATOR_REMOVAL"),
+                Self::IndicatorRemovalClearLinuxOrMacSystemLogs => {
+                    std::option::Option::Some("INDICATOR_REMOVAL_CLEAR_LINUX_OR_MAC_SYSTEM_LOGS")
+                }
+                Self::IndicatorRemovalClearCommandHistory => {
+                    std::option::Option::Some("INDICATOR_REMOVAL_CLEAR_COMMAND_HISTORY")
+                }
                 Self::IndicatorRemovalFileDeletion => {
                     std::option::Option::Some("INDICATOR_REMOVAL_FILE_DELETION")
+                }
+                Self::IndicatorRemovalTimestomp => {
+                    std::option::Option::Some("INDICATOR_REMOVAL_TIMESTOMP")
+                }
+                Self::IndicatorRemovalClearMailboxData => {
+                    std::option::Option::Some("INDICATOR_REMOVAL_CLEAR_MAILBOX_DATA")
                 }
                 Self::ApplicationLayerProtocol => {
                     std::option::Option::Some("APPLICATION_LAYER_PROTOCOL")
@@ -18763,6 +22756,12 @@ pub mod mitre_attack {
                 Self::DefaultAccounts => std::option::Option::Some("DEFAULT_ACCOUNTS"),
                 Self::LocalAccounts => std::option::Option::Some("LOCAL_ACCOUNTS"),
                 Self::CloudAccounts => std::option::Option::Some("CLOUD_ACCOUNTS"),
+                Self::FileAndDirectoryDiscovery => {
+                    std::option::Option::Some("FILE_AND_DIRECTORY_DISCOVERY")
+                }
+                Self::AccountDiscoveryLocalAccount => {
+                    std::option::Option::Some("ACCOUNT_DISCOVERY_LOCAL_ACCOUNT")
+                }
                 Self::Proxy => std::option::Option::Some("PROXY"),
                 Self::ExternalProxy => std::option::Option::Some("EXTERNAL_PROXY"),
                 Self::MultiHopProxy => std::option::Option::Some("MULTI_HOP_PROXY"),
@@ -18770,29 +22769,58 @@ pub mod mitre_attack {
                 Self::AdditionalCloudCredentials => {
                     std::option::Option::Some("ADDITIONAL_CLOUD_CREDENTIALS")
                 }
+                Self::AdditionalCloudRoles => std::option::Option::Some("ADDITIONAL_CLOUD_ROLES"),
                 Self::SshAuthorizedKeys => std::option::Option::Some("SSH_AUTHORIZED_KEYS"),
                 Self::AdditionalContainerClusterRoles => {
                     std::option::Option::Some("ADDITIONAL_CONTAINER_CLUSTER_ROLES")
                 }
+                Self::MultiStageChannels => std::option::Option::Some("MULTI_STAGE_CHANNELS"),
                 Self::IngressToolTransfer => std::option::Option::Some("INGRESS_TOOL_TRANSFER"),
                 Self::NativeApi => std::option::Option::Some("NATIVE_API"),
                 Self::BruteForce => std::option::Option::Some("BRUTE_FORCE"),
+                Self::AutomatedCollection => std::option::Option::Some("AUTOMATED_COLLECTION"),
                 Self::SharedModules => std::option::Option::Some("SHARED_MODULES"),
+                Self::DataEncoding => std::option::Option::Some("DATA_ENCODING"),
+                Self::StandardEncoding => std::option::Option::Some("STANDARD_ENCODING"),
                 Self::AccessTokenManipulation => {
                     std::option::Option::Some("ACCESS_TOKEN_MANIPULATION")
                 }
                 Self::TokenImpersonationOrTheft => {
                     std::option::Option::Some("TOKEN_IMPERSONATION_OR_THEFT")
                 }
+                Self::CreateAccount => std::option::Option::Some("CREATE_ACCOUNT"),
+                Self::LocalAccount => std::option::Option::Some("LOCAL_ACCOUNT"),
+                Self::DeobfuscateDecodeFilesOrInfo => {
+                    std::option::Option::Some("DEOBFUSCATE_DECODE_FILES_OR_INFO")
+                }
                 Self::ExploitPublicFacingApplication => {
                     std::option::Option::Some("EXPLOIT_PUBLIC_FACING_APPLICATION")
+                }
+                Self::SupplyChainCompromise => std::option::Option::Some("SUPPLY_CHAIN_COMPROMISE"),
+                Self::CompromiseSoftwareDependenciesAndDevelopmentTools => {
+                    std::option::Option::Some(
+                        "COMPROMISE_SOFTWARE_DEPENDENCIES_AND_DEVELOPMENT_TOOLS",
+                    )
+                }
+                Self::ExploitationForClientExecution => {
+                    std::option::Option::Some("EXPLOITATION_FOR_CLIENT_EXECUTION")
+                }
+                Self::UserExecution => std::option::Option::Some("USER_EXECUTION"),
+                Self::LinuxAndMacFileAndDirectoryPermissionsModification => {
+                    std::option::Option::Some(
+                        "LINUX_AND_MAC_FILE_AND_DIRECTORY_PERMISSIONS_MODIFICATION",
+                    )
                 }
                 Self::DomainPolicyModification => {
                     std::option::Option::Some("DOMAIN_POLICY_MODIFICATION")
                 }
                 Self::DataDestruction => std::option::Option::Some("DATA_DESTRUCTION"),
+                Self::DataEncryptedForImpact => {
+                    std::option::Option::Some("DATA_ENCRYPTED_FOR_IMPACT")
+                }
                 Self::ServiceStop => std::option::Option::Some("SERVICE_STOP"),
                 Self::InhibitSystemRecovery => std::option::Option::Some("INHIBIT_SYSTEM_RECOVERY"),
+                Self::FirmwareCorruption => std::option::Option::Some("FIRMWARE_CORRUPTION"),
                 Self::ResourceHijacking => std::option::Option::Some("RESOURCE_HIJACKING"),
                 Self::NetworkDenialOfService => {
                     std::option::Option::Some("NETWORK_DENIAL_OF_SERVICE")
@@ -18802,6 +22830,9 @@ pub mod mitre_attack {
                     std::option::Option::Some("STEAL_APPLICATION_ACCESS_TOKEN")
                 }
                 Self::AccountAccessRemoval => std::option::Option::Some("ACCOUNT_ACCESS_REMOVAL"),
+                Self::TransferDataToCloudAccount => {
+                    std::option::Option::Some("TRANSFER_DATA_TO_CLOUD_ACCOUNT")
+                }
                 Self::StealWebSessionCookie => {
                     std::option::Option::Some("STEAL_WEB_SESSION_COOKIE")
                 }
@@ -18811,15 +22842,58 @@ pub mod mitre_attack {
                 Self::EventTriggeredExecution => {
                     std::option::Option::Some("EVENT_TRIGGERED_EXECUTION")
                 }
+                Self::BootOrLogonAutostartExecution => {
+                    std::option::Option::Some("BOOT_OR_LOGON_AUTOSTART_EXECUTION")
+                }
+                Self::KernelModulesAndExtensions => {
+                    std::option::Option::Some("KERNEL_MODULES_AND_EXTENSIONS")
+                }
+                Self::ShortcutModification => std::option::Option::Some("SHORTCUT_MODIFICATION"),
                 Self::AbuseElevationControlMechanism => {
                     std::option::Option::Some("ABUSE_ELEVATION_CONTROL_MECHANISM")
                 }
+                Self::AbuseElevationControlMechanismSetuidAndSetgid => {
+                    std::option::Option::Some("ABUSE_ELEVATION_CONTROL_MECHANISM_SETUID_AND_SETGID")
+                }
+                Self::AbuseElevationControlMechanismSudoAndSudoCaching => {
+                    std::option::Option::Some(
+                        "ABUSE_ELEVATION_CONTROL_MECHANISM_SUDO_AND_SUDO_CACHING",
+                    )
+                }
                 Self::UnsecuredCredentials => std::option::Option::Some("UNSECURED_CREDENTIALS"),
+                Self::CredentialsInFiles => std::option::Option::Some("CREDENTIALS_IN_FILES"),
+                Self::BashHistory => std::option::Option::Some("BASH_HISTORY"),
+                Self::PrivateKeys => std::option::Option::Some("PRIVATE_KEYS"),
+                Self::SubvertTrustControl => std::option::Option::Some("SUBVERT_TRUST_CONTROL"),
+                Self::InstallRootCertificate => {
+                    std::option::Option::Some("INSTALL_ROOT_CERTIFICATE")
+                }
+                Self::CompromiseHostSoftwareBinary => {
+                    std::option::Option::Some("COMPROMISE_HOST_SOFTWARE_BINARY")
+                }
+                Self::CredentialsFromPasswordStores => {
+                    std::option::Option::Some("CREDENTIALS_FROM_PASSWORD_STORES")
+                }
                 Self::ModifyAuthenticationProcess => {
                     std::option::Option::Some("MODIFY_AUTHENTICATION_PROCESS")
                 }
+                Self::PluggableAuthenticationModules => {
+                    std::option::Option::Some("PLUGGABLE_AUTHENTICATION_MODULES")
+                }
+                Self::MultiFactorAuthentication => {
+                    std::option::Option::Some("MULTI_FACTOR_AUTHENTICATION")
+                }
                 Self::ImpairDefenses => std::option::Option::Some("IMPAIR_DEFENSES"),
                 Self::DisableOrModifyTools => std::option::Option::Some("DISABLE_OR_MODIFY_TOOLS"),
+                Self::IndicatorBlocking => std::option::Option::Some("INDICATOR_BLOCKING"),
+                Self::DisableOrModifyLinuxAuditSystem => {
+                    std::option::Option::Some("DISABLE_OR_MODIFY_LINUX_AUDIT_SYSTEM")
+                }
+                Self::HideArtifacts => std::option::Option::Some("HIDE_ARTIFACTS"),
+                Self::HiddenFilesAndDirectories => {
+                    std::option::Option::Some("HIDDEN_FILES_AND_DIRECTORIES")
+                }
+                Self::HiddenUsers => std::option::Option::Some("HIDDEN_USERS"),
                 Self::ExfiltrationOverWebService => {
                     std::option::Option::Some("EXFILTRATION_OVER_WEB_SERVICE")
                 }
@@ -18828,6 +22902,10 @@ pub mod mitre_attack {
                 }
                 Self::DynamicResolution => std::option::Option::Some("DYNAMIC_RESOLUTION"),
                 Self::LateralToolTransfer => std::option::Option::Some("LATERAL_TOOL_TRANSFER"),
+                Self::HijackExecutionFlow => std::option::Option::Some("HIJACK_EXECUTION_FLOW"),
+                Self::HijackExecutionFlowDynamicLinkerHijacking => {
+                    std::option::Option::Some("HIJACK_EXECUTION_FLOW_DYNAMIC_LINKER_HIJACKING")
+                }
                 Self::ModifyCloudComputeInfrastructure => {
                     std::option::Option::Some("MODIFY_CLOUD_COMPUTE_INFRASTRUCTURE")
                 }
@@ -18835,9 +22913,21 @@ pub mod mitre_attack {
                 Self::CloudInfrastructureDiscovery => {
                     std::option::Option::Some("CLOUD_INFRASTRUCTURE_DISCOVERY")
                 }
+                Self::DevelopCapabilities => std::option::Option::Some("DEVELOP_CAPABILITIES"),
+                Self::DevelopCapabilitiesMalware => {
+                    std::option::Option::Some("DEVELOP_CAPABILITIES_MALWARE")
+                }
                 Self::ObtainCapabilities => std::option::Option::Some("OBTAIN_CAPABILITIES"),
+                Self::ObtainCapabilitiesMalware => {
+                    std::option::Option::Some("OBTAIN_CAPABILITIES_MALWARE")
+                }
+                Self::ObtainCapabilitiesVulnerabilities => {
+                    std::option::Option::Some("OBTAIN_CAPABILITIES_VULNERABILITIES")
+                }
                 Self::ActiveScanning => std::option::Option::Some("ACTIVE_SCANNING"),
                 Self::ScanningIpBlocks => std::option::Option::Some("SCANNING_IP_BLOCKS"),
+                Self::StageCapabilities => std::option::Option::Some("STAGE_CAPABILITIES"),
+                Self::UploadMalware => std::option::Option::Some("UPLOAD_MALWARE"),
                 Self::ContainerAdministrationCommand => {
                     std::option::Option::Some("CONTAINER_ADMINISTRATION_COMMAND")
                 }
@@ -18846,9 +22936,11 @@ pub mod mitre_attack {
                 Self::ContainerAndResourceDiscovery => {
                     std::option::Option::Some("CONTAINER_AND_RESOURCE_DISCOVERY")
                 }
+                Self::ReflectiveCodeLoading => std::option::Option::Some("REFLECTIVE_CODE_LOADING"),
                 Self::StealOrForgeAuthenticationCertificates => {
                     std::option::Option::Some("STEAL_OR_FORGE_AUTHENTICATION_CERTIFICATES")
                 }
+                Self::FinancialTheft => std::option::Option::Some("FINANCIAL_THEFT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -18937,6 +23029,77 @@ pub mod mitre_attack {
                 64 => Self::IndicatorRemovalFileDeletion,
                 65 => Self::EventTriggeredExecution,
                 66 => Self::DeployContainer,
+                67 => Self::AdditionalCloudRoles,
+                68 => Self::AutomatedExfiltration,
+                69 => Self::UserExecution,
+                70 => Self::DataObfuscation,
+                71 => Self::DataObfuscationSteganography,
+                72 => Self::ObfuscatedFilesOrInfo,
+                73 => Self::Steganography,
+                74 => Self::CompileAfterDelivery,
+                75 => Self::CommandObfuscation,
+                76 => Self::MultiStageChannels,
+                77 => Self::DataEncoding,
+                78 => Self::StandardEncoding,
+                79 => Self::CreateAccount,
+                80 => Self::LocalAccount,
+                81 => Self::FirmwareCorruption,
+                82 => Self::BootOrLogonAutostartExecution,
+                83 => Self::KernelModulesAndExtensions,
+                84 => Self::CompromiseHostSoftwareBinary,
+                85 => Self::HideArtifacts,
+                86 => Self::HiddenFilesAndDirectories,
+                87 => Self::HiddenUsers,
+                88 => Self::StageCapabilities,
+                89 => Self::ScheduledTaskJob,
+                90 => Self::ContainerOrchestrationJob,
+                91 => Self::TransferDataToCloudAccount,
+                92 => Self::ReflectiveCodeLoading,
+                93 => Self::ProcessInjection,
+                94 => Self::AutomatedCollection,
+                95 => Self::DeobfuscateDecodeFilesOrInfo,
+                96 => Self::BashHistory,
+                97 => Self::PrivateKeys,
+                98 => Self::CredentialsFromPasswordStores,
+                99 => Self::DevelopCapabilities,
+                100 => Self::DevelopCapabilitiesMalware,
+                101 => Self::ObtainCapabilitiesMalware,
+                102 => Self::UploadMalware,
+                103 => Self::InputCapture,
+                104 => Self::InputCaptureKeylogging,
+                105 => Self::CredentialsInFiles,
+                106 => Self::SubvertTrustControl,
+                107 => Self::InstallRootCertificate,
+                108 => Self::PluggableAuthenticationModules,
+                109 => Self::AbuseElevationControlMechanismSudoAndSudoCaching,
+                110 => Self::IndicatorBlocking,
+                111 => Self::DisableOrModifyLinuxAuditSystem,
+                112 => Self::HijackExecutionFlow,
+                113 => Self::HijackExecutionFlowDynamicLinkerHijacking,
+                114 => Self::OsCredentialDumping,
+                115 => Self::OsCredentialDumpingProcFilesystem,
+                116 => Self::AccountDiscoveryLocalAccount,
+                117 => Self::DataFromLocalSystem,
+                118 => Self::SystemOwnerUserDiscovery,
+                119 => Self::ScheduledTaskJobCron,
+                120 => Self::ScheduledTransfer,
+                121 => Self::FileAndDirectoryDiscovery,
+                122 => Self::OsCredentialDumpingEtcPasswordAndEtcShadow,
+                123 => Self::IndicatorRemoval,
+                124 => Self::IndicatorRemovalClearLinuxOrMacSystemLogs,
+                125 => Self::IndicatorRemovalClearCommandHistory,
+                126 => Self::IndicatorRemovalClearMailboxData,
+                127 => Self::ShortcutModification,
+                128 => Self::IndicatorRemovalTimestomp,
+                129 => Self::SupplyChainCompromise,
+                130 => Self::CompromiseSoftwareDependenciesAndDevelopmentTools,
+                131 => Self::FinancialTheft,
+                132 => Self::DataEncryptedForImpact,
+                133 => Self::ObtainCapabilitiesVulnerabilities,
+                134 => Self::ExploitationForClientExecution,
+                135 => Self::LinuxAndMacFileAndDirectoryPermissionsModification,
+                136 => Self::AbuseElevationControlMechanismSetuidAndSetgid,
+                137 => Self::MultiFactorAuthentication,
                 _ => Self::UnknownValue(technique::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -18949,11 +23112,32 @@ pub mod mitre_attack {
             use std::string::ToString;
             match value {
                 "TECHNIQUE_UNSPECIFIED" => Self::Unspecified,
+                "DATA_OBFUSCATION" => Self::DataObfuscation,
+                "DATA_OBFUSCATION_STEGANOGRAPHY" => Self::DataObfuscationSteganography,
+                "OS_CREDENTIAL_DUMPING" => Self::OsCredentialDumping,
+                "OS_CREDENTIAL_DUMPING_PROC_FILESYSTEM" => Self::OsCredentialDumpingProcFilesystem,
+                "OS_CREDENTIAL_DUMPING_ETC_PASSWORD_AND_ETC_SHADOW" => {
+                    Self::OsCredentialDumpingEtcPasswordAndEtcShadow
+                }
+                "DATA_FROM_LOCAL_SYSTEM" => Self::DataFromLocalSystem,
+                "AUTOMATED_EXFILTRATION" => Self::AutomatedExfiltration,
+                "OBFUSCATED_FILES_OR_INFO" => Self::ObfuscatedFilesOrInfo,
+                "STEGANOGRAPHY" => Self::Steganography,
+                "COMPILE_AFTER_DELIVERY" => Self::CompileAfterDelivery,
+                "COMMAND_OBFUSCATION" => Self::CommandObfuscation,
+                "SCHEDULED_TRANSFER" => Self::ScheduledTransfer,
+                "SYSTEM_OWNER_USER_DISCOVERY" => Self::SystemOwnerUserDiscovery,
                 "MASQUERADING" => Self::Masquerading,
                 "MATCH_LEGITIMATE_NAME_OR_LOCATION" => Self::MatchLegitimateNameOrLocation,
                 "BOOT_OR_LOGON_INITIALIZATION_SCRIPTS" => Self::BootOrLogonInitializationScripts,
                 "STARTUP_ITEMS" => Self::StartupItems,
                 "NETWORK_SERVICE_DISCOVERY" => Self::NetworkServiceDiscovery,
+                "SCHEDULED_TASK_JOB" => Self::ScheduledTaskJob,
+                "SCHEDULED_TASK_JOB_CRON" => Self::ScheduledTaskJobCron,
+                "CONTAINER_ORCHESTRATION_JOB" => Self::ContainerOrchestrationJob,
+                "PROCESS_INJECTION" => Self::ProcessInjection,
+                "INPUT_CAPTURE" => Self::InputCapture,
+                "INPUT_CAPTURE_KEYLOGGING" => Self::InputCaptureKeylogging,
                 "PROCESS_DISCOVERY" => Self::ProcessDiscovery,
                 "COMMAND_AND_SCRIPTING_INTERPRETER" => Self::CommandAndScriptingInterpreter,
                 "UNIX_SHELL" => Self::UnixShell,
@@ -18961,7 +23145,16 @@ pub mod mitre_attack {
                 "EXPLOITATION_FOR_PRIVILEGE_ESCALATION" => Self::ExploitationForPrivilegeEscalation,
                 "PERMISSION_GROUPS_DISCOVERY" => Self::PermissionGroupsDiscovery,
                 "CLOUD_GROUPS" => Self::CloudGroups,
+                "INDICATOR_REMOVAL" => Self::IndicatorRemoval,
+                "INDICATOR_REMOVAL_CLEAR_LINUX_OR_MAC_SYSTEM_LOGS" => {
+                    Self::IndicatorRemovalClearLinuxOrMacSystemLogs
+                }
+                "INDICATOR_REMOVAL_CLEAR_COMMAND_HISTORY" => {
+                    Self::IndicatorRemovalClearCommandHistory
+                }
                 "INDICATOR_REMOVAL_FILE_DELETION" => Self::IndicatorRemovalFileDeletion,
+                "INDICATOR_REMOVAL_TIMESTOMP" => Self::IndicatorRemovalTimestomp,
+                "INDICATOR_REMOVAL_CLEAR_MAILBOX_DATA" => Self::IndicatorRemovalClearMailboxData,
                 "APPLICATION_LAYER_PROTOCOL" => Self::ApplicationLayerProtocol,
                 "DNS" => Self::Dns,
                 "SOFTWARE_DEPLOYMENT_TOOLS" => Self::SoftwareDeploymentTools,
@@ -18969,54 +23162,111 @@ pub mod mitre_attack {
                 "DEFAULT_ACCOUNTS" => Self::DefaultAccounts,
                 "LOCAL_ACCOUNTS" => Self::LocalAccounts,
                 "CLOUD_ACCOUNTS" => Self::CloudAccounts,
+                "FILE_AND_DIRECTORY_DISCOVERY" => Self::FileAndDirectoryDiscovery,
+                "ACCOUNT_DISCOVERY_LOCAL_ACCOUNT" => Self::AccountDiscoveryLocalAccount,
                 "PROXY" => Self::Proxy,
                 "EXTERNAL_PROXY" => Self::ExternalProxy,
                 "MULTI_HOP_PROXY" => Self::MultiHopProxy,
                 "ACCOUNT_MANIPULATION" => Self::AccountManipulation,
                 "ADDITIONAL_CLOUD_CREDENTIALS" => Self::AdditionalCloudCredentials,
+                "ADDITIONAL_CLOUD_ROLES" => Self::AdditionalCloudRoles,
                 "SSH_AUTHORIZED_KEYS" => Self::SshAuthorizedKeys,
                 "ADDITIONAL_CONTAINER_CLUSTER_ROLES" => Self::AdditionalContainerClusterRoles,
+                "MULTI_STAGE_CHANNELS" => Self::MultiStageChannels,
                 "INGRESS_TOOL_TRANSFER" => Self::IngressToolTransfer,
                 "NATIVE_API" => Self::NativeApi,
                 "BRUTE_FORCE" => Self::BruteForce,
+                "AUTOMATED_COLLECTION" => Self::AutomatedCollection,
                 "SHARED_MODULES" => Self::SharedModules,
+                "DATA_ENCODING" => Self::DataEncoding,
+                "STANDARD_ENCODING" => Self::StandardEncoding,
                 "ACCESS_TOKEN_MANIPULATION" => Self::AccessTokenManipulation,
                 "TOKEN_IMPERSONATION_OR_THEFT" => Self::TokenImpersonationOrTheft,
+                "CREATE_ACCOUNT" => Self::CreateAccount,
+                "LOCAL_ACCOUNT" => Self::LocalAccount,
+                "DEOBFUSCATE_DECODE_FILES_OR_INFO" => Self::DeobfuscateDecodeFilesOrInfo,
                 "EXPLOIT_PUBLIC_FACING_APPLICATION" => Self::ExploitPublicFacingApplication,
+                "SUPPLY_CHAIN_COMPROMISE" => Self::SupplyChainCompromise,
+                "COMPROMISE_SOFTWARE_DEPENDENCIES_AND_DEVELOPMENT_TOOLS" => {
+                    Self::CompromiseSoftwareDependenciesAndDevelopmentTools
+                }
+                "EXPLOITATION_FOR_CLIENT_EXECUTION" => Self::ExploitationForClientExecution,
+                "USER_EXECUTION" => Self::UserExecution,
+                "LINUX_AND_MAC_FILE_AND_DIRECTORY_PERMISSIONS_MODIFICATION" => {
+                    Self::LinuxAndMacFileAndDirectoryPermissionsModification
+                }
                 "DOMAIN_POLICY_MODIFICATION" => Self::DomainPolicyModification,
                 "DATA_DESTRUCTION" => Self::DataDestruction,
+                "DATA_ENCRYPTED_FOR_IMPACT" => Self::DataEncryptedForImpact,
                 "SERVICE_STOP" => Self::ServiceStop,
                 "INHIBIT_SYSTEM_RECOVERY" => Self::InhibitSystemRecovery,
+                "FIRMWARE_CORRUPTION" => Self::FirmwareCorruption,
                 "RESOURCE_HIJACKING" => Self::ResourceHijacking,
                 "NETWORK_DENIAL_OF_SERVICE" => Self::NetworkDenialOfService,
                 "CLOUD_SERVICE_DISCOVERY" => Self::CloudServiceDiscovery,
                 "STEAL_APPLICATION_ACCESS_TOKEN" => Self::StealApplicationAccessToken,
                 "ACCOUNT_ACCESS_REMOVAL" => Self::AccountAccessRemoval,
+                "TRANSFER_DATA_TO_CLOUD_ACCOUNT" => Self::TransferDataToCloudAccount,
                 "STEAL_WEB_SESSION_COOKIE" => Self::StealWebSessionCookie,
                 "CREATE_OR_MODIFY_SYSTEM_PROCESS" => Self::CreateOrModifySystemProcess,
                 "EVENT_TRIGGERED_EXECUTION" => Self::EventTriggeredExecution,
+                "BOOT_OR_LOGON_AUTOSTART_EXECUTION" => Self::BootOrLogonAutostartExecution,
+                "KERNEL_MODULES_AND_EXTENSIONS" => Self::KernelModulesAndExtensions,
+                "SHORTCUT_MODIFICATION" => Self::ShortcutModification,
                 "ABUSE_ELEVATION_CONTROL_MECHANISM" => Self::AbuseElevationControlMechanism,
+                "ABUSE_ELEVATION_CONTROL_MECHANISM_SETUID_AND_SETGID" => {
+                    Self::AbuseElevationControlMechanismSetuidAndSetgid
+                }
+                "ABUSE_ELEVATION_CONTROL_MECHANISM_SUDO_AND_SUDO_CACHING" => {
+                    Self::AbuseElevationControlMechanismSudoAndSudoCaching
+                }
                 "UNSECURED_CREDENTIALS" => Self::UnsecuredCredentials,
+                "CREDENTIALS_IN_FILES" => Self::CredentialsInFiles,
+                "BASH_HISTORY" => Self::BashHistory,
+                "PRIVATE_KEYS" => Self::PrivateKeys,
+                "SUBVERT_TRUST_CONTROL" => Self::SubvertTrustControl,
+                "INSTALL_ROOT_CERTIFICATE" => Self::InstallRootCertificate,
+                "COMPROMISE_HOST_SOFTWARE_BINARY" => Self::CompromiseHostSoftwareBinary,
+                "CREDENTIALS_FROM_PASSWORD_STORES" => Self::CredentialsFromPasswordStores,
                 "MODIFY_AUTHENTICATION_PROCESS" => Self::ModifyAuthenticationProcess,
+                "PLUGGABLE_AUTHENTICATION_MODULES" => Self::PluggableAuthenticationModules,
+                "MULTI_FACTOR_AUTHENTICATION" => Self::MultiFactorAuthentication,
                 "IMPAIR_DEFENSES" => Self::ImpairDefenses,
                 "DISABLE_OR_MODIFY_TOOLS" => Self::DisableOrModifyTools,
+                "INDICATOR_BLOCKING" => Self::IndicatorBlocking,
+                "DISABLE_OR_MODIFY_LINUX_AUDIT_SYSTEM" => Self::DisableOrModifyLinuxAuditSystem,
+                "HIDE_ARTIFACTS" => Self::HideArtifacts,
+                "HIDDEN_FILES_AND_DIRECTORIES" => Self::HiddenFilesAndDirectories,
+                "HIDDEN_USERS" => Self::HiddenUsers,
                 "EXFILTRATION_OVER_WEB_SERVICE" => Self::ExfiltrationOverWebService,
                 "EXFILTRATION_TO_CLOUD_STORAGE" => Self::ExfiltrationToCloudStorage,
                 "DYNAMIC_RESOLUTION" => Self::DynamicResolution,
                 "LATERAL_TOOL_TRANSFER" => Self::LateralToolTransfer,
+                "HIJACK_EXECUTION_FLOW" => Self::HijackExecutionFlow,
+                "HIJACK_EXECUTION_FLOW_DYNAMIC_LINKER_HIJACKING" => {
+                    Self::HijackExecutionFlowDynamicLinkerHijacking
+                }
                 "MODIFY_CLOUD_COMPUTE_INFRASTRUCTURE" => Self::ModifyCloudComputeInfrastructure,
                 "CREATE_SNAPSHOT" => Self::CreateSnapshot,
                 "CLOUD_INFRASTRUCTURE_DISCOVERY" => Self::CloudInfrastructureDiscovery,
+                "DEVELOP_CAPABILITIES" => Self::DevelopCapabilities,
+                "DEVELOP_CAPABILITIES_MALWARE" => Self::DevelopCapabilitiesMalware,
                 "OBTAIN_CAPABILITIES" => Self::ObtainCapabilities,
+                "OBTAIN_CAPABILITIES_MALWARE" => Self::ObtainCapabilitiesMalware,
+                "OBTAIN_CAPABILITIES_VULNERABILITIES" => Self::ObtainCapabilitiesVulnerabilities,
                 "ACTIVE_SCANNING" => Self::ActiveScanning,
                 "SCANNING_IP_BLOCKS" => Self::ScanningIpBlocks,
+                "STAGE_CAPABILITIES" => Self::StageCapabilities,
+                "UPLOAD_MALWARE" => Self::UploadMalware,
                 "CONTAINER_ADMINISTRATION_COMMAND" => Self::ContainerAdministrationCommand,
                 "DEPLOY_CONTAINER" => Self::DeployContainer,
                 "ESCAPE_TO_HOST" => Self::EscapeToHost,
                 "CONTAINER_AND_RESOURCE_DISCOVERY" => Self::ContainerAndResourceDiscovery,
+                "REFLECTIVE_CODE_LOADING" => Self::ReflectiveCodeLoading,
                 "STEAL_OR_FORGE_AUTHENTICATION_CERTIFICATES" => {
                     Self::StealOrForgeAuthenticationCertificates
                 }
+                "FINANCIAL_THEFT" => Self::FinancialTheft,
                 _ => Self::UnknownValue(technique::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -19031,11 +23281,30 @@ pub mod mitre_attack {
         {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
+                Self::DataObfuscation => serializer.serialize_i32(70),
+                Self::DataObfuscationSteganography => serializer.serialize_i32(71),
+                Self::OsCredentialDumping => serializer.serialize_i32(114),
+                Self::OsCredentialDumpingProcFilesystem => serializer.serialize_i32(115),
+                Self::OsCredentialDumpingEtcPasswordAndEtcShadow => serializer.serialize_i32(122),
+                Self::DataFromLocalSystem => serializer.serialize_i32(117),
+                Self::AutomatedExfiltration => serializer.serialize_i32(68),
+                Self::ObfuscatedFilesOrInfo => serializer.serialize_i32(72),
+                Self::Steganography => serializer.serialize_i32(73),
+                Self::CompileAfterDelivery => serializer.serialize_i32(74),
+                Self::CommandObfuscation => serializer.serialize_i32(75),
+                Self::ScheduledTransfer => serializer.serialize_i32(120),
+                Self::SystemOwnerUserDiscovery => serializer.serialize_i32(118),
                 Self::Masquerading => serializer.serialize_i32(49),
                 Self::MatchLegitimateNameOrLocation => serializer.serialize_i32(50),
                 Self::BootOrLogonInitializationScripts => serializer.serialize_i32(37),
                 Self::StartupItems => serializer.serialize_i32(38),
                 Self::NetworkServiceDiscovery => serializer.serialize_i32(32),
+                Self::ScheduledTaskJob => serializer.serialize_i32(89),
+                Self::ScheduledTaskJobCron => serializer.serialize_i32(119),
+                Self::ContainerOrchestrationJob => serializer.serialize_i32(90),
+                Self::ProcessInjection => serializer.serialize_i32(93),
+                Self::InputCapture => serializer.serialize_i32(103),
+                Self::InputCaptureKeylogging => serializer.serialize_i32(104),
                 Self::ProcessDiscovery => serializer.serialize_i32(56),
                 Self::CommandAndScriptingInterpreter => serializer.serialize_i32(6),
                 Self::UnixShell => serializer.serialize_i32(7),
@@ -19043,7 +23312,12 @@ pub mod mitre_attack {
                 Self::ExploitationForPrivilegeEscalation => serializer.serialize_i32(63),
                 Self::PermissionGroupsDiscovery => serializer.serialize_i32(18),
                 Self::CloudGroups => serializer.serialize_i32(19),
+                Self::IndicatorRemoval => serializer.serialize_i32(123),
+                Self::IndicatorRemovalClearLinuxOrMacSystemLogs => serializer.serialize_i32(124),
+                Self::IndicatorRemovalClearCommandHistory => serializer.serialize_i32(125),
                 Self::IndicatorRemovalFileDeletion => serializer.serialize_i32(64),
+                Self::IndicatorRemovalTimestomp => serializer.serialize_i32(128),
+                Self::IndicatorRemovalClearMailboxData => serializer.serialize_i32(126),
                 Self::ApplicationLayerProtocol => serializer.serialize_i32(45),
                 Self::Dns => serializer.serialize_i32(46),
                 Self::SoftwareDeploymentTools => serializer.serialize_i32(47),
@@ -19051,52 +23325,107 @@ pub mod mitre_attack {
                 Self::DefaultAccounts => serializer.serialize_i32(35),
                 Self::LocalAccounts => serializer.serialize_i32(15),
                 Self::CloudAccounts => serializer.serialize_i32(16),
+                Self::FileAndDirectoryDiscovery => serializer.serialize_i32(121),
+                Self::AccountDiscoveryLocalAccount => serializer.serialize_i32(116),
                 Self::Proxy => serializer.serialize_i32(9),
                 Self::ExternalProxy => serializer.serialize_i32(10),
                 Self::MultiHopProxy => serializer.serialize_i32(11),
                 Self::AccountManipulation => serializer.serialize_i32(22),
                 Self::AdditionalCloudCredentials => serializer.serialize_i32(40),
+                Self::AdditionalCloudRoles => serializer.serialize_i32(67),
                 Self::SshAuthorizedKeys => serializer.serialize_i32(23),
                 Self::AdditionalContainerClusterRoles => serializer.serialize_i32(58),
+                Self::MultiStageChannels => serializer.serialize_i32(76),
                 Self::IngressToolTransfer => serializer.serialize_i32(3),
                 Self::NativeApi => serializer.serialize_i32(4),
                 Self::BruteForce => serializer.serialize_i32(44),
+                Self::AutomatedCollection => serializer.serialize_i32(94),
                 Self::SharedModules => serializer.serialize_i32(5),
+                Self::DataEncoding => serializer.serialize_i32(77),
+                Self::StandardEncoding => serializer.serialize_i32(78),
                 Self::AccessTokenManipulation => serializer.serialize_i32(33),
                 Self::TokenImpersonationOrTheft => serializer.serialize_i32(39),
+                Self::CreateAccount => serializer.serialize_i32(79),
+                Self::LocalAccount => serializer.serialize_i32(80),
+                Self::DeobfuscateDecodeFilesOrInfo => serializer.serialize_i32(95),
                 Self::ExploitPublicFacingApplication => serializer.serialize_i32(27),
+                Self::SupplyChainCompromise => serializer.serialize_i32(129),
+                Self::CompromiseSoftwareDependenciesAndDevelopmentTools => {
+                    serializer.serialize_i32(130)
+                }
+                Self::ExploitationForClientExecution => serializer.serialize_i32(134),
+                Self::UserExecution => serializer.serialize_i32(69),
+                Self::LinuxAndMacFileAndDirectoryPermissionsModification => {
+                    serializer.serialize_i32(135)
+                }
                 Self::DomainPolicyModification => serializer.serialize_i32(30),
                 Self::DataDestruction => serializer.serialize_i32(29),
+                Self::DataEncryptedForImpact => serializer.serialize_i32(132),
                 Self::ServiceStop => serializer.serialize_i32(52),
                 Self::InhibitSystemRecovery => serializer.serialize_i32(36),
+                Self::FirmwareCorruption => serializer.serialize_i32(81),
                 Self::ResourceHijacking => serializer.serialize_i32(8),
                 Self::NetworkDenialOfService => serializer.serialize_i32(17),
                 Self::CloudServiceDiscovery => serializer.serialize_i32(48),
                 Self::StealApplicationAccessToken => serializer.serialize_i32(42),
                 Self::AccountAccessRemoval => serializer.serialize_i32(51),
+                Self::TransferDataToCloudAccount => serializer.serialize_i32(91),
                 Self::StealWebSessionCookie => serializer.serialize_i32(25),
                 Self::CreateOrModifySystemProcess => serializer.serialize_i32(24),
                 Self::EventTriggeredExecution => serializer.serialize_i32(65),
+                Self::BootOrLogonAutostartExecution => serializer.serialize_i32(82),
+                Self::KernelModulesAndExtensions => serializer.serialize_i32(83),
+                Self::ShortcutModification => serializer.serialize_i32(127),
                 Self::AbuseElevationControlMechanism => serializer.serialize_i32(34),
+                Self::AbuseElevationControlMechanismSetuidAndSetgid => {
+                    serializer.serialize_i32(136)
+                }
+                Self::AbuseElevationControlMechanismSudoAndSudoCaching => {
+                    serializer.serialize_i32(109)
+                }
                 Self::UnsecuredCredentials => serializer.serialize_i32(13),
+                Self::CredentialsInFiles => serializer.serialize_i32(105),
+                Self::BashHistory => serializer.serialize_i32(96),
+                Self::PrivateKeys => serializer.serialize_i32(97),
+                Self::SubvertTrustControl => serializer.serialize_i32(106),
+                Self::InstallRootCertificate => serializer.serialize_i32(107),
+                Self::CompromiseHostSoftwareBinary => serializer.serialize_i32(84),
+                Self::CredentialsFromPasswordStores => serializer.serialize_i32(98),
                 Self::ModifyAuthenticationProcess => serializer.serialize_i32(28),
+                Self::PluggableAuthenticationModules => serializer.serialize_i32(108),
+                Self::MultiFactorAuthentication => serializer.serialize_i32(137),
                 Self::ImpairDefenses => serializer.serialize_i32(31),
                 Self::DisableOrModifyTools => serializer.serialize_i32(55),
+                Self::IndicatorBlocking => serializer.serialize_i32(110),
+                Self::DisableOrModifyLinuxAuditSystem => serializer.serialize_i32(111),
+                Self::HideArtifacts => serializer.serialize_i32(85),
+                Self::HiddenFilesAndDirectories => serializer.serialize_i32(86),
+                Self::HiddenUsers => serializer.serialize_i32(87),
                 Self::ExfiltrationOverWebService => serializer.serialize_i32(20),
                 Self::ExfiltrationToCloudStorage => serializer.serialize_i32(21),
                 Self::DynamicResolution => serializer.serialize_i32(12),
                 Self::LateralToolTransfer => serializer.serialize_i32(41),
+                Self::HijackExecutionFlow => serializer.serialize_i32(112),
+                Self::HijackExecutionFlowDynamicLinkerHijacking => serializer.serialize_i32(113),
                 Self::ModifyCloudComputeInfrastructure => serializer.serialize_i32(26),
                 Self::CreateSnapshot => serializer.serialize_i32(54),
                 Self::CloudInfrastructureDiscovery => serializer.serialize_i32(53),
+                Self::DevelopCapabilities => serializer.serialize_i32(99),
+                Self::DevelopCapabilitiesMalware => serializer.serialize_i32(100),
                 Self::ObtainCapabilities => serializer.serialize_i32(43),
+                Self::ObtainCapabilitiesMalware => serializer.serialize_i32(101),
+                Self::ObtainCapabilitiesVulnerabilities => serializer.serialize_i32(133),
                 Self::ActiveScanning => serializer.serialize_i32(1),
                 Self::ScanningIpBlocks => serializer.serialize_i32(2),
+                Self::StageCapabilities => serializer.serialize_i32(88),
+                Self::UploadMalware => serializer.serialize_i32(102),
                 Self::ContainerAdministrationCommand => serializer.serialize_i32(60),
                 Self::DeployContainer => serializer.serialize_i32(66),
                 Self::EscapeToHost => serializer.serialize_i32(61),
                 Self::ContainerAndResourceDiscovery => serializer.serialize_i32(57),
+                Self::ReflectiveCodeLoading => serializer.serialize_i32(92),
                 Self::StealOrForgeAuthenticationCertificates => serializer.serialize_i32(62),
+                Self::FinancialTheft => serializer.serialize_i32(131),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -19116,7 +23445,7 @@ pub mod mitre_attack {
 
 /// A mute config is a Cloud SCC resource that contains the configuration
 /// to mute create/update events of findings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MuteConfig {
     /// Identifier. This field will be ignored if provided on config creation. The
@@ -19492,6 +23821,24 @@ impl serde::ser::Serialize for MuteConfig {
     }
 }
 
+impl std::fmt::Debug for MuteConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MuteConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("most_recent_editor", &self.most_recent_editor);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("expiry_time", &self.expiry_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [MuteConfig].
 pub mod mute_config {
     #[allow(unused_imports)]
@@ -19637,10 +23984,152 @@ pub mod mute_config {
     }
 }
 
+/// Contains information about a VPC network associated with the finding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Network {
+    /// The name of the VPC network resource, for example,
+    /// `//compute.googleapis.com/projects/my-project/global/networks/my-network`.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Network {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Network::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Network {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.Network"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Network {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Network")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Network;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Network")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Network {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for Network {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Network");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a Jupyter notebook IPYNB file, such as a [Colab Enterprise
 /// notebook](https://cloud.google.com/colab/docs/introduction) file, that is
 /// associated with a finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Notebook {
     /// The name of the notebook.
@@ -19854,11 +24343,25 @@ impl serde::ser::Serialize for Notebook {
     }
 }
 
+impl std::fmt::Debug for Notebook {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Notebook");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("last_author", &self.last_author);
+        debug_struct.field("notebook_update_time", &self.notebook_update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Cloud Security Command Center (Cloud SCC) notification configs.
 ///
 /// A notification config is a Cloud SCC resource that contains the configuration
 /// to send notifications for create/update events of findings, assets and etc.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotificationConfig {
     /// Identifier. The relative resource name of this notification config. See:
@@ -19882,6 +24385,10 @@ pub struct NotificationConfig {
     /// Output only. The service account that needs "pubsub.topics.publish"
     /// permission to publish to the Pub/Sub topic.
     pub service_account: std::string::String,
+
+    /// Output only. The timestamp of when the notification config was last
+    /// updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// The config for triggering notifications.
     pub notify_config: std::option::Option<crate::model::notification_config::NotifyConfig>,
@@ -19915,6 +24422,24 @@ impl NotificationConfig {
     /// Sets the value of [service_account][crate::model::NotificationConfig::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::NotificationConfig::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::NotificationConfig::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -19987,6 +24512,7 @@ impl<'de> serde::de::Deserialize<'de> for NotificationConfig {
             __pubsub_topic,
             __service_account,
             __streaming_config,
+            __update_time,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -20015,6 +24541,8 @@ impl<'de> serde::de::Deserialize<'de> for NotificationConfig {
                             "service_account" => Ok(__FieldTag::__service_account),
                             "streamingConfig" => Ok(__FieldTag::__streaming_config),
                             "streaming_config" => Ok(__FieldTag::__streaming_config),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -20102,6 +24630,15 @@ impl<'de> serde::de::Deserialize<'de> for NotificationConfig {
                                 ),
                             );
                         }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -20140,12 +24677,31 @@ impl serde::ser::Serialize for NotificationConfig {
         if let Some(value) = self.streaming_config() {
             state.serialize_entry("streamingConfig", value)?;
         }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for NotificationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NotificationConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("pubsub_topic", &self.pubsub_topic);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("notify_config", &self.notify_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -20156,7 +24712,7 @@ pub mod notification_config {
 
     /// The config for streaming-based notifications, which send each event as soon
     /// as it is detected.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StreamingConfig {
         /// Expression that defines the filter to apply across create/update events
@@ -20308,6 +24864,17 @@ pub mod notification_config {
         }
     }
 
+    impl std::fmt::Debug for StreamingConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("StreamingConfig");
+            debug_struct.field("filter", &self.filter);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The config for triggering notifications.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -20318,7 +24885,7 @@ pub mod notification_config {
 }
 
 /// Cloud SCC's Notification
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotificationMessage {
     /// Name of the notification config that generated current notification.
@@ -20556,6 +25123,19 @@ impl serde::ser::Serialize for NotificationMessage {
     }
 }
 
+impl std::fmt::Debug for NotificationMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NotificationMessage");
+        debug_struct.field("notification_config_name", &self.notification_config_name);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("event", &self.event);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NotificationMessage].
 pub mod notification_message {
     #[allow(unused_imports)]
@@ -20572,7 +25152,7 @@ pub mod notification_message {
 }
 
 /// Contains information about the org policies associated with the finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrgPolicy {
     /// Identifier. The resource name of the org policy.
@@ -20703,8 +25283,19 @@ impl serde::ser::Serialize for OrgPolicy {
     }
 }
 
+impl std::fmt::Debug for OrgPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OrgPolicy");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents an operating system process.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Process {
     /// The process name, as displayed in utilities like `top` and `ps`. This name
@@ -20740,6 +25331,10 @@ pub struct Process {
 
     /// The parent process ID.
     pub parent_pid: i64,
+
+    /// The ID of the user that executed the process. E.g. If this is the root user
+    /// this will always be 0.
+    pub user_id: i64,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -20847,6 +25442,12 @@ impl Process {
         self.parent_pid = v.into();
         self
     }
+
+    /// Sets the value of [user_id][crate::model::Process::user_id].
+    pub fn set_user_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.user_id = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Process {
@@ -20875,6 +25476,7 @@ impl<'de> serde::de::Deserialize<'de> for Process {
             __env_variables_truncated,
             __pid,
             __parent_pid,
+            __user_id,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -20909,6 +25511,8 @@ impl<'de> serde::de::Deserialize<'de> for Process {
                             "pid" => Ok(__FieldTag::__pid),
                             "parentPid" => Ok(__FieldTag::__parent_pid),
                             "parent_pid" => Ok(__FieldTag::__parent_pid),
+                            "userId" => Ok(__FieldTag::__user_id),
+                            "user_id" => Ok(__FieldTag::__user_id),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -21048,6 +25652,25 @@ impl<'de> serde::de::Deserialize<'de> for Process {
                             }
                             result.parent_pid = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
+                        __FieldTag::__user_id => {
+                            if !fields.insert(__FieldTag::__user_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_id",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.user_id = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -21119,6 +25742,18 @@ impl serde::ser::Serialize for Process {
             }
             state.serialize_entry("parentPid", &__With(&self.parent_pid))?;
         }
+        if !wkt::internal::is_default(&self.user_id) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("userId", &__With(&self.user_id))?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -21128,9 +25763,30 @@ impl serde::ser::Serialize for Process {
     }
 }
 
+impl std::fmt::Debug for Process {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Process");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("binary", &self.binary);
+        debug_struct.field("libraries", &self.libraries);
+        debug_struct.field("script", &self.script);
+        debug_struct.field("args", &self.args);
+        debug_struct.field("arguments_truncated", &self.arguments_truncated);
+        debug_struct.field("env_variables", &self.env_variables);
+        debug_struct.field("env_variables_truncated", &self.env_variables_truncated);
+        debug_struct.field("pid", &self.pid);
+        debug_struct.field("parent_pid", &self.parent_pid);
+        debug_struct.field("user_id", &self.user_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A name-value pair representing an environment variable used in an operating
 /// system process.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnvironmentVariable {
     /// Environment variable name as a JSON encoded string.
@@ -21283,8 +25939,20 @@ impl serde::ser::Serialize for EnvironmentVariable {
     }
 }
 
+impl std::fmt::Debug for EnvironmentVariable {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnvironmentVariable");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("val", &self.val);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Information related to the Google Cloud resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Resource {
     /// The full resource name of the resource. See:
@@ -21321,6 +25989,7 @@ pub struct Resource {
     /// where there can be any number of management groups.
     pub resource_path_string: std::string::String,
 
+    /// The metadata associated with the cloud provider.
     pub cloud_provider_metadata: std::option::Option<crate::model::resource::CloudProviderMetadata>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -21794,11 +26463,31 @@ impl serde::ser::Serialize for Resource {
     }
 }
 
+impl std::fmt::Debug for Resource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Resource");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("cloud_provider", &self.cloud_provider);
+        debug_struct.field("service", &self.service);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("resource_path", &self.resource_path);
+        debug_struct.field("resource_path_string", &self.resource_path_string);
+        debug_struct.field("cloud_provider_metadata", &self.cloud_provider_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Resource].
 pub mod resource {
     #[allow(unused_imports)]
     use super::*;
 
+    /// The metadata associated with the cloud provider.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CloudProviderMetadata {
@@ -21811,9 +26500,9 @@ pub mod resource {
     }
 }
 
-/// GCP metadata associated with the resource, only applicable if the finding's
-/// cloud provider is Google Cloud Platform.
-#[derive(Clone, Debug, Default, PartialEq)]
+/// Google Cloud metadata associated with the resource. Only applicable if the
+/// finding's cloud provider is Google Cloud.
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcpMetadata {
     /// The full resource name of project that the resource belongs to.
@@ -22075,9 +26764,25 @@ impl serde::ser::Serialize for GcpMetadata {
     }
 }
 
+impl std::fmt::Debug for GcpMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GcpMetadata");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("project_display_name", &self.project_display_name);
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("parent_display_name", &self.parent_display_name);
+        debug_struct.field("folders", &self.folders);
+        debug_struct.field("organization", &self.organization);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// AWS metadata associated with the resource, only applicable if the finding's
 /// cloud provider is Amazon Web Services.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AwsMetadata {
     /// The AWS organization associated with the resource.
@@ -22289,6 +26994,19 @@ impl serde::ser::Serialize for AwsMetadata {
     }
 }
 
+impl std::fmt::Debug for AwsMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AwsMetadata");
+        debug_struct.field("organization", &self.organization);
+        debug_struct.field("organizational_units", &self.organizational_units);
+        debug_struct.field("account", &self.account);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AwsMetadata].
 pub mod aws_metadata {
     #[allow(unused_imports)]
@@ -22297,7 +27015,7 @@ pub mod aws_metadata {
     /// An organization is a collection of accounts that are centrally managed
     /// together using consolidated billing, organized hierarchically with
     /// organizational units (OUs), and controlled with policies.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AwsOrganization {
         /// The unique identifier (ID) for the organization. The regex pattern for an
@@ -22431,10 +27149,21 @@ pub mod aws_metadata {
         }
     }
 
+    impl std::fmt::Debug for AwsOrganization {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AwsOrganization");
+            debug_struct.field("id", &self.id);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// An Organizational Unit (OU) is a container of AWS accounts within a root of
     /// an organization. Policies that are attached to an OU apply to all accounts
     /// contained in that OU and in any child OUs.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AwsOrganizationalUnit {
         /// The unique identifier (ID) associated with this OU. The regex pattern for
@@ -22594,8 +27323,20 @@ pub mod aws_metadata {
         }
     }
 
+    impl std::fmt::Debug for AwsOrganizationalUnit {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AwsOrganizationalUnit");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("name", &self.name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// An AWS account that is a member of an organization.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AwsAccount {
         /// The unique identifier (ID) of the account, containing exactly 12 digits.
@@ -22750,11 +27491,23 @@ pub mod aws_metadata {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AwsAccount {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AwsAccount");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("name", &self.name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Azure metadata associated with the resource, only applicable if the finding's
 /// cloud provider is Microsoft Azure.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AzureMetadata {
     /// A list of Azure management groups associated with the resource, ordered
@@ -23002,13 +27755,27 @@ impl serde::ser::Serialize for AzureMetadata {
     }
 }
 
+impl std::fmt::Debug for AzureMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AzureMetadata");
+        debug_struct.field("management_groups", &self.management_groups);
+        debug_struct.field("subscription", &self.subscription);
+        debug_struct.field("resource_group", &self.resource_group);
+        debug_struct.field("tenant", &self.tenant);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [AzureMetadata].
 pub mod azure_metadata {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents an Azure management group.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AzureManagementGroup {
         /// The UUID of the Azure management group, for example,
@@ -23169,8 +27936,20 @@ pub mod azure_metadata {
         }
     }
 
+    impl std::fmt::Debug for AzureManagementGroup {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AzureManagementGroup");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("display_name", &self.display_name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents an Azure subscription.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AzureSubscription {
         /// The UUID of the Azure subscription, for example,
@@ -23331,8 +28110,20 @@ pub mod azure_metadata {
         }
     }
 
+    impl std::fmt::Debug for AzureSubscription {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AzureSubscription");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("display_name", &self.display_name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents an Azure resource group.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AzureResourceGroup {
         /// The ID of the Azure resource group.
@@ -23488,8 +28279,20 @@ pub mod azure_metadata {
         }
     }
 
+    impl std::fmt::Debug for AzureResourceGroup {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AzureResourceGroup");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("name", &self.name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Represents a Microsoft Entra tenant.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AzureTenant {
         /// The ID of the Microsoft Entra tenant, for example,
@@ -23649,11 +28452,23 @@ pub mod azure_metadata {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for AzureTenant {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AzureTenant");
+            debug_struct.field("id", &self.id);
+            debug_struct.field("display_name", &self.display_name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Represents the path of resources leading up to the resource this finding is
 /// about.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourcePath {
     /// The list of nodes that make the up resource path, ordered from lowest
@@ -23790,6 +28605,17 @@ impl serde::ser::Serialize for ResourcePath {
     }
 }
 
+impl std::fmt::Debug for ResourcePath {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourcePath");
+        debug_struct.field("nodes", &self.nodes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ResourcePath].
 pub mod resource_path {
     #[allow(unused_imports)]
@@ -23797,7 +28623,7 @@ pub mod resource_path {
 
     /// A node within the resource path. Each node represents a resource within the
     /// resource hierarchy.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourcePathNode {
         /// The type of resource this node represents.
@@ -23989,6 +28815,19 @@ pub mod resource_path {
         }
     }
 
+    impl std::fmt::Debug for ResourcePathNode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ResourcePathNode");
+            debug_struct.field("node_type", &self.node_type);
+            debug_struct.field("id", &self.id);
+            debug_struct.field("display_name", &self.display_name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// The type of resource the node represents.
     ///
     /// # Working with unknown values
@@ -24175,7 +29014,7 @@ pub mod resource_path {
 
 /// A resource value configuration (RVC) is a mapping configuration of user's
 /// resources to resource values. Used in Attack path simulations.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceValueConfig {
     /// Identifier. Name for the resource value configuration
@@ -24640,6 +29479,30 @@ impl serde::ser::Serialize for ResourceValueConfig {
     }
 }
 
+impl std::fmt::Debug for ResourceValueConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceValueConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("resource_value", &self.resource_value);
+        debug_struct.field("tag_values", &self.tag_values);
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("resource_labels_selector", &self.resource_labels_selector);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("cloud_provider", &self.cloud_provider);
+        debug_struct.field(
+            "sensitive_data_protection_mapping",
+            &self.sensitive_data_protection_mapping,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ResourceValueConfig].
 pub mod resource_value_config {
     #[allow(unused_imports)]
@@ -24648,7 +29511,7 @@ pub mod resource_value_config {
     /// Resource value mapping for Sensitive Data Protection findings
     /// If any of these mappings have a resource value that is not unspecified,
     /// the resource_value field will be ignored when reading this configuration.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SensitiveDataProtectionMapping {
         /// Resource value mapping for high-sensitivity Sensitive Data Protection
@@ -24828,13 +29691,28 @@ pub mod resource_value_config {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for SensitiveDataProtectionMapping {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("SensitiveDataProtectionMapping");
+            debug_struct.field("high_sensitivity_mapping", &self.high_sensitivity_mapping);
+            debug_struct.field(
+                "medium_sensitivity_mapping",
+                &self.medium_sensitivity_mapping,
+            );
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// User specified security marks that are attached to the parent Security
 /// Command Center resource. Security marks are scoped within a Security Command
 /// Center organization -- they can be modified and viewed by all users who have
 /// proper permissions on the organization.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityMarks {
     /// The relative resource name of the SecurityMarks. See:
@@ -25056,12 +29934,25 @@ impl serde::ser::Serialize for SecurityMarks {
     }
 }
 
+impl std::fmt::Debug for SecurityMarks {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecurityMarks");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("marks", &self.marks);
+        debug_struct.field("canonical_name", &self.canonical_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Represents a posture that is deployed on Google Cloud by the
 /// Security Command Center Posture Management service.
 /// A posture contains one or more policy sets. A policy set is a
 /// group of policies that enforce a set of security rules on Google
 /// Cloud.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityPosture {
     /// Name of the posture, for example, `CIS-Posture`.
@@ -25390,6 +30281,27 @@ impl serde::ser::Serialize for SecurityPosture {
     }
 }
 
+impl std::fmt::Debug for SecurityPosture {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecurityPosture");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("revision_id", &self.revision_id);
+        debug_struct.field(
+            "posture_deployment_resource",
+            &self.posture_deployment_resource,
+        );
+        debug_struct.field("posture_deployment", &self.posture_deployment);
+        debug_struct.field("changed_policy", &self.changed_policy);
+        debug_struct.field("policy_set", &self.policy_set);
+        debug_struct.field("policy", &self.policy);
+        debug_struct.field("policy_drift_details", &self.policy_drift_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SecurityPosture].
 pub mod security_posture {
     #[allow(unused_imports)]
@@ -25397,7 +30309,7 @@ pub mod security_posture {
 
     /// The policy field that violates the deployed posture and its expected and
     /// detected values.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PolicyDriftDetails {
         /// The name of the updated field, for example
@@ -25587,10 +30499,23 @@ pub mod security_posture {
             state.end()
         }
     }
+
+    impl std::fmt::Debug for PolicyDriftDetails {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("PolicyDriftDetails");
+            debug_struct.field("field", &self.field);
+            debug_struct.field("expected_value", &self.expected_value);
+            debug_struct.field("detected_value", &self.detected_value);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
 }
 
 /// Request message to create multiple resource value configs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchCreateResourceValueConfigsRequest {
     /// Required. Resource name of the new ResourceValueConfig's parent.
@@ -25753,8 +30678,20 @@ impl serde::ser::Serialize for BatchCreateResourceValueConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for BatchCreateResourceValueConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchCreateResourceValueConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("requests", &self.requests);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for BatchCreateResourceValueConfigs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchCreateResourceValueConfigsResponse {
     /// The resource value configs created
@@ -25892,6 +30829,17 @@ impl serde::ser::Serialize for BatchCreateResourceValueConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for BatchCreateResourceValueConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchCreateResourceValueConfigsResponse");
+        debug_struct.field("resource_value_configs", &self.resource_value_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for bulk findings update.
 ///
 /// Note:
@@ -25899,7 +30847,7 @@ impl serde::ser::Serialize for BatchCreateResourceValueConfigsResponse {
 /// 1. If multiple bulk update requests match the same resource, the order in
 ///    which they get executed is not defined.
 /// 1. Once a bulk operation is started, there is no way to stop it.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BulkMuteFindingsRequest {
     /// Required. The parent, at which bulk action needs to be applied. If no
@@ -26114,6 +31062,19 @@ impl serde::ser::Serialize for BulkMuteFindingsRequest {
     }
 }
 
+impl std::fmt::Debug for BulkMuteFindingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BulkMuteFindingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("mute_state", &self.mute_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [BulkMuteFindingsRequest].
 pub mod bulk_mute_findings_request {
     #[allow(unused_imports)]
@@ -26253,7 +31214,7 @@ pub mod bulk_mute_findings_request {
 }
 
 /// The response to a BulkMute request. Contains the LRO information.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BulkMuteFindingsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -26355,8 +31316,18 @@ impl serde::ser::Serialize for BulkMuteFindingsResponse {
     }
 }
 
+impl std::fmt::Debug for BulkMuteFindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BulkMuteFindingsResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for creating a BigQuery export.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBigQueryExportRequest {
     /// Required. The name of the parent resource of the new BigQuery export. Its
@@ -26556,8 +31527,21 @@ impl serde::ser::Serialize for CreateBigQueryExportRequest {
     }
 }
 
+impl std::fmt::Debug for CreateBigQueryExportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateBigQueryExportRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("big_query_export", &self.big_query_export);
+        debug_struct.field("big_query_export_id", &self.big_query_export_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for creating a finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFindingRequest {
     /// Required. Resource name of the new finding's parent. The following list
@@ -26754,8 +31738,21 @@ impl serde::ser::Serialize for CreateFindingRequest {
     }
 }
 
+impl std::fmt::Debug for CreateFindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateFindingRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("finding_id", &self.finding_id);
+        debug_struct.field("finding", &self.finding);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for creating a mute config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMuteConfigRequest {
     /// Required. Resource name of the new mute configs's parent. Its format is
@@ -26951,8 +31948,21 @@ impl serde::ser::Serialize for CreateMuteConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateMuteConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMuteConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("mute_config", &self.mute_config);
+        debug_struct.field("mute_config_id", &self.mute_config_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for creating a notification config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNotificationConfigRequest {
     /// Required. Resource name of the new notification config's parent. Its format
@@ -27150,8 +32160,21 @@ impl serde::ser::Serialize for CreateNotificationConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateNotificationConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateNotificationConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("config_id", &self.config_id);
+        debug_struct.field("notification_config", &self.notification_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to create single resource value config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateResourceValueConfigRequest {
     /// Required. Resource name of the new ResourceValueConfig's parent.
@@ -27316,8 +32339,20 @@ impl serde::ser::Serialize for CreateResourceValueConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateResourceValueConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateResourceValueConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("resource_value_config", &self.resource_value_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for creating a source.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSourceRequest {
     /// Required. Resource name of the new source's parent. Its format should be
@@ -27483,8 +32518,20 @@ impl serde::ser::Serialize for CreateSourceRequest {
     }
 }
 
+impl std::fmt::Debug for CreateSourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSourceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for deleting a BigQuery export.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBigQueryExportRequest {
     /// Required. The name of the BigQuery export to delete. The following list
@@ -27620,9 +32667,20 @@ impl serde::ser::Serialize for DeleteBigQueryExportRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteBigQueryExportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteBigQueryExportRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for deleting a mute config. If no location is specified,
 /// default is global.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMuteConfigRequest {
     /// Required. Name of the mute config to delete. The following list shows some
@@ -27761,8 +32819,19 @@ impl serde::ser::Serialize for DeleteMuteConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteMuteConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteMuteConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for deleting a notification config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNotificationConfigRequest {
     /// Required. Name of the notification config to delete. The following list
@@ -27899,8 +32968,19 @@ impl serde::ser::Serialize for DeleteNotificationConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteNotificationConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteNotificationConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to delete resource value config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteResourceValueConfigRequest {
     /// Required. Name of the ResourceValueConfig to delete
@@ -28029,8 +33109,516 @@ impl serde::ser::Serialize for DeleteResourceValueConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteResourceValueConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteResourceValueConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// The destination big query dataset to export findings to.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BigQueryDestination {
+    /// Required. The relative resource name of the destination dataset, in the
+    /// form projects/{projectId}/datasets/{datasetId}.
+    pub dataset: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BigQueryDestination {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dataset][crate::model::BigQueryDestination::dataset].
+    pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dataset = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BigQueryDestination {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.BigQueryDestination"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for BigQueryDestination {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __dataset,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BigQueryDestination")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "dataset" => Ok(__FieldTag::__dataset),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = BigQueryDestination;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BigQueryDestination")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__dataset => {
+                            if !fields.insert(__FieldTag::__dataset) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dataset",
+                                ));
+                            }
+                            result.dataset = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for BigQueryDestination {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.dataset.is_empty() {
+            state.serialize_entry("dataset", &self.dataset)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for BigQueryDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryDestination");
+        debug_struct.field("dataset", &self.dataset);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// The LRO metadata for a ExportFindings request.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportFindingsMetadata {
+    /// Optional. Timestamp at which export was started
+    pub export_start_time: std::option::Option<wkt::Timestamp>,
+
+    /// The destination to export findings to.
+    pub destination: std::option::Option<crate::model::export_findings_metadata::Destination>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportFindingsMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [export_start_time][crate::model::ExportFindingsMetadata::export_start_time].
+    pub fn set_export_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.export_start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [export_start_time][crate::model::ExportFindingsMetadata::export_start_time].
+    pub fn set_or_clear_export_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.export_start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [destination][crate::model::ExportFindingsMetadata::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
+    pub fn set_destination<
+        T: std::convert::Into<
+                std::option::Option<crate::model::export_findings_metadata::Destination>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = v.into();
+        self
+    }
+
+    /// The value of [destination][crate::model::ExportFindingsMetadata::destination]
+    /// if it holds a `BigQueryDestination`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn big_query_destination(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestination>> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::export_findings_metadata::Destination::BigQueryDestination(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [destination][crate::model::ExportFindingsMetadata::destination]
+    /// to hold a `BigQueryDestination`.
+    ///
+    /// Note that all the setters affecting `destination` are
+    /// mutually exclusive.
+    pub fn set_big_query_destination<
+        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDestination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = std::option::Option::Some(
+            crate::model::export_findings_metadata::Destination::BigQueryDestination(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ExportFindingsMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.ExportFindingsMetadata"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ExportFindingsMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __export_start_time,
+            __big_query_destination,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ExportFindingsMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "exportStartTime" => Ok(__FieldTag::__export_start_time),
+                            "export_start_time" => Ok(__FieldTag::__export_start_time),
+                            "bigQueryDestination" => Ok(__FieldTag::__big_query_destination),
+                            "big_query_destination" => Ok(__FieldTag::__big_query_destination),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ExportFindingsMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ExportFindingsMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__export_start_time => {
+                            if !fields.insert(__FieldTag::__export_start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for export_start_time",
+                                ));
+                            }
+                            result.export_start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__big_query_destination => {
+                            if !fields.insert(__FieldTag::__big_query_destination) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for big_query_destination",
+                                ));
+                            }
+                            if result.destination.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `destination`, a oneof with full ID .google.cloud.securitycenter.v2.ExportFindingsMetadata.big_query_destination, latest field was bigQueryDestination",
+                                ));
+                            }
+                            result.destination = std::option::Option::Some(
+                                crate::model::export_findings_metadata::Destination::BigQueryDestination(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::BigQueryDestination>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ExportFindingsMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.export_start_time.is_some() {
+            state.serialize_entry("exportStartTime", &self.export_start_time)?;
+        }
+        if let Some(value) = self.big_query_destination() {
+            state.serialize_entry("bigQueryDestination", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ExportFindingsMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportFindingsMetadata");
+        debug_struct.field("export_start_time", &self.export_start_time);
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [ExportFindingsMetadata].
+pub mod export_findings_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The destination to export findings to.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Destination {
+        /// Required. The destination big query dataset to export findings to.
+        BigQueryDestination(std::boxed::Box<crate::model::BigQueryDestination>),
+    }
+}
+
+/// The response to a ExportFindings request. Contains the LRO information.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportFindingsResponse {
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportFindingsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for ExportFindingsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.ExportFindingsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ExportFindingsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ExportFindingsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        Ok(__FieldTag::Unknown(value.to_string()))
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ExportFindingsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ExportFindingsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ExportFindingsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for ExportFindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportFindingsResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for retrieving a BigQuery export.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBigQueryExportRequest {
     /// Required. Name of the BigQuery export to retrieve. The following list shows
@@ -28166,9 +33754,20 @@ impl serde::ser::Serialize for GetBigQueryExportRequest {
     }
 }
 
+impl std::fmt::Debug for GetBigQueryExportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBigQueryExportRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for retrieving a mute config. If no location is specified,
 /// default is global.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMuteConfigRequest {
     /// Required. Name of the mute config to retrieve. The following list shows
@@ -28307,8 +33906,19 @@ impl serde::ser::Serialize for GetMuteConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetMuteConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMuteConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for getting a notification config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNotificationConfigRequest {
     /// Required. Name of the notification config to get. The following list shows
@@ -28445,8 +34055,19 @@ impl serde::ser::Serialize for GetNotificationConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetNotificationConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetNotificationConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to get resource value config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetResourceValueConfigRequest {
     /// Required. Name of the resource value config to retrieve. Its format is
@@ -28576,8 +34197,19 @@ impl serde::ser::Serialize for GetResourceValueConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetResourceValueConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetResourceValueConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for getting a source.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSourceRequest {
     /// Required. Relative resource name of the source. Its format is
@@ -28707,8 +34339,19 @@ impl serde::ser::Serialize for GetSourceRequest {
     }
 }
 
+impl std::fmt::Debug for GetSourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSourceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for grouping by findings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GroupFindingsRequest {
     /// Required. Name of the source to groupBy. If no location is specified,
@@ -29035,8 +34678,23 @@ impl serde::ser::Serialize for GroupFindingsRequest {
     }
 }
 
+impl std::fmt::Debug for GroupFindingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GroupFindingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("group_by", &self.group_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for group by findings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GroupFindingsResponse {
     /// Group results. There exists an element for each existing unique
@@ -29254,8 +34912,21 @@ impl serde::ser::Serialize for GroupFindingsResponse {
     }
 }
 
+impl std::fmt::Debug for GroupFindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GroupFindingsResponse");
+        debug_struct.field("group_by_results", &self.group_by_results);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Result containing the properties and count of a groupBy request.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GroupResult {
     /// Properties matching the groupBy fields in the request.
@@ -29434,9 +35105,21 @@ impl serde::ser::Serialize for GroupResult {
     }
 }
 
+impl std::fmt::Debug for GroupResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GroupResult");
+        debug_struct.field("properties", &self.properties);
+        debug_struct.field("count", &self.count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for listing the attack paths for a given simulation or valued
 /// resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttackPathsRequest {
     /// Required. Name of parent to list attack paths.
@@ -29669,9 +35352,23 @@ impl serde::ser::Serialize for ListAttackPathsRequest {
     }
 }
 
+impl std::fmt::Debug for ListAttackPathsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAttackPathsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for listing the attack paths for a given simulation or
 /// valued resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttackPathsResponse {
     /// The attack paths that the attack path simulation identified.
@@ -29844,10 +35541,22 @@ impl serde::ser::Serialize for ListAttackPathsResponse {
     }
 }
 
+impl std::fmt::Debug for ListAttackPathsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAttackPathsResponse");
+        debug_struct.field("attack_paths", &self.attack_paths);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for getting simulation.
 /// Simulation name can include "latest" to retrieve the latest simulation
 /// For example, "organizations/123/simulations/latest"
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSimulationRequest {
     /// Required. The organization name or simulation name of this simulation
@@ -29980,8 +35689,19 @@ impl serde::ser::Serialize for GetSimulationRequest {
     }
 }
 
+impl std::fmt::Debug for GetSimulationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSimulationRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for getting a valued resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetValuedResourceRequest {
     /// Required. The name of this valued resource
@@ -30113,9 +35833,20 @@ impl serde::ser::Serialize for GetValuedResourceRequest {
     }
 }
 
+impl std::fmt::Debug for GetValuedResourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetValuedResourceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for listing BigQuery exports at a given scope e.g.
 /// organization, folder or project.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBigQueryExportsRequest {
     /// Required. The parent, which owns the collection of BigQuery exports. Its
@@ -30321,8 +36052,21 @@ impl serde::ser::Serialize for ListBigQueryExportsRequest {
     }
 }
 
+impl std::fmt::Debug for ListBigQueryExportsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBigQueryExportsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for listing BigQuery exports.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBigQueryExportsResponse {
     /// The BigQuery exports from the specified parent.
@@ -30499,8 +36243,20 @@ impl serde::ser::Serialize for ListBigQueryExportsResponse {
     }
 }
 
+impl std::fmt::Debug for ListBigQueryExportsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBigQueryExportsResponse");
+        debug_struct.field("big_query_exports", &self.big_query_exports);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for listing findings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFindingsRequest {
     /// Required. Name of the source the findings belong to. If no location is
@@ -30879,8 +36635,24 @@ impl serde::ser::Serialize for ListFindingsRequest {
     }
 }
 
+impl std::fmt::Debug for ListFindingsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFindingsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("field_mask", &self.field_mask);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for listing findings.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFindingsResponse {
     /// Findings matching the list request.
@@ -31103,13 +36875,26 @@ impl serde::ser::Serialize for ListFindingsResponse {
     }
 }
 
+impl std::fmt::Debug for ListFindingsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListFindingsResponse");
+        debug_struct.field("list_findings_results", &self.list_findings_results);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ListFindingsResponse].
 pub mod list_findings_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Result containing the Finding.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListFindingsResult {
         /// Finding matching the search request.
@@ -31293,6 +37078,18 @@ pub mod list_findings_response {
         }
     }
 
+    impl std::fmt::Debug for ListFindingsResult {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("ListFindingsResult");
+            debug_struct.field("finding", &self.finding);
+            debug_struct.field("resource", &self.resource);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Defines additional types related to [ListFindingsResult].
     pub mod list_findings_result {
         #[allow(unused_imports)]
@@ -31300,7 +37097,7 @@ pub mod list_findings_response {
 
         /// Information related to the Google Cloud resource that is
         /// associated with this finding.
-        #[derive(Clone, Debug, Default, PartialEq)]
+        #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Resource {
 
@@ -31338,6 +37135,7 @@ pub mod list_findings_response {
             /// where there can be any number of management groups.
             pub resource_path_string: std::string::String,
 
+            /// The metadata associated with the cloud provider.
             pub cloud_provider_metadata: std::option::Option<crate::model::list_findings_response::list_findings_result::resource::CloudProviderMetadata>,
 
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -31842,11 +37640,31 @@ pub mod list_findings_response {
             }
         }
 
+        impl std::fmt::Debug for Resource {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let mut debug_struct = f.debug_struct("Resource");
+                debug_struct.field("name", &self.name);
+                debug_struct.field("display_name", &self.display_name);
+                debug_struct.field("r#type", &self.r#type);
+                debug_struct.field("cloud_provider", &self.cloud_provider);
+                debug_struct.field("service", &self.service);
+                debug_struct.field("location", &self.location);
+                debug_struct.field("resource_path", &self.resource_path);
+                debug_struct.field("resource_path_string", &self.resource_path_string);
+                debug_struct.field("cloud_provider_metadata", &self.cloud_provider_metadata);
+                if !self._unknown_fields.is_empty() {
+                    debug_struct.field("_unknown_fields", &self._unknown_fields);
+                }
+                debug_struct.finish()
+            }
+        }
+
         /// Defines additional types related to [Resource].
         pub mod resource {
             #[allow(unused_imports)]
             use super::*;
 
+            /// The metadata associated with the cloud provider.
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum CloudProviderMetadata {
@@ -31864,7 +37682,7 @@ pub mod list_findings_response {
 /// Request message for listing  mute configs at a given scope e.g. organization,
 /// folder or project. If no location is specified, default is
 /// global.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMuteConfigsRequest {
     /// Required. The parent, which owns the collection of mute configs. Its format
@@ -32073,8 +37891,21 @@ impl serde::ser::Serialize for ListMuteConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListMuteConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMuteConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for listing mute configs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMuteConfigsResponse {
     /// The mute configs from the specified parent.
@@ -32247,8 +38078,20 @@ impl serde::ser::Serialize for ListMuteConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListMuteConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMuteConfigsResponse");
+        debug_struct.field("mute_configs", &self.mute_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for listing notification configs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationConfigsRequest {
     /// Required. The name of the parent in which to list the notification
@@ -32452,8 +38295,21 @@ impl serde::ser::Serialize for ListNotificationConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListNotificationConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNotificationConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for listing notification configs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationConfigsResponse {
     /// Notification configs belonging to the requested parent.
@@ -32630,8 +38486,20 @@ impl serde::ser::Serialize for ListNotificationConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListNotificationConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListNotificationConfigsResponse");
+        debug_struct.field("notification_configs", &self.notification_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to list resource value configs of a parent
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceValueConfigsRequest {
     /// Required. The parent, which owns the collection of resource value configs.
@@ -32840,8 +38708,21 @@ impl serde::ser::Serialize for ListResourceValueConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListResourceValueConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListResourceValueConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message to list resource value configs
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceValueConfigsResponse {
     /// The resource value configs from the specified parent.
@@ -33018,8 +38899,20 @@ impl serde::ser::Serialize for ListResourceValueConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListResourceValueConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListResourceValueConfigsResponse");
+        debug_struct.field("resource_value_configs", &self.resource_value_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for listing sources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSourcesRequest {
     /// Required. Resource name of the parent of sources to list. Its format should
@@ -33221,8 +39114,21 @@ impl serde::ser::Serialize for ListSourcesRequest {
     }
 }
 
+impl std::fmt::Debug for ListSourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSourcesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for listing sources.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSourcesResponse {
     /// Sources belonging to the requested parent.
@@ -33394,8 +39300,20 @@ impl serde::ser::Serialize for ListSourcesResponse {
     }
 }
 
+impl std::fmt::Debug for ListSourcesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSourcesResponse");
+        debug_struct.field("sources", &self.sources);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for listing the valued resources for a given simulation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListValuedResourcesRequest {
     /// Required. Name of parent to list exposed resources.
@@ -33669,8 +39587,23 @@ impl serde::ser::Serialize for ListValuedResourcesRequest {
     }
 }
 
+impl std::fmt::Debug for ListValuedResourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListValuedResourcesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for listing the valued resources for a given simulation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListValuedResourcesResponse {
     /// The valued resources that the attack path simulation identified.
@@ -33890,8 +39823,21 @@ impl serde::ser::Serialize for ListValuedResourcesResponse {
     }
 }
 
+impl std::fmt::Debug for ListValuedResourcesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListValuedResourcesResponse");
+        debug_struct.field("valued_resources", &self.valued_resources);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for updating a finding's state.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetFindingStateRequest {
     /// Required. The [relative resource
@@ -34060,8 +40006,20 @@ impl serde::ser::Serialize for SetFindingStateRequest {
     }
 }
 
+impl std::fmt::Debug for SetFindingStateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetFindingStateRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for updating a finding's mute status.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetMuteRequest {
     /// Required. The [relative resource
@@ -34230,8 +40188,20 @@ impl serde::ser::Serialize for SetMuteRequest {
     }
 }
 
+impl std::fmt::Debug for SetMuteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetMuteRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("mute", &self.mute);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for updating a BigQuery export.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBigQueryExportRequest {
     /// Required. The BigQuery export being updated.
@@ -34410,8 +40380,20 @@ impl serde::ser::Serialize for UpdateBigQueryExportRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateBigQueryExportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateBigQueryExportRequest");
+        debug_struct.field("big_query_export", &self.big_query_export);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for updating a ExternalSystem resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateExternalSystemRequest {
     /// Required. The external system resource to update.
@@ -34591,8 +40573,20 @@ impl serde::ser::Serialize for UpdateExternalSystemRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateExternalSystemRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateExternalSystemRequest");
+        debug_struct.field("external_system", &self.external_system);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for updating or creating a finding.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFindingRequest {
     /// Required. The finding resource to update or create if it does not already
@@ -34779,8 +40773,20 @@ impl serde::ser::Serialize for UpdateFindingRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateFindingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateFindingRequest");
+        debug_struct.field("finding", &self.finding);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for updating a mute config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateMuteConfigRequest {
     /// Required. The mute config being updated.
@@ -34958,8 +40964,20 @@ impl serde::ser::Serialize for UpdateMuteConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateMuteConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateMuteConfigRequest");
+        debug_struct.field("mute_config", &self.mute_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for updating a notification config.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNotificationConfigRequest {
     /// Required. The notification config to update.
@@ -35138,8 +41156,20 @@ impl serde::ser::Serialize for UpdateNotificationConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateNotificationConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateNotificationConfigRequest");
+        debug_struct.field("notification_config", &self.notification_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message to update resource value config
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateResourceValueConfigRequest {
     /// Required. The resource value config being updated.
@@ -35321,8 +41351,20 @@ impl serde::ser::Serialize for UpdateResourceValueConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateResourceValueConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateResourceValueConfigRequest");
+        debug_struct.field("resource_value_config", &self.resource_value_config);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for updating a SecurityMarks resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSecurityMarksRequest {
     /// Required. The security marks resource to update.
@@ -35503,8 +41545,20 @@ impl serde::ser::Serialize for UpdateSecurityMarksRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSecurityMarksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSecurityMarksRequest");
+        debug_struct.field("security_marks", &self.security_marks);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for updating a source.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSourceRequest {
     /// Required. The source resource to update.
@@ -35682,8 +41736,20 @@ impl serde::ser::Serialize for UpdateSourceRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateSourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateSourceRequest");
+        debug_struct.field("source", &self.source);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Attack path simulation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Simulation {
     /// Full resource name of the Simulation:
@@ -35917,11 +41983,28 @@ impl serde::ser::Serialize for Simulation {
     }
 }
 
+impl std::fmt::Debug for Simulation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Simulation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field(
+            "resource_value_configs_metadata",
+            &self.resource_value_configs_metadata,
+        );
+        debug_struct.field("cloud_provider", &self.cloud_provider);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Security Command Center finding source. A finding source
 /// is an entity or a mechanism that can produce a finding. A source is like a
 /// container of findings that come from the same scanner, logger, monitor, and
 /// other tools.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Source {
     /// The relative resource name of this source. See:
@@ -36142,11 +42225,25 @@ impl serde::ser::Serialize for Source {
     }
 }
 
+impl std::fmt::Debug for Source {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Source");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("canonical_name", &self.canonical_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Contains details about a group of security issues that, when the issues
 /// occur together, represent a greater risk than when the issues occur
 /// independently. A group of such issues is referred to as a toxic
 /// combination.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ToxicCombination {
     /// The
@@ -36328,8 +42425,20 @@ impl serde::ser::Serialize for ToxicCombination {
     }
 }
 
+impl std::fmt::Debug for ToxicCombination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ToxicCombination");
+        debug_struct.field("attack_exposure_score", &self.attack_exposure_score);
+        debug_struct.field("related_findings", &self.related_findings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A resource that is determined to have value to a user's system
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValuedResource {
     /// Valued resource name, for example,
@@ -36656,6 +42765,26 @@ impl serde::ser::Serialize for ValuedResource {
     }
 }
 
+impl std::fmt::Debug for ValuedResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ValuedResource");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("resource_value", &self.resource_value);
+        debug_struct.field("exposed_score", &self.exposed_score);
+        debug_struct.field(
+            "resource_value_configs_used",
+            &self.resource_value_configs_used,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ValuedResource].
 pub mod valued_resource {
     #[allow(unused_imports)]
@@ -36802,7 +42931,7 @@ pub mod valued_resource {
 }
 
 /// Metadata about a ResourceValueConfig. For example, id and name.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceValueConfigMetadata {
     /// Resource value config name
@@ -36931,8 +43060,579 @@ impl serde::ser::Serialize for ResourceValueConfigMetadata {
     }
 }
 
+impl std::fmt::Debug for ResourceValueConfigMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceValueConfigMetadata");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Vertex AI-related information associated with the finding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VertexAi {
+    /// Datasets associated with the finding.
+    pub datasets: std::vec::Vec<crate::model::vertex_ai::Dataset>,
+
+    /// Pipelines associated with the finding.
+    pub pipelines: std::vec::Vec<crate::model::vertex_ai::Pipeline>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VertexAi {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [datasets][crate::model::VertexAi::datasets].
+    pub fn set_datasets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::vertex_ai::Dataset>,
+    {
+        use std::iter::Iterator;
+        self.datasets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [pipelines][crate::model::VertexAi::pipelines].
+    pub fn set_pipelines<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::vertex_ai::Pipeline>,
+    {
+        use std::iter::Iterator;
+        self.pipelines = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for VertexAi {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.VertexAi"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for VertexAi {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __datasets,
+            __pipelines,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for VertexAi")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "datasets" => Ok(__FieldTag::__datasets),
+                            "pipelines" => Ok(__FieldTag::__pipelines),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = VertexAi;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct VertexAi")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__datasets => {
+                            if !fields.insert(__FieldTag::__datasets) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for datasets",
+                                ));
+                            }
+                            result.datasets = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::vertex_ai::Dataset>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__pipelines => {
+                            if !fields.insert(__FieldTag::__pipelines) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pipelines",
+                                ));
+                            }
+                            result.pipelines = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::vertex_ai::Pipeline>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for VertexAi {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.datasets.is_empty() {
+            state.serialize_entry("datasets", &self.datasets)?;
+        }
+        if !self.pipelines.is_empty() {
+            state.serialize_entry("pipelines", &self.pipelines)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for VertexAi {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VertexAi");
+        debug_struct.field("datasets", &self.datasets);
+        debug_struct.field("pipelines", &self.pipelines);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// Defines additional types related to [VertexAi].
+pub mod vertex_ai {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Vertex AI dataset associated with the finding.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Dataset {
+        /// Resource name of the dataset, e.g.
+        /// projects/{project}/locations/{location}/datasets/2094040236064505856
+        pub name: std::string::String,
+
+        /// The user defined display name of dataset, e.g. plants-dataset
+        pub display_name: std::string::String,
+
+        /// Data source, such as a BigQuery source URI, e.g.
+        /// bq://scc-nexus-test.AIPPtest.gsod
+        pub source: std::string::String,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Dataset {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::vertex_ai::Dataset::name].
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [display_name][crate::model::vertex_ai::Dataset::display_name].
+        pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.display_name = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::vertex_ai::Dataset::source].
+        pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.source = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Dataset {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.securitycenter.v2.VertexAi.Dataset"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Dataset {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __name,
+                __display_name,
+                __source,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Dataset")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "name" => Ok(__FieldTag::__name),
+                                "displayName" => Ok(__FieldTag::__display_name),
+                                "display_name" => Ok(__FieldTag::__display_name),
+                                "source" => Ok(__FieldTag::__source),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Dataset;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Dataset")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__name => {
+                                if !fields.insert(__FieldTag::__name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for name",
+                                    ));
+                                }
+                                result.name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__display_name => {
+                                if !fields.insert(__FieldTag::__display_name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for display_name",
+                                    ));
+                                }
+                                result.display_name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__source => {
+                                if !fields.insert(__FieldTag::__source) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for source",
+                                    ));
+                                }
+                                result.source = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Dataset {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.name.is_empty() {
+                state.serialize_entry("name", &self.name)?;
+            }
+            if !self.display_name.is_empty() {
+                state.serialize_entry("displayName", &self.display_name)?;
+            }
+            if !self.source.is_empty() {
+                state.serialize_entry("source", &self.source)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Dataset {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Dataset");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("display_name", &self.display_name);
+            debug_struct.field("source", &self.source);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
+    /// Vertex AI training pipeline associated with the finding.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Pipeline {
+        /// Resource name of the pipeline, e.g.
+        /// projects/{project}/locations/{location}/trainingPipelines/5253428229225578496
+        pub name: std::string::String,
+
+        /// The user-defined display name of pipeline, e.g. plants-classification
+        pub display_name: std::string::String,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Pipeline {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::vertex_ai::Pipeline::name].
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [display_name][crate::model::vertex_ai::Pipeline::display_name].
+        pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.display_name = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Pipeline {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.securitycenter.v2.VertexAi.Pipeline"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Pipeline {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __name,
+                __display_name,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Pipeline")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "name" => Ok(__FieldTag::__name),
+                                "displayName" => Ok(__FieldTag::__display_name),
+                                "display_name" => Ok(__FieldTag::__display_name),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Pipeline;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Pipeline")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__name => {
+                                if !fields.insert(__FieldTag::__name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for name",
+                                    ));
+                                }
+                                result.name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__display_name => {
+                                if !fields.insert(__FieldTag::__display_name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for display_name",
+                                    ));
+                                }
+                                result.display_name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Pipeline {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.name.is_empty() {
+                state.serialize_entry("name", &self.name)?;
+            }
+            if !self.display_name.is_empty() {
+                state.serialize_entry("displayName", &self.display_name)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    impl std::fmt::Debug for Pipeline {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("Pipeline");
+            debug_struct.field("name", &self.name);
+            debug_struct.field("display_name", &self.display_name);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+}
+
 /// Refers to common vulnerability fields e.g. cve, cvss, cwe etc.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Vulnerability {
     /// CVE stands for Common Vulnerabilities and Exposures
@@ -36947,6 +43647,18 @@ pub struct Vulnerability {
 
     /// The security bulletin is relevant to this finding.
     pub security_bulletin: std::option::Option<crate::model::SecurityBulletin>,
+
+    /// Provider provided risk_score based on multiple factors. The higher the risk
+    /// score, the more risky the vulnerability is.
+    pub provider_risk_score: i64,
+
+    /// Represents whether the vulnerability is reachable (detected via static
+    /// analysis)
+    pub reachable: bool,
+
+    /// Represents one or more Common Weakness Enumeration (CWE) information on
+    /// this vulnerability.
+    pub cwes: std::vec::Vec<crate::model::Cwe>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -37027,6 +43739,29 @@ impl Vulnerability {
         self.security_bulletin = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [provider_risk_score][crate::model::Vulnerability::provider_risk_score].
+    pub fn set_provider_risk_score<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.provider_risk_score = v.into();
+        self
+    }
+
+    /// Sets the value of [reachable][crate::model::Vulnerability::reachable].
+    pub fn set_reachable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reachable = v.into();
+        self
+    }
+
+    /// Sets the value of [cwes][crate::model::Vulnerability::cwes].
+    pub fn set_cwes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Cwe>,
+    {
+        use std::iter::Iterator;
+        self.cwes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Vulnerability {
@@ -37049,6 +43784,9 @@ impl<'de> serde::de::Deserialize<'de> for Vulnerability {
             __offending_package,
             __fixed_package,
             __security_bulletin,
+            __provider_risk_score,
+            __reachable,
+            __cwes,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -37076,6 +43814,10 @@ impl<'de> serde::de::Deserialize<'de> for Vulnerability {
                             "fixed_package" => Ok(__FieldTag::__fixed_package),
                             "securityBulletin" => Ok(__FieldTag::__security_bulletin),
                             "security_bulletin" => Ok(__FieldTag::__security_bulletin),
+                            "providerRiskScore" => Ok(__FieldTag::__provider_risk_score),
+                            "provider_risk_score" => Ok(__FieldTag::__provider_risk_score),
+                            "reachable" => Ok(__FieldTag::__reachable),
+                            "cwes" => Ok(__FieldTag::__cwes),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -37138,6 +43880,44 @@ impl<'de> serde::de::Deserialize<'de> for Vulnerability {
                                 .next_value::<std::option::Option<crate::model::SecurityBulletin>>(
                                 )?;
                         }
+                        __FieldTag::__provider_risk_score => {
+                            if !fields.insert(__FieldTag::__provider_risk_score) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for provider_risk_score",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.provider_risk_score =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__reachable => {
+                            if !fields.insert(__FieldTag::__reachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reachable",
+                                ));
+                            }
+                            result.reachable = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cwes => {
+                            if !fields.insert(__FieldTag::__cwes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cwes",
+                                ));
+                            }
+                            result.cwes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Cwe>>>()?.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -37173,6 +43953,24 @@ impl serde::ser::Serialize for Vulnerability {
         if self.security_bulletin.is_some() {
             state.serialize_entry("securityBulletin", &self.security_bulletin)?;
         }
+        if !wkt::internal::is_default(&self.provider_risk_score) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("providerRiskScore", &__With(&self.provider_risk_score))?;
+        }
+        if !wkt::internal::is_default(&self.reachable) {
+            state.serialize_entry("reachable", &self.reachable)?;
+        }
+        if !self.cwes.is_empty() {
+            state.serialize_entry("cwes", &self.cwes)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -37182,11 +43980,28 @@ impl serde::ser::Serialize for Vulnerability {
     }
 }
 
+impl std::fmt::Debug for Vulnerability {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Vulnerability");
+        debug_struct.field("cve", &self.cve);
+        debug_struct.field("offending_package", &self.offending_package);
+        debug_struct.field("fixed_package", &self.fixed_package);
+        debug_struct.field("security_bulletin", &self.security_bulletin);
+        debug_struct.field("provider_risk_score", &self.provider_risk_score);
+        debug_struct.field("reachable", &self.reachable);
+        debug_struct.field("cwes", &self.cwes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// CVE stands for Common Vulnerabilities and Exposures.
 /// Information from the [CVE
 /// record](https://www.cve.org/ResourcesSupport/Glossary) that describes this
 /// vulnerability.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cve {
     /// The unique identifier for the vulnerability. e.g. CVE-2021-34527
@@ -37582,6 +44397,26 @@ impl serde::ser::Serialize for Cve {
     }
 }
 
+impl std::fmt::Debug for Cve {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Cve");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("references", &self.references);
+        debug_struct.field("cvssv3", &self.cvssv3);
+        debug_struct.field("upstream_fix_available", &self.upstream_fix_available);
+        debug_struct.field("impact", &self.impact);
+        debug_struct.field("exploitation_activity", &self.exploitation_activity);
+        debug_struct.field("observed_in_the_wild", &self.observed_in_the_wild);
+        debug_struct.field("zero_day", &self.zero_day);
+        debug_struct.field("exploit_release_date", &self.exploit_release_date);
+        debug_struct.field("first_exploitation_date", &self.first_exploitation_date);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Cve].
 pub mod cve {
     #[allow(unused_imports)]
@@ -37895,7 +44730,7 @@ pub mod cve {
 }
 
 /// Additional Links
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Reference {
     /// Source of the reference e.g. NVD
@@ -38049,8 +44884,20 @@ impl serde::ser::Serialize for Reference {
     }
 }
 
+impl std::fmt::Debug for Reference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Reference");
+        debug_struct.field("source", &self.source);
+        debug_struct.field("uri", &self.uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Common Vulnerability Scoring System version 3.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cvssv3 {
     /// The base score is a function of the base metric scores.
@@ -38422,6 +45269,25 @@ impl serde::ser::Serialize for Cvssv3 {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Cvssv3 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Cvssv3");
+        debug_struct.field("base_score", &self.base_score);
+        debug_struct.field("attack_vector", &self.attack_vector);
+        debug_struct.field("attack_complexity", &self.attack_complexity);
+        debug_struct.field("privileges_required", &self.privileges_required);
+        debug_struct.field("user_interaction", &self.user_interaction);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("confidentiality_impact", &self.confidentiality_impact);
+        debug_struct.field("integrity_impact", &self.integrity_impact);
+        debug_struct.field("availability_impact", &self.availability_impact);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -39281,7 +46147,7 @@ pub mod cvssv_3 {
 }
 
 /// Package is a generic definition of a package.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Package {
     /// The name of the package where the vulnerability was detected.
@@ -39486,8 +46352,22 @@ impl serde::ser::Serialize for Package {
     }
 }
 
+impl std::fmt::Debug for Package {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Package");
+        debug_struct.field("package_name", &self.package_name);
+        debug_struct.field("cpe_uri", &self.cpe_uri);
+        debug_struct.field("package_type", &self.package_type);
+        debug_struct.field("package_version", &self.package_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// SecurityBulletin are notifications of vulnerabilities of Google products.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityBulletin {
     /// ID of the bulletin corresponding to the vulnerability.
@@ -39686,6 +46566,336 @@ impl serde::ser::Serialize for SecurityBulletin {
     }
 }
 
+impl std::fmt::Debug for SecurityBulletin {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecurityBulletin");
+        debug_struct.field("bulletin_id", &self.bulletin_id);
+        debug_struct.field("submission_time", &self.submission_time);
+        debug_struct.field("suggested_upgrade_version", &self.suggested_upgrade_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// CWE stands for Common Weakness Enumeration. Information about this weakness,
+/// as described by [CWE](https://cwe.mitre.org/).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Cwe {
+    /// The CWE identifier, e.g. CWE-94
+    pub id: std::string::String,
+
+    /// Any reference to the details on the CWE, for example,
+    /// <https://cwe.mitre.org/data/definitions/94.html>
+    pub references: std::vec::Vec<crate::model::Reference>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Cwe {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::Cwe::id].
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [references][crate::model::Cwe::references].
+    pub fn set_references<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Reference>,
+    {
+        use std::iter::Iterator;
+        self.references = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Cwe {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.Cwe"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Cwe {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __id,
+            __references,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Cwe")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "id" => Ok(__FieldTag::__id),
+                            "references" => Ok(__FieldTag::__references),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Cwe;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Cwe")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__id => {
+                            if !fields.insert(__FieldTag::__id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for id",
+                                ));
+                            }
+                            result.id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__references => {
+                            if !fields.insert(__FieldTag::__references) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for references",
+                                ));
+                            }
+                            result.references = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Reference>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Cwe {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.id.is_empty() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.references.is_empty() {
+            state.serialize_entry("references", &self.references)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+impl std::fmt::Debug for Cwe {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Cwe");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("references", &self.references);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+/// JobState represents the state of the job.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum JobState {
+    /// Unspecified represents an unknown state and should not be used.
+    Unspecified,
+    /// Job is scheduled and pending for run
+    Pending,
+    /// Job in progress
+    Running,
+    /// Job has completed with success
+    Succeeded,
+    /// Job has completed but with failure
+    Failed,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [JobState::value] or
+    /// [JobState::name].
+    UnknownValue(job_state::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod job_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl JobState {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Pending => std::option::Option::Some(1),
+            Self::Running => std::option::Option::Some(2),
+            Self::Succeeded => std::option::Option::Some(3),
+            Self::Failed => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("JOB_STATE_UNSPECIFIED"),
+            Self::Pending => std::option::Option::Some("PENDING"),
+            Self::Running => std::option::Option::Some("RUNNING"),
+            Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+            Self::Failed => std::option::Option::Some("FAILED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for JobState {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for JobState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for JobState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Pending,
+            2 => Self::Running,
+            3 => Self::Succeeded,
+            4 => Self::Failed,
+            _ => Self::UnknownValue(job_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for JobState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "JOB_STATE_UNSPECIFIED" => Self::Unspecified,
+            "PENDING" => Self::Pending,
+            "RUNNING" => Self::Running,
+            "SUCCEEDED" => Self::Succeeded,
+            "FAILED" => Self::Failed,
+            _ => Self::UnknownValue(job_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for JobState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Pending => serializer.serialize_i32(1),
+            Self::Running => serializer.serialize_i32(2),
+            Self::Succeeded => serializer.serialize_i32(3),
+            Self::Failed => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for JobState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<JobState>::new(
+            ".google.cloud.securitycenter.v2.JobState",
+        ))
+    }
+}
+
 /// The cloud provider the finding pertains to.
 ///
 /// # Working with unknown values
@@ -39706,7 +46916,7 @@ impl serde::ser::Serialize for SecurityBulletin {
 pub enum CloudProvider {
     /// The cloud provider is unspecified.
     Unspecified,
-    /// The cloud provider is Google Cloud Platform.
+    /// The cloud provider is Google Cloud.
     GoogleCloudPlatform,
     /// The cloud provider is Amazon Web Services.
     AmazonWebServices,

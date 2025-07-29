@@ -33,7 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A process is the definition of a data transformation operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Process {
     /// Immutable. The resource name of the lineage process. Format:
@@ -264,9 +264,23 @@ impl serde::ser::Serialize for Process {
     }
 }
 
+impl std::fmt::Debug for Process {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Process");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("origin", &self.origin);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A lineage run represents an execution of a process that creates
 /// lineage events.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Run {
     /// Immutable. The resource name of the run. Format:
@@ -557,6 +571,22 @@ impl serde::ser::Serialize for Run {
     }
 }
 
+impl std::fmt::Debug for Run {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Run");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("attributes", &self.attributes);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("state", &self.state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Run].
 pub mod run {
     #[allow(unused_imports)]
@@ -712,7 +742,7 @@ pub mod run {
 
 /// A lineage event represents an operation on assets. Within the operation, the
 /// data flows from the source to the target defined in the links field.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LineageEvent {
     /// Immutable. The resource name of the lineage event.
@@ -949,8 +979,22 @@ impl serde::ser::Serialize for LineageEvent {
     }
 }
 
+impl std::fmt::Debug for LineageEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LineageEvent");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("links", &self.links);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A lineage between source and target entities.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventLink {
     /// Required. Reference to the source entity
@@ -1127,8 +1171,20 @@ impl serde::ser::Serialize for EventLink {
     }
 }
 
+impl std::fmt::Debug for EventLink {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventLink");
+        debug_struct.field("source", &self.source);
+        debug_struct.field("target", &self.target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// The soft reference to everything you can attach a lineage event to.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityReference {
     /// Required. [Fully Qualified Name
@@ -1263,8 +1319,19 @@ impl serde::ser::Serialize for EntityReference {
     }
 }
 
+impl std::fmt::Debug for EntityReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EntityReference");
+        debug_struct.field("fully_qualified_name", &self.fully_qualified_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata describing the operation.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The current operation state.
@@ -1541,6 +1608,22 @@ impl serde::ser::Serialize for OperationMetadata {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("operation_type", &self.operation_type);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("resource_uuid", &self.resource_uuid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -1830,7 +1913,7 @@ pub mod operation_metadata {
 
 /// Request message for
 /// [ProcessOpenLineageRunEvent][google.cloud.datacatalog.lineage.v1.ProcessOpenLineageRunEvent].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessOpenLineageRunEventRequest {
     /// Required. The name of the project and its location that should own the
@@ -2024,9 +2107,22 @@ impl serde::ser::Serialize for ProcessOpenLineageRunEventRequest {
     }
 }
 
+impl std::fmt::Debug for ProcessOpenLineageRunEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProcessOpenLineageRunEventRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("open_lineage", &self.open_lineage);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ProcessOpenLineageRunEvent][google.cloud.datacatalog.lineage.v1.ProcessOpenLineageRunEvent].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessOpenLineageRunEventResponse {
     /// Created process name.
@@ -2212,9 +2308,22 @@ impl serde::ser::Serialize for ProcessOpenLineageRunEventResponse {
     }
 }
 
+impl std::fmt::Debug for ProcessOpenLineageRunEventResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProcessOpenLineageRunEventResponse");
+        debug_struct.field("process", &self.process);
+        debug_struct.field("run", &self.run);
+        debug_struct.field("lineage_events", &self.lineage_events);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateProcess][google.cloud.datacatalog.lineage.v1.CreateProcess].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProcessRequest {
     /// Required. The name of the project and its location that should own the
@@ -2406,9 +2515,22 @@ impl serde::ser::Serialize for CreateProcessRequest {
     }
 }
 
+impl std::fmt::Debug for CreateProcessRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateProcessRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("process", &self.process);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdateProcess][google.cloud.datacatalog.lineage.v1.UpdateProcess].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProcessRequest {
     /// Required. The lineage process to update.
@@ -2612,9 +2734,22 @@ impl serde::ser::Serialize for UpdateProcessRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateProcessRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateProcessRequest");
+        debug_struct.field("process", &self.process);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [GetProcess][google.cloud.datacatalog.lineage.v1.GetProcess].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProcessRequest {
     /// Required. The name of the process to get.
@@ -2743,9 +2878,20 @@ impl serde::ser::Serialize for GetProcessRequest {
     }
 }
 
+impl std::fmt::Debug for GetProcessRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetProcessRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ListProcesses][google.cloud.datacatalog.lineage.v1.ListProcesses].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessesRequest {
     /// Required. The name of the project and its location that owns this
@@ -2950,9 +3096,22 @@ impl serde::ser::Serialize for ListProcessesRequest {
     }
 }
 
+impl std::fmt::Debug for ListProcessesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProcessesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ListProcesses][google.cloud.datacatalog.lineage.v1.ListProcesses].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProcessesResponse {
     /// The processes from the specified project and location.
@@ -3124,9 +3283,21 @@ impl serde::ser::Serialize for ListProcessesResponse {
     }
 }
 
+impl std::fmt::Debug for ListProcessesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListProcessesResponse");
+        debug_struct.field("processes", &self.processes);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DeleteProcess][google.cloud.datacatalog.lineage.v1.DeleteProcess].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProcessRequest {
     /// Required. The name of the process to delete.
@@ -3281,9 +3452,21 @@ impl serde::ser::Serialize for DeleteProcessRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteProcessRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteProcessRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateRun][google.cloud.datacatalog.lineage.v1.CreateRun].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRunRequest {
     /// Required. The name of the process that should own the run.
@@ -3474,9 +3657,22 @@ impl serde::ser::Serialize for CreateRunRequest {
     }
 }
 
+impl std::fmt::Debug for CreateRunRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateRunRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("run", &self.run);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [UpdateRun][google.cloud.datacatalog.lineage.v1.UpdateRun].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRunRequest {
     /// Required. The lineage run to update.
@@ -3683,9 +3879,22 @@ impl serde::ser::Serialize for UpdateRunRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateRunRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRunRequest");
+        debug_struct.field("run", &self.run);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [GetRun][google.cloud.datacatalog.lineage.v1.GetRun].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRunRequest {
     /// Required. The name of the run to get.
@@ -3814,9 +4023,20 @@ impl serde::ser::Serialize for GetRunRequest {
     }
 }
 
+impl std::fmt::Debug for GetRunRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRunRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ListRuns][google.cloud.datacatalog.lineage.v1.ListRuns].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRunsRequest {
     /// Required. The name of process that owns this collection of runs.
@@ -4020,9 +4240,22 @@ impl serde::ser::Serialize for ListRunsRequest {
     }
 }
 
+impl std::fmt::Debug for ListRunsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRunsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ListRuns][google.cloud.datacatalog.lineage.v1.ListRuns].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRunsResponse {
     /// The runs from the specified project and location.
@@ -4194,9 +4427,21 @@ impl serde::ser::Serialize for ListRunsResponse {
     }
 }
 
+impl std::fmt::Debug for ListRunsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRunsResponse");
+        debug_struct.field("runs", &self.runs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DeleteRun][google.cloud.datacatalog.lineage.v1.DeleteRun].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRunRequest {
     /// Required. The name of the run to delete.
@@ -4351,9 +4596,21 @@ impl serde::ser::Serialize for DeleteRunRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteRunRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRunRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [CreateLineageEvent][google.cloud.datacatalog.lineage.v1.CreateLineageEvent].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLineageEventRequest {
     /// Required. The name of the run that should own the lineage event.
@@ -4545,9 +4802,22 @@ impl serde::ser::Serialize for CreateLineageEventRequest {
     }
 }
 
+impl std::fmt::Debug for CreateLineageEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateLineageEventRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("lineage_event", &self.lineage_event);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [GetLineageEvent][google.cloud.datacatalog.lineage.v1.GetLineageEvent].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLineageEventRequest {
     /// Required. The name of the lineage event to get.
@@ -4676,9 +4946,20 @@ impl serde::ser::Serialize for GetLineageEventRequest {
     }
 }
 
+impl std::fmt::Debug for GetLineageEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetLineageEventRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [ListLineageEvents][google.cloud.datacatalog.lineage.v1.ListLineageEvents].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLineageEventsRequest {
     /// Required. The name of the run that owns the collection of lineage events to
@@ -4884,9 +5165,22 @@ impl serde::ser::Serialize for ListLineageEventsRequest {
     }
 }
 
+impl std::fmt::Debug for ListLineageEventsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLineageEventsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [ListLineageEvents][google.cloud.datacatalog.lineage.v1.ListLineageEvents].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLineageEventsResponse {
     /// Lineage events from the specified project and location.
@@ -5059,9 +5353,21 @@ impl serde::ser::Serialize for ListLineageEventsResponse {
     }
 }
 
+impl std::fmt::Debug for ListLineageEventsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListLineageEventsResponse");
+        debug_struct.field("lineage_events", &self.lineage_events);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [DeleteLineageEvent][google.cloud.datacatalog.lineage.v1.DeleteLineageEvent].
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLineageEventRequest {
     /// Required. The name of the lineage event to delete.
@@ -5216,11 +5522,23 @@ impl serde::ser::Serialize for DeleteLineageEventRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteLineageEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteLineageEventRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [SearchLinks][google.cloud.datacatalog.lineage.v1.Lineage.SearchLinks].
 ///
 /// [google.cloud.datacatalog.lineage.v1.Lineage.SearchLinks]: crate::client::Lineage::search_links
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchLinksRequest {
     /// Required. The project and location you want search in.
@@ -5545,6 +5863,20 @@ impl serde::ser::Serialize for SearchLinksRequest {
     }
 }
 
+impl std::fmt::Debug for SearchLinksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchLinksRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("criteria", &self.criteria);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [SearchLinksRequest].
 pub mod search_links_request {
     #[allow(unused_imports)]
@@ -5567,7 +5899,7 @@ pub mod search_links_request {
 /// [SearchLinks][google.cloud.datacatalog.lineage.v1.Lineage.SearchLinks].
 ///
 /// [google.cloud.datacatalog.lineage.v1.Lineage.SearchLinks]: crate::client::Lineage::search_links
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchLinksResponse {
     /// The list of links for a given asset. Can be empty if the asset has no
@@ -5740,12 +6072,24 @@ impl serde::ser::Serialize for SearchLinksResponse {
     }
 }
 
+impl std::fmt::Debug for SearchLinksResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchLinksResponse");
+        debug_struct.field("links", &self.links);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Links represent the data flow between **source** (upstream)
 /// and **target** (downstream) assets in transformation pipelines.
 ///
 /// Links are created when LineageEvents record data transformation between
 /// related assets.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Link {
     /// Output only. Immutable. The name of the link. Format:
@@ -6019,11 +6363,26 @@ impl serde::ser::Serialize for Link {
     }
 }
 
+impl std::fmt::Debug for Link {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Link");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request message for
 /// [BatchSearchLinkProcesses][google.cloud.datacatalog.lineage.v1.Lineage.BatchSearchLinkProcesses].
 ///
 /// [google.cloud.datacatalog.lineage.v1.Lineage.BatchSearchLinkProcesses]: crate::client::Lineage::batch_search_link_processes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchSearchLinkProcessesRequest {
     /// Required. The project and location where you want to search.
@@ -6259,11 +6618,25 @@ impl serde::ser::Serialize for BatchSearchLinkProcessesRequest {
     }
 }
 
+impl std::fmt::Debug for BatchSearchLinkProcessesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchSearchLinkProcessesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("links", &self.links);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response message for
 /// [BatchSearchLinkProcesses][google.cloud.datacatalog.lineage.v1.Lineage.BatchSearchLinkProcesses].
 ///
 /// [google.cloud.datacatalog.lineage.v1.Lineage.BatchSearchLinkProcesses]: crate::client::Lineage::batch_search_link_processes
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchSearchLinkProcessesResponse {
     /// An array of processes associated with the specified links.
@@ -6436,8 +6809,20 @@ impl serde::ser::Serialize for BatchSearchLinkProcessesResponse {
     }
 }
 
+impl std::fmt::Debug for BatchSearchLinkProcessesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchSearchLinkProcessesResponse");
+        debug_struct.field("process_links", &self.process_links);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Links associated with a specific process.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessLinks {
     /// The process name in the format of
@@ -6603,8 +6988,20 @@ impl serde::ser::Serialize for ProcessLinks {
     }
 }
 
+impl std::fmt::Debug for ProcessLinks {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProcessLinks");
+        debug_struct.field("process", &self.process);
+        debug_struct.field("links", &self.links);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Link details.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProcessLinkInfo {
     /// The name of the link in the format of
@@ -6806,8 +7203,21 @@ impl serde::ser::Serialize for ProcessLinkInfo {
     }
 }
 
+impl std::fmt::Debug for ProcessLinkInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProcessLinkInfo");
+        debug_struct.field("link", &self.link);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Origin of a process.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Origin {
     /// Type of the source.
@@ -6971,6 +7381,18 @@ impl serde::ser::Serialize for Origin {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for Origin {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Origin");
+        debug_struct.field("source_type", &self.source_type);
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

@@ -36,7 +36,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A Connectivity Test for a network reachability analysis.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectivityTest {
     /// Identifier. Unique name of the resource using the form:
@@ -635,8 +635,36 @@ impl serde::ser::Serialize for ConnectivityTest {
     }
 }
 
+impl std::fmt::Debug for ConnectivityTest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectivityTest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("source", &self.source);
+        debug_struct.field("destination", &self.destination);
+        debug_struct.field("protocol", &self.protocol);
+        debug_struct.field("related_projects", &self.related_projects);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("reachability_details", &self.reachability_details);
+        debug_struct.field("probing_details", &self.probing_details);
+        debug_struct.field("round_trip", &self.round_trip);
+        debug_struct.field(
+            "return_reachability_details",
+            &self.return_reachability_details,
+        );
+        debug_struct.field("bypass_firewall_checks", &self.bypass_firewall_checks);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Source or destination of the Connectivity Test.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Endpoint {
     /// The IP address of the endpoint, which can be an external or internal IP.
@@ -1314,13 +1342,41 @@ impl serde::ser::Serialize for Endpoint {
     }
 }
 
+impl std::fmt::Debug for Endpoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Endpoint");
+        debug_struct.field("ip_address", &self.ip_address);
+        debug_struct.field("port", &self.port);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("forwarding_rule", &self.forwarding_rule);
+        debug_struct.field("forwarding_rule_target", &self.forwarding_rule_target);
+        debug_struct.field("load_balancer_id", &self.load_balancer_id);
+        debug_struct.field("load_balancer_type", &self.load_balancer_type);
+        debug_struct.field("gke_master_cluster", &self.gke_master_cluster);
+        debug_struct.field("fqdn", &self.fqdn);
+        debug_struct.field("cloud_sql_instance", &self.cloud_sql_instance);
+        debug_struct.field("redis_instance", &self.redis_instance);
+        debug_struct.field("redis_cluster", &self.redis_cluster);
+        debug_struct.field("cloud_function", &self.cloud_function);
+        debug_struct.field("app_engine_version", &self.app_engine_version);
+        debug_struct.field("cloud_run_revision", &self.cloud_run_revision);
+        debug_struct.field("network", &self.network);
+        debug_struct.field("network_type", &self.network_type);
+        debug_struct.field("project_id", &self.project_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Endpoint].
 pub mod endpoint {
     #[allow(unused_imports)]
     use super::*;
 
     /// Wrapper for Cloud Function attributes.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudFunctionEndpoint {
         /// A [Cloud Function](https://cloud.google.com/functions) name.
@@ -1452,8 +1508,19 @@ pub mod endpoint {
         }
     }
 
+    impl std::fmt::Debug for CloudFunctionEndpoint {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CloudFunctionEndpoint");
+            debug_struct.field("uri", &self.uri);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Wrapper for the App Engine service version attributes.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AppEngineVersionEndpoint {
         /// An [App Engine](https://cloud.google.com/appengine) [service
@@ -1587,8 +1654,19 @@ pub mod endpoint {
         }
     }
 
+    impl std::fmt::Debug for AppEngineVersionEndpoint {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("AppEngineVersionEndpoint");
+            debug_struct.field("uri", &self.uri);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
+        }
+    }
+
     /// Wrapper for Cloud Run revision attributes.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudRunRevisionEndpoint {
         /// A [Cloud Run](https://cloud.google.com/run)
@@ -1720,6 +1798,17 @@ pub mod endpoint {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for CloudRunRevisionEndpoint {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("CloudRunRevisionEndpoint");
+            debug_struct.field("uri", &self.uri);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -2011,7 +2100,7 @@ pub mod endpoint {
 }
 
 /// Results of the configuration analysis from the last run of the test.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReachabilityDetails {
     /// The overall result of the test's configuration analysis.
@@ -2241,6 +2330,20 @@ impl serde::ser::Serialize for ReachabilityDetails {
     }
 }
 
+impl std::fmt::Debug for ReachabilityDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReachabilityDetails");
+        debug_struct.field("result", &self.result);
+        debug_struct.field("verify_time", &self.verify_time);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("traces", &self.traces);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ReachabilityDetails].
 pub mod reachability_details {
     #[allow(unused_imports)]
@@ -2412,7 +2515,7 @@ pub mod reachability_details {
 }
 
 /// Latency percentile rank and value.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LatencyPercentile {
     /// Percentage of samples this data point applies to.
@@ -2605,8 +2708,20 @@ impl serde::ser::Serialize for LatencyPercentile {
     }
 }
 
+impl std::fmt::Debug for LatencyPercentile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LatencyPercentile");
+        debug_struct.field("percent", &self.percent);
+        debug_struct.field("latency_micros", &self.latency_micros);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Describes measured latency distribution.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LatencyDistribution {
     /// Representative latency percentiles.
@@ -2743,8 +2858,19 @@ impl serde::ser::Serialize for LatencyDistribution {
     }
 }
 
+impl std::fmt::Debug for LatencyDistribution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LatencyDistribution");
+        debug_struct.field("latency_percentiles", &self.latency_percentiles);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Results of active probing from the last run of the test.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProbingDetails {
     /// The overall result of active probing.
@@ -3197,6 +3323,28 @@ impl serde::ser::Serialize for ProbingDetails {
     }
 }
 
+impl std::fmt::Debug for ProbingDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProbingDetails");
+        debug_struct.field("result", &self.result);
+        debug_struct.field("verify_time", &self.verify_time);
+        debug_struct.field("error", &self.error);
+        debug_struct.field("abort_cause", &self.abort_cause);
+        debug_struct.field("sent_probe_count", &self.sent_probe_count);
+        debug_struct.field("successful_probe_count", &self.successful_probe_count);
+        debug_struct.field("endpoint_info", &self.endpoint_info);
+        debug_struct.field("probing_latency", &self.probing_latency);
+        debug_struct.field(
+            "destination_egress_location",
+            &self.destination_egress_location,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [ProbingDetails].
 pub mod probing_details {
     #[allow(unused_imports)]
@@ -3204,7 +3352,7 @@ pub mod probing_details {
 
     /// Representation of a network edge location as per
     /// <https://cloud.google.com/vpc/docs/edge-locations>.
-    #[derive(Clone, Debug, Default, PartialEq)]
+    #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EdgeLocation {
         /// Name of the metropolitan area.
@@ -3337,6 +3485,17 @@ pub mod probing_details {
                 }
             }
             state.end()
+        }
+    }
+
+    impl std::fmt::Debug for EdgeLocation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut debug_struct = f.debug_struct("EdgeLocation");
+            debug_struct.field("metropolitan_area", &self.metropolitan_area);
+            if !self._unknown_fields.is_empty() {
+                debug_struct.field("_unknown_fields", &self._unknown_fields);
+            }
+            debug_struct.finish()
         }
     }
 
@@ -3628,7 +3787,7 @@ pub mod probing_details {
 }
 
 /// Request for the `ListConnectivityTests` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectivityTestsRequest {
     /// Required. The parent resource of the Connectivity Tests:
@@ -3894,8 +4053,23 @@ impl serde::ser::Serialize for ListConnectivityTestsRequest {
     }
 }
 
+impl std::fmt::Debug for ListConnectivityTestsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectivityTestsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListConnectivityTests` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectivityTestsResponse {
     /// List of Connectivity Tests.
@@ -4097,8 +4271,21 @@ impl serde::ser::Serialize for ListConnectivityTestsResponse {
     }
 }
 
+impl std::fmt::Debug for ListConnectivityTestsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListConnectivityTestsResponse");
+        debug_struct.field("resources", &self.resources);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetConnectivityTest` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectivityTestRequest {
     /// Required. `ConnectivityTest` resource name using the form:
@@ -4228,8 +4415,19 @@ impl serde::ser::Serialize for GetConnectivityTestRequest {
     }
 }
 
+impl std::fmt::Debug for GetConnectivityTestRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetConnectivityTestRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `CreateConnectivityTest` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConnectivityTestRequest {
     /// Required. The parent resource of the Connectivity Test to create:
@@ -4427,8 +4625,21 @@ impl serde::ser::Serialize for CreateConnectivityTestRequest {
     }
 }
 
+impl std::fmt::Debug for CreateConnectivityTestRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateConnectivityTestRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("test_id", &self.test_id);
+        debug_struct.field("resource", &self.resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `UpdateConnectivityTest` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConnectivityTestRequest {
     /// Required. Mask of fields to update. At least one path must be supplied in
@@ -4606,8 +4817,20 @@ impl serde::ser::Serialize for UpdateConnectivityTestRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateConnectivityTestRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateConnectivityTestRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("resource", &self.resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `DeleteConnectivityTest` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConnectivityTestRequest {
     /// Required. Connectivity Test resource name using the form:
@@ -4737,8 +4960,19 @@ impl serde::ser::Serialize for DeleteConnectivityTestRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteConnectivityTestRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteConnectivityTestRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `RerunConnectivityTest` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RerunConnectivityTestRequest {
     /// Required. Connectivity Test resource name using the form:
@@ -4868,10 +5102,21 @@ impl serde::ser::Serialize for RerunConnectivityTestRequest {
     }
 }
 
+impl std::fmt::Debug for RerunConnectivityTestRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RerunConnectivityTestRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Metadata describing an [Operation][google.longrunning.Operation]
 ///
 /// [google.longrunning.Operation]: longrunning::model::Operation
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The time the operation was created.
@@ -5172,6 +5417,23 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for OperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OperationMetadata");
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("verb", &self.verb);
+        debug_struct.field("status_detail", &self.status_detail);
+        debug_struct.field("cancel_requested", &self.cancel_requested);
+        debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Trace represents one simulated packet forwarding path.
 ///
 /// * Each trace contains multiple ordered steps.
@@ -5184,7 +5446,7 @@ impl serde::ser::Serialize for OperationMetadata {
 ///   |---------------------Trace----------------------|
 ///   Step1(State) Step2(State) ---  StepN(State(final))
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Trace {
     /// Derived from the source and destination endpoints definition specified by
@@ -5406,9 +5668,22 @@ impl serde::ser::Serialize for Trace {
     }
 }
 
+impl std::fmt::Debug for Trace {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Trace");
+        debug_struct.field("endpoint_info", &self.endpoint_info);
+        debug_struct.field("steps", &self.steps);
+        debug_struct.field("forward_trace_id", &self.forward_trace_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A simulated forwarding path is composed of multiple steps.
 /// Each step has a well-defined state and an associated configuration.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Step {
     /// A description of the step. Usually this is a summary of the state.
@@ -7177,6 +7452,21 @@ impl serde::ser::Serialize for Step {
     }
 }
 
+impl std::fmt::Debug for Step {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Step");
+        debug_struct.field("description", &self.description);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("causes_drop", &self.causes_drop);
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("step_info", &self.step_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [Step].
 pub mod step {
     #[allow(unused_imports)]
@@ -7692,7 +7982,7 @@ pub mod step {
 }
 
 /// For display only. Metadata associated with a Compute Engine instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceInfo {
     /// Name of a Compute Engine instance.
@@ -8032,9 +8322,31 @@ impl serde::ser::Serialize for InstanceInfo {
     }
 }
 
+impl std::fmt::Debug for InstanceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("interface", &self.interface);
+        debug_struct.field("network_uri", &self.network_uri);
+        debug_struct.field("internal_ip", &self.internal_ip);
+        debug_struct.field("external_ip", &self.external_ip);
+        debug_struct.field("network_tags", &self.network_tags);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field(
+            "psc_network_attachment_uri",
+            &self.psc_network_attachment_uri,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with a Compute Engine network.
 /// Next ID: 7
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkInfo {
     /// Name of a Compute Engine network.
@@ -8268,9 +8580,24 @@ impl serde::ser::Serialize for NetworkInfo {
     }
 }
 
+impl std::fmt::Debug for NetworkInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NetworkInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("matched_subnet_uri", &self.matched_subnet_uri);
+        debug_struct.field("matched_ip_range", &self.matched_ip_range);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with a VPC firewall rule, an implied
 /// VPC firewall rule, or a firewall policy rule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FirewallInfo {
     /// The display name of the firewall rule. This field might be empty for
@@ -8684,6 +9011,27 @@ impl serde::ser::Serialize for FirewallInfo {
     }
 }
 
+impl std::fmt::Debug for FirewallInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FirewallInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("direction", &self.direction);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("network_uri", &self.network_uri);
+        debug_struct.field("target_tags", &self.target_tags);
+        debug_struct.field("target_service_accounts", &self.target_service_accounts);
+        debug_struct.field("policy", &self.policy);
+        debug_struct.field("policy_uri", &self.policy_uri);
+        debug_struct.field("firewall_rule_type", &self.firewall_rule_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [FirewallInfo].
 pub mod firewall_info {
     #[allow(unused_imports)]
@@ -8906,7 +9254,7 @@ pub mod firewall_info {
 }
 
 /// For display only. Metadata associated with a Compute Engine route.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RouteInfo {
     /// Type of route.
@@ -9746,6 +10094,49 @@ impl serde::ser::Serialize for RouteInfo {
     }
 }
 
+impl std::fmt::Debug for RouteInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RouteInfo");
+        debug_struct.field("route_type", &self.route_type);
+        debug_struct.field("next_hop_type", &self.next_hop_type);
+        debug_struct.field("route_scope", &self.route_scope);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("dest_ip_range", &self.dest_ip_range);
+        debug_struct.field("next_hop", &self.next_hop);
+        debug_struct.field("network_uri", &self.network_uri);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("instance_tags", &self.instance_tags);
+        debug_struct.field("src_ip_range", &self.src_ip_range);
+        debug_struct.field("dest_port_ranges", &self.dest_port_ranges);
+        debug_struct.field("src_port_ranges", &self.src_port_ranges);
+        debug_struct.field("protocols", &self.protocols);
+        debug_struct.field("ncc_hub_uri", &self.ncc_hub_uri);
+        debug_struct.field("ncc_spoke_uri", &self.ncc_spoke_uri);
+        debug_struct.field(
+            "advertised_route_source_router_uri",
+            &self.advertised_route_source_router_uri,
+        );
+        debug_struct.field(
+            "advertised_route_next_hop_uri",
+            &self.advertised_route_next_hop_uri,
+        );
+        debug_struct.field("next_hop_uri", &self.next_hop_uri);
+        debug_struct.field("next_hop_network_uri", &self.next_hop_network_uri);
+        debug_struct.field("originating_route_uri", &self.originating_route_uri);
+        debug_struct.field(
+            "originating_route_display_name",
+            &self.originating_route_display_name,
+        );
+        debug_struct.field("ncc_hub_route_uri", &self.ncc_hub_route_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [RouteInfo].
 pub mod route_info {
     #[allow(unused_imports)]
@@ -10280,7 +10671,7 @@ pub mod route_info {
 /// some Google Services use special routes within Google production
 /// infrastructure to reach Compute Engine Instances.
 /// <https://cloud.google.com/vpc/docs/routes#special_return_paths>
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GoogleServiceInfo {
     /// Source IP address.
@@ -10439,6 +10830,18 @@ impl serde::ser::Serialize for GoogleServiceInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for GoogleServiceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoogleServiceInfo");
+        debug_struct.field("source_ip", &self.source_ip);
+        debug_struct.field("google_service_type", &self.google_service_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -10629,7 +11032,7 @@ pub mod google_service_info {
 }
 
 /// For display only. Metadata associated with a Compute Engine forwarding rule.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ForwardingRuleInfo {
     /// Name of the forwarding rule.
@@ -11026,8 +11429,32 @@ impl serde::ser::Serialize for ForwardingRuleInfo {
     }
 }
 
+impl std::fmt::Debug for ForwardingRuleInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ForwardingRuleInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("matched_protocol", &self.matched_protocol);
+        debug_struct.field("matched_port_range", &self.matched_port_range);
+        debug_struct.field("vip", &self.vip);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("network_uri", &self.network_uri);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("load_balancer_name", &self.load_balancer_name);
+        debug_struct.field(
+            "psc_service_attachment_uri",
+            &self.psc_service_attachment_uri,
+        );
+        debug_struct.field("psc_google_api_target", &self.psc_google_api_target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with a load balancer.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoadBalancerInfo {
     /// Type of the load balancer.
@@ -11281,6 +11708,21 @@ impl serde::ser::Serialize for LoadBalancerInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for LoadBalancerInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoadBalancerInfo");
+        debug_struct.field("load_balancer_type", &self.load_balancer_type);
+        debug_struct.field("health_check_uri", &self.health_check_uri);
+        debug_struct.field("backends", &self.backends);
+        debug_struct.field("backend_type", &self.backend_type);
+        debug_struct.field("backend_uri", &self.backend_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -11583,7 +12025,7 @@ pub mod load_balancer_info {
 }
 
 /// For display only. Metadata associated with a specific load balancer backend.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoadBalancerBackend {
     /// Name of a Compute Engine instance or network endpoint.
@@ -11846,6 +12288,30 @@ impl serde::ser::Serialize for LoadBalancerBackend {
     }
 }
 
+impl std::fmt::Debug for LoadBalancerBackend {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoadBalancerBackend");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field(
+            "health_check_firewall_state",
+            &self.health_check_firewall_state,
+        );
+        debug_struct.field(
+            "health_check_allowing_firewall_rules",
+            &self.health_check_allowing_firewall_rules,
+        );
+        debug_struct.field(
+            "health_check_blocking_firewall_rules",
+            &self.health_check_blocking_firewall_rules,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LoadBalancerBackend].
 pub mod load_balancer_backend {
     #[allow(unused_imports)]
@@ -11991,7 +12457,7 @@ pub mod load_balancer_backend {
 }
 
 /// For display only. Metadata associated with a Compute Engine VPN gateway.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpnGatewayInfo {
     /// Name of a VPN gateway.
@@ -12246,8 +12712,24 @@ impl serde::ser::Serialize for VpnGatewayInfo {
     }
 }
 
+impl std::fmt::Debug for VpnGatewayInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VpnGatewayInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("network_uri", &self.network_uri);
+        debug_struct.field("ip_address", &self.ip_address);
+        debug_struct.field("vpn_tunnel_uri", &self.vpn_tunnel_uri);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with a Compute Engine VPN tunnel.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpnTunnelInfo {
     /// Name of a VPN tunnel.
@@ -12582,6 +13064,25 @@ impl serde::ser::Serialize for VpnTunnelInfo {
     }
 }
 
+impl std::fmt::Debug for VpnTunnelInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VpnTunnelInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("source_gateway", &self.source_gateway);
+        debug_struct.field("remote_gateway", &self.remote_gateway);
+        debug_struct.field("remote_gateway_ip", &self.remote_gateway_ip);
+        debug_struct.field("source_gateway_ip", &self.source_gateway_ip);
+        debug_struct.field("network_uri", &self.network_uri);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("routing_type", &self.routing_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [VpnTunnelInfo].
 pub mod vpn_tunnel_info {
     #[allow(unused_imports)]
@@ -12731,7 +13232,7 @@ pub mod vpn_tunnel_info {
 /// For display only. The specification of the endpoints for the test.
 /// EndpointInfo is derived from source and destination Endpoint and validated
 /// by the backend data plane model.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EndpointInfo {
     /// Source IP address.
@@ -13081,8 +13582,26 @@ impl serde::ser::Serialize for EndpointInfo {
     }
 }
 
+impl std::fmt::Debug for EndpointInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EndpointInfo");
+        debug_struct.field("source_ip", &self.source_ip);
+        debug_struct.field("destination_ip", &self.destination_ip);
+        debug_struct.field("protocol", &self.protocol);
+        debug_struct.field("source_port", &self.source_port);
+        debug_struct.field("destination_port", &self.destination_port);
+        debug_struct.field("source_network_uri", &self.source_network_uri);
+        debug_struct.field("destination_network_uri", &self.destination_network_uri);
+        debug_struct.field("source_agent_uri", &self.source_agent_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Details of the final state "deliver" and associated resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeliverInfo {
     /// Target type where the packet is delivered to.
@@ -13313,6 +13832,21 @@ impl serde::ser::Serialize for DeliverInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DeliverInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeliverInfo");
+        debug_struct.field("target", &self.target);
+        debug_struct.field("resource_uri", &self.resource_uri);
+        debug_struct.field("ip_address", &self.ip_address);
+        debug_struct.field("storage_bucket", &self.storage_bucket);
+        debug_struct.field("psc_google_api_target", &self.psc_google_api_target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -13563,7 +14097,7 @@ pub mod deliver_info {
 }
 
 /// Details of the final state "forward" and associated resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ForwardInfo {
     /// Target type where this packet is forwarded to.
@@ -13740,6 +14274,19 @@ impl serde::ser::Serialize for ForwardInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for ForwardInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ForwardInfo");
+        debug_struct.field("target", &self.target);
+        debug_struct.field("resource_uri", &self.resource_uri);
+        debug_struct.field("ip_address", &self.ip_address);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -13935,7 +14482,7 @@ pub mod forward_info {
 }
 
 /// Details of the final state "abort" and associated resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AbortInfo {
     /// Causes that the analysis is aborted.
@@ -14151,6 +14698,23 @@ impl serde::ser::Serialize for AbortInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for AbortInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AbortInfo");
+        debug_struct.field("cause", &self.cause);
+        debug_struct.field("resource_uri", &self.resource_uri);
+        debug_struct.field("ip_address", &self.ip_address);
+        debug_struct.field(
+            "projects_missing_permission",
+            &self.projects_missing_permission,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -14627,7 +15191,7 @@ pub mod abort_info {
 }
 
 /// Details of the final state "drop" and associated resource.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DropInfo {
     /// Cause that the packet is dropped.
@@ -14856,6 +15420,21 @@ impl serde::ser::Serialize for DropInfo {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for DropInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DropInfo");
+        debug_struct.field("cause", &self.cause);
+        debug_struct.field("resource_uri", &self.resource_uri);
+        debug_struct.field("source_ip", &self.source_ip);
+        debug_struct.field("destination_ip", &self.destination_ip);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 
@@ -15891,7 +16470,7 @@ pub mod drop_info {
 
 /// For display only. Metadata associated with a Google Kubernetes Engine (GKE)
 /// cluster master.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GKEMasterInfo {
     /// URI of a GKE cluster.
@@ -16124,8 +16703,23 @@ impl serde::ser::Serialize for GKEMasterInfo {
     }
 }
 
+impl std::fmt::Debug for GKEMasterInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GKEMasterInfo");
+        debug_struct.field("cluster_uri", &self.cluster_uri);
+        debug_struct.field("cluster_network_uri", &self.cluster_network_uri);
+        debug_struct.field("internal_ip", &self.internal_ip);
+        debug_struct.field("external_ip", &self.external_ip);
+        debug_struct.field("dns_endpoint", &self.dns_endpoint);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with a Cloud SQL instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSQLInstanceInfo {
     /// Name of a Cloud SQL instance.
@@ -16379,8 +16973,24 @@ impl serde::ser::Serialize for CloudSQLInstanceInfo {
     }
 }
 
+impl std::fmt::Debug for CloudSQLInstanceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSQLInstanceInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("network_uri", &self.network_uri);
+        debug_struct.field("internal_ip", &self.internal_ip);
+        debug_struct.field("external_ip", &self.external_ip);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with a Cloud Redis Instance.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RedisInstanceInfo {
     /// Name of a Cloud Redis Instance.
@@ -16639,8 +17249,24 @@ impl serde::ser::Serialize for RedisInstanceInfo {
     }
 }
 
+impl std::fmt::Debug for RedisInstanceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RedisInstanceInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("network_uri", &self.network_uri);
+        debug_struct.field("primary_endpoint_ip", &self.primary_endpoint_ip);
+        debug_struct.field("read_endpoint_ip", &self.read_endpoint_ip);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with a Redis Cluster.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RedisClusterInfo {
     /// Name of a Redis Cluster.
@@ -16916,8 +17542,30 @@ impl serde::ser::Serialize for RedisClusterInfo {
     }
 }
 
+impl std::fmt::Debug for RedisClusterInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RedisClusterInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("network_uri", &self.network_uri);
+        debug_struct.field(
+            "discovery_endpoint_ip_address",
+            &self.discovery_endpoint_ip_address,
+        );
+        debug_struct.field(
+            "secondary_endpoint_ip_address",
+            &self.secondary_endpoint_ip_address,
+        );
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with a Cloud Function.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudFunctionInfo {
     /// Name of a Cloud Function.
@@ -17138,8 +17786,22 @@ impl serde::ser::Serialize for CloudFunctionInfo {
     }
 }
 
+impl std::fmt::Debug for CloudFunctionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudFunctionInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("version_id", &self.version_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with a Cloud Run revision.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudRunRevisionInfo {
     /// Name of a Cloud Run revision.
@@ -17342,8 +18004,22 @@ impl serde::ser::Serialize for CloudRunRevisionInfo {
     }
 }
 
+impl std::fmt::Debug for CloudRunRevisionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudRunRevisionInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("service_uri", &self.service_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with an App Engine version.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AppEngineVersionInfo {
     /// Name of an App Engine version.
@@ -17545,8 +18221,22 @@ impl serde::ser::Serialize for AppEngineVersionInfo {
     }
 }
 
+impl std::fmt::Debug for AppEngineVersionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppEngineVersionInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("runtime", &self.runtime);
+        debug_struct.field("environment", &self.environment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with a VPC connector.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpcConnectorInfo {
     /// Name of a VPC connector.
@@ -17724,9 +18414,22 @@ impl serde::ser::Serialize for VpcConnectorInfo {
     }
 }
 
+impl std::fmt::Debug for VpcConnectorInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VpcConnectorInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with a serverless direct VPC egress
 /// connection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DirectVpcEgressConnectionInfo {
     /// URI of direct access network.
@@ -17961,8 +18664,23 @@ impl serde::ser::Serialize for DirectVpcEgressConnectionInfo {
     }
 }
 
+impl std::fmt::Debug for DirectVpcEgressConnectionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DirectVpcEgressConnectionInfo");
+        debug_struct.field("network_uri", &self.network_uri);
+        debug_struct.field("subnetwork_uri", &self.subnetwork_uri);
+        debug_struct.field("selected_ip_range", &self.selected_ip_range);
+        debug_struct.field("selected_ip_address", &self.selected_ip_address);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with a serverless public connection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServerlessExternalConnectionInfo {
     /// Selected starting IP address, from the Google dynamic address pool.
@@ -18095,8 +18813,19 @@ impl serde::ser::Serialize for ServerlessExternalConnectionInfo {
     }
 }
 
+impl std::fmt::Debug for ServerlessExternalConnectionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServerlessExternalConnectionInfo");
+        debug_struct.field("selected_ip_address", &self.selected_ip_address);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with NAT.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NatInfo {
     /// Type of NAT.
@@ -18611,6 +19340,29 @@ impl serde::ser::Serialize for NatInfo {
     }
 }
 
+impl std::fmt::Debug for NatInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NatInfo");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("protocol", &self.protocol);
+        debug_struct.field("network_uri", &self.network_uri);
+        debug_struct.field("old_source_ip", &self.old_source_ip);
+        debug_struct.field("new_source_ip", &self.new_source_ip);
+        debug_struct.field("old_destination_ip", &self.old_destination_ip);
+        debug_struct.field("new_destination_ip", &self.new_destination_ip);
+        debug_struct.field("old_source_port", &self.old_source_port);
+        debug_struct.field("new_source_port", &self.new_source_port);
+        debug_struct.field("old_destination_port", &self.old_destination_port);
+        debug_struct.field("new_destination_port", &self.new_destination_port);
+        debug_struct.field("router_uri", &self.router_uri);
+        debug_struct.field("nat_gateway_name", &self.nat_gateway_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [NatInfo].
 pub mod nat_info {
     #[allow(unused_imports)]
@@ -18764,7 +19516,7 @@ pub mod nat_info {
 }
 
 /// For display only. Metadata associated with ProxyConnection.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProxyConnectionInfo {
     /// IP protocol in string format, for example: "TCP", "UDP", "ICMP".
@@ -19228,8 +19980,29 @@ impl serde::ser::Serialize for ProxyConnectionInfo {
     }
 }
 
+impl std::fmt::Debug for ProxyConnectionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProxyConnectionInfo");
+        debug_struct.field("protocol", &self.protocol);
+        debug_struct.field("old_source_ip", &self.old_source_ip);
+        debug_struct.field("new_source_ip", &self.new_source_ip);
+        debug_struct.field("old_destination_ip", &self.old_destination_ip);
+        debug_struct.field("new_destination_ip", &self.new_destination_ip);
+        debug_struct.field("old_source_port", &self.old_source_port);
+        debug_struct.field("new_source_port", &self.new_source_port);
+        debug_struct.field("old_destination_port", &self.old_destination_port);
+        debug_struct.field("new_destination_port", &self.new_destination_port);
+        debug_struct.field("subnet_uri", &self.subnet_uri);
+        debug_struct.field("network_uri", &self.network_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with the load balancer backend.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoadBalancerBackendInfo {
     /// Display name of the backend. For example, it might be an instance name for
@@ -19634,6 +20407,35 @@ impl serde::ser::Serialize for LoadBalancerBackendInfo {
     }
 }
 
+impl std::fmt::Debug for LoadBalancerBackendInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LoadBalancerBackendInfo");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("instance_uri", &self.instance_uri);
+        debug_struct.field("backend_service_uri", &self.backend_service_uri);
+        debug_struct.field("instance_group_uri", &self.instance_group_uri);
+        debug_struct.field(
+            "network_endpoint_group_uri",
+            &self.network_endpoint_group_uri,
+        );
+        debug_struct.field("backend_bucket_uri", &self.backend_bucket_uri);
+        debug_struct.field(
+            "psc_service_attachment_uri",
+            &self.psc_service_attachment_uri,
+        );
+        debug_struct.field("psc_google_api_target", &self.psc_google_api_target);
+        debug_struct.field("health_check_uri", &self.health_check_uri);
+        debug_struct.field(
+            "health_check_firewalls_config_state",
+            &self.health_check_firewalls_config_state,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Defines additional types related to [LoadBalancerBackendInfo].
 pub mod load_balancer_backend_info {
     #[allow(unused_imports)]
@@ -19800,7 +20602,7 @@ pub mod load_balancer_backend_info {
 }
 
 /// For display only. Metadata associated with Storage Bucket.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageBucketInfo {
     /// Cloud Storage Bucket name.
@@ -19929,9 +20731,20 @@ impl serde::ser::Serialize for StorageBucketInfo {
     }
 }
 
+impl std::fmt::Debug for StorageBucketInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StorageBucketInfo");
+        debug_struct.field("bucket", &self.bucket);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// For display only. Metadata associated with the serverless network endpoint
 /// group backend.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServerlessNegInfo {
     /// URI of the serverless network endpoint group.
@@ -20061,8 +20874,19 @@ impl serde::ser::Serialize for ServerlessNegInfo {
     }
 }
 
+impl std::fmt::Debug for ServerlessNegInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServerlessNegInfo");
+        debug_struct.field("neg_uri", &self.neg_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `ListVpcFlowLogsConfigs` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVpcFlowLogsConfigsRequest {
     /// Required. The parent resource of the VpcFlowLogsConfig:
@@ -20312,8 +21136,23 @@ impl serde::ser::Serialize for ListVpcFlowLogsConfigsRequest {
     }
 }
 
+impl std::fmt::Debug for ListVpcFlowLogsConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVpcFlowLogsConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Response for the `ListVpcFlowLogsConfigs` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVpcFlowLogsConfigsResponse {
     /// List of VPC Flow Log configurations.
@@ -20516,8 +21355,21 @@ impl serde::ser::Serialize for ListVpcFlowLogsConfigsResponse {
     }
 }
 
+impl std::fmt::Debug for ListVpcFlowLogsConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListVpcFlowLogsConfigsResponse");
+        debug_struct.field("vpc_flow_logs_configs", &self.vpc_flow_logs_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `GetVpcFlowLogsConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVpcFlowLogsConfigRequest {
     /// Required. `VpcFlowLogsConfig` resource name using the form:
@@ -20647,8 +21499,19 @@ impl serde::ser::Serialize for GetVpcFlowLogsConfigRequest {
     }
 }
 
+impl std::fmt::Debug for GetVpcFlowLogsConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetVpcFlowLogsConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `CreateVpcFlowLogsConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVpcFlowLogsConfigRequest {
     /// Required. The parent resource of the VPC Flow Logs configuration to create:
@@ -20843,8 +21706,21 @@ impl serde::ser::Serialize for CreateVpcFlowLogsConfigRequest {
     }
 }
 
+impl std::fmt::Debug for CreateVpcFlowLogsConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateVpcFlowLogsConfigRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("vpc_flow_logs_config_id", &self.vpc_flow_logs_config_id);
+        debug_struct.field("vpc_flow_logs_config", &self.vpc_flow_logs_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `UpdateVpcFlowLogsConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVpcFlowLogsConfigRequest {
     /// Required. Mask of fields to update. At least one path must be supplied in
@@ -21023,8 +21899,20 @@ impl serde::ser::Serialize for UpdateVpcFlowLogsConfigRequest {
     }
 }
 
+impl std::fmt::Debug for UpdateVpcFlowLogsConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateVpcFlowLogsConfigRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("vpc_flow_logs_config", &self.vpc_flow_logs_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// Request for the `DeleteVpcFlowLogsConfig` method.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVpcFlowLogsConfigRequest {
     /// Required. `VpcFlowLogsConfig` resource name using the form:
@@ -21154,8 +22042,19 @@ impl serde::ser::Serialize for DeleteVpcFlowLogsConfigRequest {
     }
 }
 
+impl std::fmt::Debug for DeleteVpcFlowLogsConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteVpcFlowLogsConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 /// A configuration to generate VPC Flow Logs.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpcFlowLogsConfig {
     /// Identifier. Unique name of the configuration using the form:
@@ -21823,6 +22722,29 @@ impl serde::ser::Serialize for VpcFlowLogsConfig {
             }
         }
         state.end()
+    }
+}
+
+impl std::fmt::Debug for VpcFlowLogsConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VpcFlowLogsConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("aggregation_interval", &self.aggregation_interval);
+        debug_struct.field("flow_sampling", &self.flow_sampling);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("metadata_fields", &self.metadata_fields);
+        debug_struct.field("filter_expr", &self.filter_expr);
+        debug_struct.field("target_resource_state", &self.target_resource_state);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("target_resource", &self.target_resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
     }
 }
 

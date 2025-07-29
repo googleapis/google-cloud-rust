@@ -23,6 +23,12 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
+    async fn run_impersonated() -> anyhow::Result<()> {
+        auth_integration_tests::impersonated().await
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_api_key() -> anyhow::Result<()> {
         auth_integration_tests::api_key().await
     }
@@ -38,13 +44,34 @@ mod driver {
     }
 
     #[cfg(all(test, feature = "run-byoid-integration-tests"))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
+    async fn run_workload_identity_provider_executable_sourced_with_impersonation()
+    -> anyhow::Result<()> {
+        auth_integration_tests::workload_identity_provider_executable_sourced(true).await
+    }
+
+    #[cfg(all(test, feature = "run-byoid-integration-tests"))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    #[serial_test::serial]
+    async fn run_workload_identity_provider_executable_sourced_without_impersonation()
+    -> anyhow::Result<()> {
+        auth_integration_tests::workload_identity_provider_executable_sourced(false).await
+    }
+
+    #[cfg(all(test, feature = "run-byoid-integration-tests"))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_workload_identity_provider_programmatic_sourced() -> anyhow::Result<()> {
+        auth_integration_tests::workload_identity_provider_programmatic_sourced().await
+    }
+
+    #[cfg(all(test, feature = "run-byoid-integration-tests"))]
     #[test_case(false; "without impersonation")]
     #[test_case(true; "with impersonation")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_workload_identity_provider_executable_sourced(
+    async fn run_workload_identity_provider_file_sourced(
         with_impersonation: bool,
     ) -> anyhow::Result<()> {
-        auth_integration_tests::workload_identity_provider_executable_sourced(with_impersonation)
-            .await
+        auth_integration_tests::workload_identity_provider_file_sourced(with_impersonation).await
     }
 }

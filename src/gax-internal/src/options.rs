@@ -30,7 +30,7 @@ pub fn tracing_enabled(config: &ClientConfig) -> bool {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use scoped_env::ScopedEnv;
 

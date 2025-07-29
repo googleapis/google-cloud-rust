@@ -170,6 +170,163 @@ impl DatasetService {
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_bigquery_v2::client::JobService;
+/// let client = JobService::builder().build().await?;
+/// // use `client` to make requests to the BigQuery API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+///
+/// # Configuration
+///
+/// To configure `JobService` use the `with_*` methods in the type returned
+/// by [builder()][JobService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigquery.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::job_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::job_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `JobService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `JobService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct JobService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::JobService>,
+}
+
+impl JobService {
+    /// Returns a builder for [JobService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::client::JobService;
+    /// let client = JobService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::job_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::job_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::JobService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::JobService>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::JobService> {
+        super::transport::JobService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::JobService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::JobService::new)
+    }
+
+    /// Requests that a job be cancelled. This call will return immediately, and
+    /// the client will need to poll for the job status to see if the cancel
+    /// completed successfully. Cancelled jobs may still incur costs.
+    pub fn cancel_job(&self) -> super::builder::job_service::CancelJob {
+        super::builder::job_service::CancelJob::new(self.inner.clone())
+    }
+
+    /// Returns information about a specific job. Job information is available for
+    /// a six month period after creation. Requires that you're the person who ran
+    /// the job, or have the Is Owner project role.
+    pub fn get_job(&self) -> super::builder::job_service::GetJob {
+        super::builder::job_service::GetJob::new(self.inner.clone())
+    }
+
+    /// Starts a new asynchronous job.
+    ///
+    /// This API has two different kinds of endpoint URIs, as this method supports
+    /// a variety of use cases.
+    ///
+    /// * The *Metadata* URI is used for most interactions, as it accepts the job
+    ///   configuration directly.
+    /// * The *Upload* URI is ONLY for the case when you're sending both a load job
+    ///   configuration and a data stream together.  In this case, the Upload URI
+    ///   accepts the job configuration and the data as two distinct multipart MIME
+    ///   parts.
+    pub fn insert_job(&self) -> super::builder::job_service::InsertJob {
+        super::builder::job_service::InsertJob::new(self.inner.clone())
+    }
+
+    /// Requests the deletion of the metadata of a job. This call returns when the
+    /// job's metadata is deleted.
+    pub fn delete_job(&self) -> super::builder::job_service::DeleteJob {
+        super::builder::job_service::DeleteJob::new(self.inner.clone())
+    }
+
+    /// Lists all jobs that you started in the specified project. Job information
+    /// is available for a six month period after creation. The job list is sorted
+    /// in reverse chronological order, by job creation time. Requires the Can View
+    /// project role, or the Is Owner project role if you set the allUsers
+    /// property.
+    pub fn list_jobs(&self) -> super::builder::job_service::ListJobs {
+        super::builder::job_service::ListJobs::new(self.inner.clone())
+    }
+
+    /// RPC to get the results of a query job.
+    pub fn get_query_results(&self) -> super::builder::job_service::GetQueryResults {
+        super::builder::job_service::GetQueryResults::new(self.inner.clone())
+    }
+
+    /// Runs a BigQuery SQL query synchronously and returns query results if the
+    /// query completes within a specified timeout.
+    pub fn query(&self) -> super::builder::job_service::Query {
+        super::builder::job_service::Query::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the BigQuery API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_bigquery_v2::client::ModelService;
 /// let client = ModelService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.

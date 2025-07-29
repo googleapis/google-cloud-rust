@@ -20,7 +20,10 @@ use std::{collections::HashMap, time::Duration};
 
 use crate::{
     Result,
-    credentials::external_account::{CredentialSourceFormat, SubjectTokenProvider},
+    credentials::external_account::CredentialSourceFormat,
+    credentials::subject_token::{
+        Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
+    },
     errors,
 };
 
@@ -53,9 +56,9 @@ impl UrlSourcedCredentials {
 const MSG: &str = "failed to request subject token";
 const JSON_FORMAT_TYPE: &str = "json";
 
-#[async_trait::async_trait]
 impl SubjectTokenProvider for UrlSourcedCredentials {
-    async fn subject_token(&self) -> Result<String> {
+    type Error = CredentialsError;
+    async fn subject_token(&self) -> Result<SubjectToken> {
         let client = Client::builder()
             .timeout(Duration::from_secs(10))
             .build()
@@ -88,7 +91,9 @@ impl SubjectTokenProvider for UrlSourcedCredentials {
                     .map_err(|e| CredentialsError::from_source(false, e))?;
 
                 match json_response.get(&self.subject_token_field_name) {
-                    Some(Value::String(token)) => Ok(token.clone()),
+                    Some(Value::String(token)) => {
+                        Ok(SubjectTokenBuilder::new(token.clone()).build())
+                    }
                     None | Some(_) => {
                         let msg = format!(
                             "failed to read subject token field `{}` as string, body=<{}>",
@@ -98,13 +103,13 @@ impl SubjectTokenProvider for UrlSourcedCredentials {
                     }
                 }
             }
-            _ => Ok(response_text),
+            _ => Ok(SubjectTokenBuilder::new(response_text).build()),
         }
     }
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
@@ -137,7 +142,7 @@ mod test {
         };
         let resp = token_provider.subject_token().await?;
 
-        assert_eq!(resp, "an_example_token".to_string());
+        assert_eq!(resp.token, "an_example_token".to_string());
 
         Ok(())
     }
@@ -161,7 +166,7 @@ mod test {
         };
         let resp = token_provider.subject_token().await?;
 
-        assert_eq!(resp, "an_example_token".to_string());
+        assert_eq!(resp.token, "an_example_token".to_string());
 
         Ok(())
     }

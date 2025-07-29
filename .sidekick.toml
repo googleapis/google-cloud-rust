@@ -22,8 +22,8 @@ roots                       = 'googleapis'
 showcase-extracted-name     = 'gapic-showcase-0.36.2'
 showcase-root               = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.36.2.tar.gz'
 showcase-sha256             = '0914bdbb088713aa087a53b355ff6631ad95e4769afd8bbd97d5d9e78d4cdf09'
-googleapis-root             = 'https://github.com/googleapis/googleapis/archive/aab27766927e30f8ee30b75c3f9e2a6194da36ea.tar.gz'
-googleapis-sha256           = '772af68eec4531220f0b5dbb91daba5c0f47ff628c793c483c1aabdf2d5a0923'
+googleapis-root             = 'https://github.com/googleapis/googleapis/archive/229bd754c4c15219cfc7df53246a83c50ead7bf2.tar.gz'
+googleapis-sha256           = '57e442963bd61f9a7d72979087e299d2467aa09d9ef4d78735eea39142bba44a'
 protobuf-src-extracted-name = 'protobuf-29.3'
 protobuf-src-root           = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
 protobuf-src-sha256         = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
@@ -35,7 +35,7 @@ conformance-sha256          = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2
 [codec]
 # The default version for all crates. This can be overridden in the crate's
 # `.sidekick.toml` file.
-version = "0.4.0"
+version = "0.4.2"
 # The default release level for all crates.
 release-level = "preview"
 # Disable a number of warnings.
@@ -57,6 +57,8 @@ disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links"
 'package:tracing'     = 'used-if=services,package=tracing'
 # Only used if LROs are present
 'package:lro' = 'used-if=lro,package=google-cloud-lro'
+# Only used if a service has auto-populated fields
+'package:uuid' = 'used-if=autopopulated,package=uuid'
 # I (coryan@) got lazy, it is tedious to auto-detect if this is used in `sidekick`.
 # OTOH, the only case where this is not used is a crate without any messages, i.e., just enums.
 'package:wkt' = 'force-used=true,package=google-cloud-wkt,source=google.protobuf'
