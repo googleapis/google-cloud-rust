@@ -20,7 +20,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-func Test_RoutingCombosSimpleOr(t *testing.T) {
+func TestRoutingCombosSimpleOr(t *testing.T) {
 	v1 := &RoutingInfoVariant{
 		FieldPath: []string{"v1"},
 	}
@@ -58,7 +58,7 @@ func Test_RoutingCombosSimpleOr(t *testing.T) {
 	}
 }
 
-func Test_RoutingCombosSimpleAnd(t *testing.T) {
+func TestRoutingCombosSimpleAnd(t *testing.T) {
 	v1 := &RoutingInfoVariant{
 		FieldPath: []string{"v1"},
 	}
@@ -96,7 +96,7 @@ func Test_RoutingCombosSimpleAnd(t *testing.T) {
 	}
 }
 
-func Test_RoutingCombosFull(t *testing.T) {
+func TestRoutingCombosFull(t *testing.T) {
 	va1 := &RoutingInfoVariant{
 		FieldPath: []string{"va1"},
 	}
