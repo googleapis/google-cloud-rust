@@ -19,29 +19,13 @@ use super::*;
 use crate::storage::checksum::{ChecksumEngine, Crc32c, Md5, Null, Precomputed};
 
 /// A request builder for uploads without rewind.
-pub struct UploadObject<T, C> {
+pub struct UploadObject<T, C = Crc32c> {
     inner: std::sync::Arc<StorageInner>,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
     payload: InsertPayload<T>,
     options: super::request_options::RequestOptions,
     checksum: C,
-}
-
-impl<T, C> std::fmt::Debug for UploadObject<T, C>
-where
-    C: std::fmt::Debug,
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("UploadObject")
-            .field("inner", &self.inner)
-            .field("spec", &self.spec)
-            .field("params", &self.params)
-            // skip payload, as it is not `Debug`
-            .field("options", &self.options)
-            .field("checksum", &self.checksum)
-            .finish()
-    }
 }
 
 impl<T, C> UploadObject<T, C> {
@@ -812,12 +796,12 @@ impl<T> UploadObject<T, Null> {
     }
 }
 
-impl<T> UploadObject<T, Crc32c> {
-    pub fn with_computed_md5(self) -> UploadObject<T, Md5<Crc32c>> {
+impl<T, C> UploadObject<T, Crc32c<C>> {
+    pub fn with_computed_md5(self) -> UploadObject<T, Md5<Crc32c<C>>> {
         self.switch_checksum(Md5::from_inner)
     }
 
-    pub fn with_computed_crc32c(self) -> UploadObject<T, Crc32c> {
+    pub fn with_computed_crc32c(self) -> UploadObject<T, Crc32c<C>> {
         self
     }
 
@@ -826,12 +810,12 @@ impl<T> UploadObject<T, Crc32c> {
     }
 }
 
-impl<T> UploadObject<T, Md5> {
-    pub fn with_computed_md5(self) -> UploadObject<T, Md5> {
+impl<T, C> UploadObject<T, Md5<C>> {
+    pub fn with_computed_md5(self) -> UploadObject<T, Md5<C>> {
         self
     }
 
-    pub fn with_computed_crc32c(self) -> UploadObject<T, Crc32c<Md5>> {
+    pub fn with_computed_crc32c(self) -> UploadObject<T, Crc32c<Md5<C>>> {
         self.switch_checksum(Crc32c::from_inner)
     }
 
@@ -961,6 +945,23 @@ where
     /// ```
     pub async fn send(self) -> crate::Result<Object> {
         self.build().send().await
+    }
+}
+
+// We need `Debug` to use `expect_err()` in `Result<UploadObject, ...>`.
+impl<T, C> std::fmt::Debug for UploadObject<T, C>
+where
+    C: std::fmt::Debug,
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("UploadObject")
+            .field("inner", &self.inner)
+            .field("spec", &self.spec)
+            .field("params", &self.params)
+            // skip payload, as it is not `Debug`
+            .field("options", &self.options)
+            .field("checksum", &self.checksum)
+            .finish()
     }
 }
 
@@ -1168,10 +1169,24 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn checksum_disabled() -> Result {
+    async fn checksum_disabled_from_default() -> Result {
         let client = test_builder().build().await?;
         let upload = client
             .upload_object("my-bucket", "my-object", QUICK)
+            .disable_computed_checksums()
+            .precompute_checksums()
+            .await?;
+        let want = quick_checksum(Null);
+        assert_eq!(upload.spec.resource.and_then(|r| r.checksums), Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksum_disabled_from_md5() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", QUICK)
+            .with_computed_md5()
             .disable_computed_checksums()
             .precompute_checksums()
             .await?;
@@ -1299,6 +1314,23 @@ mod tests {
             "{err:?}"
         );
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn debug() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .upload_object("my-bucket", "my-object", "")
+            .precompute_checksums()
+            .await;
+
+        let fmt = format!("{upload:?}");
+        ["UploadObject", "inner", "spec", "options", "checksum"]
+            .into_iter()
+            .for_each(|text| {
+                assert!(fmt.contains(text), "expected {text} in {fmt}");
+            });
         Ok(())
     }
 }
