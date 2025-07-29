@@ -34,82 +34,91 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
+	"log"
 	"log/slog"
 	"os"
 	"os/exec"
 	"path/filepath"
-	"strconv"
 	"strings"
 )
 
 func main() {
-	outDir := flag.String("out", "docfx", "Output directory (default docfx)")
+	// TODO(NOW): Clean up a little bit
+	// TODO(NOW): Update code to generate all the packages (forloop?)
+	// TODO(NOW): Docstring + links
+	// TODO(NOW): Update template include inners
+	// TODO(NOW): Update to iterate through all root level crates
+	// TODO(NOW): Update to correctly link to external google-sdk crates
+	// TODO(NOW): Update to correctly include external crates
+
+	out := flag.String("out", "docfx", "Output directory within project-root (default docfx)")
 	projectRoot := flag.String("project-root", "", "Top level directory of googleapis/google-cloud-rust")
 	flag.Parse()
 
-	fmt.Printf("flag out=%s!\n", *outDir)
-	fmt.Printf("flag project-root=%s!\n", *projectRoot)
-
+	// TODO(NOW): REMOVE context if not needed.
 	// ctx := context.Background()
 	crates := flag.Args()
 
 	// TODO: Preflight checks for:
 	// cargo workspaces
 	// cargo rustdoc
+	// Failfast if not installed.
 
-	// Create a temporary files to store `cargo workspace plan`'s output
+	// Create a temporary file to store `cargo workspace plan` output.
 	tempFile, err := os.CreateTemp("", "cargo-plan-")
 	if err != nil {
 		slog.Error("Unable to create temp file for cargo workspace plan")
 	}
-	defer func() {
-		rerr := os.Remove(tempFile.Name())
-		if err == nil {
-			err = rerr
-		}
-	}()
+	defer os.Remove(tempFile.Name())
 	fmt.Printf("Created tmp file %s for cargo workspace plan\n", tempFile.Name())
 
 	runCmd(tempFile, *projectRoot, "cargo", "workspaces", "plan", "--json")
 	fmt.Printf("using cargo workspace plan for crates\n")
 
-	// TODO(NOW): probably best to move this into the getWorkspaceCrates
 	jsonFile, err := os.Open(tempFile.Name())
 	if err != nil {
-		// TODO: Exit early.
+		// TODO(NOW): Failfast.
 		fmt.Println(err)
 	}
-	// defer the closing of our jsonFile so that we can parse it later on
 	defer jsonFile.Close()
 
-	byteValue, _ := ioutil.ReadAll(jsonFile)
+	byteValue, _ := io.ReadAll(jsonFile)
 	workspaceCrates, err := getWorkspaceCrates(byteValue)
 
 	for i := 0; i < len(workspaceCrates); i++ {
 		// TODO(NOW): Run cargo rustdoc
+		// TODO(NOW): Filter, right now, we only work on the first arguemnt.
 		if workspaceCrates[i].Name == crates[0] {
-			fmt.Printf("crate.Name match: %s\n", workspaceCrates[i].Name)
-			fmt.Printf("crate.Location: %s\n", workspaceCrates[i].Location)
 			runCmd(nil, *projectRoot, "cargo", "+nightly", "-Z", "unstable-options", "rustdoc", "--output-format=json", fmt.Sprintf("--manifest-path=%s/Cargo.toml", workspaceCrates[i].Location))
-			// TODO(NOW): This seem error prone wiht the directory being set by the flag
-			// TODO(NOW): crate names are kebob case and output file is snake case
-			// workspaceCrates[i].Rustdoc = fmt.Sprintf("%starget/doc/%s.json", *projectRoot, workspaceCrates[i].Name)
+			// TODO(NOW): This seem error prone with the directory being set by the flag
+			// cargo names are snake case while cargo rustdoc output files are kebob case.
 			fileName := fmt.Sprintf("%s.json", strings.ReplaceAll(workspaceCrates[i].Name, "-", "_"))
-			workspaceCrates[i].Rustdoc = filepath.Join(*projectRoot, "/target/doc", fileName)
-			fmt.Printf("crate.Rustdoc: %s\n", workspaceCrates[i].Rustdoc)
-			// /usr/local/google/home/chuongph/Desktop/google-cloud-rust/target/doc/google_cloud_secretmanager_v1.json
-			// cargo +nightly -Z unstable-options rustdoc --output-format json --manifest-path ./src/generated/cloud/secretmanager/v1/Cargo.toml
-			unmarshalRustdoc(&workspaceCrates[i])
-			fmt.Printf("crate.Root: %d\n", workspaceCrates[i].Root)
-			fmt.Printf("crate.Index length: %d\n", len(workspaceCrates[i].Index))
+			file := filepath.Join(*projectRoot, "/target/doc", fileName)
+			rustDocFile, err := os.Open(file)
+			if err != nil {
+				// TODO(NOW): Failfast.
+				fmt.Println(err)
+			}
+			defer rustDocFile.Close()
+			jsonBytes, _ := io.ReadAll(rustDocFile)
+			// TODO(NOW): Handle error.
+			unmarshalRustdoc(&workspaceCrates[i], jsonBytes)
+
+			// TODO(NOW): Should we handle the errors?
+			crateOutDir := filepath.Join(*projectRoot, *out, workspaceCrates[i].Name)
+			os.MkdirAll(crateOutDir, 0777) // Ignore errors
+
+			// TODO(NOW): This is not needed.
 			crate := workspaceCrates[i]
-			rootIndex := strconv.FormatUint(uint64(crate.Root), 10)
-			fmt.Printf("crate.Id: %d\n", crate.Index[rootIndex].Id)
-			fmt.Printf("crate.Docs: %s\n", crate.Index[rootIndex].Docs)
+			err = generate(crate, crateOutDir)
+			if err != nil {
+				// TODO: Better log message for the failure with crate name.
+				log.Fatalf("failed to generate for crate %s: %v", workspaceCrates[i].Name, err)
+			}
+
+			// TODO: Generate all the crates.
 		}
 	}
-
 }
 
 func runCmd(stdout io.Writer, dir, name string, args ...string) error {
