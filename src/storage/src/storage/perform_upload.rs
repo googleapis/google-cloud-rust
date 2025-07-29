@@ -30,7 +30,7 @@ mod unbuffered;
 ///
 /// Once the application has fully configured an `UploadObject<T>` it calls
 /// `send()` or `send_buffered()` to initiate the upload. At that point the
-/// client library creates an instance of this class. Notable, the `payload`
+/// client library creates an instance of this class. Notably, the `payload`
 /// becomes `Arc<Mutex<T>>` because it needs to be reused in the retry loop.
 ///
 /// TODO(#2050) - payload will become `ChecksummedSource<C, S>` to automatically
