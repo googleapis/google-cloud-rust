@@ -15,11 +15,88 @@
 package api
 
 import (
-	"github.com/google/go-cmp/cmp"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
-func Test_RoutingCombos(t *testing.T) {
+func TestRoutingCombosSimpleOr(t *testing.T) {
+	v1 := &RoutingInfoVariant{
+		FieldPath: []string{"v1"},
+	}
+	v2 := &RoutingInfoVariant{
+		FieldPath: []string{"v2"},
+	}
+	info := &RoutingInfo{
+		Name:     "key",
+		Variants: []*RoutingInfoVariant{v1, v2},
+	}
+	method := Method{
+		Routing: []*RoutingInfo{info},
+	}
+
+	want := []*RoutingInfoCombo{
+		{
+			Items: []*RoutingInfoComboItem{
+				{
+					Name:    "key",
+					Variant: v1,
+				},
+			},
+		},
+		{
+			Items: []*RoutingInfoComboItem{
+				{
+					Name:    "key",
+					Variant: v2,
+				},
+			},
+		},
+	}
+	if diff := cmp.Diff(want, method.RoutingCombos()); diff != "" {
+		t.Errorf("Incorrect routing combos (-want, +got):\n%s", diff)
+	}
+}
+
+func TestRoutingCombosSimpleAnd(t *testing.T) {
+	v1 := &RoutingInfoVariant{
+		FieldPath: []string{"v1"},
+	}
+	i1 := &RoutingInfo{
+		Name:     "key1",
+		Variants: []*RoutingInfoVariant{v1},
+	}
+	v2 := &RoutingInfoVariant{
+		FieldPath: []string{"v2"},
+	}
+	i2 := &RoutingInfo{
+		Name:     "key2",
+		Variants: []*RoutingInfoVariant{v2},
+	}
+	method := Method{
+		Routing: []*RoutingInfo{i1, i2},
+	}
+
+	want := []*RoutingInfoCombo{
+		{
+			Items: []*RoutingInfoComboItem{
+				{
+					Name:    "key1",
+					Variant: v1,
+				},
+				{
+					Name:    "key2",
+					Variant: v2,
+				},
+			},
+		},
+	}
+	if diff := cmp.Diff(want, method.RoutingCombos()); diff != "" {
+		t.Errorf("Incorrect routing combos (-want, +got):\n%s", diff)
+	}
+}
+
+func TestRoutingCombosFull(t *testing.T) {
 	va1 := &RoutingInfoVariant{
 		FieldPath: []string{"va1"},
 	}
@@ -57,8 +134,6 @@ func Test_RoutingCombos(t *testing.T) {
 		Routing: []*RoutingInfo{a, b, c},
 	}
 
-	got := method.RoutingCombos()
-
 	make_combo := func(va *RoutingInfoVariant, vb *RoutingInfoVariant, vc *RoutingInfoVariant) *RoutingInfoCombo {
 		return &RoutingInfoCombo{
 			Items: []*RoutingInfoComboItem{
@@ -85,7 +160,7 @@ func Test_RoutingCombos(t *testing.T) {
 		make_combo(va3, vb1, vc1),
 		make_combo(va3, vb2, vc1),
 	}
-	if diff := cmp.Diff(want, got); diff != "" {
+	if diff := cmp.Diff(want, method.RoutingCombos()); diff != "" {
 		t.Errorf("Incorrect routing combos (-want, +got):\n%s", diff)
 	}
 }
