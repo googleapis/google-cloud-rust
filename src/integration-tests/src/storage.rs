@@ -792,23 +792,127 @@ pub async fn checksums(
 
     type ObjectResult = storage::Result<storage::model::Object>;
 
-    let uploads: Vec::<(&str, std::pin::Pin<Box<dyn Future<Output = ObjectResult>>>)> = vec![
-        ("verify/default", Box::pin(client.upload_object(bucket_name, "verify/default",  VEXING).with_if_generation_match(0).send())),
-        ("verify/disabled", Box::pin(client.upload_object(bucket_name, "verify/disabled", VEXING).with_if_generation_match(0).disable_computed_checksums().send())),
-        ("verify/crc32c", Box::pin(client.upload_object(bucket_name, "verify/crc32c",   VEXING).with_if_generation_match(0).disable_computed_checksums().compute_crc32c().send())),
-        ("verify/md5", Box::pin(client.upload_object(bucket_name, "verify/md5",      VEXING).with_if_generation_match(0).disable_computed_checksums().compute_md5().send())),
-        ("verify/both", Box::pin(client.upload_object(bucket_name, "verify/both",     VEXING).with_if_generation_match(0).disable_computed_checksums().compute_md5().send())),
-        ("computed/default", Box::pin(client.upload_object(bucket_name, "computed/default",  VEXING).with_if_generation_match(0).precompute_checksums().await?.send())),
-        ("computed/disabled", Box::pin(client.upload_object(bucket_name, "computed/disabled", VEXING).with_if_generation_match(0).disable_computed_checksums().precompute_checksums().await?.send())),
-        ("computed/crc32c", Box::pin(client.upload_object(bucket_name, "computed/crc32c",   VEXING).with_if_generation_match(0).disable_computed_checksums().compute_crc32c().precompute_checksums().await?.send())),
-        ("computed/md5", Box::pin(client.upload_object(bucket_name, "computed/md5",      VEXING).with_if_generation_match(0).disable_computed_checksums().compute_md5().precompute_checksums().await?.send())),
-        ("computed/both", Box::pin(client.upload_object(bucket_name, "computed/both",     VEXING).with_if_generation_match(0).disable_computed_checksums().compute_md5().precompute_checksums().await?.send())),
+    let uploads: Vec<(&str, std::pin::Pin<Box<dyn Future<Output = ObjectResult>>>)> = vec![
+        (
+            "verify/default",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "verify/default", VEXING)
+                    .with_if_generation_match(0)
+                    .send(),
+            ),
+        ),
+        (
+            "verify/disabled",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "verify/disabled", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .send(),
+            ),
+        ),
+        (
+            "verify/crc32c",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "verify/crc32c", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .compute_crc32c()
+                    .send(),
+            ),
+        ),
+        (
+            "verify/md5",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "verify/md5", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .compute_md5()
+                    .send(),
+            ),
+        ),
+        (
+            "verify/both",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "verify/both", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .compute_md5()
+                    .send(),
+            ),
+        ),
+        (
+            "computed/default",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "computed/default", VEXING)
+                    .with_if_generation_match(0)
+                    .precompute_checksums()
+                    .await?
+                    .send(),
+            ),
+        ),
+        (
+            "computed/disabled",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "computed/disabled", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .precompute_checksums()
+                    .await?
+                    .send(),
+            ),
+        ),
+        (
+            "computed/crc32c",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "computed/crc32c", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .compute_crc32c()
+                    .precompute_checksums()
+                    .await?
+                    .send(),
+            ),
+        ),
+        (
+            "computed/md5",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "computed/md5", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .compute_md5()
+                    .precompute_checksums()
+                    .await?
+                    .send(),
+            ),
+        ),
+        (
+            "computed/both",
+            Box::pin(
+                client
+                    .upload_object(bucket_name, "computed/both", VEXING)
+                    .with_if_generation_match(0)
+                    .disable_computed_checksums()
+                    .compute_md5()
+                    .precompute_checksums()
+                    .await?
+                    .send(),
+            ),
+        ),
     ];
 
     for (name, upload) in uploads.into_iter() {
         tracing::info!("waiting for {name}");
         match upload.await {
-            Ok(_) => {},
+            Ok(_) => {}
             Err(e) => {
                 println!("error running in {name}: {e:?}");
                 return Err(e.into());
